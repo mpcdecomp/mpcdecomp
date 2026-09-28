@@ -158,3 +158,6 @@ distclean:
 	@rm -rf $(B)
 
 .PHONY: all images toolchain verify clean distclean $(foreach g,$(GROUPS),$(call tag,$(g)))
+
+# A family's own goals -- its compiler, say -- in src/<family>/toolchain/*.mk.
+include $(sort $(wildcard src/*/toolchain/*.mk))

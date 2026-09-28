@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+# Noncommercial use only; see LICENSE.txt.
+#
+# Required Notice: Copyright 2026 Brock Rockman
+#
+# Borland C++ 3.1, the MPC3000's compiler, in /opt/bcpp31; toolchain/check.sh
+# drives it.  BCC and TLINK are DPMI programs, which DOSBox runs.
+
+FROM docker.io/library/alpine:3.19
+# DOSBox runs the DOS tools headless: 0.74, as 3.20 on has only dosbox-staging,
+# which will not start without a display.  The same layers as the other family's.
+RUN apk add --no-cache dosbox curl
+ENV SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
+# curl, not ADD: aztecmuseum.ca refuses ADD's Go user agent (HTTP 465), and
+# busybox wget can't CONNECT through a proxy.  Each zip is checked and unpacked
+# in one layer.
+RUN curl -fsSL -o /bc.zip https://archive.org/download/bcpp31/BCPP31.ZIP \
+ && echo "ceaa8852dd2ee33aedd471595051931bf96b44efee2aa2cd3706e41e38426f84  /bc.zip" | sha256sum -c \
+ && unzip -q /bc.zip -d /opt/bcpp31 && rm /bc.zip

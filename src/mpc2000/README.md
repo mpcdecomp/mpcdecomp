@@ -7,6 +7,10 @@
 | `mpc2000-2k-v172-sys`, `-exe` | MPC2000 OS v1.72 |
 | `mpc2000-xl-v107` ... `-v120` | MPC2000XL OS v1.07, v1.10, v1.11, v1.12, v1.14, v1.20, `MPC2KXL.BIN` |
 
+`make mpc2000-msc-check` rebuilds the SYS and XL runtime library and `c/` with
+Microsoft C/C++ 8.00c and compares them with the images.  It needs podman; no
+image build does.
+
 ## OPTIONS
 
 | option | effect | targets |

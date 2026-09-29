@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+# Noncommercial use only; see LICENSE.txt.
+#
+# Required Notice: Copyright 2026 Brock Rockman
+#
+# Microsoft Visual C++ 1.52 (C/C++ 8.00c), the MPC2000's compiler, in
+# /opt/msvc; toolchain/check.sh drives it.  CL, LINK and LIB are Win32
+# console programs, which their own DOSXNT runs under DOSBox.
+
+FROM docker.io/library/alpine:3.19
+# DOSBox runs the DOS tools headless: 0.74, as 3.20 on has only dosbox-staging,
+# which will not start without a display.  The same layers as the other families'.
+RUN apk add --no-cache dosbox curl
+ENV SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
+# Only the files the check runs, each out of the CD image by archive.org's
+# member URL: the whole image is 200MB, and its download redirect has served
+# errors.  Checked in the same layer.
+RUN cd /opt && for f in BIN/CL.EXE BIN/CL.ERR BIN/CL.MSG BIN/C1.ERR BIN/C23.ERR \
+      BIN/C13216.EXE BIN/C23216.EXE BIN/C33216.EXE BIN/DOSXNT.EXE BIN/LIB.EXE \
+      BIN/LINK.EXE LIB/LLIBCE.LIB INCLUDE/CONIO.H; do \
+      curl -fsSL --retry 3 --create-dirs -o msvc/$f \
+        https://archive.org/download/ms-vc152/MSVC152.ISO/MSVC%2F$(echo $f | sed 's,/,%2F,') || exit 1; \
+    done \
+ && printf '%s  msvc/%s\n' \
+      e228f976c4d0c1d668e4259195ad4feca73ab87b99f26fb168f7e3fbd5992627 BIN/CL.EXE \
+      2f1231c153733d6453ca5b244ab73a7abcf842954cabcca77304fd5b4680b11b BIN/CL.ERR \
+      3ef4c6d6dbc46b40b159330300af63a6ec0093207970fd95266a5267d8f865e8 BIN/CL.MSG \
+      a62d15acb94ae87467a742558e29f0ccd6689f62c26df5f47d1b2a7e7acf4a3a BIN/C1.ERR \
+      8c96b712132b5cd4cde7594677b90c25a2e0fc93199fb8e7708e558489ddf06e BIN/C23.ERR \
+      f81c6d5daff5e46acb35ba529f48f792336a116f7099ee943c5fee0dd6c4e951 BIN/C13216.EXE \
+      2350c5189a2adcf542f3428aa2a7c0c51d8f85e5e20a186b84b6a59fc63882cf BIN/C23216.EXE \
+      988e9f9e8b08895597b7a7abbbfe86ba379ebb5e71ade2a73e09e19b044adf94 BIN/C33216.EXE \
+      b6f7125ea9baf6ff1d3c677a259a877f1310f65bd90991439ecb51f982a56688 BIN/DOSXNT.EXE \
+      dcadf5e7a21a72b9c98366ceae307dae529002f21279b0c697bdb7bdd2b0bc05 BIN/LIB.EXE \
+      d588036a7446bf0da37cd09e6cac99ccab0bae9a4a9674e0ea2bd99dae05e4b4 BIN/LINK.EXE \
+      6dd7fdf103a71d0cec3433aa3bd7d05b73f90c3e9f24e667c29d5f3c0f9a9389 LIB/LLIBCE.LIB \
+      11540436e83c3b086299d7d1689f2415dc1fd27e03668c4dbe139d4d41f695aa INCLUDE/CONIO.H \
+    | sha256sum -c -

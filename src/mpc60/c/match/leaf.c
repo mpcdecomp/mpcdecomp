@@ -1,5 +1,5 @@
 /* Leaf functions of the MPC60 OS v2.14, written back as C for Aztec C86
- * 3.40a: cc +LC +F -n, then as -S.  Names are the labels in ../common.
+ * 3.40a: cc +LC +F -n, then as -S.  Names are the labels in ../../common.
  * K&R, as the compiler takes nothing else. */
 
 struct cell { char a, b; };

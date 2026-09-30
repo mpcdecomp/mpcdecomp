@@ -5,7 +5,7 @@
 #
 # Run in mpcdecomp-aztec by `make mpc60-aztec-check`, with the repository at
 # /s and the build directory at /r: rebuilds the MPC60's runtime library block
-# from Manx's sources and src/mpc60/c with Aztec C86 3.4b, links both with its
+# from Manx's sources and src/mpc60/c/match with Aztec C86 3.4b, links both with its
 # ln at the ROM's addresses, and compares the bytes with the built images.
 set -e
 cd "$(mktemp -d)"
@@ -47,8 +47,8 @@ printf '\tdb PADD dup (0)\r\n' | stub '	db PADC dup (0)' > pad.asm
 
 # The application's C: +F (fast code), no +M.  The data it names sit at
 # their v2.14 offsets from symbols.inc.
-cp "$S"/src/mpc60/c/*.c .
-app=$(cd "$S"/src/mpc60/c && ls *.c | sed 's/\.c$//')
+cp "$S"/src/mpc60/c/match/*.c .
+app=$(cd "$S"/src/mpc60/c/match && ls *.c | sed 's/\.c$//')
 for n in $DATA; do
 	v=$(awk -v n=$n '$1 == n && $2 == "equ" { print $3 }' "$S"/src/mpc60/v214/symbols.inc)
 	echo "$((0x${v%h})) $n"

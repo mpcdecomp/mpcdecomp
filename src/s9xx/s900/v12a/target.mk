@@ -1,0 +1,1 @@
+IMAGE  := S900.BIN

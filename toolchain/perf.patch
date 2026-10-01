@@ -1,0 +1,319 @@
+--- a/asmpars.c
++++ b/asmpars.c
+@@ -41,6 +41,7 @@
+ #include "cmdarg.h"
+ 
+ #include "asmpars.h"
++#include "as.h"
+ 
+ #define LEAVE  goto func_exit
+ #define LEAVE2 goto func_exit2
+@@ -3401,6 +3402,27 @@
+       if (Repass)
+         pValue->Flags |= eSymbolFlag_Questionable;
+       pValue->Flags |= eSymbolFlag_UsesForwards;
++      if ((pValue->Typ == TempInt) && (pEntry->SymWert.Flags & eSymbolFlag_Label))
++      {
++        LargeInt drift = fwd_label_drift(pEntry->SymWert.AddrSpaceMask);
++
++        /* an estimate, never a final value: it forces another pass, and like
++           any forward value in a pass that repeats it is not range-checked */
++
++        if (drift)
++        {
++          /* kept inside the segment: an estimate past its end would be a
++             range error, where the stale value it replaces never is */
++
++          pValue->Contents.Int += drift;
++          if (pValue->Contents.Int > (LargeInt)SegLimits[ActPC])
++            pValue->Contents.Int = SegLimits[ActPC];
++          if (pValue->Contents.Int < (LargeInt)SegInits[ActPC])
++            pValue->Contents.Int = SegInits[ActPC];
++          pValue->Flags |= eSymbolFlag_Questionable;
++          Repass = True;
++        }
++      }
+     }
+ 
+     /* If this is part of an IFDEF query, accesses to the symbol shall not set the
+@@ -4796,7 +4818,12 @@
+   snum = (char*)malloc(sizeof(char) * STRINGSIZE);
+   FirstDefSymbol = NULL;
+   FirstFunction = NULL;
+-  BalanceTrees = False;
++  /* Balanced (AVL) symbol/macro trees by default, as if -A were given.  The
++     trees are unbalanced otherwise, and names defined in sorted order (L_xxxxx
++     labels, RUN_* macros, EP_* equates) degenerate them into lists, making
++     every insert and lookup O(N) and a part O(N^2).  Shape only: in-order
++     walks, and so the listing and output, are unchanged. */
++  BalanceTrees = True;
+ 
+   for (pCurr = IntTypeDefs; pCurr < IntTypeDefs + (sizeof(IntTypeDefs) / sizeof(*IntTypeDefs)); pCurr++)
+   {
+--- a/as.c
++++ b/as.c
+@@ -2760,7 +2760,71 @@
+ }
+ 
+ /*------------------------------------------------------------------------*/
++
++/* Forward-label drift.  A label not yet defined in this pass is looked up at
++   its value from the last one, which is stale by however far the code ahead
++   of it has moved since (a jmp that was short last pass is near now).  A
++   short/near choice made against it is a pass behind, so a chain of them
++   settles one link per pass.  The PC at every source position is recorded
++   instead, and a forward label is looked up at its old value plus how far the
++   current position has moved since the last pass.
++
++   A position is a (file, line) pair, recorded when it changes: the lines of a
++   macro, REPT or IRP expansion carry the line of the statement that expanded
++   them, so an expansion whose length depends on a value (rept target-$) is one
++   position and does not shift the ones after it.  A position whose line is not
++   the last pass's at the same index gives no drift.
++
++   An estimate is marked questionable and forces another pass, so a pass that
++   used one is never the last: the output is still that of a pass in which no
++   forward label moved.  It only shortens the way there. */
++
++typedef struct { LargeWord pc; LongInt line; Byte seg; } fwd_pos_t;
++static fwd_pos_t *fwd_prev, *fwd_cur;
++static size_t fwd_n_prev, fwd_n_cur, fwd_cap_prev, fwd_cap_cur;
++static LongInt fwd_last_line;
++static String fwd_last_file;
++
++static void fwd_pc_newpass(void)
++{
++  fwd_pos_t *p = fwd_prev; size_t c = fwd_cap_prev;
++
++  fwd_prev = fwd_cur; fwd_cap_prev = fwd_cap_cur; fwd_n_prev = fwd_n_cur;
++  fwd_cur = p; fwd_cap_cur = c; fwd_n_cur = 0;
++  fwd_last_line = -1;
++  *fwd_last_file = '\0';
++}
++
++static void fwd_pc_line(void)
++{
++  if ((CurrLine == fwd_last_line) && !strcmp(CurrFileName, fwd_last_file))
++    return;
++  fwd_last_line = CurrLine;
++  strmaxcpy(fwd_last_file, CurrFileName, STRINGSIZE);
++  if (fwd_n_cur >= fwd_cap_cur)
++  {
++    fwd_cap_cur = fwd_cap_cur ? 2 * fwd_cap_cur : 65536;
++    fwd_cur = (fwd_pos_t*)realloc(fwd_cur, fwd_cap_cur * sizeof(*fwd_cur));
++  }
++  fwd_cur[fwd_n_cur].pc = EProgCounter();
++  fwd_cur[fwd_n_cur].line = CurrLine;
++  fwd_cur[fwd_n_cur].seg = ActPC;
++  fwd_n_cur++;
++}
++
++LargeInt fwd_label_drift(unsigned addrspace_mask)
++{
++  const fwd_pos_t *p_cur, *p_prev;
+ 
++  if (!fwd_n_cur || (fwd_n_cur > fwd_n_prev) || (addrspace_mask != (1u << ActPC)))
++    return 0;
++  p_cur = &fwd_cur[fwd_n_cur - 1];
++  p_prev = &fwd_prev[fwd_n_cur - 1];
++  if ((p_cur->line != p_prev->line) || (p_cur->seg != ActPC) || (p_prev->seg != ActPC))
++    return 0;
++  return (LargeInt)p_cur->pc - (LargeInt)p_prev->pc;
++}
++
+ static void ProcessFile(char *pFileName)
+ {
+   long NxtTime, ListTime;
+@@ -2780,6 +2844,7 @@
+     /* Zeile lesen */
+ 
+     GetNextLine(&OneLine);
++    fwd_pc_line();
+ 
+     /* Ergebnisfelder vorinitialisieren */
+ 
+@@ -3024,6 +3089,10 @@
+ 
+   Repass = False;
+   PassNo++;
++  fwd_pc_newpass();
++  LateErrorsPut = False;
++  if (PassNo >= 16)
++    LateErrorsStrict = True;
+ 
+ #ifdef PROFILE_MEMO
+   NumMemoSum = 0;
+@@ -3076,6 +3145,7 @@
+ {
+   char *p_out_name;
+   String s, Tmp;
++  Boolean list_deferred, again;
+ 
+   dbgentry("AssembleFile");
+ 
+@@ -3200,6 +3270,9 @@
+ 
+   MaxIncDepth = 0;
+ 
++  list_deferred = strcmp(LstName, NULLDEV) && !ListToStdout;
++  LateErrorsStrict = False;
++
+   do
+   {
+     /* Durchlauf initialisieren */
+@@ -3254,7 +3327,16 @@
+ 
+     /* Listdatei oeffnen */
+ 
+-    OpenWithStandard(&LstFile, LstName);
++    /* Only the last pass writes the listing.  The passes before it list to the
++       null device, and the one that ends with nothing left to resolve runs once
++       more with the listing on: a pass is a function of the last one's symbol
++       values, so the repeat is the same pass, with the same code and share
++       output.  A listing costs about what the assembly it lists does.  A pass
++       that ends in errors ends the run as before but leaves no listing:
++       repeating it could come out different. */
++
++    ListToNull = list_deferred || !strcmp(LstName, NULLDEV);
++    OpenWithStandard(&LstFile, list_deferred ? NULLDEV : LstName);
+     if (!LstFile)
+       ChkXIO(ErrNum_OpeningFile, LstName);
+     if (!ListToNull)
+@@ -3302,8 +3384,16 @@
+ 
+     /* evtl. fuer naechsten Durchlauf aufraeumen */
+ 
+-    if ((ErrorCount == 0) && (Repass))
++    again = (ErrorCount == 0) && (Repass);
++    if (!again && (list_deferred || LateErrorsPut) && (ErrorCount == 0))
+     {
++      if (LateErrorsPut)
++        LateErrorsStrict = True;
++      list_deferred = False;
++      again = True;
++    }
++    if (again)
++    {
+       CloseIfOpen(&LstFile);
+       if (CodeOutput)
+         unlink(OutName);
+@@ -3323,7 +3413,7 @@
+       }
+     }
+   }
+-  while ((ErrorCount == 0) && (Repass));
++  while (again);
+ 
+   /* bei Fehlern loeschen */
+ 
+@@ -3787,6 +3877,14 @@
+   UNUSED(Arg);
+ 
+   CodeOutput = !Negate;
++  return e_cmd_ok;
++}
++
++static as_cmd_result_t CMD_LateErrors(Boolean Negate, const char *Arg)
++{
++  UNUSED(Arg);
++
++  LateErrors = !Negate;
+   return e_cmd_ok;
+ }
+ 
+@@ -4326,6 +4424,7 @@
+   { "M"             , CMD_MacroOutput     },
+   { "maxerrors"     , CMD_MaxErrors       },
+   { "maxinclevel"   , CMD_MaxIncludeLevel },
++  { "lateerrors"    , CMD_LateErrors      },
+   { "maxsympass"    , CMD_MaxSymPass      },
+   { "n"             , CMD_NumericErrors   },
+   { "noicemask"     , CMD_NoICEMask       },
+@@ -4597,6 +4696,7 @@
+   CodeOutput = True;
+   strcpy(ErrorPath,  "!2");
+   MsgIfRepass = False;
++  LateErrors = False;
+   NumericErrors = False;
+   DebugMode = DebugNone;
+   CaseSensitive = False;
+--- a/as.h
++++ b/as.h
+@@ -14,4 +14,6 @@
+ 
+ extern void WriteCode(void);
+ 
++extern LargeInt fwd_label_drift(unsigned addrspace_mask);
++
+ #endif /* _AS_H */
+--- a/asmsub.c
++++ b/asmsub.c
+@@ -214,7 +214,16 @@
+ 
+ char *QuotSMultPosQualify(const char *s, const char *pStrs, as_qualify_quote_fnc_t QualifyQuoteFnc)
+ {
+-  return QuotPosCore(s, SearchMultString, pStrs, QualifyQuoteFnc);
++  const char *p_str;
++
++  /* A string that is nowhere in s is not in its unquoted parts either.  This
++     looks for the comment lead-in in every source line, and the quote-aware
++     walk, a callback per character, is a fifth of an assembly. */
++
++  for (p_str = pStrs; *p_str; p_str += strlen(p_str) + 1)
++    if (strstr(s, p_str))
++      return QuotPosCore(s, SearchMultString, pStrs, QualifyQuoteFnc);
++  return NULL;
+ }
+ 
+ /*!------------------------------------------------------------------------
+--- a/asmallg.c
++++ b/asmallg.c
+@@ -924,7 +924,7 @@
+     EvalStrStringExpression(&ArgStr[1], &OK, mess);
+     if (!OK) WrError(ErrNum_InvString);
+     else
+-      WrErrorString(mess, "", False, True, NULL, NULL);
++      WrErrorString(mess, "", False, !LateErrors || LateErrorsStrict, NULL, NULL);
+   }
+ }
+ 
+--- a/asmerr.c
++++ b/asmerr.c
+@@ -35,6 +35,7 @@
+ } tExpectError;
+ 
+ Word ErrorCount, WarnCount;
++Boolean LateErrors, LateErrorsStrict, LateErrorsPut;
+ static tExpectError *pExpectErrors = NULL;
+ static Boolean InExpect = False;
+ static Boolean treat_warnings_as_errors,
+@@ -823,6 +824,19 @@
+   const char *pLeadIn = GNUErrors ? "" : "> > > ";
+   FILE *pErrFile;
+   Boolean ErrorsWrittenToListing = False;
++
++  /* -lateerrors: an error or warning in a pass that is not the last may come
++     from one of its stale values, so it is put off.  Once a pass ends with
++     nothing left to resolve, it runs again with them on if it put any off.
++     Checks that need final values -- an ASSERT_AT, a FATAL, an IF on a
++     forward label -- then hold on the pass that emits the code.  -r asks for
++     warnings from every pass, so it keeps them. */
++
++  if (LateErrors && !LateErrorsStrict && !Fatal && !(Warning && MsgIfRepass))
++  {
++    LateErrorsPut = True;
++    return;
++  }
+ 
+   if (treat_warnings_as_errors && Warning && !Fatal)
+     Warning = False;
+--- a/asmerr.h
++++ b/asmerr.h
+@@ -14,6 +14,7 @@
+ #include "errmsg.h"
+ 
+ extern Word ErrorCount, WarnCount;
++extern Boolean LateErrors, LateErrorsStrict, LateErrorsPut;
+ 
+ struct sLineComp;
+ struct sStrComp;

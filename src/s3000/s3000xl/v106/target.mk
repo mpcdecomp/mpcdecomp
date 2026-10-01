@@ -1,0 +1,1 @@
+IMAGE  := S3000XL.BIN

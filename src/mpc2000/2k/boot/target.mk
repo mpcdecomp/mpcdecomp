@@ -1,0 +1,1 @@
+IMAGE  := MPC2K_BOOT.BIN

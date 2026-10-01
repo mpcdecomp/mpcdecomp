@@ -1,0 +1,8 @@
+/build
+/orig
+*.lst
+*.p
+*.bin
+
+.#*
+*.~undo-tree~

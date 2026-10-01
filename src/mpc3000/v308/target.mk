@@ -1,0 +1,1 @@
+IMAGE  := MPC3000.BIN

@@ -1,0 +1,1 @@
+IMAGE  := S30XLV20.BIN

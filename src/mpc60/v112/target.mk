@@ -1,0 +1,1 @@
+IMAGE  := MPC60.BIN

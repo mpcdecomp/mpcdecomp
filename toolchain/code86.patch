@@ -1,0 +1,628 @@
+--- a/code86.c
++++ b/code86.c
+@@ -75,6 +75,11 @@
+ #define MTypeFReg (1 << TypeFReg)
+ 
+ static tAdrType AdrType;
++
++/* A near CALL/JMP target is an offset in a 64K code segment, and the
++   displacement wraps the way the CPU's IP does: a part assembled at org 0 that
++   shares its CS with another reaches it below 0 or past FFFFh. */
++static Boolean NearTargetWraps = False;
+ static Byte AdrMode;
+ static Byte AdrVals[6];
+ static tSymbolFlags adr_vals_flags;
+@@ -84,6 +89,11 @@
+ 
+ static Boolean NoSegCheck;
+ 
++/* MPC2K: Force mod=01 disp8=0 encoding even when displacement is 0.
++ * Used by MOV.D8 and similar pseudo-mnemonics to match original firmware
++ * byte-exact encodings. */
++static Boolean ForceDisp8;
++
+ static Byte Prefixes[6];
+ static Byte PrefixLen;
+ 
+@@ -611,6 +621,7 @@
+   Boolean IsImm;
+   Byte SumBuf;
+   LongInt DispAcc, DispSum;
++  Boolean ForceDisp16 = False;
+   char *pIndirStart, *pIndirEnd;
+   ShortInt SegBuffer;
+   Byte MomSegment;
+@@ -755,7 +766,7 @@
+ 
+       if (pIndirStart)
+         StrCompSplitRef(&Arg, &Remainder, &Arg, pIndirStart);
+-      DispAcc += EvalStrIntExpressionWithResult(&Arg, Int16, &EvalResult);
++      DispAcc += EvalStrIntExpressionWithResult(&Arg, NearTargetWraps ? Int32 : Int16, &EvalResult);
+       if (!EvalResult.OK)
+          goto chk_type;
+       UnknownFlag = UnknownFlag || mFirstPassUnknown(EvalResult.Flags);
+@@ -788,6 +799,16 @@
+ 
+       StrCompSplitRef(&IndirArg, &OutRemainder, &Arg, pIndirEnd);
+ 
++      /* MPC2K: "[word bx + 23h]" keeps a 16-bit displacement that fits in 8,
++         as an assembler does for an operand still undefined on its pass 1. */
++      KillPrefBlanksStrCompRef(&IndirArg);
++      if (!as_strncasecmp(IndirArg.str.p_str, "WORD ", 5))
++      {
++        ForceDisp16 = True;
++        StrCompIncRefLeft(&IndirArg, 5);
++        KillPrefBlanksStrCompRef(&IndirArg);
++      }
++
+       DispSum = EvalStrIntExprWithResultAndCallback(&IndirArg, Int16, &EvalResult, &x86_eval_cb_data.cb_data);
+       if (!EvalResult.OK)
+         goto chk_type;
+@@ -869,14 +890,28 @@
+     for (z = 0; z < 8; z++)
+       if (SumBuf == RMCodes[z])
+         AdrMode = z;
+-    if (DispAcc == 0)
++    if (ForceDisp16)
+     {
++      AdrMode += 0x80;
++      AdrVals[0] = Lo(DispAcc);
++      AdrVals[1] = Hi(DispAcc);
++      AdrCnt = 2;
++    }
++    else if (DispAcc == 0)
++    {
+       if (SumBuf == 20)
+       {
+         AdrMode += 0x40;
+         AdrVals[0] = 0;
+         AdrCnt = 1;
+       }
++      /* MPC2K: Force mod=01 disp8=0 encoding when ForceDisp8 is set */
++      else if (ForceDisp8)
++      {
++        AdrMode += 0x40;
++        AdrVals[0] = 0;
++        AdrCnt = 1;
++      }
+     }
+     else if (AbleToSign(DispAcc))
+     {
+@@ -1067,10 +1102,16 @@
+  * \brief  handle MOV instruction
+  * ------------------------------------------------------------------------ */
+ 
++#define MOV_FORCE_LONG 0x01  /* MPC2K: Force long form (C6/C7) for reg,imm */
++#define MOV_FORCE_DISP8 0x02 /* MPC2K: Force mod=01 disp8=0 for memory operands */
++
+ static void DecodeMOV(Word Index)
+ {
+   Byte AdrByte;
+-  UNUSED(Index);
++  Boolean ForceLong = (Index & MOV_FORCE_LONG) != 0;
++
++  /* MPC2K: Set global ForceDisp8 flag for this instruction */
++  ForceDisp8 = (Index & MOV_FORCE_DISP8) != 0;
+ 
+   if (ChkArgCnt(2, 3))
+   {
+@@ -1114,9 +1155,23 @@
+             }
+             break;
+           case TypeImm:
+-            BAsmCode[CodeLen++] = 0xb0 | (OpSize << 3) | AdrByte;
+-            copy_adr_vals(0);
+-            CodeLen += AdrCnt;
++            /* MPC2K: MOV.L forces long form encoding (C6/C7 + ModR/M)
++             * Short form: B0+r/B8+r for MOV reg, imm (3 bytes for 16-bit)
++             * Long form: C6/C7 + ModR/M for MOV r/m, imm (4 bytes for 16-bit)
++             */
++            if (ForceLong)
++            {
++              BAsmCode[CodeLen++] = 0xc6 | OpSize;  /* C6=8bit, C7=16bit */
++              BAsmCode[CodeLen++] = 0xc0 | AdrByte; /* mod=3, /0, r/m=reg */
++              copy_adr_vals(0);
++              CodeLen += AdrCnt;
++            }
++            else
++            {
++              BAsmCode[CodeLen++] = 0xb0 | (OpSize << 3) | AdrByte;
++              copy_adr_vals(0);
++              CodeLen += AdrCnt;
++            }
+             break;
+           default:
+             break;
+@@ -1209,6 +1264,7 @@
+     }
+   }
+   prepend_prefixes();
++  ForceDisp8 = False;  /* MPC2K: Reset flag */
+ }
+ 
+ /*!------------------------------------------------------------------------
+@@ -1355,25 +1411,31 @@
+   Byte AdrByte;
+   Word AdrWord;
+   Boolean OK;
++  tStrComp Arg;
++  int skip_len = 0;
+ 
+   if (ChkArgCnt(1, 1))
+   {
+     char *pAdr = ArgStr[1].str.p_str;
+ 
+-    if (!strncmp(pAdr, "SHORT ", 6))
++    if (!as_strncasecmp(pAdr, "SHORT ", 6))
+     {
+       AdrByte = 2;
+-      pAdr += 6;
+-      KillPrefBlanks(pAdr);
++      skip_len = 6;
+     }
+-    else if ((!strncmp(pAdr, "LONG ", 5)) || (!strncmp(pAdr, "NEAR ", 5)))
++    else if ((!as_strncasecmp(pAdr, "LONG ", 5)) || (!as_strncasecmp(pAdr, "NEAR ", 5)))
+     {
+       AdrByte = 1;
+-      pAdr +=  5;
+-      KillPrefBlanks(pAdr);
++      skip_len = 5;
+     }
+     else
+       AdrByte = 0;
++
++    /* Create string reference, skipping the NEAR/LONG/SHORT keyword if present */
++    StrCompRefRight(&Arg, &ArgStr[1], skip_len);
++    if (skip_len > 0)
++      KillPrefBlanksStrCompRef(&Arg);
++
+     OK = True;
+     if (Index == 0)
+     {
+@@ -1389,7 +1451,10 @@
+     if (OK)
+     {
+       OpSize = eSymbolSize16Bit;
+-      switch (DecodeAdr(&ArgStr[1], MTypeReg16 | MTypeMem | MTypeImm))
++      NearTargetWraps = True;
++      AdrType = DecodeAdr(&Arg, MTypeReg16 | MTypeMem | MTypeImm);
++      NearTargetWraps = False;
++      switch (AdrType)
+       {
+         case TypeReg16:
+           BAsmCode[0] = 0xff;
+@@ -1444,11 +1509,49 @@
+ 
+ static void DecodePUSHPOP(Word Index)
+ {
++  Boolean ForceWord = False;
++  tStrComp Arg;
++  const char *p;
++
+   if (ChkArgCnt(1, 1))
+   {
+-    OpSize = eSymbolSize16Bit;
+-    switch (DecodeAdr(&ArgStr[1], MTypeReg16 | MTypeMem | MTypeRegSeg | ((Index == 1) ? 0 : MTypeImm)))
++    /* MPC2K: Handle size prefixes:
++     * - "word ptr [mem]" -> strip "word ptr " (9 chars), keep as word
++     * - "byte ptr [mem]" -> strip "byte ptr " (9 chars), use byte
++     * - "push word xx" -> force long form (68 xx xx) for immediates
++     * - "push xx" -> short form (6A xx) if fits in signed byte
++     * Original firmware uses both forms. */
++    p = ArgStr[1].str.p_str;
++    if (!as_strncasecmp(p, "WORD PTR ", 9))
+     {
++      /* Strip "word ptr " for memory operands */
++      StrCompRefRight(&Arg, &ArgStr[1], 9);
++      KillPrefBlanksStrCompRef(&Arg);
++    }
++    else if (!as_strncasecmp(p, "BYTE PTR ", 9))
++    {
++      /* Strip "byte ptr " for memory operands */
++      OpSize = eSymbolSize8Bit;
++      StrCompRefRight(&Arg, &ArgStr[1], 9);
++      KillPrefBlanksStrCompRef(&Arg);
++    }
++    else if (!as_strncasecmp(p, "WORD ", 5))
++    {
++      ForceWord = True;
++      /* Create a ref to the part after "WORD " */
++      StrCompRefRight(&Arg, &ArgStr[1], 5);
++      KillPrefBlanksStrCompRef(&Arg);
++    }
++    else
++    {
++      StrCompRefRight(&Arg, &ArgStr[1], 0);
++    }
++
++    /* Default to word size unless byte ptr was specified */
++    if (OpSize != eSymbolSize8Bit)
++      OpSize = eSymbolSize16Bit;
++    switch (DecodeAdr(&Arg, MTypeReg16 | MTypeMem | MTypeRegSeg | ((Index == 1) ? 0 : MTypeImm)))
++    {
+       case TypeReg16:
+         BAsmCode[CodeLen] = 0x50 |  AdrMode | (Index << 3);
+         CodeLen++;
+@@ -1479,16 +1582,27 @@
+       case TypeImm:
+         if (check_core_mask(e_core_all_186))
+         {
+-          BAsmCode[CodeLen] = 0x68;
+-          BAsmCode[CodeLen + 1] = AdrVals[0];
+-          set_b_guessed(adr_vals_flags, CodeLen + 1, 1, 0xff);
+-          if (Sgn(AdrVals[0]) == AdrVals[1])
++          /* MPC2K: Choose PUSH form based on prefix:
++           * - "push word xx" -> long form (68 xx xx)
++           * - "push xx" -> short form (6A xx) if fits in signed byte, else long
++           * Original firmware uses both forms inconsistently. */
++          Boolean UseShort = !ForceWord &&
++                             ((AdrVals[1] == 0x00 && AdrVals[0] <= 0x7f) ||
++                              (AdrVals[1] == 0xff && AdrVals[0] >= 0x80));
++          if (UseShort)
+           {
+-            BAsmCode[CodeLen] += 2;
++            /* Short form: 6A xx */
++            BAsmCode[CodeLen] = 0x6a;
++            BAsmCode[CodeLen + 1] = AdrVals[0];
++            set_b_guessed(adr_vals_flags, CodeLen + 1, 1, 0xff);
+             CodeLen += 2;
+           }
+           else
+           {
++            /* Long form: 68 xx xx */
++            BAsmCode[CodeLen] = 0x68;
++            BAsmCode[CodeLen + 1] = AdrVals[0];
++            set_b_guessed(adr_vals_flags, CodeLen + 1, 1, 0xff);
+             set_b_guessed(adr_vals_flags, CodeLen + 2, 1, 0xff);
+             BAsmCode[CodeLen + 2] = AdrVals[1];
+             CodeLen += 3;
+@@ -1560,6 +1674,37 @@
+       BAsmCode[CodeLen++] = 0xc2 | Index;
+       BAsmCode[CodeLen++] = Lo(AdrWord);
+       BAsmCode[CodeLen++] = Hi(AdrWord);
++    }
++  }
++}
++
++/*!------------------------------------------------------------------------
++ * \fn     DecodeAAMAAD(Word Index)
++ * \brief  handle AAM/AAD instructions with optional base operand
++ * \param  Index 0=AAM (D4), 1=AAD (D5)
++ * MPC2K: Support non-standard bases (D4 XX / D5 XX instead of just D4 0A / D5 0A)
++ * ------------------------------------------------------------------------ */
++
++static void DecodeAAMAAD(Word Index)
++{
++  Byte Base;
++  Boolean OK;
++
++  if (!ChkArgCnt(0, 1));
++  else if (ArgCnt == 0)
++  {
++    /* Standard form: AAM = D4 0A, AAD = D5 0A */
++    BAsmCode[CodeLen++] = 0xd4 | Index;
++    BAsmCode[CodeLen++] = 0x0a;
++  }
++  else
++  {
++    /* Non-standard form with explicit base */
++    Base = EvalStrIntExpression(&ArgStr[1], UInt8, &OK);
++    if (OK)
++    {
++      BAsmCode[CodeLen++] = 0xd4 | Index;
++      BAsmCode[CodeLen++] = Base;
+     }
+   }
+ }
+@@ -1572,6 +1717,7 @@
+ static void DecodeTEST(Word Index)
+ {
+   Byte AdrByte;
++  Byte FirstReg;  /* MPC2K: Save first operand register */
+   UNUSED(Index);
+ 
+   if (ChkArgCnt(2, 2))
+@@ -1580,23 +1726,30 @@
+     {
+       case TypeReg8:
+       case TypeReg16:
+-        BAsmCode[CodeLen + 1] = (AdrMode << 3);
++        /* MPC2K: Save first operand (it goes in r/m field per Intel syntax) */
++        FirstReg = AdrMode;
+         switch (DecodeAdr(&ArgStr[2], MTypeReg8 | MTypeReg16 | MTypeMem | MTypeImm))
+         {
+           case TypeReg8:
+           case TypeReg16:
+-            BAsmCode[CodeLen + 1] += 0xc0 | AdrMode;
++            /* MPC2K: TEST r/m, reg - first operand in r/m, second in reg */
++            BAsmCode[CodeLen + 1] = 0xc0 | (AdrMode << 3) | FirstReg;
+             BAsmCode[CodeLen] = 0x84 | OpSize;
+             CodeLen += 2;
+             break;
+           case TypeMem:
+-            BAsmCode[CodeLen + 1] |= AdrMode;
++            /* MPC2K: TEST reg, mem - first operand (reg) in r/m field... wait no,
++             * TEST reg, mem doesn't exist! TEST only has r/m, reg form.
++             * But some assemblers accept it and encode as TEST mem, reg.
++             * Keep original behavior: first operand in reg field, mem in r/m */
++            BAsmCode[CodeLen + 1] = (FirstReg << 3) | AdrMode;
+             BAsmCode[CodeLen] = 0x84 | OpSize;
+             copy_adr_vals(2);
+             CodeLen += 2 + AdrCnt;
+             break;
+           case TypeImm:
+-            if (((BAsmCode[CodeLen+1] >> 3) & 7) == 0)
++            /* For TEST reg, imm - use FirstReg */
++            if (FirstReg == 0)
+             {
+               BAsmCode[CodeLen] = 0xa8 | OpSize;
+               copy_adr_vals(1);
+@@ -1605,7 +1758,7 @@
+             else
+             {
+               BAsmCode[CodeLen] = OpSize | 0xf6;
+-              BAsmCode[CodeLen + 1] = (BAsmCode[CodeLen + 1] >> 3) | 0xc0;
++              BAsmCode[CodeLen + 1] = FirstReg | 0xc0;
+               copy_adr_vals(2);
+               CodeLen += 2 + AdrCnt;
+             }
+@@ -1813,47 +1966,97 @@
+  * \param  Index index into instruction table
+  * ------------------------------------------------------------------------ */
+ 
++/* MPC2K: Encoding flags in high byte of Index:
++ * Bit 8 (0x100): Force 83 form for accumulator-immediate (don't use short form)
++ * Bit 9 (0x200): Force d=0 for reg-reg (default is d=1)
++ * Bit 10 (0x400): Force word immediate (81 form, no sign-extension to 83)
++ * Bit 11 (0x800): Force mod=01 disp8=0 for memory operands
++ */
++#define ALU2_FORCE_83  0x100
++#define ALU2_FORCE_D0  0x200
++#define ALU2_FORCE_WORD_IMM  0x400
++#define ALU2_FORCE_DISP8  0x800
++
+ static void DecodeALU2(Word Index)
+ {
+   Byte AdrByte;
++  Boolean Force83 = (Index & ALU2_FORCE_83) != 0;
++  Boolean ForceD0 = (Index & ALU2_FORCE_D0) != 0;
++  Boolean ForceWordImm = (Index & ALU2_FORCE_WORD_IMM) != 0;
++  Byte AluOp = Index & 7;  /* Extract ALU operation (0-7) */
+ 
++  /* MPC2K: Set global ForceDisp8 flag for memory operands */
++  ForceDisp8 = (Index & ALU2_FORCE_DISP8) != 0;
++
+   if (ChkArgCnt(2, 2))
+   {
+     switch (DecodeAdr(&ArgStr[1], MTypeReg8 | MTypeReg16 | MTypeMem))
+     {
+       case TypeReg8:
+       case TypeReg16:
+-        BAsmCode[CodeLen + 1] = AdrMode << 3;
++      {
++        Byte FirstReg = AdrMode;  /* Save first operand register number */
+         switch (DecodeAdr(&ArgStr[2], MTypeReg8 | MTypeReg16 | MTypeMem | MTypeImm))
+         {
+           case TypeReg8:
+           case TypeReg16:
+-            BAsmCode[CodeLen + 1] |= 0xc0 | AdrMode;
+-            BAsmCode[CodeLen] = (Index << 3) | 2 | OpSize;
++            /* MPC2K: Direction bit control for reg-reg operations.
++             * d=0: r/m,reg form - r/m is dest (bits 0-2), reg is src (bits 3-5)
++             * d=1: reg,r/m form - reg is dest (bits 3-5), r/m is src (bits 0-2)
++             * Example: add bp,cx with d=0 -> 01 CD (r/m=5=BP, reg=1=CX)
++             * Example: add bp,cx with d=1 -> 03 E9 (reg=5=BP, r/m=1=CX) */
++            if (ForceD0)
++            {
++              /* d=0: first operand is dest in r/m, second is src in reg */
++              BAsmCode[CodeLen + 1] = 0xc0 | (AdrMode << 3) | FirstReg;
++              BAsmCode[CodeLen] = (AluOp << 3) | OpSize;  /* d=0 */
++            }
++            else
++            {
++              /* d=1: first operand is dest in reg, second is src in r/m */
++              BAsmCode[CodeLen + 1] = 0xc0 | (FirstReg << 3) | AdrMode;
++              BAsmCode[CodeLen] = (AluOp << 3) | 2 | OpSize;  /* d=1 */
++            }
+             CodeLen += 2;
+             break;
+           case TypeMem:
+-            BAsmCode[CodeLen + 1] |= AdrMode;
+-            BAsmCode[CodeLen] = (Index << 3) | 2 | OpSize;
++            BAsmCode[CodeLen + 1] = (FirstReg << 3) | AdrMode;
++            BAsmCode[CodeLen] = (AluOp << 3) | 2 | OpSize;  /* mem,reg keeps direction=1 */
+             copy_adr_vals(2);
+             CodeLen += 2 + AdrCnt;
+             break;
+           case TypeImm:
+-            if (((BAsmCode[CodeLen + 1] >> 3) & 7) == 0)
++            /* MPC2K: For AX, use accumulator-immediate form UNLESS Force83 is set.
++             * Force83 generates 83 form (e.g., 83 D8 00 for SBB AX, 0).
++             * Default uses short form (e.g., 1D 00 00 for SBB AX, 0). */
++            if (FirstReg == 0 && !Force83)  /* FirstReg == 0 means AL/AX */
+             {
+-              BAsmCode[CodeLen] = (Index << 3) | 4 | OpSize;
+-              copy_adr_vals(1);
+-              CodeLen += 1 + AdrCnt;
++              if (OpSize == eSymbolSize8Bit)
++              {
++                /* 8-bit: Short accumulator form: op AL, imm8 */
++                BAsmCode[CodeLen] = (AluOp << 3) | 4;
++                copy_adr_vals(1);
++                CodeLen += 1 + AdrCnt;
++              }
++              else
++              {
++                /* 16-bit: Accumulator-immediate form (05/0D/15/1D/25/2D/35/3D) */
++                BAsmCode[CodeLen] = (AluOp << 3) | 5;
++                copy_adr_vals(1);
++                CodeLen += 1 + AdrCnt;
++              }
+             }
+             else
+             {
++              /* General form (80/83) for non-accumulator or when Force83 is set */
+               BAsmCode[CodeLen] = OpSize | 0x80;
+-              if ((OpSize == eSymbolSize16Bit) && (Sgn(AdrVals[0]) == AdrVals[1]))
++              /* MPC2K: Only use sign-extended form (83) if ForceWordImm is not set */
++              if (!ForceWordImm && (OpSize == eSymbolSize16Bit) && (Sgn(AdrVals[0]) == AdrVals[1]))
+               {
+                 AdrCnt = 1;
+                 BAsmCode[CodeLen] |= 2;
+               }
+-              BAsmCode[CodeLen + 1] = (BAsmCode[CodeLen + 1] >> 3) + 0xc0 + (Index << 3);
++              BAsmCode[CodeLen + 1] = FirstReg + 0xc0 + (AluOp << 3);
+               copy_adr_vals(2);
+               CodeLen += 2 + AdrCnt;
+             }
+@@ -1861,6 +2064,7 @@
+           default:
+             break;
+         }
++      }
+         break;
+       case TypeMem:
+         BAsmCode[CodeLen + 1] = AdrMode;
+@@ -1870,18 +2074,19 @@
+         {
+           case TypeReg8:
+           case TypeReg16:
+-            BAsmCode[CodeLen] = (Index << 3) | OpSize;
++            BAsmCode[CodeLen] = (AluOp << 3) | OpSize;
+             BAsmCode[CodeLen + 1] |= (AdrMode << 3);
+             CodeLen += 2 + AdrByte;
+             break;
+           case TypeImm:
+             BAsmCode[CodeLen] = OpSize | 0x80;
+-            if ((OpSize == eSymbolSize16Bit) && (Sgn(AdrVals[0]) == AdrVals[1]))
++            /* MPC2K: Only use sign-extended form (83) if ForceWordImm is not set */
++            if (!ForceWordImm && (OpSize == eSymbolSize16Bit) && (Sgn(AdrVals[0]) == AdrVals[1]))
+             {
+               AdrCnt = 1;
+               BAsmCode[CodeLen] += 2;
+             }
+-            BAsmCode[CodeLen + 1] += (Index << 3);
++            BAsmCode[CodeLen + 1] += (AluOp << 3);
+             copy_adr_vals(2 + AdrByte);
+             CodeLen += 2 + AdrCnt + AdrByte;
+             break;
+@@ -1893,6 +2098,7 @@
+         break;
+     }
+   }
++  ForceDisp8 = False;  /* MPC2K: Reset flag */
+   prepend_prefixes();
+ }
+ 
+@@ -3559,6 +3765,8 @@
+   add_null_pseudo(InstTable);
+ 
+   AddInstTable(InstTable, "MOV"  , 0, DecodeMOV);
++  AddInstTable(InstTable, "MOV.L", MOV_FORCE_LONG, DecodeMOV);  /* MPC2K: Force long form */
++  AddInstTable(InstTable, "MOV.D8", MOV_FORCE_DISP8, DecodeMOV); /* MPC2K: Force disp8=0 */
+   AddInstTable(InstTable, "INC"  , 0, DecodeINCDEC);
+   AddInstTable(InstTable, "DEC"  , 8, DecodeINCDEC);
+   AddInstTable(InstTable, "INT"  , 0, DecodeINT);
+@@ -3572,6 +3780,8 @@
+   AddInstTable(InstTable, "NEG"  , 8, DecodeNOTNEG);
+   AddInstTable(InstTable, "RET"  , 0, DecodeRET);
+   AddInstTable(InstTable, "RETF" , 8, DecodeRET);
++  AddInstTable(InstTable, "AAM"  , 0, DecodeAAMAAD);
++  AddInstTable(InstTable, "AAD"  , 1, DecodeAAMAAD);
+   AddInstTable(InstTable, "TEST" , 0, DecodeTEST);
+   AddInstTable(InstTable, "XCHG" , 0, DecodeXCHG);
+   AddInstTable(InstTable, "CALLF", 0x189a, DecodeCALLJMPF);
+@@ -3619,7 +3829,7 @@
+ 
+   InstrZ = 0;
+   AddFixed("AAA",   e_core_all,     0x0037);  AddFixed("AAS",   e_core_all,     0x003f);
+-  AddFixed("AAM",   e_core_all,     0xd40a);  AddFixed("AAD",   e_core_all,     0xd50a);
++  /* AAM/AAD moved to AddInstTable for optional operand support */
+   AddFixed("CBW",   e_core_all,     0x0098);  AddFixed("CLC",   e_core_all,     0x00f8);
+   AddFixed("CLD",   e_core_all,     0x00fc);  AddFixed("CLI",   e_core_all,     0x00fa);
+   AddFixed("CMC",   e_core_all,     0x00f5);  AddFixed("CWD",   e_core_all,     0x0099);
+@@ -3631,6 +3841,7 @@
+   AddFixed("SAHF",  e_core_all,     0x009e);  AddFixed("STC",   e_core_all,     0x00f9);
+   AddFixed("STD",   e_core_all,     0x00fd);  AddFixed("STI",   e_core_all,     0x00fb);
+   AddFixed("WAIT",  e_core_all,     0x009b);  AddFixed("XLAT",  e_core_all,     0x00d7);
++  AddFixed("SALC",  e_core_all,     0x00d6);  /* Undocumented: Set AL from Carry */
+   AddFixed("LEAVE", e_core_all_186, 0x00c9);  AddFixed("PUSHA", e_core_all_186, 0x0060);
+   AddFixed("POPA",  e_core_all_186, 0x0061);  AddFixed("ADD4S", e_core_all_v,   0x0f20);
+   AddFixed("SUB4S", e_core_all_v,   0x0f22);  AddFixed("CMP4S", e_core_all_v,   0x0f26);
+@@ -3752,7 +3963,48 @@
+   AddInstTable(InstTable, "SUB", InstrZ++, DecodeALU2);
+   AddInstTable(InstTable, "XOR", InstrZ++, DecodeALU2);
+   AddInstTable(InstTable, "CMP", InstrZ++, DecodeALU2);
++
++  /* MPC2K: Pseudo-mnemonics for forcing specific encodings:
++   * - xxx.D0: Force direction=0 for reg-reg (e.g., ADD.D0 si, si -> 01 F6)
++   * - xxx.R:  Force 80/83 form for reg-imm (e.g., SBB.R ax, 0 -> 83 D8 00) */
++  AddInstTable(InstTable, "ADD.D0", 0 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "OR.D0",  1 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "ADC.D0", 2 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "SBB.D0", 3 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "AND.D0", 4 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "SUB.D0", 5 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "XOR.D0", 6 | ALU2_FORCE_D0, DecodeALU2);
++  AddInstTable(InstTable, "CMP.D0", 7 | ALU2_FORCE_D0, DecodeALU2);
+ 
++  AddInstTable(InstTable, "ADD.R", 0 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "OR.R",  1 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "ADC.R", 2 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "SBB.R", 3 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "AND.R", 4 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "SUB.R", 5 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "XOR.R", 6 | ALU2_FORCE_83, DecodeALU2);
++  AddInstTable(InstTable, "CMP.R", 7 | ALU2_FORCE_83, DecodeALU2);
++
++  /* MPC2K: .W pseudo-mnemonics force word immediate (81 form, no sign-extend to 83) */
++  AddInstTable(InstTable, "ADD.W", 0 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "OR.W",  1 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "ADC.W", 2 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "SBB.W", 3 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "AND.W", 4 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "SUB.W", 5 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "XOR.W", 6 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++  AddInstTable(InstTable, "CMP.W", 7 | ALU2_FORCE_WORD_IMM, DecodeALU2);
++
++  /* MPC2K: .D8 pseudo-mnemonics force mod=01 disp8=0 for memory operands */
++  AddInstTable(InstTable, "ADD.D8", 0 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "OR.D8",  1 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "ADC.D8", 2 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "SBB.D8", 3 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "AND.D8", 4 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "SUB.D8", 5 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "XOR.D8", 6 | ALU2_FORCE_DISP8, DecodeALU2);
++  AddInstTable(InstTable, "CMP.D8", 7 | ALU2_FORCE_DISP8, DecodeALU2);
++
+   InstrZ = 0;
+   AddInstTable(InstTable, "MUL" , InstrZ++, DecodeMul);
+   AddInstTable(InstTable, "IMUL", InstrZ++, DecodeMul);
+@@ -3855,6 +4107,19 @@
+   }
+ }
+ 
++/* A code address is a 16-bit offset in its segment.  Under PHASE the PC is the
++   image position and the phased value the offset, so parts that each have
++   their own segment assemble in one run as one image of up to 1MB. */
++
++static Boolean ChkPC_86(LargeWord Addr)
++{
++  if (!((1 << ActPC) & ValidSegs))
++    return False;
++  if (ActPC != SegCode)
++    return (Addr <= SegLimits[ActPC]);
++  return (Addr <= 0xfffffu) && (((Addr + Phases[ActPC]) & 0xfffffffful) <= SegLimits[ActPC]);
++}
++
+ /*!------------------------------------------------------------------------
+  * \fn     SwitchTo_86(void *p_user)
+  * \brief  switch to x86 target
+@@ -3886,6 +4151,7 @@
+   SegLimits[SegIO   ] = 0xffff;
+ 
+   pASSUMEOverride = DecodeASSUME;
++  ChkPC = ChkPC_86;
+ 
+   MakeCode = MakeCode_86; IsDef = IsDef_86;
+   SwitchFrom = DeinitFields; InitFields();

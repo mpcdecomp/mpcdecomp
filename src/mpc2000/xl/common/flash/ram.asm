@@ -2181,7 +2181,8 @@ d_a0_w_057a2:
         db      10h, 10h
         db      "8|8888"
         db      08h, 18h, 08h
-        db      0e8h, 08h, 08h, 1ch, 1ch, 04h, 04h, 0dch, 10h, 10h, 1ch, 0fch, 00h, 00h, 00h, 00h
+        call    L_17CFD
+        db      1ch, 1ch, 04h, 04h, 0dch, 10h, 10h, 1ch, 0fch, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0ch, 04h, 04h, 04h, 04h, 04h, 0ch
         db      80h, 00h, 00h, 00h, 00h, 00h, 80h, 1ch, 08h, 08h, 08h, 08h, 08h, 1ch, 0e0h, 40h
         db      40h, 40h, 40h, 40h, 0e0h, 3ch, 14h, 14h, 14h, 14h, 14h, 3ch, 0e0h, 40h, 40h, 40h ; @@@@.<.....<.@@@
@@ -2251,7 +2252,9 @@ d_a0_w_057a2:
         db      3fh, 0ffh, 0fch, 1fh, 0ffh, 0f8h, 08h, 00h, 10h, 03h, 18h, 00h, 7eh, 00h, 01h, 0ffh
         db      80h, 07h, 0ffh, 0e0h, 0fh, 0ffh, 0f0h, 1fh, 0ffh, 0f8h, 3fh, 0ffh, 0fch, 3fh, 0ffh, 0fch
         db      7fh, 0ffh, 0feh, 7fh, 0ffh, 0feh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh
-        db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 7fh, 0ffh, 0feh, 7fh, 0ffh, 0feh, 3fh, 0ffh
+        db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 7fh, 0ffh, 0feh
+L_17CFD:
+        db      7fh, 0ffh, 0feh, 3fh, 0ffh
         db      0fch, 3fh, 0ffh, 0fch, 1fh, 0ffh, 0f8h, 0fh, 0ffh, 0f0h, 07h, 0ffh, 0e0h, 01h, 0ffh, 80h
         db      00h, 7eh, 00h, 02h, 12h, 03h, 0c0h, 04h, 20h, 0ah, 20h, 09h, 0a0h, 10h, 40h, 10h
         db      40h, 20h, 80h, 20h, 80h, 41h, 00h, 41h, 00h, 82h, 00h, 82h, 00h, 0c4h, 00h, 0fch

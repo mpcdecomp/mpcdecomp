@@ -6206,6 +6206,7 @@ br_4A43D:
         leave
         retf
         db      00h
+L_4A442:
         enter   8, 0
         push    si
         mov     ax, word ptr [bp+6]
@@ -6246,6 +6247,7 @@ br_4A4AA:
         leave
         retf
         db      00h
+L_4A4AE:
         enter   18h, 0
         push    di
         push    si
@@ -6321,6 +6323,7 @@ br_4A581:
         leave
         retf
         db      00h
+L_4A586:
         enter   8, 0
         push    si
         mov     ax, word ptr [bp+6]
@@ -6563,6 +6566,7 @@ br_4A846:
         pop     di
         leave
         retf
+L_4A84A:
         enter   8, 0
         push    si
         mov     ax, word ptr [bp+6]
@@ -6603,6 +6607,7 @@ br_4A8B2:
         leave
         retf
         db      00h
+L_4A8B6:
         enter   10h, 0
         push    di
         push    si
@@ -6910,6 +6915,7 @@ br_4AC0D:
         leave
         retf
         db      00h
+L_4AC12:
         enter   0ch, 0
         push    di
         push    si
@@ -7118,6 +7124,7 @@ br_4AE53:
         leave
         retf
         db      00h
+L_4AE58:
         enter   0ch, 0
         push    di
         push    si
@@ -7214,9 +7221,13 @@ sound_pad_play:
         pop     ds
         retf
         nop
+L_4AF3A:
         db      "Rom:", 00h, 00h
+L_4AF40:
         db      "Snd:", 00h, 00h
+L_4AF46:
         db      "RIGHT", 00h
+L_4AF4C:
         db      "^LEFT", 00h
 far_4A018:
         db      "EDIT", 00h, 00h
@@ -7718,6 +7729,7 @@ loop_4B33E:
         retf
         nop
         if      FW_VERSION >= 112
+L_4B39A:
         push    bx
         je      br_4B3FE
         jb      br_4B413
@@ -7725,7 +7737,9 @@ loop_4B33E:
         else
         db      "Start fine", 00h, 00h
         endif
+L_4B3A6:
         db      "^FIX", 00h, 00h
+L_4B3AC:
         db      "VARI", 00h, 00h
 L_4B3B2:
         push    ds
@@ -8865,7 +8879,12 @@ br_4BD4F:
         leave
         retf
         if      FW_VERSION >= 112
-        db      "  End:", 00h, 00h, "Lngth:", 00h, 00h, "^ON", 00h
+L_4BD5C:
+        db      20h, 20h, 45h, 6eh, 64h, 3ah, 00h, 00h
+L_4BD64:
+        db      4ch, 6eh, 67h, 74h, 68h, 3ah, 00h, 00h
+L_4BD6C:
+        db      5eh, 4fh, 4eh, 00h
         if      FW_VERSION >= 114
 far_4BD70:
         else
@@ -9556,7 +9575,7 @@ delete_all_sounds_open:
         mov     ds, cx
         nop
         push    cs
-        db      0e8h, 97h, 0feh
+        call    L_4B848
         pop     ds
         retf
         db      00h
@@ -9590,7 +9609,10 @@ far_4C312:
         endif
         dw      EP_DISP_MESSAGE_WINDOW_OFF, EP_DISP_MESSAGE_WINDOW_SEG
         db      83h, 0c4h, 08h, 0b8h, 1ah, 0d7h, 8ch, 0d9h
-        db      3bh, 06h, 0dch, 98h, 75h, 06h, 3bh, 0eh, 0deh, 98h, 74h, 21h
+        db      3bh, 06h, 0dch, 98h
+        jne     loop_4C33D
+        db      3bh, 0eh, 0deh, 98h
+        je      L_4C35E
 loop_4C33D:
         push    word ptr [98deh]
         push    word ptr [C0_W_098DC]
@@ -9604,6 +9626,7 @@ loop_4C33D:
         jne     loop_4C33D
         cmp     cx, word ptr [98deh]
         jne     loop_4C33D
+L_4C35E:
         mov     ax, word ptr [C0_W_098DC]
         mov     dx, word ptr [98deh]
         mov     word ptr [0d7c2h], ax
@@ -9850,7 +9873,10 @@ L_4BBE8:
         nop
 L_4C55E:
         db      "copying ", 00h
-        db      00h, "Copy to RAM", 00h
+        db      00h
+L_4C568:
+        db      43h, 6fh, 70h, 79h, 20h, 74h, 6fh, 20h, 52h, 41h, 4dh, 00h
+L_4C574:
         db      "Copy Sound", 00h, 00h
 sound_spec_f3:
         push    ds
@@ -9969,6 +9995,7 @@ L_4C63A:
         nop
 L_4C04C:
         db      "Convert Sound", 00h
+L_4C65A:
         db      "RE-SAMPLE", 00h
 L_4BD06:
         db      "STEREO TO MONO", 00h, 00h
@@ -10390,6 +10417,7 @@ far_4BACC:
         retf
         nop
 L_4C41E:
+L_4CA1E:
         db      "Separating ", 00h
 far_4CA2A:
         push    ds
@@ -12652,6 +12680,7 @@ br_4DD32:
         pop     si
         retf
         db      90h
+L_4DD44:
         db      "DRUM _"
         db      00h, 00h
 L_4D3EE:
@@ -14427,6 +14456,7 @@ L_4EBF8:
 L_4E29E:
 far_4EBFE:
         db      "NOTE OFF", 00h, 00h
+L_4EC08:
         db      "START", 00h
 L_4EC0E:
         db      "END", 00h
@@ -14638,7 +14668,9 @@ pgm_midi_open:
         mov     cx, DS_SEG
         if      FW_VERSION >= 112
         db      8eh, 0d9h, 6bh, 1eh, 68h, 8dh, 2ah, 8bh, 87h, 0c4h, 31h, 0bh
-        db      87h, 0c2h, 31h, 74h, 0eh, 90h, 0eh, 0e8h, 0ch, 00h, 6bh, 1eh, 68h, 8dh, 2ah, 0ffh
+        db      87h, 0c2h, 31h, 74h, 0eh, 90h, 0eh
+        call    pgm_midi_refresh
+        db      6bh, 1eh, 68h, 8dh, 2ah, 0ffh
         db      9fh, 0c2h
         xor     word ptr [bx], bx
         else
@@ -14781,6 +14813,7 @@ pgm_midi_focus_field5:
         add     sp, 8
         retf
         db      90h
+L_4EF10:
         db      "RECEIVE"
         db      00h
 L_4EF18:
@@ -15066,7 +15099,7 @@ far_4F1AC:
         add     sp, 2
         mov     al, byte ptr [0d7bfh]
         cmp     byte ptr [98b8h], al
-        db      75h, 2eh
+        jne     L_4F1F8
         mov     al, byte ptr [98b8h]
         db      98h, 50h, 9ah
         dw      EP_FAR_3F43A_OFF, EP_FAR_3F43A_SEG
@@ -15080,6 +15113,7 @@ far_4F1AC:
         add     sp, 2
 br_4F1F5:
         mov     byte ptr [0d7bfh], al
+L_4F1F8:
         nop
         push    cs
         call    delete_pgm_open
@@ -15155,7 +15189,7 @@ far_4F296:
         mov     ds, cx
         nop
         push    cs
-        db      0e8h, 0dfh, 0feh
+        call    L_4F180
         pop     ds
         retf
         db      00h
@@ -15212,7 +15246,8 @@ L_4F2CA:
         pop     ds
         retf
         db      "Delete ALL Progr"
-        db      61h, 6dh, 73h, 00h
+        db      61h, 6dh
+        jae     program_new
 program_new:
         enter   6, 0
         push    di
@@ -15419,7 +15454,8 @@ copy_pgm_cancel:
 far_4F4D0:
         push    ds
         mov     cx, DS_SEG
-        db      8eh, 0d9h, 0a0h, 0b8h, 98h, 38h, 06h, 0b9h, 98h, 74h, 1ah
+        db      8eh, 0d9h, 0a0h, 0b8h, 98h, 38h, 06h, 0b9h, 98h
+        je      L_4F4F9
         db      98h, 50h, 0a0h, 0b9h, 98h, 98h, 50h, 9ah
         dw      EP_FAR_3F346_OFF, EP_FAR_3F346_SEG
         db      83h, 0c4h, 04h, 0a0h
@@ -15427,6 +15463,7 @@ far_4F4D0:
         nop
         push    cs
         call    copy_pgm_cancel
+L_4F4F9:
         pop     ds
         retf
         db      00h
@@ -15645,7 +15682,9 @@ far_4F70A:
         db      57h, 56h
         push    ds
         mov     cx, DS_SEG
-        db      8eh, 0d9h, 8bh, 0c8h, 0ah, 0c9h, 74h, 49h, 8bh
+        db      8eh, 0d9h, 8bh, 0c8h, 0ah, 0c9h
+        je      L_4F761
+        db      8bh
         if      FW_VERSION >= 112
         db      3eh
         mov     si, 81d7h
@@ -15687,6 +15726,7 @@ br_4F756:
         mov     byte ptr [C2_B_PAD_NOTE], al
 br_4F75D:
         callf   [3762h]
+L_4F761:
         pop     ds
         pop     si
         pop     di
@@ -18333,7 +18373,9 @@ far_50FD6:
         db      8eh, 0d9h, 90h, 0eh, 0e8h, 35h
         dw      EP_FAR_54960_OFF, C2_SEG
         db      68h
-        db      82h, 2dh, 90h, 0eh, 0e8h, 6ah, 09h, 83h, 0c4h, 04h, 1fh
+        db      82h, 2dh, 90h, 0eh
+        call    L_50FF6
+        db      83h, 0c4h, 04h, 1fh
         else
 FAR_50FD6:
         push    ds
@@ -21497,6 +21539,7 @@ br_52BCC:
         retf
 L_52276:
         db      "DISTORTION/RINGMOD", 00h, 00h
+L_52BEA:
         db      "SOLO", 00h, 00h
 L_52BF0:
         db      "BYPASS", 00h, 00h
@@ -23071,6 +23114,7 @@ copy_pgm_refresh:
         call    mixer_setup_f6
         pop     ds
         retf
+L_53956:
         nop
         push    cs
         call    far_531E0

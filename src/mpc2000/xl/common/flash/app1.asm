@@ -1839,15 +1839,25 @@ loop_0B9C1:
         jmp     loop_0B9C1
         db      90h
         db      "MPC2KXL "
+L_0B9CC:
         db      00h, 02h, 01h, 01h, 00h, 02h, 0e0h
-        db      00h, 40h, 0bh, 0f0h, 09h, 00h, 12h, 00h, 02h, 00h, 0ebh, 0feh, 90h, 4dh, 50h, 43h
-        db      "2KXL ", 000h, 002h, 002h, 001h, 000h, 002h, 070h, 000h, 0a0h, 005h, 0f9h
+        db      00h, 40h, 0bh, 0f0h, 09h, 00h, 12h, 00h, 02h, 00h
+L_0B9DD:
+        db      0ebh, 0feh, 90h, 4dh, 50h, 43h
+        db      32h, 4bh, 58h, 4ch, 20h
+L_0B9E8:
+        db      00h, 02h, 02h, 01h, 00h, 02h, 70h, 00h, 0a0h, 05h, 0f9h
         db      03h, 00h, 09h, 00h, 02h, 00h, 0ebh, 0feh, 90h, 20h, 20h, 20h, 20h, 20h, 20h, 20h
-        db      20h, 00h, 02h, 02h, 01h, 00h, 02h, 70h, 00h, 00h, 05h, 0fbh, 02h, 00h, 08h, 00h
+        db      20h
+L_0BA04:
+        db      00h, 02h, 02h, 01h, 00h, 02h, 70h, 00h, 00h, 05h, 0fbh, 02h, 00h, 08h, 00h
         db      02h, 00h, 0ebh, 0feh, 90h
         db      "        "
+L_0BA20:
         db      00h, 02h, 02h
-        db      01h, 00h, 02h, 70h, 00h, 40h, 06h, 0f9h, 03h, 00h, 0ah, 00h, 02h, 00h, 0ebh, 0feh
+        db      01h, 00h, 02h, 70h, 00h, 40h, 06h, 0f9h, 03h, 00h, 0ah, 00h, 02h, 00h
+L_0BA31:
+        db      0ebh, 0feh
         db      90h
         db      "MPC2000 "
 fn_0BA3C:
@@ -2372,7 +2382,7 @@ TBL_DEVICE_SERVICE_4:
         dw      tgt_0BE52-APP1_CSBASE, tgt_0BE52-APP1_CSBASE, tgt_0BE52-APP1_CSBASE, isr_0E300-APP1_CSBASE
 tgt_0BF5D:
         if      FW_VERSION >= 114
-        db      0e8h, 0ah, 00h
+        call    L_0BF6A
         push    ds
         pop     es
         mov     si, 0e806h
@@ -2382,8 +2392,10 @@ tgt_0BF5D:
         mov     di, word ptr [A1_W_0E88C]
         ret
         endif
+L_0BF6A:
         mov     ax, ds
         mov     es, ax
+L_0BF6E:
         mov     di, 0e802h
         mov     cx, 2bbh
         sub     ax, ax
@@ -2401,56 +2413,85 @@ tgt_0BF5D:
         mov     cx, 24h
         mov     bl, 4
         int     93h
-        db      73h, 03h
+        jae     L_0BF9C
         jmp     NEAR loop_0C0D9
+L_0BF9C:
         mov     ah, byte ptr [0e806h]
         cmp     ah, 0
         mov     al, 5
-        db      74h, 11h
+        je      L_0BFB8
         cmp     ah, 5
         mov     al, 6
-        db      74h, 0ah
+        je      L_0BFB8
         cmp     ah, 7
         mov     al, 7
-        db      74h, 03h
+        je      L_0BFB8
         jmp     NEAR loop_0C0D9
+L_0BFB8:
         mov     byte ptr [0e867h], al
         mov     bl, 5
         int     93h
         if      FW_VERSION >= 120
-        db      73h, 03h, 0e9h, 15h, 01h
+        jae     L_0BFC4
+        jmp     NEAR loop_0C0D9
         else
         db      73h, 03h, 0e9h, 17h, 01h
         endif
+L_0BFC4:
         mov     word ptr [0e87eh], ax
         mov     word ptr [0e880h], dx
-        db      89h, 0eh, 86h, 0e8h, 0c7h, 06h, 96h, 0e8h, 02h, 00h, 81h, 0f9h, 00h, 08h, 74h, 06h
+        db      89h, 0eh, 86h, 0e8h, 0c7h, 06h, 96h, 0e8h, 02h, 00h, 81h, 0f9h, 00h, 08h
+        je      L_0BFE1
         db      0c7h, 06h, 96h, 0e8h, 04h, 00h
+L_0BFE1:
         mov     bx, 7a1h
         db      81h, 0f9h, 00h, 02h, 74h, 0ah, 0d1h
-        db      0ebh, 81h, 0f9h, 00h, 04h, 74h, 02h, 0d1h, 0ebh, 0f7h, 0f3h, 0a3h, 8ch, 0e8h, 2bh, 0c0h
+        jmp     SHORT L_0BF6E
+        db      0f9h, 00h, 04h, 74h, 02h, 0d1h, 0ebh, 0f7h, 0f3h, 0a3h, 8ch, 0e8h, 2bh, 0c0h
         db      2bh, 0d2h, 0a3h, 88h, 0e8h, 89h, 16h, 8ah, 0e8h, 8ch, 0dbh, 8eh, 0c3h, 0b9h, 01h, 00h
         if      FW_VERSION >= 120
-        db      0bfh, 00h, 80h, 0b3h, 02h, 0cdh, 93h, 73h, 03h, 0e9h, 0c2h, 00h, 2bh, 0c0h, 2bh, 0d2h
-        db      8ch, 0dbh, 8eh, 0c3h, 0b9h, 01h, 00h, 0bfh, 00h, 80h, 0e8h, 43h, 10h
+        db      0bfh, 00h, 80h, 0b3h, 02h, 0cdh, 93h, 73h, 03h
+        jmp     NEAR loop_0C0D9
+        db      2bh, 0c0h, 2bh, 0d2h
+        db      8ch, 0dbh, 8eh, 0c3h, 0b9h, 01h, 00h, 0bfh, 00h, 80h
+        call    fn_0D06B
         cmp     word ptr [81feh], 0aa55h
         db      74h, 02h, 0ebh, 7dh, 80h, 3eh, 67h, 0e8h, 06h, 75h, 23h, 0c6h, 06h
         db      7dh, 0e8h, 01h, 0c7h, 06h, 86h, 0e8h, 00h, 02h, 0a1h, 7eh, 0e8h, 8bh, 16h, 80h, 0e8h
         db      0d1h, 0e0h, 0d1h, 0d2h, 0d1h, 0e0h, 0d1h, 0d2h, 0a3h, 7eh, 0e8h, 89h, 16h, 80h, 0e8h, 0ebh
-        db      25h, 0beh, 0beh, 81h, 0e8h, 82h, 00h, 73h, 16h, 83h, 0c6h, 10h, 0e8h, 7ah, 00h, 73h
-        db      0eh, 83h, 0c6h, 10h, 0e8h, 72h, 00h, 73h, 06h, 83h, 0c6h, 10h, 0e8h, 6ah, 00h, 0a3h
+        db      25h, 0beh, 0beh, 81h, 0e8h, 82h, 00h, 73h, 16h, 83h, 0c6h, 10h
+        call    L_0BEAB
+        db      73h
+        db      0eh, 83h, 0c6h, 10h
+        call    L_0BEAB
+        db      73h, 06h, 83h, 0c6h, 10h
+        call    L_0BEAB
+        db      0a3h
         db      88h, 0e8h, 89h, 16h, 8ah, 0e8h, 2bh, 0c0h, 2bh, 0d2h, 0b9h, 01h, 00h, 8ch, 0dbh, 8eh
-        db      0c3h, 0bfh, 00h, 80h, 0e8h, 0d9h, 0fh, 0e8h, 7eh, 00h, 72h, 18h
+        db      0c3h, 0bfh, 00h, 80h
+        call    fn_0D06B
+        call    fn_0C113
+        db      72h, 18h
         cmp     ah, 0bh
         db      75h
         db      01h, 0c3h
         cmp     ah, 0ah
-        db      75h, 01h, 0c3h
+        jne     L_0C0A3
+        db      0c3h
+L_0C0A3:
         cmp     ah, 4
-        db      75h, 01h, 0c3h
+        jne     L_0C0A9
+        db      0c3h
+L_0C0A9:
         cmp     ah, 0ch
-        db      75h, 01h, 0c3h, 2bh, 0c0h, 0a3h, 88h, 0e8h, 0a3h, 8ah, 0e8h, 0e8h, 39h, 1dh, 72h
-        db      01h, 0c3h, 0e8h, 5eh, 02h, 72h, 01h, 0c3h, 0e8h, 1fh, 03h, 72h, 01h, 0c3h, 0e8h, 41h
+        db      75h, 01h, 0c3h, 2bh, 0c0h, 0a3h, 88h, 0e8h, 0a3h, 8ah, 0e8h
+        call    L_0D8F8
+        db      72h
+        db      01h, 0c3h
+        call    L_0C06D
+        db      72h, 01h, 0c3h
+        call    L_0C134
+        db      72h, 01h, 0c3h, 0e8h, 41h
         db      03h, 72h, 01h, 0c3h
         mov     al, byte ptr [0e867h]
         mov     ah, 1
@@ -3496,7 +3537,9 @@ L_0C50D:
         call    fn_0C4E3
         clc
         ret
+L_0C73B:
         db      2eh, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h
+L_0C746:
         db      2eh, 2eh, 20h, 20h
         db      20h, 20h, 20h, 20h, 20h, 20h
         db      20h
@@ -3755,7 +3798,8 @@ fn_0C8FD:
         pop     ax
         ret
 tgt_0C914:
-        db      0e8h, 01h, 00h, 0c3h
+        call    fn_0C918
+        db      0c3h
 fn_0C918:
         mov     dx, 0ffffh
         mov     bp, si
@@ -5183,6 +5227,7 @@ L_0CEC2:
         endif
         ret
         if      FW_VERSION >= 120
+L_0D315:
         jmp     L_0D353
         db      90h
         db      "        "
@@ -5216,6 +5261,7 @@ loop_0D355:
         db      4 dup (00h)
         db      "MPC2KXL    FAT16   "
         db      00h, 00h
+L_0D395:
         db      0ebh, 45h, 90h
         db      "        "
         db      00h, 08h, 08h, 01h, 00h, 02h, 00h, 02h, 00h, 00h, 0f8h, 40h, 00h, 20h, 00h, 40h
@@ -7768,7 +7814,8 @@ br_0E8B1:
         call    fn_0F081
         call    fn_0E511
         ret
-        db      0b0h, 16h, 0e9h, 5bh, 0fah
+        db      0b0h, 16h
+        jmp     NEAR loop_0E33A
 fn_0E8DF:
         mov     dx, 0ffffh
         mov     bp, si
@@ -9398,6 +9445,7 @@ isr_0F5F2:
         pop     ds
         popa
         iret
+L_0F5F8:
         cli
         mov     bx, word ptr [0d9ch]
         cmp     bx, word ptr [0d9eh]
@@ -9420,6 +9468,7 @@ br_0F621:
         sti
         mov     byte ptr [0ea4h], 0ffh
         ret
+L_0F62E:
         cli
         mov     bx, word ptr [10a6h]
         cmp     bx, word ptr [10a8h]

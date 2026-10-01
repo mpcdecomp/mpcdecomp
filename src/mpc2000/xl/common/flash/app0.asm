@@ -4962,7 +4962,8 @@ br_02AA1:
         ret
 midirx_02AAD:
         if      FW_VERSION >= 114
-        db      3ch, 7eh, 73h, 48h
+        db      3ch, 7eh
+        jae     L_02AF9
         else
         db      "<~sH"
         endif
@@ -4994,6 +4995,7 @@ fn_02AE8:
         cmp     ah, 2
         je      L_02B24
         ret
+L_02AF9:
         mov     si, P_2654
         mov     byte ptr [A0_B_MIDI1_SYSEX_ACTIVE], 2
         mov     word ptr [A0_W_MIDI1_RX_STATE], midirx_02B0F
@@ -8783,16 +8785,25 @@ L_04B33                         equ     $+2
         db      90h, 0cbh, 80h, 0f9h, 00h, 75h, 01h, 0cbh, 80h, 0e4h, 0fh, 0c6h, 06h, 0a3h, 37h, 01h
         db      0beh, 0b9h, 37h, 80h, 3eh, 0a8h, 37h, 00h, 74h, 03h, 0beh, 0d9h, 37h, 8ah, 0dch, 86h
         db      26h, 0a5h, 37h, 80h, 3eh, 0a2h, 37h, 00h, 74h, 16h, 3ah, 0e3h, 75h, 07h, 80h, 36h ; &.7.>.7.t.:.u..6
-        db      0a4h, 37h, 01h, 0ebh, 0bh, 0c6h, 06h, 0a4h, 37h, 00h, 53h, 0eh, 0e8h, 0bah, 00h, 5bh
+        db      0a4h, 37h, 01h, 0ebh, 0bh, 0c6h, 06h, 0a4h, 37h, 00h, 53h, 0eh
+        call    L_04C2A
+        db      5bh
         db      0d0h, 0e3h, 02h, 1eh, 0a4h, 37h, 0b7h, 00h, 8ah, 00h, 80h, 0fbh, 1ah, 73h, 00h, 8ah
 L_04B8E                         equ     $+13
         db      1eh, 0a6h, 37h, 88h, 87h, 90h, 37h, 0c6h, 06h, 0a2h, 37h, 01h, 0cbh, 80h, 3eh, 0a2h
-        db      37h, 00h, 74h, 06h, 50h, 0eh, 0e8h, 90h, 00h, 58h, 04h, 30h, 8ah, 1eh, 0a6h, 37h
-        db      0b7h, 00h, 88h, 87h, 90h, 37h, 0eh, 0e8h, 7fh, 00h, 0c6h, 06h, 0a5h, 37h, 0ffh, 0c6h
+        db      37h, 00h, 74h, 06h, 50h, 0eh
+        call    L_04C2A
+        db      58h, 04h, 30h, 8ah, 1eh, 0a6h, 37h
+        db      0b7h, 00h, 88h, 87h, 90h, 37h, 0eh
+        call    L_04C2A
+        db      0c6h, 06h, 0a5h, 37h, 0ffh, 0c6h
 L_04BB6                         equ     $+5
-        db      06h, 0a3h, 37h, 01h, 0cbh, 80h, 3eh, 0a2h, 37h, 00h, 74h, 04h, 0eh, 0e8h, 69h, 00h
+        db      06h, 0a3h, 37h, 01h, 0cbh, 80h, 3eh, 0a2h, 37h, 00h, 74h, 04h, 0eh
+        call    L_04C2A
         db      0b0h, 20h, 80h, 3eh, 0a8h, 37h, 00h, 74h, 02h, 0b0h, 5fh, 8ah, 1eh, 0a6h, 37h, 0b7h
-        db      00h, 88h, 87h, 90h, 37h, 0eh, 0e8h, 50h, 00h, 0c6h, 06h, 0a5h, 37h, 0ffh, 0c6h, 06h
+        db      00h, 88h, 87h, 90h, 37h, 0eh
+        call    L_04C2A
+        db      0c6h, 06h, 0a5h, 37h, 0ffh, 0c6h, 06h
 L_04BEB                         equ     $+0ah
 L_04BE5                         equ     $+4
         db      0a3h, 37h, 01h, 0cbh, 80h, 36h, 0a8h, 37h, 01h, 0cbh, 0b7h, 00h, 8ah, 1eh, 0a6h, 37h
@@ -8813,7 +8824,9 @@ L_04C87                         equ     $+6
         db      0c6h, 90h, 37h, 8ah, 04h, 3ch, 20h, 75h, 04h, 4eh, 0e2h, 0f7h, 0cbh, 4eh, 49h, 74h ; ..7..< u.N...NIt
         db      0ah, 80h, 3ch, 20h, 75h, 0f7h, 0c6h, 04h, 5fh, 0ebh, 0f2h, 0b8h, 90h, 37h, 8ch, 0dah
         db      1eh, 0ffh, 1eh, 8ah, 37h, 1fh, 3dh, 00h, 00h, 75h, 01h, 0cbh, 0c4h, 3eh, 86h, 37h
-        db      0beh, 90h, 37h, 8ah, 0eh, 0a7h, 37h, 0b5h, 00h, 0f3h, 0a4h, 0eh, 0e8h, 06h, 00h, 0c6h
+        db      0beh, 90h, 37h, 8ah, 0eh, 0a7h, 37h, 0b5h, 00h, 0f3h, 0a4h, 0eh
+        call    L_04CD6
+        db      0c6h
 L_04CD6                         equ     $+5
         db      06h, 63h, 00h, 01h, 0cbh, 8ch, 0d8h, 8eh, 0c0h, 0beh, 46h, 38h, 0bfh, 46h, 30h, 0b9h
 L_04CEC                         equ     $+11
@@ -17795,6 +17808,7 @@ isr_09996:
         endif
         endif
         DISP_FLUSH
+L_099FC:
         int     0b9h
         cmp     ax, 8ah
         je      tgt_09A58
@@ -17831,15 +17845,15 @@ br_09A42:
         je      BR_09A49
         jmp     br_09B0B
 BR_09A49:
-        db      0ebh, 0b1h
+        jmp     SHORT L_099FC
 br_09A4B:
         cmp     byte ptr [A0_B_07EF1], 0
-        db      74h, 0aah
+        je      L_099FC
         dec     byte ptr [A0_B_07EF1]
         db      0ebh, 82h
 tgt_09A58:
         cmp     byte ptr [A0_B_07EF1], 7
-        db      74h, 9dh
+        je      L_099FC
         inc     byte ptr [A0_B_07EF1]
         db      0e9h, 74h, 0ffh
 br_09A66:

@@ -758,7 +758,8 @@ tgt_1B048:
         call    fn_1B0B6
         jmp     loop_1B043
 tgt_1B04D:
-        db      0e8h, 5eh, 00h, 0ebh, 0f6h
+        call    L_1B0AE
+        jmp     SHORT tgt_1B048
 disp_svc8f_numr:
         mov     cl, byte ptr es:[bp]
         mov     ch, byte ptr es:[bp+1]
@@ -797,6 +798,7 @@ tgt_1B0A1:
         add     cl, 3
         call    fn_1BAC7
         jmp     fn_1B092
+L_1B0AE:
         mov     si, 3b9ah
         mov     bp, 0ca00h
         jmp     br_1B0DC
@@ -2726,14 +2728,14 @@ fn_1C139:
         rep stosb
         endif
         cmp     byte ptr [A2_B_DISK_FORMAT], 0
-        db      74h, 3dh
+        je      L_1C1E1
         dec     word ptr [A2_W_LOAD_FILE_INDEX]
 loop_1C1A8:
         inc     word ptr [A2_W_LOAD_FILE_INDEX]
         mov     ax, word ptr [A2_W_LOAD_FILE_INDEX]
         mov     bl, 3
         int     91h
-        db      72h, 2ch
+        jb      L_1C1E1
         cmp     byte ptr es:[si], 2eh
         je      loop_1C1A8
         mov     word ptr [A2_W_SEL_FILE_SIZE_LO], bx
@@ -2752,6 +2754,7 @@ tgt_1C1D5:
         rcr     ax, 1
         loop    tgt_1C1D5
         DISP_NUM        0ceh, 09h, 06h
+L_1C1E1:
         if      FW_VERSION < 120
         mov     al, byte ptr [2ed7h]
         mov     bx, 2fd3h
@@ -3269,6 +3272,7 @@ fn_1C640:
         DISP_HLINE      5bh, 26h, 09h
         DISP_HLINE      5bh, 2eh, 09h
         dec     word ptr [A2_W_FILE_PANE_TOP]
+L_1C688:
         inc     word ptr [A2_W_FILE_PANE_TOP]
         mov     ax, word ptr [A2_W_FILE_PANE_TOP]
         mov     bl, 3
@@ -3277,7 +3281,7 @@ fn_1C640:
         ret
 br_1C696:
         cmp     byte ptr es:[si], 2eh
-        db      74h, 0ech
+        je      L_1C688
         mov     ax, word ptr [A2_W_FILE_PANE_TOP]
 loop_1C69F:
         sub     ax, 1
@@ -6275,7 +6279,12 @@ L_1DFCB:
         DISP_SOFTKEY    05h, DISP_SK_BOX,    "LOAD"
         db      8ch, 0dah
         DISP_TEXT_IDX   80h, 0fh, P_3455, TBL_DRUM_NAME_LABELS
-        db      0e8h, 95h, 00h, 0cdh, 7bh
+        if      FW_VERSION >= 120
+        call    fn_1E82C
+        else
+        db      0e8h, 95h, 00h
+        endif
+        db      0cdh, 7bh
         DISP_NOTE_CHAN  92h, 23h
         if      FW_VERSION >= 112
         db      0ffh
@@ -8266,7 +8275,9 @@ far_1F9DA:
         KEY_DOWN        14h, (APP2_BASE+L_1F338-APP2_SEG*16), APP2_SEG
         db      0c3h
 L_1F338:
-        db      0b3h, 11h, 0cdh, 91h, 73h, 0bh, 0eh, 0e8h, 0d6h
+        db      0b3h, 11h, 0cdh, 91h
+        jae     br_1FA71
+        db      0eh, 0e8h, 0d6h
         db      0f3h, 0b3h, 11h, 0cdh
 tgt_1FA6D:
         xchg    cx, ax

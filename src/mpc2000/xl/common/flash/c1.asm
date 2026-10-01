@@ -7853,7 +7853,9 @@ tgt_4244C:
         push    ax
         mov     al, byte ptr [bp+12h]
         sub     ah, ah
-        db      50h, 90h, 0eh, 0e8h, 0ffh, 00h, 89h, 46h, 0ch
+        db      50h, 90h, 0eh
+        call    L_42560
+        db      89h, 46h, 0ch
 isr_42464:
         mov     ax, word ptr [bp-6]
         mov     word ptr [bp], ax
@@ -7964,6 +7966,7 @@ br_42558:
         pop     si
         leave
         retf
+L_42560:
         push    bp
         mov     bp, sp
         push    di
@@ -14973,10 +14976,13 @@ br_46088:
         db      90h
         db      "Wrong .WAV file format"
         db      00h, 00h
+L_460CA:
         db      "not PCM .WAV file"
         db      00h
+L_460DC:
         db      "not 16bit .WAV file"
         db      00h
+L_460F0:
         db      "Unknown .WAV file"
         db      " format", 000h, 000h
 far_4610A:
@@ -15935,7 +15941,10 @@ save_snd_field1_thunk:                  ; descriptor DS:0e62h
         db      90h
 L_468D0:
         db      "Save a Sound"
-        db      00h, 00h, 57h, 41h, 56h, 00h
+        db      00h, 00h
+L_468DE:
+        db      57h, 41h, 56h, 00h
+L_468E2:
         db      "MPC2000"
         db      00h
 far_468EA:

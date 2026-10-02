@@ -120,7 +120,7 @@ br_0F70F:
         mov     dx, 0ech
         mov     ax, 0
         out     dx, ax
-        mov     byte ptr [0a8aah], 0
+        mov     byte ptr [A1_B_0A88A], 0
         call    fn_0FBFE
         jae     br_0F721
         ret
@@ -162,7 +162,7 @@ br_0F70F:
         mov     dx, 0ech
         mov     ax, 0
         out     dx, ax
-        mov     byte ptr [0a8aah], 0
+        mov     byte ptr [A1_B_0A88A], 0
         call    fn_0FBFE
         jae     br_0F721
         ret
@@ -197,7 +197,7 @@ L_0F4B1:
         mov     byte ptr [0a8abh], ah
         cmp     al, 0
         je      br_0F7BD
-        mov     byte ptr [0a8aah], 1
+        mov     byte ptr [A1_B_0A88A], 1
         if      FW_VERSION >= 120
         mov     di, 3eh
         cmp     byte ptr es:[di], 49h
@@ -225,7 +225,7 @@ L_0F4B1:
         jne     L_0F79F
         cmp     byte ptr es:[di+7], 30h
         jne     L_0F79F
-        mov     byte ptr [0a8aah], 0
+        mov     byte ptr [A1_B_0A88A], 0
         endif
 L_0F79F:
         mov     dx, 1ech
@@ -330,7 +330,7 @@ br_0F70F:
         mov     dx, 0ech
         mov     ax, 0
         out     dx, ax
-        mov     byte ptr [0a88ah], 0
+        mov     byte ptr [A1_B_0A88A], 0
         call    fn_0FBFE
         jae     br_0F721
         ret
@@ -364,7 +364,7 @@ L_0F4B1:
         mov     byte ptr [0a88bh], ah
         cmp     al, 0
         je      br_0F7BD
-        mov     byte ptr [0a88ah], 1
+        mov     byte ptr [A1_B_0A88A], 1
 L_0F79F:
         mov     dx, 1ech
         mov     ax, 0a0h
@@ -418,7 +418,7 @@ L_0F4F6:
         endif
         if      FW_VERSION >= 120
 L_0F7E8:
-        mov     byte ptr [0a8aah], 0
+        mov     byte ptr [A1_B_0A88A], 0
         call    fn_0FBFE
         jae     L_0F7F3
         ret
@@ -470,7 +470,7 @@ L_0F817:
         stc
         ret
 L_0F832:
-        mov     byte ptr [0a8aah], 0
+        mov     byte ptr [A1_B_0A88A], 0
         mov     byte ptr [0a8ach], 1
         mov     di, 0a8b2h
         mov     bx, word ptr [di+0eh]
@@ -589,16 +589,16 @@ tgt_0F913:
         endif
         if      FW_VERSION >= 114
         call    fn_0FBE9
-        mov     word ptr [0a868h], 0
+        mov     word ptr [A1_W_0A84C], 0
         elseif  FW_VERSION >= 112
         db      0e8h, 75h, 01h
-        mov     word ptr [0a84ch], 0
+        mov     word ptr [A1_W_0A84C], 0
         elseif  FW_VERSION >= 110
         call    fn_0FBE9
-        mov     word ptr [0a848h], 0
+        mov     word ptr [A1_W_0A84C], 0
         else
         db      0e8h, 75h, 01h
-        mov     word ptr [0a828h], 0
+        mov     word ptr [A1_W_0A84C], 0
         endif
         mov     byte ptr ds:[bp], 4
         if      FW_VERSION >= 114
@@ -664,7 +664,7 @@ tgt_0F951:
         mov     byte ptr ds:[bp+8], cl
         shl     cx, 9
         if      FW_VERSION >= 114
-        mov     word ptr [0a868h], cx
+        mov     word ptr [A1_W_0A84C], cx
         call    fn_0FAA7
         ret
 L_0F98B:
@@ -695,8 +695,8 @@ tgt_0F9BE:
 tgt_0F9BE:
         cmp     byte ptr [0a8ach], 0
         jne     L_0F9F8
-        mov     word ptr [0a864h], di
-        mov     word ptr [0a866h], es
+        mov     word ptr [A1_W_0A844], di
+        mov     word ptr [P_A866], es
         endif
         if      FW_VERSION >= 114
         call    fn_0FBE9
@@ -716,7 +716,7 @@ tgt_0F9BE:
         mov     byte ptr ds:[bp+8], cl
         shl     cx, 9
         if      FW_VERSION >= 114
-        mov     word ptr [0a868h], cx
+        mov     word ptr [A1_W_0A84C], cx
         call    fn_0FAA7
         else
         mov     word ptr [A1_W_0A868], cx
@@ -787,9 +787,9 @@ L_0FA48:
         ret
         if      FW_VERSION >= 114
 tgt_0FA4A:
-        mov     word ptr [0a864h], 0a86ah
-        mov     word ptr [0a866h], ds
-        mov     word ptr [0a868h], 0eh
+        mov     word ptr [A1_W_0A844], 0a86ah
+        mov     word ptr [P_A866], ds
+        mov     word ptr [A1_W_0A84C], 0eh
         call    fn_0FBE9
         mov     byte ptr ds:[bp], 55h
         mov     byte ptr ds:[bp+1], 10h
@@ -978,7 +978,7 @@ xl_ata_issue_command_block:
         inc     si
         mov     cx, ax
         shl     cx, 9
-        mov     word ptr [0a868h], cx
+        mov     word ptr [A1_W_0A84C], cx
         mov     dx, 1e4h
         out     dx, ax
         mov     al, byte ptr [si]
@@ -1099,11 +1099,11 @@ xl_ata_wait_drq:
         clc
         ret
 xl_ata_pio_data_phase:
-        cmp     byte ptr [0a8aah], 1
+        cmp     byte ptr [A1_B_0A88A], 1
         je      br_0FCC0
-        mov     cx, word ptr [0a868h]
+        mov     cx, word ptr [A1_W_0A84C]
         shr     cx, 1
-        les     di, [0a864h]
+        les     di, [A1_W_0A844]
         cmp     cx, 100h
         jb      L_0F7A3
 loop_0FC6E:
@@ -1201,9 +1201,9 @@ br_0FCC0:
         jae     br_0FCC6
         ret
 br_0FCC6:
-        mov     cx, word ptr [0a868h]
+        mov     cx, word ptr [A1_W_0A84C]
         shr     cx, 1
-        les     di, [0a864h]
+        les     di, [A1_W_0A844]
         call    fn_0FE4E
         mov     dx, ASIC_DMA_MODE
         mov     al, 1
@@ -1266,15 +1266,15 @@ br_0FD3C:
         stc
         ret
 br_0FD3E:
-        cmp     byte ptr [0a8aah], 1
+        cmp     byte ptr [A1_B_0A88A], 1
         je      br_0FDBE
         call    fn_0FC3C
         jae     br_0FD4B
         ret
 br_0FD4B:
-        mov     cx, word ptr [0a868h]
+        mov     cx, word ptr [A1_W_0A84C]
         shr     cx, 1
-        les     si, [0a864h]
+        les     si, [A1_W_0A844]
         mov     bp, es
         cmp     cx, 100h
         jb      L_0F89E
@@ -1345,9 +1345,9 @@ br_0FDBE:
         jae     br_0FDC4
         ret
 br_0FDC4:
-        mov     cx, word ptr [0a868h]
+        mov     cx, word ptr [A1_W_0A84C]
         shr     cx, 1
-        les     si, [0a864h]
+        les     si, [A1_W_0A844]
         call    fn_0FE4E
         mov     dx, ASIC_DMA_MODE
         mov     al, 1
@@ -1431,11 +1431,11 @@ fn_0FE4E:
         ret
 fn_0FE57:
         int     77h
-        mov     word ptr [0a8a8h], ax
+        mov     word ptr [A1_W_0A888], ax
         ret
 fn_0FE5D:
         int     77h
-        sub     ax, word ptr [0a8a8h]
+        sub     ax, word ptr [A1_W_0A888]
 xl_ata_related_fe63:
         cmp     ax, 4e20h
         mov     ax, 2dh

@@ -71,7 +71,7 @@ FAR_32782                       equ     $+1
         db      0c3h
         db      0a1h, 10h, 07h, 0e8h, 0c3h, 18h, 0c7h, 06h, 10h
         db      0fh, 00h, 80h
-        mov     word ptr [2b30h], far_32782-APP3_CSBASE
+        mov     word ptr [C0_W_02B30], far_32782-APP3_CSBASE
         db      0ffh, 1eh, 34h, 2bh
         KEY_DOWN        21h, EP_L_2B3A1_OFF, APP3_SEG
         db      0cbh
@@ -300,7 +300,7 @@ TBL_32B91:
         KEY_CURSOR      0000h, 0000h, (C0_BASE+L_32596-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_L_32BA1_OFF, APP3_SEG
         retf
 L_32596:
-        mov     bx, word ptr [2b3eh]
+        mov     bx, word ptr [C0_W_02B3E]
         shl     bx, 2
         callf   [bx+TBL_32B91-APP3_CSBASE]           ; cs: -- ASL prefixes a code label itself
         retf
@@ -525,7 +525,7 @@ FAR_32B57:
         KEY_CURSOR      0000h, 0000h, EP_APP3_C4D2_OFF, APP3_SEG, 0000h, 0000h, EP_L_322C1_OFF, APP3_SEG
         retf
 L_32596:
-        mov     bx, word ptr [2b3eh]
+        mov     bx, word ptr [C0_W_02B3E]
         shl     bx, 2
         callf   [bx+TBL_32B91-APP3_CSBASE]           ; cs: -- ASL prefixes a code label itself
         retf
@@ -722,9 +722,9 @@ L_3244A:
         int     0d9h
         push    cs
         call    far_3363D
-        mov     word ptr [1555h], 0
-        mov     byte ptr [1557h], 0
-        mov     byte ptr [1558h], 0
+        mov     word ptr [A3_W_01555], 0
+        mov     byte ptr [C0_B_01557], 0
+        mov     byte ptr [A3_B_01558], 0
         retf
 L_32D44:
         call    fn_3273C
@@ -1103,7 +1103,7 @@ L_32F95:
         endif
 d_c0_w_0c7d7:
         mov     bl, 0c8h
-        cmp     byte ptr [184eh], 2
+        cmp     byte ptr [A3_B_0184E], 2
         je      br_32FA0
         mov     bl, 7fh
 br_32FA0:
@@ -1194,12 +1194,12 @@ L_321CC:
         KEY_CURSOR      EP_L_32BA1_OFF, APP3_SEG, 0000h, 0000h, EP_L_32FB0_OFF, APP3_SEG, EP_FIELD_CB_NONE_OFF, APP3_SEG
 L_33037                         equ     $+1
         retf
-        mov     bx, word ptr [2b4eh]
+        mov     bx, word ptr [C0_W_02B4E]
         elseif  FW_VERSION >= 112
         KEY_CURSOR      EP_L_32BA1_OFF, APP3_SEG, 0000h, 0000h, EP_L_32FB0_OFF, APP3_SEG, (APP3_BASE+field_cb_none-APP3_SEG*16), APP3_SEG
         db      0cbh
 L_33037:
-        mov     bx, word ptr [2b3eh]
+        mov     bx, word ptr [C0_W_02B3E]
         else
         if      FW_VERSION >= 110
         KEY_CURSOR      EP_L_31D63_OFF, APP3_SEG, 0000h, 0000h, EP_L_32FB0_OFF, APP3_SEG, EP_FIELD_CB_NONE_OFF, APP3_SEG
@@ -1208,7 +1208,7 @@ L_33037:
         endif
         retf
 L_33037:
-        mov     bx, word ptr [2b3eh]
+        mov     bx, word ptr [C0_W_02B3E]
         endif
         shl     bx, 1
         call    word ptr cs:[bx+TBL_33043-APP3_CSBASE]
@@ -1221,25 +1221,25 @@ tgt_3304B:
         ret
 L_32A63:
         call    EP_FN_280CB_OFF+APP3_CSBASE
-        mov     cl, byte ptr [1577h]
-        mov     ch, byte ptr [1578h]
+        mov     cl, byte ptr [C0_B_01577]
+        mov     ch, byte ptr [A3_B_01578]
         je      L_32A7F
-        mov     cl, byte ptr [157ah]
+        mov     cl, byte ptr [A3_B_0157A]
         mov     ch, cl
         cmp     cl, 23h
         jae     L_32A7F
         mov     cl, 0
         mov     ch, 7fh
 L_32A7F:
-        mov     bp, word ptr [154dh]
-        mov     bl, byte ptr [154fh]
-        mov     bh, byte ptr [1550h]
-        mov     di, word ptr [1551h]
-        mov     dl, byte ptr [1553h]
-        mov     dh, byte ptr [1554h]
+        mov     bp, word ptr [A3_W_0154D]
+        mov     bl, byte ptr [A3_B_0154F]
+        mov     bh, byte ptr [A3_B_01550]
+        mov     di, word ptr [A3_W_01551]
+        mov     dl, byte ptr [A3_B_01553]
+        mov     dh, byte ptr [A3_B_01554]
         mov     si, word ptr [EP_L_252A4_OFF]
         inc     si
-        push    word ptr [710h]
+        push    word ptr [C0_W_00710]
         pusha
         int     0b4h
         push    word ptr [A2_W_CUR_SEQ]
@@ -1254,9 +1254,9 @@ L_32A7F:
         jb      L_32B02
         else
         call    EP_FN_2823E_OFF+APP3_CSBASE
-        mov     ax, word ptr [1555h]
-        mov     dl, byte ptr [1557h]
-        mov     cl, byte ptr [1558h]
+        mov     ax, word ptr [A3_W_01555]
+        mov     dl, byte ptr [C0_B_01557]
+        mov     cl, byte ptr [A3_B_01558]
         mov     dh, 0
         mov     ch, 0
         mov     bl, 0bh
@@ -1269,7 +1269,7 @@ L_32A7F:
         mov     ah, byte ptr [2b43h]
         ror     ah, 1
         or      al, ah
-        mov     ah, byte ptr [2b42h]
+        mov     ah, byte ptr [C0_B_02B42]
         int     0edh
         pop     bx
         jb      L_32B02
@@ -1278,7 +1278,7 @@ L_32A7F:
         int     0e8h
         mov     ax, word ptr [A2_W_CUR_SEQ]
         int     0d8h
-        mov     ax, word ptr [71ah]
+        mov     ax, word ptr [A3_W_0071A]
         int     0d9h
         int     0d6h
         mov     byte ptr [C0_B_00F2E], 1
@@ -1348,8 +1348,8 @@ tgt_33139:
         else
         db      0e8h, 04h, 82h, 0e8h, 43h, 82h
         endif
-        mov     bl, byte ptr [1577h]
-        mov     bh, byte ptr [1578h]
+        mov     bl, byte ptr [C0_B_01577]
+        mov     bh, byte ptr [A3_B_01578]
         push    bx
         call    EP_FN_280CB_OFF+APP3_CSBASE
         pop     bx
@@ -1357,9 +1357,9 @@ tgt_33139:
         endif
         mov     bl, 0
         mov     bh, 7fh
-        cmp     byte ptr [1579h], 41h
+        cmp     byte ptr [A3_B_01579], 41h
         je      L_32B75
-        mov     bl, byte ptr [157ah]
+        mov     bl, byte ptr [A3_B_0157A]
         mov     bh, bl
 L_32B75:
         push    bx
@@ -1380,8 +1380,8 @@ L_32B86:
         mov     cx, word ptr es:[si]
         mov     dx, word ptr es:[si+2]
         and     dx, 3f0fh
-        sub     cx, word ptr [156fh]
-        sbb     dl, byte ptr [1571h]
+        sub     cx, word ptr [A3_W_0156F]
+        sbb     dl, byte ptr [A3_W_01571]
         if      FW_VERSION >= 120
         jae     L_331D8
         db      3ah, 0c3h
@@ -1505,8 +1505,8 @@ L_32C59:
         else
         db      0e8h, 0f6h, 80h, 0e8h, 35h, 81h
         endif
-        mov     bl, byte ptr [1577h]
-        mov     bh, byte ptr [1578h]
+        mov     bl, byte ptr [C0_B_01577]
+        mov     bh, byte ptr [A3_B_01578]
         endif
         push    bx
         int     83h
@@ -1522,8 +1522,8 @@ L_32C6F:
         mov     cx, word ptr es:[si]
         mov     dx, word ptr es:[si+2]
         and     dx, 3f0fh
-        sub     cx, word ptr [156fh]
-        sbb     dl, byte ptr [1571h]
+        sub     cx, word ptr [A3_W_0156F]
+        sbb     dl, byte ptr [A3_W_01571]
         if      FW_VERSION >= 120
         jae     L_332A1
         db      3ah, 0c3h
@@ -1549,7 +1549,7 @@ L_33292:
         db      2ch, 0ch
         else
         jne     L_32CAE
-        add     al, byte ptr [2b49h]
+        add     al, byte ptr [C0_B_02B49]
         sub     al, 0ch
         jae     L_32CA4
         add     al, 0ch
@@ -1666,7 +1666,7 @@ L_33317:
         DISP_SOFTKEY    03h, DISP_SK_FILL,   "TrMOVE"
         DISP_SOFTKEY    04h, DISP_SK_FILL,   "USER"
         DISP_SOFTKEY    06h, DISP_SK_BOX,    "DO IT"
-        mov     ax, word ptr [710h]
+        mov     ax, word ptr [C0_W_00710]
         inc     al
         DISP_NUM        3fh, 03h, 02h
         mov     ax, word ptr [C0_W_02B50]
@@ -2584,8 +2584,8 @@ L_33BCA:
         db      01h, 0c3h, 26h, 8ah, 4ch, 04h, 83h, 0c6h, 08h, 73h, 07h, 8ch, 0c0h, 05h, 00h, 10h
         db      8eh, 0c0h, 80h, 0f9h, 0f8h, 75h, 0ebh, 0c3h
 L_33BF2:
-        mov     word ptr [0f10h], 8000h
-        mov     es, word ptr [0f10h]
+        mov     word ptr [A3_W_00F10], 8000h
+        mov     es, word ptr [A3_W_00F10]
         mov     di, 0
         mov     si, 10h
         mov     cx, 700h
@@ -2639,7 +2639,7 @@ L_33174:
 L_33BF2:
         db      0c7h, 06h, 10h, 0fh, 00h, 80h, 8eh, 06h, 10h, 0fh, 0bfh, 00h
         db      00h, 0beh, 10h, 00h, 0b9h, 00h, 07h, 0f3h, 0a4h, 0c7h, 06h, 12h, 07h, 00h, 00h
-        mov     word ptr [2b30h], L_33BF2-APP3_CSBASE
+        mov     word ptr [C0_W_02B30], L_33BF2-APP3_CSBASE
         db      0eh, 0e8h, 2eh, 02h, 0cbh
         endif
 far_33C18:
@@ -2696,8 +2696,8 @@ far_32C34:
         db      01h, 0c3h, 26h, 8ah, 4ch, 04h, 83h, 0c6h, 08h, 73h, 07h, 8ch, 0c0h, 05h, 00h, 10h
         db      8eh, 0c0h, 80h, 0f9h, 0f8h, 75h, 0ebh, 0c3h
 L_33BF2:
-        mov     word ptr [0f10h], 8000h
-        mov     es, word ptr [0f10h]
+        mov     word ptr [A3_W_00F10], 8000h
+        mov     es, word ptr [A3_W_00F10]
         mov     di, 0
         mov     si, 10h
         mov     cx, 700h
@@ -2767,7 +2767,7 @@ L_33C4D:
         DISP_NUMR       0d7h, 0ch, 02h
         db      0ffh, 16h, 0ch, 0fh, 0cbh
 far_33D3A:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         mov     al, byte ptr es:[580h]
         mov     ah, byte ptr es:[5c0h]
         mov     dl, byte ptr es:[600h]
@@ -2790,7 +2790,7 @@ tgt_33D77:
         add     di, 2
         add     si, 2
         loop    tgt_33D77
-        mov     al, byte ptr [737h]
+        mov     al, byte ptr [A3_B_00737]
         mov     ah, 0
         mov     di, ax
         mov     al, byte ptr es:[580h]
@@ -2866,7 +2866,7 @@ L_337E3:
         DISP_TEXT       08h, 0ch, "\\:"
         DISP_TEXT       2fh, 0ch, "(SEQ)"
         DISP_TEXT       25h, 0ch, "."
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         mov     ax, word ptr es:[16h]
         sub     dx, dx
         mov     bx, 0ah
@@ -2887,20 +2887,20 @@ isr_33E12:
         mov     byte ptr [di+18h], cl
         mov     byte ptr [di+19h], ch
         pop     cx
-        mov     byte ptr [737h], cl
+        mov     byte ptr [A3_B_00737], cl
         mov     cx, 40h
 isr_33E30:
-        mov     byte ptr [di+580h], al
-        mov     byte ptr [di+5c0h], ah
-        mov     byte ptr [di+600h], dl
-        mov     byte ptr [di+640h], dh
+        mov     byte ptr [di+A3_TBL_00580], al
+        mov     byte ptr [di+A3_TBL_005C0], ah
+        mov     byte ptr [di+A3_TBL_00600], dl
+        mov     byte ptr [di+A3_TBL_00640], dh
         inc     di
         loop    isr_33E30
         pop     ds
         iret
 fn_33E45:
         call    far_33C18
-        mov     word ptr [0f0ch], 323h
+        mov     word ptr [C0_W_00F0C], 323h
         mov     es, word ptr [A2_W_SEQ_SEG]
         mov     ax, word ptr es:[16h]
         mov     bl, 0
@@ -2925,13 +2925,13 @@ L_33E7D:
         db      0cbh
 far_3389F:
         call    far_33C18
-        mov     word ptr [0f0ch], 456h
+        mov     word ptr [C0_W_00F0C], 456h
         FIELD_WHEEL     word ptr [A2_W_SEQ_SEG], 34h, 0, 0, 1, (APP3_BASE+field_cb_none-APP3_SEG*16)
         KEY_CURSOR      EP_FN_33E45_OFF, EP_FN_33E45_SEG, (C0_BASE+L_33EBC-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, EP_FN_33E45_SEG, (C0_BASE+L_33FD8-APP3_SEG*16), APP3_SEG
         db      0cbh
 L_33EBC:
         call    far_33C18
-        mov     word ptr [0f0ch], (APP3_BASE+cb_26BC0-APP3_SEG*16)
+        mov     word ptr [C0_W_00F0C], (APP3_BASE+cb_26BC0-APP3_SEG*16)
         db      8ch, 0d9h, 0beh
         db      5ah, 2bh, 0b3h, 00h, 0b7h, 00h, 0bah, 50h, 00h
         mov     di, L_33EE9-APP3_CSBASE
@@ -2946,7 +2946,7 @@ L_33EE9:
         db      0cbh
 L_33F04:
         call    far_33C18
-        mov     word ptr [0f0ch], (APP3_BASE+cb_26C33-APP3_SEG*16)
+        mov     word ptr [C0_W_00F0C], (APP3_BASE+cb_26C33-APP3_SEG*16)
         KEY_CURSOR      (C0_BASE+far_3389F-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (C0_BASE+L_33EBC-APP3_SEG*16), APP3_SEG, (C0_BASE+L_33F47-APP3_SEG*16), APP3_SEG
         db      8bh, 0eh, 10h, 0fh, 0beh, 1ah, 00h, 0b3h, 00h
         db      0b7h, 00h, 0bah, 0e7h, 03h
@@ -2966,7 +2966,7 @@ L_33F47:
         db      7eh, 0cbh
 L_33F7A:
         call    far_33C18
-        mov     word ptr [0f0ch], (APP3_BASE+cb_26CC4-APP3_SEG*16)
+        mov     word ptr [C0_W_00F0C], (APP3_BASE+cb_26CC4-APP3_SEG*16)
         KEY_CURSOR      0000h, 0000h, (C0_BASE+far_339B9-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, EP_FN_33E45_SEG, 0000h, 0000h
         db      8ch, 0d9h, 0beh
         db      37h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
@@ -2974,7 +2974,7 @@ L_33F7A:
         db      0cdh, 7dh, 0cbh
 far_339B9:
         call    far_33C18
-        mov     word ptr [0f0ch], (APP3_BASE+cb_26CEC-APP3_SEG*16)
+        mov     word ptr [C0_W_00F0C], (APP3_BASE+cb_26CEC-APP3_SEG*16)
         KEY_CURSOR      (C0_BASE+L_33F7A-APP3_SEG*16), APP3_SEG, (C0_BASE+L_33FD8-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, EP_FN_33E45_SEG, 0000h, 0000h
         db      8eh, 06h, 10h, 0fh, 0beh, 0c0h
         db      05h, 8ch, 0c1h, 0b3h, 00h, 0b7h, 01h, 0bah, 04h, 00h
@@ -2982,7 +2982,7 @@ far_339B9:
         db      0cdh, 7dh, 0cbh
 L_33FD8:
         call    far_33C18
-        mov     word ptr [0f0ch], (APP3_BASE+cb_26D53-APP3_SEG*16)
+        mov     word ptr [C0_W_00F0C], (APP3_BASE+cb_26D53-APP3_SEG*16)
         KEY_CURSOR      (C0_BASE+far_339B9-APP3_SEG*16), APP3_SEG, (C0_BASE+L_3400C-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, EP_FN_33E45_SEG, 0000h, 0000h
         call    APP3_BASE+fn_280C2-SEGBASE
         db      8eh, 06h
@@ -2991,7 +2991,7 @@ L_33FD8:
         db      0cdh, 7dh, 0cbh
 L_3400C:
         call    far_33C18
-        mov     word ptr [0f0ch], (APP3_BASE+cb_26D79-APP3_SEG*16)
+        mov     word ptr [C0_W_00F0C], (APP3_BASE+cb_26D79-APP3_SEG*16)
         KEY_CURSOR      (C0_BASE+L_33FD8-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (C0_BASE+L_33F47-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         elseif  FW_VERSION >= 112
         KEY_CURSOR      0000h, 0000h, (C0_BASE+far_3389F-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (C0_BASE+FAR_339B9-APP3_SEG*16), APP3_SEG
@@ -3039,7 +3039,7 @@ far_33959:
         db      0cbh
 far_3398C:
         call    far_33C18
-        mov     word ptr [0f0ch], 514h
+        mov     word ptr [C0_W_00F0C], 514h
         KEY_CURSOR      0000h, 0000h, (C0_BASE+FAR_339B9-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, EP_FN_33E45_SEG, 0000h, 0000h
         db      8ch, 0d9h, 0beh, 37h
         db      07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh, 0cbh
@@ -3047,7 +3047,7 @@ far_339B9:
         db      0e8h, 6eh
         db      0fch, 0c7h, 06h, 0ch, 0fh, 3ch, 05h
         KEY_CURSOR      (C0_BASE+FAR_3398C-APP3_SEG*16), APP3_SEG, (C0_BASE+FAR_339EA-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, EP_FN_33E45_SEG, 0000h, 0000h
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         mov     si, 5c0h
         db      8ch, 0c1h, 0b3h, 00h, 0b7h, 01h, 0bah, 04h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh, 0cbh
 far_339EA:
@@ -3068,21 +3068,21 @@ L_3359D:
         retf
 L_335AD:
         call    far_33C18
-        mov     word ptr [0f0ch], 456h
+        mov     word ptr [C0_W_00F0C], 456h
         FIELD_WHEEL     word ptr [A2_W_SEQ_SEG], 34h, 0, 0, 1, (APP3_BASE+field_cb_none-APP3_SEG*16)
         KEY_CURSOR      EP_FN_33E45_OFF, APP3_SEG, (C0_BASE+L_335DC-APP3_SEG*16), APP3_SEG, EP_FN_33E45_OFF, APP3_SEG, (C0_BASE+L_336F8-APP3_SEG*16), APP3_SEG
         retf
 L_335DC:
         call    far_33C18
-        mov     word ptr [0f0ch], 410h
+        mov     word ptr [C0_W_00F0C], 410h
         FIELD_WHEEL     ds, 2b4ah, 0, 0, 50h, intcb_33609_111-APP3_CSBASE
         KEY_CURSOR      (C0_BASE+L_335AD-APP3_SEG*16), APP3_SEG, 0000h, 0000h, 0000h, 0000h, (C0_BASE+L_33624-APP3_SEG*16), APP3_SEG
         retf
 intcb_33609_111:
         mov     bx, word ptr [2b4ah]
         shl     bx, 1
-        mov     ax, word ptr [bx+1208h]
-        mov     es, word ptr [0f10h]
+        mov     ax, word ptr [bx+A3_TBL_01208]
+        mov     es, word ptr [A3_W_00F10]
         mov     byte ptr es:[18h], al
         mov     byte ptr es:[19h], ah
         call    EP_FN_27F67_OFF+APP3_CSBASE
@@ -3147,7 +3147,7 @@ L_3382E                         equ     $+3
         db      0cdh, 7dh, 0cbh
 L_33A1E:
         call    far_33C18
-        mov     word ptr [0f0ch], 5c9h
+        mov     word ptr [C0_W_00F0C], 5c9h
         KEY_CURSOR      (C0_BASE+FAR_339EA-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (C0_BASE+FAR_33959-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         db      0e8h, 0a6h
         db      40h, 0beh, 40h, 06h, 8ch, 0c1h, 0b3h, 00h, 0b7h, 01h, 0bah, 0c8h, 00h, 0bfh, 7eh, 0d8h
@@ -3791,9 +3791,9 @@ fn_3436D:
 br_34390:
         DISP_TEXT       3bh, 15h, "."
         db      0a1h, 14h, 07h
-        cmp     byte ptr [716h], 0
+        cmp     byte ptr [A3_B_00716], 0
         je      br_343A9
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         mov     ax, word ptr es:[16h]
 br_343A9:
         sub     dx, dx
@@ -3807,7 +3807,7 @@ br_343A9:
         if      FW_VERSION >= 112
         db      0c3h
 fn_343BF:
-        cmp     byte ptr [718h], 0
+        cmp     byte ptr [A3_B_00718], 0
         jne     br_343F8
         mov     ax, word ptr [C0_W_02C0A]
         mov     bx, 18h
@@ -3845,7 +3845,7 @@ br_343F8:
         else
         db      0c3h
 fn_343BF:
-        cmp     byte ptr [718h], 0
+        cmp     byte ptr [A3_B_00718], 0
         jne     br_343F8
         mov     ax, word ptr [C0_W_02C0A]
         mov     bx, 16h
@@ -3916,7 +3916,7 @@ br_343F8:
         ret
         if      FW_VERSION >= 110
 fn_34455:
-        cmp     byte ptr [71ch], 0ch
+        cmp     byte ptr [A3_B_0071C], 0ch
         jne     br_3445D
         ret
 br_3445D:
@@ -3926,7 +3926,7 @@ br_3445D:
         DISP_CURSOR     0c0h, 1, 37h
         endif
         ret
-        cmp     byte ptr [719h], 0
+        cmp     byte ptr [A3_B_00719], 0
         jne     br_3446F
         ret
 br_3446F:
@@ -4164,10 +4164,10 @@ br_345BC:
         mov     word ptr es:[di+6], dx
         jmp     loop_345B2
 br_345ED:
-        mov     ax, word ptr [1ah]
+        mov     ax, word ptr [C0_W_0001A]
         mov     word ptr es:[di-0ah], ax
-        mov     ax, word ptr [1ch]
-        mov     dx, word ptr [1eh]
+        mov     ax, word ptr [C0_W_0001C]
+        mov     dx, word ptr [C0_W_0001E]
         mov     word ptr es:[di-8], ax
         mov     word ptr es:[di-6], dx
         mov     ax, word ptr ds:[bp]
@@ -4185,7 +4185,7 @@ br_345ED:
 fn_3461B:
         cmp     byte ptr [C0_B_00716], 0
         je      br_34631
-        cmp     byte ptr [787h], 0
+        cmp     byte ptr [C0_B_00787], 0
         je      br_3462D
         mov     bp, 20h
         ret
@@ -4193,7 +4193,7 @@ br_3462D:
         mov     bp, 24h
         ret
 br_34631:
-        cmp     byte ptr [787h], 0
+        cmp     byte ptr [C0_B_00787], 0
         je      br_3463C
         mov     bp, 28h
         ret
@@ -4256,7 +4256,7 @@ L_346DF:
         db      11h
         endif
         db      0dfh
-        mov     word ptr [2beah], cb_340DF-APP3_CSBASE
+        mov     word ptr [C0_W_02BEA], cb_340DF-APP3_CSBASE
         else
         db      0deh, 0deh
         mov     word ptr [C0_W_02BFA], cb_340DF-APP3_CSBASE
@@ -4399,7 +4399,7 @@ L_33FF2:
 L_347E3:
         if      FW_VERSION >= 114
         if      FW_VERSION >= 120
-        les     si, [2c02h]
+        les     si, [C0_W_02C02]
         cmp     byte ptr es:[si+206h], 0
         else
         db      0c4h, 36h, 0f2h, 2bh, 26h, 80h, 0bch, 06h
@@ -4762,7 +4762,7 @@ L_34303:
         retf
 far_34AF7:
         call    fn_340E5
-        cmp     byte ptr [718h], 0
+        cmp     byte ptr [A3_B_00718], 0
         je      L_33CC3
         jmp     NEAR L_3460C
 L_33CC3:
@@ -4805,7 +4805,7 @@ intcb_3436F_112:
         mov     cx, ax
         les     si, [2c0eh]
         mov     word ptr [2bfah], 0
-        mov     word ptr [2c00h], 0
+        mov     word ptr [C0_W_02C00], 0
         endif
 L_34381:
         cmp     word ptr es:[si+18h], 0
@@ -4829,9 +4829,9 @@ br_34B84:
         mov     ah, 0
         int     0ech
         pop     ax
-        mov     word ptr [0f2ah], ax
-        mov     byte ptr [0f2ch], 0
-        mov     byte ptr [0f2dh], 0
+        mov     word ptr [A3_W_00F2A], ax
+        mov     byte ptr [A3_B_00F2C], 0
+        mov     byte ptr [A3_B_00F2D], 0
         call    EP_FN_30425_OFF+APP3_CSBASE
         retf
 br_34BA2:
@@ -5022,7 +5022,7 @@ L_34303:
         retf
 far_34AF7:
         call    fn_340E5
-        cmp     byte ptr [718h], 0
+        cmp     byte ptr [A3_B_00718], 0
         je      L_33CC3
         jmp     NEAR L_3460C
 L_33CC3:
@@ -5047,7 +5047,7 @@ intcb_33D0C_107:
         mov     cx, ax
         les     si, [2c0eh]
         mov     word ptr [2bfah], 0
-        mov     word ptr [2c00h], 0
+        mov     word ptr [C0_W_02C00], 0
 L_34381:
         cmp     word ptr es:[si+16h], 0
         je      br_34BA2
@@ -5252,7 +5252,7 @@ L_33EA3:
         DISP_SOFTKEY    04h, DISP_SK_FILL,   "CLOSE"
         if      FW_VERSION >= 110
         if      FW_VERSION >= 112
-        mov     al, byte ptr [787h]
+        mov     al, byte ptr [C0_B_00787]
         mov     cl, 74h
         mov     ch, 1ah
         call    EP_FN_26D9C_OFF+APP3_CSBASE
@@ -5269,7 +5269,7 @@ L_34D45:
         endif
         if      FW_VERSION >= 114
         KEY_DOWN        16h, L_34CAB-APP3_CSBASE, APP3_SEG
-        cmp     byte ptr [716h], 0
+        cmp     byte ptr [A3_B_00716], 0
         je      br_34D73
         else
         KEY_DOWN        16h, (C0_BASE+L_34CAB-APP3_SEG*16), APP3_SEG
@@ -6295,7 +6295,7 @@ br_35387:
         jne     br_3538D
         retf
 br_3538D:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         jne     br_3539A
         retf
@@ -6338,12 +6338,12 @@ br_353EA:
         jne     br_353FC
         retf
 br_353FC:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         je      br_3541A
         int     86h
         inc     ax
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     ax, word ptr es:[1ah]
         jae     br_3541A
         call    EP_FN_30425_OFF+APP3_CSBASE
@@ -6388,7 +6388,7 @@ br_35456:
         int     0a3h
         call    fn_344E0
         je      br_3547F
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         je      br_3547F
         int     86h
@@ -6468,7 +6468,7 @@ br_35506:
         int     0a3h
         call    fn_344E0
         je      br_35522
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         je      br_35522
         int     85h
@@ -6726,7 +6726,7 @@ br_35387:
         jne     br_3538D
         retf
 br_3538D:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         jne     br_3539A
         retf
@@ -6759,12 +6759,12 @@ br_353EA:
         jne     br_353FC
         retf
 br_353FC:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         je      br_3541A
         int     86h
         inc     ax
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     ax, word ptr es:[1ah]
         jae     br_3541A
         call    EP_FN_30425_OFF+APP3_CSBASE
@@ -6809,7 +6809,7 @@ br_35456:
         int     0a3h
         call    fn_344E0
         je      br_3547F
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         je      br_3547F
         int     86h
@@ -6889,7 +6889,7 @@ br_35506:
         int     0a3h
         call    fn_344E0
         je      br_35522
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         cmp     byte ptr es:[12h], 0
         je      br_35522
         int     85h
@@ -6941,7 +6941,7 @@ L_3557E:
         DISP_ERASE      68h, 1eh, 73h, 09h
         DISP_ERASE      0e3h, 1eh, 0dh, 09h
         if      FW_VERSION >= 120
-        call    word ptr [02bf4h]
+        call    word ptr [C0_W_02BF4]
         else
         call    word ptr [02be4h]
         endif
@@ -7335,7 +7335,7 @@ L_35326:
         DISP_MSG        "      Convert........."
         pop     ax
         mov     ah, 0
-        mov     word ptr [710h], ax
+        mov     word ptr [C0_W_00710], ax
         int     0d1h
         mov     ax, 8000h
         mov     es, ax

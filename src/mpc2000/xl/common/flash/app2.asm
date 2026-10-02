@@ -1285,6 +1285,7 @@ loop_1B4A0:
         mov     bx, A2_B_075B7
         mov     al, cl
         xlat
+d_a0_tbl_0b407:
         pop     bx
         or      byte ptr [di], al
         test    ch, 1
@@ -2159,7 +2160,7 @@ tgt_1BB81:
         pop     bp
         ret
 tgt_1BB9C:
-        mov     byte ptr [63h], 1
+        mov     byte ptr [A2_B_00063], 1
         ret
 tgt_1BBA2:
         push    word ptr [A2_W_LCD_DRAW_PLANE]
@@ -2760,7 +2761,7 @@ L_1C1E1:
         mov     al, byte ptr [2ed7h]
         mov     bx, 2fd3h
         else
-        mov     al, byte ptr [2ee7h]
+        mov     al, byte ptr [A2_B_02EE7]
         mov     bx, 2fe3h
         endif
         xlat
@@ -3304,7 +3305,7 @@ loop_1C69F:
         jne     loop_1C69F
         DISP_VLINE      5bh, 0ah, 04h
         if      FW_VERSION <> 120
-        mov     ax, word ptr [2ee2h]
+        mov     ax, word ptr [A2_W_02EE2]
         endif
 br_1C6B7:
         if      FW_VERSION >= 120
@@ -5137,7 +5138,7 @@ loop_1DA75:
         je      br_1DA90
         push    si
         push    ax
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         call    fn_1EE12
         pop     ax
         pop     si
@@ -5357,7 +5358,7 @@ tgt_1DD1A:
         int     91h
         jb      br_1DD3C
 br_1DD26:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         mov     cx, word ptr [A2_W_03234]
         call    fn_1EE12
         jb      br_1DD3C
@@ -6915,13 +6916,13 @@ br_1EDCA:
         ret
 fn_1EDD4:
         mov     si, 10h
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         sub     di, di
         mov     cx, 700h
         rep movsb
         ret
 fn_1EDE3:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         mov     di, 0
         mov     si, P_2F32
         mov     cx, 10h
@@ -7239,7 +7240,7 @@ save_title_seq:
         mov     cx, 10h
         rep movsb
         pop     ds
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         mov     ax, 0
         cmp     byte ptr es:[12h], 0
         je      br_1F189
@@ -7815,7 +7816,7 @@ br_1F702:
         DISP_SOFTKEY    03h, DISP_SK_BOX,    "WIPE"
         db      0c3h
 save_exec_seq:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         cmp     byte ptr es:[12h], 0
         jne     br_1F71A
         ret
@@ -8142,7 +8143,7 @@ fn_1F8F2:
         jmp     fn_1F999
         else
         if      FW_VERSION >= 110
-        mov     word ptr [368ch], ax
+        mov     word ptr [A2_W_0368C], ax
         else
 fn_1F8F2:
         mov     word ptr [A2_W_SAVE_EXEC_FN], ax
@@ -11604,7 +11605,7 @@ L_219D6:
         call    fn_219DA
         retf
 fn_219DA:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         mov     word ptr [A2_W_03FA4], 0
         mov     word ptr [A2_W_03FA6], 0
         mov     word ptr [A2_W_03FA8], 0
@@ -11789,7 +11790,7 @@ br_21BC2:
         shr     di, 4
         add     ax, di
         push    ax
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         mov     di, word ptr [A2_W_03F98]
         mov     ax, 3e8h
         mov     word ptr es:[di], ax
@@ -11801,7 +11802,7 @@ br_21BC2:
         mov     word ptr es:[di+4], dx
         pop     ax
         sub     ax, 280h
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A2_W_00F10]
         mov     word ptr es:[10h], ax
         mov     al, byte ptr es:[12h]
         mov     ah, 0
@@ -12985,7 +12986,13 @@ br_22742:
         ret
         PARA_PAD
 APPDATA_ORIGIN:
-        db      "MPC2KXL ALL 1.00Sequence        "
+        db      "MPC2KXL ALL 1.00Sequence  "
+d_c0_w_0001a:
+        db      "  "
+d_c0_w_0001c:
+        db      "  "
+d_c0_w_0001e:
+        db      "  "
         db      01h, 00h, 00h, 01h, 01h, 00h, 0b0h, 04h, 04h, 04h, 02h, 00h, 00h, 00h, 00h, 00h
         db      80h, 84h, 1eh, 00h, 80h, 84h, 1eh, 00h, 80h, 84h, 1eh, 00h, 80h, 84h, 1eh, 00h
         db      00h, 00h, 0ffh, 0ffh, 01h
@@ -12996,24 +13003,33 @@ FREE_21FD5:
 FREE_22795:
         PAD_TO  APPDATA_SEG*16+00088h-SEGBASE, 000h
 
-        db      "        Device01Device02Device03Device04Device05Device06Device07Device08Device09Device10Device11Device12Device13Device14Device15Device16Device17Device18Device19Device20Device21Device22Device23Device24Device25Device26Device27Device28Device29Device30Device31Device32Track-01        Track-02        Track-03        Track-04        Track-05        Track-06        Track-07        Track-08        Track-09        Track-10        Track-11        Track-12        Track-13        Track-14        Track-15        Track-16        Track-17        Track-18        Track-19        Track-20        Track-21        Track-22        Track-23        Track-24        Track-25        Track-26        Track-27        Track-28        Track-29        Track-30        Track-31        Track-32        Track-33        Track-34        Track-35        Track-36        Track-37        Track-38        Track-39        Track-40        Track-41        Track-42        Track-43        Track-44        Track-45        Track-46        Track-47        Track-48        Track-49        Track-50        Track-51        Track-52        Track-53        Track-54        Track-55        Track-56        Track-57        Track-58        Track-59        Track-60        Track-61        Track-62        Track-63        Track-64        "
+        db      "        Device01Device02Device03Device04Device05Device06Device07Device08Device09Device10Device11Device12Device13Device14Device15Device16Device17Device18Device19Device20Device21Device22Device23Device24Device25Device26Device27Device28Device29Device30Device31Device32Track-01        Track-02        Track-03        Track-04        Track-05        Track-06        Track-07        Track-08        Track-09        Track-10        Track-11        Track-12        Track-13        Track-14        Track-15        Track-16        Track-17        Track-18        Track-19        Track-20        Track-21        Track-22        Track-23        Track-24        Track-25        Track-26        Track-27        Track-28        Track-29        Track-30        Track-31        Track-32        Track-33        Track-34        Track-35        Track-36        Track-37        Track-38        Track-39        Track-40        Track-41        Track-42        Track-43        Track-44        Track-45        Track-46        Track-47        Track-48  "
+d_a3_b_0048a:
+        db      "      Track-49        Track-50        Track-51        Track-52        Track-53        Track-54        Track-55        Track-56        Track-57        Track-58        Track-59        Track-60        Track-61        Track-62        Track-63        "
+d_a3_tbl_00580:
+        db      "Track-64        "
         if      FW_VERSION < 110
 
 ; 0x221f0-0x22230, 64 x 00h -- per-track default, 1 byte/track
 FREE_221F0:
 FREE_22CE0:
+        PAD_TO  (APPDATA_SEG*16+005D0h-SEGBASE)-010h, 000h
+d_a3_tbl_005c0:
         PAD_TO  APPDATA_SEG*16+005D0h-SEGBASE, 000h
 
         elseif  FW_VERSION < 114
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_a3_tbl_005c0:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         endif
 
 ; 0x22ce0-0x22d20, 64 x 00h -- per-track default, 1 byte/track
         if      FW_VERSION >= 114
 FREE_22CE0:
+        PAD_TO  (APPDATA_SEG*16+005D0h-SEGBASE)-010h, 000h
+d_a3_tbl_005c0:
         PAD_TO  APPDATA_SEG*16+005D0h-SEGBASE, 000h
         else
 FREE_22750:
@@ -13022,6 +13038,8 @@ FREE_22750:
 
 ; 0x22d20-0x22d60, 64 x 01h -- per-track default, 1 byte/track
 FREE_22D20:
+        PAD_TO  (APPDATA_SEG*16+00610h-SEGBASE)-010h, 001h
+d_a3_tbl_00600:
         PAD_TO  APPDATA_SEG*16+00610h-SEGBASE, 001h
 
 
@@ -13030,6 +13048,8 @@ FREE_22D20:
 FREE_22790:
         endif
 FREE_22D60:
+        PAD_TO  (APPDATA_SEG*16+00650h-SEGBASE)-010h, 000h
+d_a3_tbl_00640:
         PAD_TO  APPDATA_SEG*16+00650h-SEGBASE, 000h
 
 
@@ -13038,6 +13058,8 @@ FREE_22D60:
 FREE_227D0:
         endif
 FREE_22DA0:
+        PAD_TO  (APPDATA_SEG*16+00690h-SEGBASE)-010h, 064h
+d_a3_tbl_00680:
         PAD_TO  APPDATA_SEG*16+00690h-SEGBASE, 064h
 
 
@@ -13055,20 +13077,89 @@ FREE_22850:
 ; 0x22751-0x2292c, 475 bytes of 00h -- unverified, do not assume free
         endif
 FREE_22E20:
+        PAD_TO  (APPDATA_SEG*16+00714h-SEGBASE)-04h, 000h
+d_c0_w_00710:
         PAD_TO  APPDATA_SEG*16+00714h-SEGBASE, 000h
 
-        db      0b0h, 04h, 01h, 03h, 00h, 00h, 00h, 00h, 0ch, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 01h, 01h, 64h, 00h, 00h, 01h, 00h, 00h, 00h, 00h, 00h, 7fh, 40h, 01h, 00h
-        db      01h, 00h, 00h, 00h, 01h, 02h, 03h, 04h, 05h, 06h, 07h, 08h, 09h, 0ah, 0bh, 0ch
+d_a3_w_00714:
+        db      0b0h, 04h
+d_a3_b_00716:
+        db      01h, 03h
+d_a3_b_00718:
+        db      00h
+d_a3_b_00719:
+        db      00h
+d_a3_w_0071a:
+        db      00h, 00h
+d_a3_b_0071c:
+        db      0ch, 00h
+d_a3_w_0071e:
+        db      00h, 00h
+d_a3_w_00720:
+        db      00h, 00h
+d_a3_b_00722:
+        db      00h, 00h
+        db      00h, 01h, 01h, 64h, 00h
+d_a3_b_00729:
+        db      00h
+d_a3_b_0072a:
+        db      01h, 00h
+d_a3_b_0072c:
+        db      00h
+d_a3_b_0072d:
+        db      00h
+d_a3_b_0072e:
+        db      00h
+d_a3_b_0072f:
+        db      00h
+d_a3_b_00730:
+        db      7fh
+d_a3_b_00731:
+        db      40h
+d_a3_b_00732:
+        db      01h, 00h
+d_a3_b_00734:
+        db      01h
+d_a3_b_00735:
+        db      00h
+d_a3_b_00736:
+        db      00h
+d_a3_b_00737:
+        db      00h, 01h, 02h, 03h, 04h, 05h, 06h, 07h, 08h, 09h, 0ah, 0bh, 0ch
         db      0dh, 0eh, 0fh, 10h, 11h, 12h, 13h, 14h, 15h, 16h, 17h, 18h, 19h, 1ah, 1bh, 1ch
         db      1dh, 1eh, 1fh, 20h, 21h, 22h, 01h, 00h, 00h, 00h, 00h, 00h, 0ffh, 0ffh, 0ffh, 0ffh
-        db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 00h, 00h, 00h, 00h
-        db      01h, 00h, 00h
+        db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 00h
+d_a3_b_00771:
+        db      00h
+d_a3_b_00772:
+        db      00h
+d_a3_b_00773:
+        db      00h
+d_a3_b_00774:
+        db      01h
+d_a3_b_00775:
+        db      00h, 00h
         db      "Song         "
-        db      20h, 20h, 20h, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      20h, 20h, 20h
+d_c0_b_00787:
+        db      01h, 00h
+d_a3_w_00789:
+        db      00h, 00h
+d_a3_w_0078b:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 64h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_a3_b_007b1:
+        db      00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_a3_w_007bb:
+        db      00h, 00h
+d_a3_b_007bd:
+        db      00h, 00h
+d_a3_b_007bf:
+        db      00h
+d_a3_b_007c0:
+        db      64h
         if      FW_VERSION >= 110
         if      FW_VERSION < 114
 FREE_22941:
@@ -13094,6 +13185,8 @@ FREE_2310A:
         else
 FREE_22941:
 FREE_22F11:
+        PAD_TO  (APPDATA_SEG*16+00F08h-SEGBASE)-0453h, 000h
+d_a3_b_00ab5:
         PAD_TO  APPDATA_SEG*16+00F08h-SEGBASE, 000h
 
         endif

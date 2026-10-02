@@ -9099,8 +9099,8 @@ isr_0F3A2:
         push    ds
         mov     bp, RAM_SEG
         mov     ds, bp
-        mov     bx, word ptr [54h]
-        mov     cx, word ptr [56h]
+        mov     bx, word ptr [A0_W_00054]
+        mov     cx, word ptr [A0_W_00056]
         call    fn_0F3B5
         pop     ds
         iret
@@ -9259,13 +9259,13 @@ isr_0F4B6:
         mov     bh, 0
         shl     bx, 1
         if      FW_VERSION >= 114
-        mov     cx, word ptr [bx-5992h]
+        mov     cx, word ptr [bx+A1_TBL_0A66E]
         elseif  FW_VERSION >= 112
-        mov     cx, word ptr [bx-59aeh]
+        mov     cx, word ptr [bx+A1_TBL_0A66E]
         elseif  FW_VERSION >= 110
-        mov     cx, word ptr [bx-59b2h]
+        mov     cx, word ptr [bx+A1_TBL_0A66E]
         else
-        mov     cx, word ptr [bx-59d2h]
+        mov     cx, word ptr [bx+A1_TBL_0A62E]
         endif
         mov     bx, A1_W_0318C
         test    al, 80h
@@ -9370,7 +9370,7 @@ isr_0F58E:
         mov     ax, RAM_SEG
         mov     ds, ax
         sub     ah, ah
-        mov     al, byte ptr [4d5h]
+        mov     al, byte ptr [A0_B_004D5]
         shr     al, 4
         pop     ds
         iret
@@ -9380,7 +9380,7 @@ isr_0F59E:
         mov     ds, bx
         sub     ah, ah
         shl     al, 4
-        mov     byte ptr [4d5h], al
+        mov     byte ptr [A0_B_004D5], al
         pop     ds
         iret
 isr_0F5AE:
@@ -9388,17 +9388,17 @@ isr_0F5AE:
         mov     bp, RAM_SEG
         mov     ds, bp
         if      FW_VERSION >= 114
-        mov     word ptr [378ah], ax
-        mov     word ptr [378ch], dx
+        mov     word ptr [A0_W_0376E], ax
+        mov     word ptr [A0_W_03770], dx
         elseif  FW_VERSION >= 112
-        mov     word ptr [376eh], ax
-        mov     word ptr [3770h], dx
+        mov     word ptr [A0_W_0376E], ax
+        mov     word ptr [A0_W_03770], dx
         elseif  FW_VERSION >= 110
-        mov     word ptr [376ah], ax
-        mov     word ptr [376ch], dx
+        mov     word ptr [A0_W_0376E], ax
+        mov     word ptr [A0_W_03770], dx
         else
-        mov     word ptr [374ch], ax
-        mov     word ptr [374eh], dx
+        mov     word ptr [A0_W_0376E], ax
+        mov     word ptr [A0_W_03770], dx
         endif
         mov     bx, ax
         mov     cx, dx
@@ -9413,16 +9413,16 @@ isr_0F5C7:
         mov     ds, ax
         if      FW_VERSION >= 114
         mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [4854h]
+        mov     bx, word ptr [A1_W_04854]
         elseif  FW_VERSION >= 112
-        mov     es, word ptr [42eeh]
-        mov     bx, word ptr [4838h]
+        mov     es, word ptr [A0_W_SEQ_SEGMENT]
+        mov     bx, word ptr [A1_W_04838]
         elseif  FW_VERSION >= 110
-        mov     es, word ptr [42eah]
-        mov     bx, word ptr [4834h]
+        mov     es, word ptr [A0_W_SEQ_SEGMENT]
+        mov     bx, word ptr [A1_W_04838]
         else
-        mov     es, word ptr [42cch]
-        mov     bx, word ptr [4816h]
+        mov     es, word ptr [A0_W_SEQ_SEGMENT]
+        mov     bx, word ptr [A1_W_04838]
         endif
         mov     al, byte ptr es:[bx+5c0h]
         mov     ah, 0
@@ -9496,15 +9496,15 @@ isr_0F664:
         mov     ds, bp
         KEY_RESTORE     A1_TBL_0A6F0
         cli
-        mov     sp, word ptr [5eh]
+        mov     sp, word ptr [A0_W_0005E]
         mov     bp, RAM_SEG
         mov     ds, bp
         sti
-        cmp     byte ptr [1b9h], 0
+        cmp     byte ptr [A0_B_001B9], 0
         jne     isr_0F684
         callf   EP_GOTO_MAIN_SCREEN_SEG:EP_GOTO_MAIN_SCREEN_OFF
 isr_0F684:
-        mov     byte ptr [1b9h], 1
+        mov     byte ptr [A0_B_001B9], 1
 xs_app1_jmp:
         if      APP1_FAR = 0
         jmp     APP0_BASE+main_restart-SEGBASE ; near while app1 is in segment 0

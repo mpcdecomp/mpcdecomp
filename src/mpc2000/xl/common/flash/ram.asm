@@ -18,36 +18,149 @@ APP2_CSBASE_A2 set  APP2_SEG*16-APP2_BASE
 ram_stamp:
         if      FW_VERSION >= 120
         db      "1.14c        -74Jul. 15,2004"
+d_a0_w_0001c:
         dw      2004
-        db      7, 15, 1, 20
+d_a0_b_0001e:
+        db      7
+d_a0_b_0001f:
+        db      15
+d_a0_b_00020:
+        db      1
+d_a0_b_00021:
+        db      20
         elseif  FW_VERSION >= 114
         db      "1.14         -72May. 15,2001"
+d_a0_w_0001c:
         dw      2001
-        db      5, 15, 1, 14
+d_a0_b_0001e:
+        db      5
+d_a0_b_0001f:
+        db      15
+d_a0_b_00020:
+        db      1
+d_a0_b_00021:
+        db      14
         elseif  FW_VERSION >= 112
         db      "1.12         -65Dec. 04,2000"
+d_a0_w_0001c:
         dw      2000
-        db      12, 4, 1, 12
+d_a0_b_0001e:
+        db      12
+d_a0_b_0001f:
+        db      4
+d_a0_b_00020:
+        db      1
+d_a0_b_00021:
+        db      12
         elseif  FW_VERSION >= 111
         db      "1.11         -63Mar. 06,2000"
+d_a0_w_0001c:
         dw      2000
-        db      3, 6, 1, 11
+d_a0_b_0001e:
+        db      3
+d_a0_b_0001f:
+        db      6
+d_a0_b_00020:
+        db      1
+d_a0_b_00021:
+        db      11
         elseif  FW_VERSION >= 110
         db      "1.10         -61Feb. 23,2000"
+d_a0_w_0001c:
         dw      2000
-        db      2, 23, 1, 10
+d_a0_b_0001e:
+        db      2
+d_a0_b_0001f:
+        db      23
+d_a0_b_00020:
+        db      1
+d_a0_b_00021:
+        db      10
         else
         db      "1.07         -54Oct. 27,1999"
+d_a0_w_0001c:
         dw      1999
-        db      10, 27, 1, 7
+d_a0_b_0001e:
+        db      10
+d_a0_b_0001f:
+        db      27
+d_a0_b_00020:
+        db      1
+d_a0_b_00021:
+        db      7
         endif
         db      "-------------------------", 00h
 xl_ata_system_filename:
-        db      "MPC2KXL         .BIN", 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0e8h, 00h, 0eah, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 20h, 00h, 14h, 00h, 0b0h, 04h, 02h, 00h, 04h, 04h, 00h
-        db      01h, 00h, 64h, 00h, 03h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      "MPC2KXL         .BIN"
+d_a0_w_00050:
+        db      00h
+        db      00h
+d_a0_w_00052:
+        db      00h, 00h
+d_a0_w_00054:
+        db      00h, 00h
+d_a0_w_00056:
+        db      00h, 00h
+d_a0_w_00058:
+        db      00h, 00h
+d_a0_w_0005a:
+        db      00h, 0e8h
+d_a0_w_0005c:
+        db      00h, 0eah
+d_a0_w_0005e:
+        db      00h, 00h, 00h
+d_a0_b_00061:
+        db      00h
+d_a0_b_00062:
+        db      00h
+d_a2_b_00063:
+        db      00h
+d_a0_b_00064:
+        db      00h
+d_a0_b_00065:
+        db      00h
+d_a0_b_00066:
+        db      00h
+d_a0_b_00067:
+        db      01h
+d_a0_b_00068:
+        db      00h
+d_a0_b_00069:
+        db      00h
+d_a0_b_0006a:
+        db      00h
+d_a0_b_0006b:
+        db      00h
+d_a0_b_0006c:
+        db      00h, 00h, 00h, 00h, 00h
+d_a0_w_00071:
+        db      00h, 00h
+d_a0_w_00073:
+        db      00h, 00h, 00h, 20h, 00h
+d_a0_b_00078:
+        db      14h
+d_a0_b_00079:
+        db      00h
+d_a0_w_0007a:
+        db      0b0h, 04h
+d_a0_w_0007c:
+        db      02h, 00h
+d_a0_b_0007e:
+        db      04h
+d_a0_b_0007f:
+        db      04h
+d_a0_b_00080:
+        db      00h
+d_a0_b_00081:
+        db      01h
+d_a0_b_00082:
+        db      00h
+d_a0_b_00083:
+        db      64h
+d_a0_b_00084:
+        db      00h
+d_a0_b_00085:
+        db      03h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 20h, 00h, 14h, 00h, 0b0h, 04h, 02h, 00h, 04h, 04h, 00h
         db      01h, 00h, 64h, 00h, 03h
         if      FW_VERSION >= 120
@@ -55,6 +168,20 @@ xl_ata_system_filename:
         endif
 ; 0x0ff17-0x10034, 285 bytes of 00h -- unverified, do not assume free
 FREE_0FF17:
+        PAD_TO  001C4h-0eh, 000h
+d_a0_b_001b6:
+        PAD_TO  001C4h-0bh, 000h
+d_a0_b_001b9:
+        PAD_TO  001C4h-0ah, 000h
+d_a0_w_001ba:
+        PAD_TO  001C4h-08h, 000h
+d_a0_w_001bc:
+        PAD_TO  001C4h-06h, 000h
+d_a0_w_001be:
+        PAD_TO  001C4h-04h, 000h
+d_a0_w_001c0:
+        PAD_TO  001C4h-02h, 000h
+d_a0_w_001c2:
         PAD_TO  001C4h, 000h
 
         db      0ffh, 0ffh
@@ -65,6 +192,34 @@ FREE_0FD46:
 ; 0x1005d-0x10460, 1027 bytes of 00h -- unverified, do not assume free
         endif
 FREE_10036:
+        PAD_TO  00643h-047bh, 000h
+d_a0_b_001c8:
+        PAD_TO  00643h-047ah, 000h
+d_a0_b_001c9:
+        PAD_TO  00643h-0479h, 000h
+d_a0_b_001ca:
+        PAD_TO  00643h-0375h, 000h
+d_a0_w_002ce:
+        PAD_TO  00643h-0373h, 000h
+d_a0_w_002d0:
+        PAD_TO  00643h-0371h, 000h
+d_a0_w_002d2:
+        PAD_TO  00643h-016eh, 000h
+d_a0_b_004d5:
+        PAD_TO  00643h-016bh, 000h
+d_a0_b_004d8:
+        PAD_TO  00643h-0169h, 000h
+d_a0_b_004da:
+        PAD_TO  00643h-0155h, 000h
+d_a0_tbl_004ee:
+        PAD_TO  00643h-0145h, 000h
+d_a0_tbl_004fe:
+        PAD_TO  00643h-0135h, 000h
+d_a0_tbl_0050e:
+        PAD_TO  00643h-0125h, 000h
+d_a0_tbl_0051e:
+        PAD_TO  00643h-0115h, 000h
+d_a0_tbl_0052e:
         PAD_TO  00643h, 000h
 
         db      22h, 00h, "This is MPC2000XL System program file $"
@@ -75,6 +230,8 @@ FREE_101FD:
 ; 0x10565-0x10b91, 1580 bytes of 00h -- unverified, do not assume free
         endif
 FREE_104ED:
+        PAD_TO  00A80h-02h, 000h
+d_a0_tbl_00a7e:
         PAD_TO  00A80h, 000h
 
         db      60h, 00h, 66h, 00h, 6ch, 00h, 72h, 00h, 78h, 00h, 7eh, 00h, 48h, 00h, 54h, 00h ; `.f.l.r.x.~.H.T.
@@ -91,6 +248,7 @@ ram_0B1C:
         db      "\"',16;@EJOTY^chmrw|"
         db      07h, 0dh, 13h, 19h, 16h, 1ch
         db      "\"29?EKRX^d"
+d_a0_tbl_00b65:
         db      07h, 0fh, 19h, 1fh
         db      "'/7?GOW_gow"
         db      7fh, 00h, 07h, 0eh, 14h, 1bh
@@ -100,6 +258,60 @@ ram_0B1C:
 FREE_10705:
         endif
 FREE_109F5:
+        PAD_TO  011B1h-062bh, 000h
+d_a0_w_00b86:
+        PAD_TO  011B1h-0629h, 000h
+d_a0_w_00b88:
+        PAD_TO  011B1h-0625h, 000h
+d_a0_w_00b8c:
+        PAD_TO  011B1h-0623h, 000h
+d_a0_w_00b8e:
+        PAD_TO  011B1h-061dh, 000h
+d_a0_w_00b94:
+        PAD_TO  011B1h-0619h, 000h
+d_a0_w_00b98:
+        PAD_TO  011B1h-0617h, 000h
+d_a0_b_00b9a:
+        PAD_TO  011B1h-0616h, 000h
+d_a0_b_00b9b:
+        PAD_TO  011B1h-0615h, 000h
+d_a0_tbl_00b9c:
+        PAD_TO  011B1h-0415h, 000h
+d_a0_w_00d9c:
+        PAD_TO  011B1h-0413h, 000h
+d_a0_w_00d9e:
+        PAD_TO  011B1h-0411h, 000h
+d_a0_w_00da0:
+        PAD_TO  011B1h-040fh, 000h
+d_a0_tbl_00da2:
+        PAD_TO  011B1h-030fh, 000h
+d_a0_b_00ea2:
+        PAD_TO  011B1h-030eh, 000h
+d_a0_b_00ea3:
+        PAD_TO  011B1h-030dh, 000h
+d_a0_b_00ea4:
+        PAD_TO  011B1h-030bh, 000h
+d_a0_tbl_00ea6:
+        PAD_TO  011B1h-02a1h, 000h
+d_a2_w_00f10:
+        PAD_TO  011B1h-010bh, 000h
+d_a0_w_010a6:
+        PAD_TO  011B1h-0109h, 000h
+d_a0_w_010a8:
+        PAD_TO  011B1h-0107h, 000h
+d_a0_w_010aa:
+        PAD_TO  011B1h-0105h, 000h
+d_a0_tbl_010ac:
+        PAD_TO  011B1h-05h, 000h
+d_a0_b_011ac:
+        PAD_TO  011B1h-04h, 000h
+d_a0_b_011ad:
+        PAD_TO  011B1h-03h, 000h
+d_a0_b_011ae:
+        PAD_TO  011B1h-02h, 000h
+d_a0_b_011af:
+        PAD_TO  011B1h-01h, 000h
+d_a0_b_011b0:
         PAD_TO  011B1h, 000h
 
         db      "                            "
@@ -400,7 +612,9 @@ FREE_12063:
 d_a0_w_021f4:
         db      2 dup (0)
 d_a0_w_021f6:
-        db      4 dup (0)
+        db      3 dup (0)
+d_a0_b_021f9:
+        db      1 dup (0)
 d_a0_b_021fa:
         db      256 dup (0)
 d_a0_w_022fa:
@@ -508,10 +722,13 @@ d_a0_b_0267d:
         endif
 
         if      FW_VERSION >= 114
+d_a0_w_0269a:
         dw      P_279A, P_279A
         elseif  FW_VERSION >= 110
+d_a0_w_0267e:
         db      5dh, 26h, 5dh, 26h
         else
+d_a0_w_02660:
         db      30h, 26h, 30h, 26h
         endif
 d_a0_b_0269e:
@@ -716,13 +933,16 @@ d_a0_w_midi2_sysex_ptr:
         endif
         endif
 
+d_a0_w_02e0a:
         if      FW_VERSION >= 114
+d_a0_w_02e26:
         dw      P_3071, P_3071
         elseif  FW_VERSION >= 112
         db      34h, 2fh, 34h, 2fh
         elseif  FW_VERSION >= 110
         db      32h, 2fh, 32h, 2fh
         else
+d_a0_w_02dec:
         db      0f4h, 2eh, 0f4h, 2eh
         endif
 d_a0_b_02e0e:
@@ -1345,6 +1565,8 @@ d_a0_w_0358c:
         if      FW_VERSION >= 112
         PAD_TO  036ACh, 000h
         elseif  FW_VERSION >= 110
+        PAD_TO  036A8h-01ch, 000h
+d_a2_w_0368c:
         PAD_TO  036A8h, 000h
         else
         PAD_TO  0368Ah, 000h
@@ -1623,7 +1845,9 @@ FREE_1419D:
 d_a0_w_04312:
         db      2 dup (0)
 d_a0_w_04310:
-        db      10 dup (0)
+        db      6 dup (0)
+d_a0_w_04336:
+        db      4 dup (0)
 d_p_433a:
         db      6 dup (0)
 d_a0_w_04324:
@@ -1890,7 +2114,9 @@ FREE_146C0:
 d_a0_w_04850:
         db      2 dup (0)
 d_a0_w_04852:
-        db      6 dup (0)
+        db      2 dup (0)
+d_a1_w_04854:
+        db      4 dup (0)
 d_a0_w_04858:
         db      4 dup (0)
 d_a0_w_0485c:
@@ -1913,7 +2139,9 @@ FREE_146C0:
 d_a0_w_04850:
         db      2 dup (0)
 d_a0_w_04852:
-        db      6 dup (0)
+        db      2 dup (0)
+d_a1_w_04838:
+        db      4 dup (0)
 d_a0_w_04858:
         db      4 dup (0)
 d_a0_w_0485c:
@@ -2057,7 +2285,9 @@ d_a0_w_0575d:
 d_a0_w_0575f:
         db      2 dup (0)
 d_a0_w_05761:
-        db      4 dup (0)
+        db      2 dup (0)
+d_a0_w_0577f:
+        db      2 dup (0)
 d_a0_w_05781:
         db      2 dup (0)
 d_a0_w_05767:
@@ -2365,7 +2595,9 @@ d_a1_w_flashfs_data_addr_hi:
 d_a1_w_088ba:
         db      2 dup (0)
 d_a1_w_088bc:
-        db      7200 dup (0)
+        db      1742 dup (0)
+d_a0_b_08f8a:
+        db      5458 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
 d_a1_w_flashfs_remain_lo:
@@ -2434,7 +2666,9 @@ d_a1_w_0a627:
 
 d_a1_w_0a629:
         db      "                                        "
-        db      00h, 00h, 00h, 00h, 00h, 60h, 00h, 66h
+        db      00h
+d_a1_tbl_0a66e:
+        db      00h, 00h, 00h, 00h, 60h, 00h, 66h
         db      00h, 6ch, 00h, 72h, 00h, 78h, 00h, 7eh, 00h, 12h, 00h, 18h, 00h, 1eh, 00h, 24h
         db      00h, 2ah, 00h, 30h, 00h, 36h, 00h, 3ch, 00h, 42h, 00h, 48h, 00h, 54h, 00h, 5ah ; .*.0.6.<.B.H.T.Z
         db      00h, 0ch, 00h, 84h, 00h, 8ah, 00h, 90h, 00h, 96h, 00h, 9ch, 00h, 4eh, 00h, 0a2h
@@ -2512,7 +2746,9 @@ d_a1_w_flashfs_data_addr_hi:
 d_a1_w_088ba:
         db      2 dup (0)
 d_a1_w_088bc:
-        db      7200 dup (0)
+        db      1742 dup (0)
+d_a0_b_08f8a:
+        db      5458 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
 d_a1_w_flashfs_remain_lo:
@@ -2605,7 +2841,9 @@ d_a1_w_flashfs_data_addr_hi:
 d_a1_w_088ba:
         db      2 dup (0)
 d_a1_w_088bc:
-        db      7200 dup (0)
+        db      1770 dup (0)
+d_a0_b_08f8a:
+        db      5430 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
 d_a1_w_flashfs_remain_lo:
@@ -2698,7 +2936,9 @@ d_a1_w_flashfs_data_addr_hi:
 d_a1_w_088ba:
         db      2 dup (0)
 d_a1_w_088bc:
-        db      7200 dup (0)
+        db      1774 dup (0)
+d_a0_b_08f8a:
+        db      5426 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
 d_a1_w_flashfs_remain_lo:
@@ -2851,7 +3091,9 @@ d_a1_w_0a627:
 
 d_a1_w_0a629:
         db      "                                        "
-        db      00h, 00h, 00h, 00h, 00h, 60h, 00h, 66h
+        db      00h
+d_a1_tbl_0a66e:
+        db      00h, 00h, 00h, 00h, 60h, 00h, 66h
         db      00h, 6ch, 00h, 72h, 00h, 78h, 00h, 7eh, 00h, 12h, 00h, 18h, 00h, 1eh, 00h, 24h
         db      00h, 2ah, 00h, 30h, 00h, 36h, 00h, 3ch, 00h, 42h, 00h, 48h, 00h, 54h, 00h, 5ah ; .*.0.6.<.B.H.T.Z
         db      00h, 0ch, 00h, 84h, 00h, 8ah, 00h, 90h, 00h, 96h, 00h, 9ch, 00h, 4eh, 00h, 0a2h
@@ -2936,7 +3178,9 @@ d_a1_w_flashfs_data_addr_hi:
 d_a1_w_088ba:
         db      2 dup (0)
 d_a1_w_088bc:
-        db      7200 dup (0)
+        db      1806 dup (0)
+d_a0_b_08f8a:
+        db      5394 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
 d_a1_w_flashfs_remain_lo:
@@ -3005,7 +3249,9 @@ d_a1_w_0a627:
 
 d_a1_w_0a629:
         db      "                                        "
-        db      00h, 00h, 00h, 00h, 00h, 60h, 00h, 66h
+        db      00h
+d_a1_tbl_0a62e:
+        db      00h, 00h, 00h, 00h, 60h, 00h, 66h
         db      00h, 6ch, 00h, 72h, 00h, 78h, 00h, 7eh, 00h, 12h, 00h, 18h, 00h, 1eh, 00h, 24h
         db      00h, 2ah, 00h, 30h, 00h, 36h, 00h, 3ch, 00h, 42h, 00h, 48h, 00h, 54h, 00h, 5ah ; .*.0.6.<.B.H.T.Z
         db      00h, 0ch, 00h, 84h, 00h, 8ah, 00h, 90h, 00h, 96h, 00h, 9ch, 00h, 4eh, 00h, 0a2h

@@ -32,6 +32,7 @@ isr_55                          equ     L_00FCC+20
 isr_70                          equ     jmp_word_00c2c+7
 
 ; the interrupt vector table, copied to 0000:0000 with the image
+ivt:
         dw      isr_div_error, CS0_SEG               ; 00h
         dw      isr_int01_int03, CS1_SEG             ; 01h
         dw      isr_iret, CS0_SEG                    ; 02h

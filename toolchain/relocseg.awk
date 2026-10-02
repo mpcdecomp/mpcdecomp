@@ -14,23 +14,26 @@
 
 function hex(t,   i, n) { n = 0; t = tolower(t); for (i = 1; i <= length(t); i++) n = n * 16 + index("0123456789abcdef", substr(t, i, 1)) - 1; return n }
 
-/^\(1\).* include "(header\.asm|text1\.asm|text2\.asm|data\.asm)"/ {
+# SYS parts are text1/text2/data; the EXE's are cs0/cs1/data.
+/^\(1\).* include "(header\.asm|text1\.asm|text2\.asm|cs0\.asm|cs1\.asm|data\.asm)"/ {
     part = $0; sub(/.*include "/, "", part); sub(/\..*/, "", part); next
 }
-/^\([0-9]+\) *[0-9]+\/ *[0-9A-F]+ : =[0-9A-F]+H? +(TEXT2_SEG|DATA_SEG) +equ/ {
+/^\([0-9]+\) *[0-9]+\/ *[0-9A-F]+ : =[0-9A-F]+H? +(TEXT2_SEG|CS1_SEG|DATA_SEG) +equ/ {
     v = $0; sub(/.* : =/, "", v); sub(/H? .*/, "", v); n = $0; sub(/.* : =[0-9A-F]+H? +/, "", n); sub(/ .*/, "", n)
-    base[n == "TEXT2_SEG" ? "text2" : "data"] = hex(v) * 16
+    base[n == "TEXT2_SEG" ? "text2" : n == "CS1_SEG" ? "cs1" : "data"] = hex(v) * 16
 }
+# Only RELOC's own dw: the EXE header's `dw exe_entry_point, CS0_SEG` is not an entry.
+/\(MACRO\).* RELOC[ \t]/ { inrel = 1; next }
 / : [0-9A-F][0-9A-F] / {
     a = $0; sub(/ : .*/, "", a); sub(/.*[\/ ]/, "", a)
     b = substr($0, index($0, " : ") + 3); s = b
     sub(/[ \t]*[^0-9A-F ].*/, "", b); nb = split(b, by, / /)
     if (substr($0, 1, 1) == "(") { sub(/^([0-9A-F][0-9A-F] )+ */, "", s); src = s }
-    if (part == "header" && src ~ /^dw[ \t].*_SEG/ && nb == 4) {
-        nr++; R[nr] = hex(by[4] by[3]) * 16 + hex(by[2] by[1])
+    if (part == "header" && inrel && src ~ /^dw[ \t].*_SEG/ && nb == 4) {
+        nr++; R[nr] = hex(by[4] by[3]) * 16 + hex(by[2] by[1]); inrel = 0
         next
     }
-    if (part == "text1" || part == "text2" || part == "data") {
+    if (part != "" && part != "header") {
         l = hex(a) + base[part]
         for (k = 1; k <= nb; k++) { L[l + k - 1] = src; F[l + k - 1] = FNR }
     }

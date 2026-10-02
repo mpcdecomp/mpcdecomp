@@ -7595,9 +7595,9 @@ far_b3e07:
         push    ax
         push    ds
         if      FW_VERSION >= 311
-        push    word 1e39h
+        push    word lbl_dash
         else
-        push    word 1db7h
+        push    word lbl_dash
         endif
         callf   SEG_B347:far_b3471
         add     sp, 0ah

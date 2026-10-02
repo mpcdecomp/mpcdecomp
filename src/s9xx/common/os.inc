@@ -2580,11 +2580,7 @@ br_2bde:
         ret
 
 fn_2be9:
-        if      FW_VERSION = 210
         mov     byte ptr [B_2C1F+1], al
-        else
-        mov     byte ptr [B_2C1F+1], al
-        endif
         mov     ax, word ptr [MIDI_RX_HEAD]
         mov     word ptr [MIDI_RX_TAIL], ax
         endif
@@ -12176,8 +12172,6 @@ br_30bb_s950:
         jae     loop_3092_s950
         mov     ax, word ptr [W_95EA]
         mov     word ptr [B_02D2+4], ax
-        elseif  (MODEL = 900) && (FW_VERSION < 210)
-        mov     ax, word ptr [si+TBL_8EFE]
         else
         mov     ax, word ptr [si+TBL_8EFE]
         endif
@@ -12374,11 +12368,9 @@ FLD_DISK_FORMAT:
         FIELD   SCR_DISK_FORMAT, 0, 68, 69, FT_KEYS, 0, format_disk, 0, KEYS_CLEAR_MEMORY_AND_LOAD, 1
         else
         FIELD   SCR_LOAD_DRUM_SETTINGS, 5, 32, 33, FT_KEYS, 0, load_drum_settings, 0, KEYS_LOAD_DRUM_SETTINGS, 1
-        if      FW_VERSION >= 400
         db      0a6h, 05h, 04h, 37h, 38h, 60h, 00h, 44h, 0fh, 00h, 00h, 3fh, 0fh, 02h, 00h, 2bh
 B_0F40:
         db      2dh, 01h, 00h, 00h, 0d1h, 0e9h, 88h, 0eh, 41h, 0fh, 0c3h
-        endif
 FLD_SAVE_DRUM_SETTINGS:
         FIELD   SCR_LOAD_DRUM_SETTINGS, 45, 72, 73, FT_KEYS, 0, save_drum_settings, 0, KEYS_LOAD_DRUM_SETTINGS, 1
 FLD_PGM:
@@ -14314,8 +14306,6 @@ L_3d34_s950:
         add     di, di
         jmp     br_3d8b_s950
         db      90h
-        elseif  (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [di+TBL_8EFE], dx
         else
         mov     word ptr [di+TBL_8EFE], dx
         endif
@@ -14380,8 +14370,6 @@ br_3d8b_s950:
 
 L_3d9b_s950:
         push    dx
-        elseif  (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [di+TBL_8EFE], dx
         else
         mov     word ptr [di+TBL_8EFE], dx
         endif

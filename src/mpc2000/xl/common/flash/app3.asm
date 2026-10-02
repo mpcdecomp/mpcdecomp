@@ -971,7 +971,7 @@ APP3_HEAD:                              ; APP3_SEG:0008h
         if      FW_VERSION >= 120
         call    fn_27F33
         call    L_279FD
-        db      0e8h, 80h, 0d8h
+        call    C0_BASE+fn_34052-SEGBASE
         call    L_267E7
         db      0b8h, 00h, 00h
         else
@@ -4416,8 +4416,9 @@ L_2820B:
         endif
 L_289DB:
         cmp     ax, 270fh
-        db      72h, 03h
+        jb      L_289E3
         mov     ax, 270fh
+L_289E3:
         call    fn_28792
         mov     word ptr es:[si], ax
         push    cs
@@ -4468,17 +4469,21 @@ intcb_28A53:
         call    L_28A12
         db      0cbh
 far_28A99:
-        db      0e8h
-        db      0b5h, 0fbh, 73h, 01h, 0cbh, 0eh
+        call    fn_28651
+        db      73h, 01h, 0cbh, 0eh
         call    L_28A12
         db      0cbh
 far_28AA4:
         call    fn_2866F
-        db      0eh, 0e8h, 67h
-        db      0ffh, 0e8h, 0c7h, 0fch, 0cbh
+        db      0eh
+        call    L_28A12
+        call    fn_28775
+        db      0cbh
 L_282DF:
-        db      0cdh, 0a3h, 0a1h, 0dah, 11h, 03h, 06h, 0dch, 11h, 75h, 03h
+        db      0cdh, 0a3h, 0a1h, 0dah, 11h, 03h, 06h, 0dch, 11h
+        jne     L_28ABD
         call    L_27EA1
+L_28ABD:
         call    fn_28792
         db      26h, 81h, 3eh, 14h, 00h, 0ffh, 00h, 75h, 01h, 0cbh
         db      26h, 8bh, 44h, 0f4h, 26h, 8bh, 54h, 0f6h, 05h, 01h, 00h, 83h, 0d2h, 00h, 26h, 2bh
@@ -4958,8 +4963,10 @@ L_28E62:
         db      58h
         db      0c1h, 0e0h, 02h, 0beh, 00h, 15h, 03h, 0f0h, 8eh, 06h, 10h, 0fh, 26h, 8bh, 2eh, 1ch
         db      00h, 26h, 8ah, 3eh, 1eh, 00h, 26h, 8bh, 44h, 04h, 26h, 2bh, 04h, 2bh, 06h, 0fah
-        db      11h, 73h, 03h
+        db      11h
+        jae     L_28E90
         jmp     NEAR L_28FB6
+L_28E90:
         db      0a3h, 0f8h, 11h, 8ah, 1eh, 0fch, 11h, 26h, 88h, 5ch
         db      03h, 26h, 8bh, 04h, 26h, 8ah, 5ch, 02h, 03h, 06h, 0fah, 11h, 80h, 0d3h, 00h, 50h
         db      53h, 26h, 8bh, 44h, 04h, 26h, 8ah, 5ch, 06h, 0a3h, 0feh, 11h, 89h, 1eh, 00h, 12h
@@ -4968,12 +4975,14 @@ L_28E62:
         db      3ah, 0d7h, 75h, 0dch, 26h, 0a3h, 1ch, 00h, 0b7h, 00h, 26h, 89h, 1eh, 1eh, 00h, 5ah
         db      58h, 0b6h, 00h, 0b3h, 0ah, 0cdh, 87h, 0cdh, 83h, 26h, 80h, 7ch, 04h, 0ffh, 74h, 41h
         db      26h, 8bh, 04h, 26h, 8ah, 54h, 02h, 80h, 0e2h, 0fh, 2bh, 06h, 0feh, 11h, 1ah, 16h
-        db      00h, 12h, 73h, 04h, 0cdh, 81h, 0ebh, 0e1h, 26h, 80h, 7ch, 04h, 0ffh, 74h, 22h, 26h
+        db      00h, 12h, 73h, 04h, 0cdh, 81h, 0ebh, 0e1h
+L_28F12:
+        db      26h, 80h, 7ch, 04h, 0ffh, 74h, 22h, 26h
         db      8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh, 81h, 0e3h, 0fh, 0f0h, 2bh, 06h, 0f8h, 11h
         db      80h, 0dbh, 00h, 0ah, 0dfh, 26h, 89h, 04h, 26h, 88h, 5ch, 02h
         call    fn_281FE
-        db      0ebh
-        db      0d7h, 0cdh, 85h, 8eh, 06h, 10h, 0fh, 0beh, 00h, 07h, 26h, 8bh, 0eh, 14h, 00h, 83h
+        jmp     SHORT L_28F12
+        db      0cdh, 85h, 8eh, 06h, 10h, 0fh, 0beh, 00h, 07h, 26h, 8bh, 0eh, 14h, 00h, 83h
         db      0f9h, 01h, 75h, 01h, 0c3h, 8bh, 0d8h, 8bh, 0fah, 26h, 2bh, 5ch, 02h, 26h, 1bh, 7ch
         db      04h, 72h, 0ah, 0bh, 0dfh, 74h, 06h, 83h, 0c6h, 0eh, 0e2h, 0e9h, 0c3h, 26h, 8bh, 44h
         db      02h, 26h, 8bh, 54h, 04h, 2bh, 06h, 0feh, 11h, 1ah, 16h, 00h, 12h, 73h, 20h, 06h
@@ -4985,11 +4994,17 @@ L_28FB6:
         db      0f7h, 0d8h, 0a3h, 0f8h
         db      11h, 60h, 06h, 0a1h, 0eeh, 11h, 40h
         call    fn_30425
-        db      0cdh, 83h, 26h, 80h, 7ch, 04h
-        db      0ffh, 74h, 22h, 26h, 8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh, 81h, 0e3h, 0fh, 0f0h
+        db      0cdh, 83h
+L_28FC6:
+        db      26h, 80h, 7ch, 04h
+        db      0ffh
+        je      L_28FEF
+        db      26h, 8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh, 81h, 0e3h, 0fh, 0f0h
         db      03h, 06h, 0f8h, 11h, 80h, 0d3h, 00h, 0ah, 0dfh, 26h, 89h, 04h, 26h, 88h, 5ch, 02h
         call    fn_281FE
-        db      0ebh, 0d7h, 07h, 61h, 0a0h, 0fch, 11h, 26h, 88h, 44h, 03h, 83h, 0c6h
+        jmp     SHORT L_28FC6
+L_28FEF:
+        db      07h, 61h, 0a0h, 0fch, 11h, 26h, 88h, 44h, 03h, 83h, 0c6h
         db      04h, 26h, 8bh, 04h, 26h, 8ah, 5ch, 02h, 8bh, 0c8h, 8ah, 0d3h, 03h, 06h, 0f8h, 11h
         db      80h, 0d3h, 00h, 26h, 89h, 04h, 26h, 88h, 5ch, 02h, 3bh, 0cdh, 75h, 0e0h, 3ah, 0d7h
         db      75h, 0dch, 26h, 0a3h, 1ch, 00h, 0b7h, 00h, 26h, 89h, 1eh, 1eh, 00h, 0cdh, 85h, 8eh
@@ -5455,8 +5470,10 @@ far_290D9:
         db      0cbh
 L_291EC:
         call    fn_2B3C5
-        db      0a1h, 0ach, 12h, 8bh, 1eh, 0aeh, 12h, 3bh, 0c3h, 75h, 03h
+        db      0a1h, 0ach, 12h, 8bh, 1eh, 0aeh, 12h, 3bh, 0c3h
+        jne     L_291FD
         jmp     NEAR L_292FD
+L_291FD:
         db      73h, 02h, 0ebh, 77h, 8eh, 06h, 10h, 0fh, 8bh, 36h, 0aeh, 12h, 46h
         db      26h, 89h, 36h, 1ah, 00h, 0c1h, 0e6h, 02h, 81h, 0c6h, 00h, 15h, 26h, 8bh, 04h, 26h
         db      8bh, 54h, 02h, 83h, 0e2h, 0fh, 26h, 0a3h, 1ch, 00h, 26h, 89h, 16h, 1eh, 00h, 50h
@@ -5746,11 +5763,15 @@ far_295BC                       equ     $+2
         call    L_2982D
         db      0a1h, 0b0h, 12h
         call    fn_30425
-        db      0cdh, 83h, 26h, 80h, 7ch, 04h, 0ffh, 74h, 23h, 26h
+        db      0cdh, 83h, 26h, 80h, 7ch, 04h, 0ffh
+        je      L_296CC
+        db      26h
         db      8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh, 81h, 0e3h, 0fh, 0f0h, 03h, 06h, 0b8h, 12h
         db      12h, 1eh, 0bah, 12h, 0ah, 0dfh, 26h, 89h, 04h, 26h, 88h, 5ch, 02h
         call    fn_281FE
-        db      0ebh, 0d6h, 8eh, 06h, 10h, 0fh, 26h, 0c7h, 06h, 30h, 00h, 00h, 00h, 26h, 0c7h, 06h
+        db      0ebh, 0d6h
+L_296CC:
+        db      8eh, 06h, 10h, 0fh, 26h, 0c7h, 06h, 30h, 00h, 00h, 00h, 26h, 0c7h, 06h
         db      32h, 00h, 0ffh, 0ffh, 0b3h, 15h, 0cdh, 87h, 0cdh, 0d6h, 0a1h, 1ah, 07h, 0cdh, 0d9h
 L_296E9:
         db      0eh
@@ -5773,13 +5794,22 @@ far_296F1                       equ     $+7
         db      19h, 16h, 1eh, 00h, 0a1h, 0b4h, 12h, 2bh, 06h, 0b2h, 12h, 40h, 26h, 29h, 06h, 1ah
         db      00h, 0e8h, 35h, 01h, 0a1h, 0b2h, 12h
         call    fn_30425
-        db      0cdh, 83h, 26h, 80h, 7ch, 04h
-        db      0ffh, 74h, 42h, 26h, 8bh, 04h, 26h, 8ah, 54h, 02h, 80h, 0e2h, 0fh, 2bh, 06h, 0c2h
-        db      12h, 1ah, 16h, 0c4h, 12h, 73h, 04h, 0cdh, 81h, 0ebh, 0e1h, 26h, 80h, 7ch, 04h, 0ffh
+        db      0cdh, 83h
+L_297B6:
+        db      26h, 80h, 7ch, 04h
+        db      0ffh
+        je      L_297FF
+        db      26h, 8bh, 04h, 26h, 8ah, 54h, 02h, 80h, 0e2h, 0fh, 2bh, 06h, 0c2h
+        db      12h, 1ah, 16h, 0c4h, 12h, 73h, 04h, 0cdh, 81h
+        jmp     SHORT L_297B6
+L_297D5:
+        db      26h, 80h, 7ch, 04h, 0ffh
         db      74h, 23h, 26h, 8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh, 81h, 0e3h, 0fh, 0f0h, 2bh
         db      06h, 0b8h, 12h, 1ah, 1eh, 0bah, 12h, 0ah, 0dfh, 26h, 89h, 04h, 26h, 88h, 5ch, 02h
         call    fn_281FE
-        db      0ebh, 0d6h, 8eh, 06h, 10h, 0fh, 26h, 0c7h, 06h, 30h, 00h, 00h, 00h
+        jmp     SHORT L_297D5
+L_297FF:
+        db      8eh, 06h, 10h, 0fh, 26h, 0c7h, 06h, 30h, 00h, 00h, 00h
         db      26h, 0c7h, 06h, 32h, 00h, 0ffh, 0ffh, 0b3h, 15h, 0cdh, 87h, 0cdh, 0d6h, 0a1h, 1ah, 07h
         db      0cdh, 0d9h, 0eh
         call    goto_main_screen
@@ -5788,8 +5818,9 @@ far_296F1                       equ     $+7
 L_29824:
         db      0eh
         call    L_272DD
-        db      0eh, 0e8h
-        db      0cfh, 0d8h, 0cbh
+        db      0eh
+        call    far_270FB
+        db      0cbh
 L_2982D:
         db      8eh, 06h, 10h, 0fh, 26h, 8bh, 0eh, 14h, 00h, 0b8h, 0eh, 00h, 0f7h
         db      0e1h, 05h, 00h, 07h, 8bh, 0f0h, 26h, 0a1h, 1ch, 00h, 26h, 8bh, 16h, 1eh, 00h, 26h
@@ -5826,10 +5857,14 @@ L_29996:
         db      83h, 0c6h, 0eh, 49h, 75h, 0f2h, 0c3h
 L_299D1:
         call    fn_280BD
-        db      74h, 01h, 0cbh
+        je      L_299D7
+        db      0cbh
+L_299D7:
         call    L_29C23
         db      0cdh, 0a4h, 0cdh, 57h, 2bh, 0c0h, 0a3h, 4dh, 15h, 0a2h, 4fh, 15h, 0a2h, 50h, 15h, 0a2h
-        db      53h, 15h, 0a2h, 54h, 15h, 0e8h, 0d3h, 19h, 0ffh, 1eh, 0cbh, 12h, 0cbh
+        db      53h, 15h, 0a2h, 54h, 15h
+        call    fn_2B3C5
+        db      0ffh, 1eh, 0cbh, 12h, 0cbh
         else
         db      0ffh, 16h, 0aah, 12h, 0cbh, 0b1h, 72h, 0b5h, 0bh, 0b0h, 13h, 0cdh, 0b0h, 0c3h
         db      0b1h, 72h, 0b5h, 21h, 0b0h, 13h, 0cdh, 0b0h, 0c3h, 0b1h, 0cch, 0b5h, 0bh, 0b0h, 13h, 0cdh
@@ -7693,11 +7728,13 @@ L_2A38F:
         retf
         DISP_TEXT       4ch, 02h, "      "
         db      80h, 3eh, 70h, 07h
-        db      03h, 74h, 16h
+        db      03h
+        je      L_2A478
         DISP_TEXT       4ch, 02h, "(In:2)"
         mov     al, byte ptr [775h]
         add     al, 31h
         DISP_CHAR       64h, 02h
+L_2A478:
         db      8ch, 0dah
         DISP_TEXT_IDX   22h, 0ch, 00770h, 013aah
         db      0a0h, 0b2h, 07h
@@ -8816,6 +8853,7 @@ tgt_2AC3E:
         call    L_2A5E9
         mov     byte ptr [A3_B_0157B], 0
         ret
+L_2AC51:
         mov     word ptr [A3_W_01567], di
         call    fn_2AC68
         mov     word ptr [A3_W_01561], field_cb_none-APP3_CSBASE
@@ -8979,14 +9017,15 @@ L_2A834:
         KEY_DOWN        17h, EP_L_2A4C4_OFF, EP_L_2A4C4_SEG
         KEY_DOWN        18h, EP_L_2A5E9_OFF, EP_L_2A5E9_SEG
         cmp     byte ptr [A3_B_0157B], 1
-        db      74h, 1ah
+        je      L_2AE61
         mov     bx, 90h
         mov     dx, cs
         mov     si, word ptr [A3_W_01567]
         int     0a6h
         cmp     byte ptr [A3_B_0157B], 2
-        db      74h, 08h
+        je      L_2AE61
         KEY_DOWN        18h, 0000h, 0000h
+L_2AE61:
         db      0a0h, 50h, 15h
         mov     ah, 0
         mov     bl, 0
@@ -9696,11 +9735,15 @@ br_2B49D:
         DISP_NUMR       9ch, 0bh, 03h
         DISP_TEXT       9ch, 21h, "END"
         db      07h, 26h, 0a1h, 1ah, 00h, 26h, 8bh, 1eh, 32h
-        db      00h, 83h, 0fbh, 0ffh, 74h, 18h, 53h, 06h
+        db      00h, 83h, 0fbh, 0ffh
+        je      L_2B58C
+        db      53h, 06h
         DISP_TEXT       9ch, 21h, "   "
         db      07h, 58h, 40h, 50h, 06h
         DISP_NUMR       9ch, 21h, 03h
-        db      07h, 58h, 26h, 2bh
+        db      07h, 58h
+L_2B58C:
+        db      26h, 2bh
         db      06h, 30h, 00h
         DISP_NUMR       9ch, 2ah, 03h
         db      0ffh, 16h, 80h, 15h, 0cdh, 0ach, 0cbh
@@ -9733,7 +9776,11 @@ far_2B5B9:
         db      0cbh
 far_2B662:
         db      0c7h, 06h, 80h, 15h, 00h, 4eh, 8eh, 06h, 10h, 0fh, 26h, 0a1h
-        db      32h, 00h, 3dh, 0ffh, 0ffh, 75h, 05h, 26h, 0a1h, 1ah, 00h, 48h, 26h, 2bh, 06h, 30h ; 2.=..u.&...H&+.0
+        db      32h, 00h, 3dh, 0ffh, 0ffh
+        jne     L_2B67A
+        db      26h, 0a1h, 1ah, 00h, 48h
+L_2B67A:
+        db      26h, 2bh, 06h, 30h
         db      00h, 0b3h, 01h, 0b7h, 00h, 0bah, 0e6h, 03h, 0bfh, 0eeh, 4eh, 0cdh, 7fh
         KEY_CURSOR      0000h, 0000h, 0000h, 0000h, EP_FAR_2B60A_OFF, APP3_SEG, 0000h, 0000h
         db      0cbh
@@ -11823,33 +11870,43 @@ cb_2C9B6:
 L_2C9BF:
         if      FW_VERSION >= 114
         call    L_2C80E
-        db      80h, 3eh, 37h, 07h, 00h, 75h, 2ah
+        db      80h, 3eh, 37h, 07h, 00h
+        jne     L_2C9F3
         mov     word ptr [17cah], cb_2C989-APP3_CSBASE
-        db      8ch, 0d9h, 0beh, 33h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 10h, 00h, 0bfh, 0dch, 18h, 0cdh
+        db      8ch, 0d9h, 0beh, 33h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 10h, 00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh
         db      7eh
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+FAR_2C9F8-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+FAR_2CA25-APP3_SEG*16), APP3_SEG
 far_2C9F8                       equ     $+6
-        db      0cbh, 0eh
+        db      0cbh
+L_2C9F3:
+        db      0eh
         call    far_2CA25
         db      0cbh
         call    L_2C80E
         mov     word ptr [17cah], tgt_2C992-APP3_CSBASE
-        db      8ch, 0d9h, 0beh, 0c1h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0dch
-        db      18h, 0cdh, 7eh
+        db      8ch, 0d9h, 0beh, 0c1h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh, 7eh
         KEY_CURSOR      EP_L_2C9BF_OFF, EP_L_2C9BF_SEG, 0000h, 0000h, 0000h, 0000h, (APP3_BASE+FAR_2CA25-APP3_SEG*16), APP3_SEG
 far_2CA25                       equ     $+1
         db      0cbh
         call    L_2C80E
         mov     word ptr [17cah], cb_2C99B-APP3_CSBASE
         db      8ch
-        db      0d9h, 0beh, 34h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh
+        db      0d9h, 0beh, 34h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh, 7dh
         KEY_CURSOR      0000h, 0000h, 0000h, 0000h, (APP3_BASE+FAR_2C9F8-APP3_SEG*16), APP3_SEG, (APP3_BASE+FAR_2CA52-APP3_SEG*16), APP3_SEG
 far_2CA52                       equ     $+1
         db      0cbh
         call    L_2C80E
         mov     word ptr [17cah], cb_2C9A4-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 35h
-        db      07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh
+        db      07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh, 7dh
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2CAAC-APP3_SEG*16), APP3_SEG, (APP3_BASE+FAR_2CA25-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2CA7F-APP3_SEG*16), APP3_SEG
         else
         call    br_2C7F9
@@ -11905,7 +11962,9 @@ L_2CA7F:
         endif
         mov     si, 736h
         mov     bl, 0
-        db      0b7h, 00h, 0bah, 85h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh
+        db      0b7h, 00h, 0bah, 85h, 00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh, 7dh
         if      FW_VERSION >= 114
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2CAAC-APP3_SEG*16), APP3_SEG, (APP3_BASE+FAR_2CA52-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         db      0cbh
@@ -12625,6 +12684,7 @@ L_2CF8D:
         db      74h
 tgt_2CF91:
         db      01h, 0cbh
+L_2CF93:
         int     57h
         call    fn_2B3C5
         callf   [1848h]
@@ -15605,7 +15665,10 @@ L_2DC22:
         db      0c4h, 3eh, 20h, 19h, 26h, 8ah, 5dh, 07h, 83h, 0e3h, 7fh
         add     ax, bx
         cmp     ax, 64h
-        db      72h, 03h, 0b8h, 64h, 00h, 2bh, 0c1h
+        jb      L_2EA65
+        db      0b8h, 64h, 00h
+L_2EA65:
+        db      2bh, 0c1h
         jae     L_2EA6C
         db      0b8h, 00h, 00h
         else
@@ -16045,9 +16108,10 @@ L_2EE03:
         if      FW_VERSION >= 114
         mov     ah, 0
         cmp     byte ptr [1916h], 0
-        db      75h, 0bh
+        jne     L_2EE17
         mov     byte ptr [1916h], 1
         mov     word ptr [A3_W_01918], 0
+L_2EE17:
         db      8bh, 0c8h, 0a1h, 18h, 19h, 0bbh, 0ah, 00h, 0f7h, 0e3h, 0bh, 0d2h
         if      FW_VERSION >= 120
         db      74h, 03h, 0b8h, 00h, 00h, 03h, 0c1h, 0bbh, 00h, 20h
@@ -17452,7 +17516,9 @@ L_2F2BA:
 L_2FBB2:
         if      FW_VERSION >= 120
         db      0c7h, 06h, 64h, 19h, 00h, 00h, 0cdh
-        db      83h, 0e8h, 0d1h
+        db      83h
+L_2FBBA:
+        db      0e8h, 0d1h
         add     byte ptr [bp+si+2eh], dh
         else
         mov     word ptr [A3_W_01964], 0
@@ -17475,7 +17541,11 @@ L_2FBB2:
 br_2FBE4:
         call    fn_2FCD4
         inc     word ptr [A3_W_01964]
+        if      FW_VERSION >= 120
+        jmp     SHORT L_2FBBA
+        else
         db      0ebh, 0cdh
+        endif
 tgt_2FBED:
         push    cs
         call    far_2F681
@@ -19557,10 +19627,14 @@ L_302E7:
         DISP_BMP        6eh, 0ch, 18h
         DISP_TEXT       06h, 02h, "Assign note:OFF                    "
         if      FW_VERSION >= 120
-        db      0e8h, 05h, 00h, 0ffh, 16h, 94h, 2ah, 0cbh
+        call    L_311F4
+        db      0ffh, 16h, 94h, 2ah, 0cbh
+L_311F4:
         call    fn_31396
         db      26h, 8ah, 44h, 13h, 0a2h
-        db      99h, 2ah, 2ah, 0e4h, 3ch, 00h, 74h, 4dh, 8ah, 26h, 96h, 2ah, 50h
+        db      99h, 2ah, 2ah, 0e4h, 3ch, 00h
+        je      L_31251
+        db      8ah, 26h, 96h, 2ah, 50h
         else
         db      0e8h, 05h, 00h, 0ffh, 16h, 84h, 2ah, 0cbh, 0e8h, 9fh, 01h, 26h, 8ah, 44h, 13h, 0a2h
         db      89h, 2ah, 2ah, 0e4h, 3ch, 00h, 74h, 4dh, 8ah, 26h, 86h, 2ah, 50h
@@ -19572,7 +19646,9 @@ L_302E7:
         db      0e0h, 02h, 03h, 0f0h, 26h, 8bh, 04h, 26h, 8bh, 54h, 02h, 8bh, 0f0h, 0bh, 0c2h, 74h
         db      0dh, 83h, 0c6h, 12h, 0b1h, 78h, 0b5h, 02h, 0b4h, 10h, 0b3h, 05h, 0cdh, 90h, 0e8h, 32h
         if      FW_VERSION >= 120
-        db      01h, 26h, 8ah, 44h, 16h, 24h, 03h, 0a2h, 97h, 2ah, 8ch, 0dah
+        db      01h, 26h, 8ah, 44h, 16h
+L_31251:
+        db      24h, 03h, 0a2h, 97h, 2ah, 8ch, 0dah
         else
         db      01h, 26h, 8ah, 44h, 16h, 24h, 03h, 0a2h, 87h, 2ah, 8ch, 0dah
         endif
@@ -19612,17 +19688,27 @@ tgt_31297:
         mov     al, ah
         db      98h
         or      ah, ah
-        db      78h, 0fh
+        js      L_312AE
         DISP_NUM        0cch, 0eh, 03h
         DISP_TEXT       0c6h, 0eh, "+"
-        db      0ebh, 0fh, 0f7h, 0d8h
+        if      FW_VERSION >= 120
+        jmp     SHORT L_312BD
+        else
+        db      0ebh, 0fh
+        endif
+L_312AE:
+        db      0f7h, 0d8h
         DISP_NUM        0cch, 0eh, 03h
         DISP_TEXT       0c6h, 0eh, "-"
         if      FW_VERSION >= 114
-        db      58h, 98h, 0ah, 0e4h, 78h, 0eh
+L_312BD:
+        db      58h, 98h, 0ah, 0e4h
+        js      L_312D1
         DISP_NUM        0cch, 18h, 03h
         DISP_TEXT       0c6h, 18h, "+"
-        db      0c3h, 0f7h, 0d8h
+        db      0c3h
+L_312D1:
+        db      0f7h, 0d8h
         DISP_NUM        0cch, 18h, 03h
         DISP_TEXT       0c6h, 18h, "-"
         db      0c3h
@@ -19631,18 +19717,23 @@ tgt_312E1:
         mov     al, ah
         db      98h
         or      ah, ah
-        db      78h, 0fh
+        js      L_312F8
         DISP_NUM        0cch, 0eh, 03h
         DISP_TEXT       0c6h, 0eh, "+"
-        db      0ebh, 0fh, 0f7h, 0d8h
+        jmp     SHORT L_31307
+L_312F8:
+        db      0f7h, 0d8h
         DISP_NUM        0cch, 0eh, 03h
         DISP_TEXT       0c6h, 0eh, "-"
         endif
-        db      58h, 98h, 0ah, 0e4h, 78h
-        db      0eh
+L_31307:
+        db      58h, 98h, 0ah, 0e4h
+        js      L_3131B
         DISP_NUM        0cch, 18h, 03h
         DISP_TEXT       0c6h, 18h, "+"
-        db      0c3h, 0f7h
+        db      0c3h
+L_3131B:
+        db      0f7h
         db      0d8h
         if      FW_VERSION < 114
         DISP_NUM        0cch, 18h, 03h
@@ -21926,11 +22017,18 @@ L_30ED8:
         KEY_DOWN        22h, L_31D61-APP3_CSBASE, APP3_SEG
         KEY_CURSOR      0000h, 0000h, 0000h, 0000h, 0000h, 0000h, L_31D6F-APP3_CSBASE, APP3_SEG
         if      FW_VERSION >= 120
-L_31D3B                         equ     $+1
-        db      0cbh, 02h, 06h, 0b8h, 2ah, 3ch, 23h, 73h, 02h, 0b0h
-        db      "#<br"
-        db      02h
-        db      0b0h, 62h, 2ah, 0c1h, 73h
+        db      0cbh
+L_31D3B:
+        db      02h, 06h, 0b8h, 2ah, 3ch, 23h
+        jae     L_31D45
+        db      0b0h
+        db      23h
+L_31D45:
+        db      3ch, 62h
+        jb      L_31D4B
+        db      0b0h, 62h
+L_31D4B:
+        db      2ah, 0c1h, 73h
         add     dh, byte ptr [bx+si+3c00h]
         and     si, word ptr [bp+di+2]
         else
@@ -22976,7 +23074,8 @@ L_3221B:
         DISP_TEXT       04h, 24h, " permanently!!            Bar:    -    "
         if      FW_VERSION >= 110
         if      FW_VERSION >= 120
-        db      0e8h, 0b5h, 5dh, 75h, 2bh
+        call    fn_280BD
+        jne     L_32335
         elseif  FW_VERSION >= 112
         db      0e8h, 0c3h, 5dh, 75h, 2bh
         else
@@ -22994,15 +23093,21 @@ L_3221B:
         DISP_SOFTKEY    02h, DISP_SK_PLAIN, "TRANS"
         DISP_SOFTKEY    03h, DISP_SK_FILL,   "2ndSEQ"
         DISP_SOFTKEY    06h, DISP_SK_BOX,    "FIX"
+L_32335:
         db      8ch, 0dah
         DISP_TEXT_IDX   6ah, 0dh, 0071ch, P_2AEE
         db      0cdh, 0ach, 0a1h, 1eh, 07h, 40h
         DISP_NUM0       0b8h, 24h, 03h
         db      0a1h, 20h, 07h, 40h, 3dh, 0e8h, 03h, 75h, 0bh
         DISP_TEXT       0dch, 24h, "000"
+        if      FW_VERSION >= 120
+        jmp     SHORT L_32367
+        else
         db      0ebh, 06h
+        endif
         DISP_NUM0       0dch, 24h, 03h
         if      FW_VERSION >= 112
+L_32367:
         db      0a0h, 1dh, 07h
         if      FW_VERSION >= 120
         db      3ch, 00h, 74h, 10h, 0b4h, 00h, 0b1h, 14h, 0b5h, 02h, 0feh, 0c8h, 0e8h, 0a9h, 5ch, 0ffh
@@ -23032,12 +23137,16 @@ L_323B3:
         db      06h, 0ech, 2ah, 0dfh, 0bbh
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+FAR_323E3-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+FAR_323E3-APP3_SEG*16), APP3_SEG
         db      8ch, 0d9h, 0beh, 1dh, 07h, 0b3h, 00h, 0b7h, 01h
-        db      0bah, 40h, 00h, 0bfh, 0dch, 18h, 0cdh, 7eh, 0cbh
+        db      0bah, 40h, 00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh, 7eh, 0cbh
 far_323E3:
         mov     word ptr [2ae8h], far_323E3-APP3_CSBASE
         db      0c7h
         db      06h, 0ech, 2ah, 0e8h, 0bbh, 8ch, 0d9h, 0beh, 1ch, 07h, 0b3h, 00h, 0b7h, 01h, 0bah, 18h
-        db      00h, 0bfh, 0dch, 18h, 0cdh, 7dh
+        db      00h
+        mov     di, field_cb_none-APP3_CSBASE
+        db      0cdh, 7dh
         KEY_DIGITS      0000h, 0000h
         KEY_CURSOR      (APP3_BASE+L_323B3-APP3_SEG*16), APP3_SEG, (APP3_BASE+far_32419-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_323B3-APP3_SEG*16), APP3_SEG, (APP3_BASE+far_32419-APP3_SEG*16), APP3_SEG
         db      0cbh
@@ -23046,7 +23155,11 @@ far_32419:
         db      0c7h, 06h, 0ech, 2ah, 0f1h, 0bbh
         KEY_CURSOR      (APP3_BASE+FAR_323E3-APP3_SEG*16), APP3_SEG, (APP3_BASE+far_32467-APP3_SEG*16), APP3_SEG, (APP3_BASE+FAR_323E3-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         db      8ch, 0d9h, 0beh
-        db      1eh, 07h, 0b3h, 01h, 0b7h, 01h, 0bah, 0e7h, 03h, 0bfh, 99h, 0bch, 0cdh, 7eh, 0cbh, 8eh
+        db      1eh, 07h, 0b3h, 01h, 0b7h, 01h, 0bah, 0e7h, 03h
+        mov     di, L_32449-APP3_CSBASE
+        db      0cdh, 7eh, 0cbh
+L_32449:
+        db      8eh
         db      06h, 10h, 0fh, 26h, 3bh, 06h, 1ah, 00h, 72h, 05h, 26h, 0a1h, 1ah, 00h, 48h, 0a3h
         db      1eh, 07h, 3bh, 06h, 20h, 07h, 73h, 01h, 0cbh, 0a3h, 20h, 07h, 0cbh
 far_32467:
@@ -23054,7 +23167,11 @@ far_32467:
         db      0c7h, 06h, 0ech, 2ah, 0fah, 0bbh
         KEY_CURSOR      (APP3_BASE+far_32419-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+FAR_323E3-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         db      8ch, 0d9h, 0beh, 20h, 07h
-        db      0b3h, 01h, 0b7h, 01h, 0bah, 0e8h, 03h, 0bfh, 0e7h, 0bch, 0cdh, 7eh, 0cbh, 8eh, 06h, 10h
+        db      0b3h, 01h, 0b7h, 01h, 0bah, 0e8h, 03h
+        mov     di, L_32497-APP3_CSBASE
+        db      0cdh, 7eh, 0cbh
+L_32497:
+        db      8eh, 06h, 10h
         db      0fh, 26h, 3bh, 06h, 1ah, 00h, 72h, 04h, 26h, 0a1h, 1ah, 00h, 0a3h, 20h, 07h, 3bh
         db      06h, 1eh, 07h, 72h, 01h, 0cbh, 0a3h, 1eh, 07h, 0cbh
 L_324B4:
@@ -23204,12 +23321,16 @@ L_324B4:
         db      0cbh
 far_32539:
         db      0a1h
-        db      1eh, 07h, 3bh, 06h, 20h, 07h, 75h, 03h
+        db      1eh, 07h, 3bh, 06h, 20h, 07h
+        jne     L_32545
         jmp     NEAR L_325DF
+L_32545:
         db      0cdh, 85h, 50h, 52h, 0a1h
         db      1eh, 07h, 2bh, 0d2h, 2bh, 0c9h, 0b3h, 0bh, 0cdh, 87h, 8eh, 06h, 10h, 0fh, 8bh, 36h
         db      20h, 07h, 0c1h, 0e6h, 02h, 81h, 0c6h, 00h, 15h, 26h, 03h, 04h, 26h, 8ah, 54h, 02h
-        db      0b6h, 00h, 0a3h, 6fh, 15h, 89h, 16h, 71h, 15h, 0cdh, 83h, 26h, 8ah, 44h, 04h, 3ch
+        db      0b6h, 00h, 0a3h, 6fh, 15h, 89h, 16h, 71h, 15h, 0cdh, 83h
+L_32575:
+        db      26h, 8ah, 44h, 04h, 3ch
         db      0ffh, 74h, 55h, 0a8h, 80h, 75h, 4ch, 26h, 8bh, 0ch, 26h, 8bh, 54h, 02h, 81h, 0e2h
         db      0fh, 3fh, 2bh, 0eh, 6fh, 15h, 1ah, 16h, 71h, 15h, 73h, 3ch, 80h, 3eh, 1dh, 07h
         db      00h, 74h, 0ah, 0feh, 0c6h, 3ah, 36h, 1dh, 07h, 75h, 28h, 0feh, 0ceh, 8ah, 0deh, 0b7h
@@ -23217,7 +23338,8 @@ far_32539:
         db      06h, 1ch, 07h, 2ch, 0ch, 73h, 02h, 04h, 0ch, 3ch, 7fh, 72h, 02h, 2ch, 0ch, 26h
         db      88h, 44h, 04h
         call    C0_BASE+L_381FE-SEGBASE
-        db      0ebh, 0a3h, 0c6h, 06h, 1ch, 07h, 0ch, 0cdh, 0d6h, 5ah
+        jmp     SHORT L_32575
+        db      0c6h, 06h, 1ch, 07h, 0ch, 0cdh, 0d6h, 5ah
         db      58h, 0b3h, 0ah, 0cdh, 87h
 L_325DF:
         db      9ah

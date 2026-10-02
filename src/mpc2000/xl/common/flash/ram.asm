@@ -1980,7 +1980,9 @@ FREE_1419D:
 d_a0_w_04312:
         db      2 dup (0)
 d_a0_w_04310:
-        db      10 dup (0)
+        db      6 dup (0)
+d_a0_w_0431a:
+        db      4 dup (0)
 d_p_433a:
         db      6 dup (0)
 d_a0_w_04324:
@@ -2367,7 +2369,9 @@ d_a0_w_0575d:
 d_a0_w_0575f:
         db      2 dup (0)
 d_a0_w_05761:
-        db      4 dup (0)
+        db      2 dup (0)
+d_a0_w_05763:
+        db      2 dup (0)
 d_a0_w_05781:
         db      2 dup (0)
 d_a0_w_05767:
@@ -3318,7 +3322,9 @@ d_a1_w_0a836:
 d_a1_w_0a838:
         db      2 dup (0)
 d_a1_w_0a83a:
-        db      14 dup (0)
+        db      9 dup (0)
+d_at_b_0a85f:
+        db      5 dup (0)
 d_a1_w_0a844:
         db      2 dup (0)
 d_p_a866:

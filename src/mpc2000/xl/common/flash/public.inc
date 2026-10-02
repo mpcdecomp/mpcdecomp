@@ -4938,3 +4938,80 @@ A0_TBL_00600                             equ 00600h
 A0_TBL_00640                             equ 00640h
 A0_TBL_00680                             equ 00680h
 A0_W_0001A_F800                          equ 0001ah
+
+; ---- DS frames outside the image: the code loads DS with the segment, the offsets are numbers.
+
+; DS=0F000h: the disk drivers' work area at F000:0000, above the OS image; offsets in it stay numbers.
+A1_B_000CA                               equ 000cah
+A1_B_000D6                               equ 000d6h
+A1_B_04500                               equ 04500h
+A1_B_04900                               equ 04900h
+A1_B_08000                               equ 08000h
+A1_B_08010                               equ 08010h
+A1_B_0A117                               equ 0a117h
+A1_B_0A118                               equ 0a118h
+A1_B_0C028                               equ 0c028h
+A1_B_0D800                               equ 0d800h
+A1_B_0E804                               equ 0e804h
+A1_B_0E866                               equ 0e866h
+A1_B_0E878                               equ 0e878h
+A1_TBL_00600                             equ 00600h
+A1_W_04030                               equ 04030h
+A1_W_04032                               equ 04032h
+A1_W_0800B                               equ 0800bh
+A1_W_0800E                               equ 0800eh
+A1_W_08011                               equ 08011h
+A1_W_08016                               equ 08016h
+A1_W_08020                               equ 08020h
+A1_W_08022                               equ 08022h
+A1_W_0809E                               equ 0809eh
+A1_W_080A0                               equ 080a0h
+A1_W_080A6                               equ 080a6h
+A1_W_080A8                               equ 080a8h
+A1_W_0A09A                               equ 0a09ah
+A1_W_0A09C                               equ 0a09ch
+A1_W_0C010                               equ 0c010h
+A1_W_0C020                               equ 0c020h
+A1_W_0D808                               equ 0d808h
+A1_W_0D80A                               equ 0d80ah
+A1_W_0E886                               equ 0e886h
+A1_W_0E892                               equ 0e892h
+A1_W_0E896                               equ 0e896h
+A1_W_0ECB8                               equ 0ecb8h
+A1_W_0ECBC                               equ 0ecbch
+A1_W_0ECBE                               equ 0ecbeh
+A1_W_0ECD8                               equ 0ecd8h
+
+; ---- data the parts read through their DS, from the labels at them.
+
+AT_B_0A85F                               equ (RAM_BASE+d_at_b_0a85f-RAM_SEG*16)
+
+; ---- DS frames outside the image: the code loads DS with the segment, the offsets are numbers.
+
+; DS=0F000h: the disk drivers' work area at F000:0000, above the OS image; offsets in it stay numbers.
+A1_B_0E87C                               equ 0e87ch
+A1_B_0E8A3                               equ 0e8a3h
+A1_TBL_08000                             equ 08000h
+A1_TBL_0E8A6                             equ 0e8a6h
+A1_W_0001A                               equ 0001ah
+A1_W_0003A                               equ 0003ah
+A1_W_0D814                               equ 0d814h
+A1_W_0D816                               equ 0d816h
+A1_W_0E88C_F000                          equ 0e88ch
+A1_W_0E890_F000                          equ 0e890h
+A1_W_0E894                               equ 0e894h
+A1_W_0E89A_F000                          equ 0e89ah
+A1_W_0E89C_F000                          equ 0e89ch
+A1_W_0E8A0                               equ 0e8a0h
+A1_W_0E8A2                               equ 0e8a2h
+A1_W_0E8A4                               equ 0e8a4h
+A1_W_0ECAA                               equ 0ecaah
+A1_W_0ECAE                               equ 0ecaeh
+A1_W_0ECB0                               equ 0ecb0h
+A1_W_0EEB2                               equ 0eeb2h
+A1_W_0EEB4                               equ 0eeb4h
+A1_W_0EEB6                               equ 0eeb6h
+A1_W_0EEC2                               equ 0eec2h
+A1_W_0EEC4                               equ 0eec4h
+A1_W_0EEC8                               equ 0eec8h
+A1_W_0EECE                               equ 0eeceh

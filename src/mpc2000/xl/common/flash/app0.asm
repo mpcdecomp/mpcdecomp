@@ -9215,11 +9215,11 @@ br_04EE8:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], dx
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], dx
+        mov     word ptr [A0_W_0431A_2], dx
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], dx
+        mov     word ptr [A0_W_0431A_2], dx
         else
-        mov     word ptr [42f8h], dx
+        mov     word ptr [A0_W_0431A_2], dx
         endif
         mov     word ptr [A0_FP_EVT_PLAY_PTR], ax
         mov     word ptr [P_433A], dx
@@ -10872,11 +10872,11 @@ fn_05E2D:
         if      FW_VERSION >= 114
         cmp     ax, word ptr [A0_W_04336]
         elseif  FW_VERSION >= 112
-        cmp     ax, word ptr [431ah]
+        cmp     ax, word ptr [A0_W_0431A_2]
         elseif  FW_VERSION >= 110
-        cmp     ax, word ptr [4316h]
+        cmp     ax, word ptr [A0_W_0431A_2]
         else
-        cmp     ax, word ptr [42f8h]
+        cmp     ax, word ptr [A0_W_0431A_2]
         endif
         clc
         je      br_05E38
@@ -10901,11 +10901,11 @@ fn_05E4E:
         if      FW_VERSION >= 114
         mov     bp, word ptr [A0_W_04336]
         elseif  FW_VERSION >= 112
-        mov     bp, word ptr [431ah]
+        mov     bp, word ptr [A0_W_0431A_2]
         elseif  FW_VERSION >= 110
-        mov     bp, word ptr [4316h]
+        mov     bp, word ptr [A0_W_0431A_2]
         else
-        mov     bp, word ptr [42f8h]
+        mov     bp, word ptr [A0_W_0431A_2]
         endif
         mov     es, bp
         sub     di, 2
@@ -10962,11 +10962,11 @@ br_05EB8:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         mov     word ptr [A0_FP_EVT_PLAY_PTR], di
         mov     word ptr [P_433A], es
@@ -11078,11 +11078,11 @@ br_05FBB:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], dx
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], dx
+        mov     word ptr [A0_W_0431A_2], dx
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], dx
+        mov     word ptr [A0_W_0431A_2], dx
         else
-        mov     word ptr [42f8h], dx
+        mov     word ptr [A0_W_0431A_2], dx
         endif
         ret
 fn_05FC4:
@@ -11676,11 +11676,11 @@ br_064F2:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], dx
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], dx
+        mov     word ptr [A0_W_0431A_2], dx
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], dx
+        mov     word ptr [A0_W_0431A_2], dx
         else
-        mov     word ptr [42f8h], dx
+        mov     word ptr [A0_W_0431A_2], dx
         endif
         ret
 fn_064FB:
@@ -12455,11 +12455,11 @@ fn_06BA7:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], cx
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], cx
+        mov     word ptr [A0_W_0431A_2], cx
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], cx
+        mov     word ptr [A0_W_0431A_2], cx
         else
-        mov     word ptr [42f8h], cx
+        mov     word ptr [A0_W_0431A_2], cx
         endif
 br_06BCF:
         or      di, di
@@ -12488,11 +12488,11 @@ fn_06BF9:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         ret
 fn_06C09:
@@ -13265,11 +13265,11 @@ L_07164:
         if      FW_VERSION >= 114
         add     word ptr [A0_W_04336], 1000h
         elseif  FW_VERSION >= 112
-        add     word ptr [431ah], 1000h
+        add     word ptr [A0_W_0431A_2], 1000h
         elseif  FW_VERSION >= 110
-        add     word ptr [4316h], 1000h
+        add     word ptr [A0_W_0431A_2], 1000h
         else
-        add     word ptr [42f8h], 1000h
+        add     word ptr [A0_W_0431A_2], 1000h
         endif
         ret
 fn_0729C:
@@ -13467,11 +13467,11 @@ br_07457:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         ret
 fn_07460:
@@ -13579,11 +13579,11 @@ br_07540:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         ret
 fn_07549:
@@ -13726,11 +13726,11 @@ br_07670:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         mov     bp, 4
         push    ds
@@ -13789,11 +13789,11 @@ br_076ED:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], bp
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], bp
+        mov     word ptr [A0_W_0431A_2], bp
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], bp
+        mov     word ptr [A0_W_0431A_2], bp
         else
-        mov     word ptr [42f8h], bp
+        mov     word ptr [A0_W_0431A_2], bp
         endif
         mov     word ptr [A0_FP_EVT_PLAY_PTR], si
         mov     word ptr [P_433A], bp
@@ -14233,11 +14233,11 @@ isr_07ADF:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         push    di
         push    es
@@ -14258,11 +14258,11 @@ isr_07B0F:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], bp
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], bp
+        mov     word ptr [A0_W_0431A_2], bp
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], bp
+        mov     word ptr [A0_W_0431A_2], bp
         else
-        mov     word ptr [42f8h], bp
+        mov     word ptr [A0_W_0431A_2], bp
         endif
         mov     word ptr [A0_FP_EVT_WRITE_PTR], di
         mov     word ptr [A0_W_EVT_WRITE_SEG], dx
@@ -14340,11 +14340,11 @@ br_07BA3:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], es
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], es
+        mov     word ptr [A0_W_0431A_2], es
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], es
+        mov     word ptr [A0_W_0431A_2], es
         else
-        mov     word ptr [42f8h], es
+        mov     word ptr [A0_W_0431A_2], es
         endif
         ret
 fn_07BAD:
@@ -15761,11 +15761,11 @@ isr_08806:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_0577F], 0
         elseif  FW_VERSION >= 112
-        mov     word ptr [5763h], 0
+        mov     word ptr [A0_W_05763_2], 0
         elseif  FW_VERSION >= 110
-        mov     word ptr [575fh], 0
+        mov     word ptr [A0_W_05763_2], 0
         else
-        mov     word ptr [5741h], 0
+        mov     word ptr [A0_W_05763_2], 0
         endif
 isr_08819:
         mov     ax, word ptr [A0_W_EDIT_RANGE_START_LO]
@@ -15783,11 +15783,11 @@ isr_0882C:
         if      FW_VERSION >= 114
         adc     word ptr [A0_W_0577F], dx
         elseif  FW_VERSION >= 112
-        adc     word ptr [5763h], dx
+        adc     word ptr [A0_W_05763_2], dx
         elseif  FW_VERSION >= 110
-        adc     word ptr [575fh], dx
+        adc     word ptr [A0_W_05763_2], dx
         else
-        adc     word ptr [5741h], dx
+        adc     word ptr [A0_W_05763_2], dx
         endif
         loop    isr_08819
         mov     ax, word ptr [A0_W_0574D]
@@ -15801,11 +15801,11 @@ isr_0882C:
         if      FW_VERSION >= 114
         mov     dx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        mov     dx, word ptr [5763h]
+        mov     dx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        mov     dx, word ptr [575fh]
+        mov     dx, word ptr [A0_W_05763_2]
         else
-        mov     dx, word ptr [5741h]
+        mov     dx, word ptr [A0_W_05763_2]
         endif
         add     word ptr es:[1ch], ax
         adc     word ptr es:[1eh], dx
@@ -15876,11 +15876,11 @@ br_088EE:
         if      FW_VERSION >= 114
         adc     bx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        adc     bx, word ptr [5763h]
+        adc     bx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        adc     bx, word ptr [575fh]
+        adc     bx, word ptr [A0_W_05763_2]
         else
-        adc     bx, word ptr [5741h]
+        adc     bx, word ptr [A0_W_05763_2]
         endif
         and     bx, 0fh
         or      bx, cx
@@ -15927,11 +15927,11 @@ loop_0894F:
         if      FW_VERSION >= 114
         adc     bx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        adc     bx, word ptr [5763h]
+        adc     bx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        adc     bx, word ptr [575fh]
+        adc     bx, word ptr [A0_W_05763_2]
         else
-        adc     bx, word ptr [5741h]
+        adc     bx, word ptr [A0_W_05763_2]
         endif
         and     bx, 0fh
         or      bx, dx
@@ -15975,11 +15975,11 @@ fn_089BC:
         if      FW_VERSION >= 114
         mov     bp, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        mov     bp, word ptr [5763h]
+        mov     bp, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        mov     bp, word ptr [575fh]
+        mov     bp, word ptr [A0_W_05763_2]
         else
-        mov     bp, word ptr [5741h]
+        mov     bp, word ptr [A0_W_05763_2]
         endif
         push    ds
         les     di, [A0_FP_EVT_WRITE_PTR]
@@ -16023,11 +16023,11 @@ br_08A10:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], bp
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], bp
+        mov     word ptr [A0_W_0431A_2], bp
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], bp
+        mov     word ptr [A0_W_0431A_2], bp
         else
-        mov     word ptr [42f8h], bp
+        mov     word ptr [A0_W_0431A_2], bp
         endif
         mov     word ptr [A0_FP_EVT_WRITE_PTR], di
         mov     word ptr [A0_W_EVT_WRITE_SEG], es
@@ -16113,11 +16113,11 @@ tgt_08AC1:
         if      FW_VERSION >= 114
         mov     dx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        mov     dx, word ptr [5763h]
+        mov     dx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        mov     dx, word ptr [575fh]
+        mov     dx, word ptr [A0_W_05763_2]
         else
-        mov     dx, word ptr [5741h]
+        mov     dx, word ptr [A0_W_05763_2]
         endif
         mov     si, bp
         mov     bp, word ptr [A0_W_0574F]
@@ -16160,11 +16160,11 @@ fn_08B22:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_0577F], 0
         elseif  FW_VERSION >= 112
-        mov     word ptr [5763h], 0
+        mov     word ptr [A0_W_05763_2], 0
         elseif  FW_VERSION >= 110
-        mov     word ptr [575fh], 0
+        mov     word ptr [A0_W_05763_2], 0
         else
-        mov     word ptr [5741h], 0
+        mov     word ptr [A0_W_05763_2], 0
         endif
         mov     cx, word ptr [A0_W_EDIT_COPIES]
 tgt_08B63:
@@ -16178,11 +16178,11 @@ tgt_08B63:
         if      FW_VERSION >= 114
         adc     word ptr [A0_W_0577F], dx
         elseif  FW_VERSION >= 112
-        adc     word ptr [5763h], dx
+        adc     word ptr [A0_W_05763_2], dx
         elseif  FW_VERSION >= 110
-        adc     word ptr [575fh], dx
+        adc     word ptr [A0_W_05763_2], dx
         else
-        adc     word ptr [5741h], dx
+        adc     word ptr [A0_W_05763_2], dx
         endif
         loop    tgt_08B63
         call    fn_08C72
@@ -16265,11 +16265,11 @@ br_08C1E:
         if      FW_VERSION >= 114
         adc     bx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        adc     bx, word ptr [5763h]
+        adc     bx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        adc     bx, word ptr [575fh]
+        adc     bx, word ptr [A0_W_05763_2]
         else
-        adc     bx, word ptr [5741h]
+        adc     bx, word ptr [A0_W_05763_2]
         endif
         mov     word ptr es:[di+2], ax
         mov     word ptr es:[di+4], bx
@@ -16305,11 +16305,11 @@ br_08C97:
         if      FW_VERSION >= 114
         mov     bx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        mov     bx, word ptr [5763h]
+        mov     bx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        mov     bx, word ptr [575fh]
+        mov     bx, word ptr [A0_W_05763_2]
         else
-        mov     bx, word ptr [5741h]
+        mov     bx, word ptr [A0_W_05763_2]
         endif
         push    ds
         mov     dx, 0f000h
@@ -16413,11 +16413,11 @@ isr_08DA5:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_0577F], 0
         elseif  FW_VERSION >= 112
-        mov     word ptr [5763h], 0
+        mov     word ptr [A0_W_05763_2], 0
         elseif  FW_VERSION >= 110
-        mov     word ptr [575fh], 0
+        mov     word ptr [A0_W_05763_2], 0
         else
-        mov     word ptr [5741h], 0
+        mov     word ptr [A0_W_05763_2], 0
         endif
         mov     word ptr [A0_W_0576D], 0
         mov     word ptr [A0_W_0576F], 3800h
@@ -16443,11 +16443,11 @@ isr_08DE7:
         if      FW_VERSION >= 114
         adc     word ptr [A0_W_0577F], dx
         elseif  FW_VERSION >= 112
-        adc     word ptr [5763h], dx
+        adc     word ptr [A0_W_05763_2], dx
         elseif  FW_VERSION >= 110
-        adc     word ptr [575fh], dx
+        adc     word ptr [A0_W_05763_2], dx
         else
-        adc     word ptr [5741h], dx
+        adc     word ptr [A0_W_05763_2], dx
         endif
         loop    isr_08DE7
         call    fn_090F4
@@ -16647,11 +16647,11 @@ loop_08FB6:
         if      FW_VERSION >= 114
         adc     bx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        adc     bx, word ptr [5763h]
+        adc     bx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        adc     bx, word ptr [575fh]
+        adc     bx, word ptr [A0_W_05763_2]
         else
-        adc     bx, word ptr [5741h]
+        adc     bx, word ptr [A0_W_05763_2]
         endif
         les     si, [A0_FP_EVT_SCAN_PTR]
         cmp     byte ptr es:[si+4], 0ffh
@@ -16713,11 +16713,11 @@ fn_0904E:
         if      FW_VERSION >= 114
         mov     dx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        mov     dx, word ptr [5763h]
+        mov     dx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        mov     dx, word ptr [575fh]
+        mov     dx, word ptr [A0_W_05763_2]
         else
-        mov     dx, word ptr [5741h]
+        mov     dx, word ptr [A0_W_05763_2]
         endif
         les     di, [A0_FP_EVT_WRITE_PTR]
         lds     si, [A0_W_05795]
@@ -16827,21 +16827,21 @@ fn_09158:
         if      FW_VERSION >= 114
         adc     cx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        adc     cx, word ptr [5763h]
+        adc     cx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        adc     cx, word ptr [575fh]
+        adc     cx, word ptr [A0_W_05763_2]
         else
-        adc     cx, word ptr [5741h]
+        adc     cx, word ptr [A0_W_05763_2]
         endif
         mov     word ptr [A0_W_05761], bx
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_0577F], cx
         elseif  FW_VERSION >= 112
-        mov     word ptr [5763h], cx
+        mov     word ptr [A0_W_05763_2], cx
         elseif  FW_VERSION >= 110
-        mov     word ptr [575fh], cx
+        mov     word ptr [A0_W_05763_2], cx
         else
-        mov     word ptr [5741h], cx
+        mov     word ptr [A0_W_05763_2], cx
         endif
         mov     ax, word ptr es:[1ch]
         mov     dx, word ptr es:[1eh]
@@ -16878,11 +16878,11 @@ loop_091A6:
         if      FW_VERSION >= 114
         sbb     dx, word ptr [A0_W_0577F]
         elseif  FW_VERSION >= 112
-        sbb     dx, word ptr [5763h]
+        sbb     dx, word ptr [A0_W_05763_2]
         elseif  FW_VERSION >= 110
-        sbb     dx, word ptr [575fh]
+        sbb     dx, word ptr [A0_W_05763_2]
         else
-        sbb     dx, word ptr [5741h]
+        sbb     dx, word ptr [A0_W_05763_2]
         endif
         pop     dx
         pop     ax
@@ -16934,11 +16934,11 @@ fn_0920F:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_0577F], 0
         elseif  FW_VERSION >= 112
-        mov     word ptr [5763h], 0
+        mov     word ptr [A0_W_05763_2], 0
         elseif  FW_VERSION >= 110
-        mov     word ptr [575fh], 0
+        mov     word ptr [A0_W_05763_2], 0
         else
-        mov     word ptr [5741h], 0
+        mov     word ptr [A0_W_05763_2], 0
         endif
         cmp     word ptr es:[14h], 0
         jne     br_0924C
@@ -18250,11 +18250,11 @@ L_09F8F:
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_04336], bx
         elseif  FW_VERSION >= 112
-        mov     word ptr [431ah], bx
+        mov     word ptr [A0_W_0431A_2], bx
         elseif  FW_VERSION >= 110
-        mov     word ptr [4316h], bx
+        mov     word ptr [A0_W_0431A_2], bx
         else
-        mov     word ptr [42f8h], bx
+        mov     word ptr [A0_W_0431A_2], bx
         endif
         call    fn_09DAD
         retf

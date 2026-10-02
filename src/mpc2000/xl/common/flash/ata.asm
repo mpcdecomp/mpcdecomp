@@ -1018,7 +1018,7 @@ L_0FBD2:
         jne     L_0FBDD
         ret
 L_0FBDD:
-        cmp     byte ptr [0a85fh], 20h
+        cmp     byte ptr [AT_B_0A85F], 20h
         jne     L_0FBE6
         jmp     xl_ata_pio_data_phase
 L_0FBE6:

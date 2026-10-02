@@ -2,7 +2,6 @@
 ; anchor aliases.inc or public.inc defines, or one address in all six.
 
 A0_TBL_SEQ_TRK_FLAGS                    equ 0680h
-A0_TBL_05A42                    equ 05a42h
 A1_W_0A09E                      equ 0a09eh
 A1_W_0A0A0                      equ 0a0a0h
 A1_W_0A0A2                      equ 0a0a2h
@@ -25,8 +24,6 @@ C0_B_00F2F                      equ 0f2fh
 C1_TBL_0000C                    equ 0ch
 C1_TBL_SOUNDS                   equ 0991ah      ; the sound records, SIZEOF_SND apart
 C1_TBL_APS_NAME                 equ 0d764h      ; 17 bytes, seeded from ALL_PGMS_NAME; IVT[64h] points here
-C2_B_0D81B                      equ 0d81bh
-C2_B_0D81D                      equ 0d81dh
 
 A0_W_02088                      equ A0_B_UNDO_SEQ_MARK+4h
 A0_TBL_0208E                    equ A0_B_UNDO_SEQ_MARK+0ah

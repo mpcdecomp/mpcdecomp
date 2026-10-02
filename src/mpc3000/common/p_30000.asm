@@ -28516,8 +28516,8 @@ br_bba9f:
         mov     ah, 0
         shl     ax, 2
         mov     bx, ax
-        push    word ptr [bx + 60eh]
-        push    word ptr [bx + 60ch]
+        push    word ptr [bx +TBL_060E_2]
+        push    word ptr [bx +TBL_060C_2]
         push    ds
         push    word STR_3E31
         else

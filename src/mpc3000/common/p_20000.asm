@@ -119,6 +119,8 @@ STR_05D0:
         if      FW_VERSION >= 312
 TBL_060C equ     $+0ch
 TBL_060E equ     $+0eh
+TBL_060C_2 equ     $+0ch
+TBL_060E_2 equ     $+0eh
         db      0abh, 0aah, 06ah, 004h, 001h, 000h, 06bh, 066h, 0adh, 004h, 001h, 000h, 0c1h, 00fh, 010h, 080h
         db      0d2h, 00fh, 010h, 080h, 0e3h, 00fh, 010h, 080h, 0f4h, 00fh, 010h, 080h, 005h, 010h, 010h, 080h
         db      016h, 010h, 010h, 080h, 027h, 010h, 010h, 080h, 038h, 010h, 010h, 080h, 049h, 010h, 010h, 080h
@@ -133,6 +135,8 @@ STR_067C_2 equ     $+0ch
         elseif  FW_VERSION = 311
 TBL_060C equ     $+0ch
 TBL_060E equ     $+0eh
+TBL_060C_2 equ     $+0ch
+TBL_060E_2 equ     $+0eh
         db      0abh, 0aah, 06ah, 004h, 001h, 000h, 06bh, 066h, 0adh, 004h, 001h, 000h, 0c1h, 00fh, 010h, 080h
         db      0d2h, 00fh, 010h, 080h, 0e3h, 00fh, 010h, 080h, 0f4h, 00fh, 010h, 080h, 005h, 010h, 010h, 080h
         db      016h, 010h, 010h, 080h, 027h, 010h, 010h, 080h, 038h, 010h, 010h, 080h, 049h, 010h, 010h, 080h

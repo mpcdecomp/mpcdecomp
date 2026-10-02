@@ -744,11 +744,11 @@ breakpoint_isr:                         ; IVT[1] and IVT[3]
         push    es
         call    dump_registers
         BC_FLUSH
-        db      0ebh                                                    ; .
-        dec     byte ptr [bp+di-7514h]
-        inc     si
-        sbb     word ptr [si], cx
-        add     word ptr [bx+si+1946h], cx
+        jmp     $
+        mov     bp, sp                  ; set TF in the saved FLAGS
+        mov     al, byte ptr [bp+19h]
+        or      al, 1
+        mov     byte ptr [bp+19h], al
         jmp     breakpoint_isr_exit
 ; code (18 bytes): clear FLAGS[bp+19h] TF (no re-trap on step), pop es/ds/popa/iret
 ; int 4/jmp $-6 stub 0x08DF
@@ -845,16 +845,13 @@ monitor_isr:                            ; IVT[4]; interactive memory / sequencer
         mov     word ptr [bv_mon_seg], es
         mov     word ptr [bv_mon_off], si
         BC_PLANE_PUSH_VIS
-        db      0c7h                                                    ; .
-        push    es
-        xor     dl, byte ptr [bx+si]
-        or      byte ptr [bx+si], al
+        mov     word ptr [bv_mon_step_off], 8
         mov     word ptr [bv_mon_step_seg], 0
 monitor_loop:
         call    monitor_draw
         BC_FLUSH
-        db      2ah                                                     ; *
-        inc     word ptr [bx+si-7b01h]
+        sub     bh, bh
+        cmp     bh, 84h
         je      monitor_key
         cmp     bh, 80h
         je      monitor_exit
@@ -1162,12 +1159,8 @@ frm_probe:                              ; requires the literal "MPC2000" at F-RO
         popa
         pop     ds
         call    cs_literal_compare
-        dec     bp
-        push    ax
-        inc     bx
-        xor     dh, byte ptr [bx+si]
-        xor     byte ptr [bx+si], dh
-        db      00h, 0c3h
+        db      "MPC2000", 0
+        ret
 frm_file_open:                          ; fixed image: F-ROM offset 8, length 27FFFh
         mov     word ptr [dv_frm_addr], 8
         mov     word ptr [dv_frm_addr_seg], 100h
@@ -2998,18 +2991,13 @@ L_01D94:
 L_01D9F:
         mov     si, 0a036h
         call    cs_literal_compare
-        inc     si
-        inc     cx
-        push    sp
-        xor     word ptr [bp+si], si
-        add     byte ptr [si+730ch], dh
-        sbb     ax, 0ace8h
-        out     dx, ax
-        inc     si
-        inc     cx
-        push    sp
-        xor     word ptr [0b400h], si
-        adc     byte ptr [bp+di+10h], dh
+        db      "FAT12", 0
+        mov     ah, 0ch
+        jae     L_01DCC
+        call    cs_literal_compare
+        db      "FAT16", 0
+        mov     ah, 10h
+        jae     L_01DCC
         cmp     byte ptr [0a1c2h], 4
         je      L_01DCC
         cmp     word ptr [0a013h], 0
@@ -3092,18 +3080,15 @@ L_01E5E:
 L_01E85:
         mov     si, 0a003h
         call    cs_literal_compare
-        dec     bp
-        push    ax
-        inc     bx
-        xor     word ptr [bx+si], si
-        xor     byte ptr [bx+si], dh
-        add     byte ptr [bp+si+0ch], dh
+        db      "MPC1000", 0
+        jb      L_01EA1
         mov     al, 13h
         mov     ah, 1
         mov     dh, byte ptr [dv_scsi_devtype]
         mov     dl, 0
         clc
         ret
+L_01EA1:
         mov     si, 0a020h
         mov     cx, 20h
         mov     al, 0
@@ -4143,7 +4128,7 @@ bc_dispatch:                            ; IVT[2Bh]: inline ops; jmp bp
         mov     bl, byte ptr es:[bp]
         sub     bh, bh
         inc     bp
-        call    word ptr cs:[bx+26fdh]
+        call    word ptr cs:[bx+bc_handler_table]
         pop     es
         jmp     bp
 
@@ -4823,9 +4808,9 @@ L_02C3E:
         inc     bl
         cmp     byte ptr es:[si], 0
         jne     L_02C3E
-        mov     cl, byte ptr cs:[bx+2c99h]
+        mov     cl, byte ptr cs:[bx+softkey_indent]
         mov     bl, al
-        add     cl, byte ptr cs:[bx+2c93h]
+        add     cl, byte ptr cs:[bx+softkey_x]
         mov     ch, 34h
         call    bc_clamp_xy
         call    L_02F7D
@@ -4845,7 +4830,7 @@ L_02C60:
 L_02C6A:
         mov     bl, al
         sub     bh, bh
-        mov     cl, byte ptr cs:[bx+2c93h]
+        mov     cl, byte ptr cs:[bx+softkey_x]
         mov     ch, 33h
         mov     bl, 27h
         mov     bh, 9
@@ -4870,10 +4855,9 @@ L_02C92:
 ;                    -- six keys evenly across the 248 px panel
 ;   0x2C99  7 bytes  centring indent by label length 0..6: 14h down to 2
 ;                    in steps of 3 (half a 6 px character pitch)
-        add     ch, byte ptr [bp+di]
-        push    sp
-        jge     L_02C3E
-        iret
+softkey_x:                              ; x origin of F1..F6
+        db      02h, 2bh, 54h, 7dh, 0a6h, 0cfh
+softkey_indent:                         ; centring indent by label length 0..6
         db      14h, 11h, 0eh, 0bh, 08h, 05h, 02h
 bc_op6a:
         call    plane_push
@@ -5149,7 +5133,7 @@ L_02F11:
         mov     bl, cl
         sub     bh, bh
         shl     bx, 1
-        mov     dx, word ptr cs:[bx+2f5ah]
+        mov     dx, word ptr cs:[bx+small_hole_masks]
 L_02F2A:
         mov     ah, byte ptr [di]
         mov     al, byte ptr [di+1]
@@ -5175,10 +5159,8 @@ L_02F2A:
         inc     di
 L_02F59:
         ret
-        callf   [bx]
-        dec     word ptr [bx-3801h]
-        jmp     bx
-; 4 word masks, byte-swapped as the framebuffer is read.  ?
+small_hole_masks:                       ; 8 words, indexed by x AND 7: a 3-px hole, byte-swapped as the framebuffer is read
+        db      0ffh, 1fh, 0ffh, 8fh, 0ffh, 0c7h, 0ffh, 0e3h
         db      0ffh, 0f1h, 0ffh, 0f8h, 7fh, 0fch, 3fh, 0feh
 bc_op10_text_inverse:
         mov     byte ptr [bv_text_xor], 0fch
@@ -5382,14 +5364,14 @@ draw_glyph:                             ; 7 rows from bv_font + 7*AL, masked, bi
         mov     bl, cl
         sub     bh, bh
         shl     bx, 1
-        mov     dx, word ptr cs:[bx+3133h]
+        mov     dx, word ptr cs:[bx+glyph_hole_masks]
 draw_glyph_row:
         mov     ah, byte ptr [di]
         mov     al, byte ptr [di+1]
         and     ax, dx
         mov     bl, byte ptr [si]
         sub     bh, bh
-        mov     bh, byte ptr cs:[bx+3143h]
+        mov     bh, byte ptr cs:[bx+bit_reverse_table]
         xor     bh, byte ptr [bv_text_xor]
         sub     bl, bl
         shr     bx, cl
@@ -5524,20 +5506,20 @@ L_032DB:
         rep stosb
 L_03301:
         and     bx, 7
-        mov     al, byte ptr cs:[bx+331dh]
+        mov     al, byte ptr cs:[bx+top_bits_masks]
         or      byte ptr [di], al
 L_0330B:
         ret
 L_0330C:
         sub     bh, bh
-        mov     ah, byte ptr cs:[bx+331dh]
+        mov     ah, byte ptr cs:[bx+top_bits_masks]
         sub     al, al
         shr     ax, cl
         or      byte ptr [di], ah
         inc     di
         or      byte ptr [di], al
         ret
-; "top n bits set" masks for n = 0..8: 00h 80h 0C0h ... 0FEh 0FFh.
+top_bits_masks:                         ; "top n bits set" for n = 0..8: 00h 80h 0C0h ... 0FEh 0FFh
         db      00h, 80h, 0c0h, 0e0h, 0f0h, 0f8h, 0fch, 0feh, 0ffh
 L_03326:
         push    bx
@@ -5568,13 +5550,13 @@ L_03335:
         rep stosb
 L_0335A:
         and     bx, 7
-        and     al, byte ptr cs:[bx+331dh]
+        and     al, byte ptr cs:[bx+top_bits_masks]
         or      byte ptr [di], al
 L_03364:
         ret
 L_03365:
         sub     bh, bh
-        and     ah, byte ptr cs:[bx+331dh]
+        and     ah, byte ptr cs:[bx+top_bits_masks]
         sub     al, al
         shr     ax, cl
         or      byte ptr [di], ah
@@ -5612,14 +5594,14 @@ L_03385:
         rep stosb
 L_033AD:
         and     bx, 7
-        mov     al, byte ptr cs:[bx+331dh]
+        mov     al, byte ptr cs:[bx+top_bits_masks]
         not     al
         and     byte ptr [di], al
 L_033B9:
         ret
 L_033BA:
         sub     bh, bh
-        mov     ah, byte ptr cs:[bx+331dh]
+        mov     ah, byte ptr cs:[bx+top_bits_masks]
         sub     al, al
         shr     ax, cl
         not     ax
@@ -6317,7 +6299,7 @@ L_03988:
         ja      L_039B0
         add     ax, ax
         xchg    bx, ax
-        jmp     word ptr cs:[bx+3998h]
+        jmp     word ptr cs:[bx+int2dh_table]
 
 ; int2dh_dispatch sub-function table, AH = 0..7 (AH=0FEh and 0FFh are
 ; handled separately; anything else returns AX=0FF00h).  Entries:
@@ -6325,7 +6307,9 @@ L_03988:
 ;   1 -> 39cc  scsi_svc_rw              5 -> 3a06  scsi_svc_05
 ;   2 -> 39cc  scsi_svc_rw              6 -> 3a10  scsi_svc_read_capacity
 ;   3 -> 39e8  scsi_svc_request_sense   7 -> 3a30  scsi_svc_07
-        db      90h, 0b8h, 39h, 0cch, 39h, 0cch, 39h, 0e8h, 39h, 0fch, 39h, 06h, 3ah, 10h, 3ah, 30h ; ..9.9.9.9.9.:.:0
+        db      90h
+int2dh_table:
+        db      0b8h, 39h, 0cch, 39h, 0cch, 39h, 0e8h, 39h, 0fch, 39h, 06h, 3ah, 10h, 3ah, 30h ; ..9.9.9.9.9.:.:0
         db      3ah
 L_039A8:
         sub     ax, 0ffh
@@ -7068,9 +7052,8 @@ L_0403A:
         ja      L_0406C
         add     ax, ax
         xchg    bx, ax
-        jmp     word ptr cs:[bx+405ch]
-; eight word entries, 4072h 4072h 408Ch 40A4h 406Ch 406Ch 40B4h 40BAh --
-; a dispatch table inside the C SCSI layer.  ?
+        jmp     word ptr cs:[bx+scsi_phase_table]
+scsi_phase_table:                       ; 8 words, by the bus phase written to PCTL (port 10h)
         db      72h, 40h, 72h, 40h, 8ch, 40h, 0a4h, 40h, 6ch, 40h, 6ch, 40h, 0b4h, 40h, 0bah, 40h ; r@r@.@.@l@l@.@.@
 L_0406C:
         mov     si, 0fffah
@@ -7320,9 +7303,11 @@ lcd_font:                               ; 128 glyphs x 7 rows; glyph(c) at bv_fo
 ; LCD FRAME BITMAPS  (0x7CD1-0x7DD1)
 ; ===========================================================================
 ; 256 bytes of 16-px-wide (2 bytes per row) mask artwork: rounded corners,
-; a 55h/0AAh dither and a small curve.  No code in this ROM references it;
-; like the glyph table it arrives with the shared MPC2000.EXE source.
+; a 55h/0AAh dither and a small curve.  Like the glyph table it arrives with
+; the shared MPC2000.EXE source.  L_02F11 reads 5-byte glyphs from here,
+; lcd_font_small + 5*(c-20h), through DS.
 
+lcd_font_small:
         db      00h, 00h, 00h, 00h, 00h, 0ffh, 03h, 0ffh, 0fh, 0ffh, 1fh, 0ffh, 3fh, 0ffh, 7fh, 0ffh
         db      7fh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 7fh, 0ffh, 7fh, 0ffh
         db      3fh, 0ffh, 1fh, 0ffh, 0fh, 0ffh, 03h, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh

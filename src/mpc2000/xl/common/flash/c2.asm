@@ -10022,14 +10022,14 @@ loop_4C6A7:
         add     bx, 12h
         cmp     byte ptr es:[bx+si], 20h
         jne     br_4C6BC
-        mov     byte ptr [si-7035h], 5fh
+        mov     byte ptr [si+C1_W_08FCB], 5fh
         jmp     br_4C6CA
         db      90h
 br_4C6BC:
         mov     bx, word ptr [C0_W_0D7C2]
         add     bx, 12h
         mov     al, byte ptr es:[bx+si]
-        mov     byte ptr [si-7035h], al
+        mov     byte ptr [si+C1_W_08FCB], al
 br_4C6CA:
         inc     si
         cmp     si, 0eh
@@ -10224,11 +10224,11 @@ loop_4C872:
         mov     byte ptr [bp-2], al
         cmp     al, 20h
         jne     L_4BF2C
-        mov     byte ptr [si-7035h], 5fh
+        mov     byte ptr [si+C1_W_08FCB], 5fh
         jmp     SHORT br_4C891
 L_4BF2C:
         mov     al, byte ptr [bp-2]
-        mov     byte ptr [si-7035h], al
+        mov     byte ptr [si+C1_W_08FCB], al
 br_4C891:
         inc     si
         cmp     si, 0eh
@@ -11851,7 +11851,7 @@ L_4D612:
         mov     word ptr [C2_W_028FC], ax
         mov     word ptr [C2_W_028FE], dx
         mov     ax, word ptr [bx-7186h]
-        mov     dx, word ptr [bx-7184h]
+        mov     dx, word ptr [bx+C2_TBL_08E7C]
         mov     word ptr [C2_W_02900], ax
         mov     word ptr [C2_W_02902], dx
         add     bx, 8e76h
@@ -12339,7 +12339,7 @@ L_4DA82:
         mov     word ptr [C2_W_02A9E], ax
         mov     word ptr [C2_W_02AA0], dx
         mov     ax, word ptr [bx-7186h]
-        mov     dx, word ptr [bx-7184h]
+        mov     dx, word ptr [bx+C2_TBL_08E7C]
         mov     word ptr [C2_W_02AA2], ax
         mov     word ptr [C2_W_02AA4], dx
         add     bx, 8e76h
@@ -12792,7 +12792,7 @@ pgm_assign_paint:
         sub     ah, ah
         mov     si, ax
         imul    bx, si, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         mov     word ptr [bp-10h], ax
         mov     al, byte ptr [C2_B_PAD_DRUM]
         mov     cx, ax
@@ -13167,7 +13167,7 @@ far_4E182:
         mov     al, byte ptr [C2_B_PAD_DRUM]
         sub     ah, ah
         imul    bx, ax, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         push    ax
         push    EP_PGM_ASSIGN_SCREEN_DRAW_SEG
         push    EP_PGM_ASSIGN_SCREEN_DRAW_OFF
@@ -13690,13 +13690,13 @@ far_4E5FC:
         or      al, 90h
         mov     byte ptr [C2_W_08D60], al
         mov     al, byte ptr [C2_B_PAD_NOTE]
-        mov     byte ptr [8d61h], al
+        mov     byte ptr [C2_B_08D61], al
         mov     al, byte ptr [C2_B_PAD_VELOCITY]
         mov     byte ptr [C2_W_08D62], al
         xor     al, al
-        mov     byte ptr [8d63h], al
+        mov     byte ptr [C2_B_08D63], al
         mov     byte ptr [C2_W_08D64], al
-        mov     byte ptr [8d65h], 40h
+        mov     byte ptr [C2_B_08D65], 40h
         inc     byte ptr [C2_B_02E5C]
         push    word ptr [C2_W_08D64]
         push    word ptr [C2_W_08D62]
@@ -13856,7 +13856,7 @@ far_4E766:
         sub     ah, ah
         mov     si, ax
         imul    bx, si, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         mov     word ptr [bp-0eh], ax
         mov     al, byte ptr [C2_B_PAD_DRUM]
         mov     cx, ax
@@ -14156,7 +14156,7 @@ L_4EA1C:
         mov     al, byte ptr [C2_B_PAD_DRUM]
         sub     ah, ah
         imul    bx, ax, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         push    ax
         push    C2_SEG
         push    (C2_BASE+pgm_params_enter-C2_SEG*16)
@@ -14730,7 +14730,7 @@ far_4EE52:
         db      0c7h, 06h
 far_4EE54:
         push    18dh
-        add     byte ptr [7668h], bl
+        add     byte ptr [C2_B_07668], bl
         xlat
         else
         mov     word ptr [C2_W_PGM_MIDI_CURSOR], 1
@@ -14761,7 +14761,7 @@ L_4EE8C:
         mov     al, byte ptr [C2_B_PAD_DRUM]
         sub     ah, ah
         imul    bx, ax, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         push    ax
         push    EP_FAR_4EC12_SEG
         push    EP_FAR_4EC12_OFF
@@ -14949,7 +14949,7 @@ br_4F02A:
         mov     si, ax
 br_4F04B:
         imul    bx, si, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         sub     ah, ah
         cmp     ax, word ptr [bp-2]
         je      br_4F066
@@ -16074,7 +16074,7 @@ br_4FA83:
         mov     si, word ptr [C2_B_PAD_DRUM]
         and     si, 0ffh
         imul    bx, si, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         mov     byte ptr [C2_B_098B9], al
         mov     byte ptr [C0_B_098B8], al
         mov     al, byte ptr [C2_B_PAD_NOTE]
@@ -17376,7 +17376,7 @@ far_5066A:
         db      "po=---.-", 00h, 00h
 L_50674:
         push    ds
-        push    3c8eh
+        push    C2_W_03C8E
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
         mov     word ptr [C2_W_PARAM_HOOK_OFF], (C2_BASE+L_508C6-C2_SEG*16)
@@ -19807,7 +19807,7 @@ L_51BFE:
         endif
         push    ds
         if      FW_VERSION >= 112
-        mov     cl, byte ptr [di-34e1h]
+        mov     cl, byte ptr [di+C2_TBL_0CB1F]
         else
         mov     cx, DS_SEG
         mov     ds, cx
@@ -20384,7 +20384,7 @@ L_520EE:
         mov     al, byte ptr [C2_B_MIXER_DRUM]
         cbw
         imul    bx, ax, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         push    ax
         push    EP_MIXER_SETUP_F6_SEG
         push    EP_MIXER_SETUP_F6_OFF
@@ -20727,7 +20727,7 @@ L_52450:
         cbw
         mov     si, ax
         imul    bx, si, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         mov     byte ptr [C2_B_098B9], al
         mov     byte ptr [C0_B_098B8], al
         mov     al, byte ptr [C0_B_0D7C7]

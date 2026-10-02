@@ -22,6 +22,7 @@ d_a3_w_00f10:
         db      00h, 80h, 00h, 00h
 d_a3_fp_00f14:
         dw      EP_L_2782A_OFF, EP_L_2782A_SEG
+d_a3_w_00f18:
         if      FW_VERSION >= 110
         if      FW_VERSION >= 111
         db      68h, 10h
@@ -35,7 +36,9 @@ d_a3_fp_00f1a:
         else
         dw      EP_FAR_272A8_OFF, APP3_SEG
         endif
+d_a3_w_00f1e_2:
         if      FW_VERSION >= 111
+d_a3_w_00f1e:
         db      0b6h, 13h
 d_a3_w_00f20:
         db      00h, 00h, 00h, 00h
@@ -44,6 +47,7 @@ d_a3_w_00f24:
 d_a3_w_00f26:
         db      00h, 00h
         else
+d_a3_w_00f1e:
         db      0a9h, 13h
 d_a3_w_00f20:
         db      00h, 00h, 00h, 00h
@@ -59,7 +63,9 @@ d_a3_w_00f2a:
 d_a3_b_00f2c:
         db      00h
 d_a3_b_00f2d:
-        db      00h, 00h, 00h
+        db      00h
+d_a2_b_00f2e:
+        db      00h, 00h
 d_a3_b_00f30:
         db      00h
 timing_correct_names:                   ; width 7, 7: OFF 1/8 1/8(3) 1/16 1/16(3) 1/32 1/32(3)
@@ -67,6 +73,7 @@ timing_correct_names:                   ; width 7, 7: OFF 1/8 1/8(3) 1/16 1/16(3
         db      4ch, 10h
 d_a3_w_00f1a:
         dw      EP_FAR_272A8_OFF, APP3_SEG
+d_a3_w_00f1e:
         db      9ah, 13h
 d_a3_w_00f20:
         db      00h, 00h, 00h, 00h
@@ -81,7 +88,9 @@ d_a3_w_00f2a:
 d_a3_b_00f2c:
         db      000h
 d_a3_b_00f2d:
-        db      000h, 000h, 000h
+        db      000h
+d_a2_b_00f2e:
+        db      000h, 000h
 d_a3_b_00f30:
         db      000h
         endif
@@ -126,6 +135,7 @@ FREE_238BD:
 
 d_a3_fp_011d4:
         dw      EP_FAR_285F5_OFF, EP_FAR_285F5_SEG
+d_a3_w_011d8:
         if      FW_VERSION >= 111
         db      02h, 1ch
 d_a3_b_011da:
@@ -157,17 +167,57 @@ d_a3_b_011e7:
 d_a3_w_011e8:
         db      00h, 00h
 d_a3_w_011ea:
-        db      00h, 00h, 03h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_w_011ec:
+        db      03h, 00h
+d_a3_w_011ee:
+        db      00h, 00h
+d_a3_w_011f0:
+        db      00h, 00h
+d_a3_w_011f2:
+        db      00h, 00h
+        db      00h, 00h, 00h, 00h
+d_a3_w_011f8:
+        db      00h, 00h
+d_a3_w_011fa:
+        db      00h, 00h
+d_a3_w_011fc:
+        db      00h, 00h
+d_a3_w_011fe:
+        db      00h, 00h
+d_a3_w_01200:
+        db      00h, 00h, 00h, 00h
         db      00h, 00h
 d_a3_w_01206:
         db      10h, 04h
 d_a3_tbl_01208:
         TBL_XS_15B8_DATA
 d_a3_w_012aa:
-        db      83h, 04h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      83h, 04h
+d_a3_w_012ac:
+        db      00h, 00h
+d_a3_w_012ae:
+        db      00h, 00h
+d_a3_w_012b0:
+        db      00h, 00h
+d_a3_w_012b2:
+        db      00h, 00h
 d_a3_w_012b4:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_w_012b6:
+        db      00h, 00h
+d_a3_w_012b8:
+        db      00h, 00h
+d_a3_w_012ba:
+        db      00h, 00h
+d_a3_w_012bc:
+        db      00h, 00h
+d_a3_w_012be:
+        db      00h, 00h
+d_a3_w_012c0:
+        db      00h, 00h
+d_a3_w_012c2:
+        db      00h, 00h
         if      FW_VERSION >= 120
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_L_2938B_OFF, APP3_SEG
@@ -176,7 +226,11 @@ d_a3_w_012b4:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 0abh, 33h, 1dh, 26h, 98h, 33h, 00h, 00h, 00h
         else
 d_a3_w_012c4:
-        db      00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_w_012c6:
+        db      00h, 00h
+d_a3_w_012c8:
+        db      00h, 00h
 d_a3_b_012ca:
         db      00h
         dw      EP_L_2938B_OFF, APP3_SEG
@@ -231,25 +285,37 @@ d_a3_w_012ed:
         dw      (APP3_BASE+L_29A79-APP3_SEG*16), APP3_SEG
         dw      (APP3_BASE+FAR_29D10-APP3_SEG*16), APP3_SEG
         endif
+d_a3_w_013a0_2:
         if      FW_VERSION >= 111
+d_a3_w_013a0:
         db      0e8h, 3dh
         else
+d_a3_w_013a0:
         db      0dbh, 3dh
         endif
 d_a3_fp_013a2:
         dw      (APP3_BASE+far_2A116-APP3_SEG*16), APP3_SEG
+d_a3_w_013a6_2:
         if      FW_VERSION >= 111
-        db      0eeh, 41h, 02h
+d_a3_w_013a6:
+        db      0eeh, 41h
+d_a3_w_013a8:
+        db      02h
         else
-        db      0e1h, 41h, 02h
+d_a3_w_013a6:
+        db      0e1h, 41h
+d_a3_w_013a8:
+        db      02h
         endif
         else
         db      "CLICKDRUM1DRUM2DRUM3DRUM4b;"
         db      9ch, 25h
         dw      (APP3_BASE+FAR_29D10-APP3_SEG*16), APP3_SEG
+d_a3_w_013a0:
         db      0b1h, 3dh
 d_a3_fp_013a2:
         dw      EP_FAR_2A116_OFF, APP3_SEG
+d_a3_w_013a6:
         db      0b7h, 41h, 02h
         endif
         TBL_SYNC_MODE_NAMES_DATA
@@ -332,7 +398,9 @@ d_a3_w_01594:
         else
         db      0e6h, 54h
         endif
+d_a3_w_01596_2:
         if      FW_VERSION >= 112
+d_a3_w_01596:
         dw      (APP3_BASE+L_2C12B-APP3_SEG*16), APP3_SEG
 d_a3_w_0159a:
         db      69h, 59h
@@ -341,6 +409,7 @@ d_a3_w_0159c:
 d_a3_b_0159e:
         db      00h
         else
+d_a3_w_01596:
         dw      EP_L_2B859_OFF, APP3_SEG
         if      FW_VERSION >= 111
 d_a3_w_0159a:
@@ -359,7 +428,9 @@ d_a3_b_0159e:
         endif
         endif
         else
-        db      0bch, 54h, 41h, 59h, 9ch, 25h
+        db      0bch, 54h
+d_a3_w_01596:
+        db      41h, 59h, 9ch, 25h
 d_a3_w_0159a:
         db      2fh, 59h
 d_a3_w_0159c:
@@ -406,6 +477,7 @@ FREE_23E1F:
         db      "1-011-021-031-041-051-061-071-081-091-101-111-121-131-141-151-161-Ex2-012-022-032-042-052-062-072-082-092-102-112-122-132-142-152-162-Ex"
 d_a3_fp_017c6:
         dw      EP_L_2C9BF_OFF, EP_L_2C9BF_SEG
+d_a3_w_017ca:
         if      FW_VERSION >= 112
         db      0d9h, 61h
 d_a3_b_017cc:
@@ -459,6 +531,7 @@ d_a3_b_0181c:
         db      00h, 08h
         endif
         db      "OFF     AS TRACKOMNI-A  OMNI-B  OMNI-AB "
+d_a3_w_01846:
         if      FW_VERSION >= 110
         db      00h, 00h
 d_a3_fp_01848:
@@ -768,7 +841,9 @@ FREE_24AF9:
         endif
         PAD_TO  APPDATA_SEG*16+023ECh-SEGBASE, 000h
 
-        db      "        Device01Device02Device03Device04Device05Device06Device07Device08Device09Device10Device11Device12Device13Device14Device15Device16Device17Device18Device19Device20Device21Device22Device23Device24Device25Device26Device27Device28Device29Device30Device31Device32Track-01        Track-02        Track-03        Track-04        Track-05        Track-06        Track-07        Track-08        Track-09        Track-10        Track-11        Track-12        Track-13        Track-14        Track-15        Track-16        Track-17        Track-18        Track-19        Track-20        Track-21        Track-22        Track-23        Track-24        Track-25        Track-26        Track-27        Track-28        Track-29        Track-30        Track-31        Track-32        Track-33        Track-34        Track-35        Track-36        Track-37        Track-38        Track-39        Track-40        Track-41        Track-42        Track-43        Track-44        Track-45        Track-46        Track-47        Track-48        Track-49        Track-50        Track-51        Track-52        Track-53        Track-54        Track-55        Track-56        Track-57        Track-58        Track-59        Track-60        Track-61        Track-62        Track-63        Track-64        "
+        db      "        Device01Device02De"
+d_a3_tbl_02406:
+        db      "vice03Device04Device05Device06Device07Device08Device09Device10Device11Device12Device13Device14Device15Device16Device17Device18Device19Device20Device21Device22Device23Device24Device25Device26Device27Device28Device29Device30Device31Device32Track-01        Track-02        Track-03        Track-04        Track-05        Track-06        Track-07        Track-08        Track-09        Track-10        Track-11        Track-12        Track-13        Track-14        Track-15        Track-16        Track-17        Track-18        Track-19        Track-20        Track-21        Track-22        Track-23        Track-24        Track-25        Track-26        Track-27        Track-28        Track-29        Track-30        Track-31        Track-32        Track-33        Track-34        Track-35        Track-36        Track-37        Track-38        Track-39        Track-40        Track-41        Track-42        Track-43        Track-44        Track-45        Track-46        Track-47        Track-48        Track-49        Track-50        Track-51        Track-52        Track-53        Track-54        Track-55        Track-56        Track-57        Track-58        Track-59        Track-60        Track-61        Track-62        Track-63        Track-64        "
 
 ; 0x25044-0x25084, 64 x 00h -- per-track default, 1 byte/track
         if      FW_VERSION >= 114
@@ -927,7 +1002,9 @@ L_252A4                         equ     $+4
 L_252A6                         equ     $+6
         db      00h, 00h
 d_c0_b_02b42:
-        db      00h, 00h, 00h, 00h, 00h, 01h, 00h
+        db      00h, 00h
+d_c0_w_02b44:
+        db      00h, 00h, 00h, 01h, 00h
 d_c0_b_02b49:
         db      0ch, 03h, 00h, 07h, 52h, 45h, 50h
         db      "LACEMERGE  "
@@ -1044,9 +1121,13 @@ L_252A4                         equ     $+4
 L_252A6                         equ     $+6
         db      00h, 00h
 d_c0_b_02b42:
-        db      00h, 00h, 00h, 00h, 00h, 01h, 00h
+        db      00h, 00h
+d_c0_w_02b44:
+        db      00h, 00h, 00h, 01h, 00h
 d_c0_b_02b49:
-        db      0ch, 03h, 00h, 07h, 52h, 45h, 50h
+        db      0ch
+d_c0_w_02b4a:
+        db      03h, 00h, 07h, 52h, 45h, 50h
         db      "LACEMERGE  "
         endif
         db      0ah
@@ -1073,19 +1154,37 @@ d_c0_w_02c02:
         else
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12"
         dw      EP_FAR_32F2B_OFF, APP3_SEG
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_c0_w_02bd6:
+        db      00h, 00h
+d_c0_w_02bd8:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         if      FW_VERSION >= 114
-        db      0bbh, 0dch, 1dh, 26h, 95h, 0dah, 21h, 0dfh, 1dh, 26h, 0fh, 0dfh, 8dh, 0e2h, 00h, 00h
+        db      0bbh, 0dch, 1dh, 26h
+d_c0_w_02be4:
+        db      95h, 0dah
+d_c0_w_02be6:
+        db      21h, 0dfh, 1dh, 26h, 0fh, 0dfh, 8dh, 0e2h, 00h, 00h
         else
         if      FW_VERSION >= 112
-        db      0bbh, 0dch, 0feh, 25h, 95h, 0dah, 21h, 0dfh, 0feh, 25h, 0fh, 0dfh, 8dh, 0e2h, 00h, 00h
+        db      0bbh, 0dch, 0feh, 25h
+d_c0_w_02be4:
+        db      95h, 0dah
+d_c0_w_02be6:
+        db      21h, 0dfh, 0feh, 25h, 0fh, 0dfh, 8dh, 0e2h, 00h, 00h
         else
         if      FW_VERSION >= 111
-        db      0b9h, 0dch, 0eeh, 25h, 93h, 0dah, 1fh, 0dfh, 0eeh, 25h
+d_c0_w_02be0:
+        db      0b9h, 0dch, 0eeh, 25h
+d_c0_w_02be4:
+        db      93h, 0dah, 1fh, 0dfh, 0eeh, 25h
 d_c0_w_02bea:
         db      0dh, 0dfh, 8bh, 0e2h, 00h, 00h
         else
-        db      0abh, 0dch, 0edh, 25h, 85h, 0dah, 11h, 0dfh, 0edh, 25h
+d_c0_w_02be0:
+        db      0abh, 0dch, 0edh, 25h
+d_c0_w_02be4:
+        db      85h, 0dah, 11h, 0dfh, 0edh, 25h
 d_c0_w_02bea:
         db      0ffh, 0deh, 7dh, 0e2h, 00h, 00h
         endif
@@ -1096,12 +1195,27 @@ d_c0_w_02bea:
         else
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12"
         dw      EP_FAR_32F2B_OFF, APP3_SEG
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      84h, 0dch, 9ch, 25h, 55h, 0dah, 0deh, 0deh, 9ch, 25h, 0cch, 0deh, 4ah, 0e2h, 00h, 00h
+        db      00h, 00h
+d_c0_w_02bd6:
+        db      00h, 00h
+d_c0_w_02bd8:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02be0:
+        db      84h, 0dch, 9ch, 25h
+d_c0_w_02be4:
+        db      55h, 0dah, 0deh, 0deh, 9ch, 25h, 0cch, 0deh, 4ah, 0e2h, 00h, 00h
         endif
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_c0_w_02bf2:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02bfa:
+        db      00h, 00h, 00h, 00h, 00h, 00h
 d_c0_w_02c00:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02c08:
+        db      00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02c0e:
+        db      00h, 00h
         if      FW_VERSION >= 120
         db      00h, 00h, 00h, 00h, 00h, 00h, 03h
         else
@@ -1179,6 +1293,8 @@ FREE_24E14:
 FREE_255E4:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
+        PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-010h, 000h
+d_a2_w_02eea:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
         endif
         else
@@ -1188,6 +1304,8 @@ d_a2_w_02ee2:
 FREE_24AE4:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
+        PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-010h, 000h
+d_a2_w_02eea:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
 
         endif
@@ -1465,7 +1583,7 @@ goto_main_screen:
         call    L_27146
 br_26864:
         mov     byte ptr [A3_B_00F30], 0
-        cmp     byte ptr [0f2eh], 0
+        cmp     byte ptr [A2_B_00F2E], 0
         jne     br_26874
         push    cs
         call    L_27146
@@ -2239,7 +2357,7 @@ L_27146:
         int     0d8h
         mov     ax, word ptr [A3_W_0071A]
         int     0d9h
-        mov     byte ptr [0f2eh], 1
+        mov     byte ptr [A2_B_00F2E], 1
         call    fn_2B3C5
         int     0a5h
         retf
@@ -2929,7 +3047,7 @@ br_27782:
         jae     br_2778A
         jmp     NEAR far_270FB
 br_2778A:
-        mov     byte ptr [0f2eh], 0
+        mov     byte ptr [A2_B_00F2E], 0
         push    cs
         call    seq_names_fetch
         callf   [A3_FP_00F14]
@@ -2956,7 +3074,7 @@ L_26EC8:
         mov     ah, 10h
         mov     bl, 5
         int     90h
-        call    word ptr [0f18h]
+        call    word ptr [A3_W_00F18]
         retf
 cb_27818:
         DISP_CURSOR     74h, 10h, 7
@@ -2969,7 +3087,7 @@ cb_27821:
         ret
 L_2782A:
         mov     word ptr [A3_FP_00F14], L_2782A-APP3_CSBASE
-        mov     word ptr [0f18h], cb_27818-APP3_CSBASE
+        mov     word ptr [A3_W_00F18], cb_27818-APP3_CSBASE
         int     0a4h
         if      FW_VERSION >= 110
         if      FW_VERSION >= 114
@@ -3002,7 +3120,7 @@ L_270D5:
         retf
 far_26FDE:
         mov     word ptr [A3_FP_00F14], far_26FDE-APP3_CSBASE
-        mov     word ptr [0f18h], cb_27821-APP3_CSBASE
+        mov     word ptr [A3_W_00F18], cb_27821-APP3_CSBASE
         int     0a4h
         KEY_DOWN        20h, (APP3_BASE+L_26EC8-APP3_SEG*16), APP3_SEG
         else
@@ -3053,7 +3171,7 @@ L_270D5:
         db      0cbh
 far_26FDE:
         mov     word ptr [A3_FP_00F14], far_26FDE-APP3_CSBASE
-        mov     word ptr [0f18h], cb_27821-APP3_CSBASE
+        mov     word ptr [A3_W_00F18], cb_27821-APP3_CSBASE
         db      0cdh, 0a4h
         KEY_DOWN        20h, EP_L_26EC8_OFF, APP3_SEG
         endif
@@ -3175,7 +3293,7 @@ L_270D5:
         retf
 far_26FDE:
         mov     word ptr [A3_FP_00F14], far_26FDE-APP3_CSBASE
-        mov     word ptr [0f18h], cb_27821-APP3_CSBASE
+        mov     word ptr [A3_W_00F18], cb_27821-APP3_CSBASE
         int     0a4h
         KEY_DOWN        20h, EP_L_26EC8_OFF, APP3_SEG
         KEY_DOWN        19h, EP_L_2782A_OFF, APP3_SEG
@@ -3259,7 +3377,7 @@ L_27A10:
         db      0cbh
 L_271CD:
         int     0d4h
-        mov     byte ptr [0f2eh], 0
+        mov     byte ptr [A2_B_00F2E], 0
         push    cs
         call    seq_names_fetch
         push    cs
@@ -3268,7 +3386,7 @@ L_271CD:
 L_272DD:
         mov     ax, word ptr [A2_W_CUR_SEQ]
         int     0d3h
-        mov     byte ptr [0f2eh], 0
+        mov     byte ptr [A2_B_00F2E], 0
         push    cs
         call    seq_names_fetch
         push    cs
@@ -3333,7 +3451,7 @@ L_27203:
         mov     cl, 58h
         mov     ch, 28h
         call    fn_27FF8
-        call    word ptr [0f1eh]
+        call    word ptr [A3_W_00F1E]
         retf
 cb_27B66:
         DISP_CURSOR     58h, 10h, 73h
@@ -3347,7 +3465,7 @@ cb_27B6F:
         if      FW_VERSION >= 110
 far_272A8:
         mov     word ptr [A3_W_00F1A], FAR_272A8-APP3_CSBASE
-        mov     word ptr [0f1eh], cb_27B66-APP3_CSBASE
+        mov     word ptr [A3_W_00F1E_2], cb_27B66-APP3_CSBASE
         FIELD_ENTRY     ds, 710h, 1, 0, 63h, field_cb_none-APP3_CSBASE
         KEY_DOWN        19h, 0000h, 0000h
         if      FW_VERSION >= 114
@@ -3355,7 +3473,7 @@ far_272A8:
         retf
 L_27BA6:
         mov     word ptr [A3_FP_00F1A], L_27BA6-APP3_CSBASE
-        mov     word ptr [0f1eh], cb_27B6F-APP3_CSBASE
+        mov     word ptr [A3_W_00F1E], cb_27B6F-APP3_CSBASE
         FIELD_ENTRY     ds, 0f20h, 1, 0, 63h, field_cb_none-APP3_CSBASE
         else
         if      FW_VERSION >= 112
@@ -3368,11 +3486,11 @@ far_272D6                       equ     $+1
         db      0cbh
 L_273D6:
         db      0c7h, 06h, 1ah, 0fh, 0f6h, 13h
-        mov     word ptr [0f1eh], cb_27B6F-APP3_CSBASE
+        mov     word ptr [A3_W_00F1E], cb_27B6F-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 20h, 0fh, 0b3h, 01h, 0b7h, 00h, 0bah, 63h, 00h, 0bfh, 0dch
         else
         db      0cbh, 0c7h, 06h, 1ah, 0fh, 0e9h, 13h
-        mov     word ptr [0f1eh], cb_27B6F-APP3_CSBASE
+        mov     word ptr [A3_W_00F1E], cb_27B6F-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 20h, 0fh, 0b3h, 01h, 0b7h, 00h, 0bah, 63h, 00h, 0bfh, 0cfh
         endif
         db      18h, 0cdh, 7eh
@@ -3501,7 +3619,7 @@ far_27390:
         else
 FAR_272A8:
         mov     word ptr [A3_W_00F1A], FAR_272A8-APP3_CSBASE
-        mov     word ptr [0f1eh], cb_27B66-APP3_CSBASE
+        mov     word ptr [A3_W_00F1E], cb_27B66-APP3_CSBASE
         mov     cx, ds
         mov     si, 710h
         mov     bl, 1
@@ -3514,7 +3632,7 @@ FAR_272A8:
         db      0cbh
 L_27BA6:
         mov     word ptr [A3_W_00F1A], L_27BA6-APP3_CSBASE
-        mov     word ptr [0f1eh], cb_27B6F-APP3_CSBASE
+        mov     word ptr [A3_W_00F1E], cb_27B6F-APP3_CSBASE
         FIELD_ENTRY     ds, 0f20h, 1, 0, 63h, field_cb_none-APP3_CSBASE
         KEY_DOWN        19h, (APP3_BASE+FAR_272A8-APP3_SEG*16), APP3_SEG
         KEY_DOWN        1ah, 0000h, 0000h
@@ -4205,7 +4323,7 @@ L_2832C:
         or      ax, word ptr [bx+si]
         call    fn_283BB
         call    fn_283E7
-        call    word ptr [11d8h]
+        call    word ptr [A3_W_011D8]
         retf
         DISP_TEXT       8ch, 0bh, "Initial \\:"
         DISP_TEXT       0d8h, 0bh, "."
@@ -4397,7 +4515,7 @@ str_28550:
         db      "END"
 L_28553:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_283B2-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_283B2-APP3_CSBASE
         mov     es, word ptr [A3_W_00F10]
         mov     ax, word ptr es:[16h]
         mov     bl, 0
@@ -4429,7 +4547,7 @@ L_285AF:
         retf
 L_285B6:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_283DE-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_283DE-APP3_CSBASE
         FIELD_ENTRY     word ptr [0f10h], 13h, 0, 0, 1, field_cb_none-APP3_CSBASE
         KEY_CURSOR      0000h, 0000h, EP_L_28553_OFF, APP3_SEG, 0000h, 0000h, EP_L_2898A_OFF, APP3_SEG
         KEY_DOWN        11h, 0000h, 0000h
@@ -4437,7 +4555,7 @@ L_285B6:
         retf
 far_285F5:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_283FC-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_283FC-APP3_CSBASE
         mov     ax, word ptr [A3_W_011DC]
         if      FW_VERSION >= 110
         KEY_WHEEL2      EP_L_2863E_OFF, APP3_SEG, EP_L_28649_OFF, APP3_SEG
@@ -4536,7 +4654,7 @@ br_286A7:
         retf
 far_286AC:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_28408-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_28408-APP3_CSBASE
         call    fn_28792
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
@@ -4648,7 +4766,7 @@ br_287AE:
         ret
 far_287C1:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_28414-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_28414-APP3_CSBASE
         call    fn_28792
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
@@ -4735,7 +4853,7 @@ L_28897:
         retf
 isr_288A2:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_28420-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_28420-APP3_CSBASE
         call    fn_28792
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
@@ -4824,7 +4942,7 @@ L_2897F:
         retf
 L_2898A:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_2842C-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_2842C-APP3_CSBASE
         call    fn_28792
         mov     ax, word ptr es:[si]
         mov     bl, 0
@@ -4885,7 +5003,7 @@ L_28A07                         equ     $+13
         retf
 L_28A12:
         call    fn_282C4
-        mov     word ptr [11d8h], cb_28438-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_28438-APP3_CSBASE
         call    fn_28792
         mov     ax, word ptr es:[si]
         call    fn_28509
@@ -5176,15 +5294,15 @@ L_2841B:
 L_28421:
         mov     es, word ptr [A3_W_00F10]
         mov     ax, word ptr es:[A3_W_0001A]
-        mov     word ptr [11f2h], ax
+        mov     word ptr [A3_W_011F2], ax
         dec     ax
-        cmp     ax, word ptr [11eeh]
+        cmp     ax, word ptr [A3_W_011EE]
         jae     L_28436
-        mov     word ptr [11eeh], ax
+        mov     word ptr [A3_W_011EE], ax
 L_28436:
-        cmp     ax, word ptr [11f0h]
+        cmp     ax, word ptr [A3_W_011F0]
         jae     L_2843F
-        mov     word ptr [11f0h], ax
+        mov     word ptr [A3_W_011F0], ax
 L_2843F:
         int     0a4h
         push    cs
@@ -5212,7 +5330,7 @@ L_27A81:
         db      0e8h, 0d5h, 0fdh, 0eh, 0e8h, 23h, 0ffh, 0e8h, 0d4h, 0feh, 0cbh
 ISR_288A2:
         db      0e8h, 29h, 0fah
-        mov     word ptr [11d8h], cb_28420-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_28420-APP3_CSBASE
         db      0e8h, 0e4h, 0feh, 26h, 8bh, 44h, 02h, 26h, 8bh, 54h, 04h
         db      0cdh, 0beh, 88h, 1eh, 0e7h, 11h, 8bh, 0f8h, 0c1h, 0e7h, 02h, 81h, 0c7h, 00h, 15h, 8ah
         db      0c2h, 0f6h, 0e3h, 2bh, 0dbh, 26h, 03h, 05h, 26h, 12h, 5dh, 02h, 0a3h, 0e8h, 11h, 89h
@@ -5235,7 +5353,7 @@ L_27B69:
         db      0e8h, 0ech, 0fdh, 0cbh
 L_2898A:
         db      0e8h, 41h, 0f9h
-        mov     word ptr [11d8h], cb_2842C-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_2842C-APP3_CSBASE
         db      0e8h, 0fch, 0fdh
         db      26h, 8bh, 04h, 0b3h, 00h, 0b7h, 00h, 0bah, 0eh, 27h, 0bfh, 0f2h, 21h, 0cdh, 7fh
         KEY_CURSOR      EP_ISR_288A2_OFF, APP3_SEG, (APP3_BASE+L_27BFC-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_27BD8-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_27BF1-APP3_SEG*16), APP3_SEG
@@ -5252,7 +5370,7 @@ L_27BF1:
         db      0e8h, 65h, 0fch, 0eh, 0e8h, 7ch, 0ffh, 0e8h, 64h, 0fdh, 0cbh
 L_27BFC:
         db      0e8h, 0b9h, 0f8h
-        mov     word ptr [11d8h], cb_28438-APP3_CSBASE
+        mov     word ptr [A3_W_011D8], cb_28438-APP3_CSBASE
         db      0e8h, 74h, 0fdh, 26h, 8bh, 04h, 0e8h, 0e5h, 0fah, 0b3h, 00h
         db      0b7h, 00h, 0bah, 0b8h, 0bh, 0bfh, 7dh, 22h, 0cdh, 7fh
         KEY_CURSOR      EP_L_2898A_OFF, APP3_SEG, EP_L_28553_OFF, APP3_SEG, (APP3_BASE+L_27C83-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_27C8E-APP3_SEG*16), APP3_SEG
@@ -5470,7 +5588,7 @@ L_285C2:
         else
         mov     word ptr [A3_W_01206], 254ch
         endif
-        mov     ax, word ptr [11f0h]
+        mov     ax, word ptr [A3_W_011F0]
         mov     bl, 1
         mov     bh, 0
         mov     dx, 3e7h
@@ -5485,24 +5603,24 @@ intcb_285EA_112:
         mov     ax, word ptr es:[A3_W_0001A]
         dec     ax
 L_285FA:
-        cmp     ax, word ptr [11eeh]
+        cmp     ax, word ptr [A3_W_011EE]
         jae     L_28603
-        mov     word ptr [11eeh], ax
+        mov     word ptr [A3_W_011EE], ax
 L_28603:
-        mov     word ptr [11f0h], ax
+        mov     word ptr [A3_W_011F0], ax
         retf
 L_28607:
         int     0b4h
-        mov     bx, word ptr [11ech]
+        mov     bx, word ptr [A3_W_011EC]
         shl     bx, 1
         mov     cx, word ptr [bx+A3_TBL_01208]
         mov     ax, 180h
         div     ch
         mov     ah, 0
-        mov     word ptr [11fch], ax
+        mov     word ptr [A3_W_011FC], ax
         mul     cl
-        mov     word ptr [11fah], ax
-        push    word ptr [11eeh]
+        mov     word ptr [A3_W_011FA], ax
+        push    word ptr [A3_W_011EE]
         call    L_2867B
         mov     es, word ptr [A3_W_00F10]
         mov     si, word ptr es:[A3_W_0001A]
@@ -5533,16 +5651,16 @@ L_28607:
         retf
 L_2867B:
         call    L_28692
-        mov     ax, word ptr [11eeh]
-        mov     bx, word ptr [11f0h]
-        cmp     ax, word ptr [11f0h]
+        mov     ax, word ptr [A3_W_011EE]
+        mov     bx, word ptr [A3_W_011F0]
+        cmp     ax, word ptr [A3_W_011F0]
         jne     L_2868C
         ret
 L_2868C:
-        inc     word ptr [11eeh]
+        inc     word ptr [A3_W_011EE]
         jmp     L_2867B
 L_28692:
-        mov     ax, word ptr [11eeh]
+        mov     ax, word ptr [A3_W_011EE]
         push    ax
         call    fn_30425
         pop     ax
@@ -5554,30 +5672,30 @@ L_28692:
         mov     bh, byte ptr es:[1eh]
         mov     ax, word ptr es:[si+4]
         sub     ax, word ptr es:[si]
-        sub     ax, word ptr [11fah]
+        sub     ax, word ptr [A3_W_011FA]
         jae     L_286C0
         jmp     L_287E6
 L_286C0:
-        mov     word ptr [11f8h], ax
-        mov     bl, byte ptr [11fch]
+        mov     word ptr [A3_W_011F8], ax
+        mov     bl, byte ptr [A3_W_011FC]
         mov     byte ptr es:[si+3], bl
         mov     ax, word ptr es:[si]
         mov     bl, byte ptr es:[si+2]
-        add     ax, word ptr [11fah]
+        add     ax, word ptr [A3_W_011FA]
         adc     bl, 0
         push    ax
         push    bx
         mov     ax, word ptr es:[si+4]
         mov     bl, byte ptr es:[si+6]
-        mov     word ptr [11feh], ax
-        mov     word ptr [1200h], bx
+        mov     word ptr [A3_W_011FE], ax
+        mov     word ptr [A3_W_01200], bx
 L_286EA:
         add     si, 4
         mov     ax, word ptr es:[si]
         mov     bl, byte ptr es:[si+2]
         mov     cx, ax
         mov     dl, bl
-        sub     ax, word ptr [11f8h]
+        sub     ax, word ptr [A3_W_011F8]
         sbb     bl, 0
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
@@ -5600,8 +5718,8 @@ L_28723:
         mov     ax, word ptr es:[si]
         mov     dl, byte ptr es:[si+2]
         and     dl, 0fh
-        sub     ax, word ptr [11feh]
-        sbb     dl, byte ptr [1200h]
+        sub     ax, word ptr [A3_W_011FE]
+        sbb     dl, byte ptr [A3_W_01200]
         jae     L_28742
         int     81h
         jmp     L_28723
@@ -5612,7 +5730,7 @@ L_28742:
         mov     bx, word ptr es:[si+2]
         mov     bh, bl
         and     bx, 0f00fh
-        sub     ax, word ptr [11f8h]
+        sub     ax, word ptr [A3_W_011F8]
         sbb     bl, 0
         or      bl, bh
         mov     word ptr es:[si], ax
@@ -5641,8 +5759,8 @@ L_2877F:
 L_28797:
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        sub     ax, word ptr [11feh]
-        sbb     dl, byte ptr [1200h]
+        sub     ax, word ptr [A3_W_011FE]
+        sbb     dl, byte ptr [A3_W_01200]
         jae     L_287C9
         push    es
         push    si
@@ -5665,7 +5783,7 @@ L_28797:
 L_287C9:
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        sub     ax, word ptr [11f8h]
+        sub     ax, word ptr [A3_W_011F8]
         sbb     dl, 0
         mov     word ptr es:[si+2], ax
         mov     word ptr es:[si+4], dx
@@ -5674,10 +5792,10 @@ L_287C9:
         ret
 L_287E6:
         neg     ax
-        mov     word ptr [11f8h], ax
+        mov     word ptr [A3_W_011F8], ax
         pusha
         push    es
-        mov     ax, word ptr [11eeh]
+        mov     ax, word ptr [A3_W_011EE]
         inc     ax
         call    fn_30425
         int     83h
@@ -5688,7 +5806,7 @@ L_287F6:
         mov     bx, word ptr es:[si+2]
         mov     bh, bl
         and     bx, 0f00fh
-        add     ax, word ptr [11f8h]
+        add     ax, word ptr [A3_W_011F8]
         adc     bl, 0
         or      bl, bh
         mov     word ptr es:[si], ax
@@ -5698,7 +5816,7 @@ L_287F6:
 L_2881F:
         pop     es
         popa
-        mov     al, byte ptr [11fch]
+        mov     al, byte ptr [A3_W_011FC]
         mov     byte ptr es:[si+3], al
 L_28828:
         add     si, 4
@@ -5706,7 +5824,7 @@ L_28828:
         mov     bl, byte ptr es:[si+2]
         mov     cx, ax
         mov     dl, bl
-        add     ax, word ptr [11f8h]
+        add     ax, word ptr [A3_W_011F8]
         adc     bl, 0
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
@@ -5738,7 +5856,7 @@ L_2886B:
 L_28883:
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        add     ax, word ptr [11f8h]
+        add     ax, word ptr [A3_W_011F8]
         adc     dl, 0
         mov     word ptr es:[si+2], ax
         mov     word ptr es:[si+4], dx
@@ -5758,8 +5876,8 @@ L_288AC:
         mov     es, word ptr [A3_W_00F10]
         mov     ax, word ptr es:[A3_W_0001A]
         dec     ax
-        mov     word ptr [12ach], ax
-        mov     word ptr [12aeh], ax
+        mov     word ptr [A3_W_012AC], ax
+        mov     word ptr [A3_W_012AE], ax
         int     0a4h
         endif
         KEY_DOWN        20h, EP_FAR_290D9_OFF, APP3_SEG
@@ -5787,16 +5905,16 @@ L_27F7C:
         retf
 L_28607:
         int     0b4h
-        mov     bx, word ptr [11ech]
+        mov     bx, word ptr [A3_W_011EC]
         shl     bx, 1
         mov     cx, word ptr [bx+A3_TBL_01208]
         mov     ax, 180h
         div     ch
         mov     ah, 0
-        mov     word ptr [11fch], ax
+        mov     word ptr [A3_W_011FC], ax
         mul     cl
-        mov     word ptr [11fah], ax
-        push    word ptr [11eeh]
+        mov     word ptr [A3_W_011FA], ax
+        push    word ptr [A3_W_011EE]
         db      0e8h, 52h, 00h, 8eh, 06h, 10h, 0fh, 26h, 8bh, 36h, 1ah, 00h, 0c1h, 0e6h, 02h, 81h
         db      0c6h, 00h, 15h, 26h, 8ah, 44h, 0ffh, 26h, 88h, 44h, 03h, 8eh, 06h, 10h, 0fh, 26h
         db      8bh, 0eh, 14h, 00h, 0b8h, 0eh, 00h, 0f7h, 0e1h, 05h, 00h, 07h, 8bh, 0f0h, 26h, 0a1h
@@ -5813,15 +5931,15 @@ L_28607:
         push    bx
         mov     ax, word ptr es:[si+4]
         mov     bl, byte ptr es:[si+6]
-        mov     word ptr [11feh], ax
-        mov     word ptr [1200h], bx
+        mov     word ptr [A3_W_011FE], ax
+        mov     word ptr [A3_W_01200], bx
 L_286EA:
         add     si, 4
         mov     ax, word ptr es:[si]
         mov     bl, byte ptr es:[si+2]
         mov     cx, ax
         mov     dl, bl
-        sub     ax, word ptr [11f8h]
+        sub     ax, word ptr [A3_W_011F8]
         sbb     bl, 0
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
@@ -5830,7 +5948,7 @@ L_286EA:
         db      04h, 0ffh, 74h, 41h, 26h, 8bh, 04h, 26h, 8ah, 54h, 02h, 80h, 0e2h, 0fh, 2bh, 06h
         db      0feh, 11h, 1ah, 16h, 00h, 12h, 73h, 04h, 0cdh, 81h, 0ebh, 0e1h, 26h, 80h, 7ch, 04h
         db      0ffh, 74h, 22h, 26h, 8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh, 81h, 0e3h, 0fh, 0f0h
-        sub     ax, word ptr [11f8h]
+        sub     ax, word ptr [A3_W_011F8]
         sbb     bl, 0
         or      bl, bh
         mov     word ptr es:[si], ax
@@ -5846,13 +5964,13 @@ L_286EA:
         db      0f7h, 0d8h, 0a3h, 0f8h, 11h, 60h, 06h, 0a1h, 0eeh, 11h, 40h, 0e8h, 49h, 74h, 0cdh, 83h
         db      26h, 80h, 7ch, 04h, 0ffh, 74h, 22h, 26h, 8bh, 04h, 26h, 8bh, 5ch, 02h, 8ah, 0fbh
         and     bx, 0f00fh
-        add     ax, word ptr [11f8h]
+        add     ax, word ptr [A3_W_011F8]
         adc     bl, 0
         or      bl, bh
         mov     word ptr es:[si], ax
         db      26h, 88h, 5ch, 02h, 0e8h, 1bh, 0f2h, 0ebh, 0d7h, 07h, 61h, 0a0h, 0fch, 11h, 26h, 88h
         db      44h, 03h, 83h, 0c6h, 04h, 26h, 8bh, 04h, 26h, 8ah, 5ch, 02h, 8bh, 0c8h, 8ah, 0d3h
-        add     ax, word ptr [11f8h]
+        add     ax, word ptr [A3_W_011F8]
         adc     bl, 0
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
@@ -5955,8 +6073,8 @@ L_29305:
 L_288FF:
 L_291EC:
         call    fn_2B3C5
-        mov     ax, word ptr [12ach]
-        mov     bx, word ptr [12aeh]
+        mov     ax, word ptr [A3_W_012AC]
+        mov     bx, word ptr [A3_W_012AE]
         cmp     ax, bx
         jne     L_28A2D
         jmp     L_28B2D
@@ -5965,7 +6083,7 @@ L_28A2D:
         jmp     L_28AA8
 L_28A31:
         mov     es, word ptr [A3_W_00F10]
-        mov     si, word ptr [12aeh]
+        mov     si, word ptr [A3_W_012AE]
         inc     si
         mov     word ptr es:[A3_W_0001A], si
         shl     si, 2
@@ -6018,7 +6136,7 @@ L_28A94:
 L_28AA8:
         mov     ax, 3e7h
         call    fn_30425
-        mov     ax, word ptr [12ach]
+        mov     ax, word ptr [A3_W_012AC]
         push    ax
         db      0e8h, 58h, 0efh
         pop     cx
@@ -6037,7 +6155,7 @@ L_28AB6:
         mov     word ptr es:[si+2], dx
         inc     cx
         if      FW_VERSION >= 110
-        cmp     cx, word ptr [12aeh]
+        cmp     cx, word ptr [A3_W_012AE]
         jbe     L_28AB6
         and     dx, 0fh
         mov     word ptr es:[A3_W_0001A], cx
@@ -6093,14 +6211,14 @@ L_284EA:
         db      0e8h, 0c4h, 0edh, 74h, 01h, 0cbh
         endif
         sub     ax, ax
-        mov     word ptr [12b0h], ax
-        mov     word ptr [12b2h], ax
+        mov     word ptr [A3_W_012B0], ax
+        mov     word ptr [A3_W_012B2], ax
         mov     word ptr [A3_W_012B4], ax
-        mov     word ptr [12b6h], 0
+        mov     word ptr [A3_W_012B6], 0
         mov     es, word ptr [A3_W_00F10]
         mov     ax, word ptr es:[A3_W_0001A]
         dec     ax
-        mov     word ptr [12ach], ax
+        mov     word ptr [A3_W_012AC], ax
         int     0a4h
         push    cs
         call    L_28CF3
@@ -6319,7 +6437,7 @@ L_28CF3:
         else
         mov     word ptr [A3_W_012AA], 2cc4h
         endif
-        mov     ax, word ptr [12b0h]
+        mov     ax, word ptr [A3_W_012B0]
         mov     bl, 0
         mov     bh, 0
         mov     dx, 3e6h
@@ -6329,13 +6447,13 @@ L_28CF3:
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_28D69-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_28D2D-APP3_SEG*16), APP3_SEG
         retf
 intcb_28D1B_112:
-        mov     bx, word ptr [12ach]
+        mov     bx, word ptr [A3_W_012AC]
         inc     bx
         cmp     ax, bx
         jb      L_28D26
         mov     ax, bx
 L_28D26:
-        mov     word ptr [12b0h], ax
+        mov     word ptr [A3_W_012B0], ax
         mov     word ptr es:[di], ax
         retf
 L_28D2D:
@@ -6344,7 +6462,7 @@ L_28D2D:
         else
         mov     word ptr [A3_W_012AA], 2cebh
         endif
-        mov     ax, word ptr [12b6h]
+        mov     ax, word ptr [A3_W_012B6]
         mov     bl, 0
         mov     bh, 0
         mov     dx, 3e7h
@@ -6354,12 +6472,12 @@ L_28D2D:
         retf
 intcb_28D55_112:
         mov     bx, 3e6h
-        sub     bx, word ptr [12ach]
+        sub     bx, word ptr [A3_W_012AC]
         cmp     ax, bx
         jb      L_28D62
         mov     ax, bx
 L_28D62:
-        mov     word ptr [12b6h], ax
+        mov     word ptr [A3_W_012B6], ax
         mov     word ptr es:[di], ax
         retf
 L_28D69:
@@ -6368,7 +6486,7 @@ L_28D69:
         else
         mov     word ptr [A3_W_012AA], 2cf4h
         endif
-        mov     ax, word ptr [12b2h]
+        mov     ax, word ptr [A3_W_012B2]
         mov     bl, 1
         mov     bh, 0
         mov     dx, 3e7h
@@ -6377,12 +6495,12 @@ L_28D69:
         KEY_CURSOR      (APP3_BASE+L_28CF3-APP3_SEG*16), APP3_SEG, 0000h, 0000h, 0000h, 0000h, (APP3_BASE+L_28DAB-APP3_SEG*16), APP3_SEG
         retf
 intcb_28D91_112:
-        mov     bx, word ptr [12ach]
+        mov     bx, word ptr [A3_W_012AC]
         cmp     ax, bx
         jb      L_28D9B
         mov     ax, bx
 L_28D9B:
-        mov     word ptr [12b2h], ax
+        mov     word ptr [A3_W_012B2], ax
         mov     word ptr es:[di], ax
         cmp     ax, word ptr [A3_W_012B4]
         jb      L_28DAA
@@ -6404,19 +6522,19 @@ L_28DAB:
         KEY_CURSOR      (APP3_BASE+L_28D2D-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_28D69-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         retf
 intcb_28DD3_112:
-        cmp     ax, word ptr [12ach]
+        cmp     ax, word ptr [A3_W_012AC]
         jb      L_28DDC
-        mov     ax, word ptr [12ach]
+        mov     ax, word ptr [A3_W_012AC]
 L_28DDC:
         mov     word ptr [A3_W_012B4], ax
         mov     word ptr es:[di], ax
-        cmp     ax, word ptr [12b2h]
+        cmp     ax, word ptr [A3_W_012B2]
         jae     L_28DEB
-        mov     word ptr [12b2h], ax
+        mov     word ptr [A3_W_012B2], ax
 L_28DEB:
         retf
 L_28DEC:
-        cmp     word ptr [12b6h], 0
+        cmp     word ptr [A3_W_012B6], 0
         jne     L_28DF6
         jmp     L_28F19
 L_28DF6:
@@ -6427,12 +6545,12 @@ L_28DF6:
         div     bh
         mov     byte ptr [A3_B_012CA], al
         mul     bl
-        mov     word ptr [12bch], ax
-        mov     bx, word ptr [12b6h]
+        mov     word ptr [A3_W_012BC], ax
+        mov     bx, word ptr [A3_W_012B6]
         mul     bx
-        mov     word ptr [12b8h], ax
-        mov     word ptr [12bah], dx
-        mov     ax, word ptr [12b0h]
+        mov     word ptr [A3_W_012B8], ax
+        mov     word ptr [A3_W_012BA], dx
+        mov     ax, word ptr [A3_W_012B0]
         shl     ax, 2
         add     ax, 1500h
         mov     si, ax
@@ -6447,8 +6565,8 @@ L_28E3C:
         mov     bl, byte ptr es:[si+2]
         mov     cx, ax
         mov     dl, bl
-        add     ax, word ptr [12b8h]
-        adc     bl, byte ptr [12bah]
+        add     ax, word ptr [A3_W_012B8]
+        adc     bl, byte ptr [A3_W_012BA]
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
         cmp     cx, bp
@@ -6461,7 +6579,7 @@ L_28E5E:
 L_28E63:
         pop     bx
         sub     bx, 4
-        mov     di, word ptr [12b6h]
+        mov     di, word ptr [A3_W_012B6]
         shl     di, 2
         add     di, si
         push    ds
@@ -6518,27 +6636,27 @@ L_287A1:
         db      0c1h, 0e7h, 02h, 03h, 0feh, 1eh, 8ch, 0c0h, 8eh, 0d8h, 0b9h, 02h, 00h, 0f3h, 0a5h, 83h
         db      0eeh, 08h, 83h, 0efh, 08h, 3bh, 0deh, 75h, 0f1h, 1fh, 5eh, 5bh, 58h, 53h, 0b7h, 00h
         endif
-        mov     word ptr [12beh], ax
-        mov     word ptr [12c0h], bx
+        mov     word ptr [A3_W_012BE], ax
+        mov     word ptr [A3_W_012C0], bx
         pop     bx
-        mov     cx, word ptr [12b6h]
+        mov     cx, word ptr [A3_W_012B6]
         mov     bh, byte ptr [A3_B_012CA]
         if      FW_VERSION >= 110
 L_28E9B:
         mov     word ptr es:[si], ax
         mov     word ptr es:[si+2], bx
-        add     ax, word ptr [12bch]
+        add     ax, word ptr [A3_W_012BC]
         adc     bl, 0
         add     si, 4
         loop    L_28E9B
-        mov     ax, word ptr [12b8h]
-        mov     dx, word ptr [12bah]
+        mov     ax, word ptr [A3_W_012B8]
+        mov     dx, word ptr [A3_W_012BA]
         add     word ptr es:[1ch], ax
         adc     word ptr es:[1eh], dx
-        mov     ax, word ptr [12b6h]
+        mov     ax, word ptr [A3_W_012B6]
         add     word ptr es:[A3_W_0001A], ax
         call    L_2905D
-        mov     ax, word ptr [12b0h]
+        mov     ax, word ptr [A3_W_012B0]
         call    fn_30425
         int     83h
 L_28ED2:
@@ -6548,8 +6666,8 @@ L_28ED2:
         mov     bx, word ptr es:[si+2]
         mov     bh, bl
         and     bx, 0f00fh
-        add     ax, word ptr [12b8h]
-        adc     bl, byte ptr [12bah]
+        add     ax, word ptr [A3_W_012B8]
+        adc     bl, byte ptr [A3_W_012BA]
         or      bl, bh
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
@@ -6571,14 +6689,14 @@ L_28F19:
         retf
 L_28F21:
         mov     ax, word ptr [A3_W_012B4]
-        sub     ax, word ptr [12b2h]
+        sub     ax, word ptr [A3_W_012B2]
         inc     ax
         mov     es, word ptr [A3_W_00F10]
         cmp     ax, word ptr es:[A3_W_0001A]
         jne     L_28F37
         jmp     L_29054
 L_28F37:
-        mov     di, word ptr [12b2h]
+        mov     di, word ptr [A3_W_012B2]
         shl     di, 2
         add     di, 1500h
         mov     si, word ptr [A3_W_012B4]
@@ -6588,7 +6706,7 @@ L_28F37:
         mov     ax, word ptr es:[si]
         mov     dx, word ptr es:[si+2]
         mov     dh, 0
-        mov     word ptr [12c2h], ax
+        mov     word ptr [A3_W_012C2], ax
         mov     word ptr [A3_W_012C4], dx
         push    word ptr es:[di]
         push    word ptr es:[di+2]
@@ -6606,15 +6724,15 @@ L_28F6B:
         pop     cx
         pop     bx
         mov     ch, 0
-        mov     word ptr [12c6h], bx
-        mov     word ptr [12c8h], cx
+        mov     word ptr [A3_W_012C6], bx
+        mov     word ptr [A3_W_012C8], cx
         mov     ax, word ptr es:[si]
         mov     dx, word ptr es:[si+2]
         sub     ax, bx
         sbb     dl, cl
         mov     dh, 0
-        mov     word ptr [12b8h], ax
-        mov     word ptr [12bah], dx
+        mov     word ptr [A3_W_012B8], ax
+        mov     word ptr [A3_W_012BA], dx
         mov     bp, word ptr es:[1ch]
         mov     bh, byte ptr es:[1eh]
 L_28FA2:
@@ -6630,16 +6748,16 @@ L_28FB8:
         add     si, 4
         jmp     L_28FA2
 L_28FBD:
-        mov     ax, word ptr [12b8h]
-        mov     dx, word ptr [12bah]
+        mov     ax, word ptr [A3_W_012B8]
+        mov     dx, word ptr [A3_W_012BA]
         sub     word ptr es:[1ch], ax
         sbb     word ptr es:[1eh], dx
         mov     ax, word ptr [A3_W_012B4]
-        sub     ax, word ptr [12b2h]
+        sub     ax, word ptr [A3_W_012B2]
         inc     ax
         sub     word ptr es:[A3_W_0001A], ax
         call    L_29113
-        mov     ax, word ptr [12b2h]
+        mov     ax, word ptr [A3_W_012B2]
         call    fn_30425
         int     83h
 L_28FE6:
@@ -6648,7 +6766,7 @@ L_28FE6:
         mov     ax, word ptr es:[si]
         mov     dl, byte ptr es:[si+2]
         and     dl, 0fh
-        sub     ax, word ptr [12c2h]
+        sub     ax, word ptr [A3_W_012C2]
         sbb     dl, byte ptr [A3_W_012C4]
         jae     L_29005
         int     81h
@@ -6660,8 +6778,8 @@ L_29005:
         mov     bx, word ptr es:[si+2]
         mov     bh, bl
         and     bx, 0f00fh
-        sub     ax, word ptr [12b8h]
-        sbb     bl, byte ptr [12bah]
+        sub     ax, word ptr [A3_W_012B8]
+        sbb     bl, byte ptr [A3_W_012BA]
         or      bl, bh
         mov     word ptr es:[si], ax
         mov     byte ptr es:[si+2], bl
@@ -6708,19 +6826,19 @@ L_2908A:
 L_29091:
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        sub     ax, word ptr [12beh]
-        sbb     dx, word ptr [12c0h]
+        sub     ax, word ptr [A3_W_012BE]
+        sbb     dx, word ptr [A3_W_012C0]
         jb      L_2908A
-        mov     ax, word ptr [12b8h]
-        mov     dx, word ptr [12bah]
+        mov     ax, word ptr [A3_W_012B8]
+        mov     dx, word ptr [A3_W_012BA]
 L_290AA:
         add     word ptr es:[si+2], ax
         adc     word ptr es:[si+4], dx
         add     si, 0eh
         dec     cx
         jne     L_290AA
-        mov     ax, word ptr [12beh]
-        or      ax, word ptr [12c0h]
+        mov     ax, word ptr [A3_W_012BE]
+        or      ax, word ptr [A3_W_012C0]
         je      L_290C2
         ret
 L_290C2:
@@ -6805,12 +6923,12 @@ L_2917F:
 L_29186:
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        sub     ax, word ptr [12c6h]
-        sbb     dx, word ptr [12c8h]
+        sub     ax, word ptr [A3_W_012C6]
+        sbb     dx, word ptr [A3_W_012C8]
         jb      L_2917F
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        sub     ax, word ptr [12c2h]
+        sub     ax, word ptr [A3_W_012C2]
         sbb     dx, word ptr [A3_W_012C4]
         jb      L_291AB
         ret
@@ -6840,11 +6958,11 @@ L_291D2:
 L_291D9:
         mov     ax, word ptr es:[si+2]
         mov     dx, word ptr es:[si+4]
-        sub     ax, word ptr [12c6h]
-        sbb     dx, word ptr [12c8h]
+        sub     ax, word ptr [A3_W_012C6]
+        sbb     dx, word ptr [A3_W_012C8]
         jb      L_291D2
-        mov     ax, word ptr [12b8h]
-        mov     dx, word ptr [12bah]
+        mov     ax, word ptr [A3_W_012B8]
+        mov     dx, word ptr [A3_W_012BA]
 L_291F2:
         sub     word ptr es:[si+2], ax
         sbb     word ptr es:[si+4], dx
@@ -8166,7 +8284,7 @@ L_2A38F:
         db      0e8h
         or      al, 0
         call    L_2A509
-        call    word ptr [13a0h]
+        call    word ptr [A3_W_013A0]
         int     0ach
         int     0fah
         retf
@@ -8302,7 +8420,7 @@ cb_29E07:
 L_297E7:
 L_297B9:
         call    L_2A359
-        mov     word ptr [013a0h], cb_2A598-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A598-APP3_CSBASE
         FIELD_WHEEL     ds, 770h, 0, 0, word ptr [013a8h], field_cb_none-APP3_CSBASE
         if      FW_VERSION >= 120
         KEY_CURSOR      (APP3_BASE+L_2A709-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A167-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A02E-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A618-APP3_SEG*16), APP3_SEG
@@ -8334,23 +8452,23 @@ L_2A62B:
         jmp     X_2A6CA
 L_2A632:
         call    L_2A359
-        mov     word ptr [013a0h], L_2A5A1-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], L_2A5A1-APP3_CSBASE
         FIELD_ENTRY     ds, 772h, 0, 0, 14h, field_cb_none-APP3_CSBASE
         KEY_CURSOR      (APP3_BASE+L_2A167-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A19F-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG, (APP3_BASE+X_2A6CA-APP3_SEG*16), APP3_SEG
         retf
 L_2A65F:
         call    L_2A359
         if      FW_VERSION >= 120
-        mov     word ptr [013a0h], cb_2A5AA-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A5AA-APP3_CSBASE
         else
-        mov     word ptr [013a0h], cb_29DDA-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DDA-APP3_CSBASE
         endif
         FIELD_WHEEL     ds, 774h, 0, 0, 3, field_cb_none-APP3_CSBASE
         KEY_CURSOR      (APP3_BASE+L_2A167-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A19F-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG, (APP3_BASE+X_2A6CA-APP3_SEG*16), APP3_SEG
         retf
 L_2A68C:
         call    L_2A359
-        mov     word ptr [013a0h], cb_2A58F-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A58F-APP3_CSBASE
         FIELD_WHEEL     ds, 775h, 0, 0, 1, field_cb_none-APP3_CSBASE
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2A0D9-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG
         retf
@@ -8371,9 +8489,9 @@ L_2A6C5:
 X_2A6CA:
         call    L_2A359
         if      FW_VERSION >= 120
-        mov     word ptr [013a0h], cb_2A5B3-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A5B3-APP3_CSBASE
         else
-        mov     word ptr [013a0h], cb_29DE3-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DE3-APP3_CSBASE
         endif
         FIELD_WHEEL     ds, 7b2h, 0, 0, 1, field_cb_none-APP3_CSBASE
         KEY_CURSOR      (APP3_BASE+L_2A012-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A1D5-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A117-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -8390,11 +8508,11 @@ L_2A706:
         if      FW_VERSION >= 120
 L_2A709:
         call    L_2A359
-        mov     word ptr [013a0h], cb_2A5BC-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A5BC-APP3_CSBASE
         else
 L_29F77:
         call    L_2A359
-        mov     word ptr [013a0h], cb_29DEC-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DEC-APP3_CSBASE
         endif
         FIELD_WHEEL     ds, 776h, 0, 0, 2, field_cb_none-APP3_CSBASE
         KEY_CURSOR      (APP3_BASE+L_2A156-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_2A167-APP3_SEG*16), APP3_SEG
@@ -8413,10 +8531,10 @@ L_2A167:
         if      FW_VERSION >= 120
 L_29FAF:
         call    L_2A359
-        mov     word ptr [013a0h], cb_2A5C5-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A5C5-APP3_CSBASE
         else
         call    L_2A359
-        mov     word ptr [013a0h], cb_29DF5-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DF5-APP3_CSBASE
         endif
         FIELD_WHEEL     ds, 771h, 0, 0, word ptr [013a8h], field_cb_none-APP3_CSBASE
         if      FW_VERSION >= 120
@@ -8442,16 +8560,16 @@ L_2A19F:
 L_2A788:
         call    L_2A359
         if      FW_VERSION >= 120
-        mov     word ptr [013a0h], cb_2A5CE-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A5CE-APP3_CSBASE
         else
-        mov     word ptr [013a0h], cb_29DFE-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DFE-APP3_CSBASE
         endif
         FIELD_WHEEL     ds, 774h, 0, 0, 3, field_cb_none-APP3_CSBASE
         KEY_CURSOR      (APP3_BASE+L_2A117-APP3_SEG*16), APP3_SEG, (APP3_BASE+X_2A6CA-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A167-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A1D5-APP3_SEG*16), APP3_SEG
         retf
 L_2A1D5:
         call    L_2A359
-        mov     word ptr [013a0h], cb_29E07-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29E07-APP3_CSBASE
         FIELD_WHEEL     ds, 773h, 0, 0, 1, field_cb_none-APP3_CSBASE
         KEY_CURSOR      (APP3_BASE+X_2A6CA-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_2A012-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         retf
@@ -8497,11 +8615,11 @@ far_29D10                       equ     $+8
 L_297E7:
 L_297B9:
         db      0e8h, 76h, 0fdh
-        mov     word ptr [13a0h], cb_2A598-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A598-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 70h, 07h, 0b3h, 00h, 0b7h, 00h, 8bh, 16h, 0a8h, 13h, 0bfh, 0dch
         else
         db      0b6h, 0b5h, 26h, 0b0h, 13h, 0cdh, 0b0h, 0c3h, 0e8h, 76h, 0fdh
-        mov     word ptr [13a0h], cb_2A598-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A598-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 70h, 07h, 0b3h, 00h, 0b7h, 00h, 8bh, 16h, 0a8h, 13h, 0bfh, 0cfh
         endif
         db      18h, 0cdh, 7dh
@@ -8517,7 +8635,7 @@ L_29E3E:
 L_29D48:
         db      80h, 3eh, 70h, 07h, 00h, 75h, 03h, 0e9h, 0a8h, 00h, 80h, 3eh, 70h, 07h, 01h, 75h
         db      02h, 0ebh, 07h, 0ebh, 32h, 73h, 03h, 0e9h, 98h, 00h, 0e8h, 24h, 0fdh
-        mov     word ptr [13a0h], cb_29DD1_112-APP3_CSBASE
+        mov     word ptr [A3_W_013A0_2], cb_29DD1_112-APP3_CSBASE
         mov     cx, ds
         mov     si, 772h
         mov     bl, 0
@@ -8531,7 +8649,7 @@ L_29D48:
         KEY_CURSOR      (APP3_BASE+L_29F77-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29EFA-APP3_SEG*16), APP3_SEG
         endif
         db      0cbh, 0e8h, 0f7h, 0fch
-        mov     word ptr [13a0h], cb_29DDA-APP3_CSBASE
+        mov     word ptr [A3_W_013A0_2], cb_29DDA-APP3_CSBASE
         if      FW_VERSION >= 111
         db      8ch, 0d9h, 0beh, 74h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 03h, 00h, 0bfh, 0dch, 18h, 0cdh
         else
@@ -8544,7 +8662,7 @@ L_29D48:
         KEY_CURSOR      (APP3_BASE+FAR_29E77-APP3_SEG*16), APP3_SEG, (APP3_BASE+FAR_29EAF-APP3_SEG*16), APP3_SEG, (APP3_BASE+FAR_29D10-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29DFA-APP3_SEG*16), APP3_SEG
         endif
         db      0cbh, 0e8h, 0cah, 0fch
-        mov     word ptr [13a0h], cb_2A58F-APP3_CSBASE
+        mov     word ptr [A3_W_013A0_2], cb_2A58F-APP3_CSBASE
         mov     cx, ds
         mov     si, 775h
         mov     bl, 0
@@ -8568,12 +8686,12 @@ L_29DFA                         equ     $+2
         db      00h, 0cbh
 L_29EFA:
         db      0e8h, 8ch, 0fch
-        mov     word ptr [13a0h], cb_29DE3-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DE3-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b2h, 07h
         db      0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh
         else
         db      00h, 0cbh, 0e8h, 8ch, 0fch
-        mov     word ptr [13a0h], cb_29DE3-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DE3-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b2h, 07h
         db      0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0cfh, 18h, 0cdh, 7dh
         endif
@@ -8592,12 +8710,12 @@ far_29E39                       equ     $+1
         db      0feh
 L_29F39:
         db      0e8h, 4dh, 0fch
-        mov     word ptr [13a0h], cb_29DEC-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DEC-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 76h, 07h, 0b3h
         db      00h, 0b7h, 00h, 0bah, 02h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh
         else
         db      0feh, 0e8h, 4dh, 0fch
-        mov     word ptr [13a0h], cb_29DEC-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DEC-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 76h, 07h, 0b3h
         db      00h, 0b7h, 00h, 0bah, 02h, 00h, 0bfh, 0cfh, 18h, 0cdh, 7dh
         endif
@@ -8615,12 +8733,12 @@ far_29E77                       equ     $+0fh
 L_29F77:
         db      0e8h
         db      0fh, 0fch
-        mov     word ptr [13a0h], cb_29DF5-APP3_CSBASE
+        mov     word ptr [A3_W_013A0_2], cb_29DF5-APP3_CSBASE
         mov     cx, ds
         mov     si, 771h
         mov     bl, 0
         mov     bh, 0
-        mov     dx, word ptr [13a8h]
+        mov     dx, word ptr [A3_W_013A8]
         mov     di, field_cb_none-APP3_CSBASE
         int     7dh
         if      FW_VERSION < 112
@@ -8640,7 +8758,7 @@ L_29FAF:
         db      80h, 3eh, 71h, 07h, 02h, 72h, 2fh, 0ebh, 00h
 L_2A788:
         db      0e8h, 0ceh, 0fbh
-        mov     word ptr [13a0h], cb_29DFE-APP3_CSBASE
+        mov     word ptr [A3_W_013A0_2], cb_29DFE-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 74h, 07h, 0b3h, 00h
         if      FW_VERSION >= 111
         db      0b7h, 00h, 0bah, 03h, 00h, 0bfh, 0dch, 18h, 0cdh, 7dh
@@ -8656,7 +8774,7 @@ far_29EE5                       equ     $+1
         db      0cbh
 L_29FE5:
         db      0e8h, 0a1h, 0fbh
-        mov     word ptr [13a0h], cb_29E07-APP3_CSBASE
+        mov     word ptr [A3_W_013A0_2], cb_29E07-APP3_CSBASE
         mov     cx, ds
         mov     si, 773h
         mov     bl, 0
@@ -8713,7 +8831,7 @@ cb_297B0_107:
         db      0b1h, 0b6h, 0b5h, 26h, 0b0h, 13h, 0cdh, 0b0h, 0c3h
 L_297B9:
         db      0e8h, 76h, 0fdh
-        mov     word ptr [13a0h], cb_2A598-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A598-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 70h, 07h, 0b3h, 00h, 0b7h, 00h, 8bh, 16h, 0a8h, 13h, 0bfh
         db      0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_298E2-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297F1-APP3_SEG*16), APP3_SEG
@@ -8725,17 +8843,17 @@ L_2A617:
 L_297F1:
         db      80h, 3eh, 70h, 07h, 00h, 75h, 03h, 0e9h, 0a8h, 00h, 80h, 3eh, 70h, 07h, 01h
         db      75h, 02h, 0ebh, 07h, 0ebh, 32h, 73h, 03h, 0e9h, 98h, 00h, 0e8h, 24h, 0fdh
-        mov     word ptr [13a0h], cb_2977A_107-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2977A_107-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 72h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 14h, 00h
         db      0bfh, 0c0h, 18h, 0cdh, 7eh
         KEY_CURSOR      (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29958-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297B9-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29EFA-APP3_SEG*16), APP3_SEG
         db      0cbh, 0e8h, 0f7h, 0fch
-        mov     word ptr [13a0h], cb_29DDA-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DDA-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 74h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 03h, 00h, 0bfh, 0c0h, 18h
         db      0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29958-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297B9-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29EFA-APP3_SEG*16), APP3_SEG
         db      0cbh, 0e8h, 0cah, 0fch
-        mov     word ptr [13a0h], cb_2A58F-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A58F-APP3_CSBASE
         db      8ch, 0d9h
         db      0beh, 75h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_29EE9-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_297B9-APP3_SEG*16), APP3_SEG
@@ -8745,7 +8863,7 @@ L_29EE9:
         db      7eh, 00h, 0cbh
 L_29EFA:
         db      0e8h, 8ch, 0fch
-        mov     word ptr [13a0h], cb_2A5B3-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_2A5B3-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b2h
         db      07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_299BB-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2998E-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_298D0-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -8755,7 +8873,7 @@ L_298D0:
         db      0d7h, 0feh
 L_298E2:
         db      0e8h, 4dh, 0fch
-        mov     word ptr [13a0h], cb_29DEC-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DEC-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 76h, 07h
         db      0b3h, 00h, 0b7h, 00h, 0bah, 02h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_2990F-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297B9-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG
@@ -8765,7 +8883,7 @@ L_2990F:
         db      3eh, 70h, 07h, 03h, 74h, 05h, 0eh, 0e8h, 4bh, 0ffh, 0cbh, 0eh, 0e8h, 9ah, 0feh, 0cbh
 L_29FAF:
         db      0e8h, 0fh, 0fch
-        mov     word ptr [13a0h], cb_29DF5-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DF5-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 71h, 07h, 0b3h, 00h
         db      0b7h, 00h, 8bh, 16h, 0a8h, 13h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_297B9-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_297F1-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2994E-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29958-APP3_SEG*16), APP3_SEG
@@ -8776,7 +8894,7 @@ L_2994E:
 L_29958:
         db      80h, 3eh, 71h, 07h, 02h, 72h, 2fh, 0ebh
         db      00h, 0e8h, 0ceh, 0fbh
-        mov     word ptr [13a0h], cb_29DFE-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_29DFE-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 74h, 07h, 0b3h
         db      00h, 0b7h, 00h, 0bah, 03h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_298D0-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29EFA-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2998E-APP3_SEG*16), APP3_SEG
@@ -8784,7 +8902,7 @@ L_29958:
 L_2998E:
         db      0e8h, 0a1h
         db      0fbh
-        mov     word ptr [13a0h], cb_297B0_107-APP3_CSBASE
+        mov     word ptr [A3_W_013A0], cb_297B0_107-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 73h, 07h, 0b3h, 00h, 0b7h, 00h
         db      0bah, 01h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_29EFA-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_299BB-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -8825,19 +8943,19 @@ midi_sw_screen_paint:
         DISP_SOFTKEY    02h, DISP_SK_FILL,   "DUMP"
         DISP_SOFTKEY    03h, DISP_SK_PLAIN, "MIDIsw"
         if      FW_VERSION >= 111
-        mov     al, byte ptr [7b3h]
+        mov     al, byte ptr [A3_B_007B3]
         mov     cl, 23h
         mov     ch, 0fh
         call    L_2A982
-        mov     al, byte ptr [7b5h]
+        mov     al, byte ptr [A3_B_007B5]
         mov     cl, 61h
         mov     ch, 0fh
         call    L_2A982
-        mov     al, byte ptr [7b7h]
+        mov     al, byte ptr [A3_B_007B7]
         mov     cl, 9fh
         mov     ch, 0fh
         call    L_2A982
-        mov     al, byte ptr [7b9h]
+        mov     al, byte ptr [A3_B_007B9]
         mov     cl, 0ddh
         mov     ch, 0fh
         call    L_2A982
@@ -8854,7 +8972,7 @@ midi_sw_screen_paint:
         DISP_TEXT_IDX   81h, 23h, 007b8h, 013f7h
         mov     dx, ds
         DISP_TEXT_IDX   0bfh, 23h, 007bah, 013f7h
-        call    word ptr [13a6h]
+        call    word ptr [A3_W_013A6]
         DISP_BOX        00h, 00h, 0f7h, 30h
         DISP_HLINE      01h, 30h, 0f6h
         DISP_VLINE      0f7h, 01h, 30h
@@ -8919,7 +9037,7 @@ cb_2A9DD:
         ret
 far_2A116:
         mov     word ptr [A3_FP_013A2], far_2A116-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A99E-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A99E-APP3_CSBASE
         FIELD_WHEEL     ds, 7b3h, 0, 0, 80h, field_cb_none-APP3_CSBASE
         if      FW_VERSION >= 110
         if      FW_VERSION >= 114
@@ -8937,7 +9055,7 @@ far_2A116:
         retf
 far_2A14E:
         mov     word ptr [A3_FP_013A2], far_2A14E-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9A7-APP3_CSBASE
+        mov     word ptr [A3_W_013A6_2], cb_2A9A7-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b4h
         mov     bl, 0
@@ -8951,7 +9069,7 @@ far_2A14E:
         retf
 L_2A286:
         mov     word ptr [A3_FP_013A2], L_2A286-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B0-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9B0-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b5h
         mov     bl, 0
@@ -8968,7 +9086,7 @@ L_2A286:
         retf
 L_2AA8E:
         mov     word ptr [A3_FP_013A2], L_2AA8E-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B9-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9B9-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b6h
         mov     bl, 0
@@ -8981,7 +9099,7 @@ L_2AA8E:
         retf
 L_2AAC6:
         mov     word ptr [A3_FP_013A2], L_2AAC6-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9C2-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9C2-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b7h
         mov     bl, 0
@@ -8998,7 +9116,7 @@ L_2AAC6:
         retf
 L_2A2F6:
         mov     word ptr [A3_FP_013A2], L_2A2F6-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9CB-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9CB-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b8h
         mov     bl, 0
@@ -9011,7 +9129,7 @@ L_2A2F6:
         retf
 L_2AB36:
         mov     word ptr [A3_FP_013A2], L_2AB36-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9D4-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9D4-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b9h
         mov     bl, 0
@@ -9028,7 +9146,7 @@ L_2AB36:
         retf
 L_2AB6E:
         mov     word ptr [A3_FP_013A2], L_2AB6E-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9DD-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9DD-APP3_CSBASE
         mov     cx, ds
         mov     si, 7bah
         mov     bl, 0
@@ -9040,7 +9158,7 @@ L_2AB6E:
         KEY_DOWN        20h, (APP3_BASE+L_2A835-APP3_SEG*16), APP3_SEG
         retf
 L_29D7F:
-        mov     word ptr [1398h], L_29D7F-APP3_CSBASE
+        mov     word ptr [A3_W_01398], L_29D7F-APP3_CSBASE
         mov     al, 1
         int     7ah
         mov     al, 5
@@ -9059,7 +9177,7 @@ L_29D7F:
         db      0cbh
 L_2A286:
         mov     word ptr [A3_FP_013A2], L_2A286-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B0-APP3_CSBASE
+        mov     word ptr [A3_W_013A6_2], cb_2A9B0-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b5h
         mov     bl, 0
@@ -9078,12 +9196,12 @@ far_2A1BE                       equ     $+1
         if      FW_VERSION >= 111
 L_2A2BE:
         mov     word ptr [A3_FP_013A2], L_2A2BE-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B9-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9B9-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b6h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh, 0dch
         else
 cb_2A1A1_110:
         mov     word ptr [A3_FP_013A2], cb_2A1A1_110-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B9-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9B9-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b6h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh, 0cfh
         endif
         db      18h, 0cdh, 7dh
@@ -9096,7 +9214,7 @@ cb_2A1A1_110:
         db      0cbh
 L_2A2F6:
         mov     word ptr [A3_FP_013A2], L_2A2F6-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9C2-APP3_CSBASE
+        mov     word ptr [A3_W_013A6_2], cb_2A9C2-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b7h
         mov     bl, 0
@@ -9115,12 +9233,12 @@ L_2A22E                         equ     $+1
         if      FW_VERSION >= 111
 L_2A32E:
         mov     word ptr [A3_FP_013A2], L_2A32E-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9CB-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9CB-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b8h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh, 0dch
         else
 cb_2A211_110:
         mov     word ptr [A3_FP_013A2], cb_2A211_110-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9CB-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9CB-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b8h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh, 0cfh
         endif
         db      18h, 0cdh, 7dh
@@ -9134,7 +9252,7 @@ far_2A266                       equ     $+1
         db      0cbh
 L_2A366:
         mov     word ptr [A3_FP_013A2], L_2A366-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9D4-APP3_CSBASE
+        mov     word ptr [A3_W_013A6_2], cb_2A9D4-APP3_CSBASE
         mov     cx, ds
         mov     si, 7b9h
         mov     bl, 0
@@ -9153,12 +9271,12 @@ far_2A29E                       equ     $+1
         if      FW_VERSION >= 111
 L_2A39E:
         mov     word ptr [A3_FP_013A2], L_2A39E-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9DD-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9DD-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0bah, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh, 0dch
         else
 cb_2A281_110:
         mov     word ptr [A3_FP_013A2], cb_2A281_110-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9DD-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9DD-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0bah, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh, 0cfh
         endif
         db      18h, 0cdh, 7dh
@@ -9198,7 +9316,7 @@ L_29D7F:
         db      0cbh
 L_2A286:
         mov     word ptr [A3_FP_013A2], L_2A286-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9A7-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9A7-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b4h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh
         db      0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2A366-APP3_SEG*16), APP3_SEG, (APP3_BASE+far_2A116-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -9206,7 +9324,7 @@ L_2A286:
         db      0cbh
 L_2A2F6:
         mov     word ptr [A3_FP_013A2], L_2A2F6-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B0-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9B0-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b5h, 07h
         db      0b3h, 00h, 0b7h, 00h, 0bah, 80h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+far_2A116-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29C9F-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_2A366-APP3_SEG*16), APP3_SEG
@@ -9214,7 +9332,7 @@ L_2A2F6:
         db      0cbh
 L_2A366:
         mov     word ptr [A3_FP_013A2], L_2A366-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9B9-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9B9-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b6h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh
         db      0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_2A286-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29CD7-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A2F6-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -9222,7 +9340,7 @@ L_2A366:
         db      0cbh
 L_29C9F:
         mov     word ptr [A3_FP_013A2], L_29C9F-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9C2-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9C2-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b7h, 07h
         db      0b3h, 00h, 0b7h, 00h, 0bah, 80h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_2A2F6-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29D0F-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_29CD7-APP3_SEG*16), APP3_SEG
@@ -9230,7 +9348,7 @@ L_29C9F:
         db      0cbh
 L_29CD7:
         mov     word ptr [A3_FP_013A2], L_29CD7-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9CB-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9CB-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b8h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh
         db      0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_2A366-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29D47-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29C9F-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -9238,7 +9356,7 @@ L_29CD7:
         db      0cbh
 L_29D0F:
         mov     word ptr [A3_FP_013A2], L_29D0F-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9D4-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9D4-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0b9h, 07h
         db      0b3h, 00h, 0b7h, 00h, 0bah, 80h, 00h, 0bfh, 0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_29C9F-APP3_SEG*16), APP3_SEG, 0000h, 0000h, 0000h, 0000h, (APP3_BASE+L_29D47-APP3_SEG*16), APP3_SEG
@@ -9246,7 +9364,7 @@ L_29D0F:
         db      0cbh
 L_29D47:
         mov     word ptr [A3_FP_013A2], L_29D47-APP3_CSBASE
-        mov     word ptr [13a6h], cb_2A9DD-APP3_CSBASE
+        mov     word ptr [A3_W_013A6], cb_2A9DD-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0bah, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 21h, 00h, 0bfh
         db      0c0h, 18h, 0cdh, 7dh
         KEY_CURSOR      (APP3_BASE+L_29CD7-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_29D0F-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -11009,7 +11127,7 @@ L_2BDF2:
         DISP_SOFTKEY    03h, DISP_SK_BOX,    "ALL Tr"
         DISP_SOFTKEY    04h, DISP_SK_FILL,   "CANCEL"
         DISP_SOFTKEY    05h, DISP_SK_BOX,    "DO IT"
-        mov     ax, word ptr [712h]
+        mov     ax, word ptr [A3_W_00712]
         mov     cl, 58h
         mov     ch, 11h
         call    fn_28022
@@ -11162,7 +11280,7 @@ L_2B7DF:
         DISP_TEXT       92h, 1bh, "COPY"
         DISP_SOFTKEY    04h, DISP_SK_FILL,   "CANCEL"
         DISP_SOFTKEY    05h, DISP_SK_BOX,    "DO IT"
-        mov     ax, word ptr [712h]
+        mov     ax, word ptr [A3_W_00712]
         mov     cl, 58h
         mov     ch, 10h
         call    fn_28022
@@ -11179,7 +11297,7 @@ cb_2C122:
         DISP_CURSOR     58h, 28h, 73h
         ret
 L_2C12B:
-        mov     word ptr [1596h], L_2C12B-APP3_CSBASE
+        mov     word ptr [A3_W_01596], L_2C12B-APP3_CSBASE
         mov     word ptr [A3_W_0159A], cb_2C119-APP3_CSBASE
         mov     cx, ds
         mov     si, 712h
@@ -11193,7 +11311,7 @@ L_2C12B:
         db      0cbh
 L_2C159:
         if      FW_VERSION >= 110
-        mov     word ptr [1596h], L_2C159-APP3_CSBASE
+        mov     word ptr [A3_W_01596_2], L_2C159-APP3_CSBASE
         else
         db      0c7h
         push    es
@@ -11386,7 +11504,7 @@ L_2BD60:
         if      FW_VERSION >= 112
         db      0e8h
         mov     si, 0e8a6h
-        xchg    sp, word ptr [bx+6e8h]
+        xchg    sp, word ptr [bx+A3_TBL_006E8]
         lodsw
         int     0c3h
         mov     ah, 0
@@ -11694,7 +11812,7 @@ L_2C54C:
         DISP_TEXT       0bdh, 2ah, 0ch
         DISP_SOFTKEY    04h, DISP_SK_FILL,   "CLOSE"
         if      FW_VERSION >= 112
-        mov     al, byte ptr [173ch]
+        mov     al, byte ptr [A3_B_0173C]
         mov     cl, 18h
         mov     ch, 18h
         call    fn_2C5EA
@@ -11887,7 +12005,7 @@ br_2C640:
 str_2B820_107:
         db      "---OFF"
 cb_2C652:
-        mov     al, byte ptr [173dh]
+        mov     al, byte ptr [A3_B_0173D]
         mov     ah, 9
         mul     ah
         add     al, 18h
@@ -12232,7 +12350,7 @@ br_2C857:
         call    L_2BB0C
         call    fn_2C943
         call    fn_2C97A
-        call    word ptr [17cah]
+        call    word ptr [A3_W_017CA]
         retf
 fn_2C8BB:
         cmp     byte ptr [A3_B_00737], 0
@@ -12240,7 +12358,7 @@ fn_2C8BB:
         ret
 br_2C8C3:
         DISP_TEXT       1ah, 0dh, "Receive^ch:"
-        mov     al, byte ptr [733h]
+        mov     al, byte ptr [A3_B_00733]
         cmp     al, 0
         je      L_2C112
         endif
@@ -12318,7 +12436,7 @@ L_2C9BF:
         call    L_2C80E
         db      80h, 3eh, 37h, 07h, 00h
         jne     L_2C9F3
-        mov     word ptr [17cah], cb_2C989-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C989-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 33h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 10h, 00h
         mov     di, field_cb_none-APP3_CSBASE
         db      0cdh
@@ -12331,7 +12449,7 @@ L_2C9F3:
         call    far_2CA25
         db      0cbh
         call    L_2C80E
-        mov     word ptr [17cah], tgt_2C992-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], tgt_2C992-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0c1h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
         mov     di, field_cb_none-APP3_CSBASE
         db      0cdh, 7eh
@@ -12339,7 +12457,7 @@ L_2C9F3:
 far_2CA25                       equ     $+1
         db      0cbh
         call    L_2C80E
-        mov     word ptr [17cah], cb_2C99B-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C99B-APP3_CSBASE
         db      8ch
         db      0d9h, 0beh, 34h, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
         mov     di, field_cb_none-APP3_CSBASE
@@ -12348,7 +12466,7 @@ far_2CA25                       equ     $+1
 far_2CA52                       equ     $+1
         db      0cbh
         call    L_2C80E
-        mov     word ptr [17cah], cb_2C9A4-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C9A4-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 35h
         db      07h, 0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h
         mov     di, field_cb_none-APP3_CSBASE
@@ -12358,7 +12476,7 @@ far_2CA52                       equ     $+1
         call    br_2C7F9
         cmp     byte ptr [A3_B_00737], 0
         db      75h, 2ah
-        mov     word ptr [17cah], cb_2C989-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C989-APP3_CSBASE
         FIELD_ENTRY     ds, 733h, 0, 0, 10h, field_cb_none-APP3_CSBASE
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2C228-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_L_2C255_OFF, APP3_SEG
         db      0cbh, 0eh
@@ -12366,7 +12484,7 @@ far_2CA52                       equ     $+1
         retf
 L_2C228:
         db      0e8h, 13h, 0feh
-        mov     word ptr [17cah], tgt_2C992-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], tgt_2C992-APP3_CSBASE
         db      8ch, 0d9h, 0beh, 0c1h, 07h, 0b3h, 00h
         db      0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0dch, 18h, 0cdh, 7eh
         KEY_CURSOR      EP_L_2C9BF_OFF, EP_L_2C9BF_SEG, 0000h, 0000h, 0000h, 0000h, EP_L_2C255_OFF, APP3_SEG
@@ -12375,12 +12493,12 @@ L_2C228:
         if      FW_VERSION >= 114
 L_2CA7F:
         call    L_2C80E
-        mov     word ptr [17cah], cb_2C9AD-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C9AD-APP3_CSBASE
         db      8ch, 0d9h
         else
 X_2A6CA:
         call    br_2C7F9
-        mov     word ptr [17cah], cb_2C99B-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C99B-APP3_CSBASE
         mov     cx, ds
         mov     si, 734h
         mov     bl, 0
@@ -12403,7 +12521,7 @@ L_2CA7F:
         db      0e8h
         db      8ch
         std
-        mov     word ptr [17cah], cb_2C9AD-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C9AD-APP3_CSBASE
         mov     cx, ds
         endif
         mov     si, 736h
@@ -12422,7 +12540,7 @@ L_2CAAC:
 L_2C2DC:
         call    br_2C7F9
         endif
-        mov     word ptr [17cah], cb_2C9B6-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C9B6-APP3_CSBASE
         KEY_WHEEL2      (APP3_BASE+L_2CAD8-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2CAD2-APP3_SEG*16), APP3_SEG
         if      FW_VERSION >= 114
         KEY_CURSOR      (APP3_BASE+L_2CA7F-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+FAR_2CA25-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -12591,7 +12709,7 @@ L_2C23F:
         call    br_2C7F9
         cmp     byte ptr [A3_B_00737], 0
         db      75h, 2ah
-        mov     word ptr [17cah], cb_2C989-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C989-APP3_CSBASE
         FIELD_ENTRY     ds, 733h, 0, 0, 10h, field_cb_none-APP3_CSBASE
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2C228-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_X_2A6CA_OFF, APP3_SEG
         db      0cbh, 0eh
@@ -12606,7 +12724,7 @@ L_2C228:
         db      0cbh
 X_2A6CA:
         call    br_2C7F9
-        mov     word ptr [17cah], cb_2C99B-APP3_CSBASE
+        mov     word ptr [A3_W_017CA], cb_2C99B-APP3_CSBASE
         FIELD_WHEEL     ds, 734h, 0, 0, 1, field_cb_none-APP3_CSBASE
         KEY_CURSOR      0000h, 0000h, 0000h, 0000h, (APP3_BASE+L_2C228-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2C282-APP3_SEG*16), APP3_SEG
         db      0cbh
@@ -12743,12 +12861,12 @@ L_2CB54:
 L_2CC46:
         int     77h
         mov     bx, ax
-        sub     ax, word ptr [01846h]
+        sub     ax, word ptr [A3_W_01846]
         cmp     ax, 1eh
         jae     br_2CC54
         retf
 br_2CC54:
-        mov     word ptr [01846h], bx
+        mov     word ptr [A3_W_01846], bx
         int     0f2h
         retf
 L_2CC5B:
@@ -13033,12 +13151,12 @@ L_2C5A9:
 L_2CEC1:
         int     77h
         mov     bx, ax
-        sub     ax, word ptr [1846h]
+        sub     ax, word ptr [A3_W_01846]
         cmp     ax, 1eh
         jae     br_2CECF
         retf
 br_2CECF:
-        mov     word ptr [1846h], bx
+        mov     word ptr [A3_W_01846], bx
         int     0f3h
         retf
 L_2CED6:
@@ -13076,12 +13194,12 @@ L_2CED6                         equ     $+0bh
 L_2CEC1:
         db      0cdh
         db      77h, 8bh, 0d8h
-        sub     ax, word ptr [1846h]
+        sub     ax, word ptr [A3_W_01846]
         cmp     ax, 1eh
         jae     br_2CECF
         retf
 br_2CECF:
-        mov     word ptr [1846h], bx
+        mov     word ptr [A3_W_01846], bx
         int     0f3h
         retf
 L_2CED6:
@@ -13174,9 +13292,9 @@ L_2CF8D                         equ     $+2
         else
         db      0e8h
         xchg    dh, byte ptr [bx+di-75dah]
-        test    byte ptr [bx+si+2406h], al
+        test    byte ptr [bx+si+A3_TBL_02406], al
         add     al, 0b1h
-        test    byte ptr [di-17ddh], dh
+        test    byte ptr [di+A3_TBL_0E823], dh
         xlat
         sahf
         DISP_CURSOR     84h, 23h, 13h
@@ -14294,7 +14412,7 @@ fn_2D93F:
         DISP_TEXT       01h, 01h, "View:"
         mov     dx, ds
         DISP_TEXT_IDX   1fh, 01h, 01914h, 019f3h
-        cmp     byte ptr [1914h], 1
+        cmp     byte ptr [A3_B_01914], 1
         jne     br_2D991
         call    fn_280CB
         jne     br_2D983
@@ -14913,7 +15031,7 @@ str_2DFC1:
         db      ">N:   /OFF    :     D:     V:"
 stepcur_2DFDE:
         mov     cl, 18h
-        mov     ch, byte ptr [1910h]
+        mov     ch, byte ptr [A3_B_01910]
         mov     al, 25h
         int     0b0h
         ret
@@ -15060,7 +15178,7 @@ str_2E100:
         db      ">POLY PRESSURE :            :"
 stepcur_2E11D:
         mov     cl, 66h
-        mov     ch, byte ptr [1910h]
+        mov     ch, byte ptr [A3_B_01910]
         mov     al, 13h
         int     0b0h
         ret
@@ -15143,7 +15261,7 @@ str_2E208:
         db      ">CH PRESSURE   :            :"
 stepcur_2E225:
         mov     cl, 0aeh
-        mov     ch, byte ptr [1910h]
+        mov     ch, byte ptr [A3_B_01910]
         mov     al, 13h
         int     0b0h
         ret
@@ -16099,8 +16217,8 @@ br_2E9F4:
         ret
         ret
 L_2E15A:
-        mov     word ptr [1918h], 0
-        mov     byte ptr [1917h], 1
+        mov     word ptr [A3_W_01918], 0
+        mov     byte ptr [A3_B_01917], 1
         KEY_DOWN        20h, (APP3_BASE+L_2EAEC-APP3_SEG*16), APP3_SEG
         KEY_DOWN        0fh, EP_ISR_2D74F_OFF, EP_ISR_2D74F_SEG
         if      FW_VERSION >= 112
@@ -20173,7 +20291,9 @@ L_312F8:
         DISP_TEXT       0c6h, 0eh, "-"
         endif
 L_31307:
-        db      58h, 98h, 0ah, 0e4h
+        db      58h, 98h
+d_a3_tbl_0e823:
+        db      0ah, 0e4h
         js      L_3131B
         DISP_NUM        0cch, 18h, 03h
         DISP_TEXT       0c6h, 18h, "+"

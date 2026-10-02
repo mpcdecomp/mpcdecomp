@@ -459,3 +459,16 @@ C0_B_02B42                               equ (APP3_BASE+d_c0_b_02b42-APPDATA_SEG
 C0_B_02B49                               equ (APP3_BASE+d_c0_b_02b49-APPDATA_SEG*16)
 C0_W_02B30                               equ (APP3_BASE+d_c0_w_02b30-APPDATA_SEG*16)
 C0_W_02B3E                               equ (APP3_BASE+d_c0_w_02b3e-APPDATA_SEG*16)
+
+; ---- data the parts read through their DS, from the labels at them.
+
+A0_TBL_04C06                             equ (RAM_BASE+d_a0_tbl_04c06-RAM_SEG*16)
+A2_W_02EEA_2                             equ (APP3_BASE+d_a2_w_02eea-APPDATA_SEG*16)
+A3_W_012C6                               equ (APP3_BASE+d_a3_w_012c6-APPDATA_SEG*16)
+A3_W_012C8                               equ (APP3_BASE+d_a3_w_012c8-APPDATA_SEG*16)
+C0_W_02B44_2                             equ (APP3_BASE+d_c0_w_02b44-APPDATA_SEG*16)
+C0_W_02B4A                               equ (APP3_BASE+d_c0_w_02b4a-APPDATA_SEG*16)
+C0_W_02BD6                               equ (APP3_BASE+d_c0_w_02bd6-APPDATA_SEG*16)
+C0_W_02BD8                               equ (APP3_BASE+d_c0_w_02bd8-APPDATA_SEG*16)
+C0_W_02BE0_2                             equ (APP3_BASE+d_c0_w_02be0-APPDATA_SEG*16)
+C0_W_02BE4_2                             equ (APP3_BASE+d_c0_w_02be4-APPDATA_SEG*16)

@@ -2321,7 +2321,7 @@ loop_3F291:
         mov     al, byte ptr [bp-1]
         sub     ah, ah
         imul    bx, ax, 184h
-        mov     al, byte ptr [bx-6ea0h]
+        mov     al, byte ptr [bx+C0_TBL_09160]
         imul    si, ax, 99eh
         les     bx, [C0_W_0989A]
         cmp     byte ptr es:[bx+si+2], ah
@@ -6255,7 +6255,7 @@ br_416B1:
         cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         jne     br_41709
         add     bx, ax
-        mov     ax, word ptr [bx-70fch]
+        mov     ax, word ptr [bx+C0_TBL_08F04]
         mov     word ptr [bx+C1_TBL_081BA], ax
         or      ax, ax
         jne     br_416D2
@@ -6774,7 +6774,7 @@ voice_timer_expire:
         or      ah, 4
         out     80h, ax
         imul    bx, si, 14h
-        mov     ax, word ptr [bx-69eah]
+        mov     ax, word ptr [bx+C1_TBL_09616]
         out     82h, ax
         mov     ax, 8000h
 loop_41B37:
@@ -6799,9 +6799,9 @@ br_41B4E:
         or      ah, 6
         out     80h, ax
         imul    bx, si, 14h
-        mov     ax, word ptr [bx-69e8h]
+        mov     ax, word ptr [bx+C1_TBL_09618]
         out     82h, ax
-        mov     ax, word ptr [bx-69e6h]
+        mov     ax, word ptr [bx+C1_TBL_0961A]
         jmp     loop_41B37
 br_41B6C:
         lea     ax, [si-60h]
@@ -6842,7 +6842,7 @@ voice_release_full:
         cmp     byte ptr [si+C1_TBL_0D7FE], 0
         jne     br_41BC2
         mov     bx, si
-        mov     word ptr [bx+si-707ch], 0
+        mov     word ptr [bx+si+C0_TBL_08F84], 0
         mov     ax, si
         or      ah, 6
         out     80h, ax
@@ -6866,10 +6866,10 @@ resume_41BCD:
         xor     ax, ax
         mov     bx, si
         add     bx, si
-        mov     word ptr [bx-70bch], ax
-        mov     word ptr [bx-70fch], ax
-        mov     word ptr [bx-713ch], ax
-        mov     word ptr [bx-707ch], 3
+        mov     word ptr [bx+C0_TBL_08F44], ax
+        mov     word ptr [bx+C0_TBL_08F04], ax
+        mov     word ptr [bx+C0_TBL_08EC4], ax
+        mov     word ptr [bx+C0_TBL_08F84], 3
         imul    bx, si, 14h
         mov     byte ptr [bx+VOICE_TABLE+1], 0ffh
         mov     ax, si

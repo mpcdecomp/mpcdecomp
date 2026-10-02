@@ -80,4 +80,6 @@ TBL_CREDITS_ROWS_2:                     ; credits drawing 2 rows 5..53, byte-ide
         if      FEAT_DS_SLOT+0745h-$ < 0
         fatal   "the DS slot's blobs run past its 1861 bytes"
         endif
+        PAD_TO  (FEAT_DS_SLOT+0745h)-063h, 000h
+d_c2_b_07668:
         PAD_TO  FEAT_DS_SLOT+0745h, 000h

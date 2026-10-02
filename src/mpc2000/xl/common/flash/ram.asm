@@ -294,6 +294,8 @@ d_a0_b_00ea4:
 d_a0_tbl_00ea6:
         PAD_TO  011B1h-02a1h, 000h
 d_a2_w_00f10:
+        PAD_TO  (011B1h-010bh)-0178h, 000h
+d_a2_b_00f2e_2:
         PAD_TO  011B1h-010bh, 000h
 d_a0_w_010a6:
         PAD_TO  011B1h-0109h, 000h
@@ -969,13 +971,21 @@ d_a0_w_02e34:
 ; 0x12d18-0x12d80, 104 x 0ah -- tail of the preceding 0ah/0bh table
         if      FW_VERSION >= 114
 FREE_12D18:
+        PAD_TO  02F10h-03bh, 00ah
+d_a2_b_02ed5:
+        PAD_TO  02F10h-02bh, 00ah
+d_a2_b_02ee5:
         PAD_TO  02F10h, 00ah
         else
 FREE_12A28:
 FREE_12D18:
         if      FW_VERSION >= 110
+        PAD_TO  02EF4h-01fh, 00ah
+d_a2_b_02ed5:
         PAD_TO  02EF4h, 00ah
         else
+        PAD_TO  02ED6h-01h, 00ah
+d_a2_b_02ed5:
         PAD_TO  02ED6h, 00ah
         endif
         endif
@@ -1532,6 +1542,8 @@ FREE_13275:
 d_a0_w_0342a:
         db      66 dup (0)
 d_a0_tbl_0346c:
+        PAD_TO  03566h-0d5h, 000h
+d_a2_b_03491:
         PAD_TO  03566h, 000h
         else
 FREE_12F85:
@@ -2213,7 +2225,9 @@ d_p_48cb:
 d_a0_w_048b4:
         db      2 dup (0)
 d_a0_w_048b6:
-        db      3590 dup (0)
+        db      852 dup (0)
+d_a0_tbl_04c06:
+        db      2738 dup (0)
 d_a0_w_056d8:
         db      2 dup (0)
 d_a0_w_056da:

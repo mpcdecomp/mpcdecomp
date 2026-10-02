@@ -7294,7 +7294,9 @@ d_c2_w_03c64:
         else
         dw      (C2_BASE+velo_pitch_field1_thunk-C2_SEG*16), C2_SEG
         endif
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03c8e:
+        db      01h, 00h, 00h
         db      00h, 00h
 mute_window_blob:                       ; handler table {db id, dd far32}, draw list, fields
         db      05h
@@ -10023,11 +10025,17 @@ d_c2_w_zone_end_fine_cursor:
 d_c2_w_pgm_assign_cursor:
         db      2 dup (0)
 d_c2_w_08d60:
-        db      2 dup (0)
+        PAD_TO  DS_SEG*16+08d61h-SEGBASE, 0
+d_c2_b_08d61:
+        PAD_TO  d_c2_w_08d60+2, 0
 d_c2_w_08d62:
-        db      2 dup (0)
+        PAD_TO  DS_SEG*16+08d63h-SEGBASE, 0
+d_c2_b_08d63:
+        PAD_TO  d_c2_w_08d62+2, 0
 d_c2_w_08d64:
-        db      2 dup (0)
+        PAD_TO  DS_SEG*16+08d65h-SEGBASE, 0
+d_c2_b_08d65:
+        PAD_TO  d_c2_w_08d64+2, 0
 d_c2_w_params_cursor:
         db      4 dup (0)
 d_c2_w_08d6a:
@@ -10486,12 +10494,22 @@ d_c0_tbl_08e72:
         error   "consts: bytes after the version stamp, where the OS fills or keeps its program records"
         endif
 BSS_6112A:
+        PAD_TO  (DS_SEG*16+08ebeh-SEGBASE)-042h, 0
+d_c2_tbl_08e7c:
         PAD_TO  DS_SEG*16+08ebeh-SEGBASE, 0
 d_c2_b_08ebe:
         PAD_TO  DS_SEG*16+08ec0h-SEGBASE, 0
 d_c1_w_08ec0:
         PAD_TO  DS_SEG*16+08ec2h-SEGBASE, 0
 d_c1_w_08ec2:
+        PAD_TO  (DS_SEG*16+08fc4h-SEGBASE)-0100h, 0
+d_c0_tbl_08ec4:
+        PAD_TO  (DS_SEG*16+08fc4h-SEGBASE)-0c0h, 0
+d_c0_tbl_08f04:
+        PAD_TO  (DS_SEG*16+08fc4h-SEGBASE)-080h, 0
+d_c0_tbl_08f44:
+        PAD_TO  (DS_SEG*16+08fc4h-SEGBASE)-040h, 0
+d_c0_tbl_08f84:
         PAD_TO  DS_SEG*16+08fc4h-SEGBASE, 0
 d_c0_b_08fc4:
         PAD_TO  DS_SEG*16+08fcah-SEGBASE, 0
@@ -10506,6 +10524,12 @@ d_c2_b_08fda:
 d_c2_b_08fdb:
         PAD_TO  DS_SEG*16+08fe0h-SEGBASE, 0
 d_c0_w_08fe0:
+        PAD_TO  (DS_SEG*16+095f0h-SEGBASE)-0490h, 0
+d_c0_tbl_09160:
+        PAD_TO  (DS_SEG*16+095f0h-SEGBASE)-048fh, 0
+d_c0_tbl_09161:
+        PAD_TO  (DS_SEG*16+095f0h-SEGBASE)-048dh, 0
+d_c0_tbl_09163:
         PAD_TO  DS_SEG*16+095f0h-SEGBASE, 0
 d_c1_b_095f0:
         PAD_TO  DS_SEG*16+095f2h-SEGBASE, 0
@@ -10530,6 +10554,14 @@ d_c0_b_09602:
 d_c0_b_09604:
         PAD_TO  DS_SEG*16+09606h-SEGBASE, 0
 d_c0_b_09606:
+        PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-01a9h, 0
+d_c0_tbl_09608:
+        PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-019bh, 0
+d_c1_tbl_09616:
+        PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-0199h, 0
+d_c1_tbl_09618:
+        PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-0197h, 0
+d_c1_tbl_0961a:
         PAD_TO  DS_SEG*16+097b1h-SEGBASE, 0
 d_c1_b_097b1:
         PAD_TO  DS_SEG*16+09888h-SEGBASE, 0
@@ -10598,7 +10630,9 @@ d_c1_w_098ec:
 d_c1_b_098ee:
         PAD_TO  BSS_6112A+13277, 0
 d_c0_w_0c28f:
-        db      2744 dup (0)
+        db      2248 dup (0)
+d_c2_tbl_0cb1f:
+        db      496 dup (0)
 d_p_cd33:
         PAD_TO  10000h-030ah, 00h
 d_c1_w_0d71c:

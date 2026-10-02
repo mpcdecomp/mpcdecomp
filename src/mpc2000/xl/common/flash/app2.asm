@@ -2365,7 +2365,7 @@ far_1BD76:
         mov     ax, cx
         retf
 disk_screen_enter:
-        mov     byte ptr [0f2eh], 0
+        mov     byte ptr [A2_B_00F2E], 0
         mov     al, 0
         int     0ddh
         mov     al, 0
@@ -3027,9 +3027,9 @@ br_1C454:
         DISP_SOFTKEY    03h, DISP_SK_BOX,    "RENAME"
 br_1C473:
         if      FW_VERSION < 120
-        cmp     byte ptr [2ed5h], 2
+        cmp     byte ptr [A2_B_02ED5], 2
         else
-        cmp     byte ptr [2ee5h], 2
+        cmp     byte ptr [A2_B_02EE5], 2
         endif
         je      br_1C47B
         retf
@@ -3350,8 +3350,8 @@ br_1C6ED:
         jae     L_1BFC0
         ret
 L_1BFC0:
-        mov     word ptr [2eeah], ax
-        dec     word ptr [2eeah]
+        mov     word ptr [A2_W_02EEA_2], ax
+        dec     word ptr [A2_W_02EEA_2]
         call    fn_1C717
         jae     L_1BFCD
         ret
@@ -6193,7 +6193,7 @@ br_1E68C:
         mov     cx, 8
         mov     bl, 6
         int     91h
-        cmp     byte ptr [3491h], 4dh
+        cmp     byte ptr [A2_B_03491], 4dh
         jne     L_1E6B3
         cmp     byte ptr [A2_W_03492], 50h
         jne     L_1E6B3
@@ -6983,7 +6983,7 @@ isr_1EE40:
         int     0aeh
         push    cs
         call    far_1F388
-        mov     byte ptr [0f2eh], 0
+        mov     byte ptr [A2_B_00F2E_2], 0
         mov     al, 2
         mov     byte ptr [A2_B_00F2F], al
 L_1E40C:
@@ -13077,6 +13077,8 @@ FREE_22850:
 ; 0x22751-0x2292c, 475 bytes of 00h -- unverified, do not assume free
         endif
 FREE_22E20:
+        PAD_TO  ((APPDATA_SEG*16+00714h-SEGBASE)-04h)-028h, 000h
+d_a3_tbl_006e8:
         PAD_TO  (APPDATA_SEG*16+00714h-SEGBASE)-04h, 000h
 d_c0_w_00710:
         PAD_TO  APPDATA_SEG*16+00714h-SEGBASE, 000h
@@ -13117,7 +13119,9 @@ d_a3_b_00730:
 d_a3_b_00731:
         db      40h
 d_a3_b_00732:
-        db      01h, 00h
+        db      01h
+d_a3_b_00733:
+        db      00h
 d_a3_b_00734:
         db      01h
 d_a3_b_00735:
@@ -13150,8 +13154,16 @@ d_a3_w_0078b:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 d_a3_b_007b1:
-        db      00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_b_007b3:
+        db      00h
+        db      00h
+d_a3_b_007b5:
+        db      00h, 00h
+d_a3_b_007b7:
+        db      00h, 00h
+d_a3_b_007b9:
+        db      00h, 00h
 d_a3_w_007bb:
         db      00h, 00h
 d_a3_b_007bd:

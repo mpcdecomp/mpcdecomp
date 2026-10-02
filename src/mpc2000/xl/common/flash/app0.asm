@@ -1356,7 +1356,7 @@ br_00C83:
         mov     cl, al
         mov     ch, 0
         mov     bh, 0
-        mov     byte ptr [bx+4deh], al
+        mov     byte ptr [bx+A0_TBL_004DE], al
         or      bl, byte ptr [A0_B_004D5]
         call    fn_00D38
         mov     al, byte ptr es:[bx+si]
@@ -2231,7 +2231,7 @@ xl_panel_ring_buffer_isr_b9:
 xl_panel_ring_buffer_isr_b3:
         sub     ax, ax
         mov     bl, byte ptr [A0_B_001B6]
-        cmp     bl, byte ptr [1b7h]
+        cmp     bl, byte ptr [A0_B_001B7]
         jne     br_01321
         ret
 br_01321:
@@ -2249,7 +2249,7 @@ isr_0132D:
 fn_01338:
         sub     ax, ax
         mov     bl, byte ptr [A0_B_001B6]
-        cmp     bl, byte ptr [1b7h]
+        cmp     bl, byte ptr [A0_B_001B7]
         jne     br_01345
         ret
 br_01345:
@@ -18646,7 +18646,7 @@ scsi_svc_write:
         add.d0  bx, ax
         else
         db      88h, 6eh, 07h, 3eh, 88h, 4eh, 08h, 3eh, 88h, 5eh, 09h, 89h, 3eh, 4ah
-        or      byte ptr [si+4c06h], 80h
+        or      byte ptr [si+A0_TBL_04C06], 80h
         mov     ax, word ptr [A0_W_SCSI_BLOCK_SIZE]
         cmp     byte ptr [A0_B_SCSI_TARGET_BIT], 2
         mul     cx

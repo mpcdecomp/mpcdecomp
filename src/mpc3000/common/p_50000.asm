@@ -8503,7 +8503,7 @@ L_de89c:
         push    word ptr [bp + 0ah]
         push    6
         push    ds
-        push    word 6e86h
+        push    word L_6E85_V308+1
         push    word ptr [bp + 6]
         callf   0de2fh:far_d50a2
         add     sp, 0eh
@@ -9031,7 +9031,7 @@ far_d5801:
         mov     byte ptr [B_7AD0], 0
         mov     byte ptr [B_7ACA], 0
         else
-        mov     byte ptr [6ea6h], 0
+        mov     byte ptr [B_7AD0], 0
         endif
         push    0
         nop
@@ -9242,7 +9242,7 @@ L_dec67:
 br_d58ec:
         mov     byte ptr [B_F292], 0
         push    ds
-        push    word 712eh
+        push    word STR_712E
         push    cs
         call    fn_d579d
         add     sp, 4
@@ -9253,7 +9253,7 @@ br_d58ec:
 br_d58ec:
         mov     byte ptr [B_F292], 0
         push    ds
-        push    word 7084h
+        push    word STR_7084_V311
         push    cs
         call    fn_d579d
         add     sp, 4
@@ -9900,7 +9900,7 @@ L_ded66:
         jnz     L_ded4a
 L_ded75:
         mov     al, byte ptr [bp - 2]
-        mov     byte ptr [6ea6h], al
+        mov     byte ptr [B_7AD0], al
         mov     al, byte ptr [bp - 1eah]
         mov     byte ptr [B_7ACF], al
         mov     al, byte ptr [bp - 1e8h]
@@ -10445,11 +10445,11 @@ br_d5ef4:
         and     al, 7fh
         add     bx, bx
         if      FW_VERSION >= 312
-        call    word ptr cs:[bx + 15fh]
+        call    word ptr cs:[bx +TBL_d5f9f]
         elseif  FW_VERSION = 311
-        call    word ptr cs:[bx + 161h]
+        call    word ptr cs:[bx +TBL_d5f9f]
         else
-        call    word ptr cs:[bx + 15dh]
+        call    word ptr cs:[bx +TBL_d5f9f]
         endif
         jmp     br_d5ef3
 tgt_d5eff:
@@ -10505,11 +10505,11 @@ br_d5f58:
         and     al, 7fh
         add     bx, bx
         if      FW_VERSION >= 312
-        call    word ptr cs:[bx + 180h]
+        call    word ptr cs:[bx +TBL_d5fc0]
         elseif  FW_VERSION = 311
-        call    word ptr cs:[bx + 182h]
+        call    word ptr cs:[bx +TBL_d5fc0]
         else
-        call    word ptr cs:[bx + 17eh]
+        call    word ptr cs:[bx +TBL_d5fc0]
         endif
         jmp     br_d5f57
 fn_d5f63:
@@ -11554,11 +11554,11 @@ br_d675a:
         neg     cl
 br_d676c:
         if      FW_VERSION >= 312
-        cmp     cl, byte ptr [bx - 7f82h]
+        cmp     cl, byte ptr [bx +TBL_807E]
         elseif  FW_VERSION = 311
-        cmp     cl, byte ptr [bx + 7fc6h]
+        cmp     cl, byte ptr [bx +TBL_7FC6_V311]
         else
-        cmp     cl, byte ptr [bx + 7454h]
+        cmp     cl, byte ptr [bx +TBL_7454_V308]
         endif
         jl      br_d67a8
 br_d6772:
@@ -16112,11 +16112,11 @@ L_d8bc2:
         push    ax
         push    ds
         if      FW_VERSION >= 312
-        push    word 7184h
+        push    word STR_7184
         elseif  FW_VERSION = 311
-        push    word 70dah
+        push    word STR_7184
         else
-        push    word 6a0eh
+        push    word STR_7184
         endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
@@ -16371,7 +16371,7 @@ L_d8d7a:
         lea     ax, [bp - 28h]
         push    ax
         push    ds
-        push    word 7194h
+        push    word STR_7194
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         push    0
@@ -21994,11 +21994,11 @@ loop_db846:
         push    4
         push    ds
         if      FW_VERSION >= 312
-        push    word 7205h
+        push    word P_71FA+0bh
         elseif  FW_VERSION = 311
-        push    word 714dh
+        push    word P_71FA+0bh
         else
-        push    word 6a81h
+        push    word P_71FA+0bh
         endif
         mov     byte ptr [B_7207], 7bh
         callf   SEG_DCE1:far_dce14
@@ -25519,9 +25519,9 @@ br_dd4a9:
         add     sp, 6
 br_dd4c4:
         if      FW_VERSION < 311
-        cmp     byte ptr [0cec6h], 0
+        cmp     byte ptr [B_CEC6_V308], 0
         jnz     L_e5b26
-        mov     byte ptr [0cec6h], 1
+        mov     byte ptr [B_CEC6_V308], 1
 L_e5b26:
         endif
         inc     si
@@ -25614,9 +25614,9 @@ br_dd546:
         add     sp, 6
 br_dd580:
         if      FW_VERSION < 311
-        cmp     byte ptr [0cec6h], 0
+        cmp     byte ptr [B_CEC6_V308], 0
         jnz     L_e5bee
-        mov     byte ptr [0cec6h], 1
+        mov     byte ptr [B_CEC6_V308], 1
 L_e5bee:
         endif
         add     si, 2
@@ -26977,13 +26977,13 @@ br_de06f:
         if      FW_VERSION >= 311
         mov     byte ptr [B_96F5], 1
         else
-        mov     byte ptr [910bh], 1
+        mov     byte ptr [B_96F5], 1
 L_e6745:
-        cmp     byte ptr [0cec6h], 0
+        cmp     byte ptr [B_CEC6_V308], 0
         jz      L_e674f
         jmp     br_de273
 L_e674f:
-        mov     byte ptr [0cec6h], 1
+        mov     byte ptr [B_CEC6_V308], 1
         endif
         pop     di
         pop     si
@@ -27064,11 +27064,11 @@ br_de196:
         mov     word ptr [bx + TBL_A3E7], ax
         if      FW_VERSION < 311
 L_e6809:
-        cmp     byte ptr [0cec6h], 0
+        cmp     byte ptr [B_CEC6_V308], 0
         jz      L_e6813
         jmp     near br_de273
 L_e6813:
-        mov     byte ptr [0cec6h], 1
+        mov     byte ptr [B_CEC6_V308], 1
         endif
         pop     di
         pop     si
@@ -28861,7 +28861,7 @@ br_df177:
         push    word ptr [bx + TBL_7234]
         push    word ptr [bx + TBL_7232]
         push    ds
-        push    word 72c2h
+        push    word STR_72C2
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         jmp     br_df1e5
@@ -28939,7 +28939,7 @@ br_df177:
         push    word ptr [bx + TBL_7234]
         push    word ptr [bx + TBL_7232]
         push    ds
-        push    word 720ah
+        push    word STR_720A_V311
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         jmp     br_df1e5
@@ -29972,11 +29972,11 @@ br_dfb0f:
         push    word ptr [bp - 2]
         push    ds
         if      FW_VERSION >= 312
-        push    word 72d9h
+        push    word STR_72D9
         elseif  FW_VERSION = 311
-        push    word 7221h
+        push    word STR_7221_V311
         else
-        push    word 6aaeh
+        push    word L_6AA6_V308+8
         endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 6

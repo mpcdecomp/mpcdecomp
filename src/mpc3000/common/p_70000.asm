@@ -1387,8 +1387,8 @@ loop_f8b14:
         cld
         rep stosb
         mov     al, byte ptr [0ah]
-        mov     byte ptr [424dh], al
-        mov     word ptr [424eh], 0ffffh
+        mov     byte ptr [B_424D], al
+        mov     word ptr [W_424E], 0ffffh
         mov     si, 0
         mov     word ptr [1eh], 1
 br_f8b5a:
@@ -2996,7 +2996,7 @@ fn_f95cf:
         rcr     bx, 1
         pushf
         add     bx, dx
-        mov     bx, word ptr [bx + 424dh]
+        mov     bx, word ptr [bx +B_424D]
         popf
         jc      br_f95e3
         and     bx, 0fffh
@@ -3018,13 +3018,13 @@ fn_f95ec:
         rcr     bx, 1
         pushf
         add     bx, dx
-        mov     ax, word ptr [bx + 424dh]
+        mov     ax, word ptr [bx +B_424D]
         popf
         pop     dx
         jc      br_f9611
         and     ax, 0f000h
         or      ax, dx
-        mov     word ptr [bx + 424dh], ax
+        mov     word ptr [bx +B_424D], ax
         jmp     br_f9622
         db      090h
 br_f9611:
@@ -3034,7 +3034,7 @@ br_f9611:
         rol     dx, 1
         rol     dx, 1
         or      ax, dx
-        mov     word ptr [bx + 424dh], ax
+        mov     word ptr [bx +B_424D], ax
 br_f9622:
         pop     dx
         pop     bx
@@ -3259,14 +3259,14 @@ TBL_f976e:
         dw      tgt_f97c8
         db      000h
 tgt_f977e:
-        mov     ax, word ptr [68abh]
+        mov     ax, word ptr [W_68AB]
         mov     cl, 28h
         div     cl
         mul     cl
         call    fn_f9843
         ret
 tgt_f978b:
-        mov     ax, word ptr [68abh]
+        mov     ax, word ptr [W_68AB]
         mov     cl, 28h
         div     cl
         cmp     al, 7
@@ -3277,7 +3277,7 @@ br_f9798:
         call    fn_f9843
         ret
 tgt_f979e:
-        mov     ax, word ptr [68abh]
+        mov     ax, word ptr [W_68AB]
         or      ax, ax
         jz      br_f97a9
         dec     ax
@@ -3285,13 +3285,13 @@ tgt_f979e:
 br_f97a9:
         ret
 tgt_f97aa:
-        mov     ax, word ptr [68abh]
+        mov     ax, word ptr [W_68AB]
         or      ax, ax
         jz      br_f97c7
         dec     ax
         push    ax
         mov     bx, ax
-        mov     byte ptr [bx + 662bh], 20h
+        mov     byte ptr [bx +TBL_662B], 20h
         call    fn_f9843
         mov     ax, 0c20h
         call    fn_f985a
@@ -3304,15 +3304,15 @@ tgt_f97c8:
         ret
 fn_f97cc:
         mov     al, bl
-        mov     bx, word ptr [68abh]
-        cmp     al, byte ptr [bx + 662bh]
+        mov     bx, word ptr [W_68AB]
+        cmp     al, byte ptr [bx +TBL_662B]
         jnz     br_f97e0
-        mov     byte ptr [68afh], 0
+        mov     byte ptr [B_68AF], 0
         jmp     br_f97f7
         db      090h
 br_f97e0:
-        mov     byte ptr [bx + 662bh], al
-        test    byte ptr [68afh], 0ffh
+        mov     byte ptr [bx +TBL_662B], al
+        test    byte ptr [B_68AF], 0ffh
         jnz     br_f97f2
         push    ax
         mov     ax, bx
@@ -3322,11 +3322,11 @@ br_f97f2:
         mov     ah, 0ch
         call    fn_f985a
 br_f97f7:
-        mov     ax, word ptr [68abh]
+        mov     ax, word ptr [W_68AB]
         cmp     ax, 13fh
         jz      br_f9804
         inc     ax
-        mov     word ptr [68abh], ax
+        mov     word ptr [W_68AB], ax
         ret
 br_f9804:
         call    fn_f9843
@@ -3337,8 +3337,8 @@ tgt_f9808:
         mov     di, 676bh
         mov     cx, 140h
         rep movsb
-        mov     ax, word ptr [68abh]
-        mov     word ptr [68adh], ax
+        mov     ax, word ptr [W_68AB]
+        mov     word ptr [W_68AD], ax
         ret
 tgt_f981b:
         xor     ax, ax
@@ -3355,16 +3355,16 @@ loop_f9827:
         pop     si
         pop     cx
         loop    loop_f9827
-        mov     ax, word ptr [68adh]
+        mov     ax, word ptr [W_68AD]
         call    fn_f9843
 tgt_f9839:
-        mov     ax, word ptr [68abh]
+        mov     ax, word ptr [W_68AB]
         mov     cl, 28h
         div     cl
         xchg    ah, al
         ret
 fn_f9843:
-        mov     word ptr [68abh], ax
+        mov     word ptr [W_68AB], ax
         push    ax
         mov     ah, 0ah
         call    fn_f985a
@@ -3372,7 +3372,7 @@ fn_f9843:
         mov     al, ah
         mov     ah, 0bh
         call    fn_f985a
-        mov     byte ptr [68afh], 0ffh
+        mov     byte ptr [B_68AF], 0ffh
         ret
 fn_f985a:
         push    ax
@@ -6743,7 +6743,7 @@ far_fba0a:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3467h
+        push    word STR_3467
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    5
@@ -6776,7 +6776,7 @@ br_fba78:
         lea     ax, [bp - 2]
         push    ax
         push    ds
-        push    word 3490h
+        push    word STR_3490
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         mov     al, byte ptr [bp - 2]
@@ -6808,7 +6808,7 @@ br_fbac8:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 349ah
+        push    word STR_349A
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -6842,7 +6842,7 @@ br_fbb0c:
         lea     ax, [bp - 14h]
         push    ax
         push    ds
-        push    word 34c3h
+        push    word STR_34C3
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -6853,7 +6853,7 @@ br_fbb0c:
         lea     ax, [bp - 16h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -6864,7 +6864,7 @@ br_fbb0c:
         lea     ax, [bp - 18h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         les     bx, dword ptr [bp - 3ch]
@@ -6915,7 +6915,7 @@ br_fbbb9:
         lea     ax, [bp - 8]
         push    ax
         push    ds
-        push    word 34cfh
+        push    word STR_34CF
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -6926,7 +6926,7 @@ br_fbbb9:
         lea     ax, [bp - 0ah]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -6937,7 +6937,7 @@ br_fbbb9:
         lea     ax, [bp - 0ch]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -6971,7 +6971,7 @@ br_fbc53:
         lea     ax, [bp - 1ah]
         push    ax
         push    ds
-        push    word 34d9h
+        push    word STR_34D9
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -6982,7 +6982,7 @@ br_fbc53:
         lea     ax, [bp - 1ch]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -6993,7 +6993,7 @@ br_fbc53:
         lea     ax, [bp - 1eh]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         mov     ax, word ptr [W_E57E]
@@ -7052,7 +7052,7 @@ br_fbd12:
         lea     ax, [bp - 0eh]
         push    ax
         push    ds
-        push    word 34e3h
+        push    word STR_34E3
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -7063,7 +7063,7 @@ br_fbd12:
         lea     ax, [bp - 10h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -7074,7 +7074,7 @@ br_fbd12:
         lea     ax, [bp - 12h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -7099,7 +7099,7 @@ br_fbd9b:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         push    15h
@@ -7112,11 +7112,11 @@ br_fbd9b:
 br_fbddb:
         push    0ch
         push    ds
-        push    word 3344h
+        push    word P_3344
         push    ds
         push    word B_E57B
         push    ds
-        push    word 3505h
+        push    word STR_3505
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    0
@@ -7138,7 +7138,7 @@ br_fbe10:
         lea     ax, [bp - 3]
         push    ax
         push    ds
-        push    word 350dh
+        push    word STR_350D
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0ah
@@ -7161,7 +7161,7 @@ br_fbe4b:
         lea     ax, [bp - 6]
         push    ax
         push    ds
-        push    word 3513h
+        push    word STR_3513
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    15h
@@ -7174,11 +7174,11 @@ br_fbe4b:
 br_fbe7c:
         push    10h
         push    ds
-        push    word 3364h
+        push    word P_3364
         push    ds
         push    word B_E57A
         push    ds
-        push    word 3519h
+        push    word STR_3519
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    0
@@ -7186,7 +7186,7 @@ br_fbe7c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 351dh
+        push    word STR_3519+4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -7194,7 +7194,7 @@ br_fbe7c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     byte ptr [bp - 1], 0
@@ -7287,7 +7287,7 @@ br_fbee6:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         les     bx, dword ptr [bp - 3ch]
@@ -7766,7 +7766,7 @@ tgt_fc390:
         jmp     br_fc4d4
 tgt_fc3cd:
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     dl, al
@@ -8014,7 +8014,7 @@ br_fc5c0:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         jmp     br_fcc07
@@ -8097,7 +8097,7 @@ br_fc689:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         jmp     br_fcc07
@@ -8170,7 +8170,7 @@ tgt_fc712:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         mov     ax, word ptr [W_E57E]
@@ -8300,7 +8300,7 @@ tgt_fc7fd:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         mov     ax, word ptr [W_E57E]
@@ -8428,7 +8428,7 @@ tgt_fc928:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         mov     ax, word ptr [W_E57E]
@@ -8586,7 +8586,7 @@ br_fcad7:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         les     bx, dword ptr [bp - 3ch]
@@ -8648,7 +8648,7 @@ br_fcc07:
         jmp     tgt_fc231
 br_fcc10:
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     dl, al
@@ -8804,14 +8804,14 @@ far_fcd4d:
         cmp     byte ptr es:[bx + 4813h], 0
         jnz     br_fcd88
         push    ds
-        push    word 3579h
+        push    word STR_3579
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         pop     bp
         retf
 br_fcd88:
         push    ds
-        push    word 357eh
+        push    word STR_3579+5
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         pop     bp
@@ -8822,7 +8822,7 @@ fn_fcd96:
         sub     sp, 8
         push    si
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     byte ptr [bp - 1], al
@@ -8854,7 +8854,7 @@ br_fcdbe:
         push    word ptr [bp - 4]
         push    word ptr [bp - 6]
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cce4b
         add     sp, 0ah
         mov     byte ptr [bp - 1], al
@@ -8870,7 +8870,7 @@ br_fce07:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3583h
+        push    word STR_3583
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     ax, word ptr [bp + 0eh]
@@ -8956,7 +8956,7 @@ br_fcef8:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         xor     ax, ax
@@ -8970,7 +8970,7 @@ fn_fcf15:
         push    si
         push    di
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     word ptr [bp - 14h], ax
@@ -9034,7 +9034,7 @@ br_fcfa2:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 35abh
+        push    word STR_35AB
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0ffffh
@@ -9409,7 +9409,7 @@ br_fd394:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         xor     ax, ax
@@ -9439,7 +9439,7 @@ br_fd3d7:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 35d3h
+        push    word STR_35D3
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     word ptr [bp - 12h], 0
@@ -9619,7 +9619,7 @@ br_fd5bf:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_fd5d7:
@@ -9708,7 +9708,7 @@ br_fd697:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 35fbh
+        push    word STR_35FB
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     ax, SEG_A28F
@@ -9829,7 +9829,7 @@ br_fd7d3:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_fd7eb:
@@ -9859,7 +9859,7 @@ br_fd80f:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3623h
+        push    word STR_3623
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     al, byte ptr [bp + 6]
@@ -10133,7 +10133,7 @@ br_fdb01:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_fdb1e:
@@ -10439,7 +10439,7 @@ fn_fde02:
         push    di
         mov     byte ptr [B_D5DD], 3dh
         push    ds
-        push    word 364fh
+        push    word STR_364F
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -10453,7 +10453,7 @@ fn_fde02:
         push    ds
         push    word B_83BC
         push    ds
-        push    word 3664h
+        push    word STR_3664
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -10461,7 +10461,7 @@ fn_fde02:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3676h
+        push    word STR_3676
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -10470,7 +10470,7 @@ fn_fde02:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36c4h
+        push    word STR_36C4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 loop_fde74:
@@ -10493,7 +10493,7 @@ br_fde8e:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36cch
+        push    word STR_36CC
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     al, byte ptr [B_83BC]
@@ -10656,7 +10656,7 @@ far_fe009:
 br_fe02b:
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 36e2h
+        push    word STR_36E2
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -10686,7 +10686,7 @@ br_fe068:
         lea     ax, [bp - 2]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         cmp     si, 0ffffh
@@ -10710,7 +10710,7 @@ br_fe0a1:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 370bh
+        push    word STR_370B
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     byte ptr [bp - 3], 4
@@ -10897,7 +10897,7 @@ fn_fe246:
         mov     byte ptr [B_D5DD], 47h
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 3734h
+        push    word STR_3734
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -10923,7 +10923,7 @@ fn_fe246:
         lea     ax, [bp + 6]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         cmp     word ptr [bp - 2], 0ffffh
@@ -10978,7 +10978,7 @@ br_fe2c3:
         lea     ax, [bp - 14h]
         push    ax
         push    ds
-        push    word 3741h
+        push    word STR_3741
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         callf   SEG_B702:far_b90dd
@@ -10987,7 +10987,7 @@ br_fe2c3:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36c4h
+        push    word STR_36C4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     br_fe3a8
@@ -11124,7 +11124,7 @@ fn_fe443:
         mov     byte ptr [B_D5DD], 48h
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 374fh
+        push    word STR_374F
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -11150,7 +11150,7 @@ fn_fe443:
         lea     ax, [bp + 6]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         cmp     word ptr [bp - 4], 0ffffh
@@ -11205,7 +11205,7 @@ br_fe4c0:
         lea     ax, [bp - 1ch]
         push    ax
         push    ds
-        push    word 375ah
+        push    word STR_375A
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         callf   SEG_B702:far_b90dd
@@ -11214,7 +11214,7 @@ br_fe4c0:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36c4h
+        push    word STR_36C4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     br_fe5a5
@@ -11284,7 +11284,7 @@ br_fe5be:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3769h
+        push    word STR_3769
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    28h
@@ -11430,7 +11430,7 @@ fn_fe73e:
         callf   SEG_B1AA:far_b1aac
         callf   SEG_B05A:far_b05a7
         push    ds
-        push    word 36f0h
+        push    word STR_36E2+0eh
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -11456,7 +11456,7 @@ fn_fe73e:
         lea     ax, [bp + 6]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    0
@@ -11526,7 +11526,7 @@ br_fe847:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 37ceh
+        push    word STR_37CE
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     near br_fe928
@@ -11675,7 +11675,7 @@ fn_fe99c:
         mov     byte ptr [B_D5DD], 4ah
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 37e6h
+        push    word STR_37E6
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -11683,7 +11683,7 @@ fn_fe99c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3805h
+        push    word STR_3805
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -11692,7 +11692,7 @@ fn_fe99c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 383dh
+        push    word STR_383D
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 loop_fe9e7:
@@ -11718,7 +11718,7 @@ far_fea0d:
         sub     sp, 2
         push    si
         push    ds
-        push    word 384bh
+        push    word STR_384B
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -11732,7 +11732,7 @@ far_fea0d:
         push    ds
         push    word B_E427
         push    ds
-        push    word 386ah
+        push    word STR_386A
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0bh
@@ -11754,7 +11754,7 @@ far_fea0d:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3876h
+        push    word STR_3876
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -13031,7 +13031,7 @@ far_fba0a:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3467h
+        push    word STR_3467
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    5
@@ -13064,7 +13064,7 @@ br_fba78:
         lea     ax, [bp - 2]
         push    ax
         push    ds
-        push    word 3490h
+        push    word STR_3490
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         mov     al, byte ptr [bp - 2]
@@ -13096,7 +13096,7 @@ br_fbac8:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 349ah
+        push    word STR_349A
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -13130,7 +13130,7 @@ br_fbb0c:
         lea     ax, [bp - 14h]
         push    ax
         push    ds
-        push    word 34c3h
+        push    word STR_34C3
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13141,7 +13141,7 @@ br_fbb0c:
         lea     ax, [bp - 16h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13152,7 +13152,7 @@ br_fbb0c:
         lea     ax, [bp - 18h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         les     bx, dword ptr [bp - 3ch]
@@ -13203,7 +13203,7 @@ br_fbbb9:
         lea     ax, [bp - 8]
         push    ax
         push    ds
-        push    word 34cfh
+        push    word STR_34CF
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13214,7 +13214,7 @@ br_fbbb9:
         lea     ax, [bp - 0ah]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13225,7 +13225,7 @@ br_fbbb9:
         lea     ax, [bp - 0ch]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -13259,7 +13259,7 @@ br_fbc53:
         lea     ax, [bp - 1ah]
         push    ax
         push    ds
-        push    word 34d9h
+        push    word STR_34D9
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13270,7 +13270,7 @@ br_fbc53:
         lea     ax, [bp - 1ch]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13281,7 +13281,7 @@ br_fbc53:
         lea     ax, [bp - 1eh]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         mov     ax, word ptr [W_E57E]
@@ -13340,7 +13340,7 @@ br_fbd12:
         lea     ax, [bp - 0eh]
         push    ax
         push    ds
-        push    word 34e3h
+        push    word STR_34E3
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13351,7 +13351,7 @@ br_fbd12:
         lea     ax, [bp - 10h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    2
@@ -13362,7 +13362,7 @@ br_fbd12:
         lea     ax, [bp - 12h]
         push    ax
         push    ds
-        push    word 34cdh
+        push    word P_34CD
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -13387,7 +13387,7 @@ br_fbd9b:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         push    15h
@@ -13400,11 +13400,11 @@ br_fbd9b:
 br_fbddb:
         push    0ch
         push    ds
-        push    word 3344h
+        push    word P_3344
         push    ds
         push    word B_E57B
         push    ds
-        push    word 3505h
+        push    word STR_3505
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    0
@@ -13426,7 +13426,7 @@ br_fbe10:
         lea     ax, [bp - 3]
         push    ax
         push    ds
-        push    word 350dh
+        push    word STR_350D
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0ah
@@ -13449,7 +13449,7 @@ br_fbe4b:
         lea     ax, [bp - 6]
         push    ax
         push    ds
-        push    word 3513h
+        push    word STR_3513
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    15h
@@ -13462,11 +13462,11 @@ br_fbe4b:
 br_fbe7c:
         push    10h
         push    ds
-        push    word 3364h
+        push    word P_3364
         push    ds
         push    word B_E57A
         push    ds
-        push    word 3519h
+        push    word STR_3519
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    0
@@ -13474,7 +13474,7 @@ br_fbe7c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 351dh
+        push    word STR_3519+4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -13482,7 +13482,7 @@ br_fbe7c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     byte ptr [bp - 1], 0
@@ -13575,7 +13575,7 @@ br_fbee6:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         les     bx, dword ptr [bp - 3ch]
@@ -14054,7 +14054,7 @@ tgt_fc390:
         jmp     br_fc4d4
 tgt_fc3cd:
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     dl, al
@@ -14302,7 +14302,7 @@ br_fc5c0:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         jmp     br_fcc07
@@ -14385,7 +14385,7 @@ br_fc689:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         jmp     br_fcc07
@@ -14458,7 +14458,7 @@ tgt_fc712:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         mov     ax, word ptr [W_E57E]
@@ -14588,7 +14588,7 @@ tgt_fc7fd:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         mov     ax, word ptr [W_E57E]
@@ -14716,7 +14716,7 @@ tgt_fc928:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         mov     ax, word ptr [W_E57E]
@@ -14874,7 +14874,7 @@ br_fcad7:
         push    word ptr [bp - 22h]
         push    word ptr [bp - 20h]
         push    ds
-        push    word 34edh
+        push    word STR_34ED
         callf   SEG_B1B5:far_b1d48
         add     sp, 0ah
         les     bx, dword ptr [bp - 3ch]
@@ -14936,7 +14936,7 @@ br_fcc07:
         jmp     tgt_fc231
 br_fcc10:
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     dl, al
@@ -15092,14 +15092,14 @@ far_fcd4d:
         cmp     byte ptr es:[bx + 4813h], 0
         jnz     br_fcd88
         push    ds
-        push    word 3579h
+        push    word STR_3579
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         pop     bp
         retf
 br_fcd88:
         push    ds
-        push    word 357eh
+        push    word STR_3579+5
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         pop     bp
@@ -15110,7 +15110,7 @@ fn_fcd96:
         sub     sp, 8
         push    si
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     byte ptr [bp - 1], al
@@ -15142,7 +15142,7 @@ br_fcdbe:
         push    word ptr [bp - 4]
         push    word ptr [bp - 6]
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cce4b
         add     sp, 0ah
         mov     byte ptr [bp - 1], al
@@ -15158,7 +15158,7 @@ br_fce07:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3583h
+        push    word STR_3583
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     ax, word ptr [bp + 0eh]
@@ -15244,7 +15244,7 @@ br_fcef8:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         xor     ax, ax
@@ -15258,7 +15258,7 @@ fn_fcf15:
         push    si
         push    di
         push    ds
-        push    word 356ch
+        push    word STR_356C
         callf   SEG_CC84:far_cd551
         add     sp, 4
         mov     word ptr [bp - 14h], ax
@@ -15322,7 +15322,7 @@ br_fcfa2:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 35abh
+        push    word STR_35AB
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0ffffh
@@ -15697,7 +15697,7 @@ br_fd394:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         xor     ax, ax
@@ -15727,7 +15727,7 @@ br_fd3d7:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 35d3h
+        push    word STR_35D3
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     word ptr [bp - 12h], 0
@@ -15907,7 +15907,7 @@ br_fd5bf:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_fd5d7:
@@ -15996,7 +15996,7 @@ br_fd697:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 35fbh
+        push    word STR_35FB
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     ax, SEG_A28F
@@ -16117,7 +16117,7 @@ br_fd7d3:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_fd7eb:
@@ -16147,7 +16147,7 @@ br_fd80f:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3623h
+        push    word STR_3623
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     al, byte ptr [bp + 6]
@@ -16421,7 +16421,7 @@ br_fdb01:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3546h
+        push    word STR_3546
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_fdb1e:
@@ -16727,7 +16727,7 @@ fn_fde02:
         push    di
         mov     byte ptr [B_D5DD], 3dh
         push    ds
-        push    word 364fh
+        push    word STR_364F
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -16741,7 +16741,7 @@ fn_fde02:
         push    ds
         push    word B_83BC
         push    ds
-        push    word 3664h
+        push    word STR_3664
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -16749,7 +16749,7 @@ fn_fde02:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3676h
+        push    word STR_3676
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -16758,7 +16758,7 @@ fn_fde02:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36c4h
+        push    word STR_36C4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 loop_fde74:
@@ -16781,7 +16781,7 @@ br_fde8e:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36cch
+        push    word STR_36CC
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     al, byte ptr [B_83BC]
@@ -16944,7 +16944,7 @@ far_fe009:
 br_fe02b:
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 36e2h
+        push    word STR_36E2
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -16974,7 +16974,7 @@ br_fe068:
         lea     ax, [bp - 2]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         cmp     si, 0ffffh
@@ -16998,7 +16998,7 @@ br_fe0a1:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 370bh
+        push    word STR_370B
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         mov     byte ptr [bp - 3], 4
@@ -17185,7 +17185,7 @@ fn_fe246:
         mov     byte ptr [B_D5DD], 47h
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 3734h
+        push    word STR_3734
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -17211,7 +17211,7 @@ fn_fe246:
         lea     ax, [bp + 6]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         cmp     word ptr [bp - 2], 0ffffh
@@ -17266,7 +17266,7 @@ br_fe2c3:
         lea     ax, [bp - 14h]
         push    ax
         push    ds
-        push    word 3741h
+        push    word STR_3741
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         callf   SEG_B702:far_b90dd
@@ -17275,7 +17275,7 @@ br_fe2c3:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36c4h
+        push    word STR_36C4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     br_fe3a8
@@ -17412,7 +17412,7 @@ fn_fe443:
         mov     byte ptr [B_D5DD], 48h
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 374fh
+        push    word STR_374F
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -17438,7 +17438,7 @@ fn_fe443:
         lea     ax, [bp + 6]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         cmp     word ptr [bp - 4], 0ffffh
@@ -17493,7 +17493,7 @@ br_fe4c0:
         lea     ax, [bp - 1ch]
         push    ax
         push    ds
-        push    word 375ah
+        push    word STR_375A
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         callf   SEG_B702:far_b90dd
@@ -17502,7 +17502,7 @@ br_fe4c0:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 36c4h
+        push    word STR_36C4
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     br_fe5a5
@@ -17707,7 +17707,7 @@ fn_fe73e:
         callf   SEG_B1AA:far_b1aac
         callf   SEG_B05A:far_b05a7
         push    ds
-        push    word 36f0h
+        push    word STR_36E2+0eh
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -17733,7 +17733,7 @@ fn_fe73e:
         lea     ax, [bp + 6]
         push    ax
         push    ds
-        push    word 36fdh
+        push    word STR_36FD
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    0
@@ -17803,7 +17803,7 @@ br_fe847:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 37bdh
+        push    word STR_37CE
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     near br_fe928
@@ -17952,7 +17952,7 @@ fn_fe99c:
         mov     byte ptr [B_D5DD], 4ah
         callf   SEG_B1AA:far_b1aac
         push    ds
-        push    word 37d5h
+        push    word STR_37E6
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -17960,7 +17960,7 @@ fn_fe99c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 37f4h
+        push    word STR_3805
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -17969,7 +17969,7 @@ fn_fe99c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 382ch
+        push    word STR_383D
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 loop_fe9e7:
@@ -17995,7 +17995,7 @@ far_fea0d:
         sub     sp, 2
         push    si
         push    ds
-        push    word 383ah
+        push    word STR_384B
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -18009,7 +18009,7 @@ far_fea0d:
         push    ds
         push    word B_E427
         push    ds
-        push    word 3859h
+        push    word STR_386A
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0bh
@@ -18031,7 +18031,7 @@ far_fea0d:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        push    word 3865h
+        push    word STR_3876
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd

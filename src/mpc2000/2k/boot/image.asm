@@ -46,36 +46,62 @@ P_DMA_DIR         equ     0c039h                ; MPC ASIC DMA: 1 = device -> RA
 P_V53_PAGE0       equ     0ff00h                ; V53 address-expansion page registers, 64 x word
 
 ; ---------------------------------------------------------------------------
-; Boot variables, DS = 0x41A, base linear 0x41A0, so this window lies on top
-; of the ROM image itself: bv_xxx == ROM offset 0x41A0+xxx.
+; Boot variables, DS = BV_SEG (041Ah): the window starts at boot_vars, on top
+; of the ROM image, so each bv_xxx is a bvl_xxx label in the image minus
+; boot_vars.  The labels sit in the zero runs after the banner and after the
+; frame bitmaps; bv_font is lcd_font.
 ; ---------------------------------------------------------------------------
-bv_banner         equ     00000h                ; linear 0x41A0: "Nov.14,1996 MPC2000 Boot ROM V1.00"
-bv_boot_dev       equ     0002ah                ; byte: INT 2Ch device index the boot path is using
-bv_ticks          equ     0002bh                ; word: timer tick counter, bumped only by timer_isr
-bv_mz_header      equ     0002eh                ; 0x24 bytes: MPC2000.EXE MZ header lands here
-bv_mz_cparhdr     equ     00036h                ; word: bv_mz_header+8,  e_cparhdr
-bv_mz_ip          equ     00042h                ; word: bv_mz_header+14h, e_ip
-bv_mz_cs          equ     00044h                ; word: bv_mz_header+16h, e_cs -- overwritten with 0C000h
-bv_hdr_sink       equ     0022eh                ; the rest of the MZ header, incl. relocations, is dumped here
-bv_mon_seg        equ     0102eh                ; word: debug monitor cursor, segment
-bv_mon_off        equ     01030h                ; word: debug monitor cursor, offset
-bv_mon_step_off   equ     01032h                ; word: monitor cursor step, offset part
-bv_mon_step_seg   equ     01034h                ; word: monitor cursor step, segment part
-bv_plane_cur      equ     01438h                ; word: current draw plane base
-bv_plane_saved    equ     0143ah                ; word: plane base saved by plane_push
-bv_plane_a        equ     0143ch                ; 0x780 = 60 rows x 32 bytes
-bv_plane_b        equ     01bbch                ; 0x780
-bv_plane_c        equ     0233ch                ; 0x780
-bv_plane_d        equ     02abch                ; 0x220 = 17 rows -- popup-window sized
-bv_plane_e        equ     02cdch                ; 0x220
-bv_plane_f        equ     02efch                ; 0x120 = 9 rows -- soft-key-row sized
-bv_lcd_fb         equ     0301ch                ; 0x780: the plane actually clocked out to the panel
-bv_text_xor       equ     0379ch                ; byte: XOR applied to every glyph row (0FCh = inverse)
-bv_pen_x          equ     037a0h                ; word: last pen x, reset by plane_clear_780      ; ?
-bv_pen_y          equ     037a2h                ; word: last pen y                               ; ?
-bv_zero_suppress  equ     037aah                ; byte: put_decimal leading-zero flag
-bv_font           equ     037ach                ; 0x380: 128 glyphs x 7 rows, 6 px pitch (= 0x794C)
-bv_scsi_ctx       equ     03d40h                ; word: handle the INT 2Dh services pass to the C layer
+BV_SEG            equ     boot_vars/16
+bv_banner         equ     0                     ; "Nov.14,1996 MPC2000 Boot ROM V1.00"
+bv_boot_dev       equ     bvl_boot_dev-boot_vars        ; byte: INT 2Ch device index the boot path is using
+bv_ticks          equ     bvl_ticks-boot_vars           ; word: timer tick counter, bumped only by timer_isr
+bv_mz_header      equ     bvl_mz_header-boot_vars       ; 0x24 bytes: MPC2000.EXE MZ header lands here
+bv_mz_cparhdr     equ     bv_mz_header+8                ; word: e_cparhdr
+bv_mz_ip          equ     bv_mz_header+14h              ; word: e_ip
+bv_mz_cs          equ     bv_mz_header+16h              ; word: e_cs -- overwritten with 0C000h
+bv_hdr_sink       equ     bvl_hdr_sink-boot_vars        ; the rest of the MZ header, incl. relocations, is dumped here
+bv_mon_seg        equ     bvl_mon_seg-boot_vars         ; word: debug monitor cursor, segment
+bv_mon_off        equ     bvl_mon_off-boot_vars         ; word: debug monitor cursor, offset
+bv_mon_step_off   equ     bvl_mon_step_off-boot_vars    ; word: monitor cursor step, offset part
+bv_mon_step_seg   equ     bvl_mon_step_seg-boot_vars    ; word: monitor cursor step, segment part
+bv_stack_top      equ     bvl_stack_top-boot_vars       ; SP at cold init; the stack grows down from here
+bv_plane_cur      equ     bvl_plane_cur-boot_vars       ; word: current draw plane base
+bv_plane_saved    equ     bvl_plane_saved-boot_vars     ; word: plane base saved by plane_push
+bv_plane_a        equ     bvl_plane_a-boot_vars         ; 0x780 = 60 rows x 32 bytes
+bv_plane_b        equ     bvl_plane_b-boot_vars         ; 0x780
+bv_plane_c        equ     bvl_plane_c-boot_vars         ; 0x780
+bv_plane_d        equ     bvl_plane_d-boot_vars         ; 0x220 = 17 rows -- popup-window sized
+bv_plane_e        equ     bvl_plane_e-boot_vars         ; 0x220
+bv_plane_f        equ     bvl_plane_f-boot_vars         ; 0x120 = 9 rows -- soft-key-row sized
+bv_lcd_fb         equ     bvl_lcd_fb-boot_vars          ; 0x780: the plane actually clocked out to the panel
+bv_text_xor       equ     bvl_text_xor-boot_vars        ; byte: XOR applied to every glyph row (0FCh = inverse)
+bv_show_de        equ     bvl_show_de-boot_vars         ; byte: blit ORs planes D/E into rows 20-36
+bv_show_f         equ     bvl_show_f-boot_vars          ; byte: blit puts plane F on rows 51-59
+bv_pen_x          equ     bvl_pen_x-boot_vars           ; word: last pen x, reset by plane_clear_780      ; ?
+bv_pen_y          equ     bvl_pen_y-boot_vars           ; word: last pen y                               ; ?
+bv_rect_x         equ     bvl_rect_x-boot_vars          ; byte: rectangle outline x
+bv_rect_y         equ     bvl_rect_y-boot_vars          ; byte: ... y
+bv_rect_w         equ     bvl_rect_w-boot_vars          ; byte: ... width
+bv_rect_h         equ     bvl_rect_h-boot_vars          ; byte: ... height
+bv_zero_suppress  equ     bvl_zero_suppress-boot_vars   ; byte: put_decimal leading-zero flag
+bv_font           equ     lcd_font-boot_vars            ; 0x380: 128 glyphs x 7 rows, 6 px pitch
+bv_scsi_ctx       equ     bvl_scsi_ctx-boot_vars        ; word: handle the INT 2Dh services pass to the C layer
+bv_cap_blocks     equ     bvl_cap_blocks-boot_vars      ; dword: READ CAPACITY last block
+bv_cap_blocks_hi  equ     bv_cap_blocks+2
+bv_cap_blksize    equ     bvl_cap_blksize-boot_vars     ; dword: READ CAPACITY block length
+bv_cap_blksize_hi equ     bv_cap_blksize+2
+bv_sense          equ     bvl_sense-boot_vars           ; 18 bytes: REQUEST SENSE data, +2 = sense key
+bv_scsi_req       equ     bvl_scsi_req-boot_vars        ; 30 bytes: request block, +0 = the ctx word
+bv_req_cdb_len    equ     bv_scsi_req+2                 ; byte: CDB length
+bv_req_sense_len  equ     bv_scsi_req+3                 ; byte: sense length (12h)
+bv_req_len        equ     bv_scsi_req+4                 ; dword: data length
+bv_req_len_hi     equ     bv_scsi_req+6
+bv_req_cdb        equ     bv_scsi_req+8                 ; 10 bytes: the CDB, +0 = opcode
+bv_req_data       equ     bv_scsi_req+14h               ; dword: data buffer, seg:off
+bv_req_data_seg   equ     bv_scsi_req+16h
+bv_req_sense      equ     bv_scsi_req+18h               ; dword: sense buffer, seg:off
+bv_req_sense_seg  equ     bv_scsi_req+1ah
+bv_scsi_atn       equ     bvl_scsi_atn-boot_vars        ; word: target went to a message phase; select with ATN next
 
 ; ---------------------------------------------------------------------------
 ; Storage driver variables, DS = 0x4000, so dv_xxx == linear 0x40000+xxx.
@@ -146,6 +172,34 @@ dv_frm_remain_hi  equ     0f902h                  ; word: dv_frm_remain high hal
 dv_scsi_blocks_hi equ     0f982h                  ; word
 dv_scsi_lba_hi    equ     0f986h                  ; word
 dv_scsi_lba       equ     0f984h                ; dword: current LBA
+dv_wr_mark        equ     0f8c2h                ; word: dv_wr_ptr when the write window was set up
+dv_wr_cyl         equ     0f8cah                ; word: cylinder the write window holds
+dv_scsi_fat_type  equ     0f968h                ; byte: 0Ch = FAT12, 10h = FAT16
+dv_scsi_name_buf  equ     0f96ah                ; dir_format_name output
+dv_scsi_clus_bytes equ    0f998h                ; word: bytes per cluster
+dv_scsi_clusters  equ     0f99ah                ; word: data clusters on the volume
+dv_scsi_sec_per_clus equ  0f99ch                ; word
+dv_scsi_fat1      equ     0f99eh                ; word: first FAT's sector (= reserved sectors)
+dv_scsi_fat2      equ     0f9a0h                ; word: second FAT's sector
+dv_scsi_fat_len   equ     0f9a2h                ; word: sectors per FAT
+dv_scsi_data_start equ    0f9a4h                ; word: first data sector
+dv_scsi_file_state equ    0f9a6h                ; byte: 2 = a file is open for writing
+dv_scsi_fat_cached equ    0f9a7h                ; byte: FAT16 sector pair held in dv_scsi_fat_buf
+dv_scsi_fat_buf   equ     0f9aah                ; 400h: two FAT16 sectors
+dv_scsi_dir_start equ     0fdaah                ; word: root directory's first sector
+dv_scsi_dir_entries equ   0fdach                ; word: root directory entries
+dv_scsi_dir_index equ     0fdaeh                ; word: current root-directory entry
+dv_scsi_dir_sec   equ     0fdb0h                ; word: root-directory sector held in dv_scsi_dir_buf
+dv_scsi_dir_ptr   equ     0fdb2h                ; word: current entry inside dv_scsi_dir_buf
+dv_scsi_dir_buf   equ     0fdb4h                ; 200h: one root-directory sector
+dv_scsi_remain    equ     0ffb4h                ; dword: bytes left in the open file
+dv_scsi_remain_hi equ     0ffb6h
+dv_scsi_cluster   equ     0ffb8h                ; word: current cluster
+dv_scsi_buf_left  equ     0ffbah                ; word: valid bytes left at dv_scsi_buf_ptr
+dv_scsi_buf_ptr   equ     0ffbch                ; word: read cursor into dv_scsi_buf
+dv_scsi_wr_ofs    equ     0ffbeh                ; word: write offset into dv_scsi_buf
+dv_scsi_buf       equ     0a000h                ; the SCSI driver's sector / cluster buffer
+dv_scsi_fat12     equ     0e000h                ; FAT12 volumes: the whole FAT is read here
 
 BC_ROM_DISPATCH equ     1               ; the VM is entered by a near call here
         include "../../common/bytecode_macros.inc"
@@ -235,11 +289,11 @@ page_regs_high_loop:                    ; pages 20h-3Fh <- 60h-7Fh; XL uses 40h-
 brkxa_landing:                          ; IVT[28h]; reached by the BRKXA 28h three bytes above
         cli
         cld
-        mov     ax, 41ah
+        mov     ax, BV_SEG
         mov     ds, ax
         mov     es, ax
         mov     ss, ax
-        mov     ax, 1436h
+        mov     ax, bv_stack_top
         mov     sp, ax
         mov     ax, 4000h
         mov     es, ax
@@ -547,7 +601,7 @@ timer_isr:                              ; IVT[21h]; the only thing that bumps bv
         pusha
         push    ds
         push    es
-        mov     ax, 41ah
+        mov     ax, BV_SEG
         mov     ds, ax
         inc     word ptr [bv_ticks]
         pop     es
@@ -715,7 +769,7 @@ int2ah_message_isr:                     ; prints the literal that follows the IN
         pop     si
         pop     dx
         sti
-        mov     ax, 41ah
+        mov     ax, BV_SEG
         mov     ds, ax
         BC_DISPLAY
         BC_FLUSH
@@ -770,7 +824,7 @@ dump_registers:                         ; AX BX CX DX BP SI DI DS ES PC CS, two 
         push    cx
         push    bx
         push    ax
-        mov     ax, 41ah
+        mov     ax, BV_SEG
         mov     ds, ax
         BC_PLANE_PUSH_VIS
         BC_STATUS 0, 0, "AX:"
@@ -840,7 +894,7 @@ monitor_isr:                            ; IVT[4]; interactive memory / sequencer
         pusha
         push    es
         push    ds
-        mov     ax, 41ah
+        mov     ax, BV_SEG
         mov     ds, ax
         mov     word ptr [bv_mon_seg], es
         mov     word ptr [bv_mon_off], si
@@ -1118,7 +1172,7 @@ int2ch_unsupported:                     ; AX=DX=0 with CF CLEAR -- success with 
 ; 04-file_open, 05-read_byte, 06-read_block, 07-file_create, 08-write_byte, 09-write_block,
 ; 0a-file_close, 0c-format_volume, 0e-find_by_name, 11-sense_status, 14-file_delete,
 ; 16-dir_prev, 17-sub17; 0b/0d/12/13/15-unsupported
-int2ch_table_scsi  equ     0c6ah                 ; = int2ch_table_dev0_alt + 2, see the banner below
+int2ch_table_scsi  equ     int2ch_table_dev0_alt+2                 ; = int2ch_table_dev0_alt + 2, see the banner below
 int2ch_table_dev0_alt:
         db      8ah, 0dh, 0d4h, 1ch, 0dbh, 1ch, 55h, 1fh, 74h, 1fh, 70h, 20h, 95h, 20h, 0c9h, 20h
         db      9ah, 21h, 19h, 22h, 47h, 22h, 9fh, 22h, 9ah, 0ch, 1ch, 24h, 9ah, 0ch, 88h, 12h
@@ -1446,7 +1500,7 @@ media_1232k_n3:
         je      L_00FB9
         ret
 L_00FB9:
-        cmp     byte ptr [10h], 0ffh
+        cmp     byte ptr [dv_boot_sector+10h], 0ffh
         mov     al, 8
         mov     ah, 3
         jne     L_00FC5
@@ -1485,7 +1539,7 @@ media_640k_n3:
         je      L_0104A
         ret
 L_0104A:
-        cmp     byte ptr [10h], 0ffh
+        cmp     byte ptr [dv_boot_sector+10h], 0ffh
         mov     al, 9
         mov     ah, 3
         jne     L_01056
@@ -2155,9 +2209,9 @@ L_0161F:
         ret
 write_window_advance:                   ; cluster_to_sector on dv_cur_cluster, then set up the write window
         mov     ax, word ptr [dv_wr_ptr]
-        mov     word ptr [0f8c2h], ax
+        mov     word ptr [dv_wr_mark], ax
         push    word ptr [dv_wr_ptr]
-        push    word ptr [0f8cah]
+        push    word ptr [dv_wr_cyl]
         mov     ax, word ptr [dv_cur_cluster]
         call    cluster_to_sector
         mov     word ptr [dv_wr_win], ax
@@ -2167,7 +2221,7 @@ write_window_advance:                   ; cluster_to_sector on dv_cur_cluster, t
         mov     bl, ah
         sub     bh, bh
         sub     ah, ah
-        mov     word ptr [0f8cah], ax
+        mov     word ptr [dv_wr_cyl], ax
         mov     ax, word ptr [dv_bytes_per_sec]
         push    ax
         mul     bx
@@ -2179,7 +2233,7 @@ write_window_advance:                   ; cluster_to_sector on dv_cur_cluster, t
         mov     word ptr [dv_wr_left], ax
         pop     bx
         pop     ax
-        cmp     bx, word ptr [0f8cah]
+        cmp     bx, word ptr [dv_wr_cyl]
         jne     L_0167B
         cmp     ax, word ptr [dv_wr_ptr]
         jne     L_0167B
@@ -2189,7 +2243,7 @@ L_0167B:
         stc
         ret
 write_flush_partial:                    ; write dv_wr_base..dv_wr_ptr back out, whole sectors only
-        mov     ax, word ptr [0f8c2h]
+        mov     ax, word ptr [dv_wr_mark]
         sub     ax, word ptr [dv_wr_base]
         jne     L_01687
         ret
@@ -2917,7 +2971,7 @@ scsi_probe:                             ; INQUIRY (AH=3) then READ CAPACITY (AH=
         mov     ah, 3
         mov     dx, ds
 L_01CFB:
-        mov     di, 0f908h
+        mov     di, dv_scsi_inquiry
         mov     cx, 24h
         int     2dh
         or      ax, ax
@@ -2945,8 +2999,8 @@ L_01D28:
         je      L_01D39
         ret
 L_01D39:
-        mov     ax, word ptr [0a1c6h]
-        mov     dx, word ptr [0a1c8h]
+        mov     ax, word ptr [dv_scsi_buf+1c6h]
+        mov     dx, word ptr [dv_scsi_buf+1c8h]
         mov     word ptr [dv_scsi_lba], ax
         mov     word ptr [dv_scsi_lba_hi], dx
         call    L_01D76
@@ -2977,19 +3031,19 @@ L_01D76:
         sub     ax, ax
         sub     dx, dx
         mov     cx, 1
-        mov     di, 0a000h
+        mov     di, dv_scsi_buf
         call    L_023E0
-        cmp     byte ptr [0a000h], 0ebh
+        cmp     byte ptr [dv_scsi_buf], 0ebh
         je      L_01D94
-        cmp     byte ptr [0a000h], 0e9h
+        cmp     byte ptr [dv_scsi_buf], 0e9h
         je      L_01D94
         jmp     L_01F13
 L_01D94:
-        cmp     word ptr [0a1feh], 0aa55h
+        cmp     word ptr [dv_scsi_buf+1feh], 0aa55h
         je      L_01D9F
         jmp     L_01F13
 L_01D9F:
-        mov     si, 0a036h
+        mov     si, dv_scsi_buf+36h
         call    cs_literal_compare
         db      "FAT12", 0
         mov     ah, 0ch
@@ -2998,33 +3052,33 @@ L_01D9F:
         db      "FAT16", 0
         mov     ah, 10h
         jae     L_01DCC
-        cmp     byte ptr [0a1c2h], 4
+        cmp     byte ptr [dv_scsi_buf+1c2h], 4
         je      L_01DCC
-        cmp     word ptr [0a013h], 0
+        cmp     word ptr [dv_scsi_buf+013h], 0
         je      L_01DCC
         mov     ah, 0ch
 L_01DCC:
-        mov     byte ptr [0f968h], ah
-        cmp     word ptr [0a00bh], 200h
+        mov     byte ptr [dv_scsi_fat_type], ah
+        cmp     word ptr [dv_scsi_buf+00bh], 200h
         je      L_01DDB
         jmp     L_01F13
 L_01DDB:
-        mov     bl, byte ptr [0a010h]
+        mov     bl, byte ptr [dv_scsi_buf+010h]
         cmp     bl, 2
         je      L_01DE7
         jmp     L_01F13
 L_01DE7:
-        mov     ax, word ptr [0a00eh]
-        mov     word ptr [0f99eh], ax
-        mov     cx, word ptr [0a016h]
-        mov     word ptr [0f9a2h], cx
+        mov     ax, word ptr [dv_scsi_buf+00eh]
+        mov     word ptr [dv_scsi_fat1], ax
+        mov     cx, word ptr [dv_scsi_buf+016h]
+        mov     word ptr [dv_scsi_fat_len], cx
         add     ax, cx
-        mov     word ptr [0f9a0h], ax
+        mov     word ptr [dv_scsi_fat2], ax
         add     ax, cx
-        mov     word ptr [0fdaah], ax
-        mov     ax, word ptr [0a011h]
-        mov     word ptr [0fdach], ax
-        mov     ax, word ptr [0a011h]
+        mov     word ptr [dv_scsi_dir_start], ax
+        mov     ax, word ptr [dv_scsi_buf+011h]
+        mov     word ptr [dv_scsi_dir_entries], ax
+        mov     ax, word ptr [dv_scsi_buf+011h]
         mov     dx, 20h
         mul     dx
         mov     bx, 200h
@@ -3033,10 +3087,10 @@ L_01DE7:
         je      L_01E17
         inc     ax
 L_01E17:
-        add     ax, word ptr [0fdaah]
-        mov     word ptr [0f9a4h], ax
+        add     ax, word ptr [dv_scsi_dir_start]
+        mov     word ptr [dv_scsi_data_start], ax
         mov     di, ax
-        mov     al, byte ptr [0a00dh]
+        mov     al, byte ptr [dv_scsi_buf+00dh]
         or      al, al
         jne     L_01E2A
         jmp     L_01F13
@@ -3046,39 +3100,39 @@ L_01E2A:
         jmp     L_01F13
 L_01E31:
         sub     ah, ah
-        mov     word ptr [0f99ch], ax
+        mov     word ptr [dv_scsi_sec_per_clus], ax
         mov     bx, 200h
         mul     bx
-        mov     word ptr [0f998h], ax
+        mov     word ptr [dv_scsi_clus_bytes], ax
         sub     dx, dx
-        mov     ax, word ptr [0a013h]
+        mov     ax, word ptr [dv_scsi_buf+013h]
         or      ax, ax
         jne     L_01E4E
-        mov     ax, word ptr [0a020h]
-        mov     dx, word ptr [0a022h]
+        mov     ax, word ptr [dv_scsi_buf+020h]
+        mov     dx, word ptr [dv_scsi_buf+022h]
 L_01E4E:
         sub     ax, di
         sbb     dx, 0
-        mov     bx, word ptr [0f99ch]
+        mov     bx, word ptr [dv_scsi_sec_per_clus]
         cmp     dx, bx
         jb      L_01E5E
         jmp     L_01F13
 L_01E5E:
         div     bx
-        mov     word ptr [0f99ah], ax
+        mov     word ptr [dv_scsi_clusters], ax
         mov     ax, 0
         call    L_01FEA
         mov     ax, 0
         call    L_02180
-        cmp     byte ptr [0f968h], 0ch
+        cmp     byte ptr [dv_scsi_fat_type], 0ch
         jne     L_01E85
-        mov     ax, word ptr [0f99eh]
+        mov     ax, word ptr [dv_scsi_fat1]
         sub     dx, dx
-        mov     cx, word ptr [0f9a2h]
-        mov     di, 0e000h
+        mov     cx, word ptr [dv_scsi_fat_len]
+        mov     di, dv_scsi_fat12
         call    L_023E0
 L_01E85:
-        mov     si, 0a003h
+        mov     si, dv_scsi_buf+03h
         call    cs_literal_compare
         db      "MPC1000", 0
         jb      L_01EA1
@@ -3089,7 +3143,7 @@ L_01E85:
         clc
         ret
 L_01EA1:
-        mov     si, 0a020h
+        mov     si, dv_scsi_buf+20h
         mov     cx, 20h
         mov     al, 0
 L_01EA9:
@@ -3100,7 +3154,7 @@ L_01EA9:
         je      L_01EB4
         jmp     L_01F09
 L_01EB4:
-        mov     si, 0a040h
+        mov     si, dv_scsi_buf+40h
         mov     cx, 70h
         mov     al, 0
 L_01EBC:
@@ -3111,7 +3165,7 @@ L_01EBC:
         jne     L_01EC7
         jmp     L_01F09
 L_01EC7:
-        mov     si, 0a0b0h
+        mov     si, dv_scsi_buf+0b0h
         mov     cx, 14ch
         mov     al, 0
 L_01ECF:
@@ -3120,9 +3174,9 @@ L_01ECF:
         loop    L_01ECF
         cmp     al, 0
         jne     L_01F09
-        cmp     word ptr [0a1fch], 0aa55h
+        cmp     word ptr [dv_scsi_buf+1fch], 0aa55h
         jne     L_01F09
-        mov     si, 0a044h
+        mov     si, dv_scsi_buf+44h
         mov     cx, 19h
         mov     dl, 0ffh
 L_01EE8:
@@ -3178,7 +3232,7 @@ L_01F22:
 scsi_sub17:                             ; named by table position only  ; ?
         sub     ah, ah
         shl     ax, 2
-        add     ax, 0a040h
+        add     ax, dv_scsi_buf+40h
         mov     si, ax
         lodsw
         mov     word ptr [dv_scsi_lba], ax
@@ -3191,31 +3245,31 @@ scsi_dir_first:                         ; named by table position only  ; ?
         or      ax, ax
         jne     L_01FB3
         sub     ax, ax
-        mov     word ptr [0fdb0h], ax
-        mov     word ptr [0fdaeh], ax
+        mov     word ptr [dv_scsi_dir_sec], ax
+        mov     word ptr [dv_scsi_dir_index], ax
         call    L_01FEA
-        mov     word ptr [0fdb2h], 0fdb4h
+        mov     word ptr [dv_scsi_dir_ptr], dv_scsi_dir_buf
         sub     ax, ax
         call    L_01F7E
         ret
 scsi_dir_next:                          ; named by table position only  ; ?
-        mov     ax, word ptr [0fdaeh]
+        mov     ax, word ptr [dv_scsi_dir_index]
 L_01F77:
         inc     ax
-        cmp     ax, word ptr [0fdach]
+        cmp     ax, word ptr [dv_scsi_dir_entries]
         jae     L_01FB3
 L_01F7E:
         push    ax
         push    ax
         shr     ax, 4
-        cmp     ax, word ptr [0fdb0h]
+        cmp     ax, word ptr [dv_scsi_dir_sec]
         je      L_01F8C
         call    L_01FEA
 L_01F8C:
         pop     si
         and     si, 0fh
         shl     si, 5
-        add     si, 0fdb4h
+        add     si, dv_scsi_dir_buf
         pop     ax
         cmp     byte ptr [si], 0
         je      L_01FB3
@@ -3223,9 +3277,9 @@ L_01F8C:
         call    dir_entry_usable
         pop     ax
         jb      L_01F77
-        mov     word ptr [0fdaeh], ax
-        mov     word ptr [0fdb2h], si
-        mov     di, 0f96ah
+        mov     word ptr [dv_scsi_dir_index], ax
+        mov     word ptr [dv_scsi_dir_ptr], si
+        mov     di, dv_scsi_name_buf
         call    L_01206
         clc
         ret
@@ -3233,7 +3287,7 @@ L_01FB3:
         stc
         ret
 scsi_dir_prev:                          ; named by table position only  ; ?
-        mov     ax, word ptr [0fdaeh]
+        mov     ax, word ptr [dv_scsi_dir_index]
 L_01FB8:
         or      ax, ax
         je      L_01FB3
@@ -3241,38 +3295,38 @@ L_01FB8:
         push    ax
         push    ax
         shr     ax, 4
-        cmp     ax, word ptr [0fdb0h]
+        cmp     ax, word ptr [dv_scsi_dir_sec]
         je      L_01FCB
         call    L_01FEA
 L_01FCB:
         pop     si
         and     si, 0fh
         shl     si, 5
-        add     si, 0fdb4h
+        add     si, dv_scsi_dir_buf
         call    dir_entry_usable
         pop     ax
         jb      L_01FB8
-        mov     word ptr [0fdaeh], ax
-        mov     word ptr [0fdb2h], si
-        mov     di, 0f96ah
+        mov     word ptr [dv_scsi_dir_index], ax
+        mov     word ptr [dv_scsi_dir_ptr], si
+        mov     di, dv_scsi_name_buf
         call    L_01206
         ret
 L_01FEA:
-        mov     word ptr [0fdb0h], ax
-        add     ax, word ptr [0fdaah]
+        mov     word ptr [dv_scsi_dir_sec], ax
+        add     ax, word ptr [dv_scsi_dir_start]
         mov     dx, 0
         mov     cx, 1
-        mov     di, 0fdb4h
+        mov     di, dv_scsi_dir_buf
         call    L_023E0
         ret
 L_01FFE:
         sub     ax, ax
-        mov     word ptr [0fdb0h], ax
-        mov     word ptr [0fdaeh], ax
+        mov     word ptr [dv_scsi_dir_sec], ax
+        mov     word ptr [dv_scsi_dir_index], ax
         call    L_01FEA
-        mov     word ptr [0fdb2h], 0fdb4h
+        mov     word ptr [dv_scsi_dir_ptr], dv_scsi_dir_buf
 L_0200F:
-        mov     si, word ptr [0fdb2h]
+        mov     si, word ptr [dv_scsi_dir_ptr]
         cmp     byte ptr [si], 0
         jne     L_02019
         ret
@@ -3285,23 +3339,23 @@ L_0201F:
         jne     L_02025
         ret
 L_02025:
-        mov     ax, word ptr [0fdaeh]
+        mov     ax, word ptr [dv_scsi_dir_index]
         inc     ax
-        cmp     ax, word ptr [0fdach]
+        cmp     ax, word ptr [dv_scsi_dir_entries]
         jae     L_01FB3
-        mov     word ptr [0fdaeh], ax
+        mov     word ptr [dv_scsi_dir_index], ax
         push    ax
         push    ax
         shr     ax, 4
-        cmp     ax, word ptr [0fdb0h]
+        cmp     ax, word ptr [dv_scsi_dir_sec]
         je      L_02040
         call    L_01FEA
 L_02040:
         pop     si
         and     si, 0fh
         shl     si, 5
-        add     si, 0fdb4h
-        mov     word ptr [0fdb2h], si
+        add     si, dv_scsi_dir_buf
+        mov     word ptr [dv_scsi_dir_ptr], si
         pop     ax
         jmp     L_0200F
 L_02052:
@@ -3312,7 +3366,7 @@ L_02052:
         pop     di
 L_02059:
         pusha
-        mov     si, 0f96ah
+        mov     si, dv_scsi_name_buf
         mov     cx, 14h
         repe cmpsb
         popa
@@ -3331,30 +3385,30 @@ scsi_file_open:                         ; named by table position only  ; ?
         jae     L_02076
         ret
 L_02076:
-        mov     si, word ptr [0fdb2h]
+        mov     si, word ptr [dv_scsi_dir_ptr]
         mov     ax, word ptr [si+1ah]
-        mov     word ptr [0ffb8h], ax
-        mov     word ptr [0ffbah], 0
+        mov     word ptr [dv_scsi_cluster], ax
+        mov     word ptr [dv_scsi_buf_left], 0
         mov     ax, word ptr [si+1ch]
         mov     dx, word ptr [si+1eh]
-        mov     word ptr [0ffb4h], ax
-        mov     word ptr [0ffb6h], dx
+        mov     word ptr [dv_scsi_remain], ax
+        mov     word ptr [dv_scsi_remain_hi], dx
         clc
         ret
 scsi_read_byte:                         ; named by table position only  ; ?
-        mov     ax, word ptr [0ffb4h]
-        or      ax, word ptr [0ffb6h]
+        mov     ax, word ptr [dv_scsi_remain]
+        or      ax, word ptr [dv_scsi_remain_hi]
         je      L_020C4
-        sub     word ptr [0ffb4h], 1
-        sbb     word ptr [0ffb6h], 0
+        sub     word ptr [dv_scsi_remain], 1
+        sbb     word ptr [dv_scsi_remain_hi], 0
         cmp     word ptr [dv_buf_left], 0
         jne     L_020B2
         call    L_0212F
 L_020B2:
-        mov     si, word ptr [0ffbch]
+        mov     si, word ptr [dv_scsi_buf_ptr]
         mov     al, byte ptr [si]
-        inc     word ptr [0ffbch]
-        dec     word ptr [0ffbah]
+        inc     word ptr [dv_scsi_buf_ptr]
+        dec     word ptr [dv_scsi_buf_left]
         mov     ah, 0
         clc
         ret
@@ -3363,17 +3417,17 @@ L_020C4:
         stc
         ret
 scsi_read_block:                        ; named by table position only  ; ?
-        mov     ax, word ptr [0ffb4h]
-        or      ax, word ptr [0ffb6h]
+        mov     ax, word ptr [dv_scsi_remain]
+        or      ax, word ptr [dv_scsi_remain_hi]
         jne     L_020D3
         ret
 L_020D3:
-        sub     word ptr [0ffb4h], cx
-        sbb     word ptr [0ffb6h], 0
+        sub     word ptr [dv_scsi_remain], cx
+        sbb     word ptr [dv_scsi_remain_hi], 0
         jae     L_020EE
-        add     cx, word ptr [0ffb4h]
-        mov     word ptr [0ffb4h], 0
-        mov     word ptr [0ffb6h], 0
+        add     cx, word ptr [dv_scsi_remain]
+        mov     word ptr [dv_scsi_remain], 0
+        mov     word ptr [dv_scsi_remain_hi], 0
 L_020EE:
         push    cx
         call    L_020F5
@@ -3381,13 +3435,13 @@ L_020EE:
         clc
         ret
 L_020F5:
-        cmp     cx, word ptr [0ffbah]
+        cmp     cx, word ptr [dv_scsi_buf_left]
         jbe     L_02120
-        sub     cx, word ptr [0ffbah]
+        sub     cx, word ptr [dv_scsi_buf_left]
         push    cx
-        mov     cx, word ptr [0ffbah]
+        mov     cx, word ptr [dv_scsi_buf_left]
         mov     word ptr [dv_buf_left], 0
-        mov     si, word ptr [0ffbch]
+        mov     si, word ptr [dv_scsi_buf_ptr]
         rep movsb
         push    di
         push    es
@@ -3395,60 +3449,60 @@ L_020F5:
         pop     es
         pop     di
         pop     cx
-        cmp     word ptr [0ffbah], 0
+        cmp     word ptr [dv_scsi_buf_left], 0
         jne     L_020F5
         ret
 L_02120:
-        sub     word ptr [0ffbah], cx
-        mov     si, word ptr [0ffbch]
+        sub     word ptr [dv_scsi_buf_left], cx
+        mov     si, word ptr [dv_scsi_buf_ptr]
         rep movsb
-        mov     word ptr [0ffbch], si
+        mov     word ptr [dv_scsi_buf_ptr], si
         ret
 L_0212F:
-        mov     ax, word ptr [0ffb8h]
+        mov     ax, word ptr [dv_scsi_cluster]
         cmp     ax, 0ffffh
         jne     L_02138
         ret
 L_02138:
         call    L_023BE
-        mov     cx, word ptr [0f99ch]
-        mov     di, 0a000h
-        mov     word ptr [0ffbch], di
+        mov     cx, word ptr [dv_scsi_sec_per_clus]
+        mov     di, dv_scsi_buf
+        mov     word ptr [dv_scsi_buf_ptr], di
         call    L_023E0
-        mov     ax, word ptr [0f998h]
-        mov     word ptr [0ffbah], ax
+        mov     ax, word ptr [dv_scsi_clus_bytes]
+        mov     word ptr [dv_scsi_buf_left], ax
         call    L_02153
         ret
 L_02153:
-        cmp     byte ptr [0f968h], 0ch
+        cmp     byte ptr [dv_scsi_fat_type], 0ch
         jne     L_0215D
         jmp     L_02533
 L_0215D:
-        mov     ax, word ptr [0ffb8h]
-        cmp     ah, byte ptr [0f9a7h]
+        mov     ax, word ptr [dv_scsi_cluster]
+        cmp     ah, byte ptr [dv_scsi_fat_cached]
         je      L_02169
         call    L_02180
 L_02169:
         sub     ah, ah
         shl     ax, 1
-        add     ax, 0f9aah
+        add     ax, dv_scsi_fat_buf
         mov     si, ax
         mov     ax, word ptr [si]
         cmp     ax, 0fff8h
         jb      L_0217C
         mov     ax, 0ffffh
 L_0217C:
-        mov     word ptr [0ffb8h], ax
+        mov     word ptr [dv_scsi_cluster], ax
         ret
 L_02180:
         push    ax
-        mov     byte ptr [0f9a7h], ah
+        mov     byte ptr [dv_scsi_fat_cached], ah
         mov     al, ah
         sub     ah, ah
-        add     ax, word ptr [0f99eh]
+        add     ax, word ptr [dv_scsi_fat1]
         sub     dx, dx
         mov     cx, 2
-        mov     di, 0f9aah
+        mov     di, dv_scsi_fat_buf
         call    L_023E0
         pop     ax
         ret
@@ -3468,16 +3522,16 @@ scsi_file_create:                       ; named by table position only  ; ?
         pop     si
         pop     es
         jb      L_021DB
-        mov     word ptr [0ffb8h], ax
+        mov     word ptr [dv_scsi_cluster], ax
         call    L_0151C
         sub     ax, ax
         mov     word ptr [di+1ch], ax
         mov     word ptr [di+1eh], ax
         mov     byte ptr [di+0bh], al
-        mov     ax, word ptr [0ffb8h]
+        mov     ax, word ptr [dv_scsi_cluster]
         mov     word ptr [di+1ah], ax
-        mov     word ptr [0ffbeh], 0
-        mov     byte ptr [0f9a6h], 2
+        mov     word ptr [dv_scsi_wr_ofs], 0
+        mov     byte ptr [dv_scsi_file_state], 2
         sub     ax, ax
         clc
         ret
@@ -3490,14 +3544,14 @@ L_021DB:
         stc
         ret
 L_021E0:
-        cmp     byte ptr [0f968h], 10h
+        cmp     byte ptr [dv_scsi_fat_type], 10h
         je      L_021EA
         jmp     L_02550
 L_021EA:
         sub     ax, ax
         call    L_02180
         mov     ax, 2
-        mov     si, 0f9aah
+        mov     si, dv_scsi_fat_buf
 L_021F5:
         mov     bx, ax
         sub     bh, bh
@@ -3508,7 +3562,7 @@ L_021F5:
         ret
 L_02205:
         inc     ax
-        cmp     ax, word ptr [0f99ah]
+        cmp     ax, word ptr [dv_scsi_clusters]
         je      L_02217
         cmp     al, 0
         jne     L_021F5
@@ -3520,13 +3574,13 @@ L_02217:
         stc
         ret
 scsi_write_byte:                        ; named by table position only  ; ?
-        mov     di, word ptr [0fdb2h]
+        mov     di, word ptr [dv_scsi_dir_ptr]
         add     word ptr [di+1ch], 1
         adc     word ptr [di+1eh], 0
-        mov     di, word ptr [0ffbeh]
-        mov     byte ptr [di-6000h], al
+        mov     di, word ptr [dv_scsi_wr_ofs]
+        mov     byte ptr [di+dv_scsi_buf], al
         inc     di
-        cmp     di, word ptr [0f998h]
+        cmp     di, word ptr [dv_scsi_clus_bytes]
         jne     L_02240
         call    L_023CF
         call    L_02307
@@ -3539,19 +3593,19 @@ L_02240:
         sub     ax, ax
         ret
 scsi_write_block:                       ; named by table position only  ; ?
-        mov     di, word ptr [0fdb2h]
+        mov     di, word ptr [dv_scsi_dir_ptr]
         add     word ptr [di+1ch], cx
         adc     word ptr [di+1eh], 0
 L_02252:
-        mov     di, 0a000h
-        mov     bx, word ptr [0ffbeh]
+        mov     di, dv_scsi_buf
+        mov     bx, word ptr [dv_scsi_wr_ofs]
         add     di, bx
-        mov     ax, word ptr [0f998h]
+        mov     ax, word ptr [dv_scsi_clus_bytes]
         sub     ax, bx
         cmp     cx, ax
         jb      L_0228B
         sub     cx, ax
-        mov     word ptr [0ffbeh], 0
+        mov     word ptr [dv_scsi_wr_ofs], 0
         push    cx
         mov     cx, ax
         mov     ax, ds
@@ -3569,7 +3623,7 @@ L_02252:
 L_02289:
         jmp     L_02252
 L_0228B:
-        add     word ptr [0ffbeh], cx
+        add     word ptr [dv_scsi_wr_ofs], cx
         mov     ax, ds
         mov     bx, es
         mov     es, ax
@@ -3581,17 +3635,17 @@ L_0228B:
         ret
 scsi_file_close:                        ; named by table position only  ; ?
         sub     ax, ax
-        xchg    byte ptr [0f9a6h], al
+        xchg    byte ptr [dv_scsi_file_state], al
         cmp     al, 2
         jne     L_022CC
-        mov     cx, word ptr [0f998h]
-        mov     di, word ptr [0ffbeh]
+        mov     cx, word ptr [dv_scsi_clus_bytes]
+        mov     di, word ptr [dv_scsi_wr_ofs]
         sub     cx, di
-        add     di, 0a000h
+        add     di, dv_scsi_buf
         mov     al, 0
         rep stosb
         call    L_023CF
-        mov     si, word ptr [0fdb2h]
+        mov     si, word ptr [dv_scsi_dir_ptr]
         mov     byte ptr [si+0bh], 20h
         call    L_022E1
         call    L_022CE
@@ -3599,31 +3653,31 @@ L_022CC:
         clc
         ret
 L_022CE:
-        mov     ax, word ptr [0fdb0h]
-        add     ax, word ptr [0fdaah]
+        mov     ax, word ptr [dv_scsi_dir_sec]
+        add     ax, word ptr [dv_scsi_dir_start]
         sub     dx, dx
-        mov     di, 0fdb4h
+        mov     di, dv_scsi_dir_buf
         mov     cx, 1
         call    L_023FE
         ret
 L_022E1:
-        mov     al, byte ptr [0f9a7h]
+        mov     al, byte ptr [dv_scsi_fat_cached]
         mov     ah, 0
         push    ax
-        add     ax, word ptr [0f99eh]
+        add     ax, word ptr [dv_scsi_fat1]
         sub     dx, dx
         mov     cx, 1
-        mov     di, 0f9aah
+        mov     di, dv_scsi_fat_buf
         call    L_023FE
         pop     ax
-        add     ax, word ptr [0f9a0h]
+        add     ax, word ptr [dv_scsi_fat2]
         sub     dx, dx
         mov     cx, 1
-        mov     di, 0f9aah
+        mov     di, dv_scsi_fat_buf
         call    L_023FE
         ret
 L_02307:
-        cmp     byte ptr [0f968h], 10h
+        cmp     byte ptr [dv_scsi_fat_type], 10h
         je      L_02311
         jmp     L_0258A
 L_02311:
@@ -3632,11 +3686,11 @@ L_02311:
         ret
 L_02317:
         mov     bx, ax
-        xchg    word ptr [0ffb8h], bx
+        xchg    word ptr [dv_scsi_cluster], bx
         mov     cx, bx
         sub     bh, bh
         shl     bx, 1
-        mov     word ptr [bx-656h], ax
+        mov     word ptr [bx+dv_scsi_fat_buf], ax
         cmp     ah, ch
         je      L_02335
         push    ax
@@ -3649,11 +3703,11 @@ L_02335:
         sub     ah, ah
         shl     ax, 1
         mov     bx, ax
-        mov     word ptr [bx-656h], 0ffffh
+        mov     word ptr [bx+dv_scsi_fat_buf], 0ffffh
         ret
 L_02342:
-        mov     ax, word ptr [0ffb8h]
-        mov     si, 0f9aah
+        mov     ax, word ptr [dv_scsi_cluster]
+        mov     si, dv_scsi_fat_buf
 L_02348:
         mov     bx, ax
         sub     bh, bh
@@ -3663,7 +3717,7 @@ L_02348:
         ret
 L_02354:
         inc     ax
-        cmp     ax, word ptr [0f99ah]
+        cmp     ax, word ptr [dv_scsi_clusters]
         stc
         jne     L_0235D
         ret
@@ -3673,10 +3727,10 @@ L_0235D:
         push    ax
         mov     al, ah
         sub     ah, ah
-        add     ax, word ptr [0f99eh]
+        add     ax, word ptr [dv_scsi_fat1]
         sub     dx, dx
         mov     cx, 1
-        mov     di, 0fbaah
+        mov     di, dv_scsi_fat_buf+200h
         push    di
         call    L_023E0
         pop     si
@@ -3687,7 +3741,7 @@ L_0237A:
         jne     L_0237F
         ret
 L_0237F:
-        cmp     byte ptr [0f968h], 10h
+        cmp     byte ptr [dv_scsi_fat_type], 10h
         je      L_02389
         jmp     L_025BD
 L_02389:
@@ -3697,7 +3751,7 @@ L_0238C:
         sub     bh, bh
         shl     bx, 1
         sub     cx, cx
-        xchg    word ptr [bx-656h], cx
+        xchg    word ptr [bx+dv_scsi_fat_buf], cx
         cmp     cx, -1
         jne     L_023A0
         jmp     L_022E1
@@ -3710,7 +3764,7 @@ L_023A0:
         pop     ax
         jmp     L_02389
 scsi_file_delete:                       ; named by table position only  ; ?
-        mov     si, word ptr [0fdb2h]
+        mov     si, word ptr [dv_scsi_dir_ptr]
         mov     byte ptr [si], 0e5h
         mov     ax, word ptr [si+1ah]
         call    L_0237A
@@ -3718,16 +3772,16 @@ scsi_file_delete:                       ; named by table position only  ; ?
         ret
 L_023BE:
         sub     ax, 2
-        mov     bx, word ptr [0f99ch]
+        mov     bx, word ptr [dv_scsi_sec_per_clus]
         mul     bx
-        add     ax, word ptr [0f9a4h]
+        add     ax, word ptr [dv_scsi_data_start]
         adc     dx, 0
         ret
 L_023CF:
-        mov     ax, word ptr [0ffb8h]
+        mov     ax, word ptr [dv_scsi_cluster]
         call    L_023BE
-        mov     cx, word ptr [0f99ch]
-        mov     di, 0a000h
+        mov     cx, word ptr [dv_scsi_sec_per_clus]
+        mov     di, dv_scsi_buf
         call    L_023FE
         ret
 L_023E0:
@@ -3765,21 +3819,21 @@ L_0241B:
 scsi_format_volume:                     ; named by table position only  ; ?
         mov     ax, ds
         mov     es, ax
-        mov     di, 0a000h
+        mov     di, dv_scsi_buf
         mov     cx, 2000h
         sub     ax, ax
         rep stosw
         mov     word ptr [dv_scsi_lba], ax
         mov     word ptr [dv_scsi_lba_hi], ax
         mov     si, 24f1h
-        mov     di, 0a000h
+        mov     di, dv_scsi_buf
         push    ds
         mov     bx, cs
         mov     ds, bx
         mov     cx, 34h
         rep movsb
         pop     ds
-        mov     di, 0a000h
+        mov     di, dv_scsi_buf
         mov     byte ptr [di+1feh], 55h
         mov     byte ptr [di+1ffh], 0aah
         mov     ax, word ptr [dv_scsi_blocks]
@@ -3881,24 +3935,24 @@ L_02531:
         stc
         ret
 L_02533:
-        mov     ax, word ptr [0ffb8h]
+        mov     ax, word ptr [dv_scsi_cluster]
         mov     bx, ax
         shr     bx, 1
         pushf
         add     bx, ax
-        add     bx, 0e000h
+        add     bx, dv_scsi_fat12
         mov     ax, word ptr [bx]
         popf
         jae     L_02549
         shr     ax, 4
 L_02549:
         and     ah, 0fh
-        mov     word ptr [0ffb8h], ax
+        mov     word ptr [dv_scsi_cluster], ax
         ret
 L_02550:
         mov     cx, 2
 L_02553:
-        mov     si, 0e000h
+        mov     si, dv_scsi_fat12
 L_02556:
         mov     bx, cx
         shr     bx, 1
@@ -3916,7 +3970,7 @@ L_02556:
         ret
 L_02572:
         inc     cx
-        cmp     cx, word ptr [0f99ah]
+        cmp     cx, word ptr [dv_scsi_clusters]
         jne     L_02556
         stc
         ret
@@ -3929,7 +3983,7 @@ L_0257B:
         clc
         ret
 L_0258A:
-        mov     cx, word ptr [0ffb8h]
+        mov     cx, word ptr [dv_scsi_cluster]
         call    L_02553
         jae     L_02594
         ret
@@ -3940,7 +3994,7 @@ L_02594:
         shr     bx, 1
         pushf
         add     bx, ax
-        add     bx, 0e000h
+        add     bx, dv_scsi_fat12
         mov     ax, word ptr [bx]
         popf
         jae     L_025B5
@@ -3959,7 +4013,7 @@ L_025BD:
         jne     L_025C2
         ret
 L_025C2:
-        mov     si, 0e000h
+        mov     si, dv_scsi_fat12
 L_025C5:
         mov     bx, ax
         shr     bx, 1
@@ -3974,15 +4028,15 @@ L_025D5:
         mov     ax, cx
         cmp     ax, 0fffh
         jne     L_025C5
-        mov     ax, word ptr [0f99eh]
+        mov     ax, word ptr [dv_scsi_fat1]
         sub     dx, dx
-        mov     cx, word ptr [0f9a2h]
-        mov     si, 0e000h
+        mov     cx, word ptr [dv_scsi_fat_len]
+        mov     si, dv_scsi_fat12
         call    L_023FE
-        mov     ax, word ptr [0f9a0h]
+        mov     ax, word ptr [dv_scsi_fat2]
         sub     dx, dx
-        mov     cx, word ptr [0f9a2h]
-        mov     si, 0e000h
+        mov     cx, word ptr [dv_scsi_fat_len]
+        mov     si, dv_scsi_fat12
         call    L_023FE
         ret
 L_025FF:
@@ -4403,11 +4457,11 @@ L_028E3:
         inc     bl
         cmp     bl, 20h
         jne     L_028E3
-        cmp     byte ptr [379dh], 0
+        cmp     byte ptr [bv_show_de], 0
         je      L_028F7
         jmp     L_02A36
 L_028F7:
-        cmp     byte ptr [379eh], 0
+        cmp     byte ptr [bv_show_f], 0
         je      L_02901
         jmp     L_02AEF
 L_02901:
@@ -4431,9 +4485,9 @@ L_02902:
         call    lcd_cmd_left
         sub     bh, bh
 L_0292A:
-        mov     ah, byte ptr [bx+143ch]
-        or      ah, byte ptr [bx+1bbch]
-        xor     ah, byte ptr [bx+233ch]
+        mov     ah, byte ptr [bx+bv_plane_a]
+        or      ah, byte ptr [bx+bv_plane_b]
+        xor     ah, byte ptr [bx+bv_plane_c]
         mov     dx, 60h
         in      al, dx
         shl     al, 1
@@ -4466,9 +4520,9 @@ L_0294F:
         call    lcd_cmd_right
         sub     bh, bh
 L_02974:
-        mov     ah, byte ptr [bx+143ch]
-        or      ah, byte ptr [bx+1bbch]
-        xor     ah, byte ptr [bx+233ch]
+        mov     ah, byte ptr [bx+bv_plane_a]
+        or      ah, byte ptr [bx+bv_plane_b]
+        xor     ah, byte ptr [bx+bv_plane_c]
         mov     dx, 100h
         in      al, dx
         shl     al, 1
@@ -4571,7 +4625,7 @@ L_02A3D:
         inc     bl
         cmp     bl, 20h
         jne     L_02A3D
-        cmp     byte ptr [379eh], 0
+        cmp     byte ptr [bv_show_f], 0
         je      L_02A51
         jmp     L_02AEF
 L_02A51:
@@ -4598,11 +4652,11 @@ L_02A52:
         sub     bh, bh
         add     bx, ax
 L_02A80:
-        mov     al, byte ptr [bx+143ch]
-        or      al, byte ptr [bx+1bbch]
-        xor     al, byte ptr [bx+233ch]
-        or      al, byte ptr [bx+283ch]
-        xor     al, byte ptr [bx+2a5ch]
+        mov     al, byte ptr [bx+bv_plane_a]
+        or      al, byte ptr [bx+bv_plane_b]
+        xor     al, byte ptr [bx+bv_plane_c]
+        or      al, byte ptr [bx+bv_plane_d-280h]
+        xor     al, byte ptr [bx+bv_plane_e-280h]
         call    lcd_wait_left
         call    lcd_data_left
         add     bx, 20h
@@ -4631,11 +4685,11 @@ L_02AA2:
         sub     bh, bh
         add     bx, ax
 L_02ACD:
-        mov     al, byte ptr [bx+143ch]
-        or      al, byte ptr [bx+1bbch]
-        xor     al, byte ptr [bx+233ch]
-        or      al, byte ptr [bx+283ch]
-        xor     al, byte ptr [bx+2a5ch]
+        mov     al, byte ptr [bx+bv_plane_a]
+        or      al, byte ptr [bx+bv_plane_b]
+        xor     al, byte ptr [bx+bv_plane_c]
+        or      al, byte ptr [bx+bv_plane_d-280h]
+        xor     al, byte ptr [bx+bv_plane_e-280h]
         call    lcd_wait_right
         call    lcd_data_right
         add     bx, 20h
@@ -4675,7 +4729,7 @@ L_02B01:
         sub     bh, bh
         add     bx, ax
 L_02B2F:
-        mov     al, byte ptr [bx+289ch]
+        mov     al, byte ptr [bx+bv_plane_f-660h]
         call    lcd_wait_left
         call    lcd_data_left
         add     bx, 20h
@@ -4704,7 +4758,7 @@ L_02B41:
         sub     bh, bh
         add     bx, ax
 L_02B6C:
-        mov     al, byte ptr [bx+289ch]
+        mov     al, byte ptr [bx+bv_plane_f-660h]
         call    lcd_wait_right
         call    lcd_data_right
         add     bx, 20h
@@ -4910,13 +4964,13 @@ bc_op1e:
         mov     ah, 1ah
         call    bc_op14_puts_far
         call    bc_op8e_plane_pop
-        mov     byte ptr [379dh], 1
+        mov     byte ptr [bv_show_de], 1
         call    bc_op02_lcd_blit
         pop     es
         pop     bp
         ret
 bc_op22:
-        mov     byte ptr [379dh], 0
+        mov     byte ptr [bv_show_de], 0
         call    bc_op02_lcd_blit
         ret
 bc_op20_print:
@@ -4932,7 +4986,7 @@ bc_op20_print:
         pop     es
         call    L_02F7D
         call    bc_op8e_plane_pop
-        mov     byte ptr [379dh], 1
+        mov     byte ptr [bv_show_de], 1
         call    bc_op02_lcd_blit
         ret
 L_02D4D:
@@ -4944,7 +4998,7 @@ L_02D4D:
         BC_LCD_BITMAP 36, 0, "DEEEEEEEEEF"
         db      5dh, 0c3h                                               ; ].
 bc_op24:
-        mov     byte ptr [379eh], 1
+        mov     byte ptr [bv_show_f], 1
         call    plane_push
         call    plane_select_f
         push    bp
@@ -4957,7 +5011,7 @@ bc_op24:
         pop     bp
         ret
 bc_op28:
-        mov     byte ptr [379eh], 1
+        mov     byte ptr [bv_show_f], 1
         call    plane_push
         call    plane_select_f
         BC_CLEAR_RECT 0, 0, 248, 9
@@ -4967,8 +5021,8 @@ bc_op28:
         std
         ret
 bc_op26:
-        mov     byte ptr [379eh], 0
-        mov     byte ptr [379dh], 0
+        mov     byte ptr [bv_show_f], 0
+        mov     byte ptr [bv_show_de], 0
         ret
         BC_SOFTKEY 4, BC_SK_BOX,   "CANCEL"
         BC_SOFTKEY 5, BC_SK_BOX,   "  GO  "
@@ -5128,7 +5182,7 @@ L_02F11:
         push    si
         mov     ch, 5
         mul     ch
-        mov     si, 3b2ch
+        mov     si, lcd_font_small-boot_vars
         add     si, ax
         mov     bl, cl
         sub     bh, bh
@@ -5701,32 +5755,32 @@ bc_op5c:
         add     bp, 4
         ret
 L_0348A:
-        mov     byte ptr [37a6h], cl
-        mov     byte ptr [37a7h], ch
-        mov     byte ptr [37a8h], bl
-        mov     byte ptr [37a9h], bh
+        mov     byte ptr [bv_rect_x], cl
+        mov     byte ptr [bv_rect_y], ch
+        mov     byte ptr [bv_rect_w], bl
+        mov     byte ptr [bv_rect_h], bh
         call    bc_clamp_xy
-        mov     bl, byte ptr [37a8h]
+        mov     bl, byte ptr [bv_rect_w]
         call    L_032DB
-        mov     cl, byte ptr [37a6h]
-        mov     ch, byte ptr [37a7h]
-        add     ch, byte ptr [37a9h]
+        mov     cl, byte ptr [bv_rect_x]
+        mov     ch, byte ptr [bv_rect_y]
+        add     ch, byte ptr [bv_rect_h]
         dec     ch
         and     ch, 3fh
         call    bc_clamp_xy
-        mov     bl, byte ptr [37a8h]
+        mov     bl, byte ptr [bv_rect_w]
         call    L_032DB
-        mov     cl, byte ptr [37a6h]
-        mov     ch, byte ptr [37a7h]
+        mov     cl, byte ptr [bv_rect_x]
+        mov     ch, byte ptr [bv_rect_y]
         call    bc_clamp_xy
-        mov     bl, byte ptr [37a9h]
+        mov     bl, byte ptr [bv_rect_h]
         call    L_033D5
-        mov     cl, byte ptr [37a6h]
-        mov     ch, byte ptr [37a7h]
-        add     cl, byte ptr [37a8h]
+        mov     cl, byte ptr [bv_rect_x]
+        mov     ch, byte ptr [bv_rect_y]
+        add     cl, byte ptr [bv_rect_w]
         dec     cl
         call    bc_clamp_xy
-        mov     bl, byte ptr [37a9h]
+        mov     bl, byte ptr [bv_rect_h]
         call    L_033D5
         ret
 bc_op5e:
@@ -6175,10 +6229,10 @@ L_03878:
         mov     ax, word ptr [bp+4]
         mov     word ptr [bv_scsi_ctx], ax
         sub     ax, ax
-        mov     word ptr [3d44h], ax
-        mov     word ptr [3d42h], ax
-        mov     word ptr [3d48h], ax
-        mov     word ptr [3d46h], ax
+        mov     word ptr [bv_cap_blocks_hi], ax
+        mov     word ptr [bv_cap_blocks], ax
+        mov     word ptr [bv_cap_blksize_hi], ax
+        mov     word ptr [bv_cap_blksize], ax
         push    word ptr [bp+6]
         call    L_03A5A
         cmp     ax, 1
@@ -6190,18 +6244,18 @@ L_038A0:
         push    si
         push    word ptr [bv_scsi_ctx]
         push    ds
-        push    3d42h
+        push    bv_cap_blocks
         push    ds
-        push    3d46h
+        push    bv_cap_blksize
         call    L_03C6A
         mov     si, ax
         or      si, ax
         je      L_038C4
         sub     ax, ax
-        mov     word ptr [3d44h], ax
-        mov     word ptr [3d42h], ax
-        mov     word ptr [3d48h], ax
-        mov     word ptr [3d46h], ax
+        mov     word ptr [bv_cap_blocks_hi], ax
+        mov     word ptr [bv_cap_blocks], ax
+        mov     word ptr [bv_cap_blksize_hi], ax
+        mov     word ptr [bv_cap_blksize], ax
 L_038C4:
         mov     ax, si
         pop     si
@@ -6215,18 +6269,18 @@ L_038C8:
         mov     si, ax
         cmp     si, 2
         jne     L_038E6
-        cmp     byte ptr [3d4ch], 6
+        cmp     byte ptr [bv_sense+2], 6
         jne     L_038E6
         call    L_038A0
         mov     si, ax
 L_038E6:
         or      si, ax
         jne     L_03966
-        mov     ax, word ptr [3d44h]
-        or      ax, word ptr [3d42h]
+        mov     ax, word ptr [bv_cap_blocks_hi]
+        or      ax, word ptr [bv_cap_blocks]
         je      L_038FC
-        mov     ax, word ptr [3d48h]
-        or      ax, word ptr [3d46h]
+        mov     ax, word ptr [bv_cap_blksize_hi]
+        or      ax, word ptr [bv_cap_blksize]
         jne     L_03905
 L_038FC:
         call    L_038A0
@@ -6238,10 +6292,10 @@ L_03905:
         mov     dx, word ptr [bp+0ch]
         add     ax, word ptr [bp+4]
         adc     dx, 0
-        cmp     dx, word ptr [3d44h]
+        cmp     dx, word ptr [bv_cap_blocks_hi]
         jb      L_03928
         ja      L_0391F
-        cmp     ax, word ptr [3d42h]
+        cmp     ax, word ptr [bv_cap_blocks]
         jbe     L_03928
 L_0391F:
         mov     ax, 0ff01h
@@ -6258,7 +6312,7 @@ L_03928:
         push    word ptr [bp+0ch]
         push    word ptr [bp+0ah]
         push    word ptr [bp+4]
-        push    word ptr [3d46h]
+        push    word ptr [bv_cap_blksize]
         call    L_03BDC
         jmp     L_03964
 L_0394A:
@@ -6268,7 +6322,7 @@ L_0394A:
         push    word ptr [bp+0ch]
         push    word ptr [bp+0ah]
         push    word ptr [bp+4]
-        push    word ptr [3d46h]
+        push    word ptr [bv_cap_blksize]
         call    L_03DC6
 L_03964:
         mov     si, ax
@@ -6284,7 +6338,7 @@ int2dh_dispatch:                        ; AH = sub-function; the MB89352 SCSI tr
         push    es
         mov     bp, sp
         push    ds
-        mov     ax, 41ah
+        mov     ax, BV_SEG
         mov     ds, ax
         cld
         sti
@@ -6364,13 +6418,13 @@ scsi_svc_05:                            ; named by table position only  ; ?
 scsi_svc_read_capacity:                 ; returns the capacity words out of bv_scsi_ctx+2..+8
         call    L_038A0
         mov     word ptr [bp+12h], ax
-        mov     ax, word ptr [3d44h]
+        mov     ax, word ptr [bv_cap_blocks_hi]
         mov     word ptr [bp+0eh], ax
-        mov     ax, word ptr [3d42h]
+        mov     ax, word ptr [bv_cap_blocks]
         mov     word ptr [bp+4], ax
-        mov     ax, word ptr [3d48h]
+        mov     ax, word ptr [bv_cap_blksize_hi]
         mov     word ptr [bp+0ch], ax
-        mov     ax, word ptr [3d46h]
+        mov     ax, word ptr [bv_cap_blksize]
         mov     word ptr [bp+6], ax
         jmp     int2dh_return
 scsi_svc_07:                            ; named by table position only  ; ?
@@ -6389,7 +6443,7 @@ scsi_svc_ff_status:                     ; AH=0FFh: fetch the last status
         mov     word ptr [bp+12h], 0
         mov     ax, ds
         mov     word ptr [bp+0eh], ax
-        mov     word ptr [bp+4], 3d4ah
+        mov     word ptr [bp+4], bv_sense
 int2dh_return:                          ; common exit; the result is left in the saved AX on the frame
         mov     sp, bp
         pop     es
@@ -6488,24 +6542,24 @@ L_03B36:
         mov     bp, sp
         push    di
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
-        mov     byte ptr [3d5fh], 12h
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
+        mov     byte ptr [bv_req_sense_len], 12h
         mov     ax, word ptr [bp+4]
-        mov     word ptr [3d5ch], ax
-        mov     byte ptr [3d64h], 4
-        mov     byte ptr [3d5eh], 6
+        mov     word ptr [bv_scsi_req], ax
+        mov     byte ptr [bv_req_cdb], 4
+        mov     byte ptr [bv_req_cdb_len], 6
         sub     ax, ax
-        mov     word ptr [3d72h], ax
-        mov     word ptr [3d70h], ax
-        mov     word ptr [3d62h], ax
-        mov     word ptr [3d60h], ax
+        mov     word ptr [bv_req_data_seg], ax
+        mov     word ptr [bv_req_data], ax
+        mov     word ptr [bv_req_len_hi], ax
+        mov     word ptr [bv_req_len], ax
         push    ds
         push    bx
         call    L_03A68
@@ -6520,30 +6574,30 @@ L_03B80:
         push    si
         mov     si, word ptr [bp+4]
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
         mov     ax, word ptr [bp+0ah]
-        mov     word ptr [3d5ch], ax
+        mov     word ptr [bv_scsi_req], ax
         mov     al, 12h
-        mov     byte ptr [3d5fh], al
-        mov     byte ptr [3d64h], al
+        mov     byte ptr [bv_req_sense_len], al
+        mov     byte ptr [bv_req_cdb], al
         mov     ax, si
-        mov     byte ptr [3d68h], al
-        mov     byte ptr [3d5eh], 6
+        mov     byte ptr [bv_req_cdb+4], al
+        mov     byte ptr [bv_req_cdb_len], 6
         mov     ax, word ptr [bp+6]
         mov     dx, word ptr [bp+8]
-        mov     word ptr [3d70h], ax
-        mov     word ptr [3d72h], dx
+        mov     word ptr [bv_req_data], ax
+        mov     word ptr [bv_req_data_seg], dx
         mov     ax, si
         cwd
-        mov     word ptr [3d60h], si
-        mov     word ptr [3d62h], dx
+        mov     word ptr [bv_req_len], si
+        mov     word ptr [bv_req_len_hi], dx
         push    ds
         push    bx
         call    L_03A68
@@ -6559,46 +6613,46 @@ L_03BDC:
         push    si
         mov     si, word ptr [bp+6]
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
-        mov     byte ptr [3d5fh], 12h
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
+        mov     byte ptr [bv_req_sense_len], 12h
         mov     ax, word ptr [bp+10h]
-        mov     word ptr [3d5ch], ax
-        mov     byte ptr [3d64h], 28h
+        mov     word ptr [bv_scsi_req], ax
+        mov     byte ptr [bv_req_cdb], 28h
         mov     al, byte ptr [bp+0bh]
         sub     ah, ah
-        mov     byte ptr [3d66h], al
+        mov     byte ptr [bv_req_cdb+2], al
         mov     al, byte ptr [bp+0ah]
-        mov     byte ptr [3d67h], al
+        mov     byte ptr [bv_req_cdb+3], al
         mov     ax, word ptr [bp+8]
         mov     dx, word ptr [bp+0ah]
         mov     al, ah
         mov     ah, dl
         mov     dl, dh
         sub     dh, dh
-        mov     byte ptr [3d68h], al
+        mov     byte ptr [bv_req_cdb+4], al
         mov     al, byte ptr [bp+8]
-        mov     byte ptr [3d69h], al
+        mov     byte ptr [bv_req_cdb+5], al
         mov     ax, si
         mov     al, ah
-        mov     byte ptr [3d6bh], ah
+        mov     byte ptr [bv_req_cdb+7], ah
         mov     ax, si
-        mov     byte ptr [3d6ch], al
-        mov     byte ptr [3d5eh], 0ah
+        mov     byte ptr [bv_req_cdb+8], al
+        mov     byte ptr [bv_req_cdb_len], 0ah
         mov     ax, word ptr [bp+0ch]
         mov     dx, word ptr [bp+0eh]
-        mov     word ptr [3d70h], ax
-        mov     word ptr [3d72h], dx
+        mov     word ptr [bv_req_data], ax
+        mov     word ptr [bv_req_data_seg], dx
         mov     ax, si
         mul     word ptr [bp+4]
-        mov     word ptr [3d60h], ax
-        mov     word ptr [3d62h], 0
+        mov     word ptr [bv_req_len], ax
+        mov     word ptr [bv_req_len_hi], 0
         push    ds
         push    bx
         call    L_03A68
@@ -6612,7 +6666,7 @@ L_03C6A:
         push    di
         push    si
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
@@ -6623,18 +6677,18 @@ L_03C6A:
         push    ss
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
-        mov     byte ptr [3d5fh], 12h
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
+        mov     byte ptr [bv_req_sense_len], 12h
         mov     ax, word ptr [bp+0ch]
-        mov     word ptr [3d5ch], ax
-        mov     byte ptr [3d64h], 25h
-        mov     byte ptr [3d5eh], 0ah
+        mov     word ptr [bv_scsi_req], ax
+        mov     byte ptr [bv_req_cdb], 25h
+        mov     byte ptr [bv_req_cdb_len], 0ah
         lea     ax, [bp-8]
-        mov     word ptr [3d70h], ax
-        mov     word ptr [3d72h], ss
-        mov     word ptr [3d60h], 8
-        mov     word ptr [3d62h], 0
+        mov     word ptr [bv_req_data], ax
+        mov     word ptr [bv_req_data_seg], ss
+        mov     word ptr [bv_req_len], 8
+        mov     word ptr [bv_req_len_hi], 0
         push    ds
         push    bx
         call    L_03A68
@@ -6687,29 +6741,29 @@ L_03C6A:
         push    si
         mov     si, word ptr [bp+4]
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
-        mov     byte ptr [3d5fh], 12h
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
+        mov     byte ptr [bv_req_sense_len], 12h
         mov     ax, word ptr [bp+0ah]
-        mov     word ptr [3d5ch], ax
-        mov     byte ptr [3d64h], 3
+        mov     word ptr [bv_scsi_req], ax
+        mov     byte ptr [bv_req_cdb], 3
         mov     ax, si
-        mov     byte ptr [3d68h], al
-        mov     byte ptr [3d5eh], 6
+        mov     byte ptr [bv_req_cdb+4], al
+        mov     byte ptr [bv_req_cdb_len], 6
         mov     ax, word ptr [bp+6]
         mov     dx, word ptr [bp+8]
-        mov     word ptr [3d70h], ax
-        mov     word ptr [3d72h], dx
+        mov     word ptr [bv_req_data], ax
+        mov     word ptr [bv_req_data_seg], dx
         mov     ax, si
         cwd
-        mov     word ptr [3d60h], si
-        mov     word ptr [3d62h], dx
+        mov     word ptr [bv_req_len], si
+        mov     word ptr [bv_req_len_hi], dx
         push    ds
         push    bx
         call    L_03A68
@@ -6723,19 +6777,19 @@ L_03D8A:
         mov     bp, sp
         push    di
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
-        mov     byte ptr [3d5fh], 12h
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
+        mov     byte ptr [bv_req_sense_len], 12h
         mov     ax, word ptr [bp+4]
-        mov     word ptr [3d5ch], ax
-        mov     byte ptr [3d64h], 0
-        mov     byte ptr [3d5eh], 6
+        mov     word ptr [bv_scsi_req], ax
+        mov     byte ptr [bv_req_cdb], 0
+        mov     byte ptr [bv_req_cdb_len], 6
         push    ds
         push    bx
         call    L_03A68
@@ -6750,46 +6804,46 @@ L_03DC6:
         push    si
         mov     si, word ptr [bp+6]
         xor     ax, ax
-        mov     bx, 3d5ch
+        mov     bx, bv_scsi_req
         mov     cx, 0fh
         mov     di, bx
         push    ds
         pop     es
         rep stosw
-        mov     word ptr [3d74h], 3d4ah
-        mov     word ptr [3d76h], ds
-        mov     byte ptr [3d5fh], 12h
+        mov     word ptr [bv_req_sense], bv_sense
+        mov     word ptr [bv_req_sense_seg], ds
+        mov     byte ptr [bv_req_sense_len], 12h
         mov     ax, word ptr [bp+10h]
-        mov     word ptr [3d5ch], ax
-        mov     byte ptr [3d64h], 2ah
+        mov     word ptr [bv_scsi_req], ax
+        mov     byte ptr [bv_req_cdb], 2ah
         mov     al, byte ptr [bp+0bh]
         sub     ah, ah
-        mov     byte ptr [3d66h], al
+        mov     byte ptr [bv_req_cdb+2], al
         mov     al, byte ptr [bp+0ah]
-        mov     byte ptr [3d67h], al
+        mov     byte ptr [bv_req_cdb+3], al
         mov     ax, word ptr [bp+8]
         mov     dx, word ptr [bp+0ah]
         mov     al, ah
         mov     ah, dl
         mov     dl, dh
         sub     dh, dh
-        mov     byte ptr [3d68h], al
+        mov     byte ptr [bv_req_cdb+4], al
         mov     al, byte ptr [bp+8]
-        mov     byte ptr [3d69h], al
+        mov     byte ptr [bv_req_cdb+5], al
         mov     ax, si
         mov     al, ah
-        mov     byte ptr [3d6bh], ah
+        mov     byte ptr [bv_req_cdb+7], ah
         mov     ax, si
-        mov     byte ptr [3d6ch], al
-        mov     byte ptr [3d5eh], 0ah
+        mov     byte ptr [bv_req_cdb+8], al
+        mov     byte ptr [bv_req_cdb_len], 0ah
         mov     ax, word ptr [bp+0ch]
         mov     dx, word ptr [bp+0eh]
-        mov     word ptr [3d70h], ax
-        mov     word ptr [3d72h], dx
+        mov     word ptr [bv_req_data], ax
+        mov     word ptr [bv_req_data_seg], dx
         mov     ax, si
         mul     word ptr [bp+4]
-        mov     word ptr [3d60h], ax
-        mov     word ptr [3d62h], 0
+        mov     word ptr [bv_req_len], ax
+        mov     word ptr [bv_req_len_hi], 0
         push    ds
         push    bx
         call    L_03A68
@@ -6847,7 +6901,7 @@ L_03E82:
         out     1ch, al
         or      si, si
         je      L_03EC0
-        cmp     word ptr [3d7ah], 0
+        cmp     word ptr [bv_scsi_atn], 0
         je      L_03EC0
         push    8ch
         jmp     L_03EC3
@@ -6871,7 +6925,7 @@ L_03ECE:
         jne     L_03EE0
         jmp     L_03F70
 L_03EE0:
-        mov     word ptr [3d7ah], 1
+        mov     word ptr [bv_scsi_atn], 1
         in      al, 0ch
         and     al, 0f0h
         cmp     al, 90h
@@ -7037,7 +7091,7 @@ L_0400A:
         jge     L_04031
         jmp     L_04129
 L_04031:
-        mov     word ptr [3d7ah], 0
+        mov     word ptr [bv_scsi_atn], 0
         call    L_03E72
 L_0403A:
         in      al, 0ah
@@ -7215,18 +7269,131 @@ L_0418B:
 ; "Nov.14,1996 MPC2000 Boot ROM V1.00".  Also DS:0000 once DS=041Ah, i.e.
 ; offset 0 of the boot variable window (bv_banner).
 
-        db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, "Nov."
+        db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
+boot_vars:                              ; DS:0000 with DS = BV_SEG
+        db      "Nov."
         db      "14,1996 MPC2000 " ; 14,1996 MPC2000
         db      "Boot ROM V1.00", 000h, 000h ; Boot ROM V1.00..
         db      00h, 00h, 00h, 00h, 06h
 
 ; 0x041C9-0x0794C: NOT FREE SPACE.  This is the zero-initialised body of the
-; DS=041Ah variable window -- bv_ticks at 0x41CB, bv_mz_header at 0x41CE, the
-; monitor cursor at 0x51CE, the seven LCD planes from 0x55DC to 0x379C+41A0h,
-; and the stack top (SP=1436h) at 0x55D6.  14211 bytes, and every one of them
-; is written at run time.
+; DS=041Ah variable window: the boot variables, the monitor cursor, the stack
+; and the seven LCD planes, each pinned at its window offset.  14211 bytes,
+; and every one of them is written at run time.
 FREE_041C9:
-        rept    0794Ch-$
+        rept    boot_vars+02ah-$
+        db      000h
+        endm
+bvl_boot_dev:
+        rept    boot_vars+02bh-$
+        db      000h
+        endm
+bvl_ticks:
+        rept    boot_vars+02eh-$
+        db      000h
+        endm
+bvl_mz_header:
+        rept    boot_vars+022eh-$
+        db      000h
+        endm
+bvl_hdr_sink:
+        rept    boot_vars+0102eh-$
+        db      000h
+        endm
+bvl_mon_seg:
+        rept    boot_vars+01030h-$
+        db      000h
+        endm
+bvl_mon_off:
+        rept    boot_vars+01032h-$
+        db      000h
+        endm
+bvl_mon_step_off:
+        rept    boot_vars+01034h-$
+        db      000h
+        endm
+bvl_mon_step_seg:
+        rept    boot_vars+01436h-$
+        db      000h
+        endm
+bvl_stack_top:
+        rept    boot_vars+01438h-$
+        db      000h
+        endm
+bvl_plane_cur:
+        rept    boot_vars+0143ah-$
+        db      000h
+        endm
+bvl_plane_saved:
+        rept    boot_vars+0143ch-$
+        db      000h
+        endm
+bvl_plane_a:
+        rept    boot_vars+01bbch-$
+        db      000h
+        endm
+bvl_plane_b:
+        rept    boot_vars+0233ch-$
+        db      000h
+        endm
+bvl_plane_c:
+        rept    boot_vars+02abch-$
+        db      000h
+        endm
+bvl_plane_d:
+        rept    boot_vars+02cdch-$
+        db      000h
+        endm
+bvl_plane_e:
+        rept    boot_vars+02efch-$
+        db      000h
+        endm
+bvl_plane_f:
+        rept    boot_vars+0301ch-$
+        db      000h
+        endm
+bvl_lcd_fb:
+        rept    boot_vars+0379ch-$
+        db      000h
+        endm
+bvl_text_xor:
+        rept    boot_vars+0379dh-$
+        db      000h
+        endm
+bvl_show_de:
+        rept    boot_vars+0379eh-$
+        db      000h
+        endm
+bvl_show_f:
+        rept    boot_vars+037a0h-$
+        db      000h
+        endm
+bvl_pen_x:
+        rept    boot_vars+037a2h-$
+        db      000h
+        endm
+bvl_pen_y:
+        rept    boot_vars+037a6h-$
+        db      000h
+        endm
+bvl_rect_x:
+        rept    boot_vars+037a7h-$
+        db      000h
+        endm
+bvl_rect_y:
+        rept    boot_vars+037a8h-$
+        db      000h
+        endm
+bvl_rect_w:
+        rept    boot_vars+037a9h-$
+        db      000h
+        endm
+bvl_rect_h:
+        rept    boot_vars+037aah-$
+        db      000h
+        endm
+bvl_zero_suppress:
+        rept    boot_vars+037ach-$
         db      000h
         endm
 
@@ -7327,9 +7494,32 @@ lcd_font_small:
         db      0fh, 02h, 0fh, 02h, 0fh
 
 ; 0x07DD1-0x07FF0: NOT FREE SPACE either -- the tail of the DS=041Ah window,
-; holding the INT 2Dh/C layer's statics (bv_scsi_ctx is DS:3D40h = 0x7EE0).
-; 543 bytes.
+; holding the INT 2Dh/C layer's statics.  543 bytes.
 FREE_07DD1:
+        rept    boot_vars+03d40h-$
+        db      000h
+        endm
+bvl_scsi_ctx:
+        rept    boot_vars+03d42h-$
+        db      000h
+        endm
+bvl_cap_blocks:
+        rept    boot_vars+03d46h-$
+        db      000h
+        endm
+bvl_cap_blksize:
+        rept    boot_vars+03d4ah-$
+        db      000h
+        endm
+bvl_sense:
+        rept    boot_vars+03d5ch-$
+        db      000h
+        endm
+bvl_scsi_req:
+        rept    boot_vars+03d7ah-$
+        db      000h
+        endm
+bvl_scsi_atn:
         rept    07FF0h-$
         db      000h
         endm

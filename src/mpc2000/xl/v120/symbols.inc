@@ -7,12 +7,8 @@
         include "../../common/assert_at.inc"
 
 ; ---- field-engine state block, latched by 0x3BDBE
-FE_DESC          equ    08b1ah          ; dd far ptr to the active descriptor
-FE_VALUE         equ    08b1eh          ; dd far ptr to the active value
 FE_SCALE         equ    08b26h          ; dd 10^(FIELD_DIGITS-1), from POW10_TABLE
 FE_PENDING       equ    08b2ah          ; dd value being typed, pre-commit
-FE_DIGIT         equ    08b2eh          ; db digit position within the field
-FE_FLAGS         equ    08b30h          ; db bit0 = digit entry armed, bit1 = minus
 
 ; handler-id sets, installed through far 3E19:0724 (= 0x3E8B4, `les bp,[bp+6] /
 ; int 30h`).  a set is {db id, dd far32} entries ended by a zero entry.

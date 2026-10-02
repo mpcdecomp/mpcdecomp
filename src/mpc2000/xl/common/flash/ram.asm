@@ -170,6 +170,10 @@ d_a0_b_00085:
 FREE_0FF17:
         PAD_TO  001C4h-0eh, 000h
 d_a0_b_001b6:
+        PAD_TO  001C4h-0dh, 000h
+d_a0_b_001b7:
+        PAD_TO  001C4h-0ch, 000h
+d_a0_b_001b8:
         PAD_TO  001C4h-0bh, 000h
 d_a0_b_001b9:
         PAD_TO  001C4h-0ah, 000h
@@ -198,6 +202,8 @@ d_a0_b_001c8:
 d_a0_b_001c9:
         PAD_TO  00643h-0479h, 000h
 d_a0_b_001ca:
+        PAD_TO  00643h-0377h, 000h
+d_a0_w_002cc:
         PAD_TO  00643h-0375h, 000h
 d_a0_w_002ce:
         PAD_TO  00643h-0373h, 000h
@@ -206,10 +212,18 @@ d_a0_w_002d0:
 d_a0_w_002d2:
         PAD_TO  00643h-016eh, 000h
 d_a0_b_004d5:
+        PAD_TO  00643h-016ch, 000h
+d_a0_b_004d7:
         PAD_TO  00643h-016bh, 000h
 d_a0_b_004d8:
+        PAD_TO  00643h-016ah, 000h
+d_a0_b_004d9:
         PAD_TO  00643h-0169h, 000h
 d_a0_b_004da:
+        PAD_TO  00643h-0168h, 000h
+d_a0_b_004db:
+        PAD_TO  00643h-0165h, 000h
+d_a0_tbl_004de:
         PAD_TO  00643h-0155h, 000h
 d_a0_tbl_004ee:
         PAD_TO  00643h-0145h, 000h
@@ -222,6 +236,7 @@ d_a0_tbl_0051e:
 d_a0_tbl_0052e:
         PAD_TO  00643h, 000h
 
+d_a0_w_00643:
         db      22h, 00h, "This is MPC2000XL System program file $"
 ram_066C:
         db      "----TEST--------", 00h
@@ -262,12 +277,20 @@ FREE_109F5:
 d_a0_w_00b86:
         PAD_TO  011B1h-0629h, 000h
 d_a0_w_00b88:
+        PAD_TO  011B1h-0627h, 000h
+d_a0_w_00b8a:
         PAD_TO  011B1h-0625h, 000h
 d_a0_w_00b8c:
         PAD_TO  011B1h-0623h, 000h
 d_a0_w_00b8e:
+        PAD_TO  011B1h-0621h, 000h
+d_a0_w_00b90:
+        PAD_TO  011B1h-061fh, 000h
+d_a0_w_00b92:
         PAD_TO  011B1h-061dh, 000h
 d_a0_w_00b94:
+        PAD_TO  011B1h-061bh, 000h
+d_a0_w_00b96:
         PAD_TO  011B1h-0619h, 000h
 d_a0_w_00b98:
         PAD_TO  011B1h-0617h, 000h
@@ -294,7 +317,7 @@ d_a0_b_00ea4:
 d_a0_tbl_00ea6:
         PAD_TO  011B1h-02a1h, 000h
 d_a2_w_00f10:
-        PAD_TO  (011B1h-010bh)-0178h, 000h
+        PAD_TO  011B1h-0283h, 000h
 d_a2_b_00f2e_2:
         PAD_TO  011B1h-010bh, 000h
 d_a0_w_010a6:
@@ -725,13 +748,19 @@ d_a0_b_0267d:
 
         if      FW_VERSION >= 114
 d_a0_w_0269a:
-        dw      P_279A, P_279A
+        dw      P_279A
+d_a0_w_0269c:
+        dw      P_279A
         elseif  FW_VERSION >= 110
 d_a0_w_0267e:
-        db      5dh, 26h, 5dh, 26h
+        db      5dh, 26h
+d_a0_w_0269c:
+        db      5dh, 26h
         else
 d_a0_w_02660:
-        db      30h, 26h, 30h, 26h
+        db      30h, 26h
+d_a0_w_0269c:
+        db      30h, 26h
         endif
 d_a0_b_0269e:
         db      00h, 00h, 00h
@@ -971,8 +1000,16 @@ d_a0_w_02e34:
 ; 0x12d18-0x12d80, 104 x 0ah -- tail of the preceding 0ah/0bh table
         if      FW_VERSION >= 114
 FREE_12D18:
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  02F10h-03eh, 00ah
+d_a2_b_02ee2:
+        endif
         PAD_TO  02F10h-03bh, 00ah
 d_a2_b_02ed5:
+        if      FW_VERSION >= 120
+        PAD_TO  02F10h-02eh, 00ah
+d_a2_b_02ee2:
+        endif
         PAD_TO  02F10h-02bh, 00ah
 d_a2_b_02ee5:
         PAD_TO  02F10h, 00ah
@@ -980,10 +1017,14 @@ d_a2_b_02ee5:
 FREE_12A28:
 FREE_12D18:
         if      FW_VERSION >= 110
+        PAD_TO  02EF4h-022h, 00ah
+d_a2_b_02ee2:
         PAD_TO  02EF4h-01fh, 00ah
 d_a2_b_02ed5:
         PAD_TO  02EF4h, 00ah
         else
+        PAD_TO  02ED6h-04h, 00ah
+d_a2_b_02ee2:
         PAD_TO  02ED6h-01h, 00ah
 d_a2_b_02ed5:
         PAD_TO  02ED6h, 00ah
@@ -1419,6 +1460,14 @@ d_a0_w_03190:
 d_a0_w_031a2:
         db      6 dup (0)
 d_a1_w_0318c:
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  032A2h-080h, 000h
+d_a2_w_03232:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  032A2h-070h, 000h
+d_a2_w_03232:
+        endif
         PAD_TO  032A2h, 000h
         else
 FREE_12CC1:
@@ -1434,10 +1483,16 @@ d_a0_w_031a2:
         db      6 dup (0)
 d_a1_w_0318c:
         if      FW_VERSION >= 112
+        PAD_TO  03286h-064h, 000h
+d_a2_w_03232:
         PAD_TO  03286h, 000h
         elseif  FW_VERSION >= 110
+        PAD_TO  03282h-060h, 000h
+d_a2_w_03232:
         PAD_TO  03282h, 000h
         else
+        PAD_TO  03264h-042h, 000h
+d_a2_w_03232:
         PAD_TO  03264h, 000h
         endif
         endif
@@ -1540,23 +1595,133 @@ d_a0_w_033e2:
 FREE_13275:
         db      37 dup (0)
 d_a0_w_0342a:
-        db      66 dup (0)
+        db      27 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03455:
+        endif
+        db      16 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03455:
+        endif
+        db      23 dup (0)
 d_a0_tbl_0346c:
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0e2h, 000h
+d_a2_w_03494:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0e0h, 000h
+d_a2_w_03496:
+        endif
         PAD_TO  03566h-0d5h, 000h
 d_a2_b_03491:
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0d3h, 000h
+d_a2_b_034a3:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0d2h, 000h
+d_a2_w_03494:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0d0h, 000h
+d_a2_b_034a6:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0d0h, 000h
+d_a2_w_03496:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0cdh, 000h
+d_a2_b_034a9:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0c7h, 000h
+d_a2_w_034af:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+        PAD_TO  03566h-0c4h, 000h
+d_a2_w_034b2:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0c3h, 000h
+d_a2_b_034a3:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0c0h, 000h
+d_a2_b_034a6:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0bdh, 000h
+d_a2_b_034a9:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0b7h, 000h
+d_a2_w_034af:
+        endif
+        if      FW_VERSION >= 120
+        PAD_TO  03566h-0b4h, 000h
+d_a2_w_034b2:
+        endif
         PAD_TO  03566h, 000h
         else
 FREE_12F85:
 FREE_13275:
         db      37 dup (0)
 d_a0_w_0342a:
-        db      66 dup (0)
+        db      55 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03455:
+        endif
+        db      11 dup (0)
 d_a0_tbl_0346c:
         if      FW_VERSION >= 112
+        PAD_TO  0354Ah-0c6h, 000h
+d_a2_w_03494:
+        PAD_TO  0354Ah-0c4h, 000h
+d_a2_w_03496:
+        PAD_TO  0354Ah-0b7h, 000h
+d_a2_b_034a3:
+        PAD_TO  0354Ah-0b4h, 000h
+d_a2_b_034a6:
+        PAD_TO  0354Ah-0b1h, 000h
+d_a2_b_034a9:
+        PAD_TO  0354Ah-0abh, 000h
+d_a2_w_034af:
+        PAD_TO  0354Ah-0a8h, 000h
+d_a2_w_034b2:
         PAD_TO  0354Ah, 000h
         elseif  FW_VERSION >= 110
+        PAD_TO  03546h-0c2h, 000h
+d_a2_w_03494:
+        PAD_TO  03546h-0c0h, 000h
+d_a2_w_03496:
+        PAD_TO  03546h-0b3h, 000h
+d_a2_b_034a3:
+        PAD_TO  03546h-0b0h, 000h
+d_a2_b_034a6:
+        PAD_TO  03546h-0adh, 000h
+d_a2_b_034a9:
+        PAD_TO  03546h-0a7h, 000h
+d_a2_w_034af:
+        PAD_TO  03546h-0a4h, 000h
+d_a2_w_034b2:
         PAD_TO  03546h, 000h
         else
+        PAD_TO  03528h-0a4h, 000h
+d_a2_w_03494:
+        PAD_TO  03528h-0a2h, 000h
+d_a2_w_03496:
+        PAD_TO  03528h-095h, 000h
+d_a2_b_034a3:
+        PAD_TO  03528h-092h, 000h
+d_a2_b_034a6:
+        PAD_TO  03528h-08fh, 000h
+d_a2_b_034a9:
+        PAD_TO  03528h-089h, 000h
+d_a2_w_034af:
+        PAD_TO  03528h-086h, 000h
+d_a2_w_034b2:
         PAD_TO  03528h, 000h
         endif
         endif
@@ -1617,9 +1782,24 @@ d_a0_w_03748:
 d_a0_w_0374e:
         db      6 dup (0)
 d_a0_w_03754:
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_03764:
+        endif
         db      6 dup (0)
 d_a0_w_0375a:
-        db      24 dup (0)
+        db      5 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_0376f:
+        endif
+        db      5 dup (0)
+        if      FW_VERSION >= 120
+d_a2_w_03764:
+        endif
+        db      11 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_0376f:
+        endif
+        db      3 dup (0)
 d_a0_w_03756:
         db      2 dup (0)
 d_a0_b_03758:
@@ -1645,10 +1825,25 @@ d_a0_w_0376e:
 d_a0_w_03770:
         db      2 dup (0)
 d_a0_w_0378e:
-        db      2 dup (0)
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_0379f:
+        endif
+        db      1 dup (0)
 d_a0_w_03790:
-        db      17 dup (0)
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_037a1:
+        endif
+        db      14 dup (0)
+        if      FW_VERSION >= 120
+d_a2_w_0379f:
+        endif
+        db      2 dup (0)
 d_a0_b_037a1:
+        if      FW_VERSION >= 120
+d_a2_w_037a1:
+        endif
         db      1 dup (0)
 d_a0_b_03782:
         db      1 dup (0)
@@ -1696,10 +1891,17 @@ d_a0_w_0374e:
 d_a0_w_03754:
         db      6 dup (0)
 d_a0_w_0375a:
-        db      24 dup (0)
+        db      22 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_03764:
+        endif
+        db      2 dup (0)
 d_a0_w_03756:
         db      2 dup (0)
 d_a0_b_03758:
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_03764:
+        endif
         db      1 dup (0)
 d_a0_b_03759:
         db      1 dup (0)
@@ -1710,7 +1912,15 @@ d_a0_b_0375b:
 d_a0_b_0375c:
         db      2 dup (0)
 d_a0_w_0375e:
-        db      6 dup (0)
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_0376f:
+        endif
+        db      4 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_0376f:
+        endif
+        db      1 dup (0)
 d_a0_w_03764:
         db      6 dup (0)
 d_a0_w_03766:
@@ -1724,7 +1934,15 @@ d_a0_w_03770:
 d_a0_w_0378e:
         db      2 dup (0)
 d_a0_w_03790:
-        db      17 dup (0)
+        db      2 dup (0)
+        if      FW_VERSION < 110
+d_a2_w_03764:
+        endif
+        db      11 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_0376f:
+        endif
+        db      4 dup (0)
 d_a0_b_037a1:
         db      1 dup (0)
 d_a0_b_03782:
@@ -1749,7 +1967,71 @@ d_p_37a8:
         endif
         endif
 
-        db      "                ABCDEFGHIJKLMNOPQRSTUVWXYZ&#-!()abcdefghijklmnopqrstuvwxyz@'$%{} !#$%&'()-0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz{}"
+        db      "  "
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_0379f:
+        endif
+        db      "  "
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_037a1:
+        endif
+        db      "  "
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_0379f:
+        endif
+        db      "  "
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_037a1:
+        endif
+        db      "        ABC"
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_037cc:
+        endif
+        db      "DEFGHIJKLMNOPQRS"
+        if      FW_VERSION >= 120
+d_a2_b_037cc:
+        endif
+        db      "T"
+        if      FW_VERSION < 110
+d_a2_w_0379f:
+        endif
+        db      "UV"
+        if      FW_VERSION < 110
+d_a2_w_037a1:
+        endif
+        db      "WXYZ&#-!("
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_037cc:
+        endif
+        db      ")abc"
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_037cc:
+        endif
+        db      "defghijklmnopqrstuvw"
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_03800:
+        endif
+        db      "xyz@'$%{} "
+        if      FW_VERSION < 110
+d_a2_b_037cc:
+        endif
+        db      "!#$%&'"
+        if      FW_VERSION >= 120
+d_a2_w_03800:
+        endif
+        db      "()-012345678"
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_03800:
+        endif
+        db      "9@AB"
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_03800:
+        endif
+        db      "CDEFGHIJKLMNOPQRSTUVWXYZ_abcde"
+        if      FW_VERSION < 110
+d_a2_w_03800:
+        endif
+        db      "fghijklmnopqrstuvwxyz{}"
 
 ; 0x136b5-0x137b0, 251 bytes of 00h: BSS
         if      FW_VERSION >= 114
@@ -1767,6 +2049,12 @@ d_a0_w_03846:
         elseif  FW_VERSION >= 110
         PAD_TO  03920h, 000h
         else
+        PAD_TO  03902h-024h, 000h
+d_a2_w_03b5e:
+        PAD_TO  03902h-012h, 000h
+d_a2_b_03b70:
+        PAD_TO  03902h-010h, 000h
+d_a2_tbl_03b72:
         PAD_TO  03902h, 000h
         endif
         endif
@@ -1800,9 +2088,301 @@ d_a0_w_03ae4:
 d_a0_w_03b0a:
         db      8 dup (0)
 d_a0_w_03af6:
-        db      1016 dup (0)
+        db      60 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_03b5e:
+        endif
+        db      16 dup (0)
+        if      FW_VERSION >= 120
+d_a2_w_03b5e:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03b70:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_tbl_03b72:
+        endif
+        db      14 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03b70:
+        endif
+        db      2 dup (0)
+        if      FW_VERSION >= 120
+d_a2_tbl_03b72:
+        endif
+        db      860 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03ede:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03edf:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03ee0:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03ee1:
+        endif
+        db      13 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03ede:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03edf:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03ee0:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03ee1:
+        endif
+        db      31 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_03f10:
+        endif
+        db      9 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f19:
+        endif
+        db      1 dup (0)
 d_a0_w_03f0a:
-        db      1024 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f1a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f1b:
+        endif
+        db      5 dup (0)
+        if      FW_VERSION >= 120
+d_a2_w_03f10:
+        endif
+        db      9 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f19:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f1a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f1b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_w_03f2c:
+        endif
+        db      13 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f39:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f3a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f3b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f3c:
+        endif
+        if      FW_VERSION >= 120
+d_a2_w_03f2c:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f3d:
+        endif
+        db      6 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f43:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f44:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f45:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f46:
+        endif
+        db      3 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f39:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f3a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f3b:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f3c:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f3d:
+        endif
+        db      6 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f43:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f44:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f45:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f46:
+        endif
+        db      20 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f6a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f6b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f6c:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f6d:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f6e:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f6f:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f70:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f71:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f72:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f73:
+        endif
+        db      3 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f76:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f77:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f78:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f79:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f6a:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f7a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f6b:
+        endif
+        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
+d_a2_b_03f7b:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f6c:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f6d:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f6e:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f6f:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f70:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f71:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f72:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f73:
+        endif
+        db      3 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f76:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f77:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f78:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f79:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f7a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION >= 120
+d_a2_b_03f7b:
+        endif
+        db      911 dup (0)
 d_a0_w_seq_segment:
         PAD_TO  0430Bh, 000h
         else
@@ -1814,9 +2394,430 @@ d_a0_w_03ae4:
 d_a0_w_03b0a:
         db      8 dup (0)
 d_a0_w_03af6:
-        db      1016 dup (0)
+        db      88 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_03b5e:
+        endif
+        db      4 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_03b5e:
+        endif
+        db      14 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03b70:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_tbl_03b72:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03b70:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_tbl_03b72:
+        endif
+        db      282 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03ede:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03edf:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03ee0:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03ee1:
+        endif
+        db      47 dup (0)
+        if      FW_VERSION < 110
+d_a2_w_03f10:
+        endif
+        db      9 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f19:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f1a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f1b:
+        endif
+        db      17 dup (0)
+        if      FW_VERSION < 110
+d_a2_w_03f2c:
+        endif
+        db      13 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f39:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f3a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f3b:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f3c:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f3d:
+        endif
+        db      6 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f43:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f44:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f45:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f46:
+        endif
+        db      36 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f6a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f6b:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f6c:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f6d:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f6e:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f6f:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f70:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f71:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f72:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f73:
+        endif
+        db      3 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f76:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f77:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f78:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f79:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f7a:
+        endif
+        db      1 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_03f7b:
+        endif
+        db      433 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03ede:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03edf:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03ee0:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03ee1:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03ede:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03edf:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03ee0:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03ee1:
+        endif
+        db      25 dup (0)
 d_a0_w_03f0a:
-        db      1024 dup (0)
+        db      18 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_03f10:
+        endif
+        db      4 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_03f10:
+        endif
+        db      5 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f19:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f1a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f1b:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f19:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f1a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f1b:
+        endif
+        db      13 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_w_03f2c:
+        endif
+        db      4 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_w_03f2c:
+        endif
+        db      9 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f39:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f3a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f3b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f3c:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f39:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f3d:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f3a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f3b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f3c:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f3d:
+        endif
+        db      2 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f43:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f44:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f45:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f46:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f43:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f44:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f45:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f46:
+        endif
+        db      32 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f6a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f6b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f6c:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f6d:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f6a:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f6e:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f6b:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f6f:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f6c:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f70:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f6d:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f71:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f6e:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f72:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f6f:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f73:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f70:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f71:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f72:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f76:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f73:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f77:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f78:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f79:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f76:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f7a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f77:
+        endif
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_03f7b:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f78:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f79:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f7a:
+        endif
+        db      1 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_03f7b:
+        endif
+        db      895 dup (0)
 d_a0_w_seq_segment:
         if      FW_VERSION >= 112
 ; 0x13cf1-0x141f7, 1286 bytes of 00h -- unverified, do not assume free
@@ -2353,9 +3354,24 @@ d_a0_b_05783:
 d_p_57a1:
         db      1 dup (0)
 d_a0_w_057a2:
+        PAD_TO  075A2h-01680h, 000h
+d_a2_tbl_05f22:
+        PAD_TO  075A2h-0f00h, 000h
+d_a2_tbl_066a2:
         PAD_TO  075A2h, 000h
 
-        db      0a2h, 57h, 0dah, 07h, 00h, 00h, 00h, 00h
+d_a2_w_075a2:
+        db      0a2h, 57h
+d_a2_w_075a4:
+        db      0dah, 07h
+d_a2_b_075a6:
+        db      00h
+d_a2_b_075a7:
+        db      00h
+d_a2_b_075a8:
+        db      00h
+d_a2_b_075a9:
+        db      00h
         else
 FREE_152BE:
 FREE_155AE:
@@ -2422,16 +3438,42 @@ d_p_57a1:
         db      1 dup (0)
 d_a0_w_057a2:
         if      FW_VERSION >= 112
+        PAD_TO  07586h-01680h, 000h
+d_a2_tbl_05f22:
+        PAD_TO  07586h-0f00h, 000h
+d_a2_tbl_066a2:
         PAD_TO  07586h, 000h
+d_a2_w_075a2:
         elseif  FW_VERSION >= 110
+        PAD_TO  07582h-01680h, 000h
+d_a2_tbl_05f22:
+        PAD_TO  07582h-0f00h, 000h
+d_a2_tbl_066a2:
         PAD_TO  07582h, 000h
+d_a2_w_075a2:
         else
+        PAD_TO  07564h-01680h, 000h
+d_a2_tbl_05f22:
+        PAD_TO  07564h-0f00h, 000h
+d_a2_tbl_066a2:
         PAD_TO  07564h, 000h
+d_a2_w_075a2:
         endif
         dw      A0_W_057A2
-        db      0dah, 07h, 00h, 00h, 00h, 00h
+d_a2_w_075a4:
+        db      0dah, 07h
+d_a2_b_075a6:
+        db      00h
+d_a2_b_075a7:
+        db      00h
+d_a2_b_075a8:
+        db      00h
+d_a2_b_075a9:
+        db      00h
         endif
+d_a2_b_075aa:
         TBL_BITS_NOTE_NAMES_DATA
+d_a2_b_0760e:
         db      00h, 0bch, 0a4h, 0a4h
         db      0a4h, 0a4h, 0a4h, 0bch, 88h, 88h, 88h, 88h, 88h, 88h, 88h, 0bch, 84h, 84h, 0bch, 0a0h
         db      0a0h, 0bch, 0bch, 84h, 84h, 0bch, 84h, 84h, 0bch, 0a0h, 0a8h, 0a8h, 0bch, 88h, 88h, 88h

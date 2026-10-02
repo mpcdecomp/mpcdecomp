@@ -1,21 +1,7 @@
 ; DATA addresses that are one object in every version: an offset from an
 ; anchor aliases.inc or public.inc defines, or one address in all six.
 
-A0_B_REDRAW_REQ                 equ 063h      ; set to ask fn_007B3 for a display refresh
-A0_B_001B7                      equ 01b7h
-A0_B_001B8                      equ 01b8h
-A0_W_002CC                      equ 02cch
-A0_B_PAD_BANK                      equ 04d5h
-A0_B_004D7                      equ 04d7h
-A0_B_004D9                      equ 04d9h
-A0_B_004DB                      equ 04dbh
-A0_TBL_004DE                    equ 04deh
-A0_W_00643                      equ 0643h
 A0_TBL_SEQ_TRK_FLAGS                    equ 0680h
-A0_W_MS_TICKS                      equ 0b8ah
-A0_W_00B90                      equ 0b90h
-A0_W_00B92                      equ 0b92h
-A0_W_00B96                      equ 0b96h
 A0_TBL_05A42                    equ 05a42h
 A1_W_0A09E                      equ 0a09eh
 A1_W_0A0A0                      equ 0a0a0h
@@ -28,99 +14,17 @@ A2_W_CUR_SEQ                      equ 0710h
 A2_W_SEQ_SEG                      equ 0f10h
 A2_B_00F2F                      equ 0f2fh
 A3_W_0001A                      equ 01ah
-A3_W_00712                      equ 0712h
-A3_B_00717                      equ 0717h
-A3_B_00770                      equ 0770h
-A3_W_PAGE_CURSOR_FN                      equ 0f0ch
-A3_FP_0106C                     equ 0106ch
 A3_TBL_01072                    equ 01072h
-A3_W_012CB                      equ 012cbh
-A3_B_01557                      equ 01557h
-A3_W_01561                      equ 01561h
-A3_W_01567                      equ 01567h
-A3_W_0156D                      equ 0156dh
-A3_B_01577                      equ 01577h
-A3_B_0157B                      equ 0157bh
-A3_W_01582                      equ 01582h
 A3_TBL_015D4                    equ 015d4h
-A3_B_01889                      equ 01889h
-A3_B_01910                      equ 01910h
-A3_B_01914                      equ 01914h
 A3_B_01917                      equ 01917h
 A3_W_01918                      equ 01918h
 A3_FP_STEP_EVENT                     equ 01920h
 A3_W_STEP_CURSOR_FN                      equ 01924h
-A3_W_0193C                      equ 193ch
-A3_W_0193E                      equ 0193eh
-A3_W_01944                      equ 01944h
-A3_W_01948                      equ 01948h
-A3_W_0194C                      equ 0194ch
-A3_W_01954                      equ 1954h
-A3_W_01956                      equ 1956h
-A3_W_01958                      equ 1958h
-A3_W_0195A                      equ 195ah
-A3_W_01964                      equ 01964h
-A3_B_01966                      equ 1966h
-A3_B_01967                      equ 01967h
-A3_B_STEP_CHANGE_NOTE                      equ 01968h
 A3_TBL_02136                    equ 02136h      ; 3-byte rows, step edit
-C0_B_00F2E                      equ 0f2eh
 C0_B_00F2F                      equ 0f2fh
-C0_B_0184F                      equ 0184fh
-C0_B_03EDC                      equ 03edch
-C0_W_08FC6                      equ 08fc6h
-C0_B_09603                      equ 09603h
-C0_W_0989E                      equ 0989eh
-C0_W_098DC                      equ 098dch
-C0_W_098DE                      equ 098deh
-C0_W_0D762                      equ 0d762h
-C0_B_0D7BF                      equ 0d7bfh
-C0_FP_0D7C2                     equ 0d7c2h
-C0_W_0D7C4                      equ 0d7c4h
-C0_B_0D7C7                      equ 0d7c7h
 C1_TBL_0000C                    equ 0ch
-C1_TBL_00060                    equ 060h
-C1_B_004D6                      equ 04d6h
 C1_TBL_SOUNDS                   equ 0991ah      ; the sound records, SIZEOF_SND apart
-C1_TBL_SOUNDS_END               equ 0d71ah      ; one past the 256th
 C1_TBL_APS_NAME                 equ 0d764h      ; 17 bytes, seeded from ALL_PGMS_NAME; IVT[64h] points here
-C1_B_0D7FE                      equ 0d7feh
-C1_B_0D80E                      equ 0d80eh
-C2_W_02D76                      equ 02d76h
-C2_W_02D78                      equ 02d78h
-C2_W_02E22                      equ 02e22h
-C2_W_02E4C                      equ 02e4ch
-C2_W_02E4E                      equ 02e4eh
-C2_TBL_PARAMS_FIELD_THUNK                    equ 02f78h
-C2_TBL_PARAMS_FIELD_ENTER                    equ 02f90h
-C2_TBL_CHANSET_FIELD_THUNK                    equ 0424eh
-C2_TBL_043F2                    equ 043f2h
-C2_TBL_043F4                    equ 043f4h
-C2_B_FX_MOD_TYPE                      equ 08e70h
-C2_W_08FC8                      equ 08fc8h
-C2_W_MIXER_CURSOR                      equ 095f2h
-C2_W_FX_MOD_CURSOR                      equ 09600h
-C2_B_09604                      equ 09604h
-C2_B_09606                      equ 09606h
-C2_FP_PGM_ARRAY                      equ 0989ah
-C2_W_PGM_ARRAY_SEG                      equ 0989ch
-C2_W_DRUM_SELECT_HOOK_OFF                      equ 098a0h
-C2_W_DRUM_SELECT_HOOK_SEG                      equ 098a2h
-C2_B_COPY_FX_DST_SET                      equ 098bbh
-C2_W_PARAM_HOOK_OFF                      equ 098beh
-C2_W_PARAM_HOOK_SEG                      equ 098c0h
-C2_B_FX_BOARD_PRESENT                      equ 0d760h
-C2_B_REC_CANCEL_REQ                      equ 0d761h
-C2_B_PAD_ASSIGN_MASTER                      equ 0d777h
-C2_B_RECORD_MIX_CHANGES                      equ 0d7bbh
-C2_B_MIXER_DRUM                      equ 0d7bch
-C2_B_PAD_DRUM                   equ 0d7beh      ; drum 0..3 the pad UI is showing
-C2_B_PAD_NOTE                   equ 0d7c0h      ; selected pad note, 23h..62h
-C2_B_CUR_PAD                      equ 0d7c1h
-C2_B_PAD_VELOCITY                      equ 0d7c6h
-C2_B_0D7CC                      equ 0d7cch
-C2_B_REC_MODE                      equ 0d7cdh
-C2_B_0D7CE                      equ 0d7ceh
 C2_B_0D81B                      equ 0d81bh
 C2_B_0D81D                      equ 0d81dh
 

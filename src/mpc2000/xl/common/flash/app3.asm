@@ -116,8 +116,11 @@ FREE_22FFC:
 FREE_237BC:
         endif
         endif
+d_a3_w_0106c:
         PAD_TO  (APPDATA_SEG*16+0116Ch-SEGBASE)-0feh, 000h
 d_a3_w_0106e:
+        PAD_TO  APPDATA_SEG*16+01070h-SEGBASE, 000h
+d_a3_w_01070:
         PAD_TO  APPDATA_SEG*16+0116Ch-SEGBASE, 000h
 
         db      27h
@@ -220,10 +223,16 @@ d_a3_w_012c2:
         db      00h, 00h
         if      FW_VERSION >= 120
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_a3_w_012cb:
         dw      EP_L_2938B_OFF, APP3_SEG
+d_a3_w_012cf:
         db      98h, 33h, 00h, 00h, 00h
         elseif  FW_VERSION >= 114
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 0abh, 33h, 1dh, 26h, 98h, 33h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_a3_w_012cb:
+        db      0abh, 33h, 1dh, 26h
+d_a3_w_012cf:
+        db      98h, 33h, 00h, 00h, 00h
         else
 d_a3_w_012c4:
         db      00h, 00h
@@ -233,12 +242,16 @@ d_a3_w_012c8:
         db      00h, 00h
 d_a3_b_012ca:
         db      00h
+d_a3_w_012cb:
         dw      EP_L_2938B_OFF, APP3_SEG
         if      FW_VERSION >= 111
+d_a3_w_012cf:
         db      98h, 33h, 00h, 00h, 00h
         elseif  FW_VERSION >= 110
+d_a3_w_012cf:
         db      8bh, 33h, 00h, 00h, 00h
         else
+d_a3_w_012cf:
         db      61h, 33h, 00h, 00h, 00h
         endif
         endif
@@ -251,9 +264,12 @@ d_a3_fp_012e9:
 d_a3_w_012ed:
         db      0b4h, 36h
         dw      EP_FAR_29F77_OFF, APP3_SEG
+d_a3_w_012f3:
         db      96h, 38h
         elseif  FW_VERSION >= 114
-        db      0e1h, 36h, 1dh, 26h, 0b4h, 36h, 0c7h, 37h, 1dh, 26h, 96h, 38h
+        db      0e1h, 36h, 1dh, 26h, 0b4h, 36h, 0c7h, 37h, 1dh, 26h
+d_a3_w_012f3:
+        db      96h, 38h
         else
         dw      (APP3_BASE+L_29E91-APP3_SEG*16), APP3_SEG
         if      FW_VERSION >= 111
@@ -264,6 +280,7 @@ d_a3_w_012ed:
         db      0a7h, 36h
         endif
         dw      EP_FAR_29F77_OFF, APP3_SEG
+d_a3_w_012f3:
         if      FW_VERSION >= 111
         db      96h, 38h
         else
@@ -278,11 +295,14 @@ d_a3_w_012ed:
         db      05h
         if      FW_VERSION >= 110
         db      "CLICKDRUM1DRUM2DRUM3DRUM4"
+d_a3_fp_01398:
         if      FW_VERSION >= 112
         dw      (APP3_BASE+L_2A349-APP3_SEG*16), APP3_SEG
+d_a3_fp_0139c:
         dw      (APP3_BASE+L_297B9-APP3_SEG*16), APP3_SEG
         else
         dw      (APP3_BASE+L_29A79-APP3_SEG*16), APP3_SEG
+d_a3_fp_0139c:
         dw      (APP3_BASE+FAR_29D10-APP3_SEG*16), APP3_SEG
         endif
 d_a3_w_013a0_2:
@@ -353,16 +373,22 @@ d_a3_b_0155c:
 d_a3_w_0155d:
         db      00h, 00h
 d_a3_w_0155f:
-        db      00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_w_01561:
+        db      00h, 00h
 d_a3_w_01563:
         db      00h
         db      00h
 d_a3_w_01565:
-        db      00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_w_01567:
+        db      00h, 00h
 d_a3_w_01569:
         db      00h, 00h
 d_a3_w_0156b:
-        db      00h, 00h, 00h, 00h
+        db      00h, 00h
+d_a3_w_0156d:
+        db      00h, 00h
 d_a3_w_0156f:
         db      00h, 00h
 d_a3_w_01571:
@@ -377,7 +403,9 @@ d_a3_b_01578:
 d_a3_b_01579:
         db      41h
 d_a3_b_0157a:
-        db      22h, 00h
+        db      22h
+d_a3_b_0157b:
+        db      00h
         dw      EP_FAR_2B5B9_OFF, EP_FAR_2B5B9_SEG
         if      FW_VERSION >= 111
         db      0eeh, 4dh
@@ -386,6 +414,7 @@ d_a3_b_0157a:
         else
         db      0b7h, 4dh
         endif
+d_a3_w_01582:
         dw      EP_FAR_2B889_OFF, EP_FAR_2B889_SEG
 d_a3_w_01586:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -464,15 +493,24 @@ FREE_23E1F:
         endif
         PAD_TO  APPDATA_SEG*16+01736h-SEGBASE, 000h
 
+d_a3_fp_01736:
         dw      (APP3_BASE+L_2C6D1-APP3_SEG*16), APP3_SEG
         if      FW_VERSION >= 112
-        db      0a2h, 5eh, 00h, 00h
+        db      0a2h, 5eh
+d_a3_b_0173c:
+        db      00h
+d_a3_b_0173d:
+        db      00h
         elseif  FW_VERSION >= 111
         db      0a0h, 5eh, 00h, 00h
         elseif  FW_VERSION >= 110
         db      92h, 5eh, 00h, 00h
         else
-        db      66h, 5eh, 00h, 00h
+        db      66h, 5eh
+d_a3_b_0173c:
+        db      00h
+d_a3_b_0173d:
+        db      00h
         endif
         db      "1-011-021-031-041-051-061-071-081-091-101-111-121-131-141-151-161-Ex2-012-022-032-042-052-062-072-082-092-102-112-122-132-142-152-162-Ex"
 d_a3_fp_017c6:
@@ -576,7 +614,9 @@ d_a3_w_01884:
         endif
 d_a3_w_01886:
         TBL_ERASE_MODE_NAMES_DATA
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h
+d_a3_b_01910:
+        db      00h
 d_a3_b_01911:
         db      00h
 d_a3_b_01912:
@@ -640,23 +680,32 @@ d_a3_w_01936:
 d_a3_fp_01940:
         dw      EP_L_2E658_OFF, APP3_SEG
         if      FW_VERSION >= 112
+d_a3_fp_01944:
         dw      (APP3_BASE+L_2DE86-APP3_SEG*16), APP3_SEG
+d_a3_fp_01948:
         elseif  FW_VERSION >= 111
+d_a3_fp_01944:
         db      0a6h, 7fh
         db      0eeh, 25h
+d_a3_fp_01948:
         else
+d_a3_fp_01944:
         db      98h, 7fh
         db      0edh, 25h
+d_a3_fp_01948:
         endif
         dw      EP_L_2EBE3_OFF, APP3_SEG
         if      FW_VERSION >= 111
+d_a3_fp_0194c:
         dw      EP_FAR_2EC72_OFF, APP3_SEG
 d_a3_fp_01950:
         dw      EP_L_2EFBD_OFF, APP3_SEG
         else
+d_a3_fp_0194c:
         db      0b2h, 84h, 0edh, 25h
 d_a3_fp_01950:
         db      0fdh, 87h, 0edh, 25h
+d_a3_w_01954:
         endif
 
         else
@@ -681,7 +730,9 @@ d_a3_w_01886:
         db      "ALL EVENTS  ALL EXCEPT  ONLY ERASE  "
         db      0ch
         db      "NOTES       PITCH BEND  CONTROL:    PROG CHANGE CH PRESSURE POLY PRESS  EXCLUSIVE   "
-        db      10 dup (00h)
+        db      9 dup (00h)
+d_a3_b_01910:
+        db      1 dup (00h)
 d_a3_b_01911:
         db      1 dup (00h)
 d_a3_b_01912:
@@ -713,20 +764,38 @@ d_a3_w_01934:
 d_a3_w_01936:
         db      10 dup (00h)
 d_a3_fp_01940:
-        db      6ah, 7eh, 9ch, 25h, 6ah, 7fh, 9ch, 25h, 0f5h, 83h, 9ch, 25h, 84h, 84h, 9ch, 25h
+        db      6ah, 7eh, 9ch, 25h
+d_a3_fp_01944:
+        db      6ah, 7fh, 9ch, 25h
+d_a3_fp_01948:
+        db      0f5h, 83h, 9ch, 25h
+d_a3_fp_0194c:
+        db      84h, 84h, 9ch, 25h
 d_a3_fp_01950:
-        db      0cfh, 87h, 9ch, 25h, 00h, 00h
+        db      0cfh, 87h, 9ch, 25h
+d_a3_w_01954:
+        db      00h, 00h
 
         endif
 ; 0x240a4-0x2413d, 153 bytes of 00h -- unverified, do not assume free
         if      FW_VERSION >= 114
 FREE_240A4:
+d_a3_w_01954:
         else
 FREE_238E4:
         if      FW_VERSION >= 110
 FREE_240A4:
+        if      (FW_VERSION >= 111) && (FW_VERSION < 114)
+d_a3_w_01954:
         endif
         endif
+        endif
+        PAD_TO  APPDATA_SEG*16+01956h-SEGBASE, 000h
+d_a3_w_01956:
+        PAD_TO  APPDATA_SEG*16+01958h-SEGBASE, 000h
+d_a3_w_01958:
+        PAD_TO  APPDATA_SEG*16+0195ah-SEGBASE, 000h
+d_a3_w_0195a:
         PAD_TO  (APPDATA_SEG*16+019EDh-SEGBASE)-091h, 000h
 d_a3_w_0195c:
         PAD_TO  (APPDATA_SEG*16+019EDh-SEGBASE)-08fh, 000h
@@ -735,6 +804,14 @@ d_a3_w_0195e:
 d_a3_w_01960:
         PAD_TO  (APPDATA_SEG*16+019EDh-SEGBASE)-08bh, 000h
 d_a3_w_01962:
+        PAD_TO  APPDATA_SEG*16+01964h-SEGBASE, 000h
+d_a3_w_01964:
+        PAD_TO  APPDATA_SEG*16+01966h-SEGBASE, 000h
+d_a3_b_01966:
+        PAD_TO  APPDATA_SEG*16+01967h-SEGBASE, 000h
+d_a3_b_01967:
+        PAD_TO  APPDATA_SEG*16+01968h-SEGBASE, 000h
+d_a3_b_01968:
         PAD_TO  (APPDATA_SEG*16+019EDh-SEGBASE)-084h, 000h
 d_a3_b_01969:
         PAD_TO  (APPDATA_SEG*16+019EDh-SEGBASE)-083h, 000h
@@ -780,6 +857,7 @@ d_a3_w_02264:
         db      00h, 00h
 d_a3_fp_02266:
         dw      EP_L_305E3_OFF, EP_L_305E3_SEG
+d_a3_w_0226a:
         if      FW_VERSION >= 112
         db      0e1h, 9dh
 d_a3_w_0226c:
@@ -921,6 +999,7 @@ d_a3_w_02a7a:
         db      03h
         db      "OFF 2  3  4 "
 L_251DA                         equ     $+1
+d_a3_b_02a89:
         db      00h, 00h, 00h
 L_251E7                         equ     $+11
         db      00h, 00h, 00h, 00h
@@ -929,12 +1008,33 @@ L_251E7                         equ     $+11
 L_251ED                         equ     $+1
         db      00h, 06h
         db      "TUNINGDECAY ATTACKFILTER\""
-        db      0b5h, 23h, 00h, 00h, 00h, 00h, 08h
+        db      0b5h, 23h, 00h
+d_a3_b_02aba:
+        db      00h
+d_a3_b_02abb:
+        db      00h
+d_a3_b_02abc:
+        db      00h, 08h
         db      "VELOCITYNOTE V"
         db      41h, 52h, 00h, 00h
         dw      EP_L_31E4B_OFF, APP3_SEG
-        db      0b2h, 0b8h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      0b2h, 0b8h
+d_a3_b_02ad6:
+        db      00h
+d_a3_b_02ad7:
+        db      00h
+d_a3_w_02ad8_2:
+        db      00h, 00h
+d_a3_b_02ada:
+        db      00h
+d_a3_b_02adb:
+        db      00h
+d_a3_w_02adc_2:
+        db      00h, 00h
+d_a3_b_02ade:
+        db      00h
+d_a3_b_02adf:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 d_a3_fp_02ae8:
         dw      (APP3_BASE+L_323B3-APP3_SEG*16)
         dw      APP3_SEG
@@ -950,13 +1050,21 @@ d_a3_w_02a76:
 d_a3_w_02a78:
         PAD_TO  (APPDATA_SEG*16+02A80h-SEGBASE)-06h, 000h
 d_a3_w_02a7a:
+        PAD_TO  APPDATA_SEG*16+02a7ch-SEGBASE, 000h
+d_a3_b_02a89:
         PAD_TO  APPDATA_SEG*16+02A80h-SEGBASE, 000h
 L_251E7                         equ     $+7
 L_251ED                         equ     $+13
         dw      (APP3_BASE+FAR_3139C-APP3_SEG*16), APP3_SEG
         db      82h, 0abh, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 06h, 54h, 55h
         db      "NINGDECAY ATTACKFILTER"
-        db      14h, 0b5h, 23h, 00h, 00h, 00h, 00h, 08h
+        db      14h, 0b5h, 23h, 00h
+d_a3_b_02aba:
+        db      00h
+d_a3_b_02abb:
+        db      00h
+d_a3_b_02abc:
+        db      00h, 08h
         db      "VELOCITYNOTE VAR"
         endif
         db      00h, 00h
@@ -974,16 +1082,40 @@ L_252A4                         equ     $+8
 L_252A6                         equ     $+10
         dw      APP3_SEG
 d_c0_w_02b4e:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 0ch, 03h, 00h
+        db      00h, 00h
+d_c0_w_02b50:
+        db      00h, 00h
+d_c0_b_02b52:
+        db      00h, 00h
+d_c0_w_02b54:
+        db      00h, 00h
+d_c0_b_02b56:
+        db      00h
+d_c0_w_02b57:
+        db      01h, 00h, 0ch, 03h, 00h
         db      07h
         db      "REPLACEMERGE  "
         else
         dw      EP_FAR_3185D_OFF, APP3_SEG
-        db      0a4h, 0b8h, 00h, 00h, 00h, 00h
+        db      0a4h, 0b8h
+d_a3_b_02ad6:
+        db      00h
+d_a3_b_02ad7:
+        db      00h
+d_a3_w_02ad8_2:
+        db      00h, 00h
 d_a3_b_02aca:
+d_a3_b_02ada:
         db      00h
 d_a3_b_02acb:
-        db      00h, 00h, 00h, 00h, 00h
+d_a3_b_02adb:
+        db      00h
+d_a3_w_02adc_2:
+        db      00h, 00h
+d_a3_b_02ade:
+        db      00h
+d_a3_b_02adf:
+        db      00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 d_a3_w_02ad8:
         dw      (APP3_BASE+far_31DC5-APP3_SEG*16), APP3_SEG
@@ -1000,11 +1132,17 @@ L_252A7                         equ     $+7
 L_252A9                         equ     $+9
 L_252A4                         equ     $+4
 L_252A6                         equ     $+6
+d_c0_w_02b50:
         db      00h, 00h
 d_c0_b_02b42:
+d_c0_b_02b52:
         db      00h, 00h
 d_c0_w_02b44:
-        db      00h, 00h, 00h, 01h, 00h
+        db      00h, 00h
+d_c0_b_02b56:
+        db      00h
+d_c0_w_02b57:
+        db      01h, 00h
 d_c0_b_02b49:
         db      0ch, 03h, 00h, 07h, 52h, 45h, 50h
         db      "LACEMERGE  "
@@ -1023,6 +1161,8 @@ d_a3_w_02a76:
 d_a3_w_02a78:
         PAD_TO  (APPDATA_SEG*16+02A80h-SEGBASE)-06h, 000h
 d_a3_w_02a7a:
+        PAD_TO  APPDATA_SEG*16+02a7ch-SEGBASE, 000h
+d_a3_b_02a89:
         PAD_TO  APPDATA_SEG*16+02A80h-SEGBASE, 000h
 
         if      FW_VERSION >= 112
@@ -1043,11 +1183,29 @@ d_a3_b_02a87:
         endif
         db      "NINGDECAY ATTACKFILTER"
         if      FW_VERSION >= 112
-        db      14h, 0b5h, 23h, 00h, 00h, 00h, 00h, 08h
+        db      14h, 0b5h, 23h, 00h
+d_a3_b_02aba:
+        db      00h
+d_a3_b_02abb:
+        db      00h
+d_a3_b_02abc:
+        db      00h, 08h
         elseif  FW_VERSION >= 111
-        db      12h, 0b5h, 23h, 00h, 00h, 00h, 00h, 08h
+        db      12h, 0b5h, 23h, 00h
+d_a3_b_02aba:
+        db      00h
+d_a3_b_02abb:
+        db      00h
+d_a3_b_02abc:
+        db      00h, 08h
         elseif  FW_VERSION >= 110
-        db      4h, 0b5h, 23h, 00h, 00h, 00h, 00h, 08h
+        db      4h, 0b5h, 23h, 00h
+d_a3_b_02aba:
+        db      00h
+d_a3_b_02abb:
+        db      00h
+d_a3_b_02abc:
+        db      00h, 08h
         else
         db      0d6h, 0b4h
 d_a3_b_02aa8:
@@ -1055,41 +1213,103 @@ d_a3_b_02aa8:
 d_a3_b_02aa9:
         db      00h
 d_a3_b_02aaa:
-        db      00h, 00h
+d_a3_b_02aba:
+        db      00h
+d_a3_b_02abb:
+        db      00h
 d_a3_b_02aac:
+d_a3_b_02abc:
         db      00h, 08h
         endif
         db      "VELOCITYNOTE VAR"
         db      00h, 00h
         if      FW_VERSION >= 112
         dw      EP_FAR_3185D_OFF, APP3_SEG
-        db      0a4h, 0b8h, 00h, 00h, 00h, 00h
+        db      0a4h, 0b8h
+d_a3_b_02ad6:
+        db      00h
+d_a3_b_02ad7:
+        db      00h
+d_a3_w_02ad8_2:
+        db      00h, 00h
 d_a3_b_02aca:
+d_a3_b_02ada:
         db      00h
 d_a3_b_02acb:
-        db      00h, 00h, 00h, 00h, 00h
+d_a3_b_02adb:
+        db      00h
+d_a3_w_02adc_2:
+        db      00h, 00h
+d_a3_b_02ade:
+        db      00h
+d_a3_b_02adf:
+        db      00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 d_a3_w_02ad8:
         dw      (APP3_BASE+FAR_31BD5-APP3_SEG*16), APP3_SEG
 d_a3_w_02adc:
         db      0d1h, 0bbh
         elseif  FW_VERSION >= 111
-        db      8bh, 0b6h, 0eeh, 25h, 0a2h, 0b8h, 00h, 00h, 00h, 00h
+        db      8bh, 0b6h, 0eeh, 25h, 0a2h, 0b8h
+d_a3_b_02ad6:
+        db      00h
+d_a3_b_02ad7:
+        db      00h
+d_a3_w_02ad8_2:
+        db      00h, 00h
 d_a3_b_02aca:
+d_a3_b_02ada:
         db      00h
 d_a3_b_02acb:
-        db      00h, 00h, 00h, 00h, 00h
+d_a3_b_02adb:
+        db      00h
+d_a3_w_02adc_2:
+        db      00h, 00h
+d_a3_b_02ade:
+        db      00h
+d_a3_b_02adf:
+        db      00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0f3h, 0bbh, 0eeh, 25h, 0cfh, 0bbh
         elseif  FW_VERSION >= 110
-        db      7dh, 0b6h, 0edh, 25h, 94h, 0b8h, 00h, 00h, 00h, 00h
+        db      7dh, 0b6h, 0edh, 25h, 94h, 0b8h
+d_a3_b_02ad6:
+        db      00h
+d_a3_b_02ad7:
+        db      00h
+d_a3_w_02ad8_2:
+        db      00h, 00h
 d_a3_b_02aca:
+d_a3_b_02ada:
         db      00h
 d_a3_b_02acb:
-        db      00h, 00h, 00h, 00h, 00h
+d_a3_b_02adb:
+        db      00h
+d_a3_w_02adc_2:
+        db      00h, 00h
+d_a3_b_02ade:
+        db      00h
+d_a3_b_02adf:
+        db      00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0e5h, 0bbh, 0edh, 25h, 0c1h, 0bbh
         else
         dw      EP_L_3100F_OFF, APP3_SEG
-        db      66h, 0b8h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      66h, 0b8h
+d_a3_b_02ad6:
+        db      00h
+d_a3_b_02ad7:
+        db      00h
+d_a3_w_02ad8_2:
+        db      00h, 00h
+d_a3_b_02ada:
+        db      00h
+d_a3_b_02adb:
+        db      00h
+d_a3_w_02adc_2:
+        db      00h, 00h
+d_a3_b_02ade:
+        db      00h
+d_a3_b_02adf:
+        db      00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0b7h, 0bbh, 9ch, 25h, 93h, 0bbh
         endif
         TBL_TRANSPOSE_NAMES_DATA
@@ -1100,19 +1320,23 @@ d_c0_w_02b30:
         db      99h, 0c3h, 0feh, 25h, 11h, 0c1h, 0b6h, 0c4h, 0feh, 25h
 d_c0_w_02b3e:
         db      00h, 00h
+d_c0_w_02b50:
         elseif  FW_VERSION >= 111
         db      97h, 0c3h, 0eeh, 25h, 0fh, 0c1h, 0b4h, 0c4h, 0eeh, 25h
 d_c0_w_02b3e:
         db      00h, 00h
+d_c0_w_02b50:
         elseif  FW_VERSION >= 110
         db      89h, 0c3h, 0edh, 25h, 01h, 0c1h, 0a6h, 0c4h, 0edh, 25h
 d_c0_w_02b3e:
         db      00h, 00h
+d_c0_w_02b50:
         else
         dw      (C0_BASE+FAR_31D19-APP3_SEG*16), APP3_SEG
         db      0d1h, 0c0h, 76h, 0c4h, 9ch, 25h
 d_c0_w_02b3e:
         db      00h, 00h
+d_c0_w_02b50:
         endif
 L_252A3                         equ     $+3
 L_252A7                         equ     $+7
@@ -1121,9 +1345,14 @@ L_252A4                         equ     $+4
 L_252A6                         equ     $+6
         db      00h, 00h
 d_c0_b_02b42:
+d_c0_b_02b52:
         db      00h, 00h
 d_c0_w_02b44:
-        db      00h, 00h, 00h, 01h, 00h
+        db      00h, 00h
+d_c0_b_02b56:
+        db      00h
+d_c0_w_02b57:
+        db      01h, 00h
 d_c0_b_02b49:
         db      0ch
 d_c0_w_02b4a:
@@ -1137,56 +1366,85 @@ d_c0_w_02b4a:
         if      FW_VERSION >= 120
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+1"
         db      31h, 2bh, 31h, 32h
+d_c0_fp_02be0:
         dw      (C0_BASE+far_32F2B-APP3_SEG*16)
         dw      APP3_SEG
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02bea_2:
+        db      00h, 00h
+d_c0_w_02bec:
         db      00h, 00h, 00h, 00h
         dw      (C0_BASE+L_34479-APP3_SEG*16)
         dw      APP3_SEG
 d_c0_w_02bf4:
         dw      (C0_BASE+cb_33C65-APP3_SEG*16)
+d_c0_fp_02bf6:
         dw      (C0_BASE+L_346DF-APP3_SEG*16)
         dw      APP3_SEG
         db      1dh, 0dfh
-        db      9bh, 0e2h, 00h, 00h, 00h, 00h
+        db      9bh, 0e2h
+d_c0_w_02bfe:
+        db      00h, 00h, 00h, 00h
 d_c0_w_02c02:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_c0_w_02c04:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02c0c:
         else
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12"
+d_c0_fp_02be0:
         dw      EP_FAR_32F2B_OFF, APP3_SEG
         db      00h, 00h
 d_c0_w_02bd6:
         db      00h, 00h
 d_c0_w_02bd8:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_c0_w_02bea_2:
+        db      00h, 00h
+d_c0_w_02bec:
+        db      00h, 00h, 00h, 00h
         if      FW_VERSION >= 114
         db      0bbh, 0dch, 1dh, 26h
 d_c0_w_02be4:
         db      95h, 0dah
 d_c0_w_02be6:
-        db      21h, 0dfh, 1dh, 26h, 0fh, 0dfh, 8dh, 0e2h, 00h, 00h
+d_c0_fp_02bf6:
+        db      21h, 0dfh, 1dh, 26h, 0fh, 0dfh, 8dh, 0e2h
+d_c0_w_02bfe:
+        db      00h, 00h
         else
         if      FW_VERSION >= 112
         db      0bbh, 0dch, 0feh, 25h
 d_c0_w_02be4:
         db      95h, 0dah
 d_c0_w_02be6:
-        db      21h, 0dfh, 0feh, 25h, 0fh, 0dfh, 8dh, 0e2h, 00h, 00h
+d_c0_fp_02bf6:
+        db      21h, 0dfh, 0feh, 25h, 0fh, 0dfh, 8dh, 0e2h
+d_c0_w_02bfe:
+        db      00h, 00h
         else
         if      FW_VERSION >= 111
 d_c0_w_02be0:
         db      0b9h, 0dch, 0eeh, 25h
 d_c0_w_02be4:
-        db      93h, 0dah, 1fh, 0dfh, 0eeh, 25h
+        db      93h, 0dah
+d_c0_fp_02bf6:
+        db      1fh, 0dfh, 0eeh, 25h
 d_c0_w_02bea:
-        db      0dh, 0dfh, 8bh, 0e2h, 00h, 00h
+        db      0dh, 0dfh, 8bh, 0e2h
+d_c0_w_02bfe:
+        db      00h, 00h
         else
 d_c0_w_02be0:
         db      0abh, 0dch, 0edh, 25h
 d_c0_w_02be4:
-        db      85h, 0dah, 11h, 0dfh, 0edh, 25h
+        db      85h, 0dah
+d_c0_fp_02bf6:
+        db      11h, 0dfh, 0edh, 25h
 d_c0_w_02bea:
-        db      0ffh, 0deh, 7dh, 0e2h, 00h, 00h
+        db      0ffh, 0deh, 7dh, 0e2h
+d_c0_w_02bfe:
+        db      00h, 00h
         endif
 ; 0x24b86-0x24d7c, 502 bytes of ffh -- unverified, do not assume free
         endif
@@ -1194,31 +1452,59 @@ d_c0_w_02bea:
         endif
         else
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12"
+d_c0_fp_02be0:
         dw      EP_FAR_32F2B_OFF, APP3_SEG
         db      00h, 00h
 d_c0_w_02bd6:
         db      00h, 00h
 d_c0_w_02bd8:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h
+d_c0_w_02bea_2:
+        db      00h, 00h
+d_c0_w_02bec:
+        db      00h, 00h, 00h, 00h
 d_c0_w_02be0:
         db      84h, 0dch, 9ch, 25h
 d_c0_w_02be4:
-        db      55h, 0dah, 0deh, 0deh, 9ch, 25h, 0cch, 0deh, 4ah, 0e2h, 00h, 00h
+        db      55h, 0dah
+d_c0_fp_02bf6:
+        db      0deh, 0deh, 9ch, 25h, 0cch, 0deh, 4ah, 0e2h
+d_c0_w_02bfe:
+        db      00h, 00h
         endif
         db      00h, 00h
 d_c0_w_02bf2:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-d_c0_w_02bfa:
+        db      00h, 00h
+        if      FW_VERSION < 120
+d_c0_w_02c04:
+        endif
         db      00h, 00h, 00h, 00h, 00h, 00h
+d_c0_w_02bfa:
+        db      00h, 00h
+        if      FW_VERSION < 120
+d_c0_w_02c0c:
+        endif
+        if      FW_VERSION >= 120
+d_c0_w_02c18:
+        endif
+        db      00h, 00h, 00h, 00h
 d_c0_w_02c00:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h
+        if      FW_VERSION >= 120
+d_c0_w_02c20:
+        endif
+        db      00h, 00h, 00h, 00h
 d_c0_w_02c08:
+        if      (FW_VERSION >= 112) && (FW_VERSION < 120)
+d_c0_w_02c18:
+        endif
         db      00h, 00h, 00h, 00h, 00h, 00h
 d_c0_w_02c0e:
         db      00h, 00h
         if      FW_VERSION >= 120
         db      00h, 00h, 00h, 00h, 00h, 00h, 03h
         else
+d_c0_w_02c20:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 03h
         endif
@@ -1255,7 +1541,9 @@ FREE_248D6:
 
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        dw      EP_BR_1C359_OFF, EP_BR_1C359_SEG
+        dw      EP_BR_1C359_OFF
+d_a2_w_02e8a:
+        dw      EP_BR_1C359_SEG
         if      FW_VERSION >= 110
         db      09h, 19h
         else
@@ -1270,24 +1558,60 @@ FREE_248D6:
         if      FW_VERSION >= 114
 FREE_255E4:
         if      FW_VERSION >= 120
+        PAD_TO  APPDATA_SEG*16+02e97h-SEGBASE, 000h
+d_a2_w_02e97:
+        PAD_TO  APPDATA_SEG*16+02e99h-SEGBASE, 000h
+d_a2_b_02e99:
         PAD_TO  (APPDATA_SEG*16+02F0Ah-SEGBASE)-023h, 000h
 d_a2_b_02ee7:
+        PAD_TO  APPDATA_SEG*16+02efah-SEGBASE, 000h
+d_a2_w_02efa:
+        PAD_TO  APPDATA_SEG*16+02efch-SEGBASE, 000h
+d_a2_w_02efc:
+        PAD_TO  APPDATA_SEG*16+02efeh-SEGBASE, 000h
+d_a2_w_02efe:
+        PAD_TO  APPDATA_SEG*16+02f00h-SEGBASE, 000h
+d_a2_w_02f00:
         PAD_TO  APPDATA_SEG*16+02F0Ah-SEGBASE, 000h
         else
+        PAD_TO  APPDATA_SEG*16+02e87h-SEGBASE, 000h
+d_a2_w_02e97:
+        PAD_TO  APPDATA_SEG*16+02e89h-SEGBASE, 000h
+d_a2_b_02e99:
         PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
 d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
+        PAD_TO  APPDATA_SEG*16+02eeah-SEGBASE, 000h
+d_a2_w_02efa:
+        PAD_TO  APPDATA_SEG*16+02eech-SEGBASE, 000h
+d_a2_w_02efc:
+        PAD_TO  APPDATA_SEG*16+02eeeh-SEGBASE, 000h
+d_a2_w_02efe:
+        PAD_TO  APPDATA_SEG*16+02ef0h-SEGBASE, 000h
+d_a2_w_02f00:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
         endif
 
         else
 FREE_24E14:
 FREE_255E4:
+        PAD_TO  APPDATA_SEG*16+02e87h-SEGBASE, 000h
+d_a2_w_02e97:
+        PAD_TO  APPDATA_SEG*16+02e89h-SEGBASE, 000h
+d_a2_b_02e99:
         PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
 d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
+        PAD_TO  APPDATA_SEG*16+02eeah-SEGBASE, 000h
+d_a2_w_02efa:
+        PAD_TO  APPDATA_SEG*16+02eech-SEGBASE, 000h
+d_a2_w_02efc:
+        PAD_TO  APPDATA_SEG*16+02eeeh-SEGBASE, 000h
+d_a2_w_02efe:
+        PAD_TO  APPDATA_SEG*16+02ef0h-SEGBASE, 000h
+d_a2_w_02f00:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
 
         endif
@@ -1295,12 +1619,23 @@ d_a2_w_02ee2:
 FREE_24E14:
 ; 0x24fb3-0x250ae, 251 bytes of 00h -- unverified, do not assume free
 FREE_255E4:
+        PAD_TO  APPDATA_SEG*16+02e87h-SEGBASE, 000h
+d_a2_w_02e97:
+        PAD_TO  APPDATA_SEG*16+02e89h-SEGBASE, 000h
+d_a2_b_02e99:
         PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
 d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-010h, 000h
 d_a2_w_02eea:
+d_a2_w_02efa:
+        PAD_TO  APPDATA_SEG*16+02eech-SEGBASE, 000h
+d_a2_w_02efc:
+        PAD_TO  APPDATA_SEG*16+02eeeh-SEGBASE, 000h
+d_a2_w_02efe:
+        PAD_TO  APPDATA_SEG*16+02ef0h-SEGBASE, 000h
+d_a2_w_02f00:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
         endif
         else
@@ -1308,12 +1643,23 @@ d_a2_w_02eea:
 
 ; 0x24ae4-0x24b5a, 118 bytes of 00h -- unverified, do not assume free
 FREE_24AE4:
+        PAD_TO  APPDATA_SEG*16+02e87h-SEGBASE, 000h
+d_a2_w_02e97:
+        PAD_TO  APPDATA_SEG*16+02e89h-SEGBASE, 000h
+d_a2_b_02e99:
         PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
 d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-010h, 000h
 d_a2_w_02eea:
+d_a2_w_02efa:
+        PAD_TO  APPDATA_SEG*16+02eech-SEGBASE, 000h
+d_a2_w_02efc:
+        PAD_TO  APPDATA_SEG*16+02eeeh-SEGBASE, 000h
+d_a2_w_02efe:
+        PAD_TO  APPDATA_SEG*16+02ef0h-SEGBASE, 000h
+d_a2_w_02f00:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
 
         endif

@@ -13081,12 +13081,16 @@ FREE_22E20:
 d_a3_tbl_006e8:
         PAD_TO  (APPDATA_SEG*16+00714h-SEGBASE)-04h, 000h
 d_c0_w_00710:
+        PAD_TO  APPDATA_SEG*16+00712h-SEGBASE, 000h
+d_a3_w_00712:
         PAD_TO  APPDATA_SEG*16+00714h-SEGBASE, 000h
 
 d_a3_w_00714:
         db      0b0h, 04h
 d_a3_b_00716:
-        db      01h, 03h
+        db      01h
+d_a3_b_00717:
+        db      03h
 d_a3_b_00718:
         db      00h
 d_a3_b_00719:
@@ -13101,6 +13105,7 @@ d_a3_w_00720:
         db      00h, 00h
 d_a3_b_00722:
         db      00h, 00h
+d_a3_b_00724:
         db      00h, 01h, 01h, 64h, 00h
 d_a3_b_00729:
         db      00h
@@ -13129,10 +13134,14 @@ d_a3_b_00735:
 d_a3_b_00736:
         db      00h
 d_a3_b_00737:
-        db      00h, 01h, 02h, 03h, 04h, 05h, 06h, 07h, 08h, 09h, 0ah, 0bh, 0ch
+        db      00h
+d_a3_tbl_00738:
+        db      01h, 02h, 03h, 04h, 05h, 06h, 07h, 08h, 09h, 0ah, 0bh, 0ch
         db      0dh, 0eh, 0fh, 10h, 11h, 12h, 13h, 14h, 15h, 16h, 17h, 18h, 19h, 1ah, 1bh, 1ch
         db      1dh, 1eh, 1fh, 20h, 21h, 22h, 01h, 00h, 00h, 00h, 00h, 00h, 0ffh, 0ffh, 0ffh, 0ffh
-        db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 00h
+        db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh
+d_a3_b_00770:
+        db      00h
 d_a3_b_00771:
         db      00h
 d_a3_b_00772:

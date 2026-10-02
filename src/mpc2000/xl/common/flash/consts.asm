@@ -3854,7 +3854,9 @@ DS_ORIGIN:
         db      01h, 05h, 00h, 00h, 05h, 63h, 00h, 0f4h, 0ffh, 0ch, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 02h, 00h, 4fh, 01h, 4fh, 01h, 00h, 42h, 4fh, 01h, 00h, 42h, 4fh, 01h, 00h
         db      42h, 32h, 00h, 63h, 28h, 00h, 3ch, 00h, 00h, 00h, 00h, 32h, 00h, 23h, 00h, 3eh ; B2.c(.<....2.#.>
-        db      33h, 5ah, 32h, 14h, 00h, 00h, 04h, 06h, 04h, 0ch, 04h, 12h, 04h, 18h, 04h, 1eh
+        db      33h, 5ah, 32h, 14h, 00h, 00h, 04h, 06h, 04h, 0ch, 04h, 12h, 04h, 18h, 04h
+d_c1_tbl_00060:
+        db      1eh
         db      04h, 24h, 04h, 2ah, 04h, 30h, 04h, 37h, 04h, 3dh, 04h, 43h, 04h, 49h, 04h, 50h ; .$.*.0.7.=.C.I.P
         db      04h, 56h, 04h, 5dh, 04h, 63h, 04h, 6ah, 04h, 70h, 04h, 77h, 04h, 7dh, 04h, 84h
         db      04h, 8bh, 04h, 91h, 04h, 98h, 04h, 9fh, 04h, 0a6h, 04h, 0adh, 04h, 0b4h, 04h, 0bbh
@@ -3884,7 +3886,9 @@ DS_ORIGIN:
         db      0dh, 0c5h, 0dh, 0d9h, 0dh, 0eeh, 0dh, 02h, 0eh, 17h, 0eh, 2ch, 0eh, 41h, 0eh, 56h
         db      0eh, 6ch, 0eh, 81h, 0eh, 96h, 0eh, 0ach, 0eh, 0c2h, 0eh, 0d8h, 0eh, 0eeh, 0eh, 04h
         db      0fh, 1ah, 0fh, 31h, 0fh, 47h, 0fh, 5eh, 0fh, 74h, 0fh, 8bh, 0fh, 0a2h, 0fh, 0bah
-        db      0fh, 0d1h, 0fh, 0e8h, 0fh, 00h, 10h, 18h, 10h, 30h, 10h, 48h, 10h, 60h, 10h, 78h
+        db      0fh, 0d1h, 0fh, 0e8h, 0fh
+d_c0_tbl_00236:
+        db      00h, 10h, 18h, 10h, 30h, 10h, 48h, 10h, 60h, 10h, 78h
         db      10h, 90h, 10h, 0a9h, 10h, 0c2h, 10h, 0dbh, 10h, 0f4h, 10h, 0dh, 11h, 26h, 11h, 3fh
         db      11h, 59h, 11h, 73h, 11h, 8dh, 11h, 0a7h, 11h, 0c1h, 11h, 0dbh, 11h, 0f6h, 11h, 10h
         db      12h, 2bh, 12h, 46h, 12h, 61h, 12h, 7ch, 12h, 98h, 12h, 0b3h, 12h, 0cfh, 12h, 0ebh
@@ -3955,7 +3959,9 @@ d_c2_tbl_00489:
         db      "%$*R(&.,0/-+17356EQPABLM8>?@IJG'49:;<=CDFHKNO#)2STUVWXYZ[\\]^_"
         db      60h, 61h, 62h
 d_c1_w_004d4:
-        db      00h, 00h, 00h, 00h
+        db      00h, 00h
+d_c1_b_004d6:
+        db      00h, 00h
 d_c1_w_004d8:
         db      00h, 00h
 d_c0_tbl_004da:
@@ -6380,7 +6386,10 @@ d_c2_w_02d36:
 d_c2_w_02d60:
         db      51h, 16h, 60h, 01h, 00h, 42h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [5] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_ASSIGN_FOCUS_SOUND_OFF, EP_PGM_ASSIGN_FOCUS_SOUND_SEG, EP_PGM_ASSIGN_FOCUS_PAD_OFF, EP_PGM_ASSIGN_FOCUS_PAD_SEG ; THUNK  PREV  NEXT
-        db      00h, 00h, 00h, 00h
+d_c2_w_02d76:
+        db      00h, 00h
+d_c2_w_02d78:
+        db      00h, 00h
         dw      EP_PGM_ASSIGN_FOCUS_NOTE_OFF, EP_PGM_ASSIGN_FOCUS_NOTE_SEG, EP_PGM_ASSIGN_FOCUS_6_OFF, EP_PGM_ASSIGN_FOCUS_6_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_L_4DD6E_OFF, EP_L_4DD6E_SEG
@@ -6407,6 +6416,7 @@ d_c2_w_02de6:
 d_c2_w_02e08:
         db      0c7h, 1fh, 24h, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [9] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_ASSIGN_FOCUS_ALT_NOTE1_OFF, EP_PGM_ASSIGN_FOCUS_ALT_NOTE1_SEG, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_OFF, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_SEG, EP_PGM_ASSIGN_FOCUS_ALT_NOTE2_OFF, EP_PGM_ASSIGN_FOCUS_ALT_NOTE2_SEG ; THUNK  PREV  NEXT
+d_c2_w_02e22:
         db      00h, 00h
 d_c2_w_02e24:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h; +1Ah..+21h  NOTIFY  ENTER
@@ -6414,7 +6424,10 @@ d_c2_w_02e32:
         db      0c7h, 28h, 24h, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [10] x,y,class,digits  STORE  MIN  MAX
         dw      (C2_BASE+PGM_ASSIGN_FOCUS_ALT_NOTE2-C2_SEG*16), C2_SEG, (C2_BASE+PGM_ASSIGN_FOCUS_ALT_NOTE1-C2_SEG*16), C2_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_02e4c:
+        db      00h, 00h
+d_c2_w_02e4e:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h; +1Ah..+21h  NOTIFY  ENTER
 d_c2_b_02e5c:
         db      00h, 00h, 01h, 00h, 00h
         db      00h, 00h, 02h
@@ -6497,6 +6510,7 @@ d_c2_w_02f6a:
         WIN_SOFTKEYS_REDRAW
         WIN_END
         db      00h, 00h, 00h, 17h, 00h, 00h, 00h
+d_c2_tbl_02f78:
         dw      EP_FAR_4E9FA_OFF, EP_FAR_4E9FA_SEG
         db      00h, 00h, 00h, 00h
         dw      (C2_BASE+far_4E102-C2_SEG*16), C2_SEG
@@ -6507,6 +6521,7 @@ d_c2_w_02f6a:
         dw      EP_FAR_4DAFA_OFF, C2_SEG
         endif
         dw      EP_L_4845E_OFF, EP_L_4845E_SEG
+d_c2_tbl_02f90:
         dw      (C2_BASE+L_4EA1C-C2_SEG*16)
 d_c2_tbl_02f92:
         dw      C2_SEG
@@ -7814,6 +7829,7 @@ d_c2_w_041d6:
 d_c2_w_04240:
         db      37h
         db      0bh, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h
+d_c2_tbl_0424e:
         dw      EP_MIXER_CHAN_FIELD0_THUNK_OFF, EP_MIXER_CHAN_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_MIXER_CHAN_FIELD1_THUNK_OFF, EP_MIXER_CHAN_FIELD1_THUNK_SEG
@@ -8430,7 +8446,9 @@ TBL_FIELDS_4D68:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_FX_SECTION_FIELD_NOTIFY_OFF, EP_FX_SECTION_FIELD_NOTIFY_SEG
         db      00h, 00h, 00h, 00h
 d_c2_w_04e64:
-        dw      EP_FAR_53AC2_OFF, EP_FAR_53AC2_SEG
+        dw      EP_FAR_53AC2_OFF
+d_c2_tbl_04e66:
+        dw      EP_FAR_53AC2_SEG
         dw      EP_FAR_53AC6_OFF, EP_FAR_53AC6_SEG
         dw      EP_FAR_53ACA_OFF, EP_FAR_53ACA_SEG
         dw      (C2_BASE+L_53ACE-C2_SEG*16), C2_SEG
@@ -8588,7 +8606,9 @@ d_c0_w_05106:
         dw      EP_FX_SECTION_FIELD_NOTIFY_OFF, EP_FX_SECTION_FIELD_NOTIFY_SEG
         db      00h, 00h, 00h, 00h
 d_c2_w_051d8:
-        dw      EP_FAR_54100_OFF, EP_FAR_54100_SEG
+        dw      EP_FAR_54100_OFF
+d_c2_tbl_051da:
+        dw      EP_FAR_54100_SEG
         dw      EP_FAR_5410A_OFF, EP_FAR_5410A_SEG
         dw      (C2_BASE+L_54114-C2_SEG*16), C2_SEG
         dw      EP_FAR_49A8C_OFF, EP_FAR_49A8C_SEG
@@ -8827,11 +8847,15 @@ d_c2_w_0564a:
         dw      EP_FX_REVERB_FIELD_NOTIFY_OFF, EP_FX_REVERB_FIELD_NOTIFY_SEG
         db      00h, 00h, 00h, 00h
 d_c2_w_05674:
-        dw      EP_L_54058_OFF, EP_L_54058_SEG
+        dw      EP_L_54058_OFF
+d_c2_tbl_05676:
+        dw      EP_L_54058_SEG
         dw      EP_FAR_549C6_OFF, EP_FAR_549C6_SEG
         dw      EP_FAR_549D4_OFF, EP_FAR_549D4_SEG
 d_c2_w_05680:
-        dw      EP_FAR_49A94_OFF, EP_FAR_49A94_SEG
+        dw      EP_FAR_49A94_OFF
+d_c2_tbl_05682:
+        dw      EP_FAR_49A94_SEG
         dw      EP_FAR_49A98_OFF, EP_FAR_49A98_SEG
         dw      EP_L_49A9C_OFF, EP_L_49A9C_SEG
         dw      EP_L_49AA0_OFF, EP_L_49AA0_SEG
@@ -9113,6 +9137,7 @@ d_c2_b_060b8:
 ; the MIXER / SHIFT+F5 / F6 / OPEN WINDOW screen.  the 180 zero bytes ending here
 ; are drawing 1's blank tail rows, not slack -- nothing may go there.
 
+d_c2_tbl_060ba:
         CREDIT  "Product planning"
         CREDIT  "\tYuji Kagei"
         CREDIT  ""
@@ -9346,7 +9371,9 @@ d_c2_w_06686:
 ts_preset_name_ptrs:                    ; far32 per preset name, flash 0x5E960
         endif
 d_c2_w_066b0:
-        dw      (CONSTS_BASE+str_ts_preset_fem_vox_a-C2_SEG*16), C2_SEG ; [0] 4E16h:87DCh
+        dw      (CONSTS_BASE+str_ts_preset_fem_vox_a-C2_SEG*16)
+d_c2_tbl_066b2:
+        dw      C2_SEG; [0] 4E16h:87DCh
         dw      EP_STR_TS_PRESET_FEM_VOX_B_OFF, EP_STR_TS_PRESET_FEM_VOX_B_SEG ; [1] 4E16h:87ECh
         dw      EP_STR_TS_PRESET_FEM_VOX_C_OFF, EP_STR_TS_PRESET_FEM_VOX_C_SEG ; [2] 4E16h:87FCh
         dw      EP_STR_TS_PRESET_MALE_VOX_A_OFF, EP_STR_TS_PRESET_MALE_VOX_A_SEG ; [3] 4E16h:880Ch
@@ -9819,7 +9846,15 @@ d_c0_w_07d1c:
         db      29h, 0feh, 9fh, 0feh, 15h, 0ffh, 8bh, 0ffh, 0ffh, 0ffh
 ; segment words c0 and c2 load into es (mov es,[...]) to reach C1_SEG data.
 C1_SEG_WORDS:
-        dw      C1_SEG, C1_SEG, C1_SEG, C1_SEG, C1_SEG
+        dw      C1_SEG
+d_c2_w_08120:
+        dw      C1_SEG
+d_c2_w_08122:
+        dw      C1_SEG
+d_c2_w_08124:
+        dw      C1_SEG
+d_c0_w_08126:
+        dw      C1_SEG
 
 ; 0x603d8-0x6111a, 3394 bytes of 00h -- BSS, not free space.  the OS's own init
         if      FW_VERSION >= 110
@@ -10556,6 +10591,10 @@ d_c0_tbl_08f44:
 d_c0_tbl_08f84:
         PAD_TO  DS_SEG*16+08fc4h-SEGBASE, 0
 d_c0_b_08fc4:
+        PAD_TO  DS_SEG*16+08fc6h-SEGBASE, 0
+d_c0_w_08fc6:
+        PAD_TO  DS_SEG*16+08fc8h-SEGBASE, 0
+d_c0_w_08fc8:
         PAD_TO  DS_SEG*16+08fcah-SEGBASE, 0
 d_c2_b_08fca:
         PAD_TO  DS_SEG*16+08fcbh-SEGBASE, 0
@@ -10594,12 +10633,16 @@ d_c2_w_095fe:
 d_c0_w_09600:
         PAD_TO  DS_SEG*16+09602h-SEGBASE, 0
 d_c0_b_09602:
+        PAD_TO  DS_SEG*16+09603h-SEGBASE, 0
+d_c0_b_09603:
         PAD_TO  DS_SEG*16+09604h-SEGBASE, 0
 d_c0_b_09604:
         PAD_TO  DS_SEG*16+09606h-SEGBASE, 0
 d_c0_b_09606:
         PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-01a9h, 0
 d_c0_tbl_09608:
+        PAD_TO  DS_SEG*16+09609h-SEGBASE, 0
+d_c0_tbl_09609:
         PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-019bh, 0
 d_c1_tbl_09616:
         PAD_TO  (DS_SEG*16+097b1h-SEGBASE)-0199h, 0
@@ -10614,6 +10657,12 @@ d_c2_w_09888:
 d_c0_w_0989a:
         PAD_TO  DS_SEG*16+0989ch-SEGBASE, 0
 d_c0_w_0989c:
+        PAD_TO  DS_SEG*16+0989eh-SEGBASE, 0
+d_c0_w_0989e:
+        PAD_TO  DS_SEG*16+098a0h-SEGBASE, 0
+d_c2_w_098a0:
+        PAD_TO  DS_SEG*16+098a2h-SEGBASE, 0
+d_c2_w_098a2:
         PAD_TO  DS_SEG*16+098a4h-SEGBASE, 0
 d_c0_w_098a4:
         PAD_TO  DS_SEG*16+098a6h-SEGBASE, 0
@@ -10656,6 +10705,10 @@ d_c0_b_098d5:
 d_c0_w_098d8:
         PAD_TO  DS_SEG*16+098dah-SEGBASE, 0
 d_c0_w_098da:
+        PAD_TO  DS_SEG*16+098dch-SEGBASE, 0
+d_c0_w_098dc:
+        PAD_TO  DS_SEG*16+098deh-SEGBASE, 0
+d_c0_w_098de:
         PAD_TO  DS_SEG*16+098e0h-SEGBASE, 0
 d_c1_w_098e0:
         PAD_TO  DS_SEG*16+098e2h-SEGBASE, 0
@@ -10678,6 +10731,8 @@ d_c0_w_0c28f:
 d_c2_tbl_0cb1f:
         db      496 dup (0)
 d_p_cd33:
+        PAD_TO  (10000h-030ah)-02h, 00h
+d_c1_w_0d71a:
         PAD_TO  10000h-030ah, 00h
 d_c1_w_0d71c:
         PAD_TO  10000h-0308h, 00h
@@ -10696,6 +10751,8 @@ d_c1_w_0d72a:
 d_c1_w_0d72c:
         PAD_TO  10000h-02c6h, 00h
 d_c0_b_0d760:
+        PAD_TO  (10000h-02c4h)-01h, 00h
+d_c2_b_0d761:
         PAD_TO  10000h-02c4h, 00h
 d_c1_w_0d762:
         PAD_TO  10000h-02b1h, 00h
@@ -10718,8 +10775,12 @@ d_c0_b_0d7bb:
 d_c0_b_0d7bc:
         PAD_TO  10000h-0269h, 00h
 d_c1_b_0d7bd:
+        PAD_TO  (10000h-0267h)-01h, 00h
+d_c0_b_0d7be:
         PAD_TO  10000h-0267h, 00h
 d_c1_b_0d7bf:
+        PAD_TO  (10000h-0265h)-01h, 00h
+d_c1_b_0d7c0:
         PAD_TO  10000h-0265h, 00h
 d_c0_b_0d7c1:
         PAD_TO  10000h-0264h, 00h
@@ -10728,6 +10789,8 @@ d_c0_w_0d7c2:
 d_c2_w_0d7c4:
         PAD_TO  10000h-0260h, 00h
 d_c1_b_0d7c6:
+        PAD_TO  (10000h-025eh)-01h, 00h
+d_c0_b_0d7c7:
         PAD_TO  10000h-025eh, 00h
 d_c1_b_0d7c8:
         PAD_TO  10000h-025dh, 00h
@@ -10736,8 +10799,12 @@ d_c0_b_0d7c9:
 d_c1_b_0d7ca:
         PAD_TO  10000h-025bh, 00h
 d_c1_b_0d7cb:
+        PAD_TO  (10000h-0259h)-01h, 00h
+d_c1_b_0d7cc:
         PAD_TO  10000h-0259h, 00h
 d_c1_b_0d7cd:
+        PAD_TO  (10000h-0256h)-02h, 00h
+d_c1_b_0d7ce:
         PAD_TO  10000h-0256h, 00h
 d_c1_w_0d7d0:
         PAD_TO  10000h-0254h, 00h
@@ -10776,5 +10843,7 @@ d_c0_b_0d7f8:
 d_c0_b_0d7f9:
         PAD_TO  10000h-0228h, 00h
 d_c1_tbl_0d7fe:
+        PAD_TO  10000h-0218h, 00h
+d_c1_b_0d80e:
         PAD_TO  10000h, 00h
 CONSTS_END:

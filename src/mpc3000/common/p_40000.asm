@@ -14355,9 +14355,9 @@ far_c6f79:
         push    di
         callf   SEG_B1AA:far_b1aac
         if      FW_VERSION >= 312
-        mov     word ptr [bp - 0ch], 10h
+        mov     word ptr [bp - 0ch], P_0010
         else
-        mov     word ptr [bp - 0ah], 10h
+        mov     word ptr [bp - 0ah], P_0010
         endif
         mov     al, byte ptr [bp + 6]
         mov     byte ptr [B_D5DD], al
@@ -17337,7 +17337,7 @@ far_c812b:
         sub     sp, 1ah
         push    si
         push    di
-        mov     word ptr [bp - 2], 10h
+        mov     word ptr [bp - 2], P_0010
         mov     ax, 10h
         add     ax, 4
         mov     word ptr [bp - 4], ax

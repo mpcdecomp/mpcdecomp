@@ -18017,7 +18017,7 @@ fn_e96ff:
         mov     word ptr [bp + 0ah], ax
         push    0
         else
-        mov     word ptr [bp - 2], 10h
+        mov     word ptr [bp - 2], P_0010
         mov     word ptr [bp - 4], 64h
         endif
         push    64h

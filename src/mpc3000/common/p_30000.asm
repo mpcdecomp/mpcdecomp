@@ -5385,7 +5385,7 @@ br_b2c4d:
         jbe     br_b2c65
 br_b2c5b:
         mov     word ptr [bp - 6], 0
-        mov     word ptr [bp - 8], 20h
+        mov     word ptr [bp - 8], P_0020
 br_b2c65:
         mov     al, byte ptr [bp - 8]
         mov     byte ptr [bp - 0bh], al
@@ -26044,7 +26044,7 @@ br_bac6a:
 br_bac7b:
         else
         mov     word ptr [bp - 2], 96h
-        mov     word ptr [bp - 4], 40h
+        mov     word ptr [bp - 4], P_0040
         mov     byte ptr [bp - 5], 73h
         endif
         mov     ax, word ptr [W_3C84]
@@ -26214,7 +26214,7 @@ fn_bade6:
         add     dx, 600h
         mov     word ptr [W_E587], ax
         mov     word ptr [W_E585], dx
-        mov     word ptr [bp - 4], 40h
+        mov     word ptr [bp - 4], P_0040
         mov     word ptr [bp - 2], 96h
         jmp     br_bae56
 br_bae15:
@@ -26225,7 +26225,7 @@ br_bae15:
         add     dx, 70ah
         mov     word ptr [W_E587], ax
         mov     word ptr [W_E585], dx
-        mov     word ptr [bp - 4], 40h
+        mov     word ptr [bp - 4], P_0040
         mov     word ptr [bp - 2], 96h
         jmp     br_bae56
 br_bae3a:
@@ -26393,7 +26393,7 @@ fn_bade6:
         add     dx, 600h
         mov     word ptr [W_E587], ax
         mov     word ptr [W_E585], dx
-        mov     word ptr [bp - 4], 40h
+        mov     word ptr [bp - 4], P_0040
         mov     word ptr [bp - 2], 96h
         jmp     br_bae56
 br_bae15:
@@ -26404,7 +26404,7 @@ br_bae15:
         add     dx, 70ah
         mov     word ptr [W_E587], ax
         mov     word ptr [W_E585], dx
-        mov     word ptr [bp - 4], 40h
+        mov     word ptr [bp - 4], P_0040
         mov     word ptr [bp - 2], 96h
         jmp     br_bae56
 br_bae3a:
@@ -27344,7 +27344,7 @@ br_bb49f:
         mov     word ptr [bp - 16h], 0
         else
         mov     word ptr [bp - 0ch], 0
-        mov     word ptr [bp - 0eh], 200h
+        mov     word ptr [bp - 0eh], P_0200
         lea     ax, [bp - 414h]
         mov     word ptr [bp - 10h], ss
         mov     word ptr [bp - 12h], ax
@@ -31792,7 +31792,7 @@ br_bd0b4:
         cmp     word ptr [bp - 2], 22h
         if      FW_VERSION >= 311
         jl      loop_bd07b
-        mov     word ptr [bp - 2], 20h
+        mov     word ptr [bp - 2], P_0020
         jmp     br_bd0b4
 loop_bd09e:
         mov     bx, word ptr [bp - 2]

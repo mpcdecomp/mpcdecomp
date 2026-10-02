@@ -92,7 +92,6 @@ A1_W_0ECF6                               equ 0ecf6h
 A1_W_0ECF8                               equ 0ecf8h
 A1_W_0ECFA                               equ 0ecfah
 A1_TBL_0C000                    equ 0c000h
-A0_W_00FE7                               equ 0fe7h
 A1_W_0E157                               equ 0e157h
 A0_B_0300F                               equ 300fh
 A2_W_05F22                               equ 5f22h

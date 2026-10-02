@@ -524,7 +524,9 @@ L_251ED                         equ     $+1
         db      41h, 52h, 00h, 00h
         dw      EP_L_31E4B_OFF, APP3_SEG
         db      0b2h, 0b8h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 03h, 0bch, 7bh, 26h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        dw      (APP3_BASE+L_323B3-APP3_SEG*16)
+        dw      APP3_SEG
         db      0dfh, 0bbh
         TBL_TRANSPOSE_NAMES_DATA
         else
@@ -542,13 +544,17 @@ L_251ED                         equ     $+13
         if      FW_VERSION >= 120
         db      00h, 00h, 00h, 00h
         dw      EP_FAR_32782_OFF, EP_FAR_32782_SEG
-        db      0a7h, 0c3h, 7bh, 26h, 1fh, 0c1h, 0c4h, 0c4h
+        dw      (C0_BASE+far_32B57-APP3_SEG*16)
+        dw      APP3_SEG
+        db      1fh, 0c1h
+        dw      (C0_BASE+L_32686-APP3_SEG*16)
 L_252A3                         equ     $+7
 L_252A7                         equ     $+11
 L_252A9                         equ     $+13
 L_252A4                         equ     $+8
 L_252A6                         equ     $+10
-        db      7bh, 26h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 0ch, 03h, 00h
+        dw      APP3_SEG
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 0ch, 03h, 00h
         db      07h
         db      "REPLACEMERGE  "
         else
@@ -643,8 +649,17 @@ L_252A6                         equ     $+6
         if      FW_VERSION >= 110
         if      FW_VERSION >= 120
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+1"
-        db      31h, 2bh, 31h, 32h, 69h, 0cdh, 7bh, 26h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 0c9h, 0dch, 7bh, 26h, 0a3h, 0dah, 2fh, 0dfh, 7bh, 26h, 1dh, 0dfh
+        db      31h, 2bh, 31h, 32h
+        dw      (C0_BASE+far_32F2B-APP3_SEG*16)
+        dw      APP3_SEG
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h
+        dw      (C0_BASE+L_34479-APP3_SEG*16)
+        dw      APP3_SEG
+        dw      (C0_BASE+cb_33C65-APP3_SEG*16)
+        dw      (C0_BASE+L_346DF-APP3_SEG*16)
+        dw      APP3_SEG
+        db      1dh, 0dfh
         db      9bh, 0e2h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         else
         db      "-12-11-10 -9 -8 -7 -6 -5 -4 -3 -2 -1  0 +1 +2 +3 +4 +5 +6 +7 +8 +9+10+11+12"
@@ -7578,18 +7593,18 @@ L_29B59:
         retf
 L_2A32F:
         if      FW_VERSION >= 120
-        mov     ax, 2275h
+        mov     ax, APPDATA_SEG
         elseif  FW_VERSION >= 114
-        mov     ax, 2218h
+        mov     ax, APPDATA_SEG
         elseif  FW_VERSION >= 112
 L_29A42:
-        mov     ax, 21f9h
+        mov     ax, APPDATA_SEG
         elseif  FW_VERSION >= 111
 L_29A42:
-        mov     ax, 21f1h
+        mov     ax, APPDATA_SEG
         else
 L_29A42:
-        mov     ax, 21f0h
+        mov     ax, APPDATA_SEG
         endif
         mov     ds, ax
         mov     al, 0
@@ -7603,18 +7618,18 @@ L_29A42:
         retf
 L_2A349:
         if      FW_VERSION >= 120
-        mov     ax, 2275h
+        mov     ax, APPDATA_SEG
         elseif  FW_VERSION >= 114
-        mov     ax, 2218h
+        mov     ax, APPDATA_SEG
         elseif  FW_VERSION >= 112
 L_29A79:
-        mov     ax, 21f9h
+        mov     ax, APPDATA_SEG
         elseif  FW_VERSION >= 111
 L_29A79:
-        mov     ax, 21f1h
+        mov     ax, APPDATA_SEG
         else
 L_29A79:
-        mov     ax, 21f0h
+        mov     ax, APPDATA_SEG
         endif
         mov     ds, ax
         mov     word ptr [A3_W_01398], L_2A349-APP3_CSBASE

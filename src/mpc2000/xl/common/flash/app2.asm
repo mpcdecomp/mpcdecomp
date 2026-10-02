@@ -5023,9 +5023,12 @@ L_1D1DF:
         xchg    cx, bp
         xchg    dh, byte ptr [bx+di-4a9eh]
         if      FW_VERSION >= 111
-        sbb     bx, word ptr [bp+si+1929h]
+        db      1bh
+        if      FW_VERSION < 120
+        db      9ah, 29h, 19h
+        endif
         if      FW_VERSION >= 120
-        db      7bh, 26h
+        callf   APP3_SEG:(APP3_BASE+draw_bar_beat_tick-APP3_SEG*16)
         DISP_FLUSH
         db      0cdh
         mov     cx, 0c4f6h

@@ -4436,8 +4436,11 @@ TBL_FIELDS_10DC:
 TBL_FIELDS_10DC:                        ; 2 x FIELD_SIZE; the part of the array this .asm emits itself
         db      91h, 25h, 24h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_CONV_TABLE_FOCUS_FIELD1_OFF, EP_CONV_TABLE_FOCUS_FIELD1_SEG
-        db      40h, 8fh, 19h, 3eh, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 8ch, 8fh, 19h, 3eh, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+        dw      EP_CONV_TABLE_FOCUS_FIELD0_OFF, C1_SEG
+        db      00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        dw      EP_FAR_467C6_OFF, C1_SEG
+        db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         endif
 TBL_WINKEYS_LOAD_MPC60_SOUND:
         WIN_KEY_CLEAR
@@ -6887,8 +6890,8 @@ TBL_WINKEYS_AUTO_CHROMATIC:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         if      FW_VERSION >= 120
         dw      EP_L_5FC44_OFF, DS_SEG
-        db      3ch, 79h, 2bh
-        db      "XGy+XRy+X]y+Xhy+Xsy+X~y+X"
+        dw      EP_FAR_5F5EC_OFF, DS_SEG, EP_FAR_5F5F7_OFF, DS_SEG, EP_FAR_5F602_OFF, DS_SEG, EP_FAR_5F60D_OFF, DS_SEG
+        dw      EP_FAR_5F618_OFF, DS_SEG, EP_FAR_5F623_OFF, DS_SEG, EP_FAR_5F62E_OFF, DS_SEG
         elseif  FW_VERSION >= 112
         dw      EP_FAR_5F644_OFF, DS_SEG
         dw      EP_FAR_5F5EC_OFF, DS_SEG, EP_FAR_5F5F7_OFF, DS_SEG, EP_FAR_5F602_OFF, DS_SEG, EP_FAR_5F60D_OFF, DS_SEG, EP_FAR_5F618_OFF, DS_SEG, EP_FAR_5F623_OFF, DS_SEG, EP_FAR_5F62E_OFF, DS_SEG

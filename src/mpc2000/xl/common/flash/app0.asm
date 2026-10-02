@@ -284,11 +284,7 @@ xl_boot_port_120:
 ivt_default_isr:
         iret
 xl_divide_error_handler:
-        if      FW_VERSION >= 112
-        mov     bp, A0_W_00FE7
-        else
         mov     bp, RAM_SEG
-        endif
         mov     ds, bp
         DISP_MSG        "       Error at     :    "
         DISP_ERASE      86h, 17h, 36h, 07h
@@ -339,11 +335,7 @@ xl_os_entry:
         jmp     br_00551
 br_00481:
         mov     dx, 645h
-        if      FW_VERSION >= 112
-        mov     ax, A0_W_00FE7
-        else
         mov     ax, RAM_SEG
-        endif
         mov     ds, ax
         mov     ah, 9
         int     21h

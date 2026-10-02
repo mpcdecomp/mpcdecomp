@@ -154,7 +154,6 @@ P_B9E8                    equ L_0B9E8-APP1_CSBASE
 P_BA04                    equ L_0BA04-APP1_CSBASE
 P_BA20                    equ L_0BA20-APP1_CSBASE
 P_BA31                    equ L_0BA31-APP1_CSBASE
-A0_W_00FE7                      equ     00f9eh
 A1_B_0ED12                      equ     0ed12h
 A1_B_0ED13                      equ     0ed13h
 A1_TBL_0C000                    equ 0c000h

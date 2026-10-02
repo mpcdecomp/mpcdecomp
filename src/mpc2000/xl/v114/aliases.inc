@@ -93,7 +93,6 @@ P_E88A                                   equ 0e88ah
 P_ECC6                                   equ 0ecc6h
 P_ECC8                                   equ 0ecc8h
 STR_DISK_NEEDS_NEWER_OS                  equ (C1_BASE+L_43A80-C1_SEG*16)
-A0_W_00FE7                               equ 0fb8h
 A1_W_0E157                               equ 0e064h
 A2_W_LCD_DRAW_PLANE                      equ 75a2h
 A2_W_LCD_FONT_FN                         equ 75a4h

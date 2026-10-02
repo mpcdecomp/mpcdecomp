@@ -6531,7 +6531,6 @@ L_6fdf:
         ret
         if      FW_VERSION >= 210
 
-L_6fe8:
         endif
 L_8212_os21:
         mov     cx, 3ch
@@ -19146,7 +19145,6 @@ set_keygroup_output:
         jmp     br_5861
         if      MODEL = 950
 
-L_57cb:
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
 

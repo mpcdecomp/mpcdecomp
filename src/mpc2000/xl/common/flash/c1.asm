@@ -2052,7 +2052,7 @@ pgm_memory_init:
         push    cs
         call    far_3F906
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     word ptr [C0_W_0D7C2], ax
         mov     word ptr [C0_W_0D7C4], dx
         push    ds
@@ -2077,14 +2077,14 @@ pgm_memory_init:
         and     ax, 0f000h
         add     ax, 10h
         adc     dx, 0
-        mov     word ptr [989ah], ax
-        mov     word ptr [989ch], dx
+        mov     word ptr [C0_W_0989A], ax
+        mov     word ptr [C0_W_0989C], dx
         xor     si, si
         mov     di, si
         jmp     br_3F04E
         db      90h
 loop_3F040:
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         mov     byte ptr es:[bx+si+2], 0
         add     si, 99eh
         inc     di
@@ -2108,8 +2108,8 @@ loop_3F05F:
         cmp     si, 3
         jle     loop_3F05F
         sub     ax, ax
-        mov     word ptr [98c0h], ax
-        mov     word ptr [98beh], ax
+        mov     word ptr [C0_W_098C0], ax
+        mov     word ptr [C0_W_098BE], ax
         push    ax
         nop
         push    cs
@@ -2148,8 +2148,8 @@ pgm_init_default:
         push    di
         push    si
         imul    bx, word ptr [bp+6], 99eh
-        mov     es, word ptr [989ch]
-        add     bx, word ptr [989ah]
+        mov     es, word ptr [C0_W_0989C]
+        add     bx, word ptr [C0_W_0989A]
         mov     word ptr [bp-0ah], bx
         mov     word ptr [bp-8], es
         mov     word ptr es:[bx], 1eh
@@ -2293,14 +2293,14 @@ pgm_delete_slot:
         enter   2, 0
         push    si
         imul    si, word ptr [bp+6], 99eh
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         mov     byte ptr es:[bx+si+2], 0
         mov     byte ptr [bp-2], 0
 loop_3F25D:
         mov     al, byte ptr [bp-2]
         sub     ah, ah
         imul    si, ax, 99eh
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         cmp     byte ptr es:[bx+si+2], ah
         jne     br_3F279
         inc     byte ptr [bp-2]
@@ -2323,7 +2323,7 @@ loop_3F291:
         imul    bx, ax, 184h
         mov     al, byte ptr [bx-6ea0h]
         imul    si, ax, 99eh
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         cmp     byte ptr es:[bx+si+2], ah
         jne     br_3F2BC
         mov     al, byte ptr [bp-2]
@@ -2344,12 +2344,12 @@ br_3F2BC:
 pgm_delete_all:
         push    si
         mov     bx, 17h
-        mov     es, word ptr [989ch]
+        mov     es, word ptr [C0_W_0989C]
 loop_3F2D0:
         mov     ax, bx
         cbw
         imul    si, ax, 99eh
-        add     si, word ptr [989ah]
+        add     si, word ptr [C0_W_0989A]
         mov     byte ptr es:[si+2], 0
         dec     bx
         jns     loop_3F2D0
@@ -2374,8 +2374,8 @@ pgm_alloc_slot:
         push    di
         push    si
         xor     di, di
-        mov     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        mov     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         mov     si, ax
         mov     es, dx
@@ -2412,7 +2412,7 @@ far_3F346:
         push    di
         push    si
         imul    bx, word ptr [bp+6], 99eh
-        les     si, [989ah]
+        les     si, [C0_W_0989A]
         imul    ax, word ptr [bp+8], 99eh
         mov     dx, es
         add     ax, si
@@ -2430,8 +2430,8 @@ far_3F346:
 far_3F36E:
         push    si
         xor     cx, cx
-        mov     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        mov     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         mov     si, ax
         mov     es, dx
@@ -2457,8 +2457,8 @@ far_3F39A:
         push    di
         mov     di, word ptr [bp+6]
         imul    ax, di, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         mov     es, dx
         mov     bx, ax
@@ -2485,8 +2485,8 @@ L_3F3D0:
         push    si
         mov     bx, word ptr [bp+6]
         imul    si, bx, 99eh
-        mov     es, word ptr [989ch]
-        add     si, word ptr [989ah]
+        mov     es, word ptr [C0_W_0989C]
+        add     si, word ptr [C0_W_0989A]
         cmp     byte ptr es:[si+2], 0
         je      br_3F3F4
         mov     di, bx
@@ -2545,8 +2545,8 @@ far_3F43A:
         push    di
         mov     di, word ptr [bp+6]
         imul    ax, di, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         mov     es, dx
         mov     bx, ax
@@ -2601,8 +2601,8 @@ br_3F49E:
         imul    cx, word ptr [bp+6], 99eh
         mov     word ptr [bp-6], cx
         add     ax, cx
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 1eh
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
@@ -2610,7 +2610,7 @@ br_3F49E:
         imul    cx, word ptr [bp+0ah], 99eh
         mov     word ptr [bp-8], cx
         add     ax, cx
-        add     ax, word ptr [989ah]
+        add     ax, word ptr [C0_W_0989A]
         add     ax, 1eh
         push    ds
         mov     si, ax
@@ -2625,7 +2625,7 @@ br_3F49E:
         add     ax, cx
         add     ax, ax
         add     ax, word ptr [bp-6]
-        add     ax, word ptr [989ah]
+        add     ax, word ptr [C0_W_0989A]
         add     ax, 61eh
         mov     word ptr [bp-4], ax
         mov     ax, word ptr [bp+0ch]
@@ -2634,7 +2634,7 @@ br_3F49E:
         add     ax, cx
         add     ax, ax
         add     ax, word ptr [bp-8]
-        add     ax, word ptr [989ah]
+        add     ax, word ptr [C0_W_0989A]
         add     ax, 61eh
         push    ds
         mov     si, ax
@@ -2645,7 +2645,7 @@ br_3F49E:
         movsw
         pop     ds
         mov     bx, word ptr [bp-8]
-        add     bx, word ptr [989ah]
+        add     bx, word ptr [C0_W_0989A]
         add     bx, 7deh
         mov     si, cx
         shl     si, 2
@@ -2653,7 +2653,7 @@ br_3F49E:
         mov     dx, word ptr es:[bx+si+2]
         mov     si, word ptr [bp+8]
         shl     si, 2
-        mov     bx, word ptr [989ah]
+        mov     bx, word ptr [C0_W_0989A]
         add     si, word ptr [bp-6]
         mov     word ptr es:[bx+si+7deh], ax
         mov     word ptr es:[bx+si+7e0h], dx
@@ -2877,7 +2877,7 @@ pad_route_mode_set:
         push    di
         push    si
         mov     al, byte ptr [bp+6]
-        mov     byte ptr [95f0h], al
+        mov     byte ptr [C1_B_095F0], al
         dec     al
         jne     br_3F780
         push    EP_L_42156_SEG
@@ -2967,7 +2967,7 @@ loop_3F7DD:
         jmp     br_3F815
         db      90h
 br_3F7EE:
-        cmp     byte ptr [95f0h], 0
+        cmp     byte ptr [C1_B_095F0], 0
         je      L_3F800
         mov     al, byte ptr [C2_B_PAD_DRUM]
         sub     ah, ah
@@ -3009,8 +3009,8 @@ drum_program_select:
         mov     word ptr [bp-0ch], bx
         mov     byte ptr [bx+180h], al
         imul    ax, si, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
         cmp     byte ptr [C1_B_0D7BA], 0
@@ -3049,7 +3049,7 @@ br_3F8AA:
         mov     di, ax
         mov     word ptr [bp-2], dx
 br_3F8B8:
-        cmp     byte ptr [95f0h], 0
+        cmp     byte ptr [C1_B_095F0], 0
         jne     L_3F2D4
         push    word ptr [bp-2]
         push    di
@@ -3118,18 +3118,18 @@ br_3F947:
         sub     ax, ax
         mov     word ptr es:[bx+2], ax
         mov     word ptr es:[bx], ax
-        mov     word ptr [98e8h], ax
-        mov     word ptr [98e6h], ax
-        mov     word ptr [98ech], ax
-        mov     word ptr [98eah], ax
+        mov     word ptr [C1_W_098E8], ax
+        mov     word ptr [C1_W_098E6], ax
+        mov     word ptr [C1_W_098EC], ax
+        mov     word ptr [C1_W_098EA], ax
         mov     ax, C1_TBL_SOUNDS_END
         mov     word ptr [C0_W_098DC], ax
-        mov     word ptr [98deh], ds
+        mov     word ptr [C0_W_098DE], ds
         sub     ax, ax
-        mov     word ptr [98e2h], ax
-        mov     word ptr [98e0h], ax
-        mov     byte ptr [98eeh], al
-        or      byte ptr [98e4h], 0ffh
+        mov     word ptr [C1_W_098E2], ax
+        mov     word ptr [C1_W_098E0], ax
+        mov     byte ptr [C1_B_098EE], al
+        or      byte ptr [C1_B_098E4], 0ffh
         mov     word ptr [C1_W_0D724], 2280h
         mov     word ptr [C1_W_0D726], 1
         mov     word ptr [C1_W_0D728], 400h
@@ -3265,7 +3265,7 @@ smem_high_water:
         mov     word ptr [bp-0ch], 2680h
         mov     word ptr [bp-0ah], 1
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-2], dx
         mov     ax, dx
@@ -3315,7 +3315,7 @@ smem_free_bytes:
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -3359,7 +3359,7 @@ smem_compact:
         mov     word ptr [bp-4], 2680h
         mov     word ptr [bp-2], 1
         mov     si, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     word ptr [bp-6], dx
         mov     ax, dx
         mov     cx, ds
@@ -3613,7 +3613,7 @@ sound_list_contains:
         enter   4, 0
         push    si
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -3657,7 +3657,7 @@ far_3FE60:
         push    si
         xor     cx, cx
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-2], dx
         mov     si, ds
@@ -3687,7 +3687,7 @@ far_3FE9E:
         push    di
         push    si
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     si, ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -3750,7 +3750,7 @@ far_3FF18:
         push    di
         push    si
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     si, ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -3824,7 +3824,7 @@ pgm_replace_sound_ref:
         mov     word ptr [bp-0ah], 0
         mov     word ptr [bp-0ch], 18h
 loop_3FFB3:
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         add     bx, word ptr [bp-0ah]
         cmp     byte ptr es:[bx+2], 0
         je      br_3FFFA
@@ -3862,7 +3862,7 @@ L_40008:
         enter   1ah, 0
         push    si
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-6], dx
         mov     cx, ds
@@ -3886,7 +3886,7 @@ br_40043:
         xor     si, si
         mov     word ptr [bp-10h], 18h
 loop_4004A:
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         add     bx, si
         cmp     byte ptr es:[bx+2], 0
         je      br_4008F
@@ -3917,7 +3917,7 @@ br_4008F:
         jne     loop_4004A
         xor     cx, cx
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-6], dx
         mov     ax, dx
@@ -3953,7 +3953,7 @@ L_400DC:
         push    si
         mov     word ptr [bp-2], 0
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     di, ax
         mov     ax, dx
         mov     cx, ds
@@ -3998,7 +3998,7 @@ far_40138:
         mov     cx, ds
         cmp     ax, word ptr [C0_W_098DC]
         jne     br_40152
-        cmp     cx, word ptr [98deh]
+        cmp     cx, word ptr [C0_W_098DE]
         jne     br_40152
         jmp     br_40233
 br_40152:
@@ -4207,7 +4207,7 @@ sound_list_renumber:
         add     sp, 4
         xor     di, di
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     si, ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -5859,8 +5859,8 @@ L_40958:
         or      ax, ax
         jl      br_4133F
         imul    ax, ax, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-0ah], ax
         mov     word ptr [bp-8], dx
         add     ax, 2
@@ -5954,7 +5954,7 @@ br_413B6:
         push    0
         push    0
         push    ds
-        push    8fcbh
+        push    C1_W_08FCB
         nop
         push    cs
         call    EP_FAR_484D6_OFF+C1_CSBASE
@@ -7133,7 +7133,7 @@ br_41E7E:
         leave
         retf
 br_41E9C:
-        cmp     byte ptr [97b1h], 0
+        cmp     byte ptr [C1_B_097B1], 0
         je      br_41EB7
         push    15h
         nop
@@ -7536,7 +7536,7 @@ L_41C0C:
         push    ss
         push    cx
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         mov     dx, word ptr [bp+6]
         mov     bx, word ptr [bp]
         push    bx
@@ -7885,7 +7885,7 @@ far_42482:
         db      90h
 br_42498:
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         jmp     br_424ED
         db      90h
 br_424A2:
@@ -7893,7 +7893,7 @@ br_424A2:
         mov     cx, ds
         cmp     ax, word ptr [C0_W_098DC]
         jne     br_424B3
-        cmp     cx, word ptr [98deh]
+        cmp     cx, word ptr [C0_W_098DE]
         je      br_424F4
 br_424B3:
         mov     cx, ds
@@ -7909,7 +7909,7 @@ br_424C4:
         db      90h
 br_424CE:
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         cmp     word ptr [C0_W_0D7C2], ax
         jne     br_424E1
         cmp     word ptr [C0_W_0D7C4], dx
@@ -8002,8 +8002,8 @@ br_4258F:
         mov     di, ax
         cbw
         imul    ax, ax, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         les     bx, [bp+8]
         mov     word ptr es:[bx], ax
@@ -8088,7 +8088,7 @@ far_4262E:
         push    di
         push    si
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     si, ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -8130,7 +8130,7 @@ far_42684:
         push    di
         push    si
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
         mov     cx, ds
@@ -8303,7 +8303,7 @@ far_427E8:
         push    di
         xor     di, di
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     bx, ax
         mov     word ptr [bp-2], dx
         mov     ax, dx
@@ -9868,8 +9868,8 @@ loop_43534:
         else
         mov     ax, word ptr [bp-36h]
         endif
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-6], ax
         mov     word ptr [bp-4], dx
         mov     es, word ptr [bp-8]
@@ -9905,7 +9905,7 @@ br_43582:
         mov     word ptr [bp+6], 18h
         endif
 loop_43597:
-        les     bx, [989ah]
+        les     bx, [C0_W_0989A]
         add     bx, si
         if      FW_VERSION >= 110
         mov     word ptr [bp-3ch], bx
@@ -9993,8 +9993,8 @@ L_43644:
         push    di
         push    si
         imul    ax, word ptr [bp+6], 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-12h], ax
         mov     word ptr [bp-10h], dx
         push    80h
@@ -10135,8 +10135,8 @@ pgm_file_read:
         mov     si, ax
         mov     word ptr [bp-10h], dx
         imul    ax, word ptr [bp+6], 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-16h], ax
         mov     word ptr [bp-14h], dx
         cmp     word ptr [bp+0ch], si
@@ -10762,9 +10762,9 @@ br_43CC8:
         db      00h
 far_43CD8:
         mov     ax, word ptr [C1_W_08B04]
-        mov     word ptr [98b8h], ax
+        mov     word ptr [C0_B_098B8], ax
         push    ds
-        push    98b8h
+        push    C0_B_098B8
         push    ds
         push    C1_W_0098A
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -10815,7 +10815,7 @@ br_43D46:
         mov     word ptr [C1_W_08B04], di
 br_43D4A:
         mov     ax, word ptr [C1_W_08B04]
-        mov     word ptr [98b8h], ax
+        mov     word ptr [C0_B_098B8], ax
         pop     si
         pop     di
         leave
@@ -11134,8 +11134,8 @@ far_4400A:
         mov     al, byte ptr [bp+6]
         cbw
         imul    ax, ax, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-14h], ax
         mov     word ptr [bp-12h], dx
         mov     byte ptr [bp-1ch], 7
@@ -11573,8 +11573,8 @@ loop_443C2:
         mov     bx, cx
 br_443D0:
         imul    ax, bx, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 7deh
         mov     word ptr [bp-0ah], ax
         mov     word ptr [bp-8], dx
@@ -11918,8 +11918,8 @@ save_a_program_wipe:
         mov     al, byte ptr [C1_B_0D7BF]
         cbw
         imul    bx, ax, 99eh
-        add     bx, word ptr [989ah]
-        mov     cx, word ptr [989ch]
+        add     bx, word ptr [C0_W_0989A]
+        mov     cx, word ptr [C0_W_0989C]
         add     bx, 2
         mov     di, bx
         mov     si, 0d7e8h
@@ -11994,8 +11994,8 @@ save_a_program_save:
         mov     al, byte ptr [C1_B_0D7BF]
         cbw
         imul    bx, ax, 99eh
-        add     bx, word ptr [989ah]
-        mov     cx, word ptr [989ch]
+        add     bx, word ptr [C0_W_0989A]
+        mov     cx, word ptr [C0_W_0989C]
         add     bx, 2
         mov     di, bx
         mov     si, 0d7e8h
@@ -12081,8 +12081,8 @@ save_a_program_paint:
         cbw
         mov     word ptr [bp-2], ax
         imul    bx, ax, 99eh
-        add     bx, word ptr [989ah]
-        mov     cx, word ptr [989ch]
+        add     bx, word ptr [C0_W_0989A]
+        mov     cx, word ptr [C0_W_0989C]
         add     bx, 2
         push    ds
         mov     di, bx
@@ -12665,8 +12665,8 @@ br_44C88:
         mov     di, word ptr [bp+0ah]
 loop_44C97:
         imul    bx, word ptr [bp-2], 99eh
-        mov     es, word ptr [989ch]
-        add     bx, word ptr [989ah]
+        mov     es, word ptr [C0_W_0989C]
+        add     bx, word ptr [C0_W_0989A]
         cmp     byte ptr es:[bx+2], 0
         je      br_44CE2
         push    1
@@ -12742,7 +12742,7 @@ far_44D28:
         push    si
         xor     bx, bx
         mov     ax, word ptr [C0_W_098DC]
-        mov     dx, word ptr [98deh]
+        mov     dx, word ptr [C0_W_098DE]
         mov     si, ax
         mov     word ptr [bp-0ah], dx
         mov     ax, dx
@@ -13196,7 +13196,7 @@ L_450C6:
 far_450D4:
         enter   8, 0
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         lea     ax, [bp-8]
         push    ss
         push    ax
@@ -14019,7 +14019,7 @@ br_45820:
 far_4582A:
         enter   8, 0
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         lea     ax, [bp-8]
         push    ss
         push    ax
@@ -14988,11 +14988,11 @@ L_460F0:
 far_4610A:
         mov     word ptr [C1_W_0D762], 7fffh
         sub     ax, ax
-        mov     word ptr [98dah], ax
-        mov     word ptr [98d8h], ax
-        mov     word ptr [8ec2h], ax
-        mov     word ptr [8ec0h], ax
-        mov     word ptr [98a4h], ax
+        mov     word ptr [C0_W_098DA], ax
+        mov     word ptr [C0_W_098D8], ax
+        mov     word ptr [C1_W_08EC2], ax
+        mov     word ptr [C1_W_08EC0], ax
+        mov     word ptr [C0_W_098A4], ax
         mov     word ptr [C0_W_0D7E6], ax
         retf
         db      90h
@@ -16091,7 +16091,7 @@ L_469FA:
 far_46A0E:
         enter   8, 0
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         lea     ax, [bp-8]
         push    ss
         push    ax

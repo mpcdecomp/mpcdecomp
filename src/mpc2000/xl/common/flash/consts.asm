@@ -1941,17 +1941,17 @@ br_56FDC:
         leave
         retf
 L_56FFA:
-        les     bx, [98a6h]
+        les     bx, [C2_W_098A6]
         mov     al, byte ptr es:[bx+24h]
         cbw
         push    ax
         mov     al, byte ptr es:[bx+37h]
         sub     ah, ah
         push    ax
-        mov     ax, word ptr [98b2h]
-        mov     dx, word ptr [98b4h]
-        sub     ax, word ptr [98aeh]
-        sbb     dx, word ptr [98b0h]
+        mov     ax, word ptr [C2_W_098B2]
+        mov     dx, word ptr [C2_W_098B4]
+        sub     ax, word ptr [C2_W_098AE]
+        sbb     dx, word ptr [C2_W_098B0]
         push    dx
         push    ax
         callf   EP_FAR_486D8_SEG:EP_FAR_486D8_OFF
@@ -2034,9 +2034,9 @@ br_570C0:
         push    ds
         push    C2_W_02600
         push    ds
-        push    8fcbh
+        push    C1_W_08FCB
         push    ds
-        push    98a6h
+        push    C2_W_098A6
         nop
         push    cs
         call    ts_execute
@@ -2060,8 +2060,8 @@ br_570EF:
         retf
         db      90h
 br_5710C:
-        mov     ax, word ptr [98aah]
-        mov     dx, word ptr [98ach]
+        mov     ax, word ptr [C2_W_098AA]
+        mov     dx, word ptr [C2_W_098AC]
         mov     word ptr [C0_W_0D7C2], ax
         mov     word ptr [C0_W_0D7C4], dx
         callf   EP_FAR_4D21C_SEG:EP_FAR_4D21C_OFF
@@ -2102,7 +2102,7 @@ L_57124:
         callf   EP_DRAW_STRING_AT_SEG:EP_DRAW_STRING_AT_OFF
         add     sp, 8
         push    2
-        les     bx, [98a6h]
+        les     bx, [C2_W_098A6]
         sub     ah, ah
         mov     al, byte ptr es:[bx+37h]
         push    0
@@ -2186,8 +2186,8 @@ L_57237:
         db      00h
 bpm_match_field0_thunk:                 ; descriptor DS:6b02h
         mov     word ptr [K0_W_08E52], 0
-        mov     ax, word ptr [98a6h]
-        mov     dx, word ptr [98a8h]
+        mov     ax, word ptr [C2_W_098A6]
+        mov     dx, word ptr [C2_W_098A8]
         add     ax, 37h
         push    dx
         push    ax
@@ -2215,17 +2215,17 @@ L_57260:
         add     sp, 0ch
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        les     bx, [98a6h]
+        les     bx, [C2_W_098A6]
         mov     al, byte ptr es:[bx+24h]
         cbw
         push    ax
         mov     al, byte ptr es:[bx+37h]
         sub     ah, ah
         push    ax
-        mov     ax, word ptr [98b2h]
-        mov     dx, word ptr [98b4h]
-        sub     ax, word ptr [98aeh]
-        sbb     dx, word ptr [98b0h]
+        mov     ax, word ptr [C2_W_098B2]
+        mov     dx, word ptr [C2_W_098B4]
+        sub     ax, word ptr [C2_W_098AE]
+        sbb     dx, word ptr [C2_W_098B0]
         push    dx
         push    ax
         callf   EP_FAR_486D8_SEG:EP_FAR_486D8_OFF
@@ -2311,8 +2311,8 @@ br_57382:
         cbw
         mov     di, ax
         imul    ax, di, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 1eh
         mov     word ptr es:[si+0ah], ax
         mov     word ptr es:[si+0ch], dx
@@ -10485,7 +10485,118 @@ d_c0_tbl_08e72:
         if      $ <> DS_SEG*16+08E6Ah+16-SEGBASE-6*(FW_VERSION < 110)
         error   "consts: bytes after the version stamp, where the OS fills or keeps its program records"
         endif
-        db      13277 dup (0)
+BSS_6112A:
+        PAD_TO  DS_SEG*16+08ebeh-SEGBASE, 0
+d_c2_b_08ebe:
+        PAD_TO  DS_SEG*16+08ec0h-SEGBASE, 0
+d_c1_w_08ec0:
+        PAD_TO  DS_SEG*16+08ec2h-SEGBASE, 0
+d_c1_w_08ec2:
+        PAD_TO  DS_SEG*16+08fc4h-SEGBASE, 0
+d_c0_b_08fc4:
+        PAD_TO  DS_SEG*16+08fcah-SEGBASE, 0
+d_c2_b_08fca:
+        PAD_TO  DS_SEG*16+08fcbh-SEGBASE, 0
+d_c1_w_08fcb:
+        PAD_TO  DS_SEG*16+08fd9h-SEGBASE, 0
+d_c2_b_08fd9:
+        PAD_TO  DS_SEG*16+08fdah-SEGBASE, 0
+d_c2_b_08fda:
+        PAD_TO  DS_SEG*16+08fdbh-SEGBASE, 0
+d_c2_b_08fdb:
+        PAD_TO  DS_SEG*16+08fe0h-SEGBASE, 0
+d_c0_w_08fe0:
+        PAD_TO  DS_SEG*16+095f0h-SEGBASE, 0
+d_c1_b_095f0:
+        PAD_TO  DS_SEG*16+095f2h-SEGBASE, 0
+d_c0_w_095f2:
+        PAD_TO  DS_SEG*16+095f4h-SEGBASE, 0
+d_c2_w_095f4:
+        PAD_TO  DS_SEG*16+095f6h-SEGBASE, 0
+d_c2_w_095f6:
+        PAD_TO  DS_SEG*16+095f8h-SEGBASE, 0
+d_c2_w_095f8:
+        PAD_TO  DS_SEG*16+095fah-SEGBASE, 0
+d_c2_w_095fa:
+        PAD_TO  DS_SEG*16+095fch-SEGBASE, 0
+d_c2_w_095fc:
+        PAD_TO  DS_SEG*16+095feh-SEGBASE, 0
+d_c2_w_095fe:
+        PAD_TO  DS_SEG*16+09600h-SEGBASE, 0
+d_c0_w_09600:
+        PAD_TO  DS_SEG*16+09602h-SEGBASE, 0
+d_c0_b_09602:
+        PAD_TO  DS_SEG*16+09604h-SEGBASE, 0
+d_c0_b_09604:
+        PAD_TO  DS_SEG*16+09606h-SEGBASE, 0
+d_c0_b_09606:
+        PAD_TO  DS_SEG*16+097b1h-SEGBASE, 0
+d_c1_b_097b1:
+        PAD_TO  DS_SEG*16+09888h-SEGBASE, 0
+d_c2_w_09888:
+        PAD_TO  DS_SEG*16+0989ah-SEGBASE, 0
+d_c0_w_0989a:
+        PAD_TO  DS_SEG*16+0989ch-SEGBASE, 0
+d_c0_w_0989c:
+        PAD_TO  DS_SEG*16+098a4h-SEGBASE, 0
+d_c0_w_098a4:
+        PAD_TO  DS_SEG*16+098a6h-SEGBASE, 0
+d_c2_w_098a6:
+        PAD_TO  DS_SEG*16+098a8h-SEGBASE, 0
+d_c2_w_098a8:
+        PAD_TO  DS_SEG*16+098aah-SEGBASE, 0
+d_c2_w_098aa:
+        PAD_TO  DS_SEG*16+098ach-SEGBASE, 0
+d_c2_w_098ac:
+        PAD_TO  DS_SEG*16+098aeh-SEGBASE, 0
+d_c2_w_098ae:
+        PAD_TO  DS_SEG*16+098b0h-SEGBASE, 0
+d_c2_w_098b0:
+        PAD_TO  DS_SEG*16+098b2h-SEGBASE, 0
+d_c2_w_098b2:
+        PAD_TO  DS_SEG*16+098b4h-SEGBASE, 0
+d_c2_w_098b4:
+        PAD_TO  DS_SEG*16+098b6h-SEGBASE, 0
+d_c0_w_098b6:
+        PAD_TO  DS_SEG*16+098b8h-SEGBASE, 0
+d_c0_b_098b8:
+        PAD_TO  DS_SEG*16+098b9h-SEGBASE, 0
+d_c2_b_098b9:
+        PAD_TO  DS_SEG*16+098bah-SEGBASE, 0
+d_c2_w_098ba:
+        PAD_TO  DS_SEG*16+098bbh-SEGBASE, 0
+d_c2_w_098bb:
+        PAD_TO  DS_SEG*16+098bch-SEGBASE, 0
+d_c2_b_098bc:
+        PAD_TO  DS_SEG*16+098beh-SEGBASE, 0
+d_c0_w_098be:
+        PAD_TO  DS_SEG*16+098c0h-SEGBASE, 0
+d_c0_w_098c0:
+        PAD_TO  DS_SEG*16+098c2h-SEGBASE, 0
+d_c0_w_098c2:
+        PAD_TO  DS_SEG*16+098d5h-SEGBASE, 0
+d_c0_b_098d5:
+        PAD_TO  DS_SEG*16+098d8h-SEGBASE, 0
+d_c0_w_098d8:
+        PAD_TO  DS_SEG*16+098dah-SEGBASE, 0
+d_c0_w_098da:
+        PAD_TO  DS_SEG*16+098e0h-SEGBASE, 0
+d_c1_w_098e0:
+        PAD_TO  DS_SEG*16+098e2h-SEGBASE, 0
+d_c1_w_098e2:
+        PAD_TO  DS_SEG*16+098e4h-SEGBASE, 0
+d_c1_b_098e4:
+        PAD_TO  DS_SEG*16+098e6h-SEGBASE, 0
+d_c1_w_098e6:
+        PAD_TO  DS_SEG*16+098e8h-SEGBASE, 0
+d_c1_w_098e8:
+        PAD_TO  DS_SEG*16+098eah-SEGBASE, 0
+d_c1_w_098ea:
+        PAD_TO  DS_SEG*16+098ech-SEGBASE, 0
+d_c1_w_098ec:
+        PAD_TO  DS_SEG*16+098eeh-SEGBASE, 0
+d_c1_b_098ee:
+        PAD_TO  BSS_6112A+13277, 0
 d_c0_w_0c28f:
         db      2744 dup (0)
 d_p_cd33:

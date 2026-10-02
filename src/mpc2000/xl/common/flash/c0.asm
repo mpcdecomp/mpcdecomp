@@ -8132,7 +8132,7 @@ br_35F69:
         mov     ax, word ptr [C0_W_0989E]
         XL2K_MON_BIT
         out     0c0h, al
-        mov     word ptr [989eh], ax
+        mov     word ptr [C0_W_0989E], ax
         xor     ax, ax
         pop     ds
         pop     di
@@ -8391,13 +8391,13 @@ br_361C9:
 far_361CB:
         sub     dx, dx
         mov     ax, 224h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 226h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8405,22 +8405,22 @@ far_361CB:
 far_361EB:
         sub     dx, dx
         mov     ax, 92h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 94h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 88h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 8ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8432,48 +8432,48 @@ far_361EB:
         call    far_36435
         sub     dx, dx
         mov     ax, 70h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 74h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 72h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 76h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 8ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 8eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 90h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 78h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 7ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8483,56 +8483,56 @@ far_361EB:
 br_362B2:
         mov     dx, 800h
         mov     ax, 6ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 6eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         sub     dx, dx
         mov     ax, 64h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 1
         out     0a0h, ax
         mov     ax, 80h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 68h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 1
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 84h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         sub     dx, dx
         mov     ax, 66h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 1
         out     0a0h, ax
         mov     ax, 82h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 6ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 1
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 86h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8540,33 +8540,33 @@ br_362B2:
 br_36347:
         mov     dx, 400h
         mov     ax, 6ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 6eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 210h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 212h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         sub     dx, dx
         mov     ax, 7ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 7eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8588,17 +8588,17 @@ br_363B6:
         call    far_36435
         sub     dx, dx
         mov     ax, 8ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 8eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 90h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8606,32 +8606,32 @@ br_363B6:
 far_363E4:
         sub     dx, dx
         mov     ax, 92h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 94h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 88h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 8ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 78h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 7ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8644,22 +8644,22 @@ far_36435:
         retf
 far_3643E:
         mov     ax, 21ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, cx
         out     0a0h, ax
         mov     ax, 21eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 220h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, bp
         out     0a0h, ax
         mov     ax, 222h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, si
         out     0a0h, ax
@@ -8675,23 +8675,23 @@ far_36473:
         call    far_36435
         mov     dx, 7fffh
         mov     ax, 70h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 72h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         sub     dx, dx
         mov     ax, 74h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 76h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8755,13 +8755,13 @@ br_36549:
         add     bp, si
 br_3654B:
         mov     ax, 5eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, bp
         out     0a0h, ax
         add     bp, si
         mov     ax, 60h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, bp
         out     0a0h, ax
@@ -8911,35 +8911,35 @@ far_36686:
         test    byte ptr [C0_B_0D7E2], 20h
         je      br_366EA
         mov     ax, 9ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 1d2h
         out     0a0h, ax
         mov     ax, 98h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 0
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 96h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 9ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 0
         out     0a0h, ax
         mov     dx, 2000h
         mov     ax, 9eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         shr     dx, 2
         mov     ax, 0a0h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8950,7 +8950,7 @@ br_366EA:
         mov     dx, 9566h
         mul     dx
         mov     ax, 9ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8962,12 +8962,12 @@ br_366EA:
         mov     bp, 7fffh
         sub     bp, dx
         mov     ax, 98h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 96h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, bp
         out     0a0h, ax
@@ -8977,7 +8977,7 @@ br_366EA:
         mov     dl, 0
         shr     dx, 1
         mov     ax, 9ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -8995,7 +8995,7 @@ br_36751:
         mov     dx, ax
 br_36760:
         mov     ax, 9eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9006,7 +9006,7 @@ br_36760:
         mul     dx
         shr     dx, 2
         mov     ax, 0a0h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9188,7 +9188,7 @@ br_36931:
         call    fn_377E4
         xchg    dx, bp
         mov     ax, 0cah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, bp
         out     0a0h, ax
@@ -9200,7 +9200,7 @@ br_36931:
         call    fn_377E4
         xchg    dx, bp
         mov     ax, 0cch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, bp
         out     0a0h, ax
@@ -9254,14 +9254,14 @@ br_369D8:
         pop     dx
         sar     dx, 1
         mov     ax, 8ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         pop     dx
         sar     dx, 1
         mov     ax, 88h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9272,7 +9272,7 @@ br_369D8:
         mov     dl, ah
         add     dx, 800h
         mov     ax, 210h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9283,7 +9283,7 @@ br_369D8:
         mov     dl, ah
         add     dx, 800h
         mov     ax, 212h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9295,7 +9295,7 @@ br_369D8:
         mul     dx
         neg     dx
         mov     ax, 7ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9307,7 +9307,7 @@ br_369D8:
         mul     dx
         neg     dx
         mov     ax, 7eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9315,13 +9315,13 @@ br_369D8:
 br_36A70:
         pop     dx
         mov     ax, 8ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         pop     dx
         mov     ax, 88h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9409,7 +9409,7 @@ br_36B0D:
         mov     dx, 7784h
         mul     dx
         mov     ax, 92h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9420,7 +9420,7 @@ br_36B0D:
         mul     dx
         neg     dx
         mov     ax, 94h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9433,22 +9433,22 @@ br_36B4A:
         mov     dl, al
         mov     dh, 0
         mov     ax, 6ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 6eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 210h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 212h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9463,23 +9463,23 @@ br_36B91:
         mov     dx, 7fffh
         imul    dx
         mov     ax, 7ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 7eh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 70h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 72h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -9802,29 +9802,29 @@ br_36EB7:
         call    far_370AE
         neg     dx
         mov     ax, 80h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 82h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 7fffh
         out     0a0h, ax
         push    cs
         call    far_370BD
         mov     ax, 84h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 86h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 66h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 0ffffh
         out     0a0h, ax
@@ -9840,30 +9840,30 @@ br_36F07:
         mov     dl, 0
         shr     dx, 1
         mov     ax, 80h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         neg     dx
         mov     ax, 82h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         push    cs
         call    far_370BD
         mov     ax, 84h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 86h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 66h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 0ffffh
         out     0a0h, ax
@@ -9959,44 +9959,44 @@ br_36FF5:
 br_3703D:
         mov     dx, 1
         mov     ax, 64h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 66h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 68h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 6ah
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         sub     dx, dx
         mov     ax, 80h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 82h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     dx, 7fffh
         mov     ax, 84h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 86h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10081,7 +10081,7 @@ br_37132:
         shr     dx, 0
         call    fn_377E4
         mov     ax, 0ceh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10093,7 +10093,7 @@ br_37132:
         shr     dx, 0
         call    fn_377E4
         mov     ax, 0d4h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10105,7 +10105,7 @@ br_37132:
         shr     dx, 0
         call    fn_377E4
         mov     ax, 0d0h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10116,7 +10116,7 @@ br_37132:
         shr     dx, 0
         call    fn_377E4
         mov     ax, 0d2h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10244,7 +10244,7 @@ br_3727A:
         call    fn_377E5
         call    fn_377E4
         mov     ax, 54h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10255,33 +10255,33 @@ br_3727A:
         call    fn_377E5
         call    fn_377E4
         mov     ax, 58h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         sub     dx, dx
         mov     ax, 0c4h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 0bch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 0beh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 0c0h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         mov     ax, 0c2h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10291,7 +10291,7 @@ br_3727A:
         mov     dx, 7fffh
         shr     dx, 2
         mov     ax, 0c6h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10299,7 +10299,7 @@ br_3727A:
 br_37346:
         push    ax
         mov     ax, 0c6h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, 0
         out     0a0h, ax
@@ -10309,7 +10309,7 @@ br_37346:
         jne     br_37370
         shr     dx, 2
         mov     ax, 0c4h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10349,7 +10349,7 @@ br_373B5:
         shr     dx, 1
         shr     dx, 0
         mov     ax, 0beh
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10372,7 +10372,7 @@ br_373EA:
         shr     dx, 1
         shr     dx, 0
         mov     ax, 0c0h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10390,14 +10390,14 @@ dsp_reg_write_hi:
         mov     dh, al
         mov     dl, 0
         mov     ax, bp
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
         pop     dx
         retf
 far_3741F:
-        mov     al, byte ptr [9603h]
+        mov     al, byte ptr [C0_B_09603]
         cbw
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
@@ -10464,12 +10464,12 @@ br_374A4:
         cmp     byte ptr es:[di], 3
         ja      br_374B2
         not     al
-        and     byte ptr [9602h], al
+        and     byte ptr [C0_B_09602], al
         jmp     br_374B6
 br_374B2:
-        or      byte ptr [9602h], al
+        or      byte ptr [C0_B_09602], al
 br_374B6:
-        mov     dl, byte ptr [9602h]
+        mov     dl, byte ptr [C0_B_09602]
         mov     dh, 0
         mov     ax, 181h
         out     0a2h, ax
@@ -10531,7 +10531,7 @@ br_374EA:
         mov     dx, bp
 tgt_3752F:
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10543,7 +10543,7 @@ tgt_3752F:
         pop     dx
 tgt_37548:
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10558,7 +10558,7 @@ tgt_37548:
         mov     dx, bp
 tgt_37569:
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10571,7 +10571,7 @@ tgt_37569:
         pop     dx
 tgt_37585:
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10603,7 +10603,7 @@ br_3759E:
         mov     dx, si
         add     dx, dx
         mov     ax, 0ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10611,7 +10611,7 @@ br_3759E:
         mov     cx, 97c8h
         mul     cx
         mov     ax, 10h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10620,7 +10620,7 @@ br_3759E:
         mov     cx, 97c8h
         mul     cx
         mov     ax, 14h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10630,7 +10630,7 @@ br_3759E:
         mov     si, 18h
 L_3760B:
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10642,7 +10642,7 @@ L_3760B:
         add     si, 4
         loop    L_3760B
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10655,7 +10655,7 @@ L_3760B:
         mov     dx, ax
         neg     dx
         mov     ax, si
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10673,7 +10673,7 @@ L_3760B:
         mov     bp, 34h
 tgt_3766C:
         mov     ax, bp
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, word ptr es:[si]
         out     0a0h, ax
@@ -10799,7 +10799,7 @@ br_37736:
         mov     dl, 0
         shr     dx, 1
         mov     ax, 34h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -10820,7 +10820,7 @@ br_377AA:
         mov     cl, 0
         shr     cx, 1
         mov     ax, 2ch
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, cx
         out     0a0h, ax
@@ -10836,7 +10836,7 @@ br_377AA:
 br_377D4:
         mul     bp
         mov     ax, 30h
-        add     al, byte ptr [9603h]
+        add     al, byte ptr [C0_B_09603]
         out     0a2h, ax
         mov     ax, dx
         out     0a0h, ax
@@ -11080,8 +11080,8 @@ timing_calc_rate:
         mov     bp, sp
         push    si
         push    di
-        mov     si, word ptr [98d8h]
-        mov     di, word ptr [98dah]
+        mov     si, word ptr [C0_W_098D8]
+        mov     di, word ptr [C0_W_098DA]
         push    bp
         mov     bx, si
         mov     ax, di
@@ -11218,8 +11218,8 @@ tgt_37AAA:
         loop    tgt_37AAA
         push    ax
         push    dx
-        mov     si, word ptr [98d8h]
-        mov     di, word ptr [98dah]
+        mov     si, word ptr [C0_W_098D8]
+        mov     di, word ptr [C0_W_098DA]
         push    bp
         mov     bx, si
         mov     ax, di
@@ -11288,8 +11288,8 @@ tgt_37B27:
         adc     dx, di
         pop     di
         pop     si
-        mov     word ptr [98d8h], si
-        mov     word ptr [98dah], di
+        mov     word ptr [C0_W_098D8], si
+        mov     word ptr [C0_W_098DA], di
         mov     si, ax
         mov     di, dx
         sar     di, 1
@@ -11342,9 +11342,9 @@ br_37B98:
         mov     word ptr [C0_W_0D7E6], ax
         jmp     br_37BAC
 br_37BA3:
-        cmp     ax, word ptr [98a4h]
+        cmp     ax, word ptr [C0_W_098A4]
         jge     br_37BAC
-        mov     word ptr [98a4h], ax
+        mov     word ptr [C0_W_098A4], ax
 br_37BAC:
         pop     di
         pop     si
@@ -11429,7 +11429,7 @@ wave_mem_size_probe:
 fn_37C3A:
         push    di
         xor     ax, ax
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         mov     ax, 1001h
         push    ax
@@ -11450,7 +11450,7 @@ fn_37C3A:
         nop
 L_37364:
         xor     ax, ax
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         push    1001h
         push    1
@@ -11469,7 +11469,7 @@ L_37386:
         xor     di, di
 br_37C88:
         mov     ax, 4
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         push    1001h
         push    10h
@@ -11487,7 +11487,7 @@ loop_37CA7:
         jmp     br_37D17
 br_37CAC:
         mov     ax, 7
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         push    1001h
         push    10h
@@ -11500,7 +11500,7 @@ br_37CAC:
         or      ax, ax
         jne     loop_37CA7
         mov     ax, 5
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         push    1001h
         push    10h
@@ -11513,7 +11513,7 @@ br_37CAC:
         or      ax, ax
         jne     loop_37CA7
         mov     ax, 6
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         push    1001h
         push    8
@@ -11529,7 +11529,7 @@ br_37CAC:
         jmp     br_37D17
 br_37D0E:
         xor     ax, ax
-        mov     word ptr [98b6h], ax
+        mov     word ptr [C0_W_098B6], ax
         out     0c2h, al
         mov     bx, di
 br_37D17:
@@ -12457,10 +12457,10 @@ br_384C6:
         mov     al, byte ptr [bp+6]
         mov     byte ptr es:[bx+2], al
 br_384E2:
-        mov     ax, word ptr [98c0h]
-        or      ax, word ptr [98beh]
+        mov     ax, word ptr [C0_W_098C0]
+        or      ax, word ptr [C0_W_098BE]
         je      br_384EF
-        callf   [98beh]
+        callf   [C0_W_098BE]
 br_384EF:
         pop     si
         leave
@@ -12919,8 +12919,8 @@ fn_3886E:
         jl      br_388F2
 loop_388A4:
         xor     cx, cx
-        mov     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        mov     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         mov     si, ax
         mov     es, dx
@@ -12950,10 +12950,10 @@ br_388D6:
         push    ax
         callf   EP_DRUM_PROGRAM_SELECT_SEG:EP_DRUM_PROGRAM_SELECT_OFF
         add     sp, 4
-        mov     ax, word ptr [98c0h]
-        or      ax, word ptr [98beh]
+        mov     ax, word ptr [C0_W_098C0]
+        or      ax, word ptr [C0_W_098BE]
         je      br_388F2
-        callf   [98beh]
+        callf   [C0_W_098BE]
 br_388F2:
         pop     si
         pop     di
@@ -13034,10 +13034,10 @@ br_3897E:
 br_38989:
         add     sp, 4
 br_3898C:
-        mov     ax, word ptr [98c0h]
-        or      ax, word ptr [98beh]
+        mov     ax, word ptr [C0_W_098C0]
+        or      ax, word ptr [C0_W_098BE]
         je      br_38999
-        callf   [98beh]
+        callf   [C0_W_098BE]
 br_38999:
         pop     si
         leave
@@ -14038,7 +14038,7 @@ br_392A9:
         jmp     br_392CF
 br_392BA:
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         push    7c00h
         push    0
         push    di
@@ -14186,8 +14186,8 @@ br_393FA:
         push    ss
         push    ax
         imul    ax, word ptr [bp+4], 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, 2
         push    dx
         push    ax
@@ -14232,8 +14232,8 @@ fn_39440:
         push    si
         mov     si, word ptr [bp+4]
         imul    ax, si, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     word ptr [bp-14h], ax
         mov     word ptr [bp-12h], dx
         push    80h
@@ -14482,10 +14482,10 @@ loop_39682:
         mov     cx, ds
         cmp     ax, word ptr [C0_W_098DC]
         jne     br_39693
-        cmp     cx, word ptr [98deh]
+        cmp     cx, word ptr [C0_W_098DE]
         je      br_396A6
 br_39693:
-        push    word ptr [98deh]
+        push    word ptr [C0_W_098DE]
         push    word ptr [C0_W_098DC]
         callf   EP_SOUND_LIST_UNLINK_SEG:EP_SOUND_LIST_UNLINK_OFF
         add     sp, 4
@@ -14493,7 +14493,7 @@ br_39693:
         nop
 br_396A6:
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         push    7c00h
         push    0
         call    fn_396E0
@@ -14735,8 +14735,8 @@ br_39885:
 loop_398AD:
         push    1
         push    1ah
-        mov     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        mov     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         add     ax, word ptr [bp-10h]
         mov     word ptr [bp-18h], ax
         mov     word ptr [bp-16h], dx
@@ -15016,8 +15016,8 @@ br_39B73:
         mov     al, byte ptr [bp-2]
         cbw
         imul    cx, ax, 99eh
-        add     cx, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     cx, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         mov     di, cx
         mov     word ptr [bp-8], dx
         push    ax
@@ -15283,7 +15283,7 @@ br_39DF2:
         push    word ptr [bp-14h]
         push    word ptr [bp-16h]
         push    ds
-        push    8fe0h
+        push    C0_W_08FE0
         callf   EP_FS_READ_RESIZED_SEG:EP_FS_READ_RESIZED_OFF
         add     sp, 0ch
         mov     word ptr [bp-10h], ax
@@ -16472,7 +16472,7 @@ fn_3A90E:
         enter   8, 0
         push    word ptr [bp+4]
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         lea     ax, [bp-8]
         push    ss
         push    ax
@@ -17162,7 +17162,7 @@ L_3AF9E:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         lea     ax, [bp-8]
         push    ss
         push    ax
@@ -17399,7 +17399,7 @@ br_3B1FE:
 L_3B20C:
         enter   8, 0
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         push    7c00h
         push    0c04h
         xor     ax, ax
@@ -17506,10 +17506,10 @@ br_3B313:
         mov     cx, ds
         cmp     ax, word ptr [C0_W_098DC]
         jne     loop_3B33B
-        cmp     cx, word ptr [98deh]
+        cmp     cx, word ptr [C0_W_098DE]
         je      br_3B36A
 loop_3B33B:
-        push    word ptr [98deh]
+        push    word ptr [C0_W_098DE]
         push    word ptr [C0_W_098DC]
         callf   EP_SOUND_LIST_UNLINK_SEG:EP_SOUND_LIST_UNLINK_OFF
         add     sp, 4
@@ -17533,10 +17533,10 @@ br_3B36A:
         cbw
         mov     si, ax
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         imul    ax, si, 99eh
-        add     ax, word ptr [989ah]
-        mov     dx, word ptr [989ch]
+        add     ax, word ptr [C0_W_0989A]
+        mov     dx, word ptr [C0_W_0989C]
         push    dx
         push    ax
         call    fn_3B4C0
@@ -17615,9 +17615,9 @@ br_3B40E:
 L_3B418:
         enter   4, 0
         push    si
-        mov     byte ptr [98d5h], 32h
+        mov     byte ptr [C0_B_098D5], 32h
         push    ds
-        push    98c2h
+        push    C0_W_098C2
         call    fn_3B58A
         add     sp, 4
         mov     si, ax
@@ -20313,7 +20313,7 @@ br_3CB29:
         cmp     si, 4
         jl      loop_3CB08
         push    1
-        mov     al, byte ptr [98b8h]
+        mov     al, byte ptr [C0_B_098B8]
         cbw
         inc     ax
         cwd
@@ -20563,7 +20563,7 @@ br_3CD49:
         call    fn_3CED6
         add     sp, 8
         callf   EP_FIELD_ENGINE_REDRAW_SEG:EP_FIELD_ENGINE_REDRAW_OFF
-        cmp     word ptr [95f2h], 2
+        cmp     word ptr [C0_W_095F2], 2
         je      br_3CD76
         jmp     br_3CE44
 br_3CD76:
@@ -20596,7 +20596,7 @@ br_3CD76:
         add     cx, ax
         add     cx, cx
         push    cx
-        imul    bx, word ptr [95f2h], 2ah
+        imul    bx, word ptr [C0_W_095F2], 2ah
         mov     al, byte ptr [bx+C0_B_044C9]
         sub     ah, ah
         push    ax
@@ -20659,11 +20659,11 @@ br_3CE06:
         jmp     loop_3CD1E
         nop
 br_3CE44:
-        cmp     word ptr [95f2h], 2
+        cmp     word ptr [C0_W_095F2], 2
         jg      br_3CE4E
         jmp     br_3CED1
 br_3CE4E:
-        cmp     word ptr [95f2h], 9
+        cmp     word ptr [C0_W_095F2], 9
         jge     br_3CED1
         push    3
         callf   EP_DISP_SELECT_PLANE_SEG:EP_DISP_SELECT_PLANE_OFF
@@ -20692,7 +20692,7 @@ br_3CE7E:
         add     si, si
         add     si, ax
         add     si, si
-        mov     bx, word ptr [95f2h]
+        mov     bx, word ptr [C0_W_095F2]
         mov     al, byte ptr [bp-1]
         test    byte ptr [bx+si+C0_B_044AD], al
         je      br_3CE98
@@ -20928,10 +20928,10 @@ L_3D06E:
         push    word ptr es:[bx+26h]
         call    lcd_init_setup
         add     sp, 2
-        mov     word ptr [98b8h], ax
-        mov     word ptr [9600h], 1
+        mov     word ptr [C0_B_098B8], ax
+        mov     word ptr [C0_W_09600], 1
         push    ds
-        push    98b8h
+        push    C0_B_098B8
         push    ds
         push    C0_W_050DC
         nop
@@ -20971,10 +20971,10 @@ L_3D0D4:
         push    word ptr es:[bx+28h]
         call    lcd_init_setup
         add     sp, 2
-        mov     word ptr [98b8h], ax
-        mov     word ptr [9600h], 2
+        mov     word ptr [C0_B_098B8], ax
+        mov     word ptr [C0_W_09600], 2
         push    ds
-        push    98b8h
+        push    C0_B_098B8
         push    ds
         push    C0_W_05106
         nop
@@ -21097,12 +21097,12 @@ br_3D1B4:
         leave
         ret
 L_3D1F0:
-        test    byte ptr [9604h], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_3D1FE
-        test    byte ptr [9604h], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_3D213
 br_3D1FE:
-        mov     al, byte ptr [9606h]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -21115,8 +21115,8 @@ br_3D213:
         push    C0_W_051E8
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF                    ; = 0x3E8B4 handler_set_install
         add     sp, 4
-        mov     word ptr [98beh], (C0_BASE+L_3D23E-C0_SEG*16)
-        mov     word ptr [98c0h], C0_SEG
+        mov     word ptr [C0_W_098BE], (C0_BASE+L_3D23E-C0_SEG*16)
+        mov     word ptr [C0_W_098C0], C0_SEG
         push    word ptr [C2_W_FX_DELAY_CURSOR]
         call    fn_3D256
         add     sp, 2
@@ -21174,7 +21174,7 @@ tgt_3D296:
         jne     br_3D2A3
         jmp     br_3D34A
 br_3D2A3:
-        mov     byte ptr [8fc4h], 2
+        mov     byte ptr [C0_B_08FC4], 2
         mov     ax, 180h
         out     0a2h, ax
         mov     ax, 2
@@ -21184,7 +21184,7 @@ br_3D2A3:
         xor     ax, ax
         out     0a0h, ax
         mov     cx, ax
-        mov     byte ptr [9602h], cl
+        mov     byte ptr [C0_B_09602], cl
         mov     ax, 182h
         out     0a2h, ax
         xor     ax, ax

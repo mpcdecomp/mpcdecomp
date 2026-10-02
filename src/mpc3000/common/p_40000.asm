@@ -826,23 +826,11 @@ fn_c070b:
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_4BFC
-        elseif  FW_VERSION = 311
-        push    word STR_4BFC
-        else
-        push    word STR_4BFC
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_4C1C+2
-        elseif  FW_VERSION = 311
-        push    word STR_4C1C+2
-        else
-        push    word STR_4C1C+2
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_D79E:far_d79ee
@@ -865,13 +853,7 @@ far_c0743:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_4CA9
-        elseif  FW_VERSION = 311
-        push    word P_4CA9
-        else
-        push    word P_4CA9
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -1835,13 +1817,7 @@ far_c0eeb:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_5122
-        elseif  FW_VERSION = 311
-        push    word P_5122
-        else
-        push    word P_5122
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -5668,13 +5644,7 @@ br_c2d5a:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_5058+3
-        elseif  FW_VERSION = 311
-        push    word P_5058+3
-        else
-        push    word P_5058+3
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    5
@@ -5682,13 +5652,7 @@ br_c2d5a:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_505D+3
-        elseif  FW_VERSION = 311
-        push    word P_505D+3
-        else
-        push    word P_505D+3
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -8138,13 +8102,7 @@ br_c4475:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_55BF
-        elseif  FW_VERSION = 311
-        push    word P_55BF
-        else
-        push    word P_55BF
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -8538,9 +8496,7 @@ far_c46bf:
         add     sp, 6
         callf   SEG_B702:far_b90dd
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_5945
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_5945
         else
         push    word STR_532D_V308
@@ -8601,23 +8557,7 @@ tgt_c4856:
         mov     dx, ax
         jmp     tgt_c4892
 tgt_c485f:
-        if      FW_VERSION >= 312
-        callf   SEG_B000:far_b0002
-        push    ds
-        push    word STR_5965
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-loop_c4870:
-        push    1
-        callf   SEG_B05A:far_b08f7
-        add     sp, 2
-        mov     dx, ax
-        or      ax, ax
-        jz      loop_c4870
-        cmp     dx, 78h
-        jnz     tgt_c4892
-        mov     dx, 4fh
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         callf   SEG_B000:far_b0002
         push    ds
         push    word STR_5965
@@ -8766,9 +8706,7 @@ far_c495e:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_5A1E
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_5A1E
         else
         push    word STR_53F6_V308
@@ -12024,13 +11962,7 @@ fn_c5c76:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_5C93
-        elseif  FW_VERSION = 311
-        push    word P_5C93
-        else
-        push    word P_5C93
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -12858,13 +12790,7 @@ fn_c6379:
         mov     byte ptr [B_D5DD], 2bh
         callf   SEG_B1AA:far_b1aac
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_5C7A_2+6
-        elseif  FW_VERSION = 311
-        push    word STR_5C7A_2+6
-        else
-        push    word STR_5C7A_2+6
-        endif
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    0
@@ -13016,13 +12942,7 @@ fn_c64c5:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_5DBD
-        elseif  FW_VERSION = 311
-        push    word STR_5DBD
-        else
-        push    word STR_5DBD
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -13478,13 +13398,7 @@ far_c6894:
         push    ds
         push    word B_8288
         push    ds
-        if      FW_VERSION >= 312
         push    word P_5F0A
-        elseif  FW_VERSION = 311
-        push    word P_5F0A
-        else
-        push    word P_5F0A
-        endif
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    18h
@@ -13722,13 +13636,7 @@ far_c6ae0:
         push    ds
         push    word B_7FCA
         push    ds
-        if      FW_VERSION >= 312
         push    word P_5F04+4
-        elseif  FW_VERSION = 311
-        push    word P_5F04+4
-        else
-        push    word P_5F04+4
-        endif
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    4
@@ -13742,13 +13650,7 @@ far_c6ae0:
         push    ds
         push    word W_D659
         push    ds
-        if      FW_VERSION >= 312
         push    word P_5EFD+3
-        elseif  FW_VERSION = 311
-        push    word P_5EFD+3
-        else
-        push    word P_5EFD+3
-        endif
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    4
@@ -16686,9 +16588,7 @@ br_c7c30:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_627F
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_627F
         else
         push    word STR_5B42_V308
@@ -18875,13 +18775,7 @@ br_c8d7c:
         push    ds
         push    word B_F22C
         push    ds
-        if      FW_VERSION >= 312
         push    word P_6578+0bh
-        elseif  FW_VERSION = 311
-        push    word P_6578+0bh
-        else
-        push    word P_6578+0bh
-        endif
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         les     bx, dword ptr [bp + 8]
@@ -18903,13 +18797,7 @@ br_c8d7c:
         push    ds
         push    word W_F22E
         push    ds
-        if      FW_VERSION >= 312
         push    word P_6578+6
-        elseif  FW_VERSION = 311
-        push    word P_6578+6
-        else
-        push    word P_6578+6
-        endif
         callf   SEG_B347:far_b3723
         add     sp, 14h
         jmp     br_c8ea3
@@ -20105,9 +19993,7 @@ br_c96ac:
         push    ds
         push    word B_7FD0
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_6738
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_6738
         else
         push    word STR_5FF4_V308
@@ -20601,13 +20487,7 @@ br_c9aeb:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_6809
-        elseif  FW_VERSION = 311
-        push    word STR_6809
-        else
-        push    word STR_6809
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -21768,13 +21648,7 @@ br_ca4ba:
         push    ds
         push    word W_947A
         push    ds
-        if      FW_VERSION >= 312
         push    word P_699C
-        elseif  FW_VERSION = 311
-        push    word P_699C
-        else
-        push    word P_699C
-        endif
         callf   SEG_B347:far_b39a2
         add     sp, 8
         push    0
@@ -21879,13 +21753,7 @@ br_ca658:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_6943_2+4
-        elseif  FW_VERSION = 311
-        push    word STR_6943_2+4
-        else
-        push    word STR_6943_2+4
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    1
@@ -22190,13 +22058,7 @@ br_ca884:
         push    ds
         push    word W_947A
         push    ds
-        if      FW_VERSION >= 312
         push    word P_6A6D
-        elseif  FW_VERSION = 311
-        push    word P_6A6D
-        else
-        push    word P_6A6D
-        endif
         callf   SEG_B347:far_b39a2
         add     sp, 8
         callf   SEG_B702:far_b90dd

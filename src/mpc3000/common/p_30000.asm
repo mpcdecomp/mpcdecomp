@@ -7594,11 +7594,7 @@ far_b3e07:
         lea     ax, [bp - 14h]
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word lbl_dash
-        else
-        push    word lbl_dash
-        endif
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         push    0
@@ -7610,11 +7606,7 @@ far_b3e07:
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_1E63
-        else
-        push    word STR_1E63
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -7677,11 +7669,7 @@ far_b3efe:
         push    si
         push    di
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_1EB5
-        else
-        push    word STR_1EB5
-        endif
         callf   SEG_EC03:far_ec03b
         add     sp, 4
         mov     al, byte ptr [B_D5DE]
@@ -7778,11 +7766,7 @@ br_b3fda:
         lea     ax, [bp - 8]
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word P_1EA5+3
-        else
-        push    word P_1EA5+3
-        endif
         callf   SEG_B347:far_b3819
         add     sp, 10h
         cmp     byte ptr [bp - 15h], 0
@@ -7852,11 +7836,7 @@ br_b4012:
         push    ds
         push    word TBL_E56A
         push    ds
-        if      FW_VERSION >= 311
         push    word P_1EDE
-        else
-        push    word P_1EDE
-        endif
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    0
@@ -8926,11 +8906,7 @@ fn_b4a03:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word P_1FA3
-        else
-        push    word P_1FA3
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -8939,11 +8915,7 @@ fn_b4a03:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_1ECD+1
-        else
-        push    word STR_1ECD+1
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    0
@@ -9158,11 +9130,7 @@ fn_b4c4b:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2072
-        else
-        push    word STR_2072
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b9102
@@ -9319,11 +9287,7 @@ fn_b4de1:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_20CB
-        else
-        push    word STR_20CB
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b9102
@@ -9659,11 +9623,7 @@ fn_b50ea:
         callf   SEG_EACB:far_eacb4
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_21D5
-        else
-        push    word STR_21D5
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         callf   SEG_EACB:far_eacf0
@@ -9671,11 +9631,7 @@ fn_b50ea:
         callf   SEG_EACB:far_eacbe
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_21F6
-        else
-        push    word STR_21F6
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         callf   SEG_EACB:far_eacfa
@@ -9683,11 +9639,7 @@ fn_b50ea:
         callf   SEG_EACB:far_eacc8
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2217
-        else
-        push    word STR_2217
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         callf   SEG_EACB:far_ead04
@@ -9695,11 +9647,7 @@ fn_b50ea:
         callf   SEG_EACB:far_eacd2
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2238
-        else
-        push    word STR_2238
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         callf   SEG_EACB:far_ead0e
@@ -9707,11 +9655,7 @@ fn_b50ea:
         callf   SEG_EACB:far_eacdc
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2259
-        else
-        push    word STR_2259
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         callf   SEG_D79E:far_d79ee
@@ -9897,11 +9841,7 @@ far_b52de:
         callf   SEG_EC03:far_ec03b
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word P_2427
-        else
-        push    word P_2427
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         cmp     byte ptr [B_7AD0], 0
@@ -9911,11 +9851,7 @@ far_b52de:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_24CD
-        else
-        push    word STR_24CD
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_b5327:
@@ -11247,27 +11183,15 @@ fn_b5d64:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_26DB
-        else
-        push    word STR_26DB
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2702
-        else
-        push    word STR_2702
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2729
-        else
-        push    word STR_2729
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
@@ -11642,11 +11566,7 @@ far_b60ee:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_280C
-        else
-        push    word STR_280C
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
@@ -11744,19 +11664,11 @@ fn_b61d5:
         call    far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2875
-        else
-        push    word STR_2875
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2886
-        else
-        push    word STR_2886
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    ds
@@ -11843,11 +11755,7 @@ fn_b628b:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word P_28F1
-        else
-        push    word P_28F1
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -13721,11 +13629,7 @@ far_b7024:
         callf   SEG_EC03:far_ec03b
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word P_2E50
-        else
-        push    word P_2E50
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         nop
@@ -15801,11 +15705,7 @@ fn_b8300:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 311
         push    word P_314B
-        else
-        push    word P_314B
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         nop
@@ -16094,11 +15994,7 @@ br_b8572:
         cbw
         push    ax
         push    ds
-        if      FW_VERSION >= 311
         push    word STR_2F31+0dh
-        else
-        push    word STR_2F31+0dh
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         mov     ax, di
@@ -23069,13 +22965,7 @@ br_b9274:
         push    ds
         push    word W_947A
         push    ds
-        if      FW_VERSION >= 312
         push    word P_3908
-        elseif  FW_VERSION = 311
-        push    word P_3908
-        else
-        push    word P_3908
-        endif
         callf   SEG_B347:far_b39a2
         add     sp, 8
         push    0
@@ -23421,13 +23311,7 @@ fn_b95f6:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_396A
-        elseif  FW_VERSION = 311
-        push    word STR_396A
-        else
-        push    word STR_396A
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b9102
@@ -23488,13 +23372,7 @@ fn_b96dc:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_39DA
-        elseif  FW_VERSION = 311
-        push    word STR_39DA
-        else
-        push    word STR_39DA
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b9102
@@ -23559,13 +23437,7 @@ br_b976e:
         cmp     di, 40h
         jnz     br_b97a0
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_3911_2+6
-        elseif  FW_VERSION = 311
-        push    word STR_3911_2+6
-        else
-        push    word STR_3911_2+6
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         push    1eh
@@ -23638,13 +23510,7 @@ br_b97a0:
         cmp     di, 1
         jle     br_b9807
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_3A5B_2+8
-        elseif  FW_VERSION = 311
-        push    word STR_3A5B_2+8
-        else
-        push    word STR_3A5B_2+8
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         pop     di
@@ -23966,13 +23832,7 @@ fn_b9a31:
         push    ds
         push    word B_8288
         push    ds
-        if      FW_VERSION >= 312
         push    word P_3AD7
-        elseif  FW_VERSION = 311
-        push    word P_3AD7
-        else
-        push    word P_3AD7
-        endif
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    16h
@@ -24046,13 +23906,7 @@ fn_b9a31:
         lea     ax, [bp - 2]
         push    ax
         push    ds
-        if      FW_VERSION >= 312
         push    word P_38E9+5
-        elseif  FW_VERSION = 311
-        push    word P_38E9+5
-        else
-        push    word P_38E9+5
-        endif
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    16h
@@ -25181,13 +25035,7 @@ far_ba406:
         endif
         push    ax
         push    ds
-        if      FW_VERSION >= 312
         push    word P_3BF1
-        elseif  FW_VERSION = 311
-        push    word P_3BF1
-        else
-        push    word P_3BF1
-        endif
         callf   SEG_B347:far_b362e
         add     sp, 0eh
         push    1bh
@@ -25999,63 +25847,7 @@ br_baa83:
 br_baace:
         endif
         xor     ax, ax
-        if      FW_VERSION >= 312
-        leave
-        retf
-fn_baad2:
-        push    ds
-        push    word STR_3CC8
-        callf   SEG_B52D:far_b6cd3
-        add     sp, 4
-        mov     byte ptr [B_D5DD], 49h
-        push    0
-        push    1
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        push    ds
-        push    word STR_3CD6
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        push    ds
-        push    word STR_3D00
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        push    0
-        push    4
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        push    0ch
-        push    ds
-        push    word TBL_E589
-        push    ds
-        push    word B_7ACB
-        push    ds
-        push    word STR_3D1B
-        callf   SEG_B347:far_b362e
-        add     sp, 0eh
-        callf   SEG_B702:far_b90dd
-        push    ds
-        push    word STR_3D23
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        jmp     br_bab46
-loop_bab3c:
-        push    0
-        callf   SEG_B05A:far_b1073
-        add     sp, 2
-br_bab46:
-        push    1
-        callf   SEG_B05A:far_b08f7
-        add     sp, 2
-        mov     dx, ax
-        or      ax, ax
-        jz      loop_bab3c
-        cmp     dx, 78h
-        jnz     br_bab5d
-        xor     dx, dx
-br_bab5d:
-        mov     ax, dx
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         leave
         retf
 fn_baad2:
@@ -26908,305 +26700,7 @@ L_c4d1a:
         endif
         push    bp
         mov     bp, sp
-        if      FW_VERSION >= 312
-        sub     sp, 4
-        push    si
-        push    di
-        les     di, dword ptr [bp + 6]
-        push    es
-        mov     es, word ptr [bp + 0ch]
-        push    di
-        mov     di, word ptr [bp + 0ah]
-        xor     ax, ax
-        mov     cx, 0ffffh
-        repne scasb
-        not     cx
-        sub     di, cx
-        shr     cx, 1
-        mov     ax, word ptr [bp + 0ch]
-        mov     si, word ptr [bp + 0ah]
-        pop     di
-        pop     es
-        push    ds
-        mov     ds, ax
-        rep movsw
-        adc     cx, cx
-        rep movsb
-        pop     ds
-        les     di, dword ptr [bp + 6]
-        xor     ax, ax
-        mov     cx, 0ffffh
-        repne scasb
-        not     cx
-        dec     cx
-        dec     cx
-        mov     ax, word ptr [bp + 8]
-        mov     dx, word ptr [bp + 6]
-        add     dx, cx
-        mov     word ptr [bp - 2], ax
-        mov     word ptr [bp - 4], dx
-        les     bx, dword ptr [bp - 4]
-        cmp     byte ptr es:[bx], 4ch
-        jnz     br_bb05e
-        mov     al, 52h
-        jmp     br_bb060
-br_bb05e:
-        mov     al, 4ch
-br_bb060:
-        les     bx, dword ptr [bp - 4]
-        mov     byte ptr es:[bx], al
-        pop     di
-        pop     si
-        leave
-        retf
-fn_bb06a:
-        push    bp
-        mov     bp, sp
-        sub     sp, 4
-        push    di
-        les     di, dword ptr [bp + 6]
-        xor     ax, ax
-        mov     cx, 0ffffh
-        repne scasb
-        not     cx
-        dec     cx
-        mov     bx, cx
-        cmp     bx, 2
-        jle     br_bb0c0
-        mov     ax, bx
-        mov     dx, word ptr [bp + 8]
-        add     ax, word ptr [bp + 6]
-        add     ax, 0fffeh
-        mov     word ptr [bp - 2], dx
-        mov     word ptr [bp - 4], ax
-        les     bx, dword ptr [bp - 4]
-        inc     word ptr [bp - 4]
-        cmp     byte ptr es:[bx], 2dh
-        jnz     br_bb0c0
-        les     bx, dword ptr [bp - 4]
-        cmp     byte ptr es:[bx], 4ch
-        jnz     br_bb0b1
-        mov     ax, 1
-        pop     di
-        leave
-        retf
-br_bb0b1:
-        les     bx, dword ptr [bp - 4]
-        cmp     byte ptr es:[bx], 52h
-        jnz     br_bb0c0
-        mov     ax, 2
-        pop     di
-        leave
-        retf
-br_bb0c0:
-        xor     ax, ax
-        pop     di
-        leave
-        retf
-fn_bb0c5:
-        push    bp
-        mov     bp, sp
-        sub     sp, 6
-        push    si
-        push    di
-        mov     ax, word ptr [bp + 8]
-        mov     dx, word ptr [bp + 6]
-        mov     word ptr [bp - 2], ax
-        mov     word ptr [bp - 4], dx
-        mov     word ptr [bp - 6], 0
-        jmp     br_bb13c
-loop_bb0e0:
-        les     bx, dword ptr [bp - 4]
-        les     di, dword ptr es:[bx]
-        mov     ax, word ptr [bp + 0eh]
-        mov     si, word ptr [bp + 0ch]
-        push    ax
-        xor     ax, ax
-        mov     cx, 0ffffh
-        repne scasb
-        not     cx
-        sub     di, cx
-        mov     ax, ds
-        pop     ds
-        push    ax
-        xor     ax, ax
-        repe cmpsb
-        pop     ds
-        jz      br_bb108
-        sbb     ax, ax
-        sbb     ax, 0ffffh
-br_bb108:
-        or      ax, ax
-        jnz     br_bb135
-        les     bx, dword ptr [bp - 4]
-        push    word ptr es:[bx + 2]
-        push    word ptr es:[bx]
-        push    cs
-        call    fn_bab60
-        add     sp, 4
-        cmp     dx, word ptr [bp + 12h]
-        jnz     br_bb12e
-        cmp     ax, word ptr [bp + 10h]
-        jnz     br_bb12e
-        mov     ax, word ptr [bp - 6]
-        pop     di
-        pop     si
-        leave
-        retf
-br_bb12e:
-        mov     ax, 0ffffh
-        pop     di
-        pop     si
-        leave
-        retf
-br_bb135:
-        inc     word ptr [bp - 6]
-        add     word ptr [bp - 4], 4
-br_bb13c:
-        mov     ax, word ptr [bp - 6]
-        cmp     ax, word ptr [bp + 0ah]
-        jl      loop_bb0e0
-        mov     ax, 0ffffh
-        pop     di
-        pop     si
-        leave
-        retf
-fn_bb14b:
-        push    bp
-        mov     bp, sp
-        sub     sp, 4
-        push    si
-        cmp     byte ptr [B_7AC3], 0
-        jz      br_bb15f
-        mov     ax, 0ffffh
-        pop     si
-        leave
-        retf
-br_bb15f:
-        mov     ax, word ptr [bp + 0eh]
-        shl     ax, 2
-        les     bx, dword ptr [bp + 0ah]
-        add     bx, ax
-        push    word ptr es:[bx + 2]
-        push    word ptr es:[bx]
-        push    cs
-        call    fn_bab60
-        add     sp, 4
-        mov     word ptr [bp - 2], dx
-        mov     word ptr [bp - 4], ax
-        callf   SEG_E7F0:far_e821c
-        push    word ptr [bp + 0ch]
-        push    word ptr [bp + 0ah]
-        push    cs
-        call    fn_baeca
-        add     sp, 4
-        mov     si, ax
-        callf   SEG_E7F0:far_e8248
-        or      si, si
-        jg      br_bb1a1
-        mov     ax, 0ffffh
-        pop     si
-        leave
-        retf
-br_bb1a1:
-        push    word ptr [bp - 2]
-        push    word ptr [bp - 4]
-        push    word ptr [bp + 8]
-        push    word ptr [bp + 6]
-        push    si
-        push    word ptr [bp + 0ch]
-        push    word ptr [bp + 0ah]
-        push    cs
-        call    fn_bb0c5
-        add     sp, 0eh
-        pop     si
-        leave
-        retf
-fn_bb1be:
-        push    bp
-        mov     bp, sp
-        push    si
-        mov     si, word ptr [bp + 0eh]
-        callf   SEG_B1AA:far_b1af9
-br_bb1ca:
-        callf   SEG_B1AA:far_b1aac
-        push    ds
-        push    word STR_3D2F
-        callf   SEG_B52D:far_b6cd3
-        add     sp, 4
-        push    ds
-        push    word STR_3D3A
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        push    word ptr [bp + 8]
-        push    word ptr [bp + 6]
-        push    ds
-        push    word STR_3D61
-        callf   SEG_B1B5:far_b1d48
-        add     sp, 8
-        push    ds
-        push    word STR_3D7F
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        callf   SEG_B702:far_b90dd
-        push    0
-        push    7
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        push    ds
-        push    word STR_3D96
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        push    2
-        callf   SEG_EBCC:far_ebda4
-        add     sp, 2
-        mov     dx, ax
-        cmp     dx, 78h
-        jz      br_bb239
-        mov     ax, 0ffffh
-        pop     si
-        pop     bp
-        retf
-br_bb239:
-        push    0
-        push    7
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        push    28h
-        push    20h
-        callf   SEG_B1AA:far_b1b41
-        add     sp, 4
-        push    0
-        push    7
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        push    word ptr [bp + 8]
-        push    word ptr [bp + 6]
-        push    ds
-        push    word STR_3DA8
-        callf   SEG_B1B5:far_b1d48
-        add     sp, 8
-        push    si
-        push    word ptr [bp + 0ch]
-        push    word ptr [bp + 0ah]
-        push    word ptr [bp + 8]
-        push    word ptr [bp + 6]
-        push    cs
-        call    fn_bb14b
-        add     sp, 0ah
-        mov     dx, ax
-        cmp     ax, 0ffffh
-        jnz     br_bb28d
-        jmp     near br_bb1ca
-br_bb28d:
-        pop     si
-        pop     bp
-        retf
-fn_bb290:
-        push    bp
-        mov     bp, sp
-        sub     sp, 0d8h
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         sub     sp, 4
         push    si
         push    di
@@ -28775,42 +28269,7 @@ L_c5320:
         push    word ptr es:[bx]
         endif
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_3DCA
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        push    word ptr [bp + 10h]
-        push    word ptr [bp + 0eh]
-        callf   SEG_B1AA:far_b1b05
-        add     sp, 4
-        jmp     br_bb9de
-br_bb972:
-        push    word ptr [bp - 2]
-        push    word ptr [bp - 4]
-        push    ss
-        lea     ax, [bp - 12h]
-        push    ax
-        push    cs
-        call    fn_bb003
-        add     sp, 8
-        or      si, si
-        jle     br_bb99b
-        mov     ax, si
-        shl     ax, 2
-        les     bx, dword ptr [bp + 6]
-        add     bx, ax
-        mov     dx, word ptr es:[bx + 2]
-        mov     ax, word ptr es:[bx]
-        jmp     br_bb9a0
-br_bb99b:
-        mov     dx, ss
-        lea     ax, [bp - 12h]
-br_bb9a0:
-        push    dx
-        push    ax
-        push    ds
-        push    word STR_3DDF
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_3DCA
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
@@ -28862,9 +28321,7 @@ br_bb9a0:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_3DFC
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_3DFC
         else
         push    word STR_3991_V308
@@ -28916,13 +28373,7 @@ far_bb9e3:
         jmp     tgt_bbd7e
 br_bba07:
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_3C92
-        elseif  FW_VERSION = 311
-        push    word STR_3C92
-        else
-        push    word STR_3C92
-        endif
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -29016,10 +28467,7 @@ br_bba9f:
         endif
         push    ax
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_3E21
-        callf   SEG_B347:far_b353b
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_3E21
         callf   SEG_B347:far_b353b
         else
@@ -29056,23 +28504,7 @@ br_bba9f:
         push    dx
         push    ax
         push    ds
-        if      FW_VERSION >= 312
-        push    word A_3E27
-        callf   SEG_B1B5:far_b1d48
-        add     sp, 8
-        push    0
-        push    2
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        mov     al, byte ptr [B_7AC3]
-        mov     ah, 0
-        shl     ax, 2
-        mov     bx, ax
-        push    word ptr [bx + 60eh]
-        push    word ptr [bx + 60ch]
-        push    ds
-        push    word STR_3E31
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word A_3E27
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
@@ -29543,13 +28975,7 @@ far_bbd9c:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_3EB7
-        elseif  FW_VERSION = 311
-        push    word STR_3EB7
-        else
-        push    word STR_3EB7
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -30395,9 +29821,7 @@ br_bc2b5:
         add     sp, 4
         endif
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_3F89
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_3F89
         else
         push    word STR_3ACB_V308
@@ -30632,96 +30056,7 @@ br_bc4ee:
         mov     es, dx
         mov     ax, word ptr es:[bx + 4822h]
         mov     dx, word ptr es:[bx + 4820h]
-        if      FW_VERSION >= 312
-        mov     word ptr [bp - 2ch], ax
-        mov     word ptr [bp - 2eh], dx
-        mov     ax, word ptr [bp - 28h]
-        mov     dx, word ptr [bp - 2ah]
-        mov     word ptr [bp - 24h], ax
-        mov     word ptr [bp - 26h], dx
-        push    0
-        push    7
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        push    28h
-        push    20h
-        callf   SEG_B1AA:far_b1b41
-        add     sp, 4
-        push    0
-        push    7
-        callf   SEG_B1AA:far_b1ad0
-        add     sp, 4
-        mov     al, byte ptr [bp - 17h]
-        cbw
-        shl     ax, 2
-        lea     dx, [bp - 8d4h]
-        add     ax, dx
-        mov     bx, ax
-        les     di, dword ptr ss:[bx]
-        mov     ax, ss
-        lea     si, [bp - 9e6h]
-        push    ax
-        xor     ax, ax
-        mov     cx, 0ffffh
-        repne scasb
-        not     cx
-        sub     di, cx
-        shr     cx, 1
-        mov     ax, ds
-        pop     ds
-        push    ax
-        xchg    si, di
-        mov     bx, ds
-        mov     ax, es
-        mov     ds, ax
-        mov     es, bx
-        rep movsw
-        adc     cx, cx
-        rep movsb
-        pop     ds
-        push    ss
-        pop     es
-        lea     di, [bp - 9e6h]
-        xor     ax, ax
-        mov     cx, 0ffffh
-        repne scasb
-        not     cx
-        xor     ax, ax
-        sub     di, cx
-        repne scasb
-        jz      br_bc596
-        mov     di, 1
-        xor     ax, ax
-        mov     es, ax
-br_bc596:
-        dec     di
-        mov     ax, es
-        mov     word ptr [bp - 3ch], ax
-        mov     word ptr [bp - 3eh], di
-        mov     ax, word ptr [bp - 3eh]
-        or      ax, word ptr [bp - 3ch]
-        jz      br_bc5c4
-        jmp     br_bc5b6
-loop_bc5a9:
-        les     bx, dword ptr [bp - 3eh]
-        cmp     byte ptr es:[bx], 20h
-        jnz     br_bc5b6
-        mov     byte ptr es:[bx], 0
-br_bc5b6:
-        dec     word ptr [bp - 3eh]
-        mov     ax, word ptr [bp - 3eh]
-        lea     dx, [bp - 9e6h]
-        cmp     ax, dx
-        ja      loop_bc5a9
-br_bc5c4:
-        push    ss
-        lea     ax, [bp - 9e6h]
-        push    ax
-        push    ds
-        push    word STR_3F91
-        callf   SEG_B1B5:far_b1d48
-        add     sp, 8
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         mov     word ptr [bp - 2ch], ax
         mov     word ptr [bp - 2eh], dx
         mov     ax, word ptr [bp - 28h]
@@ -30933,13 +30268,7 @@ br_bc618:
         endif
         push    ax
         push    ds
-        if      FW_VERSION >= 312
         push    word P_3FCF
-        elseif  FW_VERSION = 311
-        push    word P_3FCF
-        else
-        push    word P_3FCF
-        endif
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         push    0
@@ -30949,8 +30278,6 @@ br_bc618:
         push    ds
         if      FW_VERSION >= 312
         push    word STR_3FD1
-        elseif  FW_VERSION = 311
-        push    word STR_3FC1_V311
         else
         push    word STR_3FC1_V311
         endif
@@ -30964,8 +30291,6 @@ br_bc618:
         push    ds
         if      FW_VERSION >= 312
         push    word STR_401F
-        elseif  FW_VERSION = 311
-        push    word STR_3FE2_V311
         else
         push    word STR_3FE2_V311
         endif
@@ -31096,13 +30421,7 @@ L_bc793:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_4034
-        elseif  FW_VERSION = 311
-        push    word P_4034
-        else
-        push    word P_4034
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -32731,13 +32050,7 @@ fn_bd237:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_41DD
-        elseif  FW_VERSION = 311
-        push    word P_41DD
-        else
-        push    word P_41DD
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -33273,9 +32586,7 @@ far_bd688:
         lea     ax, [bp - 3]
         push    ax
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_42E0
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_42E0
         else
         push    word STR_3DD8_V308
@@ -33440,13 +32751,7 @@ fn_bd7ce:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_4320
-        elseif  FW_VERSION = 311
-        push    word P_4320
-        else
-        push    word P_4320
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -33704,13 +33009,7 @@ far_bda63:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_44A3
-        elseif  FW_VERSION = 311
-        push    word STR_44A3
-        else
-        push    word STR_44A3
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -34524,13 +33823,7 @@ fn_be1ab:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_4585
-        elseif  FW_VERSION = 311
-        push    word STR_4585
-        else
-        push    word STR_4585
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd
@@ -34661,13 +33954,7 @@ br_be2cc:
         dec     ax
         push    ax
         push    ds
-        if      FW_VERSION >= 312
         push    word P_45FB
-        elseif  FW_VERSION = 311
-        push    word P_45FB
-        else
-        push    word P_45FB
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 6
         push    0
@@ -34788,13 +34075,7 @@ br_be373:
         endif
         push    ax
         push    ds
-        if      FW_VERSION >= 312
         push    word P_4728
-        elseif  FW_VERSION = 311
-        push    word P_4728
-        else
-        push    word P_4728
-        endif
         callf   SEG_B347:far_b3471
         add     sp, 0ah
         if      FW_VERSION >= 312
@@ -35726,9 +35007,7 @@ far_be846:
         callf   SEG_B1AA:far_b1ad0
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
-        push    word STR_47D7
-        elseif  FW_VERSION = 311
+        if      (FW_VERSION >= 312) || (FW_VERSION = 311)
         push    word STR_47D7
         else
         push    word STR_4288_V308
@@ -36597,25 +35876,13 @@ L_bee4a:
         cmp     byte ptr [B_7AC3], 0
         jnz     br_bee7c
         push    ds
-        if      FW_VERSION >= 312
         push    word P_4860
-        elseif  FW_VERSION = 311
-        push    word P_4860
-        else
-        push    word P_4860
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         jmp     br_bee88
 br_bee7c:
         push    ds
-        if      FW_VERSION >= 312
         push    word P_48ED
-        elseif  FW_VERSION = 311
-        push    word P_48ED
-        else
-        push    word P_48ED
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_bee88:
@@ -36633,13 +35900,7 @@ br_bee88:
         jmp     br_beeba
 br_beeae:
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_48D5+0ch
-        elseif  FW_VERSION = 311
-        push    word STR_48D5+0ch
-        else
-        push    word STR_48D5+0ch
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
 br_beeba:
@@ -37134,13 +36395,7 @@ far_bf294:
         push    ds
         push    word W_D659
         push    ds
-        if      FW_VERSION >= 312
         push    word P_4AAF+3
-        elseif  FW_VERSION = 311
-        push    word P_4AAF+3
-        else
-        push    word P_4AAF+3
-        endif
         callf   SEG_B347:far_b3819
         add     sp, 10h
         push    4

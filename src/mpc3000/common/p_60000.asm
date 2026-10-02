@@ -15834,13 +15834,7 @@ br_e8463:
         mov     di, ax
 loop_e8494:
         mov     bx, cx
-        if      FW_VERSION >= 312
         mov     al, byte ptr [bx+di +TBL_A633]
-        elseif  FW_VERSION = 311
-        mov     al, byte ptr [bx+di +TBL_A633]
-        else
-        mov     al, byte ptr [bx+di +TBL_A633]
-        endif
         les     bx, dword ptr [bp - 10h]
         mov     byte ptr es:[bx], al
         inc     word ptr [bp - 10h]
@@ -17050,13 +17044,7 @@ fn_e8efe:
         callf   SEG_B52D:far_b6cd3
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_74A7
-        elseif  FW_VERSION = 311
-        push    word P_74A7
-        else
-        push    word P_74A7
-        endif
         callf   SEG_B1AA:far_b1b05
         add     sp, 4
         callf   SEG_B702:far_b90dd

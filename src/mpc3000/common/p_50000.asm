@@ -10444,13 +10444,7 @@ br_d5ef3:
 br_d5ef4:
         and     al, 7fh
         add     bx, bx
-        if      FW_VERSION >= 312
         call    word ptr cs:[bx +TBL_d5f9f]
-        elseif  FW_VERSION = 311
-        call    word ptr cs:[bx +TBL_d5f9f]
-        else
-        call    word ptr cs:[bx +TBL_d5f9f]
-        endif
         jmp     br_d5ef3
 tgt_d5eff:
         or      byte ptr [B_A5C6], 2
@@ -10504,13 +10498,7 @@ br_d5f57:
 br_d5f58:
         and     al, 7fh
         add     bx, bx
-        if      FW_VERSION >= 312
         call    word ptr cs:[bx +TBL_d5fc0]
-        elseif  FW_VERSION = 311
-        call    word ptr cs:[bx +TBL_d5fc0]
-        else
-        call    word ptr cs:[bx +TBL_d5fc0]
-        endif
         jmp     br_d5f57
 fn_d5f63:
         mov     cl, al
@@ -16111,13 +16099,7 @@ L_d8bc2:
         endif
         push    ax
         push    ds
-        if      FW_VERSION >= 312
         push    word STR_7184
-        elseif  FW_VERSION = 311
-        push    word STR_7184
-        else
-        push    word STR_7184
-        endif
         callf   SEG_B1B5:far_b1d48
         add     sp, 8
         push    28h
@@ -21993,13 +21975,7 @@ loop_db846:
         push    ax
         push    4
         push    ds
-        if      FW_VERSION >= 312
         push    word P_71FA+0bh
-        elseif  FW_VERSION = 311
-        push    word P_71FA+0bh
-        else
-        push    word P_71FA+0bh
-        endif
         mov     byte ptr [B_7207], 7bh
         callf   SEG_DCE1:far_dce14
         mov     byte ptr [B_7207], 40h

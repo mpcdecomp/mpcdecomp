@@ -3767,7 +3767,7 @@ br_d3c69:
         cmp     byte ptr [B_7E11], 0
         jnz     br_d3ccd
         if      FW_VERSION < 212
-        cmp     byte ptr [8fcbh], 0
+        cmp     byte ptr [B_8FCB_V112], 0
         else
         cmp     byte ptr [B_8CCB], 0
         endif
@@ -3789,7 +3789,7 @@ br_d3c99:
         cmp     al, 56h
         jnz     br_d3cac
         if      FW_VERSION < 212
-        test    byte ptr [88dah], 0ffh
+        test    byte ptr [B_88DA_V112], 0ffh
         else
         test    byte ptr [B_7E12], 0ffh
         endif
@@ -3800,7 +3800,7 @@ br_d3cac:
         cmp     al, 57h
         jnz     br_d3cc6
         if      FW_VERSION < 212
-        test    byte ptr [88dah], 0ffh
+        test    byte ptr [B_88DA_V112], 0ffh
         else
         test    byte ptr [B_7E12], 0ffh
         jnz     br_d3ccd
@@ -3835,7 +3835,7 @@ br_d3ce9:
         cmp     al, 56h
         jnz     br_d3d03
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_94A6], 0
         endif
@@ -3848,7 +3848,7 @@ br_d3d03:
         cmp     al, 57h
         jnz     br_d3d27
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_94A6], 0
         endif
@@ -3867,7 +3867,7 @@ br_d3d27:
         cmp     al, 59h
         jnz     br_d3d54
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_94A6], 0
         endif
@@ -4032,9 +4032,9 @@ fn_d3e9d:
         cmp     byte ptr [B_8D7A], 0
         jnz     br_d3eb4
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     br_d3eb2
-        cmp     byte ptr [52b5h], 0ffh
+        cmp     byte ptr [B_52B5_V112], 0ffh
         else
         cmp     byte ptr [B_A06E], 0
         jnz     br_d3eb2
@@ -4146,7 +4146,7 @@ far_d3f44:
         mov     bp, sp
         add     sp, 0fffch
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d3f7c
         callf   0d911h:tgt_c0738
         else
@@ -4163,7 +4163,7 @@ far_d3f44:
         sub     ah, ah
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx - 775bh]
+        mov     al, byte ptr [bx +TBL_88A5_V112]
         else
         mov     al, byte ptr [bx + TBL_7C25]
         endif
@@ -4174,7 +4174,7 @@ far_d3f44:
         jmp     br_d3fa4
 br_d3f7c:
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         mov     bx, word ptr [bp + 6]
         cmp     byte ptr [bx], 0
@@ -4269,7 +4269,7 @@ far_d3ff5:
         mov     bp, sp
         add     sp, 0ffe8h
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d4015
         mov     word ptr [bp - 16h], 576ch
         mov     word ptr [bp - 18h], 575ah
@@ -4487,7 +4487,7 @@ far_d4153:
         mov     word ptr [bx], 0
         if      FW_VERSION < 212
         mov     ax, 4cc6h
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d4180
         mov     ax, 576ch
 br_d4180:
@@ -4967,7 +4967,7 @@ far_d447f:
         jmp     br_d461f
 br_d4491:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -4979,7 +4979,7 @@ br_d4491:
         mov     al, byte ptr [B_A06A]
         sub     ah, ah
         mov     bx, ax
-        mov     al, byte ptr [bx - 775bh]
+        mov     al, byte ptr [bx +TBL_88A5_V112]
         sub     ah, ah
         mov     word ptr [bp - 2eh], ax
         else
@@ -5022,8 +5022,8 @@ br_d44cb:
         cbw
         and     ax, 1
         mov     word ptr [bp - 2eh], ax
-        mov     dx, word ptr [5209h]
-        mov     ax, word ptr [5207h]
+        mov     dx, word ptr [W_5209_V112]
+        mov     ax, word ptr [W_5207_V112]
         mov     word ptr [bp - 32h], dx
         mov     word ptr [bp - 34h], ax
         else
@@ -5768,8 +5768,8 @@ L_d55ce:
         RUN_FAR_DF05C
         mov     ax, word ptr [bx + TBL_A674]
         mov     dx, word ptr [bx + TBL_A676]
-        sub     ax, word ptr [bx - 5932h]
-        sbb     dx, word ptr [bx - 5930h]
+        sub     ax, word ptr [bx +TBL_A6CE_V112]
+        sbb     dx, word ptr [bx +TBL_A6D0_V112]
         endif
 
 RUN_BR_DF271 macro   {GLOBALSYMBOLS}
@@ -5798,8 +5798,8 @@ RUN_BR_DF271 macro   {GLOBALSYMBOLS}
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         endif
         push    dx
         push    ax
@@ -5816,7 +5816,7 @@ RUN_BR_DF271 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp - 0eh]
         mov     dx, ax
@@ -5888,8 +5888,8 @@ br_df271:
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         endif
         add     ax, word ptr [bp - 0ch]
         adc     dx, word ptr [bp - 0ah]
@@ -5908,7 +5908,7 @@ br_df271:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp - 10h]
         mov     dx, ax
@@ -5941,8 +5941,8 @@ br_df331:
         add     word ptr [bx + TBL_A668], ax
         adc     word ptr [bx + TBL_A66A], dx
         else
-        add     word ptr [bx - 5932h], ax
-        adc     word ptr [bx - 5930h], dx
+        add     word ptr [bx +TBL_A6CE_V112], ax
+        adc     word ptr [bx +TBL_A6D0_V112], dx
         endif
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -5957,8 +5957,8 @@ br_df331:
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         endif
         push    dx
         push    ax
@@ -5975,7 +5975,7 @@ br_df331:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp + 6]
         mov     dx, ax
@@ -6060,7 +6060,7 @@ br_df428:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         push    dx
@@ -6078,7 +6078,7 @@ br_df428:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp - 0eh]
         mov     dx, ax
@@ -6120,7 +6120,7 @@ br_df428:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], 0ffffh
         else
-        mov     word ptr [bx - 510ah], 0ffffh
+        mov     word ptr [bx +TBL_AEF6_V112], 0ffffh
         endif
         mov     word ptr [bx + TBL_AE97], 0
         mov     word ptr [bx + TBL_AE95], 0
@@ -6172,7 +6172,7 @@ br_df508:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         add     ax, word ptr [bx + TBL_AE95]
@@ -6192,7 +6192,7 @@ br_df508:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -6277,7 +6277,7 @@ br_df614:
         if      FW_VERSION >= 212
         push    word ptr [bx + TBL_AE91]
         else
-        push    word ptr [bx - 510ah]
+        push    word ptr [bx +TBL_AEF6_V112]
         endif
         mov     ax, word ptr [bp - 10h]
         mov     dx, ax
@@ -6291,7 +6291,7 @@ br_df614:
         push    word ptr [bx + TBL_AE91]
         callf   SEG_EF82:far_ef826
         else
-        push    word ptr [bx - 510ah]
+        push    word ptr [bx +TBL_AEF6_V112]
         callf   0e3a5h:far_ef826
         endif
         add     sp, 0ch
@@ -6344,7 +6344,7 @@ br_df669:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         sub     ax, word ptr [bp - 8]
@@ -6364,7 +6364,7 @@ br_df669:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
@@ -6385,8 +6385,8 @@ br_df669:
         endm
         if      FW_VERSION < 212
         RUN_BR_DF271
-        sub     word ptr [bx - 5932h], ax
-        sbb     word ptr [bx - 5930h], dx
+        sub     word ptr [bx +TBL_A6CE_V112], ax
+        sbb     word ptr [bx +TBL_A6D0_V112], dx
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
         push    dx
@@ -6395,8 +6395,8 @@ br_df669:
         cbw
         RUN_AFTER_BR_C7AC4_2
         pop     dx
-        sub     word ptr [bx - 592ah], ax
-        sbb     word ptr [bx - 5928h], dx
+        sub     word ptr [bx +TBL_A6D6_V112], ax
+        sbb     word ptr [bx +TBL_A6D8_V112], dx
         endif
 
 RUN_BR_DF732 macro   {GLOBALSYMBOLS}
@@ -6471,8 +6471,8 @@ L_d5b69:
         endm
         if      FW_VERSION < 212
         RUN_BR_DF732
-        sub     word ptr [bx - 5932h], ax
-        sbb     word ptr [bx - 5930h], dx
+        sub     word ptr [bx +TBL_A6CE_V112], ax
+        sbb     word ptr [bx +TBL_A6D0_V112], dx
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
         push    dx
@@ -6495,8 +6495,8 @@ RUN_AFTER_L_D5B69 macro   {GLOBALSYMBOLS}
         if      FW_VERSION < 212
         RUN_AFTER_L_D5B69
         pop     dx
-        sub     word ptr [bx - 592ah], ax
-        sbb     word ptr [bx - 5928h], dx
+        sub     word ptr [bx +TBL_A6D6_V112], ax
+        sbb     word ptr [bx +TBL_A6D8_V112], dx
         endif
 
 RUN_BR_DF7B9 macro   {GLOBALSYMBOLS}
@@ -6566,7 +6566,7 @@ br_df7f4:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         add     ax, word ptr [bx + TBL_AE95]
@@ -6586,7 +6586,7 @@ br_df7f4:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
@@ -6706,7 +6706,7 @@ RUN_AFTER_L_D5D5C macro   {GLOBALSYMBOLS}
         mov     word ptr [bp + 0eh], ax
 L_d5d8a:
         mov     ax, word ptr [bp + 0eh]
-        mov     word ptr [bx - 591ch], ax
+        mov     word ptr [bx +TBL_A6E4_V112], ax
 L_d5d91:
         push    word ptr [bp + 6]
         callf   0e36ch:L_e36c4
@@ -6901,7 +6901,7 @@ RUN_BR_DF9EA macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     byte ptr [B_AE4E], 0
         else
-        mov     byte ptr [0aeb7h], 0
+        mov     byte ptr [B_AEB7_V112], 0
         endif
         mov     word ptr [TBL_AE97], 8
         mov     word ptr [TBL_AE95], 0
@@ -6910,7 +6910,7 @@ br_df9ea:
         if      FW_VERSION >= 212
         mov     byte ptr [B_AE4E], 1
         else
-        mov     byte ptr [0aeb7h], 1
+        mov     byte ptr [B_AEB7_V112], 1
         endif
         mov     word ptr [TBL_AE97], 10h
         mov     word ptr [TBL_AE95], 0
@@ -6921,7 +6921,7 @@ br_df9fb:
         if      FW_VERSION >= 212
         mov     word ptr [TBL_AE91], 0
         else
-        mov     word ptr [0aef6h], 0
+        mov     word ptr [TBL_AEF6_V112], 0
         endif
         mov     word ptr [bp - 2], 1
 loop_dfa16:
@@ -6944,7 +6944,7 @@ loop_dfa16:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], 0ffffh
         else
-        mov     word ptr [bx - 510ah], 0ffffh
+        mov     word ptr [bx +TBL_AEF6_V112], 0ffffh
         endif
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 50h
@@ -7046,7 +7046,7 @@ br_dfc3d:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_AE2E]
         else
-        mov     al, byte ptr [bx - 516ch]
+        mov     al, byte ptr [bx +TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7080,7 +7080,7 @@ br_dfc6b:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_AE2D]
         else
-        mov     al, byte ptr [0ae93h]
+        mov     al, byte ptr [B_AE93_V112]
         endif
         cbw
         push    ax
@@ -7098,7 +7098,7 @@ br_dfc6b:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_AE2E]
         else
-        mov     al, byte ptr [0ae94h]
+        mov     al, byte ptr [TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7138,7 +7138,7 @@ br_dfcc6:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_AE2E]
         else
-        mov     al, byte ptr [bx - 516ch]
+        mov     al, byte ptr [bx +TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7172,7 +7172,7 @@ br_dfcf1:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_AE2D]
         else
-        mov     al, byte ptr [0ae93h]
+        mov     al, byte ptr [B_AE93_V112]
         endif
         cbw
         push    ax
@@ -7190,7 +7190,7 @@ br_dfcf1:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_AE2E]
         else
-        mov     al, byte ptr [0ae94h]
+        mov     al, byte ptr [TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7228,7 +7228,7 @@ br_dfd4c:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_AE2E]
         else
-        mov     al, byte ptr [bx - 516ch]
+        mov     al, byte ptr [bx +TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7250,7 +7250,7 @@ br_dfd73:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_AE2D]
         else
-        mov     al, byte ptr [0ae93h]
+        mov     al, byte ptr [B_AE93_V112]
         endif
         cbw
         push    ax
@@ -7262,7 +7262,7 @@ br_dfd73:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_AE2E]
         else
-        mov     al, byte ptr [0ae94h]
+        mov     al, byte ptr [TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7318,7 +7318,7 @@ br_dfde7:
 br_dfdf2:
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
-        mov     ax, word ptr [bx + 3b38h]
+        mov     ax, word ptr [bx +TBL_3B38_V112]
         mov     word ptr [bp - 8], ax
         endif
         cmp     byte ptr [bp - 1], 0
@@ -7334,7 +7334,7 @@ br_dfdf2:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_AE2E]
         else
-        mov     al, byte ptr [bx - 516ch]
+        mov     al, byte ptr [bx +TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7357,7 +7357,7 @@ br_dfe11:
         mov     al, byte ptr [B_AE2D]
         else
         push    word ptr [bp - 8]
-        mov     al, byte ptr [0ae93h]
+        mov     al, byte ptr [B_AE93_V112]
         endif
         cbw
         push    ax
@@ -7368,7 +7368,7 @@ br_dfe11:
         mov     al, byte ptr [TBL_AE2E]
         else
         push    word ptr [bp - 8]
-        mov     al, byte ptr [0ae94h]
+        mov     al, byte ptr [TBL_AE94_V112]
         endif
         cbw
         push    ax
@@ -7481,7 +7481,7 @@ br_dfed0:
         endm
         if      FW_VERSION < 212
         RUN_FAR_DFBE6
-        mov     word ptr [bx - 591ah], ax
+        mov     word ptr [bx +TBL_A6E6_V112], ax
         push    word ptr [bp + 6]
         callf   0e36ch:L_e36c4
         add     sp, 2
@@ -7496,7 +7496,7 @@ L_d622a:
 L_d6237:
         mov     bx, word ptr [bp - 2]
         shl     bx, 1
-        mov     ax, word ptr [bx + 3b38h]
+        mov     ax, word ptr [bx +TBL_3B38_V112]
         cmp     ax, word ptr [bp + 6]
         jge     L_d624f
         inc     word ptr [bp - 2]
@@ -7606,8 +7606,8 @@ L_d62e6:
         push    word ptr [bp + 0ah]
         push    word ptr [bp + 8]
         RUN_AFTER_BR_C7CE4_2
-        push    word ptr [bx - 5928h]
-        push    word ptr [bx - 592ah]
+        push    word ptr [bx +TBL_A6D8_V112]
+        push    word ptr [bx +TBL_A6D6_V112]
         callf   0e3afh:far_ef8c5
         add     sp, 8
         callf   SEG_E016:far_e016f
@@ -7632,8 +7632,8 @@ RUN_AFTER_L_D62E6 macro   {GLOBALSYMBOLS}
         RUN_AFTER_L_D62E6
         pop     ax
         pop     dx
-        add     word ptr [bx - 592ah], ax
-        adc     word ptr [bx - 5928h], dx
+        add     word ptr [bx +TBL_A6D6_V112], ax
+        adc     word ptr [bx +TBL_A6D8_V112], dx
         jmp     L_d62e2
         phase   0fh
 L_d633f:

@@ -19,8 +19,8 @@ L_d6424:
         push    word ptr [bp + 0ah]
         push    word ptr [bp + 8]
         RUN_AFTER_BR_C7CE4_5
-        push    word ptr [bx - 5928h]
-        push    word ptr [bx - 592ah]
+        push    word ptr [bx +TBL_A6D8_V112]
+        push    word ptr [bx +TBL_A6D6_V112]
         callf   0e3e3h:far_efbf1
         add     sp, 8
         callf   SEG_E016:far_e016f
@@ -45,8 +45,8 @@ RUN_AFTER_L_D6424 macro   {GLOBALSYMBOLS}
         mov     bx, ax
         pop     ax
         pop     dx
-        add     word ptr [bx - 592ah], ax
-        adc     word ptr [bx - 5928h], dx
+        add     word ptr [bx +TBL_A6D6_V112], ax
+        adc     word ptr [bx +TBL_A6D8_V112], dx
         jmp     L_d6420
         phase   0dh
         endif
@@ -60,7 +60,7 @@ far_e01e1:
         inc     byte ptr [B_8CCB]
         push    word ptr [bp + 0ah]
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -73,7 +73,7 @@ far_e01e1:
         callf   0d647h:far_e0219
         add     sp, 4
         mov     word ptr [bp - 2], ax
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         xor     ax, ax
         push    ax
@@ -118,10 +118,10 @@ far_e0219:
         mov     word ptr [bp - 2], 0
         cmp     byte ptr [B_8D7B], 0
         else
-        mov     byte ptr [9016h], 0
+        mov     byte ptr [B_9016_V112], 0
         mov     word ptr [bp - 0eh], 0
         mov     word ptr [bp - 10h], 0
-        cmp     byte ptr [9009h], 0
+        cmp     byte ptr [B_9009_V112], 0
         endif
         jz      br_e027c
         mov     ax, 1
@@ -138,7 +138,7 @@ br_e027c:
         jnz     br_e028f
         mov     al, byte ptr [B_52A8]
         else
-        mov     al, byte ptr [5c56h]
+        mov     al, byte ptr [B_5C56_V112]
         endif
         cbw
         push    ax
@@ -190,7 +190,7 @@ br_e02c2:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E68]
         else
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         jmp     near br_e037c
@@ -221,8 +221,8 @@ br_e02ca:
         callf   0dcb1h:L_dcb15
         add     sp, 2
         callf   0e3feh:far_e0d44
-        mov     dx, word ptr [0b26eh]
-        mov     ax, word ptr [0b26ch]
+        mov     dx, word ptr [W_B26E_V112]
+        mov     ax, word ptr [W_B26C_V112]
         mov     word ptr [bp - 15h], dx
         mov     word ptr [bp - 17h], ax
         endif
@@ -356,7 +356,7 @@ br_e03f0:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E68]
         else
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         jmp     br_e051b
@@ -366,8 +366,8 @@ br_e03f8:
         mov     byte ptr [B_8D88], al
         else
         inc     word ptr [bp - 10h]
-        mov     al, byte ptr [9043h]
-        mov     byte ptr [9016h], al
+        mov     al, byte ptr [B_9043_V112]
+        mov     byte ptr [B_9016_V112], al
         endif
         mov     ax, 7ch
         push    ax
@@ -422,7 +422,7 @@ RUN_AFTER_BR_E0415 macro   {GLOBALSYMBOLS}
         mov     byte ptr [bp - 11h], al
         cmp     byte ptr [bp - 12h], 0
         jz      br_e0464
-        mov     al, byte ptr [9016h]
+        mov     al, byte ptr [B_9016_V112]
         cmp     al, byte ptr [bp - 13h]
         endif
         jnz     br_e0464
@@ -450,8 +450,8 @@ RUN_AFTER_BR_E0415_2 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_E0415_2
         mov     dx, word ptr [bp - 19h]
         mov     ax, word ptr [bp - 1bh]
-        mov     word ptr [bx - 5928h], dx
-        mov     word ptr [bx - 592ah], ax
+        mov     word ptr [bx +TBL_A6D8_V112], dx
+        mov     word ptr [bx +TBL_A6D6_V112], ax
         endif
 
 RUN_BR_E0464 macro   {GLOBALSYMBOLS}
@@ -506,8 +506,8 @@ RUN_AFTER_BR_E0482 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_BR_E0482
-        mov     ax, word ptr [bx - 592ah]
-        mov     dx, word ptr [bx - 5928h]
+        mov     ax, word ptr [bx +TBL_A6D6_V112]
+        mov     dx, word ptr [bx +TBL_A6D8_V112]
         mov     word ptr [bp - 19h], dx
         mov     word ptr [bp - 1bh], ax
         push    word ptr [bp - 4]
@@ -533,7 +533,7 @@ RUN_BR_E04DB macro   {GLOBALSYMBOLS}
         sub     word ptr [bp - 17h], ax
         sbb     word ptr [bp - 15h], dx
         mov     al, byte ptr [bp - 11h]
-        cmp     al, byte ptr [90bch]
+        cmp     al, byte ptr [B_90BC_V112]
         jz      br_e04e3
         mov     al, byte ptr [bp - 12h]
         inc     byte ptr [bp - 12h]
@@ -627,7 +627,7 @@ br_e0537:
         push    word ptr [bp - 6]
         callf   SEG_EF91:far_ef913
         else
-        cmp     byte ptr [9009h], 0
+        cmp     byte ptr [B_9009_V112], 0
         jz      br_e058f
         push    word ptr [bp - 8]
         callf   0e3b4h:far_ef913
@@ -702,7 +702,7 @@ RUN_FAR_E12B0 macro   {GLOBALSYMBOLS}
         push    word ptr [bp + 6]
         callf   SEG_E127:far_e12b0
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         push    word ptr [bp + 6]
         callf   0d681h:L_d684f
         endif
@@ -711,7 +711,7 @@ RUN_FAR_E12B0 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         dec     byte ptr [B_8CCB]
         else
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         xor     ax, ax
         push    ax
@@ -756,8 +756,8 @@ L_d684f:
         push    ax
         callf   0e3b4h:far_ef913
         add     sp, 2
-        mov     byte ptr [9016h], 0
-        cmp     byte ptr [9009h], 0
+        mov     byte ptr [B_9016_V112], 0
+        cmp     byte ptr [B_9009_V112], 0
         jz      L_d68db
         endif
         xor     ax, ax
@@ -858,14 +858,14 @@ L_d68db:
         else
         callf   0dcb1h:L_dcb15
         add     sp, 2
-        mov     byte ptr [903fh], 0f0h
+        mov     byte ptr [B_903F_V112], 0f0h
         mov     byte ptr [TBL_8E66], 7eh
-        mov     byte ptr [9041h], 7fh
-        mov     byte ptr [9042h], 1
-        mov     al, byte ptr [5c56h]
-        mov     byte ptr [9043h], al
-        mov     byte ptr [9044h], 0
-        mov     byte ptr [9045h], 0ch
+        mov     byte ptr [B_9041_V112], 7fh
+        mov     byte ptr [B_9042_V112], 1
+        mov     al, byte ptr [B_5C56_V112]
+        mov     byte ptr [B_9043_V112], al
+        mov     byte ptr [B_9044_V112], 0
+        mov     byte ptr [B_9045_V112], 0ch
         endif
         mov     dx, 0
         mov     ax, 61a8h
@@ -876,8 +876,8 @@ L_d68db:
         RUN_FAR_E12B0
         callf   0de85h:far_da955
         add     sp, 4
-        mov     word ptr [9048h], dx
-        mov     word ptr [9046h], ax
+        mov     word ptr [W_9048_V112], dx
+        mov     word ptr [W_9046_V112], ax
         mov     ax, word ptr [bp - 4]
         endif
 
@@ -901,15 +901,15 @@ RUN_AFTER_L_D68DB macro   {GLOBALSYMBOLS}
         push    ax
         callf   0de85h:far_da955
         add     sp, 4
-        mov     word ptr [904bh], dx
-        mov     word ptr [9049h], ax
-        mov     word ptr [904eh], 0
-        mov     word ptr [904ch], 0
-        mov     word ptr [9051h], 0
-        mov     word ptr [904fh], 0
-        mov     byte ptr [9052h], 0
-        mov     byte ptr [9053h], 0f7h
-        mov     al, byte ptr [5c53h]
+        mov     word ptr [W_904B_V112], dx
+        mov     word ptr [W_9049_V112], ax
+        mov     word ptr [W_904E_V112], 0
+        mov     word ptr [W_904C_V112], 0
+        mov     word ptr [W_9051_V112], 0
+        mov     word ptr [W_904F_V112], 0
+        mov     byte ptr [B_9052_V112], 0
+        mov     byte ptr [B_9053_V112], 0f7h
+        mov     al, byte ptr [B_5C53_V112]
         cbw
         push    ax
         mov     ax, 15h
@@ -966,7 +966,7 @@ L_d69c4:
         mov     word ptr [bp - 8], 6
         cmp     word ptr [bp - 6], 0fffeh
         jz      L_d69e1
-        cmp     byte ptr [9042h], 7fh
+        cmp     byte ptr [B_9042_V112], 7fh
         jz      L_d69dc
         mov     ax, 0ffebh
         jmp     L_d68c7
@@ -1022,18 +1022,18 @@ L_d6a34:
         add     sp, 2
         mov     byte ptr [bp - 0dh], 0
 L_d6a43:
-        mov     al, byte ptr [9016h]
-        inc     byte ptr [9016h]
+        mov     al, byte ptr [B_9016_V112]
+        inc     byte ptr [B_9016_V112]
         cmp     al, 7fh
         jc      L_d6a53
-        mov     byte ptr [9016h], 0
+        mov     byte ptr [B_9016_V112], 0
 L_d6a53:
-        mov     byte ptr [903fh], 0f0h
+        mov     byte ptr [B_903F_V112], 0f0h
         mov     byte ptr [TBL_8E66], 7eh
-        mov     byte ptr [9041h], 7fh
-        mov     byte ptr [9042h], 2
-        mov     al, byte ptr [9016h]
-        mov     byte ptr [9043h], al
+        mov     byte ptr [B_9041_V112], 7fh
+        mov     byte ptr [B_9042_V112], 2
+        mov     al, byte ptr [B_9016_V112]
+        mov     byte ptr [B_9043_V112], al
         endif
 
 RUN_AFTER_L_D6A53 macro   {GLOBALSYMBOLS}
@@ -1053,9 +1053,9 @@ RUN_AFTER_L_D6A53 macro   {GLOBALSYMBOLS}
         callf   0e3feh:far_e0a64
         add     sp, 4
         mov     byte ptr [bp - 0bh], al
-        mov     byte ptr [90bch], al
-        mov     byte ptr [90bdh], 0f7h
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_90BC_V112], al
+        mov     byte ptr [B_90BD_V112], 0f7h
+        mov     al, byte ptr [B_5C53_V112]
         endif
         cbw
         push    ax
@@ -1085,7 +1085,7 @@ br_e0890:
         mov     ax, 0ffech
         jmp     L_d68c7
 L_d6acc:
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         sub     ah, ah
         jmp     L_d6b3a
 L_d6ad3:
@@ -1112,11 +1112,11 @@ L_d6af3:
         shl     ax, 1
         sub     ax, dx
         mov     bx, ax
-        sub     word ptr [bx - 592ah], 3ch
-        sbb     word ptr [bx - 5928h], 0
+        sub     word ptr [bx +TBL_A6D6_V112], 3ch
+        sbb     word ptr [bx +TBL_A6D8_V112], 0
         add     word ptr [bp - 11h], 3ch
         adc     word ptr [bp - 0fh], 0
-        dec     byte ptr [9016h]
+        dec     byte ptr [B_9016_V112]
         jmp     L_d6b4b
 L_d6b1e:
         cmp     word ptr [bp - 0fh], 0
@@ -1156,7 +1156,7 @@ far_e0f06:
         if      FW_VERSION >= 212
         inc     byte ptr [B_8CCB]
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -1170,7 +1170,7 @@ far_e0f06:
         if      FW_VERSION >= 212
         dec     byte ptr [B_8CCB]
         else
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         xor     ax, ax
         push    ax
@@ -1213,9 +1213,9 @@ far_e0f3b:
         mov     word ptr [bp - 1ah], 0
         cmp     byte ptr [B_8D7B], 0
         else
-        mov     byte ptr [9016h], 0
+        mov     byte ptr [B_9016_V112], 0
         mov     word ptr [bp - 10h], 0
-        cmp     byte ptr [9009h], 0
+        cmp     byte ptr [B_9009_V112], 0
         endif
         jz      br_e0f95
         mov     ax, 1
@@ -1230,7 +1230,7 @@ br_e0f95:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_52A8]
         else
-        mov     al, byte ptr [5c56h]
+        mov     al, byte ptr [B_5C56_V112]
         endif
         cbw
         push    ax
@@ -1245,7 +1245,7 @@ br_e0fad:
         callf   0e3feh:far_e0bad
         add     sp, 2
         mov     word ptr [bp - 0ch], 1
-        mov     word ptr [0b279h], 13h
+        mov     word ptr [W_B279_V112], 13h
 br_e0fad:
         cmp     word ptr [bp - 0ch], 0
         endif
@@ -1287,7 +1287,7 @@ br_e0fd5:
 br_e0fe0:
         cmp     word ptr [TBL_8E65], 7ef0h
         else
-        cmp     word ptr [903fh], 7ef0h
+        cmp     word ptr [B_903F_V112], 7ef0h
         endif
         jz      br_e0fed
         mov     ax, 0ffe8h
@@ -1296,7 +1296,7 @@ br_e0fed:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E67]
         else
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         endif
         sub     ah, ah
         jmp     near br_e1074
@@ -1329,8 +1329,8 @@ br_e0ff5:
         callf   0dcb1h:L_dcb15
         add     sp, 2
         callf   0e3feh:far_e0c0a
-        mov     dx, word ptr [0b26eh]
-        mov     ax, word ptr [0b26ch]
+        mov     dx, word ptr [W_B26E_V112]
+        mov     ax, word ptr [W_B26C_V112]
         mov     word ptr [bp - 16h], dx
         mov     word ptr [bp - 18h], ax
         endif
@@ -1402,7 +1402,7 @@ br_e1090:
         mov     al, 0
         mov     byte ptr [bp - 14h], 0
         mov     byte ptr [bp - 13h], al
-        mov     word ptr [0b279h], 7ah
+        mov     word ptr [W_B279_V112], 7ah
         endif
         xor     ax, ax
         push    ax
@@ -1486,9 +1486,9 @@ br_e110d:
         xor     ax, ax
         cmp     word ptr [bp - 0eh], 0
         else
-        mov     al, byte ptr [903fh]
-        mov     byte ptr [9016h], al
-        mov     al, byte ptr [90b8h]
+        mov     al, byte ptr [B_903F_V112]
+        mov     byte ptr [B_9016_V112], al
+        mov     al, byte ptr [B_90B8_V112]
         mov     byte ptr [bp - 11h], al
         xor     ax, ax
         cmp     word ptr [bp - 10h], 0
@@ -1532,7 +1532,7 @@ RUN_AFTER_BR_E1124 macro   {GLOBALSYMBOLS}
         mov     byte ptr [bp - 12h], al
         cmp     byte ptr [bp - 13h], 0
         jz      br_e1171
-        mov     al, byte ptr [9016h]
+        mov     al, byte ptr [B_9016_V112]
         cmp     al, byte ptr [bp - 14h]
         endif
         jnz     br_e1171
@@ -1560,8 +1560,8 @@ RUN_AFTER_BR_E1124_2 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_E1124_2
         mov     dx, word ptr [bp - 1ah]
         mov     ax, word ptr [bp - 1ch]
-        mov     word ptr [bx - 5928h], dx
-        mov     word ptr [bx - 592ah], ax
+        mov     word ptr [bx +TBL_A6D8_V112], dx
+        mov     word ptr [bx +TBL_A6D6_V112], ax
         endif
 
 RUN_BR_E1171 macro   {GLOBALSYMBOLS}
@@ -1613,8 +1613,8 @@ RUN_AFTER_BR_E1191 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_BR_E1191
-        mov     ax, word ptr [bx - 592ah]
-        mov     dx, word ptr [bx - 5928h]
+        mov     ax, word ptr [bx +TBL_A6D6_V112]
+        mov     dx, word ptr [bx +TBL_A6D8_V112]
         mov     word ptr [bp - 1ah], dx
         mov     word ptr [bp - 1ch], ax
         push    word ptr [bp - 4]
@@ -1704,7 +1704,7 @@ br_e1212:
         push    word ptr [bp - 6]
         callf   SEG_EF91:far_ef913
         else
-        cmp     byte ptr [9009h], 0
+        cmp     byte ptr [B_9009_V112], 0
         jz      br_e126a
         push    word ptr [bp - 8]
         callf   0e3b4h:far_ef913
@@ -1771,12 +1771,12 @@ L_d6ed5:
         push    bp
         mov     bp, sp
         add     sp, 0fffeh
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         push    word ptr [bp + 6]
         callf   0d6edh:L_d6f07
         add     sp, 2
         mov     word ptr [bp - 2], ax
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         xor     ax, ax
         push    ax
         mov     ax, 9
@@ -1800,9 +1800,9 @@ L_d6f07:
         push    ax
         callf   0e3b4h:far_ef913
         add     sp, 2
-        mov     byte ptr [9016h], 0
-        mov     word ptr [0b279h], 3
-        cmp     byte ptr [9009h], 0
+        mov     byte ptr [B_9016_V112], 0
+        mov     word ptr [W_B279_V112], 3
+        cmp     byte ptr [B_9009_V112], 0
         jz      L_d6f99
         xor     ax, ax
         push    ax
@@ -1855,13 +1855,13 @@ L_d6f99:
         push    ax
         callf   0dcb1h:L_dcb15
         add     sp, 2
-        mov     byte ptr [903fh], 0f0h
+        mov     byte ptr [B_903F_V112], 0f0h
         mov     byte ptr [TBL_8E66], 7eh
-        mov     byte ptr [9041h], 1
-        mov     al, byte ptr [5c56h]
-        mov     byte ptr [9042h], al
-        mov     byte ptr [9043h], 0
-        mov     byte ptr [9044h], 0ch
+        mov     byte ptr [B_9041_V112], 1
+        mov     al, byte ptr [B_5C56_V112]
+        mov     byte ptr [B_9042_V112], al
+        mov     byte ptr [B_9043_V112], 0
+        mov     byte ptr [B_9044_V112], 0ch
 
         mov     dx, 0
         mov     ax, 61a8h
@@ -1869,8 +1869,8 @@ L_d6f99:
         push    ax
         callf   0de85h:far_da955
         add     sp, 4
-        mov     word ptr [9047h], dx
-        mov     word ptr [9045h], ax
+        mov     word ptr [W_9047_V112], dx
+        mov     word ptr [B_9045_V112], ax
         mov     ax, word ptr [bp - 4]
         mov     dx, ax
         mov     cl, 4
@@ -1884,14 +1884,14 @@ L_d6f99:
         push    word ptr [bx + TBL_A66C]
         callf   0de85h:far_da955
         add     sp, 4
-        mov     word ptr [904ah], dx
-        mov     word ptr [9048h], ax
-        mov     word ptr [904dh], 0
-        mov     word ptr [904bh], 0
-        mov     word ptr [9050h], 0
-        mov     word ptr [904eh], 0
-        mov     byte ptr [9051h], 0
-        mov     al, byte ptr [5c53h]
+        mov     word ptr [W_904A_V112], dx
+        mov     word ptr [W_9048_V112], ax
+        mov     word ptr [W_904D_V112], 0
+        mov     word ptr [W_904B_V112], 0
+        mov     word ptr [W_9050_V112], 0
+        mov     word ptr [W_904E_V112], 0
+        mov     byte ptr [W_9051_V112], 0
+        mov     al, byte ptr [B_5C53_V112]
         cbw
         push    ax
         mov     ax, 13h
@@ -1912,7 +1912,7 @@ L_d6f99:
         mov     ax, 0ffech
         jmp     L_d6f85
 L_d7070:
-        cmp     byte ptr [9041h], 7fh
+        cmp     byte ptr [B_9041_V112], 7fh
         jz      L_d707d
         mov     ax, 0ffebh
         jmp     L_d6f85
@@ -1963,8 +1963,8 @@ RUN_BR_E149B macro   {GLOBALSYMBOLS}
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         endif
         add     ax, word ptr [bx + TBL_A66C]
         adc     dx, word ptr [bx + TBL_A66E]
@@ -1972,8 +1972,8 @@ RUN_BR_E149B macro   {GLOBALSYMBOLS}
         mov     bx, word ptr [W_AE6A]
         mov     cx, word ptr [W_AE68]
         else
-        mov     cx, word ptr [bx - 592ah]
-        mov     bx, word ptr [bx - 5928h]
+        mov     cx, word ptr [bx +TBL_A6D6_V112]
+        mov     bx, word ptr [bx +TBL_A6D8_V112]
         endif
         cmp     bx, dx
         jl      br_e149b
@@ -1991,14 +1991,14 @@ br_e149d:
         add     sp, 2
         mov     byte ptr [bp - 0dh], 0
 L_d70fe:
-        mov     al, byte ptr [9016h]
-        inc     byte ptr [9016h]
+        mov     al, byte ptr [B_9016_V112]
+        inc     byte ptr [B_9016_V112]
         cmp     al, 7fh
         jc      L_d710e
-        mov     byte ptr [9016h], 0
+        mov     byte ptr [B_9016_V112], 0
 L_d710e:
-        mov     al, byte ptr [9016h]
-        mov     byte ptr [903fh], al
+        mov     al, byte ptr [B_9016_V112]
+        mov     byte ptr [B_903F_V112], al
         mov     ax, 3ch
         push    ax
         mov     ax, 9040h
@@ -2006,8 +2006,8 @@ L_d710e:
         callf   0e3feh:far_e0a64
         add     sp, 4
         mov     byte ptr [bp - 0bh], al
-        mov     byte ptr [90b8h], al
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_90B8_V112], al
+        mov     al, byte ptr [B_5C53_V112]
         cbw
         push    ax
         mov     ax, 7ah
@@ -2034,7 +2034,7 @@ loop_e14f2:
         mov     ax, 0ffech
         jmp     L_d6f85
 L_d7170:
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         sub     ah, ah
         jmp     L_d71c6
 L_d7177:
@@ -2054,9 +2054,9 @@ L_d718d:
 L_d7197:
         mov     ax, word ptr [bp - 4]
         RUN_AFTER_BR_C7239
-        sub     word ptr [bx - 592ah], 3ch
-        sbb     word ptr [bx - 5928h], 0
-        dec     byte ptr [9016h]
+        sub     word ptr [bx +TBL_A6D6_V112], 3ch
+        sbb     word ptr [bx +TBL_A6D8_V112], 0
+        dec     byte ptr [B_9016_V112]
         jmp     L_d71d7
 L_d71ba:
         mov     ax, 0ffebh
@@ -2075,8 +2075,8 @@ L_d71c6:
 L_d71d7:
         jmp     L_d7081
 L_d71da:
-        mov     byte ptr [903fh], 0f7h
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_903F_V112], 0f7h
+        mov     al, byte ptr [B_5C53_V112]
         endif
 
 RUN_AFTER_L_D71DA macro   {GLOBALSYMBOLS}
@@ -2212,9 +2212,9 @@ br_d4906:
         jl      br_d4947
         mov     al, byte ptr [B_9D34]
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jl      br_d4947
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         cmp     ax, word ptr [bp + 6]
@@ -2241,8 +2241,8 @@ br_d4928:
         mov     dx, word ptr [W_94AA]
         mov     ax, word ptr [W_94A8]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 17h
         adc     dx, 0
@@ -2577,14 +2577,14 @@ br_d4b7d:
         mov     word ptr [W_9B92], ax
 br_d4bb2:
         if      FW_VERSION < 212
-        mov     word ptr [0a456h], 0
-        mov     word ptr [0a454h], 0
+        mov     word ptr [W_A456_V112], 0
+        mov     word ptr [W_A454_V112], 0
         endif
         mov     dx, word ptr [W_9B98]
         mov     ax, word ptr [W_9B96]
         if      FW_VERSION < 212
-        mov     word ptr [0a452h], dx
-        mov     word ptr [0a450h], ax
+        mov     word ptr [W_A452_V112], dx
+        mov     word ptr [W_A450_V112], ax
         else
         mov     word ptr [W_9BA0], dx
         mov     word ptr [W_9B9E], ax
@@ -2597,12 +2597,12 @@ br_d4bb2:
         callf   0e960h:L_e962d
         add     sp, 6
         mov     al, 0ffh
-        mov     byte ptr [52e3h], 0ffh
-        mov     byte ptr [52b5h], al
+        mov     byte ptr [B_52E3_V112], 0ffh
+        mov     byte ptr [B_52B5_V112], al
         mov     al, 0
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
         xor     ax, ax
         else
 
@@ -2692,7 +2692,7 @@ L_d7288:
         push    bp
         mov     bp, sp
         add     sp, 0fff9h
-        mov     byte ptr [52cch], 0
+        mov     byte ptr [W_52CC_V112], 0
         mov     byte ptr [B_94DD], 1
         mov     dx, 0
         mov     ax, 0
@@ -2709,12 +2709,12 @@ L_d7288:
         callf   0e533h:L_e535c
         add     sp, 2
         mov     word ptr [bp + 6], ax
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     L_d72e6
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     L_d730e
 L_d72e6:
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_d734b
         endif
 
@@ -2735,7 +2735,7 @@ RUN_AFTER_L_D72E6 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_L_D72E6
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         jz      L_d734b
 L_d730e:
         push    word ptr [bp + 6]
@@ -2757,13 +2757,13 @@ L_d730e:
         add     sp, 4
 L_d734b:
         callf   0e25ch:far_f032e
-        mov     byte ptr [52e1h], 0
+        mov     byte ptr [B_52E1_V112], 0
         mov     ax, word ptr [bp + 6]
-        mov     word ptr [52ceh], ax
+        mov     word ptr [W_52CE_V112], ax
         mov     word ptr [W_A059], 0
-        mov     word ptr [52d6h], 0
+        mov     word ptr [W_52D6_V112], 0
         mov     word ptr [W_94E0], 0
-        mov     word ptr [52cah], 1
+        mov     word ptr [W_52CA_V112], 1
         mov     sp, bp
         pop     bp
         retf
@@ -2828,11 +2828,11 @@ far_d4cd8:
 tgt_d4ce5:
         mov     byte ptr [bp + 6], 0
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     br_d4d07
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         else
         cmp     byte ptr [B_94A6], 0
         jge     br_d4d07
@@ -2844,7 +2844,7 @@ tgt_d4ce5:
         callf   0d7deh:far_d5bcd
         add     sp, 4
         mov     byte ptr [B_54FA], 50h
-        mov     byte ptr [4cbfh], 0ffh
+        mov     byte ptr [B_4CBF_V112], 0ffh
         else
         callf   SEG_D5BC:far_d5bcd
         add     sp, 2
@@ -2959,7 +2959,7 @@ br_d4dba:
         cmp     byte ptr [B_53DB], 47h
         jnz     br_d4ddc
         if      FW_VERSION < 212
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         else
         mov     al, byte ptr [B_A06B]
         endif
@@ -2967,7 +2967,7 @@ br_d4dba:
         mov     cx, ax
         inc     cx
         if      FW_VERSION < 212
-        mov     al, byte ptr [88ceh]
+        mov     al, byte ptr [B_88CE_V112]
         else
         mov     al, byte ptr [B_7E06]
         endif
@@ -2981,7 +2981,7 @@ br_d4ddc:
         if      FW_VERSION < 212
         cmp     byte ptr [B_53DB], 4dh
         jnz     L_d7468
-        cmp     byte ptr [4cbfh], 0
+        cmp     byte ptr [B_4CBF_V112], 0
         jge     L_d7468
         jmp     tgt_d536b
 L_d7468:
@@ -3108,7 +3108,7 @@ br_d4eac:
         cmp     byte ptr [B_7E0A], 0
         jz      br_d4ed8
         if      FW_VERSION < 212
-        push    word ptr [52ceh]
+        push    word ptr [W_52CE_V112]
         callf   0d728h:L_d7288
         add     sp, 2
         else
@@ -3130,10 +3130,10 @@ br_d4eac:
         add     sp, 2
 br_d4ed8:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d4f0d
-        mov     ax, word ptr [52ceh]
-        cmp     ax, word ptr [575ah]
+        mov     ax, word ptr [W_52CE_V112]
+        cmp     ax, word ptr [W_575A_V112]
         else
         cmp     byte ptr [B_A06E], 0
         jz      br_d4f0d
@@ -3145,7 +3145,7 @@ br_d4ed8:
         sub     ah, ah
         mov     bx, ax
         if      FW_VERSION < 212
-        cmp     byte ptr [bx - 775bh], 0
+        cmp     byte ptr [bx +TBL_88A5_V112], 0
         else
         cmp     byte ptr [bx + TBL_7C25], 0
         endif
@@ -3165,7 +3165,7 @@ br_d4f0b:
         jmp     br_d4f32
 br_d4f0d:
         if      FW_VERSION < 212
-        mov     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_52CE_V112]
         else
         mov     ax, word ptr [W_94DE]
         endif
@@ -3363,9 +3363,9 @@ br_d504a:
         jmp     tgt_d536b
 tgt_d5056:
         if      FW_VERSION < 212
-        cmp     byte ptr [88e7h], 0
+        cmp     byte ptr [B_88E7_V112], 0
         jz      br_d5064
-        mov     byte ptr [88e7h], 0
+        mov     byte ptr [B_88E7_V112], 0
         else
         cmp     byte ptr [B_7E5D], 0
         jz      br_d5064
@@ -3378,7 +3378,7 @@ br_d5064:
         jmp     br_d5064
 br_d506d:
         if      FW_VERSION < 212
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         callf   0e466h:far_ec31a
         else
         inc     byte ptr [B_8CCB]
@@ -3389,7 +3389,7 @@ br_d506d:
         callf   SEG_D4CD:far_d5373
         add     sp, 4
         if      FW_VERSION < 212
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         else
         mov     ax, B_94A6
         push    ax
@@ -3439,7 +3439,7 @@ tgt_d50e5:
         cmp     byte ptr [B_7E0F], 0
         jnz     br_d5124
         if      FW_VERSION < 212
-        cmp     byte ptr [88dah], 0
+        cmp     byte ptr [B_88DA_V112], 0
         else
         cmp     byte ptr [B_7E12], 0
         endif
@@ -3617,7 +3617,7 @@ br_d5299:
         jz      br_d52aa
         if      FW_VERSION < 212
         callf   0db5bh:L_db5b5
-        mov     byte ptr [88e7h], 1
+        mov     byte ptr [B_88E7_V112], 1
 br_d52aa:
         callf   0e466h:far_ec31a
         else
@@ -3732,7 +3732,7 @@ far_d5373:
         mov     bp, sp
         add     sp, 0fffch
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_94A6], 0
         endif
@@ -3743,7 +3743,7 @@ br_d5380:
         retf
 br_d5384:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -3762,7 +3762,7 @@ br_d5384:
         shl     ax, 1
         mov     bx, ax
         if      FW_VERSION < 212
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         else
         cmp     byte ptr [bx + TBL_5517], 0
         endif
@@ -3776,7 +3776,7 @@ br_d53ae:
         if      FW_VERSION < 212
         callf   0d4d4h:far_d3f44
         add     sp, 6
-        mov     word ptr [52ceh], 0
+        mov     word ptr [W_52CE_V112], 0
         else
         mov     ax, B_94A6
         push    ax
@@ -3789,10 +3789,10 @@ br_d53ae:
         if      FW_VERSION < 212
         callf   0d97dh:L_d97d2
         add     sp, 4
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d540d
-        mov     ax, word ptr [52ceh]
-        cmp     ax, word ptr [575ah]
+        mov     ax, word ptr [W_52CE_V112]
+        cmp     ax, word ptr [W_575A_V112]
         else
         callf   SEG_EC4A:far_ec4ae
         add     sp, 4
@@ -3806,7 +3806,7 @@ br_d53ae:
         sub     ah, ah
         mov     bx, ax
         if      FW_VERSION < 212
-        cmp     byte ptr [bx - 775bh], 0
+        cmp     byte ptr [bx +TBL_88A5_V112], 0
         else
         cmp     byte ptr [bx + TBL_7C25], 0
         endif
@@ -3819,7 +3819,7 @@ br_d53ae:
 br_d540b:
         jmp     br_d5434
 br_d540d:
-        mov     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_52CE_V112]
         cmp     ax, word ptr [W_94D6]
         jle     br_d5434
         else
@@ -3886,7 +3886,7 @@ far_d546e:
         mov     bp, sp
         add     sp, 0fffch
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -3984,8 +3984,8 @@ br_d54cf:
         add     sp, 2
         mov     al, 0
         if      FW_VERSION < 212
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [9007h], al
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_9007_V112], al
         else
         mov     byte ptr [B_A06C], 0
         mov     byte ptr [B_8D79], al
@@ -3999,11 +3999,11 @@ br_d54bc:
         retf
 L_d7af9:
         callf   0d911h:far_d7241
-        cmp     byte ptr [9007h], 0
+        cmp     byte ptr [B_9007_V112], 0
         jz      br_d5597
         callf   0db5bh:L_db5b5
         callf   SEG_D880:far_d8850
-        mov     al, byte ptr [9007h]
+        mov     al, byte ptr [B_9007_V112]
         else
         jmp     near br_d54bc
 br_d5558:
@@ -4023,8 +4023,8 @@ br_d5558:
         add     sp, 2
         mov     al, 0
         if      FW_VERSION < 212
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [9007h], al
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_9007_V112], al
         else
         mov     byte ptr [B_A06C], 0
         mov     byte ptr [B_8D79], al
@@ -4034,11 +4034,11 @@ br_d5558:
         jmp     br_d54bc
 br_d5597:
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     br_d55e3
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d55d8
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         else
         cmp     byte ptr [B_94A6], 0
         jge     br_d55e3
@@ -4056,7 +4056,7 @@ br_d5597:
         add     sp, 2
         mov     word ptr [bp - 2], ax
         if      FW_VERSION < 212
-        cmp     ax, word ptr [575ah]
+        cmp     ax, word ptr [W_575A_V112]
         else
         cmp     ax, word ptr [W_A06F]
         endif
@@ -4110,7 +4110,7 @@ br_d6587:
         if      FW_VERSION >= 212
         inc     byte ptr [B_8CCB]
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
 br_d658b:
         callf   SEG_E7D6:far_e7d6a
@@ -4146,7 +4146,7 @@ br_d65d8:
         if      FW_VERSION >= 212
         dec     byte ptr [B_8CCB]
         else
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         mov     ax, 2
         push    ax
@@ -4161,14 +4161,14 @@ RUN_BR_D65EE macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         inc     byte ptr [B_8CCB]
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
         jmp     br_d658b
 br_d65ee:
         if      FW_VERSION >= 212
         mov     byte ptr [B_8CC9], 0
         else
-        mov     byte ptr [8fc9h], 0
+        mov     byte ptr [B_8FC9_V112], 0
         endif
         mov     sp, bp
         pop     bp
@@ -4243,8 +4243,8 @@ br_d60cc:
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
         else
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         endif
         callf   SEG_DA9B:far_daa54
         add     sp, 4
@@ -4437,7 +4437,7 @@ br_d783c:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         cmp     ax, word ptr [bp + 6]
@@ -4558,7 +4558,7 @@ br_d5c07:
         push    ax
         callf   SEG_D55E:far_d55e8
         else
-        mov     al, byte ptr [52b5h]
+        mov     al, byte ptr [B_52B5_V112]
         cbw
         mov     cx, 302fh
         cmp     ax, cx
@@ -4584,9 +4584,9 @@ br_d5c39:
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
         else
-        mov     byte ptr [5759h], 0
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        mov     byte ptr [B_5759_V112], 0
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         push    word ptr [W_9B94]
         push    word ptr [W_9B92]
@@ -4614,16 +4614,16 @@ br_d5c80:
         if      FW_VERSION < 212
         RUN_FAR_D5BCD
         mov     al, 0
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
-        mov     al, byte ptr [5fefh]
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
+        mov     al, byte ptr [B_5FEF_V112]
         cbw
         mov     cx, ax
         mov     ax, 4
         shl     ax, cl
         push    ax
-        mov     al, byte ptr [5feeh]
+        mov     al, byte ptr [B_5FEE_V112]
         cbw
         push    ax
         callf   0de80h:L_de80e
@@ -4637,8 +4637,8 @@ RUN_LOOP_D5CFA macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94AA], dx
         mov     word ptr [W_94A8], ax
         else
-        mov     word ptr [0a456h], dx
-        mov     word ptr [0a454h], ax
+        mov     word ptr [W_A456_V112], dx
+        mov     word ptr [W_A454_V112], ax
         endif
         push    dx
         push    ax
@@ -4764,10 +4764,10 @@ RUN_LOOP_D5DB1 macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94B6], dx
         mov     word ptr [W_94B4], ax
         else
-        mov     word ptr [0a45eh], dx
-        mov     word ptr [0a45ch], ax
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A45E_V112], dx
+        mov     word ptr [W_A45C_V112], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         endif
         mov     word ptr [W_94BE], dx
         mov     word ptr [W_94BC], ax
@@ -4775,8 +4775,8 @@ RUN_LOOP_D5DB1 macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
@@ -4788,8 +4788,8 @@ RUN_LOOP_D5DB1 macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94AE], dx
         mov     word ptr [W_94AC], ax
         else
-        mov     word ptr [0a45ah], dx
-        mov     word ptr [0a458h], ax
+        mov     word ptr [W_A45A_V112], dx
+        mov     word ptr [W_A458_V112], ax
         endif
         xor     ax, ax
         mov     word ptr [W_94E0], 0
@@ -4802,11 +4802,11 @@ RUN_LOOP_D5DB1 macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94C8], 0
         mov     word ptr [bp - 112h], 1
         else
-        mov     byte ptr [52b5h], al
-        mov     ax, word ptr [5ff0h]
+        mov     byte ptr [B_52B5_V112], al
+        mov     ax, word ptr [W_5FF0_V112]
         mov     word ptr [W_94D6], ax
-        mov     word ptr [5209h], 0
-        mov     word ptr [5207h], 0
+        mov     word ptr [W_5209_V112], 0
+        mov     word ptr [W_5207_V112], 0
         mov     word ptr [bp - 10dh], 1
         endif
         jmp     br_d5de3
@@ -4830,8 +4830,8 @@ loop_d5db1:
         add     word ptr [W_94C8], ax
         adc     word ptr [W_94CA], dx
         else
-        add     word ptr [5207h], ax
-        adc     word ptr [5209h], dx
+        add     word ptr [W_5207_V112], ax
+        adc     word ptr [W_5209_V112], dx
         endif
         mov     ax, word ptr [W_94E4]
         mov     word ptr [W_A059], ax
@@ -4850,7 +4850,7 @@ br_d5de3:
         inc     word ptr [bp - 10dh]
 br_d5de3:
         mov     ax, word ptr [bp - 10dh]
-        cmp     ax, word ptr [5ff0h]
+        cmp     ax, word ptr [W_5FF0_V112]
         jle     loop_d5db1
         mov     byte ptr [bp - 10bh], 0ffh
         endif
@@ -4888,20 +4888,20 @@ loop_d5e27:
         mov     byte ptr [bx + TBL_9FEC], al
         mov     bx, word ptr [bp - 112h]
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         callf   0d7deh:far_d5eec
         mov     word ptr [bp - 10dh], 0
 loop_d5e27:
         mov     bx, word ptr [bp - 10dh]
         mov     al, byte ptr [bx + TBL_5176]
-        mov     byte ptr [bx + 5212h], al
+        mov     byte ptr [bx +TBL_5212_V112], al
         mov     bx, word ptr [bp - 10dh]
         mov     al, byte ptr [bx + TBL_5196]
-        mov     byte ptr [bx + 5232h], al
+        mov     byte ptr [bx +TBL_5232_V112], al
         mov     bx, word ptr [bp - 10dh]
         mov     al, byte ptr [bx + TBL_51B6]
-        mov     byte ptr [bx + 5252h], al
+        mov     byte ptr [bx +TBL_5252_V112], al
         mov     bx, word ptr [bp - 10dh]
         endif
         shl     bx, 1
@@ -4911,7 +4911,7 @@ loop_d5e27:
         inc     word ptr [bp - 112h]
         cmp     word ptr [bp - 112h], 20h
         else
-        mov     word ptr [bx + 5272h], ax
+        mov     word ptr [bx +TBL_5272_V112], ax
         inc     word ptr [bp - 10dh]
         cmp     word ptr [bp - 10dh], 20h
         endif
@@ -4943,10 +4943,10 @@ loop_d5e27:
         callf   0d728h:L_d7288
         add     sp, 2
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [4cbeh], al
-        mov     al, byte ptr [5ff4h]
+        mov     byte ptr [B_4CBE_V112], al
+        mov     al, byte ptr [B_5FF4_V112]
         mov     byte ptr [B_94A7], al
-        mov     ax, word ptr [5ff2h]
+        mov     ax, word ptr [W_5FF2_V112]
         mov     word ptr [W_94D8], ax
         endif
         mov     ax, 1
@@ -4973,7 +4973,7 @@ loop_d5e27:
         push    ax
         mov     al, byte ptr [B_A068]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -5009,26 +5009,26 @@ RUN_L_D80EF macro   {GLOBALSYMBOLS}
         mov     ax, word ptr [W_52BA]
         mov     word ptr [W_9FA5], ax
         else
-        mov     byte ptr [5064h], 0
+        mov     byte ptr [B_5064_V112], 0
         mov     word ptr [bp - 2], 0
 L_d80ef:
         mov     ax, word ptr [bp - 2]
         mov     bx, word ptr [bp - 2]
-        mov     byte ptr [bx + 5066h], al
+        mov     byte ptr [bx +TBL_5066_V112], al
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [5d9eh]
-        mov     byte ptr [bx + 50cah], al
+        mov     al, byte ptr [B_5D9E_V112]
+        mov     byte ptr [bx +TBL_50CA_V112], al
         mov     bx, word ptr [bp - 2]
         shl     bx, 1
-        mov     ax, word ptr [5d9fh]
-        mov     word ptr [bx + 512eh], ax
+        mov     ax, word ptr [W_5D9F_V112]
+        mov     word ptr [bx +TBL_512E_V112], ax
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 63h
         jle     L_d80ef
         mov     byte ptr [B_94A7], 1
         mov     word ptr [W_94D8], 1
-        mov     ax, word ptr [5b08h]
-        mov     word ptr [520bh], ax
+        mov     ax, word ptr [W_5B08_V112]
+        mov     word ptr [W_520B_V112], ax
         endif
         xor     ax, ax
         push    ax
@@ -5045,8 +5045,8 @@ L_d80ef:
         endm
         if      FW_VERSION < 212
         RUN_L_D80EF
-        mov     word ptr [51fch], 0
-        mov     word ptr [51fah], 0
+        mov     word ptr [W_51FC_V112], 0
+        mov     word ptr [W_51FA_V112], 0
         endif
 
 RUN_LOOP_D5FDE macro   {GLOBALSYMBOLS}
@@ -5087,7 +5087,7 @@ br_d6017:
         callf   SEG_E8F5:far_e8f55
 br_d6027:
         else
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         mov     byte ptr [B_9D36], al
         callf   0da07h:far_d7a0d
         callf   0e6a6h:far_e8f55
@@ -5194,12 +5194,12 @@ br_d6b37:
         push    ax
         callf   0d728h:L_d7288
         add     sp, 2
-        mov     word ptr [4cc6h], 0ffffh
+        mov     word ptr [TBL_4CC6_V112], 0ffffh
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [4cbeh], al
+        mov     byte ptr [B_4CBE_V112], al
         mov     word ptr [W_94D6], 0
-        mov     word ptr [5209h], 0
-        mov     word ptr [5207h], 0
+        mov     word ptr [W_5209_V112], 0
+        mov     word ptr [W_5207_V112], 0
         mov     ax, 0ffffh
         jmp     br_d6a91
 br_d6b37:
@@ -5213,34 +5213,34 @@ br_d6b37:
         mov     word ptr [bx + 4], dx
         mov     word ptr [bx + 2], ax
         else
-        cmp     dx, word ptr [0a456h]
+        cmp     dx, word ptr [W_A456_V112]
         jnz     L_d81de
-        cmp     ax, word ptr [0a454h]
+        cmp     ax, word ptr [W_A454_V112]
 L_d81de:
         jnz     L_d8202
-        mov     dx, word ptr [52ceh]
-        mov     ax, word ptr [52cch]
+        mov     dx, word ptr [W_52CE_V112]
+        mov     ax, word ptr [W_52CC_V112]
         mov     word ptr [bp - 16h], dx
         mov     word ptr [bp - 18h], ax
-        mov     al, byte ptr [52b5h]
+        mov     al, byte ptr [B_52B5_V112]
         cbw
         cmp     ax, word ptr [bp + 8]
         jz      L_d81fd
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     L_d8202
 L_d81fd:
         xor     ax, ax
         jmp     near br_d6a91
 L_d8202:
-        mov     byte ptr [5064h], 0
+        mov     byte ptr [B_5064_V112], 0
         callf   0d841h:L_d8414
         push    word ptr [bp + 6]
         callf   0d7c0h:far_d602b
         add     sp, 2
         mov     dx, word ptr [W_9B9C]
         mov     ax, word ptr [W_9B9A]
-        mov     word ptr [0a456h], dx
-        mov     word ptr [0a454h], ax
+        mov     word ptr [W_A456_V112], dx
+        mov     word ptr [W_A454_V112], ax
         endif
         push    dx
         push    ax
@@ -5270,8 +5270,8 @@ L_d8202:
         mov     ax, word ptr [bx + 2]
         mov     dx, word ptr [bx + 4]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 1
         adc     dx, 0
@@ -5294,8 +5294,8 @@ L_d8202:
         mov     ax, word ptr [bx + 2]
         mov     dx, word ptr [bx + 4]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 4
         adc     dx, 0
@@ -5318,8 +5318,8 @@ L_d8202:
         push    word ptr [bx + 4]
         push    word ptr [bx + 2]
         else
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         endif
         callf   SEG_DA9B:far_da9b3
         add     sp, 8
@@ -5350,8 +5350,8 @@ L_d8202:
         push    word ptr [bx + 2]
         callf   SEG_F257:far_f25a0
         else
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         callf   0e960h:L_e962d
         endif
         add     sp, 6
@@ -5404,10 +5404,10 @@ L_d82fa:
         else
         mov     word ptr [W_94BE], dx
         mov     word ptr [W_94BC], ax
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, word ptr [bp - 0ch]
         adc     dx, word ptr [bp - 0ah]
@@ -5420,8 +5420,8 @@ L_d82fa:
         mov     word ptr [bx + 0ch], dx
         mov     word ptr [bx + 0ah], ax
         else
-        mov     word ptr [0a45eh], dx
-        mov     word ptr [0a45ch], ax
+        mov     word ptr [W_A45E_V112], dx
+        mov     word ptr [W_A45C_V112], ax
         endif
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
@@ -5434,8 +5434,8 @@ L_d82fa:
         push    word ptr [bx + 0ch]
         push    word ptr [bx + 0ah]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -5444,8 +5444,8 @@ L_d82fa:
         mov     word ptr [bx + 8], dx
         mov     word ptr [bx + 6], ax
         else
-        mov     word ptr [0a45ah], dx
-        mov     word ptr [0a458h], ax
+        mov     word ptr [W_A45A_V112], dx
+        mov     word ptr [W_A458_V112], ax
         endif
         push    word ptr [bp - 12h]
         push    word ptr [bp - 14h]
@@ -5468,11 +5468,11 @@ L_d82fa:
         jnz     br_d6ced
         cmp     ax, word ptr [bx + 6]
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        cmp     dx, word ptr [0a45ah]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        cmp     dx, word ptr [W_A45A_V112]
         jnz     br_d6ced
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         endif
 br_d6ced:
         jnz     br_d6cfb
@@ -5497,16 +5497,16 @@ br_d6cfb:
         jnz     br_d6d61
         mov     word ptr [W_A059], 0
         else
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
 br_d6cfb:
         xor     ax, ax
         mov     word ptr [W_94E0], 0
         mov     word ptr [W_A059], ax
         mov     ax, word ptr [bp + 8]
-        mov     byte ptr [52b5h], al
+        mov     byte ptr [B_52B5_V112], al
         callf   0e5c6h:L_e5c6a
         endif
         mov     ax, 1
@@ -5548,7 +5548,7 @@ br_d6d61:
 br_d6d67:
         else
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [4cbeh], al
+        mov     byte ptr [B_4CBE_V112], al
         endif
         xor     ax, ax
         jmp     br_d6a91
@@ -5629,11 +5629,11 @@ far_d55e8:
 br_d560f:
         else
         add     sp, 0ffd2h
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d5613
-        mov     word ptr [0a456h], 0
-        mov     word ptr [0a454h], 0
-        mov     byte ptr [52b5h], 0ffh
+        mov     word ptr [W_A456_V112], 0
+        mov     word ptr [W_A454_V112], 0
+        mov     byte ptr [B_52B5_V112], 0ffh
         xor     ax, ax
 L_d8434:
         endif
@@ -5657,15 +5657,15 @@ br_d562f:
         mov     ax, word ptr [bx + 2]
         mov     dx, word ptr [bx + 4]
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     br_d5625
         xor     ax, ax
         jmp     L_d8434
 br_d5625:
         mov     ax, 0b1h
         push    ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 17h
         adc     dx, 0
@@ -5690,8 +5690,8 @@ br_d5625:
         push    ax
         callf   0de8dh:L_de8d2
         add     sp, 0ah
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         else
         callf   SEG_F257:far_f25a0
         add     sp, 6
@@ -5830,7 +5830,7 @@ br_d575d:
         mov     byte ptr [bp - 2dh], al
         mov     al, byte ptr [bp - 30h]
         else
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         mov     byte ptr [bp - 1bh], al
         mov     al, byte ptr [bp - 1dh]
         sub     ah, ah
@@ -5861,7 +5861,7 @@ br_d575d:
         and     byte ptr [bx + 0a6h], 0fdh
         mov     al, byte ptr [bp - 30h]
         else
-        and     byte ptr [bx + 50cah], 0fdh
+        and     byte ptr [bx +TBL_50CA_V112], 0fdh
         mov     al, byte ptr [bp - 1dh]
         endif
         sub     ah, ah
@@ -5892,11 +5892,11 @@ br_d575d:
         adc     word ptr [bp - 0eh], 0
         jmp     near br_d5709
 L_d854f:
-        cmp     byte ptr [52b5h], 1
+        cmp     byte ptr [B_52B5_V112], 1
         jnz     br_d57eb
-        mov     word ptr [0a456h], 0
-        mov     word ptr [0a454h], 0
-        mov     byte ptr [52b5h], 0ffh
+        mov     word ptr [W_A456_V112], 0
+        mov     word ptr [W_A454_V112], 0
+        mov     byte ptr [B_52B5_V112], 0ffh
         xor     ax, ax
         jmp     L_d8434
 br_d57eb:
@@ -5926,9 +5926,9 @@ br_d57f6:
         mov     word ptr [W_94E0], 0
         xor     ax, ax
         mov     word ptr [bp - 14h], 0
-        mov     byte ptr [5757h], al
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
+        mov     byte ptr [B_5757_V112], al
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
         else
         mov     bx, word ptr [bp + 6]
         mov     word ptr [bx + 3ah], 0
@@ -5943,7 +5943,7 @@ loop_d5820:
         test    byte ptr [bx + 0a6h], 2
         else
         mov     bx, word ptr [bp - 18h]
-        test    byte ptr [bx + 50cah], 2
+        test    byte ptr [bx +TBL_50CA_V112], 2
         endif
         jz      br_d5830
         inc     word ptr [bp - 14h]
@@ -5970,8 +5970,8 @@ br_d5854:
         mov     ax, word ptr [bx + 2]
         mov     dx, word ptr [bx + 4]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 0cah
         adc     dx, 0
@@ -6036,7 +6036,7 @@ br_d5890:
 br_d58c2:
         if      FW_VERSION < 212
         mov     bx, word ptr [bp - 14h]
-        test    byte ptr [bx + 50cah], 2
+        test    byte ptr [bx +TBL_50CA_V112], 2
         else
         mov     bx, word ptr [bp + 6]
         add     bx, word ptr [bp - 14h]
@@ -6088,7 +6088,7 @@ br_d58dd:
         add     sp, 2
         mov     byte ptr [bp - 1ch], al
         mov     bx, word ptr [bp - 14h]
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         mov     byte ptr [bp - 1bh], al
         shl     bx, 1
         mov     ax, bx
@@ -6098,7 +6098,7 @@ br_d58dd:
         add     sp, 2
         mov     word ptr [bp - 1ah], ax
         mov     bx, word ptr [bp - 14h]
-        and     byte ptr [bx + 50cah], 0fdh
+        and     byte ptr [bx +TBL_50CA_V112], 0fdh
         mov     ax, 5
         endif
         push    ax
@@ -6151,8 +6151,8 @@ br_d5962:
         jnz     br_d5973
         cmp     ax, word ptr [bx + 16h]
         else
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
         cmp     dx, word ptr [W_94BE]
         jnz     br_d5973
         cmp     ax, word ptr [W_94BC]
@@ -6160,25 +6160,25 @@ br_d5962:
 br_d5973:
         jnz     br_d5981
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
 br_d5981:
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         callf   0e960h:far_f2582
         add     sp, 4
         and     ax, 7fh
         push    ax
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         callf   0e960h:L_e962d
         add     sp, 6
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
-        push    word ptr [0a462h]
-        push    word ptr [0a460h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
+        push    word ptr [W_A462_V112]
+        push    word ptr [W_A460_V112]
         else
         mov     ax, word ptr [bx + 12h]
         mov     dx, word ptr [bx + 14h]
@@ -6202,14 +6202,14 @@ br_d5981:
         else
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         ja      br_d59b0
         jnz     br_d59b3
         if      FW_VERSION >= 212
         cmp     ax, word ptr [bx + 12h]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         jc      br_d59b3
 br_d59b0:
@@ -6220,14 +6220,14 @@ br_d59b3:
         mov     dx, word ptr [bx + 10h]
         cmp     dx, word ptr [bx + 14h]
         else
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        cmp     dx, word ptr [0a466h]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         ja      br_d59c5
         jnz     br_d59c7
         if      FW_VERSION < 212
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         else
         cmp     ax, word ptr [bx + 12h]
         endif
@@ -6239,8 +6239,8 @@ br_d59c7:
         push    word ptr [bx + 0ch]
         push    word ptr [bx + 0ah]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         push    dx
         push    ax
@@ -6257,8 +6257,8 @@ br_d59df:
         push    word ptr [bx + 18h]
         push    word ptr [bx + 16h]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
         endif
@@ -6274,10 +6274,10 @@ br_d59fc:
         push    word ptr [bx + 8]
         push    word ptr [bx + 6]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -6286,8 +6286,8 @@ br_d59fc:
         push    bx
         push    cx
         if      FW_VERSION < 212
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
         else
@@ -6316,8 +6316,8 @@ br_d5a42:
         push    word ptr [bx + 18h]
         push    word ptr [bx + 16h]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
         endif
@@ -6333,8 +6333,8 @@ br_d5a5f:
         mov     ax, word ptr [bx + 2]
         mov     dx, word ptr [bx + 4]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 1
         adc     dx, 0
@@ -6353,8 +6353,8 @@ br_d5a5f:
         mov     ax, 3
         push    ax
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         else
         mov     bx, word ptr [bp + 6]
         mov     ax, word ptr [bx + 2]
@@ -6385,8 +6385,8 @@ br_d5a5f:
         else
         callf   0e4dch:far_ed059
         add     sp, 4
-        mov     word ptr [0a456h], 0
-        mov     word ptr [0a454h], 0
+        mov     word ptr [W_A456_V112], 0
+        mov     word ptr [W_A454_V112], 0
         endif
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -6406,19 +6406,19 @@ br_d5a5f:
         mov     word ptr [W_9BA0], dx
         mov     word ptr [W_9B9E], ax
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        mov     word ptr [0a452h], dx
-        mov     word ptr [0a450h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        mov     word ptr [W_A452_V112], dx
+        mov     word ptr [W_A450_V112], ax
         endif
         mov     ax, 0ffh
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         callf   0e960h:L_e962d
         add     sp, 6
-        mov     byte ptr [52b5h], 0ffh
+        mov     byte ptr [B_52B5_V112], 0ffh
         xor     ax, ax
         jmp     L_d8434
         else
@@ -6491,7 +6491,7 @@ loop_d5ba9:
         mov     ax, word ptr [bp - 2]
         else
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         cbw
         cmp     ax, word ptr [bp + 6]
         jnz     br_d5bbf
@@ -6512,7 +6512,7 @@ br_d5bbf:
 L_d88fd:
         push    bp
         mov     bp, sp
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         cmp     ax, word ptr [bp + 6]
         jnz     L_d8910
@@ -6678,13 +6678,13 @@ far_d6216:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jnz     br_d628f
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
         if      FW_VERSION < 212
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         else
         cmp     dx, word ptr [W_94BA]
         endif
@@ -6693,7 +6693,7 @@ far_d6216:
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B8]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         jnc     br_d6237
 br_d6235:
@@ -6702,8 +6702,8 @@ br_d6237:
         push    dx
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         else
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
@@ -6720,10 +6720,10 @@ br_d6237:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -6741,8 +6741,8 @@ br_d6275:
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
         if      FW_VERSION < 212
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         else
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
@@ -6755,8 +6755,8 @@ br_d628f:
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         push    word ptr [W_9B94]
         push    word ptr [W_9B92]
@@ -7303,7 +7303,7 @@ br_d6750:
         jmp     br_d6704
 br_d675a:
         if      FW_VERSION < 212
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         else
         mov     al, byte ptr [B_9D34]
         endif
@@ -7316,7 +7316,7 @@ br_d675a:
         if      FW_VERSION >= 212
         test    byte ptr [bx + TBL_954C], 2
         else
-        test    byte ptr [bx + 50cah], 2
+        test    byte ptr [bx +TBL_50CA_V112], 2
         endif
         jz      br_d6785
         mov     al, byte ptr [bp + 8]
@@ -7710,7 +7710,7 @@ br_d6861:
         if      FW_VERSION >= 212
         or      byte ptr [bx + TBL_954C], 2
         else
-        or      byte ptr [bx + 50cah], 2
+        or      byte ptr [bx +TBL_50CA_V112], 2
         endif
         push    word ptr [bp + 0ah]
         push    bx
@@ -7880,7 +7880,7 @@ far_d69b1:
         mov     bp, sp
         if      FW_VERSION < 212
         add     sp, 0fff4h
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         add     sp, 0fff6h
         cmp     byte ptr [B_94A6], 0
@@ -7892,7 +7892,7 @@ br_d69be:
         retf
 br_d69c2:
         if      FW_VERSION < 212
-        mov     byte ptr [5064h], 1
+        mov     byte ptr [B_5064_V112], 1
         endif
         mov     ax, 0ffffh
         push    ax
@@ -7901,8 +7901,8 @@ br_d69c2:
         if      FW_VERSION < 212
         callf   0e960h:L_e962d
         add     sp, 6
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         else
         callf   SEG_F257:far_f25a0
         add     sp, 6
@@ -7917,10 +7917,10 @@ br_d69e7:
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
 br_e66f6:
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         cmp     dx, word ptr [W_94BE]
         jnz     br_d69f8
@@ -7928,8 +7928,8 @@ br_e66f6:
 br_d69f8:
         jz      br_d6a69
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         else
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
@@ -7952,7 +7952,7 @@ br_d69f8:
         add     sp, 6
         if      FW_VERSION < 212
         mov     word ptr [bp - 0ch], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         else
         mov     al, byte ptr [TBL_8E65]
         endif
@@ -8014,9 +8014,9 @@ br_d6a69:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
         if      FW_VERSION < 212
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        dec     byte ptr [8fcbh]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        dec     byte ptr [B_8FCB_V112]
         jmp     near br_d69be
         phase   1
         endif
@@ -8032,9 +8032,9 @@ far_d7ae2:
         mov     bx, word ptr [bp + 6]
         test    byte ptr [bx + 1], 2
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     br_d7b4b
-        cmp     byte ptr [5064h], 0
+        cmp     byte ptr [B_5064_V112], 0
         endif
         jnz     br_d7b4b
         mov     ax, 5
@@ -8143,7 +8143,7 @@ far_e9d7e:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jl      br_e9d92
         mov     ax, 0fffch
@@ -8216,8 +8216,8 @@ br_e9da6:
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -8250,8 +8250,8 @@ br_e9da6:
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -8259,8 +8259,8 @@ br_e9da6:
         mov     word ptr [W_9BA0], dx
         mov     word ptr [W_9B9E], ax
         else
-        mov     word ptr [0a452h], dx
-        mov     word ptr [0a450h], ax
+        mov     word ptr [W_A452_V112], dx
+        mov     word ptr [W_A450_V112], ax
         endif
         xor     ax, ax
         jmp     br_e9d8e
@@ -8493,7 +8493,7 @@ br_d6f17:
         else
         mov     ax, word ptr [bp + 8]
         mov     dx, word ptr [bp + 0ah]
-        test    byte ptr [5759h], 0ffh
+        test    byte ptr [B_5759_V112], 0ffh
         endif
         jnz     br_d6f2f
         shl     bx, 1
@@ -8567,7 +8567,7 @@ br_d6f7d:
         mov     ax, word ptr es:[bx + 2c40h]
         mov     dx, word ptr es:[bx + 2c42h]
         else
-        test    byte ptr [5759h], 0ffh
+        test    byte ptr [B_5759_V112], 0ffh
         jnz     br_d6f91
         mov     ax, word ptr es:[word bx]
         mov     dx, word ptr es:[word bx + 2]
@@ -8660,7 +8660,7 @@ loop_d6fe9:
         if      FW_VERSION >= 212
         mov     bx, word ptr [W_A06F]
         else
-        mov     bx, word ptr [575ah]
+        mov     bx, word ptr [W_575A_V112]
         endif
         inc     bx
 br_d6ffc:
@@ -8774,7 +8774,7 @@ far_d71fa:
         push    bp
         mov     bp, sp
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_94A6], 0
         endif
@@ -8792,8 +8792,8 @@ far_d71fa:
         mov     ax, 0a0h
         push    ax
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         else
         mov     dx, word ptr [W_94AA]
         mov     ax, word ptr [W_94A8]
@@ -8829,7 +8829,7 @@ far_d7241:
         push    bp
         mov     bp, sp
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_d7259
         callf   0d911h:tgt_c0738
         else
@@ -8857,7 +8857,7 @@ far_d7268:
         mov     bp, sp
         add     sp, 0ffech
         if      FW_VERSION < 212
-        cmp     byte ptr [5064h], 0
+        cmp     byte ptr [B_5064_V112], 0
         else
         mov     bx, word ptr [bp + 6]
         test    byte ptr [bx + 1], 2
@@ -8869,11 +8869,11 @@ br_d7277:
         retf
 br_d727b:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_d9152
         jmp     br_d7277
 L_d9152:
-        cmp     byte ptr [52b5h], 0ffh
+        cmp     byte ptr [B_52B5_V112], 0ffh
         else
         cmp     byte ptr [bx], 0ffh
         endif
@@ -8892,8 +8892,8 @@ br_d7282:
         test    ax, ax
         jnz     br_d72bf
         if      FW_VERSION < 212
-        push    word ptr [0a462h]
-        push    word ptr [0a460h]
+        push    word ptr [W_A462_V112]
+        push    word ptr [W_A460_V112]
         else
         mov     bx, word ptr [bp + 6]
         push    word ptr [bx + 10h]
@@ -8917,9 +8917,9 @@ br_d7282:
         callf   0e557h:far_ea6fb
         add     sp, 2
 br_d72bf:
-        mov     byte ptr [5064h], 1
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     byte ptr [B_5064_V112], 1
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         else
         push    word ptr [bp + 6]
         callf   SEG_EA6F:far_ea6fb
@@ -8938,7 +8938,7 @@ br_d72bf:
         mov     bx, word ptr [bp - 12h]
         shl     bx, 1
         shl     bx, 1
-        mov     byte ptr [bx + 4cc8h], 0
+        mov     byte ptr [bx +TBL_4CC8_V112], 0
         else
         mov     ax, word ptr [bp - 12h]
         shl     ax, 1
@@ -8954,7 +8954,7 @@ br_d72bf:
         mov     word ptr [bp - 0ah], dx
         mov     word ptr [bp - 0ch], ax
         if      FW_VERSION < 212
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         else
         inc     byte ptr [B_8CCB]
         endif
@@ -8965,8 +8965,8 @@ br_d7306:
         jmp     br_d7518
 br_d7310:
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         else
         mov     bx, word ptr [bp + 6]
         mov     ax, word ptr [bx + 12h]
@@ -8991,7 +8991,7 @@ br_d7310:
         callf SEG_0300:far_03012
         add     sp, 6
         if      FW_VERSION < 212
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         else
         mov     al, byte ptr [TBL_8E65]
         endif
@@ -9037,11 +9037,11 @@ br_d7374:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
         if      FW_VERSION < 212
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        mov     byte ptr [5064h], 0
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        mov     byte ptr [B_5064_V112], 0
         or      byte ptr [B_8D78], 20h
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         callf   0d911h:far_d77c4
         else
         mov     word ptr [bx + 14h], dx
@@ -9082,7 +9082,7 @@ br_d7398:
         mov     word ptr [W_94C2], dx
         mov     word ptr [W_94C0], ax
 br_d73cd:
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         else
         mov     word ptr [bx + 1ch], dx
         mov     word ptr [bx + 1ah], ax
@@ -9097,7 +9097,7 @@ br_d73cd:
         shl     ax, cl
         push    ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         else
         mov     al, byte ptr [B_8E69]
         endif
@@ -9113,11 +9113,11 @@ br_d73cd:
         mov     bx, word ptr [bp - 12h]
         shl     bx, 1
         shl     bx, 1
-        mov     al, byte ptr [bx + 4cc8h]
-        cmp     al, byte ptr [9042h]
+        mov     al, byte ptr [bx +TBL_4CC8_V112]
+        cmp     al, byte ptr [B_9042_V112]
         jnz     br_d7410
-        mov     al, byte ptr [bx + 4cc9h]
-        cmp     al, byte ptr [9043h]
+        mov     al, byte ptr [bx +TBL_4CC9_V112]
+        cmp     al, byte ptr [B_9043_V112]
         else
         mov     ax, word ptr [bp - 12h]
         shl     ax, 1
@@ -9133,7 +9133,7 @@ br_d73cd:
         jz      br_d7457
 br_d7410:
         if      FW_VERSION < 212
-        cmp     byte ptr [4cc8h], 0
+        cmp     byte ptr [TBL_4CC8_V112], 0
         else
         mov     bx, word ptr [bp + 6]
         cmp     byte ptr [bx + 238h], 0
@@ -9157,17 +9157,17 @@ br_d741d:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     word ptr [bx + 4cc6h], ax
+        mov     word ptr [bx +TBL_4CC6_V112], ax
         mov     bx, word ptr [bp - 12h]
         shl     bx, 1
         shl     bx, 1
-        mov     al, byte ptr [9042h]
-        mov     byte ptr [bx + 4cc8h], al
+        mov     al, byte ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_4CC8_V112], al
         mov     bx, word ptr [bp - 12h]
         shl     bx, 1
         shl     bx, 1
-        mov     al, byte ptr [9043h]
-        mov     byte ptr [bx + 4cc9h], al
+        mov     al, byte ptr [B_9043_V112]
+        mov     byte ptr [bx +TBL_4CC9_V112], al
         else
         add     bx, word ptr [bp + 6]
         mov     word ptr [bx + 236h], ax
@@ -9196,11 +9196,11 @@ br_d7468:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
         if      FW_VERSION < 212
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        mov     byte ptr [5064h], 0
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        mov     byte ptr [B_5064_V112], 0
         or      byte ptr [B_8D78], 20h
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         callf   0d911h:far_d77c4
         else
         mov     word ptr [bx + 14h], dx
@@ -9232,7 +9232,7 @@ br_d748e:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     word ptr [bx + 4cc6h], 0ffffh
+        mov     word ptr [bx +TBL_4CC6_V112], 0ffffh
         else
         add     bx, word ptr [bp + 6]
         mov     word ptr [bx + 236h], 0ffffh
@@ -9241,8 +9241,8 @@ br_d748e:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
         if      FW_VERSION < 212
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         push    word ptr [W_94D8]
         callf   0d8f5h:far_d7ae2
         add     sp, 2
@@ -9269,9 +9269,9 @@ br_d748e:
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
         if      FW_VERSION < 212
-        mov     word ptr [5209h], dx
-        mov     word ptr [5207h], ax
-        dec     byte ptr [8fcbh]
+        mov     word ptr [W_5209_V112], dx
+        mov     word ptr [W_5207_V112], ax
+        dec     byte ptr [B_8FCB_V112]
         callf   0d911h:far_d77c4
         else
         mov     word ptr [bx + 24h], dx
@@ -9303,42 +9303,42 @@ far_d751b:
         add     sp, 0fff6h
         mov     word ptr [bp - 8], 1
         mov     word ptr [bp - 0ah], 0
-        cmp     byte ptr [52e5h], 0
+        cmp     byte ptr [B_52E5_V112], 0
         jz      L_d93e3
 L_d93df:
         mov     sp, bp
         pop     bp
         retf
 L_d93e3:
-        cmp     byte ptr [52e3h], 0
+        cmp     byte ptr [B_52E3_V112], 0
         jge     L_d93ec
         jmp     L_d93df
 L_d93ec:
         callf   0d911h:far_d777b
-        mov     dx, word ptr [0a476h]
-        mov     ax, word ptr [0a474h]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
-        mov     ax, word ptr [5753h]
+        mov     dx, word ptr [W_A476_V112]
+        mov     ax, word ptr [W_A474_V112]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
+        mov     ax, word ptr [W_5753_V112]
         add     ax, 64h
         mov     cx, 64h
         cwd
         idiv    cx
-        mov     byte ptr [52e5h], al
+        mov     byte ptr [B_52E5_V112], al
         xor     bx, bx
         mov     word ptr [bp - 6], 0
         shl     bx, 1
         shl     bx, 1
-        mov     byte ptr [bx + 5612h], 0
-        inc     byte ptr [8fcbh]
+        mov     byte ptr [bx +TBL_5612_V112], 0
+        inc     byte ptr [B_8FCB_V112]
 L_c05e1:
         mov     ax, 1
         test    ax, ax
         jnz     L_d942c
         jmp     L_c0735
 L_d942c:
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
         mov     ax, 1401h
@@ -9349,13 +9349,13 @@ L_d942c:
         push    ax
         callf   512h:far_03012
         add     sp, 6
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         sub     ah, ah
         jmp     near L_d951e
 L_d945a:
-        mov     al, byte ptr [52e5h]
+        mov     al, byte ptr [B_52E5_V112]
         cbw
         mov     cx, ax
         mov     ax, word ptr [bp - 0ah]
@@ -9369,29 +9369,29 @@ L_d945a:
         shl     bx, 1
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
-        mov     word ptr [bx + 52e8h], dx
-        mov     word ptr [bx + 52e6h], ax
+        mov     word ptr [bx +TBL_52E8_V112], dx
+        mov     word ptr [bx +TBL_52E6_V112], ax
 L_d9482:
         mov     ax, word ptr [bp - 0ah]
         inc     word ptr [bp - 0ah]
-        cmp     ax, word ptr [5751h]
+        cmp     ax, word ptr [W_5751_V112]
         jnz     L_d949b
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
-        mov     word ptr [547ch], dx
-        mov     word ptr [547ah], ax
+        mov     word ptr [W_547C_V112], dx
+        mov     word ptr [W_547A_V112], ax
 L_d949b:
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
         shl     bx, 1
-        mov     al, byte ptr [bx + 5612h]
-        cmp     al, byte ptr [9042h]
+        mov     al, byte ptr [bx +TBL_5612_V112]
+        cmp     al, byte ptr [B_9042_V112]
         jnz     L_d94b6
-        mov     al, byte ptr [bx + 5613h]
-        cmp     al, byte ptr [9043h]
+        mov     al, byte ptr [bx +TBL_5613_V112]
+        cmp     al, byte ptr [B_9043_V112]
         jz      L_d94f3
 L_d94b6:
-        cmp     byte ptr [bx + 5612h], 0
+        cmp     byte ptr [bx +TBL_5612_V112], 0
         jz      L_d94c0
         inc     word ptr [bp - 6]
 L_d94c0:
@@ -9402,30 +9402,30 @@ L_d94c0:
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
         shl     bx, 1
-        mov     word ptr [bx + 5610h], ax
+        mov     word ptr [bx +TBL_5610_V112], ax
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
         shl     bx, 1
-        mov     al, byte ptr [9042h]
-        mov     byte ptr [bx + 5612h], al
+        mov     al, byte ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_5612_V112], al
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
         shl     bx, 1
-        mov     al, byte ptr [9043h]
-        mov     byte ptr [bx + 5613h], al
+        mov     al, byte ptr [B_9043_V112]
+        mov     byte ptr [bx +TBL_5613_V112], al
 L_d94f3:
         jmp     L_d952b
 L_d94f5:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
-        mov     word ptr [52e8h], dx
-        mov     word ptr [52e6h], ax
+        mov     word ptr [TBL_52E8_V112], dx
+        mov     word ptr [TBL_52E6_V112], ax
         inc     word ptr [bp - 6]
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
         shl     bx, 1
-        mov     word ptr [bx + 5610h], 0ffffh
-        dec     byte ptr [8fcbh]
+        mov     word ptr [bx +TBL_5610_V112], 0ffffh
+        dec     byte ptr [B_8FCB_V112]
         callf   0d911h:far_d77c4
         jmp     L_d93df
 L_d951e:
@@ -9444,7 +9444,7 @@ tgt_c0738:
         mov     bp, sp
         add     sp, 0ffeah
         mov     al, byte ptr [B_A06A]
-        cmp     al, byte ptr [5757h]
+        cmp     al, byte ptr [B_5757_V112]
         else
         add     sp, 0ffech
         mov     al, byte ptr [B_A06A]
@@ -9457,7 +9457,7 @@ br_d752a:
         retf
 br_d752e:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -9466,13 +9466,13 @@ br_d752e:
 br_d7537:
         if      FW_VERSION < 212
         callf   0d911h:far_d777b
-        mov     dx, word ptr [52ceh]
-        mov     ax, word ptr [52cch]
-        mov     word ptr [5766h], dx
-        mov     word ptr [5764h], ax
+        mov     dx, word ptr [W_52CE_V112]
+        mov     ax, word ptr [W_52CC_V112]
+        mov     word ptr [W_5766_V112], dx
+        mov     word ptr [W_5764_V112], ax
         callf   0d841h:L_d8414
         mov     al, byte ptr [B_A06A]
-        mov     byte ptr [5757h], al
+        mov     byte ptr [B_5757_V112], al
         else
         callf   SEG_D724:far_d777b
         mov     dx, word ptr [W_94DE]
@@ -9494,8 +9494,8 @@ br_d7537:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     byte ptr [bx + 576eh], 0
-        inc     byte ptr [8fcbh]
+        mov     byte ptr [bx +TBL_576E_V112], 0
+        inc     byte ptr [B_8FCB_V112]
         else
         mov     byte ptr [bx + TBL_A083], 0
         inc     byte ptr [B_8CCB]
@@ -9527,14 +9527,14 @@ br_d759a:
         shl     ax, 1
         add     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         else
         mov     al, byte ptr [bx + TBL_5516]
         endif
         sub     ah, ah
         mov     word ptr [bp - 12h], ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         else
         mov     al, byte ptr [bx + TBL_5517]
         endif
@@ -9546,7 +9546,7 @@ br_d759a:
 br_d75d3:
         mov     bx, word ptr [bp - 0eh]
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx - 7746h]
+        mov     al, byte ptr [bx +TBL_88BA_V112]
         else
         mov     al, byte ptr [bx + TBL_7C3A]
         endif
@@ -9578,9 +9578,9 @@ br_d7608:
         jmp     br_d76eb
 br_d7611:
         if      FW_VERSION < 212
-        mov     byte ptr [903fh], 0
+        mov     byte ptr [B_903F_V112], 0
 br_d7616:
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         else
         mov     byte ptr [TBL_8E65], 0
 br_d7616:
@@ -9593,8 +9593,8 @@ br_d7616:
         jmp     near br_d76e5
 br_d7625:
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         else
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
@@ -9616,7 +9616,7 @@ br_d7625:
         callf SEG_0300:far_03012
         add     sp, 6
         if      FW_VERSION < 212
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         else
         mov     al, byte ptr [TBL_8E65]
         endif
@@ -9659,11 +9659,11 @@ loop_d7667:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 576eh]
-        cmp     al, byte ptr [9042h]
+        mov     al, byte ptr [bx +TBL_576E_V112]
+        cmp     al, byte ptr [B_9042_V112]
         jnz     br_d769f
-        mov     al, byte ptr [bx + 576fh]
-        cmp     al, byte ptr [9043h]
+        mov     al, byte ptr [bx +TBL_576F_V112]
+        cmp     al, byte ptr [B_9043_V112]
         else
         mov     al, byte ptr [bx + TBL_A083]
         cmp     al, byte ptr [B_8E68]
@@ -9674,7 +9674,7 @@ loop_d7667:
         jz      br_d76d3
 br_d769f:
         if      FW_VERSION < 212
-        cmp     byte ptr [bx + 576eh], 0
+        cmp     byte ptr [bx +TBL_576E_V112], 0
         else
         cmp     byte ptr [bx + TBL_A083], 0
         endif
@@ -9686,7 +9686,7 @@ br_d76a9:
         shl     bx, 1
         mov     ax, word ptr [bp - 0ch]
         if      FW_VERSION < 212
-        mov     word ptr [bx + 576ch], ax
+        mov     word ptr [bx +TBL_576C_V112], ax
         else
         mov     word ptr [bx + TBL_A081], ax
         endif
@@ -9694,8 +9694,8 @@ br_d76a9:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     al, byte ptr [9042h]
-        mov     byte ptr [bx + 576eh], al
+        mov     al, byte ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_576E_V112], al
         else
         mov     al, byte ptr [B_8E68]
         mov     byte ptr [bx + TBL_A083], al
@@ -9704,8 +9704,8 @@ br_d76a9:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     al, byte ptr [9043h]
-        mov     byte ptr [bx + 576fh], al
+        mov     al, byte ptr [B_9043_V112]
+        mov     byte ptr [bx +TBL_576F_V112], al
         else
         mov     al, byte ptr [B_8E69]
         mov     byte ptr [bx + TBL_A084], al
@@ -9742,11 +9742,11 @@ br_d76f8:
         if      FW_VERSION < 212
         callf   0da1eh:far_d6ee4
         add     sp, 0ah
-        cmp     byte ptr [576eh], 0
+        cmp     byte ptr [TBL_576E_V112], 0
         jnz     br_d7729
-        mov     word ptr [576ch], 1
-        mov     byte ptr [576eh], 4
-        mov     byte ptr [576fh], 4
+        mov     word ptr [TBL_576C_V112], 1
+        mov     byte ptr [TBL_576E_V112], 4
+        mov     byte ptr [TBL_576F_V112], 4
         else
         push    ax
         callf   SEG_D6EE:far_d6ee4
@@ -9763,7 +9763,7 @@ br_d7729:
         shl     bx, 1
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     word ptr [bx + 576ch], 0ffffh
+        mov     word ptr [bx +TBL_576C_V112], 0ffffh
         else
         mov     word ptr [bx + TBL_A081], 0ffffh
         endif
@@ -9772,15 +9772,15 @@ br_d7729:
         mov     word ptr [W_A073], dx
         mov     word ptr [W_A071], ax
         if      FW_VERSION < 212
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         push    word ptr [bp - 0eh]
         callf   0e657h:far_e9887
         add     sp, 2
-        mov     byte ptr [9007h], al
-        cmp     byte ptr [9007h], 0
+        mov     byte ptr [B_9007_V112], al
+        cmp     byte ptr [B_9007_V112], 0
         jnz     br_d7773
-        push    word ptr [5766h]
-        push    word ptr [5764h]
+        push    word ptr [W_5766_V112]
+        push    word ptr [W_5764_V112]
         callf   0d97dh:L_d97d2
         add     sp, 4
 br_d7773:
@@ -9867,9 +9867,9 @@ RUN_BR_EAF6E macro   {GLOBALSYMBOLS}
         jnz     br_eaf74
         mov     ax, word ptr [W_A06F]
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_eaf74
-        mov     ax, word ptr [575ah]
+        mov     ax, word ptr [W_575A_V112]
         endif
         mov     word ptr [bp - 2], ax
         mov     al, byte ptr [B_A06A]
@@ -9888,7 +9888,7 @@ RUN_BR_EAF6E macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jnz     br_eaf72
 br_eaf6e:
@@ -9906,7 +9906,7 @@ br_eaf74:
         else
         mov     ax, word ptr [W_94D6]
         mov     word ptr [bp - 2], ax
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jge     br_eaf84
         jmp     br_eaf6e
@@ -9927,7 +9927,7 @@ br_eaf91:
         else
         mov     word ptr [bp + 6], 100h
 br_eaf91:
-        cmp     ax, word ptr [52ceh]
+        cmp     ax, word ptr [W_52CE_V112]
         endif
         jz      br_eafa5
         push    ax
@@ -9957,13 +9957,13 @@ br_eafbc:
         add     sp, 2
 br_eafa5:
         mov     ax, word ptr [bp + 6]
-        cmp     ax, word ptr [52cch]
+        cmp     ax, word ptr [W_52CC_V112]
         jg      br_eafbc
         push    word ptr [bp + 8]
         callf   0d728h:L_d7288
         add     sp, 2
 br_eafbc:
-        mov     ax, word ptr [52cch]
+        mov     ax, word ptr [W_52CC_V112]
         cmp     ax, word ptr [bp + 6]
         jz      br_eafd2
         callf   0d97dh:far_eafec
@@ -9998,7 +9998,7 @@ br_eaff6:
         cmp     word ptr [bx + 3ah], 0
         else
         add     sp, 0fff6h
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
 br_eaff6:
         cmp     word ptr [W_94E0], 0
         endif
@@ -10009,8 +10009,8 @@ br_eb002:
         mov     ax, word ptr [bx + 12h]
         mov     dx, word ptr [bx + 14h]
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -10035,7 +10035,7 @@ br_eb002:
         mov     al, byte ptr [TBL_8E65]
         else
         mov     word ptr [bp - 6], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -10051,9 +10051,9 @@ loop_eb02e:
         mov     word ptr [bx + 12h], ax
         dec     byte ptr [B_8CCB]
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        dec     byte ptr [8fcbh]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        dec     byte ptr [B_8FCB_V112]
         endif
         mov     ax, 1
 br_eb044:
@@ -10077,14 +10077,14 @@ loop_eb05c:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E69]
         else
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         endif
         sub     ah, ah
         push    ax
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E68]
         else
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         push    ax
@@ -10164,8 +10164,8 @@ br_eb0d5:
         mov     word ptr [bp - 0ah], 0
         cmp     word ptr [W_94E0], 0
         jnz     br_eb12a
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -10198,9 +10198,9 @@ br_eb0d5:
         mov     word ptr [bx + 12h], ax
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        mov     al, byte ptr [903fh]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         mov     cx, 0ffh
@@ -10225,7 +10225,7 @@ br_eb12a:
         else
         mov     word ptr [bp - 0ah], ax
 br_eb12a:
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         mov     ax, word ptr [bp - 0ah]
         jmp     br_eb044
         phase   5
@@ -10253,7 +10253,7 @@ loop_eb158:
         if      FW_VERSION >= 212
         mov     ax, word ptr [W_94DE]
         else
-        mov     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_52CE_V112]
         endif
         inc     ax
         push    ax
@@ -10280,9 +10280,9 @@ loop_eb172:
         mov     word ptr [bp - 2], ax
         cmp     word ptr [W_94DC], 100h
         else
-        mov     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_52CE_V112]
         mov     word ptr [bp - 2], ax
-        cmp     word ptr [52cch], 100h
+        cmp     word ptr [W_52CC_V112], 100h
         endif
         jnz     br_eb183
         dec     word ptr [bp - 2]
@@ -10341,7 +10341,7 @@ L_d81af:
         add     sp, 0fffbh
         cmp     byte ptr [B_A06E], 0
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         endif
         jz      br_eb1fc
         mov     al, byte ptr [B_A06A]
@@ -10360,7 +10360,7 @@ L_d81af:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jnz     br_eb1fa
 br_eb1f6:
@@ -10373,7 +10373,7 @@ br_eb1fc:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jge     loop_eb205
         jmp     br_eb1f6
@@ -10397,9 +10397,9 @@ loop_eb205:
         callf   SEG_E8CD:far_e8cd3
         add     sp, 4
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      br_eb22e
-        push    word ptr [52ceh]
+        push    word ptr [W_52CE_V112]
         callf   0d728h:L_d7288
         add     sp, 2
         endif
@@ -10437,9 +10437,9 @@ br_eb233:
         add     sp, 6
 br_eb279:
         else
-        mov     byte ptr [5b07h], 1
+        mov     byte ptr [B_5B07_V112], 1
 br_eb233:
-        cmp     byte ptr [5b07h], 0
+        cmp     byte ptr [B_5B07_V112], 0
         jz      loop_eb205
         endif
         push    word ptr [W_94D2]
@@ -10461,7 +10461,7 @@ far_eb28c:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A06E], 0
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         endif
         jz      br_eb2c2
         mov     al, byte ptr [B_A06A]
@@ -10480,7 +10480,7 @@ far_eb28c:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jnz     br_eb2c0
 br_eb2bb:
@@ -10494,7 +10494,7 @@ br_eb2c2:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jge     br_eb2cb
         jmp     br_eb2bb
@@ -10555,7 +10555,7 @@ br_eb2e6:
         else
         callf   0d97dh:L_d97d2
         add     sp, 4
-        cmp     byte ptr [5b07h], 0
+        cmp     byte ptr [B_5B07_V112], 0
         jz      br_eb33d
         callf   0d999h:L_d81af
         endif
@@ -10614,7 +10614,7 @@ br_eb391:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A067], 0
         else
-        cmp     byte ptr [5b07h], 0
+        cmp     byte ptr [B_5B07_V112], 0
         endif
         jz      br_eb3c1
         mov     si, word ptr [bp - 16h]
@@ -10684,7 +10684,7 @@ far_ede2b:
         cmp     byte ptr [B_94A6], 0
         else
         add     sp, 0fff6h
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jge     br_ede3c
 br_ede38:
@@ -10698,7 +10698,7 @@ br_ede3c:
         if      FW_VERSION >= 212
         test    byte ptr [bx + TBL_954C], 4
         else
-        test    byte ptr [bx + 50cah], 4
+        test    byte ptr [bx +TBL_50CA_V112], 4
         endif
         jz      br_ede4e
         jmp     br_ede38
@@ -10710,8 +10710,8 @@ br_ede56:
         endm
         if      FW_VERSION < 212
         RUN_FAR_EDE2B
-        mov     dx, word ptr [52ceh]
-        mov     ax, word ptr [52cch]
+        mov     dx, word ptr [W_52CE_V112]
+        mov     ax, word ptr [W_52CC_V112]
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
         endif
@@ -10722,7 +10722,7 @@ RUN_BR_EDE9F macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     al, byte ptr [bp + 0ah]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -10753,7 +10753,7 @@ br_edea8:
         push    word ptr [bp + 0ah]
         callf   0e533h:L_e535c
         add     sp, 2
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
 br_ede9f:
         mov     ax, word ptr [bp + 0ah]
         cmp     ax, word ptr [bp + 0ch]
@@ -10776,7 +10776,7 @@ br_edea8:
         cwd
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -10819,9 +10819,9 @@ br_edf07:
         jnz     br_edf56
         mov     al, byte ptr [B_8E67]
         else
-        test    byte ptr [bx + 50cah], 4
+        test    byte ptr [bx +TBL_50CA_V112], 4
         jnz     br_edf56
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         endif
         sub     ah, ah
         add     ax, word ptr [bp + 6]
@@ -10848,7 +10848,7 @@ br_edf26:
         mov     word ptr [bp - 0ah], 0
 br_edf31:
         mov     ax, word ptr [bp - 0ah]
-        mov     byte ptr [9041h], al
+        mov     byte ptr [B_9041_V112], al
         endif
 br_edf37:
         jmp     br_edf56
@@ -10906,7 +10906,7 @@ br_edf78:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -10915,7 +10915,7 @@ br_edf78:
         RUN_BR_EDE9F
         callf   0dc48h:L_dc484
         add     sp, 4
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
         callf   0d97dh:L_d97d2
@@ -10932,7 +10932,7 @@ far_ead5e:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jz      br_ead71
         xor     ax, ax
@@ -11037,7 +11037,7 @@ br_eadf3:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -11062,7 +11062,7 @@ far_e9cab:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jz      br_e9cd1
         xor     ax, ax
@@ -11070,7 +11070,7 @@ far_e9cab:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -11131,7 +11131,7 @@ br_e9ce6:
         push    ax
         callf   SEG_E8CD:far_e8cd3
         else
-        mov     byte ptr [52b5h], 1
+        mov     byte ptr [B_52B5_V112], 1
         push    word ptr [bp + 8]
         xor     ax, ax
         push    ax
@@ -11144,7 +11144,7 @@ br_e9ce6:
         push    word ptr [bp + 6]
         callf   SEG_F113:far_f113e
         else
-        mov     byte ptr [52b5h], 0
+        mov     byte ptr [B_52B5_V112], 0
         push    word ptr [bp + 6]
         callf   0e5bch:far_f113e
         endif
@@ -11175,7 +11175,7 @@ br_e9d6a:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -11199,7 +11199,7 @@ L_d9e75:
         push    ax
         callf   0e533h:L_e5337
         add     sp, 4
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         mov     word ptr [bp - 8], 0
 L_d9e92:
         cmp     word ptr [bp - 8], 0
@@ -11215,7 +11215,7 @@ L_d9e9b:
         callf   512h:far_03012
         add     sp, 6
         mov     word ptr [bp - 2], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         mov     word ptr [bp - 0ah], ax
@@ -11249,7 +11249,7 @@ L_d9ef6:
         jz      L_d9f09
         jmp     L_d9ffc
 L_d9f09:
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         jmp     near L_d9fb9
@@ -11277,7 +11277,7 @@ RUN_BR_ED48F macro   {GLOBALSYMBOLS}
 br_ed48f:
         jmp     L_d9f4c
 br_ed492:
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         mov     bx, word ptr [bp + 0ch]
         cmp     al, byte ptr [bx]
         jc      L_d9f4c
@@ -11287,34 +11287,34 @@ br_ed492:
 L_d9f4c:
         jmp     near br_c80a9
 L_d9f4f:
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         sub     ah, ah
         mov     bx, ax
-        cmp     byte ptr [bx + 5ee1h], 0
+        cmp     byte ptr [bx +TBL_5EE1_V112], 0
         jz      L_d9f60
         jmp     L_d9e92
 L_d9f60:
         jmp     near br_c80a9
 L_d9f63:
-        cmp     byte ptr [5ed8h], 0
+        cmp     byte ptr [TBL_5ED8_V112], 0
         jz      L_d9f6d
         jmp     L_d9e92
 L_d9f6d:
         jmp     br_c80a9
 L_d9f6f:
-        cmp     byte ptr [5ed9h], 0
+        cmp     byte ptr [B_5ED9_V112], 0
         jz      L_d9f79
         jmp     L_d9e92
 L_d9f79:
         jmp     br_c80a9
 L_d9f7b:
-        cmp     byte ptr [5edah], 0
+        cmp     byte ptr [B_5EDA_V112], 0
         jz      L_d9f85
         jmp     L_d9e92
 L_d9f85:
         jmp     br_c80a9
 L_d9f87:
-        cmp     byte ptr [5edbh], 0
+        cmp     byte ptr [B_5EDB_V112], 0
         jz      L_d9f91
         jmp     L_d9e92
 L_d9f91:
@@ -11325,13 +11325,13 @@ loop_c8098:
         test    ax, ax
         jz      L_d9fad
         mov     bx, ax
-        cmp     byte ptr [bx + 5edch], 1
+        cmp     byte ptr [bx +TBL_5EDC_V112], 1
         jnz     L_d9fab
         jmp     L_d9e92
 L_d9fab:
         jmp     L_d9fb7
 L_d9fad:
-        cmp     byte ptr [5edch], 0
+        cmp     byte ptr [TBL_5EDC_V112], 0
         jz      L_d9fb7
         jmp     L_d9e92
 L_d9fb7:
@@ -11379,12 +11379,12 @@ L_d9ffc:
 L_da00e:
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
         add     sp, 4
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         mov     sp, bp
         pop     bp
         retf
@@ -11393,7 +11393,7 @@ L_da027:
         mov     bp, sp
         add     sp, 0ffffh
         push    si
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         mov     byte ptr [bp - 1], al
         cmp     al, 20h
         endif
@@ -11422,19 +11422,19 @@ br_ed6aa:
         RUN_BR_ED48F
         push    bp
         mov     bp, sp
-        cmp     byte ptr [9041h], 47h
+        cmp     byte ptr [B_9041_V112], 47h
         jz      L_da05d
 L_da059:
         mov     sp, bp
         pop     bp
         retf
 L_da05d:
-        cmp     byte ptr [9044h], 45h
+        cmp     byte ptr [B_9044_V112], 45h
         jz      L_da06b
-        cmp     byte ptr [9044h], 46h
+        cmp     byte ptr [B_9044_V112], 46h
         jnz     L_da072
 L_da06b:
-        mov     al, byte ptr [9045h]
+        mov     al, byte ptr [B_9045_V112]
         sub     ah, ah
         jmp     L_da059
 L_da072:
@@ -11600,7 +11600,7 @@ br_d7951:
         inc     byte ptr [B_8CCB]
         callf   SEG_EDDC:far_eddc3
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         callf   0e466h:far_ec31a
         endif
         push    word ptr [W_53CF]
@@ -11615,8 +11615,8 @@ br_d7951:
         add     sp, 2
         mov     byte ptr [B_7E5D], 1
         else
-        dec     byte ptr [8fcbh]
-        mov     byte ptr [88e7h], 1
+        dec     byte ptr [B_8FCB_V112]
+        mov     byte ptr [B_88E7_V112], 1
         endif
 br_d797f:
         mov     sp, bp
@@ -11660,7 +11660,7 @@ far_d7994:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A06E], 0
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         endif
         jz      br_d79bc
         mov     al, byte ptr [B_A419]
@@ -11749,11 +11749,11 @@ far_d7a0d:
 br_d7a1d:
         mov     word ptr [W_5367], ax
         else
-        mov     ax, word ptr [520bh]
+        mov     ax, word ptr [W_520B_V112]
         mov     word ptr [bp - 2], ax
         jmp     L_da10a
 br_d7a1d:
-        mov     ax, word ptr [5b08h]
+        mov     ax, word ptr [W_5B08_V112]
         mov     word ptr [bp - 2], ax
 L_da10a:
         endif
@@ -11857,13 +11857,13 @@ br_d7a77:
         mov     dx, word ptr [W_94AA]
         mov     ax, word ptr [W_94A8]
         else
-        mov     word ptr [520bh], ax
-        mov     byte ptr [5757h], 0
-        cmp     byte ptr [52b5h], 0
+        mov     word ptr [W_520B_V112], ax
+        mov     byte ptr [B_5757_V112], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jl      br_d7ad2
         push    ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 20h
         adc     dx, 0
@@ -11880,7 +11880,7 @@ br_d7a77:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -11895,7 +11895,7 @@ br_d7ad2:
 br_d7ad4:
         if      FW_VERSION < 212
         mov     ax, word ptr [bp - 4]
-        mov     word ptr [5b08h], ax
+        mov     word ptr [W_5B08_V112], ax
 br_d7ada:
         callf   0d473h:far_d391a
         jmp     near br_d6e39
@@ -11914,8 +11914,8 @@ far_e90d9:
         sub     ax, word ptr [W_8D5E]
         else
         add     sp, 0ffeeh
-        mov     ax, word ptr [8ff0h]
-        sub     ax, word ptr [8feeh]
+        mov     ax, word ptr [W_8FF0_V112]
+        sub     ax, word ptr [W_8FEE_V112]
         endif
         mov     word ptr [bp - 2], ax
         jnz     br_e90f1
@@ -11928,7 +11928,7 @@ br_e90f1:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D64]
         else
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         endif
         cbw
         push    ax
@@ -11959,9 +11959,9 @@ br_e9106:
         callf   SEG_E90D:far_e9380
         else
         mov     al, 0
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
         callf   0daf8h:L_daf8f
         callf   0d841h:L_d8414
         callf   0da2dh:far_e9380
@@ -12001,8 +12001,8 @@ br_e916b:
         mov     ax, word ptr [bp - 4]
         jmp     br_e90ed
 br_e916b:
-        mov     al, byte ptr [8ff2h]
-        cmp     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FF2_V112]
+        cmp     al, byte ptr [B_8FEC_V112]
         jz      br_e91ae
         callf   0da2dh:far_e94b8
         endif
@@ -12040,7 +12040,7 @@ br_e91ae:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D66]
         else
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         endif
         cbw
         push    ax
@@ -12057,7 +12057,7 @@ br_e91ae:
         else
         callf   0d816h:far_d6a82
         add     sp, 4
-        push    word ptr [8ff4h]
+        push    word ptr [W_8FF4_V112]
         callf   0e533h:L_e535c
         add     sp, 2
         xor     ax, ax
@@ -12072,7 +12072,7 @@ br_e91ae:
         RUN_FAR_E90D9
         callf   0e533h:L_e5471
         add     sp, 2
-        push    word ptr [8ff6h]
+        push    word ptr [W_8FF6_V112]
         push    word ptr [bp - 2]
         callf   0da2dh:far_e9280
         endif
@@ -12084,8 +12084,8 @@ RUN_FAR_E9280 macro   {GLOBALSYMBOLS}
         imul    word ptr [W_8D68]
         add     ax, word ptr [W_8D62]
         else
-        imul    word ptr [8ff6h]
-        add     ax, word ptr [8ff4h]
+        imul    word ptr [W_8FF6_V112]
+        add     ax, word ptr [W_8FF4_V112]
         endif
         mov     word ptr [bp - 6], ax
         push    ax
@@ -12110,7 +12110,7 @@ RUN_FAR_E9280 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D55E:far_d55e8
         else
-        push    word ptr [8ff4h]
+        push    word ptr [W_8FF4_V112]
         callf   0e6beh:far_f0c14
         add     sp, 6
         callf   0d841h:L_d8414
@@ -12128,7 +12128,7 @@ RUN_FAR_E9280 macro   {GLOBALSYMBOLS}
         push    ax
         mov     al, byte ptr [B_8D66]
         else
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         endif
         cbw
         push    ax
@@ -12147,7 +12147,7 @@ RUN_FAR_E9280 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D66]
         else
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         endif
         cbw
         push    ax
@@ -12174,14 +12174,14 @@ far_e9280:
         inc     byte ptr [B_8CCB]
         else
         add     sp, 0fff2h
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         mov     word ptr [bp - 0ch], dx
         mov     word ptr [bp - 0eh], ax
         mov     word ptr [bp - 8], 9040h
-        mov     ax, word ptr [8ff4h]
+        mov     ax, word ptr [W_8FF4_V112]
         mov     word ptr [bp - 4], ax
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
 br_e92a2:
         mov     ax, word ptr [bp + 8]
@@ -12200,8 +12200,8 @@ br_e92af:
         else
         mov     dx, word ptr [bp - 0ch]
         mov     ax, word ptr [bp - 0eh]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
         endif
 loop_e92c2:
         cmp     word ptr [bp - 6], 0
@@ -12226,7 +12226,7 @@ br_e92cb:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -12245,7 +12245,7 @@ loop_e92ec:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E68]
         else
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         mov     dx, ax
@@ -12257,7 +12257,7 @@ loop_e92ec:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E69]
         else
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         endif
         sub     ah, ah
         mov     cx, ax
@@ -12269,8 +12269,8 @@ loop_e92ec:
         add     word ptr [W_94C8], ax
         adc     word ptr [W_94CA], dx
         else
-        add     word ptr [5207h], ax
-        adc     word ptr [5209h], dx
+        add     word ptr [W_5207_V112], ax
+        adc     word ptr [W_5209_V112], dx
         endif
 loop_e9326:
         mov     ax, word ptr [bp - 6]
@@ -12288,14 +12288,14 @@ br_e9337:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_985E]
         else
-        mov     al, byte ptr [bx + 55aah]
+        mov     al, byte ptr [bx +TBL_55AA_V112]
         endif
         cbw
         mov     bx, ax
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_94E8]
         else
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         endif
         mov     byte ptr [TBL_8E66], al
         jmp     br_e935f
@@ -12326,7 +12326,7 @@ br_e9378:
         if      FW_VERSION >= 212
         dec     byte ptr [B_8CCB]
         else
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         mov     sp, bp
         pop     bp
@@ -12344,7 +12344,7 @@ far_e9380:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D64]
         else
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         endif
         cbw
         push    ax
@@ -12367,9 +12367,9 @@ far_e9380:
         callf   0d7c0h:far_d617f
         add     sp, 4
         mov     word ptr [bp - 1ch], ax
-        push    word ptr [8ff0h]
-        push    word ptr [8feeh]
-        mov     al, byte ptr [8fech]
+        push    word ptr [W_8FF0_V112]
+        push    word ptr [W_8FEE_V112]
+        mov     al, byte ptr [B_8FEC_V112]
         endif
         cbw
         push    ax
@@ -12384,7 +12384,7 @@ far_e9380:
         if      FW_VERSION >= 212
         mov     ax, word ptr [W_8D68]
         else
-        mov     ax, word ptr [8ff6h]
+        mov     ax, word ptr [W_8FF6_V112]
         endif
         inc     ax
         cwd
@@ -12464,7 +12464,7 @@ br_e9419:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D64]
         else
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         endif
         cbw
         push    ax
@@ -12488,7 +12488,7 @@ br_e9419:
         else
         callf   0d816h:far_d6a82
         add     sp, 4
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         endif
         cbw
         push    ax
@@ -12508,12 +12508,12 @@ br_e9419:
         else
         callf   0e50bh:far_eddc3
         add     sp, 2
-        push    word ptr [8feeh]
+        push    word ptr [W_8FEE_V112]
         callf   0e533h:L_e5471
         add     sp, 2
-        mov     ax, word ptr [8ff4h]
+        mov     ax, word ptr [W_8FF4_V112]
         mov     word ptr [bp - 1ah], ax
-        mov     word ptr [8ff4h], 1
+        mov     word ptr [W_8FF4_V112], 1
         endif
         mov     ax, 1
         push    ax
@@ -12536,13 +12536,13 @@ br_e9419:
         xor     ax, ax
         jmp     near br_e9413
         else
-        mov     ax, word ptr [8ff0h]
-        sub     ax, word ptr [8feeh]
+        mov     ax, word ptr [W_8FF0_V112]
+        sub     ax, word ptr [W_8FEE_V112]
         push    ax
         callf   0da2dh:far_e9280
         add     sp, 4
         mov     ax, word ptr [bp - 1ah]
-        mov     word ptr [8ff4h], ax
+        mov     word ptr [W_8FF4_V112], ax
         callf   0e532h:L_e5326
         callf   0d841h:L_d8414
         xor     ax, ax
@@ -12561,7 +12561,7 @@ far_e94b8:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D66]
         else
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         endif
         cbw
         push    ax
@@ -12576,7 +12576,7 @@ far_e94b8:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D66]
         else
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         endif
         cbw
         push    ax
@@ -12709,7 +12709,7 @@ br_e9595:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8D66]
         else
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         endif
         cbw
         push    ax
@@ -12753,7 +12753,7 @@ br_e95d2:
         mov     al, byte ptr [si + TBL_94E8]
         else
         jz      br_e965d
-        mov     al, byte ptr [si + 5066h]
+        mov     al, byte ptr [si +TBL_5066_V112]
         endif
         cbw
         mov     word ptr [bp - 8], ax
@@ -12761,7 +12761,7 @@ br_e95d2:
         if      FW_VERSION >= 212
         test    byte ptr [bx + TBL_954C], 2
         else
-        test    byte ptr [bx + 50cah], 2
+        test    byte ptr [bx +TBL_50CA_V112], 2
         endif
         jnz     br_e960c
         mov     di, word ptr [bp - 6]
@@ -12777,14 +12777,14 @@ br_e95d2:
         mov     bx, word ptr [bp - 8]
         mov     byte ptr [bx + TBL_9614], al
         else
-        mov     al, byte ptr [di + 547eh]
-        mov     byte ptr [bx + 50cah], al
+        mov     al, byte ptr [di +TBL_547E_V112]
+        mov     byte ptr [bx +TBL_50CA_V112], al
         mov     bx, word ptr [bp - 6]
         shl     bx, 1
-        mov     ax, word ptr [bx + 54e2h]
+        mov     ax, word ptr [bx +TBL_54E2_V112]
         mov     bx, word ptr [bp - 8]
         shl     bx, 1
-        mov     word ptr [bx + 512eh], ax
+        mov     word ptr [bx +TBL_512E_V112], ax
         endif
         jmp     br_e965d
 br_e960c:
@@ -12792,7 +12792,7 @@ br_e960c:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_954C]
         else
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         endif
         cbw
         and     ax, 4
@@ -12801,7 +12801,7 @@ br_e960c:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_98C2]
         else
-        mov     al, byte ptr [bx + 547eh]
+        mov     al, byte ptr [bx +TBL_547E_V112]
         endif
         cbw
         and     ax, 4
@@ -12824,12 +12824,12 @@ br_e960c:
         callf   SEG_D55E:far_d55e8
         add     sp, 2
         else
-        mov     al, byte ptr [8fech]
-        mov     byte ptr [6182h], al
-        mov     al, byte ptr [8ff2h]
-        mov     byte ptr [6183h], al
+        mov     al, byte ptr [B_8FEC_V112]
+        mov     byte ptr [B_6182_V112], al
+        mov     al, byte ptr [B_8FF2_V112]
+        mov     byte ptr [B_6183_V112], al
         mov     ax, word ptr [bp - 10h]
-        mov     byte ptr [6184h], al
+        mov     byte ptr [B_6184_V112], al
         callf   0d841h:L_d8414
         callf   0e532h:L_e5326
         endif
@@ -12870,8 +12870,8 @@ L_da7aa:
         mov     bp, sp
         add     sp, 0ffd4h
         mov     word ptr [bp - 0eh], 0
-        mov     ax, word ptr [8ff0h]
-        sub     ax, word ptr [8feeh]
+        mov     ax, word ptr [W_8FF0_V112]
+        sub     ax, word ptr [W_8FEE_V112]
         mov     word ptr [bp - 2], ax
         jnz     L_da7c7
         xor     ax, ax
@@ -12880,10 +12880,10 @@ L_da7c3:
         pop     bp
         retf
 L_da7c7:
-        mov     al, byte ptr [8fedh]
+        mov     al, byte ptr [B_8FED_V112]
         cbw
         push    ax
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         cbw
         push    ax
         callf   0e473h:L_e4731
@@ -12894,7 +12894,7 @@ L_da7c7:
         xor     ax, ax
         jmp     L_da7c3
 L_da7e6:
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         cbw
         push    ax
         callf   0d7c0h:far_d602b
@@ -12905,21 +12905,21 @@ L_da7e6:
         jmp     L_da7c3
 L_d817d:
         callf   0daf8h:L_daf8f
-        push    word ptr [8ff0h]
-        push    word ptr [8feeh]
-        mov     al, byte ptr [8fech]
+        push    word ptr [W_8FF0_V112]
+        push    word ptr [W_8FEE_V112]
+        mov     al, byte ptr [B_8FEC_V112]
         cbw
         push    ax
         callf   0e47dh:far_f07d4
         add     sp, 6
         mov     word ptr [bp - 18h], dx
         mov     word ptr [bp - 1ah], ax
-        mov     al, byte ptr [8fech]
-        cmp     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FEC_V112]
+        cmp     al, byte ptr [B_8FF2_V112]
         jnz     L_da85c
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         cbw
         push    ax
         callf   0dad5h:far_e9686
@@ -12931,21 +12931,21 @@ L_d817d:
         mov     ax, word ptr [bp - 4]
         jmp     near L_da7c3
 L_da849:
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         cbw
         mov     word ptr [bp - 8], ax
         mov     word ptr [bp - 6], 0
         mov     word ptr [bp - 0eh], 1
         jmp     L_da86a
 L_da85c:
-        mov     al, byte ptr [8fech]
+        mov     al, byte ptr [B_8FEC_V112]
         cbw
         mov     word ptr [bp - 6], ax
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         cbw
         mov     word ptr [bp - 8], ax
 L_da86a:
-        mov     ax, word ptr [8ff6h]
+        mov     ax, word ptr [W_8FF6_V112]
         cwd
         push    ax
         push    dx
@@ -12988,7 +12988,7 @@ L_da8bc:
         push    word ptr [bp - 8]
         callf   0d816h:far_d6a82
         add     sp, 4
-        push    word ptr [8ff4h]
+        push    word ptr [W_8FF4_V112]
         xor     ax, ax
         push    ax
         callf   0e533h:L_e5337
@@ -12996,25 +12996,25 @@ L_da8bc:
         push    word ptr [bp - 6]
         callf   0e50bh:far_eddc3
         add     sp, 2
-        push    word ptr [8feeh]
+        push    word ptr [W_8FEE_V112]
         mov     ax, 1
         push    ax
         callf   0e533h:L_e5337
         add     sp, 4
-        mov     al, byte ptr [8ff3h]
+        mov     al, byte ptr [B_8FF3_V112]
         cbw
         mov     bx, ax
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         cbw
         mov     word ptr [bp - 0ch], ax
         mov     bx, ax
-        test    byte ptr [bx + 50cah], 2
+        test    byte ptr [bx +TBL_50CA_V112], 2
         jz      L_da930
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         cbw
         mov     cx, ax
         mov     bx, word ptr [bp - 0ah]
-        mov     al, byte ptr [bx + 547eh]
+        mov     al, byte ptr [bx +TBL_547E_V112]
         cbw
         xor     cx, ax
         mov     ax, cx
@@ -13026,22 +13026,22 @@ L_da8bc:
 L_da92e:
         jmp     L_da95e
 L_da930:
-        mov     al, byte ptr [8ff3h]
+        mov     al, byte ptr [B_8FF3_V112]
         cbw
         mov     bx, ax
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         cbw
         mov     word ptr [bp - 0ch], ax
         mov     bx, word ptr [bp - 0ah]
-        mov     al, byte ptr [bx + 547eh]
+        mov     al, byte ptr [bx +TBL_547E_V112]
         mov     bx, word ptr [bp - 0ch]
-        mov     byte ptr [bx + 50cah], al
+        mov     byte ptr [bx +TBL_50CA_V112], al
         mov     bx, word ptr [bp - 0ah]
         shl     bx, 1
-        mov     ax, word ptr [bx + 54e2h]
+        mov     ax, word ptr [bx +TBL_54E2_V112]
         mov     bx, word ptr [bp - 0ch]
         shl     bx, 1
-        mov     word ptr [bx + 512eh], ax
+        mov     word ptr [bx +TBL_512E_V112], ax
 L_da95e:
         push    word ptr [bp + 6]
         push    word ptr [bp - 0ch]
@@ -13059,7 +13059,7 @@ L_da985:
         callf   0daf8h:L_dafbe
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [8ff2h]
+        mov     al, byte ptr [B_8FF2_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
@@ -13070,12 +13070,12 @@ L_da9a0:
         push    bp
         mov     bp, sp
         add     sp, 0fff6h
-        inc     byte ptr [8fcbh]
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        inc     byte ptr [B_8FCB_V112]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         mov     word ptr [bp - 8], dx
         mov     word ptr [bp - 0ah], ax
-        mov     ax, word ptr [8ff6h]
+        mov     ax, word ptr [W_8FF6_V112]
         mov     word ptr [bp - 6], ax
 L_da9bd:
         mov     ax, word ptr [bp - 6]
@@ -13086,17 +13086,17 @@ L_da9bd:
 L_da9ca:
         mov     dx, word ptr [bp - 8]
         mov     ax, word ptr [bp - 0ah]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
         mov     word ptr [bp - 4], 1
-        mov     word ptr [0bed0h], 0
+        mov     word ptr [W_BED0_V112], 0
 L_da9e2:
         cmp     word ptr [bp - 4], 1
         jnz     L_daa43
         mov     ax, word ptr [W_94E0]
-        cmp     ax, word ptr [560eh]
+        cmp     ax, word ptr [W_560E_V112]
         jg      L_daa15
-        sub     word ptr [560eh], ax
+        sub     word ptr [W_560E_V112], ax
         mov     ax, word ptr [W_94E0]
         add     word ptr [W_A059], ax
         mov     word ptr [W_94E0], 0
@@ -13107,13 +13107,13 @@ L_da9e2:
         mov     word ptr [bp - 4], ax
         jmp     L_daa41
 L_daa15:
-        mov     ax, word ptr [560eh]
+        mov     ax, word ptr [W_560E_V112]
         sub     word ptr [W_94E0], ax
-        mov     ax, word ptr [560eh]
+        mov     ax, word ptr [W_560E_V112]
         add     word ptr [W_A059], ax
-        mov     word ptr [560eh], 0
+        mov     word ptr [W_560E_V112], 0
         push    word ptr [bp + 0ah]
-        push    word ptr [8ff0h]
+        push    word ptr [W_8FF0_V112]
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
         callf   0da7ah:L_dabd1
@@ -13133,7 +13133,7 @@ L_daa4c:
         callf   421h:far_03ec1
         add     sp, 2
         mov     word ptr [W_94E0], 0
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         mov     sp, bp
         pop     bp
         retf
@@ -13147,8 +13147,8 @@ L_daa78:
         jz      L_daa82
         jmp     L_dabcb
 L_daa82:
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
         mov     ax, 1401h
@@ -13162,12 +13162,12 @@ L_daa82:
         cwd
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         jmp     L_dab84
 L_daab5:
-        cmp     word ptr [0bed0h], 0
+        cmp     word ptr [W_BED0_V112], 0
         jz      L_daae4
         mov     ax, 1
         push    ax
@@ -13191,8 +13191,8 @@ L_daae4:
 L_daae7:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     ax, 2
         jmp     L_daae0
 L_daaf9:
@@ -13208,18 +13208,18 @@ L_dab0b:
         sub     ah, ah
         cmp     ax, word ptr [bp + 6]
         jnz     L_dab5e
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         sub     ah, ah
         mov     word ptr [bp - 0ch], ax
         mov     bx, ax
-        mov     al, byte ptr [9042h]
-        mov     byte ptr [bx - 7710h], al
+        mov     al, byte ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_88F0_V112], al
         mov     bx, word ptr [bp - 0ch]
         shl     bx, 1
-        mov     word ptr [bx - 7690h], 0
+        mov     word ptr [bx +TBL_8970_V112], 0
         mov     bx, word ptr [bp - 0ch]
-        mov     al, byte ptr [9043h]
-        mov     byte ptr [bx - 7590h], al
+        mov     al, byte ptr [B_9043_V112]
+        mov     byte ptr [bx +TBL_8A70_V112], al
         mov     ax, 9044h
         push    ax
         callf   0de85h:far_da91e
@@ -13289,7 +13289,7 @@ L_dabd1:
         mov     bp, sp
         add     sp, 0fff3h
 L_dabd7:
-        cmp     word ptr [560eh], 0
+        cmp     word ptr [W_560E_V112], 0
         jz      L_dabe1
         jmp     L_dad56
 L_dabe1:
@@ -13304,7 +13304,7 @@ L_dabe1:
         cwd
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         jmp     L_dad12
@@ -13324,9 +13324,9 @@ L_dac1e:
         push    word ptr [TBL_8E66]
         callf   0de85h:far_da912
         add     sp, 2
-        mov     word ptr [560eh], ax
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     word ptr [W_560E_V112], ax
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
         mov     ax, 1401h
@@ -13342,17 +13342,17 @@ L_dac1e:
         mov     word ptr [bp - 4], ax
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
-        mov     al, byte ptr [903fh]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         mov     cx, 0f8h
         cmp     ax, cx
         jnz     L_dac77
-        mov     word ptr [0bed0h], 1
+        mov     word ptr [W_BED0_V112], 1
 L_dac77:
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         mov     bx, 0a8h
@@ -13363,7 +13363,7 @@ L_dac77:
         add     sp, 2
         cmp     ax, word ptr [bp + 0ah]
         jl      L_dac9d
-        mov     word ptr [0bed0h], 1
+        mov     word ptr [W_BED0_V112], 1
 L_dac9d:
         cmp     word ptr [bp + 0ch], 0
         jz      br_edef5
@@ -13385,17 +13385,17 @@ L_dacbd:
 L_dacca:
         cmp     word ptr [bp + 0ch], 0
         jz      L_dacf5
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         sub     ah, ah
         mov     word ptr [bp - 0ch], ax
         mov     bx, ax
-        cmp     byte ptr [bx - 7710h], 0ffh
+        cmp     byte ptr [bx +TBL_88F0_V112], 0ffh
         jz      L_dacf5
-        mov     al, byte ptr [bx - 7710h]
-        cmp     al, byte ptr [9042h]
+        mov     al, byte ptr [bx +TBL_88F0_V112]
+        cmp     al, byte ptr [B_9042_V112]
         jnc     L_dacf2
-        mov     al, byte ptr [9042h]
-        mov     byte ptr [bx - 7710h], al
+        mov     al, byte ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_88F0_V112], al
 L_dacf2:
         jmp     L_dabd7
 L_dacf5:
@@ -13587,8 +13587,8 @@ RUN_BR_E97BA macro   {GLOBALSYMBOLS}
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -13604,8 +13604,8 @@ RUN_BR_E97BA macro   {GLOBALSYMBOLS}
         else
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -13620,8 +13620,8 @@ RUN_BR_E97BA macro   {GLOBALSYMBOLS}
         mov     ax, word ptr [bp - 4]
         cmp     dx, word ptr [bp - 6]
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         callf   0e7ddh:far_eee37
         add     sp, 0ch
         mov     dx, word ptr [bp - 6]
@@ -13720,8 +13720,8 @@ RUN_AFTER_BR_E9818 macro   {GLOBALSYMBOLS}
         add     sp, 6
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -13729,8 +13729,8 @@ RUN_AFTER_BR_E9818 macro   {GLOBALSYMBOLS}
         mov     word ptr [W_9BA0], dx
         mov     word ptr [W_9B9E], ax
         else
-        mov     word ptr [0a452h], dx
-        mov     word ptr [0a450h], ax
+        mov     word ptr [W_A452_V112], dx
+        mov     word ptr [W_A450_V112], ax
         endif
         mov     ax, 1
         push    ax
@@ -13764,29 +13764,29 @@ RUN_AFTER_BR_E9818 macro   {GLOBALSYMBOLS}
 L_daf8f:
         push    bp
         mov     bp, sp
-        mov     al, byte ptr [52b5h]
-        mov     byte ptr [0bed2h], al
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_52B5_V112]
+        mov     byte ptr [B_BED2_V112], al
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
-        mov     word ptr [0bed4h], ax
-        mov     dx, word ptr [52ceh]
-        mov     ax, word ptr [52cch]
-        mov     word ptr [0bedah], dx
-        mov     word ptr [0bed8h], ax
-        mov     al, byte ptr [52e3h]
-        mov     byte ptr [0bed3h], al
-        mov     al, byte ptr [52e2h]
+        mov     word ptr [W_BED4_V112], ax
+        mov     dx, word ptr [W_52CE_V112]
+        mov     ax, word ptr [W_52CC_V112]
+        mov     word ptr [W_BEDA_V112], dx
+        mov     word ptr [W_BED8_V112], ax
+        mov     al, byte ptr [B_52E3_V112]
+        mov     byte ptr [B_BED3_V112], al
+        mov     al, byte ptr [B_52E2_V112]
         cbw
-        mov     word ptr [0bed6h], ax
+        mov     word ptr [W_BED6_V112], ax
         mov     sp, bp
         pop     bp
         retf
 L_dafbe:
         push    bp
         mov     bp, sp
-        cmp     byte ptr [0bed3h], 0ffh
+        cmp     byte ptr [B_BED3_V112], 0ffh
         jz      L_dafd6
-        push    word ptr [0bed6h]
+        push    word ptr [W_BED6_V112]
         callf   0e50bh:far_eddc3
         add     sp, 2
         jmp     L_dafdb
@@ -13794,18 +13794,18 @@ L_dafd6:
         callf   0e532h:L_e5326
 L_dafdb:
         mov     ax, 1
-        cmp     byte ptr [0bed2h], 0
+        cmp     byte ptr [B_BED2_V112], 0
         jnz     L_dafe7
         xor     ax, ax
 L_dafe7:
         push    ax
-        push    word ptr [0bed4h]
+        push    word ptr [W_BED4_V112]
         callf   0d816h:far_d6a82
         add     sp, 4
-        cmp     byte ptr [0bed2h], 0
+        cmp     byte ptr [B_BED2_V112], 0
         jl      L_db00b
-        push    word ptr [0bedah]
-        push    word ptr [0bed8h]
+        push    word ptr [W_BEDA_V112]
+        push    word ptr [W_BED8_V112]
         callf   0d97dh:L_d97d2
         add     sp, 4
 L_db00b:
@@ -13821,19 +13821,19 @@ L_db00f:
         sub     ah, ah
         dec     ax
         mov     word ptr [bp - 2], ax
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     L_db02f
         callf   0db5bh:L_db5b5
-        mov     byte ptr [5756h], 0
+        mov     byte ptr [B_5756_V112], 0
 L_db02f:
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         sub     ah, ah
         mov     cx, 0fah
         cmp     ax, cx
         jc      L_db040
-        mov     byte ptr [5756h], 0
+        mov     byte ptr [B_5756_V112], 0
 L_db040:
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         sub     ah, ah
         mov     bx, ax
         shl     bx, 1
@@ -13849,10 +13849,10 @@ L_db040:
         shl     ax, 1
         shl     ax, 1
         add     bx, ax
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         sub     ah, ah
         mov     word ptr [bp - 4], ax
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         sub     ah, ah
         mov     bx, ax
         shl     bx, 1
@@ -13868,11 +13868,11 @@ L_db040:
         shl     ax, 1
         shl     ax, 1
         add     bx, ax
-        mov     al, byte ptr [bx + 6197h]
-        mov     byte ptr [5758h], al
-        cmp     byte ptr [5758h], 0
+        mov     al, byte ptr [bx +TBL_6197_V112]
+        mov     byte ptr [B_5758_V112], al
+        cmp     byte ptr [B_5758_V112], 0
         jz      L_db0c6
-        cmp     byte ptr [5756h], 0
+        cmp     byte ptr [B_5756_V112], 0
         jz      L_db0ab
         push    word ptr [bp - 4]
         callf   0e295h:far_e82a4
@@ -13880,7 +13880,7 @@ L_db040:
         jmp     L_db0c4
 L_db0ab:
         callf   0d841h:L_d8414
-        mov     byte ptr [5759h], 0
+        mov     byte ptr [B_5759_V112], 0
         mov     ax, 1
         push    ax
         push    word ptr [bp - 4]
@@ -13898,12 +13898,12 @@ L_db0d7:
         push    word ptr [bp - 2]
         callf   0e5efh:far_ec823
         add     sp, 2
-        mov     word ptr [575ah], ax
+        mov     word ptr [W_575A_V112], ax
         push    word ptr [bp - 2]
         callf   0db60h:far_eb7fc
         add     sp, 2
         mov     word ptr [W_7E08], ax
-        mov     byte ptr [5759h], 1
+        mov     byte ptr [B_5759_V112], 1
         mov     sp, bp
         pop     bp
         retf
@@ -14019,7 +14019,7 @@ br_ec9d3:
         else
         mov     word ptr [bp - 8], 1
         callf   0daf8h:L_daf8f
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -14045,7 +14045,7 @@ br_ec9d3:
         callf   0d8feh:far_e9d7e
         add     sp, 2
         callf   0daf8h:L_dafbe
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         mov     ax, word ptr [bp - 4]
         endif
         jmp     near br_ec972
@@ -14065,7 +14065,7 @@ br_eca10:
         mov     al, byte ptr [bx + TBL_5516]
         mov     byte ptr [bp - 13h], al
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         mov     byte ptr [bp - 11h], al
         endif
         mov     ax, 1
@@ -14133,7 +14133,7 @@ br_eca7a:
         mov     al, byte ptr [bx + TBL_5517]
         mov     byte ptr [bp - 14h], al
         else
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         mov     byte ptr [bp - 12h], al
         endif
         test    al, al
@@ -14165,10 +14165,10 @@ br_ecaa8:
         mov     bx, word ptr [bp + 6]
         mov     al, byte ptr [bx + TBL_7C3A]
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         mov     byte ptr [bp - 11h], al
         mov     bx, word ptr [bp + 6]
-        mov     al, byte ptr [bx - 7746h]
+        mov     al, byte ptr [bx +TBL_88BA_V112]
         endif
         sub     ah, ah
         mov     cx, ax
@@ -14253,7 +14253,7 @@ br_ecb42:
         if      FW_VERSION >= 212
         mov     byte ptr [TBL_8E65], 0ffh
         else
-        mov     byte ptr [903fh], 0ffh
+        mov     byte ptr [B_903F_V112], 0ffh
         endif
         mov     ax, 1
         push    ax
@@ -14290,9 +14290,9 @@ br_ecb42:
         else
         callf   0e634h:far_f1255
         mov     bx, word ptr [bp + 6]
-        mov     al, byte ptr [bx - 775ah]
+        mov     al, byte ptr [bx +TBL_88A6_V112]
         mov     byte ptr [B_94A7], al
-        cmp     byte ptr [bx - 775ah], 0
+        cmp     byte ptr [bx +TBL_88A6_V112], 0
         jz      br_ecb93
         mov     ax, word ptr [bp - 8]
         endif
@@ -14330,8 +14330,8 @@ loop_ecbab:
         mov     ax, word ptr [bx + TBL_A1C1]
         mov     dx, word ptr [bx + TBL_A1C3]
         else
-        mov     ax, word ptr [bx + 58ach]
-        mov     dx, word ptr [bx + 58aeh]
+        mov     ax, word ptr [bx +TBL_58AC_V112]
+        mov     dx, word ptr [bx +TBL_58AE_V112]
         endif
         push    dx
         push    ax
@@ -14353,8 +14353,8 @@ loop_ecbab:
         mov     word ptr [bx + TBL_9D3A], ax
         mov     al, byte ptr [bp - 16h]
         else
-        mov     word ptr [bx + 4e0eh], dx
-        mov     word ptr [bx + 4e0ch], ax
+        mov     word ptr [bx +W_4E0E_V112], dx
+        mov     word ptr [bx +W_4E0C_V112], ax
         mov     al, byte ptr [bp - 14h]
         endif
         sub     ah, ah
@@ -14368,7 +14368,7 @@ loop_ecbab:
         push    ax
         mov     al, byte ptr [bp - 16h]
         else
-        mov     ax, word ptr [bx + 58b0h]
+        mov     ax, word ptr [bx +TBL_58B0_V112]
         push    ax
         mov     al, byte ptr [bp - 14h]
         endif
@@ -14385,7 +14385,7 @@ loop_ecbab:
 br_ecc08:
         mov     al, byte ptr [bp - 16h]
         else
-        mov     word ptr [bx + 4e10h], ax
+        mov     word ptr [bx +TBL_4E10_V112], ax
         inc     byte ptr [bp - 14h]
 br_ecc08:
         mov     al, byte ptr [bp - 14h]
@@ -14403,8 +14403,8 @@ br_ecc08:
         mov     word ptr [bx + TBL_9D3C], 0
         mov     word ptr [bx + TBL_9D3A], 0
         else
-        mov     word ptr [bx + 4e0eh], 0
-        mov     word ptr [bx + 4e0ch], 0
+        mov     word ptr [bx +W_4E0E_V112], 0
+        mov     word ptr [bx +W_4E0C_V112], 0
         endif
         mov     al, byte ptr [B_A419]
         sub     ah, ah
@@ -14416,7 +14416,7 @@ br_ecc08:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_9D3E], 0
         else
-        mov     word ptr [bx + 4e10h], 0
+        mov     word ptr [bx +TBL_4E10_V112], 0
         endif
         mov     dx, word ptr [W_A077]
         mov     ax, word ptr [W_A075]
@@ -14481,7 +14481,7 @@ br_ecc08:
         else
         callf   0dc48h:L_dc484
         add     sp, 4
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         mov     ax, word ptr [bp - 4]
         endif
         jmp     br_ec972
@@ -14519,7 +14519,7 @@ br_eccea:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -14554,7 +14554,7 @@ br_ecd2c:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_985E]
         else
-        mov     al, byte ptr [bx + 55aah]
+        mov     al, byte ptr [bx +TBL_55AA_V112]
         endif
         mov     byte ptr [TBL_8E66], al
         jmp     br_ecd52
@@ -14606,7 +14606,7 @@ br_ecd75:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jz      br_ecdea
         mov     ax, word ptr [bp + 6]
@@ -14627,7 +14627,7 @@ br_ecd75:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_5516]
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         endif
         sub     ah, ah
         mov     word ptr [bp - 2], ax
@@ -14694,13 +14694,13 @@ far_eb40a:
         add     sp, 2
         mov     ax, word ptr [W_8CCF]
         else
-        mov     byte ptr [8fd3h], 1
-        mov     al, byte ptr [4cbeh]
+        mov     byte ptr [B_8FD3_V112], 1
+        mov     al, byte ptr [B_4CBE_V112]
         mov     byte ptr [B_8CD4], al
         callf   0e634h:far_f11dc
         callf   0daf8h:L_daf8f
         callf   0d841h:L_d8414
-        mov     ax, word ptr [8fcfh]
+        mov     ax, word ptr [W_8FCF_V112]
         endif
         dec     ax
         mov     word ptr [W_8CD1], ax
@@ -14750,7 +14750,7 @@ br_eb47b:
         else
         callf   0e50bh:far_eddc3
         add     sp, 2
-        push    word ptr [8fcfh]
+        push    word ptr [W_8FCF_V112]
         mov     ax, 1
         push    ax
         callf   0e533h:L_e5337
@@ -14776,10 +14776,10 @@ br_eb4b6:
         add     sp, 4
         mov     byte ptr [TBL_8E65], 0ffh
         else
-        push    word ptr [8fcdh]
+        push    word ptr [W_8FCD_V112]
         callf   0db60h:L_db9f6
         add     sp, 4
-        mov     byte ptr [903fh], 0ffh
+        mov     byte ptr [B_903F_V112], 0ffh
         endif
         mov     ax, 1
         push    ax
@@ -14808,7 +14808,7 @@ br_eb4b6:
         callf   SEG_D55E:far_d55e8
         add     sp, 2
         else
-        mov     ax, word ptr [8fcdh]
+        mov     ax, word ptr [W_8FCD_V112]
         mov     word ptr [W_94D6], ax
         callf   0e634h:far_f1255
         mov     word ptr [W_94D8], 1
@@ -14843,8 +14843,8 @@ far_eb52e:
         mov     dx, word ptr [W_9830]
         mov     ax, word ptr [W_982E]
         else
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -14854,8 +14854,8 @@ far_eb52e:
         mov     ax, word ptr [W_8CCF]
         add     ax, word ptr [W_8CCD]
         else
-        mov     ax, word ptr [8fcfh]
-        add     ax, word ptr [8fcdh]
+        mov     ax, word ptr [W_8FCF_V112]
+        add     ax, word ptr [W_8FCD_V112]
         endif
         mov     word ptr [bp - 12h], ax
         push    ax
@@ -14871,8 +14871,8 @@ far_eb52e:
         push    ax
         callf   0e533h:L_e5337
         add     sp, 4
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         endif
         mov     word ptr [bp - 0ah], dx
         mov     word ptr [bp - 0ch], ax
@@ -14882,8 +14882,8 @@ far_eb52e:
         mov     word ptr [W_9830], dx
         mov     word ptr [W_982E], ax
         else
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
         endif
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -14901,8 +14901,8 @@ br_eb58c:
         push    word ptr [W_9824]
         push    word ptr [W_9822]
         else
-        push    word ptr [0a46eh]
-        push    word ptr [0a46ch]
+        push    word ptr [W_A46E_V112]
+        push    word ptr [W_A46C_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -14914,8 +14914,8 @@ br_eb58c:
         push    word ptr [W_9828]
         push    word ptr [W_9826]
         else
-        push    word ptr [0a472h]
-        push    word ptr [0a470h]
+        push    word ptr [W_A472_V112]
+        push    word ptr [W_A470_V112]
         endif
         push    word ptr [bp - 0ah]
         push    word ptr [bp - 0ch]
@@ -14978,9 +14978,9 @@ far_eb613:
         add     sp, 0fff0h
         callf   0d841h:L_d8414
         mov     al, byte ptr [B_9D36]
-        mov     byte ptr [0bedch], al
+        mov     byte ptr [B_BEDC_V112], al
         mov     al, byte ptr [B_A04C]
-        mov     byte ptr [0beddh], al
+        mov     byte ptr [B_BEDD_V112], al
         endif
         xor     ax, ax
         push    ax
@@ -15146,14 +15146,14 @@ RUN_FAR_EB795 macro   {GLOBALSYMBOLS}
         else
         callf   0d816h:far_d6a82
         add     sp, 4
-        push    word ptr [8fcfh]
+        push    word ptr [W_8FCF_V112]
         xor     ax, ax
         push    ax
         callf   0e533h:L_e5337
         add     sp, 4
-        mov     byte ptr [52b5h], 1
-        mov     ax, word ptr [8fcfh]
-        add     ax, word ptr [8fcdh]
+        mov     byte ptr [B_52B5_V112], 1
+        mov     ax, word ptr [W_8FCF_V112]
+        add     ax, word ptr [W_8FCD_V112]
         endif
         push    ax
         xor     ax, ax
@@ -15166,14 +15166,14 @@ RUN_FAR_EB795 macro   {GLOBALSYMBOLS}
         else
         callf   0e533h:L_e5337
         add     sp, 4
-        mov     byte ptr [52b5h], 0
+        mov     byte ptr [B_52B5_V112], 0
         xor     ax, ax
         push    ax
         callf   0e50bh:far_eddc3
         add     sp, 2
-        mov     al, byte ptr [0bedch]
+        mov     al, byte ptr [B_BEDC_V112]
         mov     byte ptr [B_9D36], al
-        mov     al, byte ptr [0beddh]
+        mov     al, byte ptr [B_BEDD_V112]
         mov     byte ptr [B_A04C], al
         endif
         mov     ax, 1
@@ -15199,8 +15199,8 @@ RUN_FAR_EB795 macro   {GLOBALSYMBOLS}
         push    ax
         callf   0e533h:L_e5337
         add     sp, 4
-        push    word ptr [8fcfh]
-        push    word ptr [8fcdh]
+        push    word ptr [W_8FCF_V112]
+        push    word ptr [W_8FCD_V112]
         callf   0db60h:L_db9f6
         add     sp, 4
         endif
@@ -15281,7 +15281,7 @@ far_eb7bb:
         else
         callf   0d8feh:far_e9d7e
         add     sp, 2
-        mov     byte ptr [8fd3h], 0
+        mov     byte ptr [B_8FD3_V112], 0
         mov     word ptr [W_8CD1], 0
         callf   0daf8h:L_dafbe
         endif
@@ -15313,16 +15313,16 @@ L_db996:
         mov     ax, word ptr [bp - 4]
         shl     ax, 1
         add     bx, ax
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         sub     ah, ah
         mov     word ptr [bp - 6], ax
         test    ax, ax
         jz      L_db9ef
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         sub     ah, ah
         mov     word ptr [bp - 8], ax
         mov     bx, word ptr [bp + 6]
-        mov     al, byte ptr [bx - 7746h]
+        mov     al, byte ptr [bx +TBL_88BA_V112]
         sub     ah, ah
         dec     ax
         cmp     ax, word ptr [bp - 4]
@@ -15344,7 +15344,7 @@ L_db9f6:
         mov     bp, sp
         add     sp, 0fffch
         mov     word ptr [bp - 4], 9040h
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         endif
 
 RUN_LOOP_EB80B macro   {GLOBALSYMBOLS}
@@ -15372,7 +15372,7 @@ br_eb814:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -15427,7 +15427,7 @@ br_eb8a0:
         else
         jmp     loop_eb80b
 br_eb8a0:
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         mov     sp, bp
         pop     bp
@@ -15453,7 +15453,7 @@ loop_eb8c8:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_98C2]
         else
-        mov     al, byte ptr [bx + 547eh]
+        mov     al, byte ptr [bx +TBL_547E_V112]
         endif
         push    ax
         mov     al, byte ptr [bp - 1]
@@ -15463,7 +15463,7 @@ loop_eb8c8:
         if      FW_VERSION >= 212
         mov     byte ptr [bx + TBL_954C], al
         else
-        mov     byte ptr [bx + 50cah], al
+        mov     byte ptr [bx +TBL_50CA_V112], al
         endif
         mov     al, byte ptr [bp - 1]
         cbw
@@ -15472,7 +15472,7 @@ loop_eb8c8:
         mov     al, byte ptr [bx + TBL_9926]
         else
         shl     bx, 1
-        mov     ax, word ptr [bx + 54e2h]
+        mov     ax, word ptr [bx +TBL_54E2_V112]
         endif
         push    ax
         mov     al, byte ptr [bp - 1]
@@ -15494,7 +15494,7 @@ loop_eb8c8:
         else
         shl     bx, 1
         pop     ax
-        mov     word ptr [bx + 512eh], ax
+        mov     word ptr [bx +TBL_512E_V112], ax
         endif
         inc     byte ptr [bp - 1]
 br_eb90d:
@@ -15578,7 +15578,7 @@ far_ec19a:
         dec     byte ptr [B_8CCB]
         else
         add     sp, 0fffeh
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     br_ec1de
         endif
 br_ec1da:
@@ -15597,10 +15597,10 @@ br_ec1de:
         callf   SEG_EC19:far_ec252
         add     sp, 0ah
         else
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0d816h:far_d6a82
@@ -15625,7 +15625,7 @@ loop_ec204:
         mov     word ptr [bp - 2], 1
 loop_ec204:
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         endif
         cbw
         and     ax, 2
@@ -15674,7 +15674,7 @@ br_ec236:
         callf   SEG_D65F:far_d65f7
         add     sp, 2
         mov     byte ptr [B_8C07], al
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         endif
         jmp     short br_ec1da
 far_ec252:
@@ -15743,7 +15743,7 @@ L_dbbe6:
         jge     L_dbc15
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
@@ -15774,13 +15774,13 @@ br_ec2be:
 br_ec2be:
         mov     ax, 1
 L_dbc2c:
-        mov     byte ptr [5b07h], al
-        cmp     byte ptr [5b07h], 0
+        mov     byte ptr [B_5B07_V112], al
+        cmp     byte ptr [B_5B07_V112], 0
         jz      br_ec2cf
         mov     ax, word ptr [W_A059]
-        mov     word ptr [52d6h], ax
+        mov     word ptr [W_52D6_V112], ax
         mov     word ptr [W_A059], 0
-        mov     byte ptr [52e1h], 1
+        mov     byte ptr [B_52E1_V112], 1
         endif
 br_ec2cf:
         cmp     word ptr [W_A05F], 0
@@ -15793,7 +15793,7 @@ br_ec2e0:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A064], 2
         else
-        cmp     byte ptr [52e1h], 2
+        cmp     byte ptr [B_52E1_V112], 2
         endif
         jnz     br_ec2ec
         callf   SEG_04FA:far_04fa0
@@ -15836,8 +15836,8 @@ br_ec32a:
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -15859,7 +15859,7 @@ br_ec32a:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -15881,14 +15881,14 @@ br_ec36a:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E69]
         else
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         endif
         sub     ah, ah
         push    ax
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E68]
         else
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         push    ax
@@ -15949,7 +15949,7 @@ br_ec3b6:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E67]
         else
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         endif
         sub     ah, ah
         mov     word ptr [bp - 8], ax
@@ -15958,8 +15958,8 @@ br_ec3b6:
         mov     al, byte ptr [B_8E68]
         mov     byte ptr [bx + TBL_7E6C], al
         else
-        mov     al, byte ptr [9042h]
-        mov     byte ptr [bx - 7710h], al
+        mov     al, byte ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_88F0_V112], al
         endif
         mov     bx, word ptr [bp - 8]
         shl     bx, 1
@@ -15972,10 +15972,10 @@ br_ec3b6:
         push    ax
         callf   SEG_DA91:far_da91e
         else
-        mov     word ptr [bx - 7690h], 0
+        mov     word ptr [bx +TBL_8970_V112], 0
         mov     bx, word ptr [bp - 8]
-        mov     al, byte ptr [9043h]
-        mov     byte ptr [bx - 7590h], al
+        mov     al, byte ptr [B_9043_V112]
+        mov     byte ptr [bx +TBL_8A70_V112], al
         mov     ax, 9044h
         push    ax
         callf   0de85h:far_da91e
@@ -15998,8 +15998,8 @@ br_ec408:
         pop     bp
         retf
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         callf   SEG_04D5:far_04d5e
         mov     ax, 0ffffh
         jmp     short L_dbcee
@@ -16092,7 +16092,7 @@ far_ea354:
         cmp     byte ptr [B_A06E], 0
         else
         add     sp, 0ffe6h
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         endif
         jz      br_ea365
 br_ea361:
@@ -16103,7 +16103,7 @@ br_ea365:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0ffh
         else
-        cmp     byte ptr [52b5h], 0ffh
+        cmp     byte ptr [B_52B5_V112], 0ffh
         endif
         jnz     br_ea36e
         jmp     br_ea361
@@ -16153,7 +16153,7 @@ br_ea3b0:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -16181,7 +16181,7 @@ br_ea3b0:
         mov     word ptr [bp - 0ch], 0
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         mov     word ptr [bp - 1ah], 0
 br_ea3fe:
         cmp     word ptr [bp - 1ah], 0
@@ -16196,8 +16196,8 @@ br_ea407:
         push    ax
         mov     ax, TBL_8E65
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
         mov     ax, 1401h
@@ -16214,7 +16214,7 @@ br_ea407:
         mov     al, byte ptr [TBL_8E65]
         else
         mov     word ptr [bp - 14h], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -16349,16 +16349,16 @@ br_ea4c2:
         mov     word ptr [W_94C8], ax
         mov     word ptr [bp - 16h], 1
         else
-        mov     byte ptr [903fh], 0ffh
+        mov     byte ptr [B_903F_V112], 0ffh
         mov     word ptr [bp - 14h], 1
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
-        mov     word ptr [5209h], dx
-        mov     word ptr [5207h], ax
+        mov     word ptr [W_5209_V112], dx
+        mov     word ptr [W_5207_V112], ax
         mov     word ptr [bp - 1ah], 1
         endif
         jmp     near br_ea5a5
@@ -16380,7 +16380,7 @@ br_ea4f8:
         add     sp, 2
         mov     bx, word ptr [bp - 16h]
         mov     word ptr [bx], ax
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         mov     dx, ax
@@ -16392,7 +16392,7 @@ br_ea4f8:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E69]
         else
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         endif
         sub     ah, ah
         mov     cx, ax
@@ -16468,9 +16468,9 @@ br_ea56b:
         else
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
-        mov     word ptr [5209h], dx
-        mov     word ptr [5207h], ax
-        mov     byte ptr [903fh], 0ffh
+        mov     word ptr [W_5209_V112], dx
+        mov     word ptr [W_5207_V112], ax
+        mov     byte ptr [B_903F_V112], 0ffh
         mov     word ptr [bp - 14h], 1
         mov     word ptr [bp - 1ah], 1
         endif
@@ -16558,16 +16558,16 @@ br_ea5eb:
         mov     word ptr [W_94C8], ax
         mov     word ptr [bp - 16h], 1
         else
-        mov     byte ptr [903fh], 0ffh
+        mov     byte ptr [B_903F_V112], 0ffh
         mov     word ptr [bp - 14h], 1
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
-        mov     word ptr [5209h], dx
-        mov     word ptr [5207h], ax
+        mov     word ptr [W_5209_V112], dx
+        mov     word ptr [W_5207_V112], ax
         mov     word ptr [bp - 1ah], 1
         endif
         jmp     near br_ea6d9
@@ -16589,7 +16589,7 @@ br_ea621:
         add     sp, 2
         mov     bx, word ptr [bp - 16h]
         mov     word ptr [bx], ax
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         endif
         sub     ah, ah
         mov     dx, ax
@@ -16601,7 +16601,7 @@ br_ea621:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E69]
         else
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         endif
         sub     ah, ah
         mov     cx, ax
@@ -16623,7 +16623,7 @@ br_ea661:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         mov     cx, 0ffh
@@ -16687,8 +16687,8 @@ br_ea6a6:
         else
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
-        mov     word ptr [5209h], dx
-        mov     word ptr [5207h], ax
+        mov     word ptr [W_5209_V112], dx
+        mov     word ptr [W_5207_V112], ax
         mov     word ptr [bp - 14h], 1
         mov     word ptr [bp - 1ah], 1
         endif
@@ -16722,7 +16722,7 @@ br_ea6ef:
         if      FW_VERSION < 212
         RUN_BR_EA489
         callf   0d911h:far_d77c4
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         jmp     br_ea361
         phase   6
         endif
@@ -16775,8 +16775,8 @@ br_ec577:
         mov     ax, word ptr [W_8D62]
         cmp     ax, word ptr [W_94DE]
         else
-        mov     ax, word ptr [8ff4h]
-        cmp     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_8FF4_V112]
+        cmp     ax, word ptr [W_52CE_V112]
         endif
         jnz     br_ec58d
         push    ax
@@ -16798,7 +16798,7 @@ br_ec58d:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -16818,12 +16818,12 @@ br_ec58d:
         else
         callf   0d816h:far_d6a82
         add     sp, 4
-        push    word ptr [8ff4h]
+        push    word ptr [W_8FF4_V112]
         xor     ax, ax
         push    ax
         callf   0e533h:L_e5337
         add     sp, 4
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
         mov     ax, word ptr [bp - 6]
         cmp     ax, word ptr [bp - 4]
         endif
@@ -16864,7 +16864,7 @@ br_ec5eb:
         add     sp, 2
         callf   SEG_D715:far_d7185
         else
-        dec     byte ptr [8fcbh]
+        dec     byte ptr [B_8FCB_V112]
         callf   0d841h:L_d8414
         callf   0daf8h:L_dafbe
         endif
@@ -16873,7 +16873,7 @@ br_ec5eb:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         push    ax
@@ -16910,8 +16910,8 @@ br_ec630:
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -16936,7 +16936,7 @@ br_ec630:
         cwd
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -16955,9 +16955,9 @@ br_ec65f:
         mov     byte ptr [B_8E69], al
         mov     word ptr [bp - 8], 1
         else
-        mov     byte ptr [9042h], al
+        mov     byte ptr [B_9042_V112], al
         mov     ax, word ptr [bp + 0ah]
-        mov     byte ptr [9043h], al
+        mov     byte ptr [B_9043_V112], al
         mov     word ptr [bp - 10h], 1
         endif
         jmp     near br_ec706
@@ -16991,8 +16991,8 @@ loop_ec692:
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
         mov     ax, 2
         jmp     br_ec68e
@@ -17099,8 +17099,8 @@ br_ec739:
         push    ax
         mov     ax, TBL_8E65
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
         mov     ax, 1401h
@@ -17119,7 +17119,7 @@ br_ec739:
         cwd
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -17138,9 +17138,9 @@ br_ec768:
         mov     byte ptr [B_8E69], al
         mov     word ptr [bp - 6], 1
         else
-        mov     byte ptr [9042h], al
+        mov     byte ptr [B_9042_V112], al
         mov     ax, word ptr [bp + 0ch]
-        mov     byte ptr [9043h], al
+        mov     byte ptr [B_9043_V112], al
         mov     word ptr [bp - 0eh], 1
         endif
         jmp     near br_ec80a
@@ -17176,8 +17176,8 @@ loop_ec79b:
         else
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
         mov     ax, 2
         jmp     br_ec797
@@ -17356,7 +17356,7 @@ far_d7be4:
         jmp     L_d7c2e
 L_d7bfb:
         callf   0d7e3h:L_d81af
-        mov     byte ptr [8e02h], al
+        mov     byte ptr [B_8E02], al
         test    al, al
         jnz     L_d7c19
         xor     ax, ax
@@ -17394,11 +17394,11 @@ L_d7c2e:
         elseif  FW_VERSION = 212
         callf   0ddb1h:far_ddb1f
         else
-        cmp     byte ptr [8e02h], 1
+        cmp     byte ptr [B_8E02], 1
         jz      L_d7c3d
-        cmp     byte ptr [8e02h], 3
+        cmp     byte ptr [B_8E02], 3
         jz      L_d7c3d
-        cmp     byte ptr [8e02h], 5
+        cmp     byte ptr [B_8E02], 5
         jz      L_d7c3d
 L_d7c2e:
         xor     ax, ax
@@ -17694,17 +17694,17 @@ br_d7e2a:
 L_d7e33:
         push    bp
         mov     bp, sp
-        mov     byte ptr [8e06h], 12h
+        mov     byte ptr [B_8E06], 12h
         mov     ax, word ptr [bp + 8]
         and     ax, 7
         mov     cx, 5
         shl     ax, cl
-        mov     byte ptr [8e07h], al
-        mov     byte ptr [8e08h], 0
-        mov     byte ptr [8e09h], 0
+        mov     byte ptr [B_8E07], al
+        mov     byte ptr [B_8E08], 0
+        mov     byte ptr [B_8E09], 0
         mov     ax, word ptr [bp + 0ah]
-        mov     byte ptr [8e0ah], al
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E0A], al
+        mov     byte ptr [B_8E0B], 0
         push    word ptr [bp + 0ch]
         mov     ax, 8e06h
         push    ax
@@ -17717,18 +17717,18 @@ L_d7e33:
 L_d7e74:
         push    bp
         mov     bp, sp
-        mov     byte ptr [8e06h], 3
+        mov     byte ptr [B_8E06], 3
         mov     ax, word ptr [bp + 8]
         and     ax, 7
         mov     cx, 5
         shl     ax, cl
-        mov     byte ptr [8e07h], al
-        mov     byte ptr [8e08h], 0
-        mov     byte ptr [8e09h], 0
+        mov     byte ptr [B_8E07], al
+        mov     byte ptr [B_8E08], 0
+        mov     byte ptr [B_8E09], 0
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ffh
-        mov     byte ptr [8e0ah], al
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E0A], al
+        mov     byte ptr [B_8E0B], 0
         push    word ptr [bp + 0ch]
         mov     ax, 8e06h
         push    ax
@@ -17741,22 +17741,22 @@ L_d7e74:
 L_d7eb8:
         push    bp
         mov     bp, sp
-        mov     byte ptr [8e06h], 4
+        mov     byte ptr [B_8E06], 4
         mov     ax, word ptr [bp + 8]
         and     ax, 7
         mov     cx, 5
         shl     ax, cl
-        mov     byte ptr [8e07h], al
-        mov     byte ptr [8e08h], 0
+        mov     byte ptr [B_8E07], al
+        mov     byte ptr [B_8E08], 0
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ff00h
         xchg    ah, al
         sub     ah, ah
-        mov     byte ptr [8e09h], al
+        mov     byte ptr [B_8E09], al
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ffh
-        mov     byte ptr [8e0ah], al
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E0A], al
+        mov     byte ptr [B_8E0B], 0
         xor     ax, ax
         push    ax
         mov     ax, 8e06h
@@ -17773,7 +17773,7 @@ L_d7f04:
         add     sp, 0fff8h
         mov     word ptr [bp - 4], 0
 L_d7f0f:
-        mov     byte ptr [8e06h], 8
+        mov     byte ptr [B_8E06], 8
         mov     ax, word ptr [bp + 8]
         and     ax, 7
         mov     cx, 5
@@ -17787,7 +17787,7 @@ L_d7f0f:
         sub     bx, bx
         or      ax, cx
         or      dx, bx
-        mov     byte ptr [8e07h], al
+        mov     byte ptr [B_8E07], al
         mov     dx, word ptr [bp + 0ch]
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ff00h
@@ -17799,16 +17799,16 @@ L_d7f4c:
         rcr     ax, 1
         loop    L_d7f4c
 L_d7f52:
-        mov     byte ptr [8e08h], al
+        mov     byte ptr [B_8E08], al
         mov     dx, word ptr [bp + 0ch]
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ffh
         and.w   dx, 0
-        mov     byte ptr [8e09h], al
+        mov     byte ptr [B_8E09], al
         mov     ax, word ptr [bp + 0eh]
         and     ax, 0ffh
-        mov     byte ptr [8e0ah], al
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E0A], al
+        mov     byte ptr [B_8E0B], 0
         push    word ptr [bp + 10h]
         mov     ax, 8e06h
         push    ax
@@ -17842,7 +17842,7 @@ L_d7fb8:
         add     sp, 0fff8h
         mov     word ptr [bp - 4], 0
 L_d7fc3:
-        mov     byte ptr [8e06h], 0ah
+        mov     byte ptr [B_8E06], 0ah
         mov     ax, word ptr [bp + 8]
         and     ax, 7
         mov     cx, 5
@@ -17856,7 +17856,7 @@ L_d7fc3:
         sub     bx, bx
         or      ax, cx
         or      dx, bx
-        mov     byte ptr [8e07h], al
+        mov     byte ptr [B_8E07], al
         mov     dx, word ptr [bp + 0ch]
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ff00h
@@ -17868,16 +17868,16 @@ L_d8000:
         rcr     ax, 1
         loop    L_d8000
 L_d8006:
-        mov     byte ptr [8e08h], al
+        mov     byte ptr [B_8E08], al
         mov     dx, word ptr [bp + 0ch]
         mov     ax, word ptr [bp + 0ah]
         and     ax, 0ffh
         and.w   dx, 0
-        mov     byte ptr [8e09h], al
+        mov     byte ptr [B_8E09], al
         mov     ax, word ptr [bp + 0eh]
         and     ax, 0ffh
-        mov     byte ptr [8e0ah], al
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E0A], al
+        mov     byte ptr [B_8E0B], 0
         push    word ptr [bp + 10h]
         mov     ax, 8e06h
         push    ax
@@ -17910,20 +17910,20 @@ L_d806c:
         mov     bp, sp
         add     sp, 0fff2h
         push    si
-        mov     byte ptr [8e06h], 25h
+        mov     byte ptr [B_8E06], 25h
         mov     ax, word ptr [bp + 8]
         and     ax, 7
         mov     cx, 5
         shl     ax, cl
-        mov     byte ptr [8e07h], al
-        mov     byte ptr [8e08h], 0
-        mov     byte ptr [8e09h], 0
-        mov     byte ptr [8e0ah], 0
-        mov     byte ptr [8e0bh], 0
-        mov     byte ptr [8e0ch], 0
-        mov     byte ptr [8e0dh], 0
-        mov     byte ptr [8e0eh], 0
-        mov     byte ptr [8e0fh], 0
+        mov     byte ptr [B_8E07], al
+        mov     byte ptr [B_8E08], 0
+        mov     byte ptr [B_8E09], 0
+        mov     byte ptr [B_8E0A], 0
+        mov     byte ptr [B_8E0B], 0
+        mov     byte ptr [B_8E0C], 0
+        mov     byte ptr [B_8E0D], 0
+        mov     byte ptr [B_8E0E], 0
+        mov     byte ptr [B_8E0F], 0
         lea     ax, [bp - 8]
         push    ax
         mov     ax, 8e06h
@@ -18003,7 +18003,7 @@ L_d8140:
         push    ax
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [8dfch]
+        mov     al, byte ptr [B_8DFC]
         cbw
         push    ax
         callf   0d7e3h:L_d7e33
@@ -18045,7 +18045,7 @@ L_d81af:
         mov     bp, sp
         add     sp, 0fdf8h
         push    si
-        mov     byte ptr [8df9h], 0
+        mov     byte ptr [B_8DF9], 0
         xor     ax, ax
         push    ax
         callf   0d7e3h:L_d82f3
@@ -18095,7 +18095,7 @@ L_d821f:
         jmp     L_d81d3
 L_d822a:
         mov     ax, word ptr [bp - 2]
-        mov     byte ptr [8dfch], al
+        mov     byte ptr [B_8DFC], al
         lea     ax, [bp - 208h]
         push    ax
         mov     ax, 1
@@ -18133,16 +18133,16 @@ L_d827b:
         mov     bx, word ptr [bp - 8]
         shl     bx, 1
         shl     bx, 1
-        mov     word ptr [bx - 7271h], dx
-        mov     word ptr [bx - 7273h], ax
+        mov     word ptr [bx +TBL_8D8F], dx
+        mov     word ptr [bx +TBL_8D8D], ax
         cmp     word ptr [bp - 8], 0
         jz      L_d82b0
         mov     bx, word ptr [bp - 8]
         shl     bx, 1
         shl     bx, 1
-        cmp     word ptr [bx - 7271h], 0
+        cmp     word ptr [bx +TBL_8D8F], 0
         jnz     L_d82ae
-        cmp     word ptr [bx - 7273h], 0
+        cmp     word ptr [bx +TBL_8D8D], 0
 L_d82ae:
         jz      L_d82bd
 L_d82b0:
@@ -18151,17 +18151,17 @@ L_d82b0:
         cmp     word ptr [bp - 8], 1ah
         jl      L_d827b
 L_d82bd:
-        cmp     byte ptr [8e04h], 0
+        cmp     byte ptr [B_8E04], 0
         jnz     L_d82ce
         callf   0ee02h:L_ee13d
-        mov     byte ptr [8e04h], 1
+        mov     byte ptr [B_8E04], 1
 L_d82ce:
         mov     ax, word ptr [bp - 8]
-        mov     byte ptr [8df9h], al
+        mov     byte ptr [B_8DF9], al
         mov     al, byte ptr [bp - 1f0h]
-        mov     byte ptr [8dfah], al
+        mov     byte ptr [B_8DFA], al
         mov     al, byte ptr [bp - 1eeh]
-        mov     byte ptr [8dfbh], al
+        mov     byte ptr [B_8DFB], al
         mov     ax, 1
         push    ax
         callf   0d7e3h:L_d82f3
@@ -18171,12 +18171,12 @@ L_d82ce:
 L_d82f3:
         push    bp
         mov     bp, sp
-        mov     al, byte ptr [8df9h]
+        mov     al, byte ptr [B_8DF9]
         cbw
         mov     cx, word ptr [bp + 6]
         cmp     cx, ax
         jbe     L_d8308
-        mov     al, byte ptr [8df9h]
+        mov     al, byte ptr [B_8DF9]
         cbw
         mov     word ptr [bp + 6], ax
 L_d8308:
@@ -18198,17 +18198,17 @@ L_d8308:
         dec     bx
         shl     bx, 1
         shl     bx, 1
-        mov     ax, word ptr [bx - 7273h]
-        mov     dx, word ptr [bx - 7271h]
-        mov     word ptr [8df7h], dx
-        mov     word ptr [8df5h], ax
+        mov     ax, word ptr [bx +TBL_8D8D]
+        mov     dx, word ptr [bx +TBL_8D8F]
+        mov     word ptr [W_8DF7], dx
+        mov     word ptr [W_8DF5], ax
 L_d8348:
         xor     ax, ax
         push    ax
         callf   SEG_D7B8:far_d7b8c
         add     sp, 2
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [8e03h], al
+        mov     byte ptr [B_8E03], al
         mov     ax, word ptr [bp + 6]
         mov     sp, bp
         pop     bp
@@ -18221,7 +18221,7 @@ L_d8360:
         push    word ptr [bp + 6]
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [8dfch]
+        mov     al, byte ptr [B_8DFC]
         cbw
         push    ax
         callf   0d7e3h:L_d7eb8
@@ -18245,7 +18245,7 @@ L_d8391:
         push    si
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [8dfch]
+        mov     al, byte ptr [B_8DFC]
         cbw
         push    ax
         callf   0d7e3h:L_d806c
@@ -18388,7 +18388,7 @@ L_d84cd:
         push    word ptr [bp+si - 288h]
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [8dfch]
+        mov     al, byte ptr [B_8DFC]
         cbw
         push    ax
         callf   0d7e3h:L_d7fb8
@@ -18434,7 +18434,7 @@ L_d856d:
         push    word ptr [bp - 28ch]
         xor     ax, ax
         push    ax
-        mov     al, byte ptr [8dfch]
+        mov     al, byte ptr [B_8DFC]
         cbw
         push    ax
         callf   0d7e3h:L_d7fb8
@@ -18701,17 +18701,17 @@ far_d8765:
         pushf
         cli
         if      FW_VERSION < 212
-        mov     word ptr [476fh], ax
-        mov     word ptr [4771h], ax
-        mov     word ptr [4773h], ax
-        mov     word ptr [48a8h], ax
-        mov     word ptr [48aah], ax
-        mov     word ptr [48ach], ax
-        mov     word ptr [49e1h], ax
-        mov     word ptr [49e3h], ax
-        mov     word ptr [49e5h], ax
-        mov     word ptr [4b1ah], ax
-        mov     word ptr [4b1ch], ax
+        mov     word ptr [W_476F_V112], ax
+        mov     word ptr [W_4771_V112], ax
+        mov     word ptr [W_4773_V112], ax
+        mov     word ptr [W_48A8_V112], ax
+        mov     word ptr [W_48AA_V112], ax
+        mov     word ptr [W_48AC_V112], ax
+        mov     word ptr [W_49E1_V112], ax
+        mov     word ptr [W_49E3_V112], ax
+        mov     word ptr [W_49E5_V112], ax
+        mov     word ptr [W_4B1A_V112], ax
+        mov     word ptr [W_4B1C_V112], ax
         else
         mov     word ptr es:[6aeh], ax
         mov     word ptr es:[6b0h], ax
@@ -18731,16 +18731,16 @@ far_d8765:
         xor     ax, ax
         pushf
         cli
-        mov     word ptr [429ah], ax
-        mov     word ptr [429ch], ax
-        mov     word ptr [429eh], ax
-        mov     word ptr [43ceh], ax
-        mov     word ptr [43d0h], ax
-        mov     word ptr [43d2h], ax
-        mov     word ptr [4502h], ax
-        mov     word ptr [4504h], ax
-        mov     word ptr [4506h], ax
-        mov     word ptr [8e71h], ax
+        mov     word ptr [W_429A_V112], ax
+        mov     word ptr [W_429C_V112], ax
+        mov     word ptr [W_429E_V112], ax
+        mov     word ptr [W_43CE_V112], ax
+        mov     word ptr [W_43D0_V112], ax
+        mov     word ptr [W_43D2_V112], ax
+        mov     word ptr [W_4502_V112], ax
+        mov     word ptr [W_4504_V112], ax
+        mov     word ptr [W_4506_V112], ax
+        mov     word ptr [W_8E71_V112], ax
         popf
         retf
         phase   4
@@ -22738,7 +22738,7 @@ far_da4bd:
         push    ax
         callf   SEG_F263:far_f263a
         else
-        push    word ptr [bx + 3fbeh]
+        push    word ptr [bx +TBL_3FB8_V112+6]
         mov     ax, 0bfb4h
         push    ax
         callf   0e96ch:far_f263a
@@ -22749,14 +22749,14 @@ far_da4bd:
         if      FW_VERSION >= 212
         mov     byte ptr [B_BE54], 2dh
         else
-        mov     byte ptr [0bfb6h], 2dh
+        mov     byte ptr [B_BFB6_V112], 2dh
         endif
         mov     ax, 30h
         sub     ax, word ptr [bp - 4]
         if      FW_VERSION >= 212
         mov     byte ptr [B_BE55], al
         else
-        mov     byte ptr [0bfb7h], al
+        mov     byte ptr [B_BFB7_V112], al
         endif
         jmp     br_da527
 br_da519:
@@ -22769,10 +22769,10 @@ br_da527:
         mov     byte ptr [B_BE56], 0
         mov     ax, A_BE52
         else
-        mov     byte ptr [0bfb6h], al
-        mov     byte ptr [0bfb7h], 20h
+        mov     byte ptr [B_BFB6_V112], al
+        mov     byte ptr [B_BFB7_V112], 20h
 br_da527:
-        mov     byte ptr [0bfb8h], 0
+        mov     byte ptr [B_BFB8_V112], 0
         mov     ax, 0bfb4h
         endif
         mov     sp, bp
@@ -23280,7 +23280,7 @@ RUN_AFTER_L_DE80E macro   {GLOBALSYMBOLS}
         mov     ax, 180h
         sub     dx, dx
         div     bx
-        mov     word ptr [52c6h], ax
+        mov     word ptr [W_52C6_V112], ax
         mov     sp, bp
         pop     bp
         retf
@@ -24189,7 +24189,7 @@ br_daf14:
         jmp     near L_df1be
 L_df262:
         mov     al, byte ptr [B_BE58]
-        mov     byte ptr [0bedfh], al
+        mov     byte ptr [B_BEDF_V112], al
         mov     ax, 22h
         push    ax
         push    word ptr [W_BE59]
@@ -24619,8 +24619,8 @@ br_db232:
 br_db26a:
         push    word ptr [bp - 12h]
         push    word ptr [bp - 14h]
-        push    word ptr [bx - 5930h]
-        push    word ptr [bx - 5932h]
+        push    word ptr [bx +TBL_A6D0_V112]
+        push    word ptr [bx +TBL_A6CE_V112]
         else
         jmp     br_db04b
 br_db26a:
@@ -24880,8 +24880,8 @@ br_db413:
         sub     ax, dx
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         else
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
@@ -24899,7 +24899,7 @@ br_db413:
         pop     dx
         mov     word ptr [bx + TBL_AE93], dx
         if      FW_VERSION < 212
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         else
         mov     word ptr [bx + TBL_AE91], ax
         endif
@@ -24938,8 +24938,8 @@ br_db413:
         sub     ax, dx
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         else
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
@@ -24992,8 +24992,8 @@ br_db4fd:
         sub     ax, dx
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         else
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
@@ -25013,7 +25013,7 @@ br_db4fd:
         pop     dx
         mov     word ptr [bx + TBL_AE93], dx
         if      FW_VERSION < 212
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         else
         mov     word ptr [bx + TBL_AE91], ax
         endif
@@ -25666,7 +25666,7 @@ br_db7fc:
 br_db81e:
         mov     al, byte ptr [B_BE58]
         if      FW_VERSION < 212
-        cmp     al, byte ptr [0bedfh]
+        cmp     al, byte ptr [B_BEDF_V112]
         else
         cmp     al, byte ptr [bp - 9]
         endif
@@ -25863,7 +25863,7 @@ far_db97e:
         test    ax, ax
         jz      br_db9e8
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         push    word ptr [W_BE5C]
         endif
@@ -25938,7 +25938,7 @@ br_dba52:
         add     sp, 4
         pop     cx
         if      FW_VERSION < 212
-        mov     word ptr [0bee2h], ax
+        mov     word ptr [W_BEE2_V112], ax
         else
         mov     word ptr [W_BE5C], ax
         endif
@@ -25960,7 +25960,7 @@ br_dba6c:
         mov     word ptr [bp - 2], 2
         mov     ax, 2
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 2]
         else
         mov     word ptr [bp - 29h], dx
@@ -26120,7 +26120,7 @@ br_dbbc7:
         mov     ax, 3
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 118h]
         push    ax
         mov     ax, 5
@@ -26134,7 +26134,7 @@ br_dbbc7:
 L_df78e:
         mov     ax, 7d6h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0a6bch
         push    ax
         mov     ax, 5
@@ -26148,7 +26148,7 @@ L_df78e:
 L_df7b2:
         mov     ax, 22h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0ae92h
         else
         push    word ptr [W_BE5C]
@@ -26189,12 +26189,12 @@ br_dbc0b:
         mov     word ptr [bp - 2], 1
         mov     ax, 1
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 2]
         RUN_BR_DBBE9
         mov     ax, 20h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         cmp     word ptr [bp + 8], 5
         jnz     br_dbc49
@@ -26276,7 +26276,7 @@ br_dbcba:
         mov     ax, 20h
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         push    word ptr [W_BE5C]
         endif
@@ -26294,7 +26294,7 @@ br_dbcdc:
         mov     ax, 20h
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         push    word ptr [W_BE5C]
         endif
@@ -26312,7 +26312,7 @@ br_dbcfe:
         mov     ax, 40h
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, TBL_51D6
         else
         push    word ptr [W_BE5C]
@@ -26366,10 +26366,10 @@ L_dfe04:
         push    word ptr [bp - 2]
         callf   0df64h:far_dc1a3
         add     sp, 6
-        mov     byte ptr [0beech], al
+        mov     byte ptr [B_BEEC_V112], al
         mov     ax, 1
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0beech
         endif
         push    ax
@@ -26419,7 +26419,7 @@ br_dbd86:
         add     sp, 6
         push    word ptr [bp - 2]
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 903fh
         else
         push    word ptr [W_BE5C]
@@ -26447,7 +26447,7 @@ br_dbdbe:
         push    dx
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         callf   0df64h:far_dc012
         else
         push    word ptr [W_BE5C]
@@ -26470,7 +26470,7 @@ br_dbde2:
         if      FW_VERSION < 212
         callf   0dc48h:far_d49f3
         add     sp, 4
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         callf   SEG_D485:far_d49f3
         add     sp, 4
@@ -26521,7 +26521,7 @@ far_dbe0d:
         test    ax, ax
         jz      br_dbe76
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         push    word ptr [W_BE5C]
         endif
@@ -26612,7 +26612,7 @@ br_dbf04:
         add     sp, 4
         pop     cx
         if      FW_VERSION < 212
-        mov     word ptr [0bee2h], ax
+        mov     word ptr [W_BEE2_V112], ax
         else
         mov     word ptr [W_BE5C], ax
         endif
@@ -26649,7 +26649,7 @@ br_dbf1e:
         mov     word ptr [bp - 0ch], ax
         mov     ax, word ptr [bx + TBL_A67C]
         mov     word ptr [bp - 0ah], ax
-        mov     ax, word ptr [bx - 591ch]
+        mov     ax, word ptr [bx +TBL_A6E4_V112]
         mov     word ptr [bp - 8], ax
         lea     ax, [bp - 23h]
         push    ax
@@ -26658,7 +26658,7 @@ br_dbf1e:
         add     sp, 4
         mov     ax, 1fh
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 25h]
         else
         mov     word ptr [bp - 16h], dx
@@ -26722,9 +26722,9 @@ br_dbfb7:
         sub     ax, dx
         mov     bx, ax
         if      FW_VERSION < 212
-        push    word ptr [bx - 5930h]
-        push    word ptr [bx - 5932h]
-        push    word ptr [0bee2h]
+        push    word ptr [bx +TBL_A6D0_V112]
+        push    word ptr [bx +TBL_A6CE_V112]
+        push    word ptr [W_BEE2_V112]
         callf   0df64h:far_dc012
         else
         push    word ptr [bx + TBL_A66A]
@@ -26744,7 +26744,7 @@ br_dbfee:
         push    word ptr [bp - 6]
         callf   0dc48h:far_d49f3
         add     sp, 4
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         push    word ptr [bp - 4]
         callf   SEG_D485:far_d49f3
@@ -26925,7 +26925,7 @@ far_dc104:
         test    ax, ax
         jz      br_dc16e
         if      FW_VERSION < 212
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         push    word ptr [W_BE5C]
         endif
@@ -26997,14 +26997,14 @@ L_dfcd2:
         sbb     bx, dx
         mov     dx, bx
         mov     ax, cx
-        mov     word ptr [0beeah], dx
-        mov     word ptr [0bee8h], ax
+        mov     word ptr [W_BEEA_V112], dx
+        mov     word ptr [W_BEE8_V112], ax
         mov     dx, word ptr [bp - 1dh]
         mov     ax, word ptr [bp - 1fh]
         mov     word ptr [bp - 19h], dx
         mov     word ptr [bp - 1bh], ax
-        mov     word ptr [0bee6h], dx
-        mov     word ptr [0bee4h], ax
+        mov     word ptr [W_BEE6_V112], dx
+        mov     word ptr [W_BEE4_V112], ax
         mov     bx, word ptr [bp + 6]
         mov     byte ptr [bx + 8], 53h
         mov     bx, word ptr [bp + 6]
@@ -27012,7 +27012,7 @@ L_dfcd2:
         mov     bx, word ptr [bp + 6]
         mov     byte ptr [bx + 0ah], 31h
         RUN_AFTER_BR_DBB57
-        mov     word ptr [0bee2h], ax
+        mov     word ptr [W_BEE2_V112], ax
         xor     cx, cx
         cmp     ax, cx
         jge     br_dd269
@@ -27021,14 +27021,14 @@ br_dd269:
         mov     word ptr [bp - 2], 5
         mov     ax, 2
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         RUN_AFTER_BR_DBC6B
         jz      br_dd292
         jmp     br_dd24b
 br_dd292:
         mov     ax, 3
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 1bh]
         push    ax
         mov     ax, 5
@@ -27042,7 +27042,7 @@ br_dd292:
 br_dd2c0:
         mov     ax, 7d6h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0a6bch
         RUN_BR_DBD42
         jz      L_dfe3a
@@ -27050,7 +27050,7 @@ br_dd2c0:
 L_dfe3a:
         mov     ax, 22h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0ae92h
         endif
 
@@ -27080,7 +27080,7 @@ L_dfe5c:
         push    word ptr [W_BE5C]
         mov     ax, B_BE66
         else
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 2]
         endif
         push    ax
@@ -27125,7 +27125,7 @@ br_dc3f8:
 L_dfe83:
         mov     ax, 20h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, TBL_5176
         endif
         push    ax
@@ -27143,7 +27143,7 @@ L_dfe83:
 L_dfea5:
         mov     ax, 20h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, TBL_5196
         push    ax
         mov     ax, 5
@@ -27157,7 +27157,7 @@ L_dfea5:
 L_dfec7:
         mov     ax, 20h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, TBL_51B6
         push    ax
         mov     ax, 5
@@ -27171,7 +27171,7 @@ L_dfec7:
 L_dfee9:
         mov     ax, 40h
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         RUN_AFTER_BR_DBCFE
         jz      L_dff0b
         jmp     br_dd24b
@@ -27186,7 +27186,7 @@ L_dff0b:
         callf   SEG_F25D:far_f25dc
         add     sp, 6
         push    word ptr [bp - 2]
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 903fh
         push    ax
         mov     ax, 5
@@ -27204,7 +27204,7 @@ L_dff46:
         mov     ax, 0
         push    dx
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         callf   0df64h:far_dc012
         add     sp, 0ah
         mov     word ptr [bp - 4], ax
@@ -27212,7 +27212,7 @@ L_dff46:
         jz      L_dff6a
         jmp     br_dd24b
 L_dff6a:
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         xor     ax, ax
         push    ax
         mov     ax, 3
@@ -27316,7 +27316,7 @@ far_dc213:
         test    ax, ax
         if      FW_VERSION < 212
         jz      L_e0056
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
         jz      br_dc279
         push    word ptr [W_BE5C]
@@ -27448,7 +27448,7 @@ br_dc302:
         callf   SEG_D7B8:far_d7b8c
         add     sp, 4
         if      FW_VERSION < 212
-        mov     word ptr [0bee2h], ax
+        mov     word ptr [W_BEE2_V112], ax
         xor     cx, cx
         cmp     ax, cx
         jge     L_e00fb
@@ -27457,7 +27457,7 @@ L_e00fb:
         mov     word ptr [bp - 2], 6
         mov     ax, 2
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         lea     ax, [bp - 2]
         endif
 
@@ -27490,7 +27490,7 @@ br_dd292:
 L_e0121:
         mov     ax, 3
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0bee8h
         endif
         push    ax
@@ -27519,7 +27519,7 @@ br_dd2c0:
 L_e0143:
         mov     ax, 3
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0bee4h
         endif
         push    ax
@@ -27537,7 +27537,7 @@ L_e0143:
 L_e0165:
         mov     ax, 1
         push    ax
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 0beech
         push    ax
         mov     ax, 5
@@ -27586,7 +27586,7 @@ L_e0187:
         callf   SEG_F25D:far_f25dc
         add     sp, 6
         push    word ptr [bp - 2]
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         mov     ax, 903fh
         push    ax
         mov     ax, 5
@@ -27602,11 +27602,11 @@ L_e0187:
         jz      L_e01bf
         jmp     L_e00bc
 L_e01bf:
-        push    word ptr [0beeah]
-        push    word ptr [0bee8h]
-        push    word ptr [0bee6h]
-        push    word ptr [0bee4h]
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEEA_V112]
+        push    word ptr [W_BEE8_V112]
+        push    word ptr [W_BEE6_V112]
+        push    word ptr [W_BEE4_V112]
+        push    word ptr [W_BEE2_V112]
         callf   0df64h:far_dc012
         add     sp, 0ah
         mov     word ptr [bp - 4], ax
@@ -27614,7 +27614,7 @@ L_e01bf:
         jz      L_e01e5
         jmp     L_e00bc
 L_e01e5:
-        push    word ptr [0bee2h]
+        push    word ptr [W_BEE2_V112]
         else
 
         mov     word ptr [W_BE5C], ax
@@ -27726,7 +27726,7 @@ br_dc495:
         retf
 br_dc499:
         if      FW_VERSION < 212
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         else
         mov     al, byte ptr [B_9D34]
         endif
@@ -27832,7 +27832,7 @@ br_dc52c:
         jmp     br_dc528
 br_dc54e:
         if      FW_VERSION < 212
-        cmp     byte ptr [903fh], 3
+        cmp     byte ptr [B_903F_V112], 3
         jnz     br_dc56e
         cmp     byte ptr [TBL_8E66], 1
         jz      L_e02bf
@@ -27856,9 +27856,9 @@ br_dc56e:
         if      FW_VERSION < 212
 L_e02bf:
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [9041h], al
-        mov     dx, word ptr [9044h]
-        mov     ax, word ptr [9042h]
+        mov     byte ptr [B_9041_V112], al
+        mov     dx, word ptr [B_9044_V112]
+        mov     ax, word ptr [B_9042_V112]
         else
 br_dc573:
         mov     ax, word ptr [bp + 6]
@@ -27871,7 +27871,7 @@ br_dc573:
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [910ah]
+        mov     al, byte ptr [B_910A_V112]
         sub     ah, ah
         mov     dx, ax
         shl     ax, 1
@@ -27881,7 +27881,7 @@ br_dc573:
         shl     ax, 1
         add     ax, dx
         mov     cx, ax
-        mov     al, byte ptr [9109h]
+        mov     al, byte ptr [B_9109_V112]
         else
         mov     al, byte ptr [B_8F30]
         sub     ah, ah
@@ -27930,9 +27930,9 @@ br_dc5e6:
 br_dc5ec:
         if      FW_VERSION < 212
         mov     al, 0
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
         else
         and     byte ptr [B_94A7], 0fdh
         and     byte ptr [B_981D], 0fdh
@@ -27943,8 +27943,8 @@ br_dc5ec:
         push    word ptr [bp - 6]
         push    word ptr [bp - 8]
         if      FW_VERSION < 212
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         else
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
@@ -27956,8 +27956,8 @@ br_dc5ec:
         push    word ptr [W_9B9C]
         push    word ptr [W_9B9A]
         if      FW_VERSION < 212
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         else
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
@@ -27973,8 +27973,8 @@ br_dc5ec:
         push    word ptr [bp - 0ah]
         push    word ptr [bp - 0ch]
         if      FW_VERSION < 212
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         callf   0e7ddh:far_eee37
         else
         push    word ptr [W_9BA0]
@@ -27985,8 +27985,8 @@ br_dc5ec:
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
         if      FW_VERSION < 212
-        mov     word ptr [0a452h], dx
-        mov     word ptr [0a450h], ax
+        mov     word ptr [W_A452_V112], dx
+        mov     word ptr [W_A450_V112], ax
         else
         mov     word ptr [W_9BA0], dx
         mov     word ptr [W_9B9E], ax
@@ -28257,20 +28257,20 @@ L_e04df:
         push    ax
         callf   0dc48h:far_d4a9b
         add     sp, 2
-        mov     word ptr [0a456h], 0
-        mov     word ptr [0a454h], 0
+        mov     word ptr [W_A456_V112], 0
+        mov     word ptr [W_A454_V112], 0
         mov     al, 0ffh
-        mov     byte ptr [52e3h], 0ffh
-        mov     byte ptr [52b5h], al
+        mov     byte ptr [B_52E3_V112], 0ffh
+        mov     byte ptr [B_52B5_V112], al
         mov     al, 0
-        mov     byte ptr [5759h], 0
-        mov     byte ptr [5757h], al
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
+        mov     byte ptr [B_5759_V112], 0
+        mov     byte ptr [B_5757_V112], al
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
         mov     byte ptr [B_54F7], 4dh
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0d816h:far_d6a82
@@ -28885,12 +28885,12 @@ br_dccdf:
         sub     ah, ah
         mov     bx, ax
         mov     al, byte ptr [bp - 200h]
-        mov     byte ptr [bx - 775ah], al
+        mov     byte ptr [bx +TBL_88A6_V112], al
         mov     al, byte ptr [bp - 9]
         sub     ah, ah
         mov     bx, ax
         mov     al, byte ptr [bp - 1ffh]
-        mov     byte ptr [bx - 7746h], al
+        mov     byte ptr [bx +TBL_88BA_V112], al
         mov     byte ptr [bp - 0ch], 0
         mov     al, byte ptr [bp - 0bh]
         sub     ah, ah
@@ -28950,7 +28950,7 @@ br_dcdf6:
         shl     cx, 1
         add     bx, cx
         pop     ax
-        mov     byte ptr [bx + 6196h], al
+        mov     byte ptr [bx +TBL_6196_V112], al
         mov     al, byte ptr [bp - 0ch]
         inc     byte ptr [bp - 0ch]
         sub     ah, ah
@@ -28985,7 +28985,7 @@ br_dcdf6:
         shl     cx, 1
         add     bx, cx
         pop     ax
-        mov     byte ptr [bx + 6197h], al
+        mov     byte ptr [bx +TBL_6197_V112], al
         inc     byte ptr [bp - 0ah]
         jmp     short L_e06f4
 br_dcbfb:
@@ -28994,8 +28994,8 @@ L_e0776:
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
         RUN_AFTER_BR_DCBFD
-        mov     word ptr [0a452h], dx
-        mov     word ptr [0a450h], ax
+        mov     word ptr [W_A452_V112], dx
+        mov     word ptr [W_A450_V112], ax
         xor     ax, ax
         jmp     L_e0567
         phase   0
@@ -29087,8 +29087,8 @@ far_dcedc:
         push    word ptr [W_9B98]
         push    word ptr [W_9B96]
         if      FW_VERSION < 212
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         else
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
@@ -29298,7 +29298,7 @@ br_dd03e:
         shl     ax, 1
         add     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         mov     byte ptr [bp - 0fh], al
         mov     al, byte ptr [bp - 0dh]
         else
@@ -29326,7 +29326,7 @@ br_dd03e:
         shl     ax, 1
         add     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         mov     byte ptr [bp - 10h], al
         cmp     byte ptr [bp - 10h], 0
         jz      br_dd0cc
@@ -29394,7 +29394,7 @@ br_dd0cc:
         sub     ah, ah
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx - 775ah]
+        mov     al, byte ptr [bx +TBL_88A6_V112]
         mov     byte ptr [bp - 206h], al
         mov     al, byte ptr [bp - 0dh]
         else
@@ -29405,7 +29405,7 @@ br_dd0cc:
         sub     ah, ah
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx - 7746h]
+        mov     al, byte ptr [bx +TBL_88BA_V112]
         mov     byte ptr [bp - 205h], al
         else
         mov     al, byte ptr [bx + TBL_7C3A]
@@ -29792,7 +29792,7 @@ br_dd46b:
         if      FW_VERSION < 212
         test    byte ptr [B_550E], 0ffh
         jz      br_dd4a7
-        mov     al, byte ptr [13h]
+        mov     al, byte ptr [B_0009_V112+0ah]
         and     al, 0fh
         inc     al
         shl     al, 3
@@ -30175,7 +30175,7 @@ br_dd733:
         call    fn_ddaee
         pop     ax
         if      FW_VERSION < 212
-        inc     byte ptr [si - 718fh]
+        inc     byte ptr [si +W_8E71_V112]
         else
         call    fn_ddb57
         endif
@@ -30192,7 +30192,7 @@ br_dd753:
         cmp     bx, br_dd859
         jnz     br_dd776
         if      FW_VERSION < 212
-        inc     byte ptr [si - 718fh]
+        inc     byte ptr [si +W_8E71_V112]
         else
         call    fn_ddb57
         endif
@@ -30351,7 +30351,7 @@ br_dd863:
         mov     cl, 0f9h
         callf   SEG_EF1E:far_ef210
         if      FW_VERSION < 212
-        inc     byte ptr [si - 718fh]
+        inc     byte ptr [si +W_8E71_V112]
         else
         call    fn_ddb57
         endif
@@ -30499,7 +30499,7 @@ tgt_dd953:
         test    byte ptr [bx + TBL_4E8B], 1
         jz      br_dd9ad
         if      FW_VERSION < 212
-        cmp     bl, byte ptr [5d9bh]
+        cmp     bl, byte ptr [B_5D9B_V112]
         else
         cmp     bl, byte ptr [B_52B4]
         endif
@@ -30599,7 +30599,7 @@ br_dd9ff:
         jz      br_dda1b
 br_dda18:
         if      FW_VERSION < 212
-        test    byte ptr [5b28h], 1
+        test    byte ptr [B_5B28_V112], 1
         jnz     br_dda26
 br_dda1b:
         mov     byte ptr [word si + 20h], 0
@@ -30713,7 +30713,7 @@ br_ddade:
 br_ddae1:
         call    fn_ddaee
         if      FW_VERSION < 212
-        inc     byte ptr [si - 718fh]
+        inc     byte ptr [si +W_8E71_V112]
         else
         call    fn_ddb57
         endif
@@ -30918,9 +30918,9 @@ br_ddc03:
         if      FW_VERSION < 212
         call    word ptr cs:[bx + 133h]
         elseif  FW_VERSION = 212
-        call    word ptr cs:[bx + 129h]
+        call    word ptr cs:[bx +TBL_ddcae]
         else
-        call    word ptr cs:[bx + 12eh]
+        call    word ptr cs:[bx +TBL_ddcae]
         endif
         jmp     br_ddc02
 tgt_ddc0e:
@@ -30983,9 +30983,9 @@ br_ddc67:
         if      FW_VERSION < 212
         call    word ptr cs:[bx + 154h]
         elseif  FW_VERSION = 212
-        call    word ptr cs:[bx + 14ah]
+        call    word ptr cs:[bx +TBL_ddccf]
         else
-        call    word ptr cs:[bx + 14fh]
+        call    word ptr cs:[bx +TBL_ddccf]
         endif
         jmp     br_ddc66
 fn_ddc72:
@@ -31344,10 +31344,10 @@ far_ddef2:
         mov     ax, word ptr [bp + 8]
         mov     bx, word ptr [bp + 6]
         if      FW_VERSION < 212
-        mov     byte ptr [bx + 5212h], al
+        mov     byte ptr [bx +TBL_5212_V112], al
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
@@ -31387,10 +31387,10 @@ far_ddf1b:
         mov     ax, word ptr [bp + 8]
         mov     bx, word ptr [bp + 6]
         if      FW_VERSION < 212
-        mov     byte ptr [bx + 5232h], al
+        mov     byte ptr [bx +TBL_5232_V112], al
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
@@ -31430,10 +31430,10 @@ far_ddf44:
         mov     ax, word ptr [bp + 8]
         mov     bx, word ptr [bp + 6]
         if      FW_VERSION < 212
-        mov     byte ptr [bx + 5252h], al
+        mov     byte ptr [bx +TBL_5252_V112], al
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
@@ -31474,10 +31474,10 @@ far_ddf6d:
         shl     bx, 1
         mov     ax, word ptr [bp + 8]
         if      FW_VERSION < 212
-        mov     word ptr [bx + 5272h], ax
+        mov     word ptr [bx +TBL_5272_V112], ax
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0dc48h:L_dc484
@@ -32707,7 +32707,7 @@ br_de80b:
         cbw
         mov     bx, ax
         shl     bx, 1
-        mov     ax, word ptr [bx + 3ed4h]
+        mov     ax, word ptr [bx +TBL_3ED3_V112+1]
         sub     dx, dx
         mov     bx, word ptr [W_53BF]
         mov     cx, word ptr [W_53BD]
@@ -32727,8 +32727,8 @@ L_e1ea5:
         cwd
         add     ax, word ptr [W_53C1]
         adc     dx, word ptr [W_53C3]
-        add     ax, word ptr [51fah]
-        adc     dx, word ptr [51fch]
+        add     ax, word ptr [W_51FA_V112]
+        adc     dx, word ptr [W_51FC_V112]
         push    dx
         push    ax
         callf   SEG_E8B7:far_e8ba4
@@ -32778,7 +32778,7 @@ br_de841:
         cbw
         mov     bx, ax
         shl     bx, 1
-        mov     ax, word ptr [bx + 3ed4h]
+        mov     ax, word ptr [bx +TBL_3ED3_V112+1]
         sub     dx, dx
         mov     bx, word ptr [W_53BF]
         mov     cx, word ptr [W_53BD]
@@ -32798,8 +32798,8 @@ L_e1f13:
         cwd
         add     ax, word ptr [W_53C1]
         adc     dx, word ptr [W_53C3]
-        add     ax, word ptr [51fah]
-        adc     dx, word ptr [51fch]
+        add     ax, word ptr [W_51FA_V112]
+        adc     dx, word ptr [W_51FC_V112]
         push    dx
         push    ax
         callf   SEG_E8B7:far_e8ba4
@@ -32866,7 +32866,7 @@ br_de87b:
         cbw
         push    ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         else
         mov     al, byte ptr [B_9D34]
         endif
@@ -32919,7 +32919,7 @@ br_de913:
         cbw
         push    ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [5b0ah]
+        mov     al, byte ptr [B_5B0A_V112]
         else
         mov     al, byte ptr [B_4C1E]
         endif
@@ -33137,7 +33137,7 @@ far_dea87:
         if      FW_VERSION < 212
         add     sp, 0fff3h
         push    si
-        cmp     byte ptr [8fcbh], 0
+        cmp     byte ptr [B_8FCB_V112], 0
         jz      fn_deaf4
 br_deabd:
         pop     si
@@ -33190,7 +33190,7 @@ br_deaf0:
 fn_deaf4:
         if      FW_VERSION < 212
         callf   424h:L_04245
-        cmp     byte ptr [88dah], 0
+        cmp     byte ptr [B_88DA_V112], 0
         jz      br_deb79
         else
         push    bp
@@ -33276,7 +33276,7 @@ br_deb9b:
         cmp     word ptr [bp + 6], 0
         jnz     br_debdc
         if      FW_VERSION < 212
-        cmp     byte ptr [52e1h], 0
+        cmp     byte ptr [B_52E1_V112], 0
         else
         cmp     byte ptr [B_7E63], 0
         jnz     br_debc5
@@ -33285,9 +33285,9 @@ br_deb9b:
         jnz     br_debc0
         mov     ax, word ptr [W_A059]
         if      FW_VERSION < 212
-        mov     word ptr [52d6h], ax
+        mov     word ptr [W_52D6_V112], ax
         mov     word ptr [W_A059], 0
-        mov     byte ptr [52e1h], 1
+        mov     byte ptr [B_52E1_V112], 1
         else
         mov     word ptr [W_A05B], ax
         mov     word ptr [W_A059], 0
@@ -33297,7 +33297,7 @@ br_debc0:
         callf   SEG_04D5:far_04d5e
         if      FW_VERSION < 212
         callf   SEG_0459:far_04a89
-        mov     byte ptr [4cbfh], 0ffh
+        mov     byte ptr [B_4CBF_V112], 0ffh
         else
 br_debc5:
         cmp     byte ptr [B_9D35], 0
@@ -33340,7 +33340,7 @@ br_dec15:
         cbw
         mov     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         and     al, 4
         else
         mov     al, byte ptr [bx + TBL_954C]
@@ -33478,8 +33478,8 @@ br_ded39:
         mov     ax, 1
 br_ded3c:
         if      FW_VERSION < 212
-        mov     byte ptr [5b07h], al
-        cmp     byte ptr [5b07h], 0
+        mov     byte ptr [B_5B07_V112], al
+        cmp     byte ptr [B_5B07_V112], 0
         else
         mov     byte ptr [B_A067], al
         cmp     byte ptr [B_7E63], 0
@@ -33503,9 +33503,9 @@ br_ded6e:
 br_ded73:
         mov     ax, word ptr [W_A059]
         if      FW_VERSION < 212
-        mov     word ptr [52d6h], ax
+        mov     word ptr [W_52D6_V112], ax
         mov     word ptr [W_A059], 0
-        mov     byte ptr [52e1h], 1
+        mov     byte ptr [B_52E1_V112], 1
         else
         mov     word ptr [W_A05B], ax
         mov     word ptr [W_A059], 0
@@ -33517,7 +33517,7 @@ br_ded84:
         callf   SEG_04D5:far_04d5e
 br_ded90:
         if      FW_VERSION < 212
-        cmp     byte ptr [52e1h], 2
+        cmp     byte ptr [B_52E1_V112], 2
         else
         cmp     byte ptr [B_A064], 2
         endif
@@ -33525,7 +33525,7 @@ br_ded90:
         callf   SEG_04FA:far_04fa0
 br_ded9c:
         if      FW_VERSION < 212
-        cmp     byte ptr [52cch], 0
+        cmp     byte ptr [W_52CC_V112], 0
         else
         cmp     byte ptr [W_94DC], 0
         endif
@@ -33559,23 +33559,23 @@ br_dedea:
         mov     ax, 1
 br_deded:
         if      FW_VERSION < 212
-        mov     byte ptr [5b07h], al
+        mov     byte ptr [B_5B07_V112], al
         dec     word ptr [W_94E0]
         inc     word ptr [W_A059]
         inc     word ptr [W_94DA]
-        inc     byte ptr [52cch]
-        mov     al, byte ptr [52cch]
+        inc     byte ptr [W_52CC_V112]
+        mov     al, byte ptr [W_52CC_V112]
         sub     ah, ah
-        cmp     ax, word ptr [52c6h]
+        cmp     ax, word ptr [W_52C6_V112]
         jc      br_dee13
-        mov     byte ptr [52cch], 0
+        mov     byte ptr [W_52CC_V112], 0
         inc     byte ptr [B_94DD]
         mov     al, byte ptr [B_94DD]
         cmp     al, byte ptr [B_94E2]
         jbe     br_dee13
         mov     byte ptr [B_94DD], 1
         mov     word ptr [W_94DA], 0
-        inc     word ptr [52ceh]
+        inc     word ptr [W_52CE_V112]
         else
         mov     byte ptr [B_A067], al
         inc     word ptr [W_A059]
@@ -33626,7 +33626,7 @@ fn_dee59:
         add     sp, 0fffch
         mov     byte ptr [bp - 4], 90h
         mov     byte ptr [bp - 3], 0
-        mov     al, byte ptr [5caeh]
+        mov     al, byte ptr [B_5CAE_V112]
         mov     byte ptr [bp - 2], al
         mov     byte ptr [bp - 1], 7fh
         lea     ax, [bp - 4]
@@ -33887,7 +33887,7 @@ far_f032e:
         if      FW_VERSION >= 212
         mov     bl, byte ptr [B_4C2F]
         else
-        mov     bl, byte ptr [5b1bh]
+        mov     bl, byte ptr [B_5B1B_V112]
         endif
         sub     bh, bh
         mov     ax, cx
@@ -33923,7 +33923,7 @@ br_f0372:
         endm
         if      FW_VERSION < 212
         RUN_FAR_F032E
-        mov     byte ptr [5b07h], al
+        mov     byte ptr [B_5B07_V112], al
         else
 
         phase   0ch
@@ -34627,7 +34627,7 @@ br_e0934:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_52A4]
         else
-        mov     al, byte ptr [5c52h]
+        mov     al, byte ptr [B_5C52_V112]
         endif
         cbw
         push    ax
@@ -34650,7 +34650,7 @@ br_e0934:
         push    word ptr [bp + 8]
         callf   SEG_E091:far_e0be8
         else
-        cmp     byte ptr [5c58h], 1
+        cmp     byte ptr [B_5C58_V112], 1
         jnz     L_e403d
         push    word ptr [bp + 8]
         callf   0e3feh:far_e0be8
@@ -34715,7 +34715,7 @@ br_e099c:
         else
         cmp     word ptr [bp - 4], 0ffech
         jnz     L_e40a6
-        cmp     byte ptr [5c58h], 1
+        cmp     byte ptr [B_5C58_V112], 1
         jnz     L_e4095
         endif
         mov     ax, 7dh
@@ -34752,11 +34752,11 @@ L_e40a1:
         mov     ax, word ptr [bp - 4]
         jmp     br_e0996
 L_e40a6:
-        cmp     byte ptr [5c58h], 1
+        cmp     byte ptr [B_5C58_V112], 1
         jz      br_e09ef
-        cmp     word ptr [903fh], 7ef0h
+        cmp     word ptr [B_903F_V112], 7ef0h
         jz      L_e40be
-        mov     byte ptr [9042h], 0
+        mov     byte ptr [B_9042_V112], 0
         endif
         xor     ax, ax
         jmp     br_e0996
@@ -34765,7 +34765,7 @@ br_e09e0:
         cmp     byte ptr [B_8E68], 7ch
         else
 L_e40be:
-        cmp     byte ptr [9042h], 7ch
+        cmp     byte ptr [B_9042_V112], 7ch
         endif
         jnz     br_e09ef
         mov     word ptr [bp + 6], 0ffffh
@@ -34818,9 +34818,9 @@ br_e0a24:
         else
         add     sp, 0fff9h
         mov     ax, 1401h
-        cmp     byte ptr [5c58h], 1
+        cmp     byte ptr [B_5C58_V112], 1
         jnz     L_e4102
-        mov     ax, word ptr [0b279h]
+        mov     ax, word ptr [W_B279_V112]
 L_e4102:
         mov     word ptr [bp - 6], ax
         push    ax
@@ -34875,7 +34875,7 @@ far_e0a64:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_52AA], 1
         else
-        cmp     byte ptr [5c58h], 1
+        cmp     byte ptr [B_5C58_V112], 1
         endif
         jnz     br_e0a79
         mov     byte ptr [bp - 5], 0
@@ -34890,11 +34890,11 @@ br_e0a79:
         xor     byte ptr [bp - 5], al
         mov     al, byte ptr [B_8E69]
         else
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         xor     byte ptr [bp - 5], al
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         xor     byte ptr [bp - 5], al
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         endif
         xor     byte ptr [bp - 5], al
 br_e0a91:
@@ -34912,7 +34912,7 @@ br_e0a96:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_8D7B], 0
         else
-        cmp     byte ptr [9009h], 0
+        cmp     byte ptr [B_9009_V112], 0
         endif
         jz      br_e0ac0
         push    ax
@@ -34968,7 +34968,7 @@ far_e0afc:
         jnz     br_e0b11
         mov     byte ptr [bp - 7], 0
         else
-        cmp     byte ptr [5c58h], 1
+        cmp     byte ptr [B_5C58_V112], 1
         jnz     br_e0b11
         mov     byte ptr [bp - 5], 0
         endif
@@ -34989,11 +34989,11 @@ br_e0b29:
         mov     word ptr [bp - 4], ax
         else
         mov     byte ptr [bp - 5], al
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         xor     byte ptr [bp - 5], al
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         xor     byte ptr [bp - 5], al
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         xor     byte ptr [bp - 5], al
 br_e0b29:
         mov     word ptr [bp - 4], 0
@@ -35038,7 +35038,7 @@ br_e0b60:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_8D7B], 0
         else
-        cmp     byte ptr [9009h], 0
+        cmp     byte ptr [B_9009_V112], 0
         endif
         jz      br_e0b81
         push    ax
@@ -35095,14 +35095,14 @@ far_e0bad:
         mov     byte ptr [B_8E6A], 0f7h
         mov     al, byte ptr [B_52A5]
         else
-        mov     byte ptr [903fh], 0f0h
+        mov     byte ptr [B_903F_V112], 0f0h
         mov     byte ptr [TBL_8E66], 7eh
-        mov     byte ptr [9041h], 0
+        mov     byte ptr [B_9041_V112], 0
         mov     al, byte ptr [bp + 6]
-        mov     byte ptr [9042h], al
-        mov     byte ptr [9043h], 0
-        mov     byte ptr [9044h], 0f7h
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_9042_V112], al
+        mov     byte ptr [B_9043_V112], 0
+        mov     byte ptr [B_9044_V112], 0f7h
+        mov     al, byte ptr [B_5C53_V112]
         endif
         cbw
         push    ax
@@ -35130,8 +35130,8 @@ far_e0be8:
         mov     byte ptr [B_379A], al
         mov     al, byte ptr [B_52A5]
         else
-        mov     byte ptr [3fa6h], al
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_3F98_V112+0eh], al
+        mov     al, byte ptr [B_5C53_V112]
         endif
         cbw
         push    ax
@@ -35183,28 +35183,28 @@ far_e0c0a:
         mov     al, byte ptr [B_8E77]
         mov     byte ptr [B_B213], al
         else
-        mov     ax, word ptr [9042h]
-        mov     word ptr [0b265h], ax
-        mov     al, byte ptr [9044h]
-        mov     byte ptr [0b267h], al
+        mov     ax, word ptr [B_9042_V112]
+        mov     word ptr [W_B265_V112], ax
+        mov     al, byte ptr [B_9044_V112]
+        mov     byte ptr [B_B267_V112], al
         mov     ax, 9045h
         push    ax
         callf   0de85h:far_da92c
         add     sp, 2
-        mov     word ptr [0b26ah], dx
-        mov     word ptr [0b268h], ax
+        mov     word ptr [W_B26A_V112], dx
+        mov     word ptr [W_B268_V112], ax
         mov     ax, 9048h
         push    ax
         callf   0de85h:far_da92c
         add     sp, 2
-        mov     word ptr [0b26eh], dx
-        mov     word ptr [0b26ch], ax
-        mov     word ptr [0b272h], 0
-        mov     word ptr [0b270h], 0
-        mov     word ptr [0b276h], 0
-        mov     word ptr [0b274h], 0
-        mov     al, byte ptr [9051h]
-        mov     byte ptr [0b278h], al
+        mov     word ptr [W_B26E_V112], dx
+        mov     word ptr [W_B26C_V112], ax
+        mov     word ptr [W_B272_V112], 0
+        mov     word ptr [W_B270_V112], 0
+        mov     word ptr [W_B276_V112], 0
+        mov     word ptr [W_B274_V112], 0
+        mov     al, byte ptr [W_9051_V112]
+        mov     byte ptr [B_B278_V112], al
         endif
         mov     sp, bp
         pop     bp
@@ -35226,8 +35226,8 @@ far_e0c61:
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         endif
         add     ax, word ptr [bx + TBL_A66C]
         adc     dx, word ptr [bx + TBL_A66E]
@@ -35235,8 +35235,8 @@ far_e0c61:
         mov     bx, word ptr [W_AE6A]
         mov     cx, word ptr [W_AE68]
         else
-        mov     cx, word ptr [bx - 592ah]
-        mov     bx, word ptr [bx - 5928h]
+        mov     cx, word ptr [bx +TBL_A6D6_V112]
+        mov     bx, word ptr [bx +TBL_A6D8_V112]
         endif
         sub     cx, ax
         sbb     bx, dx
@@ -35263,7 +35263,7 @@ br_e0cb4:
         if      FW_VERSION >= 212
         mov     byte ptr [bx + TBL_8E65], 0
         else
-        mov     byte ptr [bx - 6fc1h], 0
+        mov     byte ptr [bx +B_903F_V112], 0
         endif
         jmp     br_e0cb4
 br_e0ccd:
@@ -35286,16 +35286,16 @@ far_e0cd1:
         mov     byte ptr [B_8E6B], 0f7h
         mov     al, byte ptr [B_52A5]
         else
-        mov     byte ptr [903fh], 0f0h
+        mov     byte ptr [B_903F_V112], 0f0h
         mov     byte ptr [TBL_8E66], 7eh
-        mov     al, byte ptr [5c55h]
-        mov     byte ptr [9041h], al
-        mov     byte ptr [9042h], 3
+        mov     al, byte ptr [B_5C55_V112]
+        mov     byte ptr [B_9041_V112], al
+        mov     byte ptr [B_9042_V112], 3
         mov     al, byte ptr [bp + 6]
-        mov     byte ptr [9043h], al
-        mov     byte ptr [9044h], 0
-        mov     byte ptr [9045h], 0f7h
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_9043_V112], al
+        mov     byte ptr [B_9044_V112], 0
+        mov     byte ptr [B_9045_V112], 0f7h
+        mov     al, byte ptr [B_5C53_V112]
         endif
         cbw
         push    ax
@@ -35328,13 +35328,13 @@ far_e0d14:
         mov     byte ptr [B_3796], al
         mov     al, byte ptr [B_52A5]
         else
-        mov     al, byte ptr [5c55h]
-        mov     byte ptr [3fa0h], al
+        mov     al, byte ptr [B_5C55_V112]
+        mov     byte ptr [B_3F98_V112+8], al
         mov     al, byte ptr [bp + 6]
-        mov     byte ptr [3fa1h], al
-        mov     al, byte ptr [9016h]
-        mov     byte ptr [3fa2h], al
-        mov     al, byte ptr [5c53h]
+        mov     byte ptr [B_3F98_V112+9], al
+        mov     al, byte ptr [B_9016_V112]
+        mov     byte ptr [B_3F98_V112+0ah], al
+        mov     al, byte ptr [B_5C53_V112]
         endif
         cbw
         push    ax
@@ -35388,30 +35388,30 @@ far_e0d44:
         mov     al, byte ptr [B_8E78]
         mov     byte ptr [B_B213], al
         else
-        mov     al, byte ptr [9041h]
-        mov     byte ptr [0b264h], al
-        mov     ax, word ptr [9043h]
-        mov     word ptr [0b265h], ax
-        mov     al, byte ptr [9045h]
-        mov     byte ptr [0b267h], al
+        mov     al, byte ptr [B_9041_V112]
+        mov     byte ptr [B_B264_V112], al
+        mov     ax, word ptr [B_9043_V112]
+        mov     word ptr [W_B265_V112], ax
+        mov     al, byte ptr [B_9045_V112]
+        mov     byte ptr [B_B267_V112], al
         mov     ax, 9046h
         push    ax
         callf   0de85h:far_da92c
         add     sp, 2
-        mov     word ptr [0b26ah], dx
-        mov     word ptr [0b268h], ax
+        mov     word ptr [W_B26A_V112], dx
+        mov     word ptr [W_B268_V112], ax
         mov     ax, 9049h
         push    ax
         callf   0de85h:far_da92c
         add     sp, 2
-        mov     word ptr [0b26eh], dx
-        mov     word ptr [0b26ch], ax
-        mov     word ptr [0b272h], 0
-        mov     word ptr [0b270h], 0
-        mov     word ptr [0b276h], 0
-        mov     word ptr [0b274h], 0
-        mov     al, byte ptr [9052h]
-        mov     byte ptr [0b278h], al
+        mov     word ptr [W_B26E_V112], dx
+        mov     word ptr [W_B26C_V112], ax
+        mov     word ptr [W_B272_V112], 0
+        mov     word ptr [W_B270_V112], 0
+        mov     word ptr [W_B276_V112], 0
+        mov     word ptr [W_B274_V112], 0
+        mov     al, byte ptr [B_9052_V112]
+        mov     byte ptr [B_B278_V112], al
         endif
         mov     sp, bp
         pop     bp
@@ -40757,7 +40757,7 @@ br_f04f3:
         cmp     byte ptr [B_94A6], 0
         else
         add     sp, 0fffah
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jnz     br_f0551
         mov     word ptr [bp - 2], 0
@@ -40773,13 +40773,13 @@ loop_f0501:
         jnz     br_f052a
         mov     byte ptr [bx + TBL_7FEC], 40h
         else
-        cmp     byte ptr [bx - 7710h], 0ffh
+        cmp     byte ptr [bx +TBL_88F0_V112], 0ffh
         jz      br_f053d
-        cmp     byte ptr [bx - 7710h], 0feh
+        cmp     byte ptr [bx +TBL_88F0_V112], 0feh
         jnz     br_f052c
-        cmp     byte ptr [bx - 7590h], 0ffh
+        cmp     byte ptr [bx +TBL_8A70_V112], 0ffh
         jnz     br_f052a
-        mov     byte ptr [bx - 7590h], 40h
+        mov     byte ptr [bx +TBL_8A70_V112], 40h
         endif
         mov     bx, word ptr [bp - 2]
         shl     bx, 1
@@ -40795,9 +40795,9 @@ br_f052c:
         mov     bx, word ptr [bp - 2]
         mov     byte ptr [bx + TBL_7E6C], al
         else
-        mov     byte ptr [bx - 7590h], 0ffh
+        mov     byte ptr [bx +TBL_8A70_V112], 0ffh
         mov     bx, word ptr [bp - 2]
-        mov     byte ptr [bx - 7710h], al
+        mov     byte ptr [bx +TBL_88F0_V112], al
         endif
 br_f053d:
         inc     word ptr [bp - 2]
@@ -41060,7 +41060,7 @@ far_f0553:
         mov     al, byte ptr [B_501A]
         or      al, byte ptr [B_7E63]
         else
-        cmp     byte ptr [5b1fh], 0
+        cmp     byte ptr [B_5B1F_V112], 0
         endif
         jnz     br_f056f
         jmp     br_f0691
@@ -41089,7 +41089,7 @@ br_f0596:
         mov     bx, ax
         mov     al, byte ptr [bx + TBL_501E]
         else
-        mov     al, byte ptr [bx + 5d12h]
+        mov     al, byte ptr [bx +TBL_5D12_V112]
         endif
         dec     al
         mov     bx, word ptr [bp + 6]
@@ -41126,7 +41126,7 @@ br_f05d9:
         if      FW_VERSION >= 212
         inc     byte ptr [B_8CC9]
         else
-        inc     byte ptr [8fc9h]
+        inc     byte ptr [B_8FC9_V112]
         endif
         jmp     near br_f0672
 loop_f05f0:
@@ -41143,7 +41143,7 @@ loop_f05f0:
         dec     byte ptr [B_8CC9]
 br_f0611:
         else
-        dec     byte ptr [8fc9h]
+        dec     byte ptr [B_8FC9_V112]
         endif
         jmp     br_f0672
 loop_f0613:
@@ -41311,7 +41311,7 @@ tgt_e8146:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jge     br_e815c
         mov     byte ptr [B_53AB], 0eh
@@ -41458,8 +41458,8 @@ fn_e8281:
         callf   SEG_D43A:far_d43b3
         add     ax, 2
         adc     dx, 0
-        sub     ax, word ptr [51fah]
-        sbb     dx, word ptr [51fch]
+        sub     ax, word ptr [W_51FA_V112]
+        sbb     dx, word ptr [W_51FC_V112]
         ret
         phase   0eh
         else
@@ -41513,9 +41513,9 @@ far_e82a4:
         cmp     byte ptr [B_A06E], 0
         else
         add     sp, 0fff0h
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     br_e82bd
-        cmp     byte ptr [4cbfh], 0
+        cmp     byte ptr [B_4CBF_V112], 0
         endif
         jnz     br_e82bd
         mov     ax, 0ffffh
@@ -41525,7 +41525,7 @@ br_e841c:
         pop     bp
         retf
 br_e82bd:
-        test    byte ptr [52b5h], 1
+        test    byte ptr [B_52B5_V112], 1
         else
         jmp     br_e841c
 br_e82bd:
@@ -41541,20 +41541,20 @@ br_e82ca:
         add     sp, 2
         test    ax, ax
         jz      br_e8302
-        mov     word ptr [0a456h], 0
-        mov     word ptr [0a454h], 0
-        mov     byte ptr [52b5h], 0ffh
+        mov     word ptr [W_A456_V112], 0
+        mov     word ptr [W_A454_V112], 0
+        mov     byte ptr [B_52B5_V112], 0ffh
         mov     word ptr [W_94D6], 0
-        mov     word ptr [5209h], 0
-        mov     word ptr [5207h], 0
+        mov     word ptr [W_5209_V112], 0
+        mov     word ptr [W_5207_V112], 0
         mov     ax, 0ffffh
         jmp     br_e841c
 br_e8302:
-        mov     byte ptr [5064h], 0
+        mov     byte ptr [B_5064_V112], 0
         mov     dx, word ptr [W_9B9C]
         mov     ax, word ptr [W_9B9A]
-        mov     word ptr [0a456h], dx
-        mov     word ptr [0a454h], ax
+        mov     word ptr [W_A456_V112], dx
+        mov     word ptr [W_A454_V112], ax
         push    dx
         push    ax
         callf   0d7c0h:far_d617f
@@ -41574,8 +41574,8 @@ br_e8302:
         push    ax
         lea     ax, [bp - 4]
         push    ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         add     ax, 1
         adc     dx, 0
         push    dx
@@ -41588,8 +41588,8 @@ br_e8302:
         push    ax
         lea     ax, [bp - 8]
         push    ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         add     ax, 4
         adc     dx, 0
         push    dx
@@ -41602,57 +41602,57 @@ br_e8302:
         adc     dx, word ptr [bp - 0ah]
         push    dx
         push    ax
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         callf   SEG_DA9B:far_da9df
         add     sp, 8
         mov     word ptr [W_94BE], dx
         mov     word ptr [W_94BC], ax
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         push    word ptr [bp - 0ah]
         push    word ptr [bp - 0ch]
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         callf   SEG_DA9B:far_da9df
         add     sp, 8
-        mov     word ptr [0a45eh], dx
-        mov     word ptr [0a45ch], ax
+        mov     word ptr [W_A45E_V112], dx
+        mov     word ptr [W_A45C_V112], ax
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
         push    dx
         push    ax
         callf   SEG_DA9B:far_da9df
         add     sp, 8
-        mov     word ptr [0a45ah], dx
-        mov     word ptr [0a458h], ax
+        mov     word ptr [W_A45A_V112], dx
+        mov     word ptr [W_A458_V112], ax
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        cmp     dx, word ptr [0a45ah]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        cmp     dx, word ptr [W_A45A_V112]
         jnz     L_e2ab8
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
 L_e2ab8:
         jnz     br_e83eb
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
 br_e83eb:
         xor     ax, ax
         mov     word ptr [W_94E0], 0
         mov     word ptr [W_A059], ax
-        mov     byte ptr [52b5h], 1
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        mov     byte ptr [B_52B5_V112], 1
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         callf   SEG_F037:far_f0376
         add     sp, 4
         callf   0e5c6h:L_e5c6a
         mov     al, byte ptr [B_9D36]
         mov     byte ptr [B_9D37], al
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [4cbeh], al
+        mov     byte ptr [B_4CBE_V112], al
         xor     ax, ax
         jmp     br_e841c
         phase   0eh
@@ -41665,7 +41665,7 @@ L_e2afe:
         push    word ptr [si + 1]
         mov     di, 1
         mov     ax, word ptr [bp + 0ah]
-        or      word ptr [88ddh], ax
+        or      word ptr [W_88DD_V112], ax
         mov     al, byte ptr [si]
         and     al, 0f8h
         cmp     al, 0f0h
@@ -41685,7 +41685,7 @@ L_e2b2c:
         jnz     L_e2b3a
         mov     byte ptr [si + 3], bl
 L_e2b3a:
-        mov     al, byte ptr [bx + 5cf2h]
+        mov     al, byte ptr [bx +TBL_5CF2_V112]
         push    bx
         push    ax
         push    word ptr [bp + 8]
@@ -41708,7 +41708,7 @@ L_e2b58:
         and     al, 0f0h
         add     al, bl
         mov     byte ptr [si + 1], al
-        mov     al, byte ptr [bx + 5cf2h]
+        mov     al, byte ptr [bx +TBL_5CF2_V112]
         push    bx
         push    ax
         mov     ax, word ptr [bp + 8]
@@ -41743,7 +41743,7 @@ far_f0694:
         cmp     byte ptr [B_7E12], 0
         else
         add     sp, 0fffah
-        cmp     byte ptr [88dah], 0
+        cmp     byte ptr [B_88DA_V112], 0
         endif
         jnz     br_f06ac
         push    word ptr [bp + 6]
@@ -41792,7 +41792,7 @@ br_f06fa:
         cbw
         mov     bx, ax
         shl     bx, 1
-        mov     ax, word ptr [bx + 512eh]
+        mov     ax, word ptr [bx +TBL_512E_V112]
 L_e2bcb:
         mov     word ptr [bp - 6], ax
         endif
@@ -41812,7 +41812,7 @@ L_e2bcb:
         else
         mov     al, byte ptr [B_9D37]
         mov     byte ptr [bp - 3], al
-        mov     al, byte ptr [5d9bh]
+        mov     al, byte ptr [B_5D9B_V112]
         endif
         mov     byte ptr [bp - 2], al
         mov     al, byte ptr [B_8B4F]
@@ -41820,7 +41820,7 @@ L_e2bcb:
         mov     byte ptr [B_8CD6], al
         mov     byte ptr [bp - 1], al
         else
-        mov     byte ptr [8fd6h], al
+        mov     byte ptr [B_8FD6_V112], al
         mov     byte ptr [bp - 1], al
         push    word ptr [bp - 6]
         endif
@@ -41866,7 +41866,7 @@ br_f0753:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8CD6]
         else
-        mov     al, byte ptr [8fd6h]
+        mov     al, byte ptr [B_8FD6_V112]
         endif
         mov     byte ptr [bx + 3], al
 br_f076d:
@@ -41905,7 +41905,7 @@ far_f077e:
         else
         callf   0e844h:far_f0496
         add     sp, 4
-        cmp     byte ptr [5d9ch], 0
+        cmp     byte ptr [B_5D9C_V112], 0
         endif
         jz      br_f07d0
         mov     al, byte ptr [B_8CD9]
@@ -41914,7 +41914,7 @@ far_f077e:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_94E8]
         else
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         endif
         cbw
         push    ax
@@ -41929,7 +41929,7 @@ far_f077e:
         cbw
         mov     bx, ax
         shl     bx, 1
-        push    word ptr [bx + 512eh]
+        push    word ptr [bx +TBL_512E_V112]
         endif
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -41949,19 +41949,19 @@ br_f07d0:
         RUN_FAR_F0694
         phase   3
 L_e2cb3:
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     br_05bee
-        mov     bl, byte ptr [9041h]
+        mov     bl, byte ptr [B_9041_V112]
         sub     bh, bh
-        cmp     byte ptr [bx - 7710h], 0ffh
+        cmp     byte ptr [bx +TBL_88F0_V112], 0ffh
         jnz     br_05bee
         mov     byte ptr [B_A063], 1
-        mov     ax, word ptr [9042h]
-        mov     byte ptr [bx - 7710h], al
-        mov     byte ptr [bx - 7590h], ah
+        mov     ax, word ptr [B_9042_V112]
+        mov     byte ptr [bx +TBL_88F0_V112], al
+        mov     byte ptr [bx +TBL_8A70_V112], ah
         shl     bx, 1
-        mov     word ptr [bx - 7690h], 0
-        mov     ax, word ptr [9044h]
+        mov     word ptr [bx +TBL_8970_V112], 0
+        mov     ax, word ptr [B_9044_V112]
         shl     al, 1
         shr     ax, 1
         mov     word ptr [bx + TBL_806C], ax
@@ -42144,14 +42144,14 @@ L_e2d16:
         if      FW_VERSION >= 212
         mov     byte ptr [si + TBL_7E6C], al
         else
-        mov     byte ptr [si - 7710h], al
+        mov     byte ptr [si +TBL_88F0_V112], al
         endif
         mov     bx, si
         shl     bx, 1
         if      FW_VERSION < 212
-        mov     word ptr [bx - 7690h], 0
+        mov     word ptr [bx +TBL_8970_V112], 0
         mov     ax, word ptr [bp - 4]
-        mov     byte ptr [si - 7590h], al
+        mov     byte ptr [si +TBL_8A70_V112], al
         else
         mov     word ptr [bx + TBL_7EEC], 0
         mov     al, byte ptr [si + TBL_8C29]
@@ -42222,9 +42222,9 @@ br_e84a4:
         if      FW_VERSION < 212
         add     sp, 6
 br_e84c2:
-        cmp     byte ptr [618bh], 0
+        cmp     byte ptr [B_618B_V112], 0
         jnz     br_e84ce
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
         else
         add     sp, 4
 br_e84c2:
@@ -42280,7 +42280,7 @@ br_e8512:
         jl      br_e8551
         mov     ax, word ptr [bp - 2]
         if      FW_VERSION < 212
-        mov     byte ptr [si - 7710h], al
+        mov     byte ptr [si +TBL_88F0_V112], al
         else
         mov     byte ptr [si + TBL_7E6C], al
         endif
@@ -42290,8 +42290,8 @@ br_e8512:
         mov     word ptr [bx + TBL_7EEC], 0
         mov     byte ptr [si + TBL_7FEC], 40h
         else
-        mov     word ptr [bx - 7690h], 0
-        mov     byte ptr [si - 7590h], 40h
+        mov     word ptr [bx +TBL_8970_V112], 0
+        mov     byte ptr [si +TBL_8A70_V112], 40h
         endif
         mov     al, byte ptr [B_A065]
         sub     ah, ah
@@ -42336,9 +42336,9 @@ br_e8551:
         if      FW_VERSION < 212
         add     sp, 6
 br_e858e:
-        cmp     byte ptr [618bh], 0
+        cmp     byte ptr [B_618B_V112], 0
         jnz     br_e859a
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
         else
         add     sp, 4
 br_e858e:
@@ -42376,10 +42376,10 @@ far_e85aa:
         pushf
         cli
         if      FW_VERSION < 212
-        mov     ax, word ptr [476fh]
-        add     ax, word ptr [48a8h]
-        add     ax, word ptr [49e1h]
-        add     ax, word ptr [4b1ah]
+        mov     ax, word ptr [W_476F_V112]
+        add     ax, word ptr [W_48A8_V112]
+        add     ax, word ptr [W_49E1_V112]
+        add     ax, word ptr [W_4B1A_V112]
         else
         mov     ax, word ptr es:[1330h]
         add     ax, word ptr es:[1932h]
@@ -42716,7 +42716,7 @@ far_e8820:
         jmp     br_e8b0a
 br_e883f:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -42730,7 +42730,7 @@ br_e883f:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_7C25]
         else
-        mov     al, byte ptr [bx - 775bh]
+        mov     al, byte ptr [bx +TBL_88A5_V112]
         endif
         sub     ah, ah
         mov     word ptr [bp - 38h], ax
@@ -42763,8 +42763,8 @@ br_e8889:
         mov     dx, word ptr [W_94CA]
         mov     ax, word ptr [W_94C8]
         else
-        mov     dx, word ptr [5209h]
-        mov     ax, word ptr [5207h]
+        mov     dx, word ptr [W_5209_V112]
+        mov     ax, word ptr [W_5207_V112]
         endif
         mov     word ptr [bp - 3ch], dx
         mov     word ptr [bp - 3eh], ax
@@ -43144,8 +43144,8 @@ br_e8bd5:
         shl     bx, 1
         mov     di, bx
         shl     bx, 1
-        mov     cx, word ptr [bx + 0af8h]
-        mov     bx, word ptr [bx + 0afah]
+        mov     cx, word ptr [bx +TBL_0AF3_V112+5]
+        mov     bx, word ptr [bx +TBL_0AF9_V112+1]
         callf   SEG_F26A:far_f2701
         mov     byte ptr [si + 3], al
         else
@@ -43176,7 +43176,7 @@ br_e8bd5:
         div     cx
         mov     byte ptr [si + 3], al
         else
-        mov     cx, word ptr [di + 0af0h]
+        mov     cx, word ptr [di +TBL_0AE2_V112+0eh]
         div     cx
         mov     byte ptr [si + 2], al
         endif
@@ -43193,7 +43193,7 @@ br_e8bd5:
         shl     ax, 1
         rcl     dx, 1
         if      FW_VERSION < 212
-        mov     cx, word ptr [di + 0ae8h]
+        mov     cx, word ptr [di +TBL_0AE2_V112+6]
         div     cx
         mov     byte ptr [si + 1], al
         elseif  FW_VERSION = 212
@@ -43240,8 +43240,8 @@ far_ef474:
         mov     word ptr [W_AE64], 0ffffh
         mov     word ptr [bp - 8], 0
         else
-        mov     word ptr [0aecfh], 0ffffh
-        mov     word ptr [0aecdh], 0ffffh
+        mov     word ptr [W_AECF_V112], 0ffffh
+        mov     word ptr [W_AECD_V112], 0ffffh
         mov     word ptr [bp - 4], 0
         endif
         xor     ax, ax
@@ -43272,7 +43272,7 @@ br_ef4ae:
 br_ef4c1:
         mov     bx, word ptr [bp - 2]
         else
-        mov     si, word ptr [0aecbh]
+        mov     si, word ptr [W_AECB_V112]
         mov     word ptr [bp - 2], 0
 L_e3474:
         inc     si
@@ -43298,7 +43298,7 @@ L_e3474:
         jnz     br_ef4e4
         mov     ax, si
         inc     ax
-        mov     word ptr [0aecbh], ax
+        mov     word ptr [W_AECB_V112], ax
         mov     ax, si
         endif
 br_ef4de:
@@ -43319,13 +43319,13 @@ br_ef4f6:
         mov     bx, word ptr [bp - 2]
         mov     al, byte ptr [bx + TBL_AE4F]
         else
-        cmp     di, word ptr [0aecfh]
+        cmp     di, word ptr [W_AECF_V112]
         jnc     br_ef4f6
-        mov     word ptr [0aecfh], di
+        mov     word ptr [W_AECF_V112], di
         mov     ax, si
         mov     byte ptr [B_8D66], al
 br_ef4f6:
-        mov     al, byte ptr [si - 5148h]
+        mov     al, byte ptr [si +TBL_AEB8_V112]
         endif
         cbw
         cmp     ax, word ptr [bp + 6]
@@ -43373,17 +43373,17 @@ br_ef55b:
         mov     ax, word ptr [W_AE5F]
         mov     word ptr [bp - 2], ax
         else
-        cmp     di, word ptr [0aecdh]
+        cmp     di, word ptr [W_AECD_V112]
         jnc     br_ef515
-        mov     word ptr [0aecdh], di
-        mov     word ptr [0aec8h], si
+        mov     word ptr [W_AECD_V112], di
+        mov     word ptr [W_AEC8_V112], si
 br_ef515:
         mov     bx, si
         shl     bx, 1
         lea     ax, [bp - 26h]
         add     bx, ax
         mov     word ptr ss:[bx], di
-        mov     al, byte ptr [si - 5148h]
+        mov     al, byte ptr [si +TBL_AEB8_V112]
         cbw
         mov     di, ax
         mov     bx, di
@@ -43407,9 +43407,9 @@ br_ef54a:
         jge     br_ef55b
         jmp     near L_e3474
 br_ef55b:
-        cmp     word ptr [0aecdh], 0ffffh
+        cmp     word ptr [W_AECD_V112], 0ffffh
         jz      br_ef56a
-        mov     si, word ptr [0aec8h]
+        mov     si, word ptr [W_AEC8_V112]
         endif
         jmp     br_ef5c2
 br_ef56a:
@@ -43447,7 +43447,7 @@ br_ef5a8:
         else
         cmp     word ptr [bp - 4], 3
         jl      br_ef5bb
-        mov     word ptr [0aecdh], 0ffffh
+        mov     word ptr [W_AECD_V112], 0ffffh
         mov     word ptr [bp - 2], 0
 loop_ef57d:
         mov     bx, word ptr [bp - 2]
@@ -43457,7 +43457,7 @@ loop_ef57d:
         cmp     word ptr ss:[bx], 0
         jz      br_ef5a5
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx - 5148h]
+        mov     al, byte ptr [bx +TBL_AEB8_V112]
         cbw
         cmp     ax, word ptr [bp - 6]
         jnz     br_ef5a5
@@ -43465,16 +43465,16 @@ loop_ef57d:
         lea     ax, [bp - 26h]
         add     bx, ax
         mov     ax, word ptr ss:[bx]
-        cmp     ax, word ptr [0aecdh]
+        cmp     ax, word ptr [W_AECD_V112]
         jnc     br_ef5a5
-        mov     word ptr [0aecdh], ax
+        mov     word ptr [W_AECD_V112], ax
         mov     ax, word ptr [bp - 2]
-        mov     word ptr [0aec8h], ax
+        mov     word ptr [W_AEC8_V112], ax
 br_ef5a5:
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 10h
         jl      loop_ef57d
-        mov     si, word ptr [0aec8h]
+        mov     si, word ptr [W_AEC8_V112]
         endif
         jmp     br_ef5c2
 br_ef5bb:
@@ -43487,7 +43487,7 @@ br_ef5bb:
 br_ef5c2:
         mov     ax, si
         inc     ax
-        mov     word ptr [0aecbh], ax
+        mov     word ptr [W_AECB_V112], ax
         mov     ax, si
         jmp     br_ef4de
         phase   9
@@ -43654,8 +43654,8 @@ L_e36c4:
         mov     ax, word ptr [bp + 6]
         RUN_AFTER_BR_E6FAC
         pop     dx
-        add     ax, word ptr [bx - 5932h]
-        adc     dx, word ptr [bx - 5930h]
+        add     ax, word ptr [bx +TBL_A6CE_V112]
+        adc     dx, word ptr [bx +TBL_A6D0_V112]
         mov     word ptr [bx + TBL_A676], dx
         mov     word ptr [bx + TBL_A674], ax
 
@@ -43668,7 +43668,7 @@ L_e36c4:
         shl     ax, 1
         sub     ax, dx
         mov     bx, ax
-        mov     ax, word ptr [bx - 591ah]
+        mov     ax, word ptr [bx +TBL_A6E6_V112]
         mov     word ptr [bp - 2], ax
         mov     ax, word ptr [bx + TBL_A67C]
         mov     word ptr [bp - 4], ax
@@ -43692,7 +43692,7 @@ L_e36c4:
         push    ax
         mov     ax, word ptr [bp + 6]
         RUN_AFTER_BR_E6FAC_2
-        mov     word ptr [bx - 5918h], ax
+        mov     word ptr [bx +TBL_A6E8_V112], ax
         jmp     L_e378a
 L_e3771:
         endif
@@ -43710,7 +43710,7 @@ RUN_L_E378A macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_A670], 0
         else
-        mov     word ptr [bx - 5918h], 7fffh
+        mov     word ptr [bx +TBL_A6E8_V112], 7fffh
 L_e378a:
         endif
         mov     ax, word ptr [bp + 6]
@@ -43750,7 +43750,7 @@ L_e37c1:
         endm
         if      FW_VERSION < 212
         RUN_L_E378A
-        mov     ax, word ptr [bx - 591ch]
+        mov     ax, word ptr [bx +TBL_A6E4_V112]
         mov     word ptr [bp - 6], ax
         test    ax, ax
         jz      L_e3824
@@ -43840,7 +43840,7 @@ RUN_AFTER_BR_EDC91 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_BR_EDC91
-        mov     ax, word ptr [bx - 591ch]
+        mov     ax, word ptr [bx +TBL_A6E4_V112]
         cwd
         mov     bx, word ptr [bp - 0ch]
         mov     cx, word ptr [bp - 0eh]
@@ -43901,7 +43901,7 @@ RUN_AFTER_L_E3917 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_L_E3917
-        mov     ax, word ptr [bx - 591ah]
+        mov     ax, word ptr [bx +TBL_A6E6_V112]
         mov     word ptr [bp - 0eh], ax
         mov     word ptr [bx + TBL_A686], 1
         mov     ax, word ptr [bp + 6]
@@ -43922,13 +43922,13 @@ L_e396d:
         mov     word ptr [bp - 2], 0
         mov     word ptr [bp - 4], 1
 L_e3977:
-        mov     ax, word ptr [0aef2h]
+        mov     ax, word ptr [W_AEF2_V112]
         cwd
         add     ax, 0ff9ch
         adc     dx, 0ffffh
         push    dx
         push    ax
-        mov     al, byte ptr [0aef1h]
+        mov     al, byte ptr [B_AEF1_V112]
         cbw
         cwd
         mov     bx, dx
@@ -44182,10 +44182,10 @@ br_ef920:
         elseif  FW_VERSION = 212
         phase   3
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
-        mov     word ptr [bx - 5928h], dx
-        mov     word ptr [bx - 592ah], ax
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
+        mov     word ptr [bx +TBL_A6D8_V112], dx
+        mov     word ptr [bx +TBL_A6D6_V112], ax
         jmp     br_ef91c
         phase   0eh
         endif
@@ -44241,7 +44241,7 @@ br_ef984:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         push    dx
@@ -44262,7 +44262,7 @@ br_ef984:
         if      FW_VERSION >= 212
         cmp     ax, word ptr [bx + TBL_AE91]
         else
-        cmp     ax, word ptr [bx - 510ah]
+        cmp     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         ja      br_ef9c0
 br_ef9bd:
@@ -44282,7 +44282,7 @@ br_ef9c0:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         mov     word ptr [bp - 8], dx
@@ -44340,7 +44340,7 @@ br_ef9c0:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         push    dx
@@ -44358,7 +44358,7 @@ br_ef9c0:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp - 4]
         inc     ax
@@ -44417,7 +44417,7 @@ br_ef9c0:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp - 4]
         inc     ax
@@ -44456,7 +44456,7 @@ far_efb33:
         if      FW_VERSION >= 212
         mov     cx, word ptr [bx + TBL_AE6C]
         else
-        mov     cx, word ptr [bx - 512fh]
+        mov     cx, word ptr [bx +TBL_AED1_V112]
         endif
         shr     bx, 1
 loop_efb3e:
@@ -44489,16 +44489,16 @@ br_efb6e:
         shr     dx, 1
         if      FW_VERSION < 212
         sub     bx, bx
-        cmp     dl, byte ptr [bx - 514ch]
+        cmp     dl, byte ptr [bx +TBL_AEB4_V112]
         jz      L_e3db4
         inc     bx
-        cmp     dl, byte ptr [bx - 514ch]
+        cmp     dl, byte ptr [bx +TBL_AEB4_V112]
         jz      L_e3db4
         inc     bx
-        cmp     dl, byte ptr [bx - 514ch]
+        cmp     dl, byte ptr [bx +TBL_AEB4_V112]
         jnz     L_e3db9
 L_e3db4:
-        mov     byte ptr [bx - 514ch], 0ffh
+        mov     byte ptr [bx +TBL_AEB4_V112], 0ffh
 L_e3db9:
         endif
         xor     ax, ax
@@ -44928,8 +44928,8 @@ L_d8360:
         RUN_AFTER_BR_C76AB_3
         pop     ax
         pop     dx
-        sub     word ptr [bx - 592ah], ax
-        sbb     word ptr [bx - 5928h], dx
+        sub     word ptr [bx +TBL_A6D6_V112], ax
+        sbb     word ptr [bx +TBL_A6D8_V112], dx
         push    word ptr [bp - 0ah]
         mov     ax, 903fh
         RUN_BR_E0EF4
@@ -44959,7 +44959,7 @@ br_efe01:
         mov     word ptr [W_8D84], ax
         else
         add     sp, 0fffch
-        mov     ax, word ptr [9014h]
+        mov     ax, word ptr [W_9014_V112]
         neg     ax
         cmp     ax, word ptr [W_982E]
         jle     br_efe01
@@ -44976,14 +44976,14 @@ L_e45f7:
         cmp     word ptr [bp - 4], 10h
         jl      L_e45f7
 L_e460b:
-        mov     ax, word ptr [900eh]
+        mov     ax, word ptr [W_900E_V112]
         add     ax, word ptr [bp - 4]
         dec     ax
-        mov     word ptr [9010h], ax
-        mov     word ptr [900ch], 0
-        mov     word ptr [900ah], 0
+        mov     word ptr [W_9010_V112], ax
+        mov     word ptr [W_900C_V112], 0
+        mov     word ptr [W_900A_V112], 0
         xor     ax, ax
-        mov     word ptr [9014h], 0
+        mov     word ptr [W_9014_V112], 0
         mov     word ptr [W_982E], ax
         endif
         mov     sp, bp
@@ -45003,14 +45003,14 @@ far_efe2c:
         mov     word ptr [W_8D84], ax
         else
         mov     ax, 8
-        mov     word ptr [9010h], 8
-        mov     word ptr [900eh], ax
-        mov     word ptr [900ch], 0
-        mov     word ptr [900ah], 0
+        mov     word ptr [W_9010_V112], 8
+        mov     word ptr [W_900E_V112], ax
+        mov     word ptr [W_900C_V112], 0
+        mov     word ptr [W_900A_V112], 0
         xor     ax, ax
-        mov     word ptr [605dh], 0
-        mov     word ptr [605bh], ax
-        mov     word ptr [9014h], 0
+        mov     word ptr [W_605D_V112], 0
+        mov     word ptr [W_605B_V112], ax
+        mov     word ptr [W_9014_V112], 0
         mov     word ptr [W_982E], ax
         endif
         mov     sp, bp
@@ -45042,19 +45042,19 @@ RUN_BR_EDE27 macro   {GLOBALSYMBOLS}
         mov     dx, word ptr [W_94DE]
         mov     ax, word ptr [W_94DC]
         else
-        cmp     byte ptr [52b5h], 2
+        cmp     byte ptr [B_52B5_V112], 2
         jnz     br_ede27
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
-        mov     byte ptr [52b5h], 0
-        mov     dx, word ptr [52ceh]
-        mov     ax, word ptr [52cch]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
+        mov     byte ptr [B_52B5_V112], 0
+        mov     dx, word ptr [W_52CE_V112]
+        mov     ax, word ptr [W_52CC_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -45063,9 +45063,9 @@ RUN_BR_EDE27 macro   {GLOBALSYMBOLS}
         mov     byte ptr [B_94DD], 1
         mov     byte ptr [W_94DC], 0
         else
-        mov     word ptr [52ceh], 1
+        mov     word ptr [W_52CE_V112], 1
         mov     byte ptr [B_94DD], 1
-        mov     byte ptr [52cch], 0
+        mov     byte ptr [W_52CC_V112], 0
         endif
         xor     ax, ax
         mov     word ptr [W_A059], 0
@@ -45154,7 +45154,7 @@ L_e4731:
         push    bp
         mov     bp, sp
         add     sp, 0fff3h
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         cmp     ax, word ptr [bp + 6]
         endif
@@ -45164,14 +45164,14 @@ RUN_BR_F1689 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jl      br_f168d
         mov     bx, word ptr [bp + 8]
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_94E8]
         else
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         endif
         cbw
 br_f1689:
@@ -45267,7 +45267,7 @@ far_f07d4:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         cmp     ax, word ptr [bp + 6]
@@ -45285,7 +45285,7 @@ br_f07f6:
         callf   SEG_D55E:far_d55e8
         add     sp, 2
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     br_f07f6
         callf   0d841h:L_d8414
         endif
@@ -45329,8 +45329,8 @@ br_f0823:
         else
         callf   0e533h:L_e5471
         add     sp, 2
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -45345,8 +45345,8 @@ br_f0823:
         else
         callf   0e533h:L_e5471
         add     sp, 2
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         endif
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
@@ -45364,8 +45364,8 @@ br_f0869:
         push    word ptr [W_9824]
         push    word ptr [W_9822]
         else
-        push    word ptr [0a46eh]
-        push    word ptr [0a46ch]
+        push    word ptr [W_A46E_V112]
+        push    word ptr [W_A46C_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -45377,8 +45377,8 @@ br_f0869:
         push    word ptr [W_9828]
         push    word ptr [W_9826]
         else
-        push    word ptr [0a472h]
-        push    word ptr [0a470h]
+        push    word ptr [W_A472_V112]
+        push    word ptr [W_A470_V112]
         endif
         push    word ptr [bp - 6]
         push    word ptr [bp - 8]
@@ -45406,7 +45406,7 @@ br_f08c7:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_9D34]
         else
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         endif
         cbw
         cmp     ax, word ptr [bp + 6]
@@ -45440,7 +45440,7 @@ far_ed776:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jz      br_ed78d
         xor     ax, ax
@@ -45459,8 +45459,8 @@ br_ed798:
         mov     dx, word ptr [W_94AA]
         mov     ax, word ptr [W_94A8]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 0c8h
         adc     dx, 0
@@ -45527,8 +45527,8 @@ br_ed817:
         mov     dx, word ptr [W_94B2]
         mov     ax, word ptr [W_94B0]
         else
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
         endif
         mov     word ptr [bp - 0ah], dx
         mov     word ptr [bp - 0ch], ax
@@ -45537,14 +45537,14 @@ br_ed817:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94BA]
         else
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         jc      br_ed839
         jnz     br_ed83c
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B8]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         ja      br_ed83c
 br_ed839:
@@ -45556,8 +45556,8 @@ br_ed83c:
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
         else
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -45567,8 +45567,8 @@ br_ed83c:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -45581,8 +45581,8 @@ br_ed83c:
         mov     ax, 0ffffh
         push    dx
         push    ax
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
 
         callf   SEG_DA9B:far_da9df
         endif
@@ -45609,8 +45609,8 @@ br_ed83c:
         RUN_FAR_ED776
         callf   0e7ddh:far_eee37
         add     sp, 0ch
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
         endif
 
 RUN_BR_ED8E3 macro   {GLOBALSYMBOLS}
@@ -45622,8 +45622,8 @@ RUN_BR_ED8E3 macro   {GLOBALSYMBOLS}
         push    word ptr [W_94B6]
         push    word ptr [W_94B4]
         else
-        push    word ptr [0a462h]
-        push    word ptr [0a460h]
+        push    word ptr [W_A462_V112]
+        push    word ptr [W_A460_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -45632,16 +45632,16 @@ RUN_BR_ED8E3 macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94B4], ax
         cmp     dx, word ptr [W_94AE]
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
-        cmp     dx, word ptr [0a45ah]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
+        cmp     dx, word ptr [W_A45A_V112]
         endif
         jc      br_ed8e3
         jnz     br_ed8e5
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94AC]
         else
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         endif
         jnc     br_ed8e5
 br_ed8e3:
@@ -45653,10 +45653,10 @@ br_ed8e5:
         mov     word ptr [W_94B6], dx
         mov     word ptr [W_94B4], ax
         else
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         endif
 br_ed8f3:
         push    word ptr [bp - 0eh]
@@ -45665,8 +45665,8 @@ br_ed8f3:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -45675,16 +45675,16 @@ br_ed8f3:
         mov     word ptr [W_94B8], ax
         cmp     dx, word ptr [W_94AE]
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        cmp     dx, word ptr [0a45ah]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        cmp     dx, word ptr [W_A45A_V112]
         endif
         jc      br_ed91e
         jnz     br_ed920
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94AC]
         else
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         endif
         jnc     br_ed920
 br_ed91e:
@@ -45696,10 +45696,10 @@ br_ed920:
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
         else
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
 br_ed92e:
         cmp     word ptr [bp - 12h], 0
@@ -45714,8 +45714,8 @@ br_ed93e:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -45757,8 +45757,8 @@ br_ed99c:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -45772,8 +45772,8 @@ br_ed99c:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -45784,8 +45784,8 @@ br_ed99c:
         push    word ptr [W_94B0]
         callf   SEG_EEE3:far_eee37
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         callf   0e7ddh:far_eee37
         endif
         add     sp, 0ch
@@ -45796,8 +45796,8 @@ br_ed9de:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -45807,10 +45807,10 @@ br_ed9de:
         mov     dx, word ptr [W_94B6]
         mov     ax, word ptr [W_94B4]
         else
-        mov     word ptr [0a45eh], dx
-        mov     word ptr [0a45ch], ax
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
+        mov     word ptr [W_A45E_V112], dx
+        mov     word ptr [W_A45C_V112], ax
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
         endif
         cmp     dx, word ptr [W_94BE]
         ja      br_eda10
@@ -45830,8 +45830,8 @@ br_eda12:
         mov     word ptr [W_94B6], dx
         mov     word ptr [W_94B4], ax
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         endif
 br_eda29:
         push    word ptr [bp - 12h]
@@ -45847,16 +45847,16 @@ br_eda29:
         mov     ax, word ptr [W_94B8]
         cmp     dx, word ptr [W_94B2]
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
-        cmp     dx, word ptr [0a45eh]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
+        cmp     dx, word ptr [W_A45E_V112]
         endif
         ja      br_eda5b
         jnz     br_eda5d
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B0]
         else
-        cmp     ax, word ptr [0a45ch]
+        cmp     ax, word ptr [W_A45C_V112]
         endif
         jc      br_eda5d
 br_eda5b:
@@ -45871,13 +45871,13 @@ br_eda6b:
         mov     dx, word ptr [W_94AA]
         mov     ax, word ptr [W_94A8]
         else
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
 br_eda6b:
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 0c9h
         adc     dx, 0
@@ -45930,8 +45930,8 @@ br_eda6b:
         shl     ax, 1
         add     ax, dx
         cwd
-        add     ax, word ptr [0a454h]
-        adc     dx, word ptr [0a456h]
+        add     ax, word ptr [W_A454_V112]
+        adc     dx, word ptr [W_A456_V112]
         endif
 
 RUN_LOOP_EDAE3 macro   {GLOBALSYMBOLS}
@@ -46185,9 +46185,9 @@ far_e8e0c:
         push    bp
         mov     bp, sp
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     br_e8e26
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     br_e8e26
         callf   0db5bh:L_db5b5
         else
@@ -46297,7 +46297,7 @@ br_e8eab:
         jmp     near br_e8f52
 br_e8eae:
         if      FW_VERSION < 212
-        cmp     byte ptr [5d93h], 0
+        cmp     byte ptr [B_5D93_V112], 0
         else
         cmp     byte ptr [B_4E7B], 0
         endif
@@ -46305,7 +46305,7 @@ br_e8eae:
         cmp     byte ptr [B_53AB], 0
         jz      br_e8eda
         if      FW_VERSION < 212
-        push    word ptr [52ceh]
+        push    word ptr [W_52CE_V112]
         callf   0d728h:L_d7288
         add     sp, 2
         else
@@ -46408,9 +46408,9 @@ far_ed059:
         mov     byte ptr [B_9D32], al
         else
         mov     al, 0
-        mov     byte ptr [5757h], 0
-        mov     byte ptr [52e5h], al
-        mov     byte ptr [5064h], al
+        mov     byte ptr [B_5757_V112], 0
+        mov     byte ptr [B_52E5_V112], al
+        mov     byte ptr [B_5064_V112], al
         endif
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -46421,7 +46421,7 @@ far_ed059:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jge     br_ed0e4
         push    dx
@@ -46430,8 +46430,8 @@ far_ed059:
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -46462,8 +46462,8 @@ br_ed0c1:
         push    word ptr [W_9B9E]
         callf   SEG_EEE3:far_eee37
         else
-        push    word ptr [0a452h]
-        push    word ptr [0a450h]
+        push    word ptr [W_A452_V112]
+        push    word ptr [W_A450_V112]
         callf   0e7ddh:far_eee37
         endif
         add     sp, 0ch
@@ -46475,14 +46475,14 @@ br_ed0e4:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94BA]
         else
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         ja      br_ed0f9
         jnz     br_ed0fc
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B8]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         jc      br_ed0fc
 br_ed0f9:
@@ -46493,14 +46493,14 @@ br_ed0fc:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94BA]
         else
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         jc      br_ed110
         jnz     br_ed112
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B8]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         jnc     br_ed112
 br_ed110:
@@ -46510,8 +46510,8 @@ br_ed112:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         push    dx
         push    ax
@@ -46526,8 +46526,8 @@ br_ed112:
         push    word ptr [W_94B8]
         callf   SEG_EEE3:far_eee37
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         callf   0e7ddh:far_eee37
         endif
         add     sp, 0ch
@@ -46560,8 +46560,8 @@ br_ed159:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_da9b3
         add     sp, 8
@@ -46594,14 +46594,14 @@ br_ed1b5:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94AE]
         else
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         endif
         jc      br_ed1c9
         jnz     br_ed1cb
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94AC]
         else
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         endif
         jnc     br_ed1cb
 br_ed1c9:
@@ -46611,8 +46611,8 @@ br_ed1cb:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -46632,14 +46632,14 @@ br_ed1cb:
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         callf   0e7ddh:far_eee37
         add     sp, 0ch
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         endif
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -46653,8 +46653,8 @@ br_ed1cb:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         callf   SEG_DA9B:far_da9b3
         add     sp, 8
@@ -46665,8 +46665,8 @@ br_ed1cb:
         push    word ptr [W_94AC]
         callf   SEG_EEE3:far_eee37
         else
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         callf   0e7ddh:far_eee37
         endif
         add     sp, 0ch
@@ -46678,14 +46678,14 @@ br_ed248:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94B2]
         else
-        cmp     dx, word ptr [0a45eh]
+        cmp     dx, word ptr [W_A45E_V112]
         endif
         ja      br_ed25c
         jnz     br_ed25f
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B0]
         else
-        cmp     ax, word ptr [0a45ch]
+        cmp     ax, word ptr [W_A45C_V112]
         endif
         jbe     br_ed25f
 br_ed25c:
@@ -46695,8 +46695,8 @@ br_ed25f:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -46714,8 +46714,8 @@ br_ed25f:
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
         else
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         endif
         callf   SEG_DA9B:far_da9b3
         add     sp, 8
@@ -46743,8 +46743,8 @@ br_ed25f:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -46763,8 +46763,8 @@ br_ed25f:
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
         else
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         endif
         callf   SEG_DA9B:far_da9b3
         add     sp, 8
@@ -46778,8 +46778,8 @@ br_ed25f:
         push    word ptr [W_94B2]
         push    word ptr [W_94B0]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         endif
         callf   SEG_DA9B:far_da9b3
         add     sp, 8
@@ -46809,7 +46809,7 @@ far_f170e:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_94A6], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jnz     br_f1736
         mov     ax, 1
@@ -46834,9 +46834,9 @@ far_eddc3:
         push    bp
         mov     bp, sp
         add     sp, 0ffe8h
-        cmp     byte ptr [52e3h], 0
+        cmp     byte ptr [B_52E3_V112], 0
         jl      L_e50d4
-        mov     al, byte ptr [52e2h]
+        mov     al, byte ptr [B_52E2_V112]
         cbw
         cmp     ax, word ptr [bp + 6]
         jnz     L_e50d4
@@ -46860,32 +46860,32 @@ L_e50e4:
         mov     ax, 0ffffh
         jmp     L_e50d0
 L_e50f8:
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         cmp     ax, word ptr [bp + 6]
         jnz     L_e5151
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     L_e5151
-        mov     dx, word ptr [0a45ah]
-        mov     ax, word ptr [0a458h]
-        mov     word ptr [0a46eh], dx
-        mov     word ptr [0a46ch], ax
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a472h], dx
-        mov     word ptr [0a470h], ax
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     dx, word ptr [W_A45A_V112]
+        mov     ax, word ptr [W_A458_V112]
+        mov     word ptr [W_A46E_V112], dx
+        mov     word ptr [W_A46C_V112], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A472_V112], dx
+        mov     word ptr [W_A470_V112], ax
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
-        mov     word ptr [0a476h], dx
-        mov     word ptr [0a474h], ax
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
-        mov     word ptr [0a47eh], dx
-        mov     word ptr [0a47ch], ax
+        mov     word ptr [W_A476_V112], dx
+        mov     word ptr [W_A474_V112], ax
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
+        mov     word ptr [W_A47E_V112], dx
+        mov     word ptr [W_A47C_V112], ax
         jmp     L_e522f
 L_e5151:
         push    word ptr [W_9B9C]
@@ -46940,42 +46940,42 @@ L_e5151:
         push    word ptr [W_9B9A]
         callf   SEG_DA9B:far_da9df
         add     sp, 8
-        mov     word ptr [0a47eh], dx
-        mov     word ptr [0a47ch], ax
-        mov     word ptr [0a476h], dx
-        mov     word ptr [0a474h], ax
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     word ptr [W_A47E_V112], dx
+        mov     word ptr [W_A47C_V112], ax
+        mov     word ptr [W_A476_V112], dx
+        mov     word ptr [W_A474_V112], ax
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
         push    word ptr [bp - 0eh]
         push    word ptr [bp - 10h]
         push    word ptr [W_9B9C]
         push    word ptr [W_9B9A]
         callf   SEG_DA9B:far_da9df
         add     sp, 8
-        mov     word ptr [0a472h], dx
-        mov     word ptr [0a470h], ax
+        mov     word ptr [W_A472_V112], dx
+        mov     word ptr [W_A470_V112], ax
         push    word ptr [bp - 6]
         push    word ptr [bp - 8]
         push    dx
         push    ax
         callf   SEG_DA9B:far_da9df
         add     sp, 8
-        mov     word ptr [0a46eh], dx
-        mov     word ptr [0a46ch], ax
+        mov     word ptr [W_A46E_V112], dx
+        mov     word ptr [W_A46C_V112], ax
 L_e522f:
-        mov     byte ptr [52e3h], 1
+        mov     byte ptr [B_52E3_V112], 1
         mov     word ptr [bp - 13h], 0
 L_e5239:
         mov     bx, word ptr [bp - 13h]
-        mov     al, byte ptr [5d9eh]
-        mov     byte ptr [bx + 547eh], al
+        mov     al, byte ptr [B_5D9E_V112]
+        mov     byte ptr [bx +TBL_547E_V112], al
         mov     bx, word ptr [bp - 13h]
         shl     bx, 1
-        mov     ax, word ptr [5d9fh]
-        mov     word ptr [bx + 54e2h], ax
+        mov     ax, word ptr [W_5D9F_V112]
+        mov     word ptr [bx +TBL_54E2_V112], ax
         mov     ax, word ptr [bp - 13h]
         mov     bx, word ptr [bp - 13h]
-        mov     byte ptr [bx + 55aah], al
+        mov     byte ptr [bx +TBL_55AA_V112], al
         inc     word ptr [bp - 13h]
         cmp     word ptr [bp - 13h], 63h
         jle     L_e5239
@@ -47031,7 +47031,7 @@ L_e52ad:
         sub     ah, ah
         mov     bx, ax
         mov     al, byte ptr [bp - 16h]
-        mov     byte ptr [bx + 547eh], al
+        mov     byte ptr [bx +TBL_547E_V112], al
         mov     al, byte ptr [bp - 18h]
         sub     ah, ah
         shl     ax, 1
@@ -47044,19 +47044,19 @@ L_e52ad:
         sub     ah, ah
         mov     bx, ax
         mov     al, byte ptr [bp - 17h]
-        mov     byte ptr [bx + 55aah], al
+        mov     byte ptr [bx +TBL_55AA_V112], al
         jmp     L_e52ad
 br_dce4e:
         mov     ax, word ptr [bp + 6]
-        mov     byte ptr [52e2h], al
+        mov     byte ptr [B_52E2_V112], al
         xor     ax, ax
         jmp     L_e50d0
         phase   6
 L_e5326:
         push    bp
         mov     bp, sp
-        mov     byte ptr [52e3h], 0ffh
-        mov     byte ptr [52e5h], 0
+        mov     byte ptr [B_52E3_V112], 0ffh
+        mov     byte ptr [B_52E5_V112], 0
         mov     sp, bp
         pop     bp
         retf
@@ -47089,15 +47089,15 @@ L_e535c:
 br_f0fde:
         mov     ax, word ptr [bp + 6]
         mov     word ptr [bp - 2], ax
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     L_e537d
         jmp     near L_e53fd
 L_e537d:
         callf   0d911h:tgt_c0738
         mov     ax, word ptr [bp + 6]
-        cmp     ax, word ptr [575ah]
+        cmp     ax, word ptr [W_575A_V112]
         jle     L_e5397
-        mov     ax, word ptr [575ah]
+        mov     ax, word ptr [W_575A_V112]
         inc     ax
         mov     word ptr [bp + 6], ax
         mov     word ptr [bp - 2], 0
@@ -47105,11 +47105,11 @@ L_e5397:
         push    word ptr [bp - 2]
         callf   0da1eh:far_d6fbc
         add     sp, 2
-        mov     byte ptr [5758h], al
+        mov     byte ptr [B_5758_V112], al
         push    word ptr [bp - 2]
         callf   0da1eh:far_d6f9e
         add     sp, 2
-        mov     byte ptr [5756h], al
+        mov     byte ptr [B_5756_V112], al
         endif
 
 RUN_AFTER_L_E5397 macro   {GLOBALSYMBOLS}
@@ -47129,11 +47129,11 @@ RUN_AFTER_L_E5397 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_L_E5397
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         sub     ah, ah
         shl     ax, 1
         add     bx, ax
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         sub     ah, ah
         mov     word ptr [bp - 6], ax
         push    ax
@@ -47142,11 +47142,11 @@ RUN_AFTER_L_E5397 macro   {GLOBALSYMBOLS}
         push    word ptr [bp - 2]
         callf   0da1eh:far_d6f51
         add     sp, 2
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         jmp     near L_e546c
 L_e53fd:
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jge     L_e540b
         mov     ax, 1
 L_e5407:
@@ -47164,8 +47164,8 @@ br_f10b8:
         callf   0e260h:far_e78de
         test    ax, ax
         jnz     L_e5445
-        push    word ptr [0a462h]
-        push    word ptr [0a460h]
+        push    word ptr [W_A462_V112]
+        push    word ptr [W_A460_V112]
         mov     ax, 1
         push    ax
         callf   0da1eh:far_d6ee4
@@ -47195,7 +47195,7 @@ L_e5471:
         push    bp
         mov     bp, sp
         add     sp, 0fff8h
-        cmp     byte ptr [52e3h], 0
+        cmp     byte ptr [B_52E3_V112], 0
         jge     L_e5485
         mov     ax, 1
 L_e5481:
@@ -47209,23 +47209,23 @@ L_e5485:
 L_e5490:
         cmp     word ptr [bp + 6], 1
         jnz     L_e54a6
-        mov     dx, word ptr [0a476h]
-        mov     ax, word ptr [0a474h]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     dx, word ptr [W_A476_V112]
+        mov     ax, word ptr [W_A474_V112]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
         jmp     L_e54e9
 L_e54a6:
         callf   0d911h:far_d751b
         mov     ax, word ptr [bp + 6]
-        cmp     ax, word ptr [5753h]
+        cmp     ax, word ptr [W_5753_V112]
         jle     L_e54c2
-        mov     ax, word ptr [5753h]
+        mov     ax, word ptr [W_5753_V112]
         inc     ax
         mov     word ptr [bp + 6], ax
         mov     word ptr [bp - 2], 0
         jmp     L_e54d3
 L_e54c2:
-        mov     al, byte ptr [52e5h]
+        mov     al, byte ptr [B_52E5_V112]
         cbw
         mov     cx, ax
         mov     ax, word ptr [bp + 6]
@@ -47238,20 +47238,20 @@ L_e54d3:
         mov     bx, word ptr [bp - 2]
         shl     bx, 1
         shl     bx, 1
-        mov     ax, word ptr [bx + 52e6h]
-        mov     dx, word ptr [bx + 52e8h]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
+        mov     ax, word ptr [bx +TBL_52E6_V112]
+        mov     dx, word ptr [bx +TBL_52E8_V112]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
 L_e54e9:
-        inc     byte ptr [8fcbh]
+        inc     byte ptr [B_8FCB_V112]
 L_e54ed:
         mov     ax, 1
         test    ax, ax
         jnz     L_e54f7
         jmp     near L_e5573
 L_e54f7:
-        mov     dx, word ptr [0a47ah]
-        mov     ax, word ptr [0a478h]
+        mov     dx, word ptr [W_A47A_V112]
+        mov     ax, word ptr [W_A478_V112]
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
         mov     ax, 1401h
@@ -47263,7 +47263,7 @@ L_e54f7:
         callf   512h:far_03012
         add     sp, 6
         mov     word ptr [bp - 4], ax
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         sub     ah, ah
         and     ax, 0f8h
         jmp     L_e5566
@@ -47275,9 +47275,9 @@ L_e5525:
         jnz     L_e554d
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
-        dec     byte ptr [8fcbh]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
+        dec     byte ptr [B_8FCB_V112]
         mov     ax, word ptr [bp + 6]
         jmp     L_e5481
 L_e554d:
@@ -47285,9 +47285,9 @@ L_e554d:
 L_e554f:
         mov     dx, word ptr [bp - 6]
         mov     ax, word ptr [bp - 8]
-        mov     word ptr [0a47ah], dx
-        mov     word ptr [0a478h], ax
-        dec     byte ptr [8fcbh]
+        mov     word ptr [W_A47A_V112], dx
+        mov     word ptr [W_A478_V112], ax
+        dec     byte ptr [B_8FCB_V112]
         mov     ax, word ptr [bp + 6]
         jmp     L_e5481
 L_e5566:
@@ -47317,7 +47317,7 @@ far_e8f55:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A06E], 0
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         endif
 
         jz      br_e8f6b
@@ -47335,7 +47335,7 @@ br_e8f7d:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A06E], 0
         else
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         endif
         jnz     br_e8f87
         jmp     near br_e901d
@@ -47353,8 +47353,8 @@ br_e8f87:
         mov     word ptr [bx + TBL_A1C3], dx
         mov     word ptr [bx + TBL_A1C1], ax
         else
-        mov     word ptr [bx + 58aeh], dx
-        mov     word ptr [bx + 58ach], ax
+        mov     word ptr [bx +TBL_58AE_V112], dx
+        mov     word ptr [bx +TBL_58AC_V112], ax
         endif
         mov     al, byte ptr [B_A419]
         sub     ah, ah
@@ -47366,7 +47366,7 @@ br_e8f87:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_A1C5], 0
         else
-        mov     word ptr [bx + 58b0h], 0
+        mov     word ptr [bx +TBL_58B0_V112], 0
         endif
 
         mov     word ptr [bp - 4], 0
@@ -47385,14 +47385,14 @@ br_e8fc4:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [bx + TBL_A1C3]
         else
-        cmp     dx, word ptr [bx + 58aeh]
+        cmp     dx, word ptr [bx +TBL_58AE_V112]
         endif
         ja      br_e8fe5
         jnz     br_e8fe7
         if      FW_VERSION >= 212
         cmp     ax, word ptr [bx + TBL_A1C1]
         else
-        cmp     ax, word ptr [bx + 58ach]
+        cmp     ax, word ptr [bx +TBL_58AC_V112]
         endif
         jc      br_e8fe7
 br_e8fe5:
@@ -47419,8 +47419,8 @@ br_e8fe7:
         mov     ax, word ptr [bx + TBL_A1C1]
         mov     dx, word ptr [bx + TBL_A1C3]
         else
-        mov     ax, word ptr [bx + 58ach]
-        mov     dx, word ptr [bx + 58aeh]
+        mov     ax, word ptr [bx +TBL_58AC_V112]
+        mov     dx, word ptr [bx +TBL_58AE_V112]
         endif
         sub     ax, word ptr [bp - 8]
         sbb     dx, word ptr [bp - 6]
@@ -47441,10 +47441,10 @@ br_e901d:
         mov     word ptr [bx + TBL_9D3C], dx
         mov     word ptr [bx + TBL_9D3A], ax
         else
-        mov     dx, word ptr [5209h]
-        mov     ax, word ptr [5207h]
-        mov     word ptr [bx + 4e0eh], dx
-        mov     word ptr [bx + 4e0ch], ax
+        mov     dx, word ptr [W_5209_V112]
+        mov     ax, word ptr [W_5207_V112]
+        mov     word ptr [bx +W_4E0E_V112], dx
+        mov     word ptr [bx +W_4E0C_V112], ax
         endif
         mov     al, byte ptr [B_9F92]
         sub     ah, ah
@@ -47456,7 +47456,7 @@ br_e901d:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_9D3E], 0
         else
-        mov     word ptr [bx + 4e10h], 0
+        mov     word ptr [bx +TBL_4E10_V112], 0
         endif
         mov     word ptr [bp - 4], 0
         jmp     br_e905a
@@ -47474,14 +47474,14 @@ br_e905a:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [bx + TBL_9D3C]
         else
-        cmp     dx, word ptr [bx + 4e0eh]
+        cmp     dx, word ptr [bx +W_4E0E_V112]
         endif
         ja      br_e907b
         jnz     br_e907d
         if      FW_VERSION >= 212
         cmp     ax, word ptr [bx + TBL_9D3A]
         else
-        cmp     ax, word ptr [bx + 4e0ch]
+        cmp     ax, word ptr [bx +W_4E0C_V112]
         endif
         jc      br_e907d
 br_e907b:
@@ -47508,8 +47508,8 @@ br_e907d:
         mov     ax, word ptr [bx + TBL_9D3A]
         mov     dx, word ptr [bx + TBL_9D3C]
         else
-        mov     ax, word ptr [bx + 4e0ch]
-        mov     dx, word ptr [bx + 4e0eh]
+        mov     ax, word ptr [bx +W_4E0C_V112]
+        mov     dx, word ptr [bx +W_4E0E_V112]
         endif
         sub     ax, word ptr [bp - 8]
         sbb     dx, word ptr [bp - 6]
@@ -47645,9 +47645,9 @@ far_e9887:
         mov     word ptr [TBL_A1C1], 0
         mov     word ptr [TBL_A1C5], 1000h
         else
-        mov     word ptr [58aeh], 0
-        mov     word ptr [58ach], 0
-        mov     word ptr [58b0h], 1000h
+        mov     word ptr [TBL_58AE_V112], 0
+        mov     word ptr [TBL_58AC_V112], 0
+        mov     word ptr [TBL_58B0_V112], 1000h
         endif
         mov     byte ptr [B_A419], 1
         mov     bx, word ptr [bp + 6]
@@ -47656,7 +47656,7 @@ far_e9887:
         sub     ah, ah
         mov     word ptr [bp - 28h], ax
         else
-        mov     al, byte ptr [bx - 7746h]
+        mov     al, byte ptr [bx +TBL_88BA_V112]
         sub     ah, ah
         mov     word ptr [bp - 24h], ax
         endif
@@ -47684,7 +47684,7 @@ br_e98db:
         sub     ah, ah
         mov     word ptr [bp - 26h], ax
         else
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         sub     ah, ah
         mov     word ptr [bp - 22h], ax
         endif
@@ -47723,7 +47723,7 @@ br_e9909:
         mov     ax, word ptr [bp - 20h]
         cmp     ax, word ptr [bp - 28h]
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         sub     ah, ah
         mov     word ptr [bp - 20h], ax
         push    ax
@@ -47964,7 +47964,7 @@ br_e9a9b:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_A1C5]
         else
-        mov     ax, word ptr [bx + 58b0h]
+        mov     ax, word ptr [bx +TBL_58B0_V112]
         endif
         sub     dx, dx
         cmp     dx, word ptr [bp - 0ah]
@@ -47987,8 +47987,8 @@ br_e9ab9:
         mov     word ptr [bx + TBL_A1C3], dx
         mov     word ptr [bx + TBL_A1C1], ax
         else
-        mov     word ptr [bx + 58aeh], dx
-        mov     word ptr [bx + 58ach], ax
+        mov     word ptr [bx +TBL_58AE_V112], dx
+        mov     word ptr [bx +TBL_58AC_V112], ax
         endif
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -48005,7 +48005,7 @@ br_e9ab9:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_A1C5], ax
         else
-        mov     word ptr [bx + 58b0h], ax
+        mov     word ptr [bx +TBL_58B0_V112], ax
         endif
         jmp     br_e9b05
 br_e9b00:
@@ -48119,7 +48119,7 @@ br_e9b8f:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_A1C5]
         else
-        mov     ax, word ptr [bx + 58b0h]
+        mov     ax, word ptr [bx +TBL_58B0_V112]
         endif
         sub     dx, dx
         cmp     dx, word ptr [bp - 0ah]
@@ -48163,8 +48163,8 @@ br_e9bad:
         mov     word ptr [di + TBL_A1C3], dx
         mov     word ptr [di + TBL_A1C1], ax
         else
-        mov     word ptr [di + 58aeh], dx
-        mov     word ptr [di + 58ach], ax
+        mov     word ptr [di +TBL_58AE_V112], dx
+        mov     word ptr [di +TBL_58AC_V112], ax
         endif
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -48181,7 +48181,7 @@ br_e9bad:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_A1C5], ax
         else
-        mov     word ptr [bx + 58b0h], ax
+        mov     word ptr [bx +TBL_58B0_V112], ax
         endif
         jmp     br_e9c12
 br_e9c0d:
@@ -48251,8 +48251,8 @@ br_e9c52:
         mov     word ptr [bx + TBL_A1C3], dx
         mov     word ptr [bx + TBL_A1C1], ax
         else
-        mov     word ptr [bx + 58aeh], dx
-        mov     word ptr [bx + 58ach], ax
+        mov     word ptr [bx +TBL_58AE_V112], dx
+        mov     word ptr [bx +TBL_58AC_V112], ax
         endif
         mov     al, byte ptr [B_A419]
         sub     ah, ah
@@ -48267,7 +48267,7 @@ br_e9c52:
         jnz     br_e9c8e
         cmp     word ptr [bp - 14h], 0
         else
-        mov     word ptr [bx + 58b0h], 0
+        mov     word ptr [bx +TBL_58B0_V112], 0
         cmp     word ptr [bp - 0eh], 0
         jnz     br_e9c8e
         cmp     word ptr [bp - 10h], 0
@@ -48647,10 +48647,10 @@ far_ea6fb:
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jle     br_ea72c
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         else
         mov     bx, word ptr [bp + 6]
         cmp     byte ptr [bx], 0
@@ -48675,12 +48675,12 @@ br_ea72c:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94BA]
         else
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         ja      br_ea75a
         jnz     br_ea75d
         if      FW_VERSION < 212
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         else
         cmp     ax, word ptr [W_94B8]
         endif
@@ -48717,8 +48717,8 @@ br_ea770:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -48746,16 +48746,16 @@ br_ea770:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
         mov     word ptr [bp - 12h], dx
         mov     word ptr [bp - 14h], ax
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
         else
         mov     dx, word ptr [W_94B6]
         mov     ax, word ptr [W_94B4]
@@ -48788,8 +48788,8 @@ br_ea803:
 br_ea81a:
         mov     word ptr [bp + 8], 0
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
 br_ea81a:
         mov     word ptr [bp + 6], 0
         endif
@@ -48943,14 +48943,14 @@ br_ea909:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
         if      FW_VERSION < 212
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         else
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
@@ -48965,8 +48965,8 @@ br_ea93f:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
@@ -48979,8 +48979,8 @@ br_ea93f:
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
         if      FW_VERSION < 212
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         callf   0e7ddh:far_eee37
         else
         push    word ptr [W_94BA]
@@ -48994,8 +48994,8 @@ br_ea93f:
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -49005,9 +49005,9 @@ br_ea93f:
         mov     word ptr [bp - 16h], dx
         mov     word ptr [bp - 18h], ax
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        cmp     dx, word ptr [0a466h]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        cmp     dx, word ptr [W_A466_V112]
         else
         mov     dx, word ptr [W_94B6]
         mov     ax, word ptr [W_94B4]
@@ -49018,7 +49018,7 @@ br_ea93f:
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B8]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         jnc     br_ea9b1
 br_ea9af:
@@ -49039,8 +49039,8 @@ br_ea9bf:
         callf   SEG_DA9B:far_da9df
         add     sp, 8
         if      FW_VERSION < 212
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
 br_ea9d6:
         mov     word ptr [bp + 6], 0
         else
@@ -49065,7 +49065,7 @@ loop_ea9dd:
         mov     word ptr [bp - 6], dx
         mov     word ptr [bp - 8], ax
         if      FW_VERSION < 212
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         else
         cmp     dx, word ptr [W_94BA]
         endif
@@ -49074,7 +49074,7 @@ loop_ea9dd:
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94B8]
         else
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         endif
         jnc     br_eaa01
 br_ea9ff:
@@ -49122,12 +49122,12 @@ br_eaa32:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94BA]
         else
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         jc      br_eaa50
         jnz     br_eaa52
         if      FW_VERSION < 212
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         else
         cmp     ax, word ptr [W_94B8]
         endif
@@ -49204,8 +49204,8 @@ br_eaa77:
 br_eaaa1:
         jmp     br_eaccb
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
 br_eaaa1:
         jmp     L_e5b39
         endif
@@ -49225,8 +49225,8 @@ br_eaaa4:
         push    dx
         push    ax
         if      FW_VERSION < 212
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
 
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -49250,8 +49250,8 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_EAAA4
         callf   0e7ddh:far_eee37
         add     sp, 0ch
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         else
 
         push    word ptr [W_94AE]
@@ -49290,18 +49290,18 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         push    word ptr [W_94B8]
         callf   SEG_EEE3:far_eee37
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         callf   0e7ddh:far_eee37
         endif
         add     sp, 0ch
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
         if      FW_VERSION < 212
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         else
         push    word ptr [W_94AE]
         push    word ptr [W_94AC]
@@ -49316,10 +49316,10 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         else
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
@@ -49346,8 +49346,8 @@ br_eab8a:
         jmp     br_eaba5
 br_eab8c:
         else
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
         cmp     dx, word ptr [bp - 2]
         jc      L_e59fb
         jnz     L_e59fd
@@ -49374,16 +49374,16 @@ L_e59fd:
         jmp     br_eabc2
 br_eaba5:
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         jmp     L_e5a33
 L_e5a16:
         endif
         push    word ptr [bp - 16h]
         push    word ptr [bp - 18h]
         if      FW_VERSION < 212
-        push    word ptr [0a462h]
-        push    word ptr [0a460h]
+        push    word ptr [W_A462_V112]
+        push    word ptr [W_A460_V112]
         else
         push    word ptr [W_94B6]
         push    word ptr [W_94B4]
@@ -49403,8 +49403,8 @@ loop_eabc9:
         callf   SEG_D6EE:far_d6f51
         add     sp, 4
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
 L_e5a33:
         mov     word ptr [bp + 6], 0
         jmp     L_e5a9c
@@ -49550,8 +49550,8 @@ br_eac88:
 br_eaccb:
         push    word ptr [bp - 0eh]
         push    word ptr [bp - 10h]
-        push    word ptr [0a45eh]
-        push    word ptr [0a45ch]
+        push    word ptr [W_A45E_V112]
+        push    word ptr [W_A45C_V112]
         callf   SEG_DA9B:far_da9df
         add     sp, 8
         mov     word ptr [W_94BE], dx
@@ -49563,16 +49563,16 @@ br_eaccb:
         sbb     dx, 0
         push    dx
         push    ax
-        push    word ptr [0a45ah]
-        push    word ptr [0a458h]
+        push    word ptr [W_A45A_V112]
+        push    word ptr [W_A458_V112]
         callf   SEG_DA9B:far_da9df
         add     sp, 8
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
 L_e5b39:
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        cmp     dx, word ptr [0a45ah]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        cmp     dx, word ptr [W_A45A_V112]
         else
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
@@ -49586,21 +49586,21 @@ br_eaccb:
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94AC]
         else
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         endif
         jnc     br_eace2
 br_eace0:
         jmp     br_eacf0
 br_eace2:
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
 br_eacf0:
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
-        cmp     dx, word ptr [0a45ah]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
+        cmp     dx, word ptr [W_A45A_V112]
         else
         mov     dx, word ptr [W_94B2]
         mov     ax, word ptr [W_94B0]
@@ -49616,17 +49616,17 @@ br_eacf0:
         if      FW_VERSION >= 212
         cmp     ax, word ptr [W_94AC]
         else
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         endif
         jnc     br_ead07
 br_ead05:
         jmp     br_ead15
 br_ead07:
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         else
         mov     dx, word ptr [W_94B2]
         mov     ax, word ptr [W_94B0]
@@ -49639,12 +49639,12 @@ br_ead15:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94AE]
         else
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         endif
         jc      br_ead2a
         jnz     br_ead2c
         if      FW_VERSION < 212
-        cmp     ax, word ptr [0a458h]
+        cmp     ax, word ptr [W_A458_V112]
         else
         cmp     ax, word ptr [W_94AC]
         endif
@@ -49656,18 +49656,18 @@ br_ead2c:
         mov     dx, word ptr [W_94B2]
         mov     ax, word ptr [W_94B0]
         else
-        mov     dx, word ptr [0a45eh]
-        mov     ax, word ptr [0a45ch]
+        mov     dx, word ptr [W_A45E_V112]
+        mov     ax, word ptr [W_A45C_V112]
         endif
         mov     word ptr [W_94BE], dx
         mov     word ptr [W_94BC], ax
 br_ead3a:
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        cmp     dx, word ptr [0a466h]
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        cmp     dx, word ptr [W_A466_V112]
         jnz     br_ead4b
-        cmp     ax, word ptr [0a464h]
+        cmp     ax, word ptr [W_A464_V112]
         else
         mov     dx, word ptr [W_94B6]
         mov     ax, word ptr [W_94B4]
@@ -49684,8 +49684,8 @@ br_ead4b:
         mov     word ptr [W_94B6], dx
         mov     word ptr [W_94B4], ax
         else
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         endif
 br_ead5b:
         jmp     br_ea728
@@ -49702,8 +49702,8 @@ far_f113e:
         inc     byte ptr [B_8CCB]
         and     byte ptr [B_94A7], 0fdh
         else
-        inc     byte ptr [8fcbh]
-        mov     byte ptr [5064h], 0
+        inc     byte ptr [B_8FCB_V112]
+        mov     byte ptr [B_5064_V112], 0
         endif
 br_f114d:
         mov     ax, 1
@@ -49715,8 +49715,8 @@ br_f1157:
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         mov     word ptr [bp - 2], dx
         mov     word ptr [bp - 4], ax
@@ -49738,7 +49738,7 @@ br_f1157:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         mov     cx, 0ffh
@@ -49751,16 +49751,16 @@ br_f1157:
         mov     word ptr [W_94B8], ax
         dec     byte ptr [B_8CCB]
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        dec     byte ptr [8fcbh]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        dec     byte ptr [B_8FCB_V112]
         endif
         jmp     br_f11d8
 br_f119a:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         sub     ah, ah
         and     ax, 0f8h
@@ -49809,9 +49809,9 @@ L_e5c6a:
         mov     bp, sp
         add     sp, 0ff8bh
         push    si
-        cmp     word ptr [0a456h], 0
+        cmp     word ptr [W_A456_V112], 0
         jnz     L_e5c7d
-        cmp     word ptr [0a454h], 0
+        cmp     word ptr [W_A454_V112], 0
 L_e5c7d:
         jnz     L_e5c84
 L_e5c7f:
@@ -49820,7 +49820,7 @@ L_e5c7f:
         pop     bp
         retf
 L_e5c84:
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e5cb2
         mov     ax, 6
         push    ax
@@ -49828,8 +49828,8 @@ L_e5c84:
         push    ax
         mov     ax, 5205h
         push    ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         add     ax, 1ah
         adc     dx, 0
         push    dx
@@ -49841,16 +49841,16 @@ L_e5cb2:
         mov     word ptr [bp - 6ah], 0
 L_e5cb7:
         mov     bx, word ptr [bp - 6ah]
-        mov     byte ptr [bx + 5066h], 0ffh
+        mov     byte ptr [bx +TBL_5066_V112], 0ffh
         mov     si, word ptr [bp - 6ah]
         mov     byte ptr [bp+si - 68h], 0
         mov     bx, word ptr [bp - 6ah]
-        mov     al, byte ptr [5d9eh]
-        mov     byte ptr [bx + 50cah], al
+        mov     al, byte ptr [B_5D9E_V112]
+        mov     byte ptr [bx +TBL_50CA_V112], al
         mov     bx, word ptr [bp - 6ah]
         shl     bx, 1
-        mov     ax, word ptr [5d9fh]
-        mov     word ptr [bx + 512eh], ax
+        mov     ax, word ptr [W_5D9F_V112]
+        mov     word ptr [bx +TBL_512E_V112], ax
         inc     word ptr [bp - 6ah]
         cmp     word ptr [bp - 6ah], 63h
         jle     L_e5cb7
@@ -49860,8 +49860,8 @@ L_e5cb7:
         push    ax
         mov     ax, 5202h
         push    ax
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         add     ax, 17h
         adc     dx, 0
         push    dx
@@ -49875,8 +49875,8 @@ L_e5cb7:
         callf   SEG_D43A:far_d442b
         add     sp, 4
 L_e5d1a:
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         add     ax, 0cah
         adc     dx, 0
         mov     word ptr [bp - 2], dx
@@ -49918,7 +49918,7 @@ L_e5d66:
         ja      L_e5da2
         cmp     byte ptr [bp - 75h], 1
         jc      L_e5da2
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     L_e5dbe
         mov     al, byte ptr [bp - 75h]
         sub     ah, ah
@@ -49944,12 +49944,12 @@ L_e5dbe:
         sub     ah, ah
         mov     bx, ax
         mov     al, byte ptr [bp - 75h]
-        mov     byte ptr [bx + 5066h], al
+        mov     byte ptr [bx +TBL_5066_V112], al
         mov     al, byte ptr [bp - 75h]
         sub     ah, ah
         mov     bx, ax
         mov     al, byte ptr [bp - 73h]
-        mov     byte ptr [bx + 50cah], al
+        mov     byte ptr [bx +TBL_50CA_V112], al
         mov     al, byte ptr [bp - 75h]
         sub     ah, ah
         shl     ax, 1
@@ -49962,7 +49962,7 @@ L_e5dbe:
         adc     word ptr [bp - 2], 0
         jmp     near L_e5d59
 L_e5e06:
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e5e10
         jmp     near L_e5ebd
 L_e5e10:
@@ -49987,12 +49987,12 @@ L_e5e10:
         add     sp, 0ah
         dec     word ptr [bp - 70h]
         jz      L_e5e5f
-        cmp     word ptr [4e0eh], 0
+        cmp     word ptr [W_4E0E_V112], 0
         jnz     L_e5e57
-        cmp     word ptr [4e0ch], 0
+        cmp     word ptr [W_4E0C_V112], 0
 L_e5e57:
         jnz     L_e5e5f
-        mov     ax, word ptr [4e10h]
+        mov     ax, word ptr [TBL_4E10_V112]
         mov     word ptr [W_53A7], ax
 L_e5e5f:
         jmp     L_e5e73
@@ -50011,7 +50011,7 @@ L_e5e73:
         jmp     L_e5eb7
 L_e5e8f:
         mov     bx, word ptr [bp - 6ah]
-        cmp     byte ptr [bx + 5066h], 0ffh
+        cmp     byte ptr [bx +TBL_5066_V112], 0ffh
         jnz     br_d63b4
 br_d6397:
         mov     si, word ptr [bp - 6ch]
@@ -50022,7 +50022,7 @@ br_d6397:
 br_d63a5:
         mov     ax, word ptr [bp - 6ch]
         mov     bx, word ptr [bp - 6ah]
-        mov     byte ptr [bx + 5066h], al
+        mov     byte ptr [bx +TBL_5066_V112], al
         inc     word ptr [bp - 6ch]
 br_d63b4:
         inc     word ptr [bp - 6ah]
@@ -50033,20 +50033,20 @@ L_e5ebd:
         mov     al, byte ptr [B_A04C]
         cbw
         mov     bx, ax
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         mov     byte ptr [B_9D36], al
         jmp     L_e5c7f
         phase   0dh
 L_e5ecd:
         push    bp
         mov     bp, sp
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e5ef2
         callf   0d841h:L_d8414
-        mov     byte ptr [5759h], 0
+        mov     byte ptr [B_5759_V112], 0
         mov     ax, 1
         push    ax
-        mov     al, byte ptr [4cbeh]
+        mov     al, byte ptr [B_4CBE_V112]
         cbw
         push    ax
         callf   0d816h:far_d6a82
@@ -51163,14 +51163,14 @@ loop_ec838:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_5517]
         else
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         endif
         sub     ah, ah
         mov     word ptr [bp - 4], ax
         test    ax, ax
         jz      br_ec886
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         else
         mov     al, byte ptr [bx + TBL_5516]
         endif
@@ -51234,7 +51234,7 @@ far_f12e2:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jnz     br_f1324
         mov     dx, 0
@@ -51265,7 +51265,7 @@ br_f132b:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jnz     br_f1355
         jmp     near br_f13e2
@@ -51280,7 +51280,7 @@ br_f1355:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_5516]
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         endif
         mov     byte ptr [bp - 0ah], al
         mov     al, byte ptr [bp - 9]
@@ -51301,7 +51301,7 @@ br_f1355:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_5517]
         else
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         endif
         mov     byte ptr [bp - 0bh], al
         mov     al, byte ptr [bp - 0ah]
@@ -51403,7 +51403,7 @@ br_ec8ba:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jz      br_ec91f
         mov     ax, word ptr [bp - 2]
@@ -51422,7 +51422,7 @@ br_ec8ba:
         shl     ax, 1
         add     bx, ax
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         else
         mov     al, byte ptr [bx + TBL_5516]
         endif
@@ -51487,7 +51487,7 @@ RUN_BR_F143F macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         cmp     byte ptr [bx + TBL_5517], 0
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         endif
         jnz     br_f1444
         mov     ax, 0fff2h
@@ -51541,7 +51541,7 @@ br_f146a:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_5516]
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         endif
         sub     ah, ah
         mov     word ptr [bp - 2], ax
@@ -51564,8 +51564,8 @@ br_f14a6:
         mov     dx, word ptr [W_94AA]
         mov     ax, word ptr [W_94A8]
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         endif
         add     ax, 0cah
         adc     dx, 0
@@ -51698,11 +51698,11 @@ br_f153d:
 br_f1565:
         mov     al, byte ptr [bx + TBL_5516]
         else
-        cmp     byte ptr [bx + 6197h], 0
+        cmp     byte ptr [bx +TBL_6197_V112], 0
         jnz     br_f1565
         jmp     near br_f164e
 br_f1565:
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         endif
         sub     ah, ah
         mov     word ptr [bp - 2], ax
@@ -51727,7 +51727,7 @@ br_f1589:
         mov     word ptr [bp - 0ch], 0
 br_f1589:
         mov     bx, word ptr [bp - 0ch]
-        test    byte ptr [bx + 547eh], 2
+        test    byte ptr [bx +TBL_547E_V112], 2
         endif
         jnz     br_f1596
         jmp     near br_f163f
@@ -51768,18 +51768,18 @@ br_f15ae:
         mov     si, word ptr [bp - 0ch]
         mov     byte ptr [bp+si - 76h], al
         else
-        test    byte ptr [bx + 50cah], 2
+        test    byte ptr [bx +TBL_50CA_V112], 2
         jnz     br_f15ec
         mov     bx, word ptr [bp - 0ch]
-        mov     al, byte ptr [bx + 547eh]
+        mov     al, byte ptr [bx +TBL_547E_V112]
         mov     bx, word ptr [bp - 0eh]
-        mov     byte ptr [bx + 50cah], al
+        mov     byte ptr [bx +TBL_50CA_V112], al
         mov     bx, word ptr [bp - 0ch]
         shl     bx, 1
-        mov     ax, word ptr [bx + 54e2h]
+        mov     ax, word ptr [bx +TBL_54E2_V112]
         mov     bx, word ptr [bp - 0eh]
         shl     bx, 1
-        mov     word ptr [bx + 512eh], ax
+        mov     word ptr [bx +TBL_512E_V112], ax
         mov     ax, word ptr [bp - 2]
         mov     si, word ptr [bp - 0eh]
         mov     byte ptr [bp+si - 78h], al
@@ -51791,7 +51791,7 @@ br_f15ec:
         mov     al, byte ptr [bx + TBL_954C]
         else
         mov     bx, word ptr [bp - 0eh]
-        mov     al, byte ptr [bx + 50cah]
+        mov     al, byte ptr [bx +TBL_50CA_V112]
         endif
         cbw
         and     ax, 4
@@ -51800,7 +51800,7 @@ br_f15ec:
         RUN_BR_F143F
         mov     word ptr [bp - 10h], ax
         mov     bx, word ptr [bp - 0ch]
-        mov     al, byte ptr [bx + 547eh]
+        mov     al, byte ptr [bx +TBL_547E_V112]
         cbw
         and     ax, 4
         mov     word ptr [bp - 12h], ax
@@ -51808,11 +51808,11 @@ br_f15ec:
         jz      br_f163f
         mov     si, word ptr [bp - 0eh]
         mov     al, byte ptr [bp+si - 78h]
-        mov     byte ptr [6182h], al
+        mov     byte ptr [B_6182_V112], al
         mov     ax, word ptr [bp - 2]
-        mov     byte ptr [6183h], al
+        mov     byte ptr [B_6183_V112], al
         mov     ax, si
-        mov     byte ptr [6184h], al
+        mov     byte ptr [B_6184_V112], al
         callf   0d841h:L_d8414
         callf   0e532h:L_e5326
         endif
@@ -51868,11 +51868,11 @@ far_f11dc:
         mov     ax, word ptr [W_9FA5]
         mov     word ptr [W_BE9A], ax
         else
-        mov     byte ptr [0bf02h], al
+        mov     byte ptr [B_BF02_V112], al
         mov     ax, word ptr [W_94D8]
-        mov     word ptr [0bf03h], ax
-        mov     ax, word ptr [520bh]
-        mov     word ptr [0bf05h], ax
+        mov     word ptr [W_BF03_V112], ax
+        mov     ax, word ptr [W_520B_V112]
+        mov     word ptr [W_BF05_V112], ax
         endif
         mov     word ptr [bp - 2], 0
 loop_f11fb:
@@ -51881,8 +51881,8 @@ loop_f11fb:
         mov     al, byte ptr [bx + TBL_9FA7]
         mov     byte ptr [bx + TBL_BE9C], al
         else
-        mov     al, byte ptr [bx + 520dh]
-        mov     byte ptr [bx - 40f9h], al
+        mov     al, byte ptr [bx +TBL_520D_V112]
+        mov     byte ptr [bx +TBL_BF07_V112], al
         endif
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 5
@@ -51900,14 +51900,14 @@ loop_f1214:
         mov     al, byte ptr [bx + TBL_9FEC]
         mov     byte ptr [bx + TBL_BEE1], al
         else
-        mov     al, byte ptr [bx + 5212h]
-        mov     byte ptr [bx - 40f4h], al
+        mov     al, byte ptr [bx +TBL_5212_V112]
+        mov     byte ptr [bx +TBL_BF0C_V112], al
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx + 5232h]
-        mov     byte ptr [bx - 40d4h], al
+        mov     al, byte ptr [bx +TBL_5232_V112]
+        mov     byte ptr [bx +TBL_BF2C_V112], al
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx + 5252h]
-        mov     byte ptr [bx - 40b4h], al
+        mov     al, byte ptr [bx +TBL_5252_V112]
+        mov     byte ptr [bx +TBL_BF4C_V112], al
         endif
         mov     bx, word ptr [bp - 2]
         shl     bx, 1
@@ -51915,8 +51915,8 @@ loop_f1214:
         mov     ax, word ptr [bx + TBL_A00C]
         mov     word ptr [bx + TBL_BF01], ax
         else
-        mov     ax, word ptr [bx + 5272h]
-        mov     word ptr [bx - 4094h], ax
+        mov     ax, word ptr [bx +TBL_5272_V112]
+        mov     word ptr [bx +TBL_BF6C_V112], ax
         endif
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 20h
@@ -51925,7 +51925,7 @@ loop_f1214:
         if      FW_VERSION >= 212
         mov     byte ptr [B_BE97], al
         else
-        mov     byte ptr [0bfach], al
+        mov     byte ptr [B_BFAC_V112], al
         endif
         mov     sp, bp
         pop     bp
@@ -51943,12 +51943,12 @@ far_f1255:
         mov     ax, word ptr [W_BE9A]
         mov     word ptr [W_9FA5], ax
         else
-        mov     al, byte ptr [0bf02h]
+        mov     al, byte ptr [B_BF02_V112]
         mov     byte ptr [B_94A7], al
-        mov     ax, word ptr [0bf03h]
+        mov     ax, word ptr [W_BF03_V112]
         mov     word ptr [W_94D8], ax
-        mov     ax, word ptr [0bf05h]
-        mov     word ptr [520bh], ax
+        mov     ax, word ptr [W_BF05_V112]
+        mov     word ptr [W_520B_V112], ax
         endif
         mov     word ptr [bp - 2], 0
 loop_f1278:
@@ -51957,8 +51957,8 @@ loop_f1278:
         mov     al, byte ptr [bx + TBL_BE9C]
         mov     byte ptr [bx + TBL_9FA7], al
         else
-        mov     al, byte ptr [bx - 40f9h]
-        mov     byte ptr [bx + 520dh], al
+        mov     al, byte ptr [bx +TBL_BF07_V112]
+        mov     byte ptr [bx +TBL_520D_V112], al
         endif
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 5
@@ -51988,14 +51988,14 @@ loop_f12a1:
         mov     al, byte ptr [bx + TBL_BEE1]
         mov     byte ptr [bx + TBL_9FEC], al
         else
-        mov     al, byte ptr [bx - 40f4h]
-        mov     byte ptr [bx + 5212h], al
+        mov     al, byte ptr [bx +TBL_BF0C_V112]
+        mov     byte ptr [bx +TBL_5212_V112], al
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx - 40d4h]
-        mov     byte ptr [bx + 5232h], al
+        mov     al, byte ptr [bx +TBL_BF2C_V112]
+        mov     byte ptr [bx +TBL_5232_V112], al
         mov     bx, word ptr [bp - 2]
-        mov     al, byte ptr [bx - 40b4h]
-        mov     byte ptr [bx + 5252h], al
+        mov     al, byte ptr [bx +TBL_BF4C_V112]
+        mov     byte ptr [bx +TBL_5252_V112], al
         endif
         mov     bx, word ptr [bp - 2]
         shl     bx, 1
@@ -52003,8 +52003,8 @@ loop_f12a1:
         mov     ax, word ptr [bx + TBL_BF01]
         mov     word ptr [bx + TBL_A00C], ax
         else
-        mov     ax, word ptr [bx - 4094h]
-        mov     word ptr [bx + 5272h], ax
+        mov     ax, word ptr [bx +TBL_BF6C_V112]
+        mov     word ptr [bx +TBL_5272_V112], ax
         endif
         inc     word ptr [bp - 2]
         cmp     word ptr [bp - 2], 20h
@@ -52012,7 +52012,7 @@ loop_f12a1:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_BE97]
         else
-        mov     al, byte ptr [0bfach]
+        mov     al, byte ptr [B_BFAC_V112]
         endif
         mov     byte ptr [B_A04C], al
         mov     sp, bp
@@ -52461,8 +52461,8 @@ br_f0b41:
         push    word ptr [bp + 6]
         callf   SEG_D602:far_d602b
         else
-        mov     dx, word ptr [0a456h]
-        mov     ax, word ptr [0a454h]
+        mov     dx, word ptr [W_A456_V112]
+        mov     ax, word ptr [W_A454_V112]
         mov     word ptr [bp - 0ch], dx
         mov     word ptr [bp - 0eh], ax
         push    word ptr [bp + 6]
@@ -52534,8 +52534,8 @@ RUN_AFTER_LOOP_F0B7F macro   {GLOBALSYMBOLS}
         push    word ptr [W_94AA]
         push    word ptr [W_94A8]
         else
-        push    word ptr [0a456h]
-        push    word ptr [0a454h]
+        push    word ptr [W_A456_V112]
+        push    word ptr [W_A454_V112]
         endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
@@ -52552,17 +52552,17 @@ RUN_AFTER_LOOP_F0B7F macro   {GLOBALSYMBOLS}
         mov     word ptr [W_94CA], 0
         mov     word ptr [W_94C8], 0
         else
-        mov     word ptr [0a45eh], dx
-        mov     word ptr [0a45ch], ax
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A45E_V112], dx
+        mov     word ptr [W_A45C_V112], ax
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
         mov     word ptr [W_94BE], dx
         mov     word ptr [W_94BC], ax
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     word ptr [W_94D6], 0
-        mov     word ptr [5209h], 0
-        mov     word ptr [5207h], 0
+        mov     word ptr [W_5209_V112], 0
+        mov     word ptr [W_5207_V112], 0
         endif
         xor     ax, ax
         jmp     br_f0ae6
@@ -52625,7 +52625,7 @@ br_f0f3b:
         mov     word ptr [bp - 4], W_53BD
         mov     word ptr [bp - 2], W_53C1
         else
-        mov     byte ptr [5b07h], al
+        mov     byte ptr [B_5B07_V112], al
         dec     word ptr [W_94E0]
         inc     word ptr [W_A059]
         add     word ptr [W_94CC], 1
@@ -52633,19 +52633,19 @@ br_f0f3b:
         add     word ptr [W_94D0], 1
         adc     word ptr [W_94D2], 0
         inc     word ptr [W_94DA]
-        inc     byte ptr [52cch]
-        mov     al, byte ptr [52cch]
+        inc     byte ptr [W_52CC_V112]
+        mov     al, byte ptr [W_52CC_V112]
         sub     ah, ah
-        cmp     ax, word ptr [52c6h]
+        cmp     ax, word ptr [W_52C6_V112]
         jc      L_e6a03
-        mov     byte ptr [52cch], 0
+        mov     byte ptr [W_52CC_V112], 0
         inc     byte ptr [B_94DD]
         mov     al, byte ptr [B_94DD]
         cmp     al, byte ptr [B_94E2]
         jbe     L_e6a03
         mov     byte ptr [B_94DD], 1
         mov     word ptr [W_94DA], 0
-        inc     word ptr [52ceh]
+        inc     word ptr [W_52CE_V112]
 L_e6a03:
         endif
         mov     ax, word ptr [W_5361]
@@ -52830,7 +52830,7 @@ br_f0ce0:
         if      FW_VERSION >= 212
         cmp     word ptr [TBL_9D3E], 1000h
         else
-        cmp     word ptr [4e10h], 1000h
+        cmp     word ptr [TBL_4E10_V112], 1000h
         endif
         jnz     br_f0ceb
         jmp     near br_f0d74
@@ -52855,8 +52855,8 @@ loop_f0d01:
         mov     ax, word ptr [bx + TBL_9D3A]
         mov     dx, word ptr [bx + TBL_9D3C]
         else
-        mov     ax, word ptr [bx + 4e0ch]
-        mov     dx, word ptr [bx + 4e0eh]
+        mov     ax, word ptr [bx +W_4E0C_V112]
+        mov     dx, word ptr [bx +W_4E0E_V112]
         endif
         push    dx
         push    ax
@@ -52872,8 +52872,8 @@ loop_f0d01:
         mov     word ptr [bx + TBL_9D3C], dx
         mov     word ptr [bx + TBL_9D3A], ax
         else
-        mov     word ptr [bx + 4e0eh], dx
-        mov     word ptr [bx + 4e0ch], ax
+        mov     word ptr [bx +W_4E0E_V112], dx
+        mov     word ptr [bx +W_4E0C_V112], ax
         endif
         mov     ax, word ptr [bp - 16h]
         dec     ax
@@ -52885,7 +52885,7 @@ loop_f0d01:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_9D3E]
         else
-        mov     ax, word ptr [bx + 4e10h]
+        mov     ax, word ptr [bx +TBL_4E10_V112]
         endif
         push    ax
         mov     ax, word ptr [bp - 16h]
@@ -52898,7 +52898,7 @@ loop_f0d01:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_9D3E], ax
         else
-        mov     word ptr [bx + 4e10h], ax
+        mov     word ptr [bx +TBL_4E10_V112], ax
         endif
         dec     word ptr [bp - 16h]
 br_f0d58:
@@ -52910,9 +52910,9 @@ br_f0d58:
         mov     word ptr [TBL_9D3A], 0
         mov     word ptr [TBL_9D3E], 1000h
         else
-        mov     word ptr [4e0eh], 0
-        mov     word ptr [4e0ch], 0
-        mov     word ptr [4e10h], 1000h
+        mov     word ptr [W_4E0E_V112], 0
+        mov     word ptr [W_4E0C_V112], 0
+        mov     word ptr [TBL_4E10_V112], 1000h
         endif
 br_f0d74:
         mov     word ptr [bp - 16h], 1
@@ -52928,8 +52928,8 @@ loop_f0d7b:
         mov     ax, word ptr [bx + TBL_9D3A]
         mov     dx, word ptr [bx + TBL_9D3C]
         else
-        mov     ax, word ptr [bx + 4e0ch]
-        mov     dx, word ptr [bx + 4e0eh]
+        mov     ax, word ptr [bx +W_4E0C_V112]
+        mov     dx, word ptr [bx +W_4E0E_V112]
         endif
         cmp     dx, word ptr [bp - 0ah]
         jc      br_f0d9c
@@ -52945,8 +52945,8 @@ br_f0d9e:
         add     word ptr [bx + TBL_9D3A], ax
         adc     word ptr [bx + TBL_9D3C], dx
         else
-        add     word ptr [bx + 4e0ch], ax
-        adc     word ptr [bx + 4e0eh], dx
+        add     word ptr [bx +W_4E0C_V112], ax
+        adc     word ptr [bx +W_4E0E_V112], dx
         endif
 br_f0dac:
         inc     word ptr [bp - 16h]
@@ -52971,8 +52971,8 @@ br_f0dc6:
         mov     ax, word ptr [bx + TBL_9D3A]
         mov     dx, word ptr [bx + TBL_9D3C]
         else
-        mov     ax, word ptr [bx + 4e0ch]
-        mov     dx, word ptr [bx + 4e0eh]
+        mov     ax, word ptr [bx +W_4E0C_V112]
+        mov     dx, word ptr [bx +W_4E0E_V112]
         endif
         cmp     dx, word ptr [bp - 0eh]
         ja      br_f0de7
@@ -53005,8 +53005,8 @@ loop_f0e01:
         mov     ax, word ptr [bx + TBL_9D3A]
         mov     dx, word ptr [bx + TBL_9D3C]
         else
-        mov     ax, word ptr [bx + 4e0ch]
-        mov     dx, word ptr [bx + 4e0eh]
+        mov     ax, word ptr [bx +W_4E0C_V112]
+        mov     dx, word ptr [bx +W_4E0E_V112]
         endif
         push    dx
         push    ax
@@ -53023,8 +53023,8 @@ loop_f0e01:
         mov     word ptr [bx + TBL_9D3C], dx
         mov     word ptr [bx + TBL_9D3A], ax
         else
-        mov     word ptr [bx + 4e0eh], dx
-        mov     word ptr [bx + 4e0ch], ax
+        mov     word ptr [bx +W_4E0E_V112], dx
+        mov     word ptr [bx +W_4E0C_V112], ax
         endif
         mov     ax, word ptr [bp - 18h]
         mov     dx, ax
@@ -53035,7 +53035,7 @@ loop_f0e01:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_9D3E]
         else
-        mov     ax, word ptr [bx + 4e10h]
+        mov     ax, word ptr [bx +TBL_4E10_V112]
         endif
         push    ax
         mov     ax, word ptr [bp - 18h]
@@ -53049,7 +53049,7 @@ loop_f0e01:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_9D3E], ax
         else
-        mov     word ptr [bx + 4e10h], ax
+        mov     word ptr [bx +TBL_4E10_V112], ax
         endif
         inc     word ptr [bp - 18h]
 br_f0e58:
@@ -53088,8 +53088,8 @@ loop_f0e7f:
         sub     word ptr [bx + TBL_9D3A], ax
         sbb     word ptr [bx + TBL_9D3C], dx
         else
-        sub     word ptr [bx + 4e0ch], ax
-        sbb     word ptr [bx + 4e0eh], dx
+        sub     word ptr [bx +W_4E0C_V112], ax
+        sbb     word ptr [bx +W_4E0E_V112], dx
         endif
         inc     word ptr [bp - 16h]
 br_f0ea1:
@@ -53112,10 +53112,10 @@ br_f0ead:
         mov     word ptr [bx + TBL_9D3C], dx
         mov     word ptr [bx + TBL_9D3A], ax
         else
-        mov     dx, word ptr [5209h]
-        mov     ax, word ptr [5207h]
-        mov     word ptr [bx + 4e0eh], dx
-        mov     word ptr [bx + 4e0ch], ax
+        mov     dx, word ptr [W_5209_V112]
+        mov     ax, word ptr [W_5207_V112]
+        mov     word ptr [bx +W_4E0E_V112], dx
+        mov     word ptr [bx +W_4E0C_V112], ax
         endif
         mov     al, byte ptr [B_9F92]
         sub     ah, ah
@@ -53127,7 +53127,7 @@ br_f0ead:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_9D3E], 0
         else
-        mov     word ptr [bx + 4e10h], 0
+        mov     word ptr [bx +TBL_4E10_V112], 0
         endif
 br_f0ee0:
         mov     sp, bp
@@ -53346,7 +53346,7 @@ far_f173a:
         if      FW_VERSION >= 212
         mov     byte ptr [B_54F8], cl
         else
-        mov     byte ptr [617ch], cl
+        mov     byte ptr [B_617C_V112], cl
         endif
         mov     bx, A_4BF0
         mov     cl, 4eh
@@ -53363,15 +53363,15 @@ br_f1759:
         RUN_FAR_F173A
         phase   0eh
 far_ee161:
-        mov     ax, word ptr [429ah]
-        add     ax, word ptr [43ceh]
-        add     ax, word ptr [4502h]
+        mov     ax, word ptr [W_429A_V112]
+        add     ax, word ptr [W_43CE_V112]
+        add     ax, word ptr [W_4502_V112]
         retf
 far_ee177:
-        mov     ax, word ptr [476fh]
-        add     ax, word ptr [48a8h]
-        add     ax, word ptr [49e1h]
-        add     ax, word ptr [4b1ah]
+        mov     ax, word ptr [W_476F_V112]
+        add     ax, word ptr [W_48A8_V112]
+        add     ax, word ptr [W_49E1_V112]
+        add     ax, word ptr [W_4B1A_V112]
         retf
         endif
         if      FW_VERSION >= 214
@@ -54215,7 +54215,7 @@ L_ee029:
         pop     es
         jnz     L_ee049
         pushf
-        callf   dword ptr [8dfdh]
+        callf   dword ptr [FP_8DFD]
         pop     ds
         retf    2
 L_ee049:
@@ -54225,7 +54225,7 @@ L_ee049:
         push    si
         push    di
         push    ax
-        mov     byte ptr [8e0ah], al
+        mov     byte ptr [B_8E0A], al
         xchg    al, ah
         cbw
         mov     si, L_ee072
@@ -54233,7 +54233,7 @@ L_ee049:
         add     si, ax
         call    word ptr cs:[si]
         pop     ax
-        mov     ah, byte ptr [8e01h]
+        mov     ah, byte ptr [B_8E01]
         or      ah, ah
         jz      L_ee069
         stc
@@ -54255,42 +54255,42 @@ L_ee072:
 L_ee07e:
         callf   543h:L_05775_v214
         sub     ah, ah
-        mov     byte ptr [8e01h], ah
+        mov     byte ptr [B_8E01], ah
         ret
 L_ee08a:
         ret
 L_ee08b:
-        mov     byte ptr [8e06h], 8
+        mov     byte ptr [B_8E06], 8
 L_ee090:
-        cmp     byte ptr [8e05h], 0
+        cmp     byte ptr [B_8E05], 0
         jnz     L_ee0c1
         call    L_ee11c
-        mov     byte ptr [8e07h], dl
-        mov     byte ptr [8e08h], ah
-        mov     byte ptr [8e09h], al
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E07], dl
+        mov     byte ptr [B_8E08], ah
+        mov     byte ptr [B_8E09], al
+        mov     byte ptr [B_8E0B], 0
         mov     si, 8e06h
-        mov     cl, byte ptr [8dfch]
+        mov     cl, byte ptr [B_8DFC]
         callf   543h:L_05456
         or      ax, ax
         jz      L_ee0bc
         mov     ah, 50h
 L_ee0bc:
-        mov     byte ptr [8e01h], ah
+        mov     byte ptr [B_8E01], ah
         ret
 L_ee0c1:
         call    L_ee11c
-        mov     cl, byte ptr [8e0ah]
+        mov     cl, byte ptr [B_8E0A]
         sub     ch, ch
-        mov     byte ptr [8e0ah], 1
-        mov     byte ptr [8e0bh], 0
+        mov     byte ptr [B_8E0A], 1
+        mov     byte ptr [B_8E0B], 0
 L_ee0d4:
         push    cx
-        mov     byte ptr [8e07h], dl
-        mov     byte ptr [8e08h], ah
-        mov     byte ptr [8e09h], al
+        mov     byte ptr [B_8E07], dl
+        mov     byte ptr [B_8E08], ah
+        mov     byte ptr [B_8E09], al
         mov     si, 8e06h
-        mov     cl, byte ptr [8dfch]
+        mov     cl, byte ptr [B_8DFC]
         push    ax
         push    dx
         callf   543h:L_05456
@@ -54302,43 +54302,43 @@ L_ee0d4:
         add     ax, 1
         adc     dx, 0
         loop    L_ee0d4
-        mov     byte ptr [8e01h], 0
+        mov     byte ptr [B_8E01], 0
         ret
 L_ee103:
-        mov     byte ptr [8e01h], 50h
+        mov     byte ptr [B_8E01], 50h
         ret
 L_ee109:
-        mov     byte ptr [8e06h], 0ah
+        mov     byte ptr [B_8E06], 0ah
         jmp     short L_ee090
 L_ee110:
-        mov     byte ptr [8e01h], 1
+        mov     byte ptr [B_8E01], 1
         ret
 L_ee116:
-        mov     byte ptr [8e01h], 1
+        mov     byte ptr [B_8E01], 1
         ret
 L_ee11c:
-        mov     al, byte ptr [8dfbh]
+        mov     al, byte ptr [B_8DFB]
         mul     ch
         mov     dl, dh
         sub     dh, dh
         add     ax, dx
-        mov     dl, byte ptr [8dfah]
+        mov     dl, byte ptr [B_8DFA]
         mul     dx
         sub     ch, ch
         add     ax, cx
         dec     ax
         sub     dx, dx
-        add     ax, word ptr [8df5h]
-        adc     dx, word ptr [8df7h]
+        add     ax, word ptr [W_8DF5]
+        adc     dx, word ptr [W_8DF7]
         ret
 L_ee13d:
         push    es
         mov     ax, 0
         mov     es, ax
         mov     ax, word ptr es:[100h]
-        mov     word ptr [8dfdh], ax
+        mov     word ptr [FP_8DFD], ax
         mov     ax, word ptr es:[102h]
-        mov     word ptr [8dffh], ax
+        mov     word ptr [W_8DFF], ax
         mov     ax, 9
         mov     word ptr es:[100h], ax
         mov     ax, 0ee02h
@@ -54821,9 +54821,9 @@ br_ee59e:
         mov     word ptr [bp - 0ch], dx
         mov     word ptr [bp - 0eh], ax
         mov     ax, word ptr [W_94D6]
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e745f
-        mov     ax, word ptr [575ah]
+        mov     ax, word ptr [W_575A_V112]
 L_e745f:
         cwd
         add     ax, 1
@@ -55065,9 +55065,9 @@ br_ee755:
 br_ee759:
         if      FW_VERSION < 212
         mov     ax, word ptr [W_94D6]
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e7618
-        mov     ax, word ptr [575ah]
+        mov     ax, word ptr [W_575A_V112]
 L_e7618:
         add     ax, word ptr [W_8CD1]
         cwd
@@ -55090,9 +55090,9 @@ br_ee768:
 br_ee76a:
         if      FW_VERSION < 212
         mov     ax, word ptr [W_94D6]
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e763c
-        mov     ax, word ptr [575ah]
+        mov     ax, word ptr [W_575A_V112]
 L_e763c:
         add     ax, word ptr [W_8CD1]
         inc     ax
@@ -55112,16 +55112,16 @@ br_ee777:
         mov     word ptr [bp - 10h], ax
         mov     word ptr [bp - 0ah], 1
         mov     word ptr [bp - 0ch], 0
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jz      L_e766b
         mov     word ptr [bp - 0eh], 5770h
         jmp     L_e7670
 L_e766b:
         mov     word ptr [bp - 0eh], 4ccah
 L_e7670:
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     L_e767e
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jl      br_e6f29
 L_e767e:
         endif
@@ -56231,7 +56231,7 @@ br_eefd5:
         if      FW_VERSION < 212
         phase   0dh
 far_eefd9:
-        mov     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_52CE_V112]
         elseif  FW_VERSION = 212
         phase   8
         else
@@ -56929,9 +56929,9 @@ far_f0496:
         mov     bp, sp
         push    di
         push    si
-        cmp     byte ptr [88dah], 0
+        cmp     byte ptr [B_88DA_V112], 0
         jz      br_f1ea7
-        cmp     word ptr [903dh], 1
+        cmp     word ptr [W_903D_V112], 1
         jz      br_f1ea1
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -57113,7 +57113,7 @@ br_f202e:
         cmp     byte ptr [si + TBL_7E6C], 0feh
         jz      br_f208a
         else
-        cmp     byte ptr [si - 7710h], 0feh
+        cmp     byte ptr [si +TBL_88F0_V112], 0feh
         jz      L_e84d7
         endif
         mov     byte ptr [B_A063], 1
@@ -57121,7 +57121,7 @@ br_f202e:
         if      FW_VERSION >= 212
         mov     byte ptr [si + TBL_7E6C], al
         else
-        mov     byte ptr [si - 7710h], al
+        mov     byte ptr [si +TBL_88F0_V112], al
         endif
         mov     bx, si
         shl     bx, 1
@@ -57141,9 +57141,9 @@ br_f202e:
         jmp     br_f207b
 br_f2077:
         else
-        mov     word ptr [bx - 7690h], ax
-        mov     byte ptr [si - 7590h], 0ffh
-        cmp     byte ptr [5b1fh], 0
+        mov     word ptr [bx +TBL_8970_V112], ax
+        mov     byte ptr [si +TBL_8A70_V112], 0ffh
+        cmp     byte ptr [B_5B1F_V112], 0
         jz      L_e84d7
         cmp     byte ptr [B_8C07], 0
         jz      L_e84d7
@@ -57159,8 +57159,8 @@ br_f207b:
         mov     ax, word ptr [bx + TBL_7EEC]
         else
 L_e84c8:
-        mov     byte ptr [si - 7590h], al
-        mov     ax, word ptr [bx - 7690h]
+        mov     byte ptr [si +TBL_8A70_V112], al
+        mov     ax, word ptr [bx +TBL_8970_V112]
         endif
         add     ax, 6
         mov     word ptr [bx + TBL_806C], ax
@@ -57180,13 +57180,13 @@ loop_f2099:
 br_f20aa:
         else
 L_e84d7:
-        cmp     byte ptr [618bh], 0
+        cmp     byte ptr [B_618B_V112], 0
         jnz     br_f0fee
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
 br_f0fee:
         jmp     short br_f1ea1
 loop_f2099:
-        cmp     byte ptr [5b1fh], 0
+        cmp     byte ptr [B_5B1F_V112], 0
         jz      br_f0ff8
         cmp     byte ptr [B_8C07], 0
         jz      br_f0ff8
@@ -57201,7 +57201,7 @@ br_f0ff8:
         cmp     byte ptr [si + TBL_7E6C], 0feh
         jnz     br_f20e0
         else
-        cmp     byte ptr [si - 7710h], 0feh
+        cmp     byte ptr [si +TBL_88F0_V112], 0feh
         jnz     L_e8529
         endif
         mov     di, si
@@ -57211,7 +57211,7 @@ br_f0ff8:
         sub     ax, word ptr [di + TBL_7EEC]
         mov     word ptr [bp - 4], ax
         else
-        sub     ax, word ptr [di - 7690h]
+        sub     ax, word ptr [di +TBL_8970_V112]
         endif
         push    ax
         mov     al, byte ptr [bx + 3]
@@ -57230,12 +57230,12 @@ br_f20e0:
         else
         callf   0e8ffh:far_05e2b
         add     sp, 6
-        mov     byte ptr [si - 7710h], 0ffh
+        mov     byte ptr [si +TBL_88F0_V112], 0ffh
         jmp     br_f2108
 L_e8529:
-        cmp     byte ptr [si - 7710h], 0ffh
+        cmp     byte ptr [si +TBL_88F0_V112], 0ffh
         jz      br_f2108
-        cmp     byte ptr [si - 7590h], 0ffh
+        cmp     byte ptr [si +TBL_8A70_V112], 0ffh
         endif
         jnz     br_f2108
         mov     byte ptr [B_A063], 1
@@ -57244,7 +57244,7 @@ L_e8529:
         if      FW_VERSION >= 212
         mov     byte ptr [si + TBL_7FEC], al
         else
-        mov     byte ptr [si - 7590h], al
+        mov     byte ptr [si +TBL_8A70_V112], al
         endif
         mov     bx, si
         shl     bx, 1
@@ -57367,7 +57367,7 @@ br_f17d9:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         push    dx
@@ -57387,8 +57387,8 @@ br_f17d9:
         mov     word ptr [bx + TBL_A66A], dx
         mov     word ptr [bx + TBL_A668], ax
         else
-        mov     word ptr [bx - 5930h], dx
-        mov     word ptr [bx - 5932h], ax
+        mov     word ptr [bx +TBL_A6D0_V112], dx
+        mov     word ptr [bx +TBL_A6CE_V112], ax
         endif
         mov     ax, word ptr [bp - 2]
         push    ax
@@ -57426,7 +57426,7 @@ br_f17d9:
         endm
         if      FW_VERSION < 212
         RUN_FAR_F175B
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         mov     dx, word ptr [bx + TBL_AE93]
         push    dx
 
@@ -57449,8 +57449,8 @@ br_f18db:
         else
         pop     ax
         pop     dx
-        mov     word ptr [bx - 5928h], dx
-        mov     word ptr [bx - 592ah], ax
+        mov     word ptr [bx +TBL_A6D8_V112], dx
+        mov     word ptr [bx +TBL_A6D6_V112], ax
         push    word ptr [bp - 2]
         callf   SEG_F175:far_f18e1
         add     sp, 2
@@ -57518,7 +57518,7 @@ far_f18e1:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_A67E], 14h
         else
-        mov     word ptr [bx - 591ch], 14h
+        mov     word ptr [bx +TBL_A6E4_V112], 14h
         endif
         mov     ax, word ptr [bp + 6]
         mov     dx, ax
@@ -57532,7 +57532,7 @@ far_f18e1:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_A680], 1000h
         else
-        mov     word ptr [bx - 591ah], 1000h
+        mov     word ptr [bx +TBL_A6E6_V112], 1000h
         endif
         mov     ax, word ptr [bp + 6]
         mov     dx, ax
@@ -57865,7 +57865,7 @@ loop_ef5f3:
         if      FW_VERSION >= 212
         add     ax, word ptr [bx + TBL_AE91]
         else
-        add     ax, word ptr [bx - 510ah]
+        add     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         adc     dx, word ptr [bx + TBL_AE93]
         push    dx
@@ -57874,7 +57874,7 @@ loop_ef5f3:
         if      FW_VERSION >= 212
         push    word ptr [bx + TBL_AE91]
         else
-        push    word ptr [bx - 510ah]
+        push    word ptr [bx +TBL_AEF6_V112]
         endif
         callf   SEG_F1C6:far_f1c62
         add     sp, 0ah
@@ -58093,8 +58093,8 @@ br_f1b60:
         mov     ax, word ptr [bx + TBL_A668]
         mov     dx, word ptr [bx + TBL_A66A]
         else
-        mov     ax, word ptr [bx - 5932h]
-        mov     dx, word ptr [bx - 5930h]
+        mov     ax, word ptr [bx +TBL_A6CE_V112]
+        mov     dx, word ptr [bx +TBL_A6D0_V112]
         endif
         push    dx
         push    ax
@@ -58113,8 +58113,8 @@ br_f1b60:
         mov     word ptr [bx + TBL_A66A], dx
         mov     word ptr [bx + TBL_A668], ax
         else
-        mov     word ptr [bx - 5930h], dx
-        mov     word ptr [bx - 5932h], ax
+        mov     word ptr [bx +TBL_A6D0_V112], dx
+        mov     word ptr [bx +TBL_A6CE_V112], ax
         endif
         mov     ax, word ptr [bp - 2]
         mov     dx, ax
@@ -58146,16 +58146,16 @@ br_f1b60:
         if      FW_VERSION < 212
         RUN_FAR_F1B01
         RUN_AFTER_BR_C7F97
-        mov     ax, word ptr [bx - 592ah]
-        mov     dx, word ptr [bx - 5928h]
+        mov     ax, word ptr [bx +TBL_A6D6_V112]
+        mov     dx, word ptr [bx +TBL_A6D8_V112]
         push    dx
         push    ax
         mov     ax, word ptr [bp - 4]
         RUN_AFTER_BR_C7AC4
         pop     ax
         pop     dx
-        mov     word ptr [bx - 5928h], dx
-        mov     word ptr [bx - 592ah], ax
+        mov     word ptr [bx +TBL_A6D8_V112], dx
+        mov     word ptr [bx +TBL_A6D6_V112], ax
         push    word ptr [bp - 4]
         callf   SEG_F175:far_f18e1
         add     sp, 2
@@ -58206,7 +58206,7 @@ far_efe59:
         if      FW_VERSION >= 212
         mov     ax, word ptr [W_53D5]
         else
-        mov     ax, word ptr [605bh]
+        mov     ax, word ptr [W_605B_V112]
         sar     ax, 1
         endif
         cwd
@@ -58282,7 +58282,7 @@ loop_efed8:
         if      FW_VERSION >= 212
         mov     ax, word ptr [W_53D7]
         else
-        mov     ax, word ptr [605dh]
+        mov     ax, word ptr [W_605D_V112]
         sar     ax, 1
         endif
         cwd
@@ -58437,11 +58437,11 @@ loop_effe6:
         sub     si, ax
         sbb     di, dx
         if      FW_VERSION < 212
-        mov     ax, word ptr [605bh]
-        mov     word ptr [605dh], ax
+        mov     ax, word ptr [W_605B_V112]
+        mov     word ptr [W_605D_V112], ax
         mov     ax, word ptr [bp + 6]
-        mov     word ptr [605bh], ax
-        mov     cx, word ptr [9010h]
+        mov     word ptr [W_605B_V112], ax
+        mov     cx, word ptr [W_9010_V112]
 L_e8d1b:
         shl     si, 1
         rcl     di, 1
@@ -58453,9 +58453,9 @@ L_e8d1b:
         jmp     L_e8d38
         db      090h
 L_e8d2f:
-        cmp     ax, word ptr [9014h]
+        cmp     ax, word ptr [W_9014_V112]
         jge     L_e8d38
-        mov     word ptr [9014h], ax
+        mov     word ptr [W_9014_V112], ax
 L_e8d38:
         else
         mov     ax, word ptr [W_53D5]

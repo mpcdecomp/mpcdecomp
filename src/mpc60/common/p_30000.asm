@@ -21,8 +21,8 @@ far_f002e:
         mov     si, word ptr [W_8D7C]
         mov     di, word ptr [W_8D7E]
         else
-        mov     si, word ptr [900ah]
-        mov     di, word ptr [900ch]
+        mov     si, word ptr [W_900A_V112]
+        mov     di, word ptr [W_900C_V112]
         endif
         push    bp
         mov     bx, si
@@ -93,7 +93,7 @@ loop_f00ad:
         if      FW_VERSION >= 212
         mov     cx, 8
         else
-        mov     cx, word ptr [900eh]
+        mov     cx, word ptr [W_900E_V112]
         endif
 loop_f00b9:
         sar     di, 1
@@ -168,8 +168,8 @@ loop_f012c:
         mov     si, word ptr [W_8D7C]
         mov     di, word ptr [W_8D7E]
         else
-        mov     si, word ptr [900ah]
-        mov     di, word ptr [900ch]
+        mov     si, word ptr [W_900A_V112]
+        mov     di, word ptr [W_900C_V112]
         endif
         push    bp
         mov     bx, si
@@ -240,9 +240,9 @@ loop_f01a9:
         pop     di
         pop     si
         if      FW_VERSION < 212
-        mov     word ptr [900ah], si
-        mov     word ptr [900ch], di
-        mov     cx, word ptr [9010h]
+        mov     word ptr [W_900A_V112], si
+        mov     word ptr [W_900C_V112], di
+        mov     cx, word ptr [W_9010_V112]
         else
         mov     word ptr [W_8D7C], si
         mov     word ptr [W_8D7E], di
@@ -302,9 +302,9 @@ br_f0218:
         jge     br_f0221
         mov     word ptr [W_8D86], ax
         else
-        cmp     ax, word ptr [9014h]
+        cmp     ax, word ptr [W_9014_V112]
         jge     br_f0221
-        mov     word ptr [9014h], ax
+        mov     word ptr [W_9014_V112], ax
         endif
 br_f0221:
         pop     di
@@ -1086,7 +1086,7 @@ br_f1c6d:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         add     ax, word ptr [bx + TBL_AE95]
@@ -1145,7 +1145,7 @@ br_f1ceb:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         cmp     dx, word ptr [bp + 0ch]
@@ -1234,7 +1234,7 @@ br_f1d6d:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         push    dx
@@ -1252,7 +1252,7 @@ br_f1d6d:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp + 6]
         inc     ax
@@ -1307,7 +1307,7 @@ br_f1e1b:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], 0ffffh
         else
-        mov     word ptr [bx - 510ah], 0ffffh
+        mov     word ptr [bx +TBL_AEF6_V112], 0ffffh
         endif
         mov     ax, word ptr [bp + 6]
         mov     dx, ax
@@ -1477,7 +1477,7 @@ far_f21b5:
 
         mov     byte ptr [B_54F9], cl
         else
-        mov     byte ptr [617dh], cl
+        mov     byte ptr [B_617D_V112], cl
         endif
         mov     bx, A_4BF0
         mov     cl, 44h
@@ -1652,7 +1652,7 @@ br_f22a2:
         if      FW_VERSION >= 212
         mov     ax, word ptr [bx + TBL_AE91]
         else
-        mov     ax, word ptr [bx - 510ah]
+        mov     ax, word ptr [bx +TBL_AEF6_V112]
         endif
         mov     dx, word ptr [bx + TBL_AE93]
         add     ax, word ptr [bx + TBL_AE95]
@@ -1672,7 +1672,7 @@ br_f22a2:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_AE91], ax
         else
-        mov     word ptr [bx - 510ah], ax
+        mov     word ptr [bx +TBL_AEF6_V112], ax
         endif
         mov     ax, word ptr [bp - 8]
         mov     dx, ax
@@ -3014,7 +3014,7 @@ L_03032:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_94E8]
         else
-        mov     al, byte ptr [bx + 5066h]
+        mov     al, byte ptr [bx +TBL_5066_V112]
         endif
         push    ax
         push    si
@@ -3131,8 +3131,8 @@ br_045ad:
         mov     dx, word ptr [di + 14h]
         mov     ax, word ptr [di + 12h]
         else
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
         endif
         mov word ptr [W_0ACC], dx
         mov word ptr [W_0ACA], ax
@@ -3152,7 +3152,7 @@ br_045ad:
         if      FW_VERSION >= 212
         mov     al, byte ptr [TBL_8E65]
         else
-        mov     al, byte ptr [903fh]
+        mov     al, byte ptr [B_903F_V112]
         endif
         and     ax, 0f8h
         mov word ptr [W_0ACE], ax
@@ -3166,7 +3166,7 @@ br_045db:
         les     bx, dword ptr [di + 12h]
         else
         mov     word ptr [W_94E0], ax
-        les     bx, dword ptr [0a464h]
+        les     bx, dword ptr [W_A464_V112]
         endif
         mov     al, byte ptr es:[bx]
         and     al, 0f8h
@@ -3210,9 +3210,9 @@ br_0460e:
         callf   SEG_05A0:far_05a01
         add     sp, 6
         else
-        mov     al, byte ptr [9043h]
+        mov     al, byte ptr [B_9043_V112]
         push    ax
-        mov     al, byte ptr [9042h]
+        mov     al, byte ptr [B_9042_V112]
         push    ax
         callf   0de80h:L_de80e
         add     sp, 4
@@ -3231,7 +3231,7 @@ br_04632:
 br_0463b:
         cmp     byte ptr [B_7E12], 0
         else
-        cmp     byte ptr [88dah], 0
+        cmp     byte ptr [B_88DA_V112], 0
         endif
         jz      br_04652
         mov dx, word ptr [W_0ACC]
@@ -3240,8 +3240,8 @@ br_0463b:
         mov     word ptr [di + 14h], dx
         mov     word ptr [di + 12h], ax
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
         jmp     br_04a84
 br_04652:
@@ -3268,22 +3268,22 @@ br_04679:
 br_0468f:
         mov     al, byte ptr [B_9D35]
         else
-        cmp     byte ptr [4cbfh], 0
+        cmp     byte ptr [B_4CBF_V112], 0
         jle     br_046c8
-        cmp     byte ptr [52b5h], 2
+        cmp     byte ptr [B_52B5_V112], 2
         jnz     br_04679
-        mov     dx, word ptr [0a462h]
-        mov     ax, word ptr [0a460h]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     dx, word ptr [W_A462_V112]
+        mov     ax, word ptr [W_A460_V112]
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
-        mov     byte ptr [52b5h], 0
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
+        mov     byte ptr [B_52B5_V112], 0
 br_04679:
-        mov     word ptr [52ceh], 1
-        mov     al, byte ptr [4cbfh]
+        mov     word ptr [W_52CE_V112], 1
+        mov     al, byte ptr [B_4CBF_V112]
         endif
         sub     ah, ah
         push    ax
@@ -3310,10 +3310,10 @@ br_046c8:
         callf   0e295h:far_e82a4
         add     sp, 2
         callf   424h:L_04245
-        mov     byte ptr [4cbfh], 0ffh
+        mov     byte ptr [B_4CBF_V112], 0ffh
         jmp     br_04a84
 br_046c8:
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     br_046d2
         jmp     near br_047a2
         endif
@@ -3325,7 +3325,7 @@ br_046d2:
         if      FW_VERSION >= 212
         cmp     byte ptr [B_A06D], 0
         else
-        cmp     byte ptr [5758h], 0
+        cmp     byte ptr [B_5758_V112], 0
         endif
         jnz     br_046f7
         mov dx, word ptr [W_0ACC]
@@ -3334,8 +3334,8 @@ br_046d2:
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
         callf   SEG_0459:far_04a89
         jmp     br_04a84
@@ -3343,7 +3343,7 @@ br_046f7:
         if      FW_VERSION >= 212
         dec     byte ptr [B_A06D]
         else
-        dec     byte ptr [5758h]
+        dec     byte ptr [B_5758_V112]
         endif
         jz      br_04700
         jmp     near br_04790
@@ -3364,9 +3364,9 @@ br_04700:
         sub     ah, ah
         mov     al, byte ptr [B_A06B]
         else
-        inc     byte ptr [5756h]
+        inc     byte ptr [B_5756_V112]
         sub     ah, ah
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         endif
         shl     ax, 1
         push    bx
@@ -3383,16 +3383,16 @@ br_04700:
         dec     al
         mov     byte ptr [B_A06B], al
         else
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         pop     bx
-        mov     byte ptr [5758h], al
-        cmp     byte ptr [5758h], 0
+        mov     byte ptr [B_5758_V112], al
+        cmp     byte ptr [B_5758_V112], 0
         jnz     br_04771
-        cmp     byte ptr [di - 775ah], 0
+        cmp     byte ptr [di +TBL_88A6_V112], 0
         jz      br_0475b
-        mov     al, byte ptr [di - 7746h]
+        mov     al, byte ptr [di +TBL_88BA_V112]
         dec     al
-        mov     byte ptr [5756h], al
+        mov     byte ptr [B_5756_V112], al
         endif
         sub     ah, ah
         shl     ax, 1
@@ -3405,11 +3405,11 @@ br_04700:
         mov     ax, word ptr [W_7E08]
         mov     word ptr [W_94DE], ax
         else
-        mov     al, byte ptr [bx + 6197h]
+        mov     al, byte ptr [bx +TBL_6197_V112]
         pop     bx
-        mov     byte ptr [5758h], al
+        mov     byte ptr [B_5758_V112], al
         mov     ax, word ptr [W_7E08]
-        mov     word ptr [52ceh], ax
+        mov     word ptr [W_52CE_V112], ax
         endif
         jmp     br_04771
         db      090h
@@ -3420,8 +3420,8 @@ br_0475b:
         mov     word ptr [W_94BA], dx
         mov     word ptr [W_94B8], ax
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         endif
         callf   SEG_0459:far_04a89
         jmp     br_04a84
@@ -3429,7 +3429,7 @@ br_04771:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_A06B]
         else
-        mov     al, byte ptr [5756h]
+        mov     al, byte ptr [B_5756_V112]
         endif
         sub     ah, ah
         shl     ax, 1
@@ -3437,7 +3437,7 @@ br_04771:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_5516]
         else
-        mov     al, byte ptr [bx + 6196h]
+        mov     al, byte ptr [bx +TBL_6196_V112]
         endif
         sub     ah, ah
         push    ax
@@ -3491,7 +3491,7 @@ br_047c6:
         cmp     word ptr [W_94D8], 1
         jz      L_03259
         callf   SEG_04D5:far_04d5e
-        mov     byte ptr [903fh], 0ffh
+        mov     byte ptr [B_903F_V112], 0ffh
 L_03259:
         push    si
         mov     ax, 903fh
@@ -3500,7 +3500,7 @@ L_03259:
         add     sp, 4
         cmp     word ptr [W_94D8], 1
         jnz     br_e1c97
-        mov     word ptr [52ceh], 1
+        mov     word ptr [W_52CE_V112], 1
         endif
         cmp     byte ptr [B_7E11], 8
         jnz     br_047eb
@@ -3525,20 +3525,20 @@ br_04802:
         mov     word ptr [di + 38h], ax
         else
 br_e1c97:
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     br_04802
-        mov     byte ptr [52b5h], 2
-        mov     dx, word ptr [0a466h]
-        mov     ax, word ptr [0a464h]
-        mov     word ptr [0a462h], dx
-        mov     word ptr [0a460h], ax
+        mov     byte ptr [B_52B5_V112], 2
+        mov     dx, word ptr [W_A466_V112]
+        mov     ax, word ptr [W_A464_V112]
+        mov     word ptr [W_A462_V112], dx
+        mov     word ptr [W_A460_V112], ax
 br_04802:
         mov     dx, word ptr [W_94C2]
         mov     ax, word ptr [W_94C0]
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
         mov     ax, word ptr [W_94D8]
-        mov     word ptr [52ceh], ax
+        mov     word ptr [W_52CE_V112], ax
         endif
         cmp     byte ptr [B_7E11], 8
         jc      br_04820
@@ -3550,7 +3550,7 @@ br_04823:
         if      FW_VERSION >= 212
         mov     byte ptr [TBL_8E65], 0ffh
         else
-        mov     byte ptr [903fh], 0ffh
+        mov     byte ptr [B_903F_V112], 0ffh
         endif
         mov dx, word ptr [W_0ACC]
         mov ax, word ptr [W_0ACA]
@@ -3559,9 +3559,9 @@ br_04823:
         mov     word ptr [di + 12h], ax
         cmp     byte ptr [di], 0
         else
-        mov     word ptr [0a466h], dx
-        mov     word ptr [0a464h], ax
-        cmp     byte ptr [52b5h], 0
+        mov     word ptr [W_A466_V112], dx
+        mov     word ptr [W_A464_V112], ax
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jnz     br_04884
         cmp     byte ptr [B_7E11], 8
@@ -3573,9 +3573,9 @@ br_04823:
         mov     word ptr [di + 30h], ax
         mov     si, TBL_8E65
         else
-        cmp     word ptr [52ceh], 3e7h
+        cmp     word ptr [W_52CE_V112], 3e7h
         jg      br_04884
-        mov     ax, word ptr [52ceh]
+        mov     ax, word ptr [W_52CE_V112]
         mov     word ptr [W_94D6], ax
         mov     si, 903fh
         endif
@@ -3662,7 +3662,7 @@ br_048d8:
         mov     byte ptr [B_5507], 1
 br_048f4:
         else
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
         endif
         jmp     br_0459c
 br_048f7:
@@ -3687,7 +3687,7 @@ br_0491b:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E67]
         else
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         endif
         sub     ah, ah
         mov     bx, ax
@@ -3701,7 +3701,7 @@ br_0491b:
         if      FW_VERSION >= 212
         mov     byte ptr [B_5507], 1
         else
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
         endif
         jmp     br_0459c
 br_04942:
@@ -3711,7 +3711,7 @@ br_04945:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E67]
         else
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         endif
         sub     ah, ah
         mov     bx, ax
@@ -3720,7 +3720,7 @@ br_04945:
         if      FW_VERSION >= 212
         mov     byte ptr [B_5507], 1
         else
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
         endif
         jmp     br_0459c
 br_0495b:
@@ -3739,13 +3739,13 @@ br_0497b:
         jz      br_049a4
         callf   SEG_05BB:far_05bb5
         else
-        cmp     byte ptr [9041h], 0
+        cmp     byte ptr [B_9041_V112], 0
         jnz     br_0497b
-        mov     byte ptr [618bh], 1
+        mov     byte ptr [B_618B_V112], 1
         mov     al, byte ptr [B_8B4F]
-        mov     byte ptr [9043h], al
+        mov     byte ptr [B_9043_V112], al
 br_0497b:
-        cmp     byte ptr [5b07h], 0
+        cmp     byte ptr [B_5B07_V112], 0
         jz      br_049a4
         callf   0e2cbh:L_e2cb3
         endif
@@ -3770,7 +3770,7 @@ br_049a7:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_8E67]
         else
-        mov     al, byte ptr [9041h]
+        mov     al, byte ptr [B_9041_V112]
         endif
         sub     ah, ah
         jmp     br_049f9
@@ -3869,7 +3869,7 @@ br_04a5a:
         if      FW_VERSION >= 212
         test    byte ptr [bx+di + 0a6h], 1
         else
-        test    byte ptr [bx + 50cah], 1
+        test    byte ptr [bx +TBL_50CA_V112], 1
         endif
         jz      br_04a6b
         jmp     br_0459c
@@ -3921,7 +3921,7 @@ loop_04a94:
         mov     bp, sp
         push    4
         else
-        push    word ptr [88ddh]
+        push    word ptr [W_88DD_V112]
         push    si
         endif
         mov     ax, di
@@ -3965,8 +3965,8 @@ br_04aba:
         else
         cmp     di, 2
         jl      loop_04a94
-        mov     byte ptr [4cbfh], 0
-        mov     word ptr [88ddh], 0
+        mov     byte ptr [B_4CBF_V112], 0
+        mov     word ptr [W_88DD_V112], 0
         endif
         callf   SEG_EEFD:far_eefd9
         pop     di
@@ -4011,7 +4011,7 @@ br_05275:
         if      FW_VERSION >= 212
         test    word ptr es:[1330h], 0ffffh
         else
-        test    word ptr [476fh], 0ffffh
+        test    word ptr [W_476F_V112], 0ffffh
         endif
         jz      br_0529e
         mov     al, byte ptr [TBL_4C18]
@@ -4026,7 +4026,7 @@ br_0529e:
         if      FW_VERSION >= 212
         test    word ptr es:[1932h], 0ffffh
         else
-        test    word ptr [48a8h], 0ffffh
+        test    word ptr [W_48A8_V112], 0ffffh
         endif
         jz      br_052bc
         mov     al, byte ptr [B_4C19]
@@ -4041,7 +4041,7 @@ br_052bc:
         if      FW_VERSION >= 212
         test    word ptr es:[1f34h], 0ffffh
         else
-        test    word ptr [49e1h], 0ffffh
+        test    word ptr [W_49E1_V112], 0ffffh
         endif
         jz      br_052da
         mov     al, byte ptr [B_4C1A]
@@ -4056,7 +4056,7 @@ br_052da:
         if      FW_VERSION >= 212
         test    word ptr es:[2536h], 0ffffh
         else
-        test    word ptr [4b1ah], 0ffffh
+        test    word ptr [W_4B1A_V112], 0ffffh
         endif
         jz      br_05300
         mov     dx, 132h
@@ -4176,17 +4176,17 @@ br_03d89:
 br_03d93:
         callf   SEG_EF47:far_ef474
         else
-        mov     al, byte ptr [0aeb6h]
+        mov     al, byte ptr [B_AEB6_V112]
         cmp     al, 0
         jge     br_03d6d
-        mov     al, byte ptr [0aeb5h]
+        mov     al, byte ptr [B_AEB5_V112]
         cmp     al, 0
         jl      br_03d93
-        mov     byte ptr [0aeb5h], 0ffh
+        mov     byte ptr [B_AEB5_V112], 0ffh
         jmp     br_03d89
         db      090h
 br_03d6d:
-        mov     byte ptr [0aeb6h], 0ffh
+        mov     byte ptr [B_AEB6_V112], 0ffh
         jmp     br_03d89
         db      090h
 br_03d93:
@@ -4201,23 +4201,23 @@ br_03d89:
         if      FW_VERSION >= 212
         mov     word ptr [bx + TBL_B1D9], 0
         else
-        mov     word ptr [bx - 4dc2h], 0
+        mov     word ptr [bx +TBL_B23E_V112], 0
         cmp     si, 0ffffh
         jz      L_03632
-        mov     byte ptr [si - 514ch], al
+        mov     byte ptr [si +TBL_AEB4_V112], al
         jmp     L_0364b
 L_03631:
         db      090h
 L_03632:
-        cmp     byte ptr [0aeb6h], al
+        cmp     byte ptr [B_AEB6_V112], al
         jnz     L_03640
-        mov     byte ptr [0aeb6h], 0ffh
+        mov     byte ptr [B_AEB6_V112], 0ffh
         jmp     L_0364b
         db      090h
 L_03640:
-        cmp     byte ptr [0aeb5h], al
+        cmp     byte ptr [B_AEB5_V112], al
         jnz     L_0364b
-        mov     byte ptr [0aeb5h], 0ffh
+        mov     byte ptr [B_AEB5_V112], 0ffh
 L_0364b:
         endif
         mov     si, ax
@@ -4225,7 +4225,7 @@ L_0364b:
         if      FW_VERSION >= 212
         mov     byte ptr [si + TBL_AE4F], al
         else
-        mov     byte ptr [si - 5148h], al
+        mov     byte ptr [si +TBL_AEB8_V112], al
         endif
         cmp     word ptr [bp + 8], 80h
         jc      br_03dc6
@@ -4246,7 +4246,7 @@ br_03dce:
         mov     word ptr [si + TBL_AE6C], ax
         shr     si, 1
         else
-        mov     word ptr [si - 512fh], ax
+        mov     word ptr [si +TBL_AED1_V112], ax
         shr     si, 1
 L_0367c:
         endif
@@ -4333,7 +4333,7 @@ L_036fa:
         in      ax, 0
         cmp     ax, bx
         jnz     L_036fa
-        mov     bx, word ptr [di - 5918h]
+        mov     bx, word ptr [di +TBL_A6E8_V112]
 L_03714:
         mov     ax, bx
         out     0, ax
@@ -4395,7 +4395,7 @@ L_0375f:
         in      ax, 0
         cmp     ax, bx
         jnz     L_0375f
-        mov     bx, word ptr [di - 591ah]
+        mov     bx, word ptr [di +TBL_A6E6_V112]
 L_03779:
         endif
         mov     ax, bx
@@ -4509,12 +4509,12 @@ L_05144:
         sub     cx, cx
         les     si, dword ptr [bx + 12h]
         else
-        push    word ptr [0a466h]
-        push    word ptr [0a464h]
+        push    word ptr [W_A466_V112]
+        push    word ptr [W_A464_V112]
         mov     di, word ptr [bp + 8]
         mov     bx, word ptr [bp + 0ah]
         sub     cx, cx
-        les     si, dword ptr [0a464h]
+        les     si, dword ptr [W_A464_V112]
         endif
         call    fn_031a5
 loop_0304b:
@@ -4522,8 +4522,8 @@ loop_0304b:
         mov     word ptr [bx + 12h], si
         mov     word ptr [bx + 14h], dx
         else
-        mov     word ptr [0a464h], si
-        mov     word ptr [0a466h], dx
+        mov     word ptr [W_A464_V112], si
+        mov     word ptr [W_A466_V112], dx
         endif
         mov     byte ptr [di], al
         inc     di
@@ -4542,7 +4542,7 @@ br_03061:
         if      FW_VERSION >= 212
         cmp     byte ptr [bx], 0
         else
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         endif
         jnz     br_03074
         add     word ptr [W_8BD5], cx
@@ -4560,9 +4560,9 @@ br_03081:
         mov     al, byte ptr [di]
         else
 br_03074:
-        cmp     byte ptr [52b5h], 1
+        cmp     byte ptr [B_52B5_V112], 1
         jnz     br_030c2
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         jnz     br_030c2
         mov     bx, word ptr [bp + 8]
         mov     al, byte ptr [bx]
@@ -4742,7 +4742,7 @@ br_0312f:
         mov     cx, word ptr [bp + 0ah]
         mov     dx, word ptr es:[si + 2]
         else
-        cmp     byte ptr [bx - 718fh], 0
+        cmp     byte ptr [bx +W_8E71_V112], 0
         mov     cx, word ptr [bp + 0ah]
         mov     dx, word ptr [si + 2]
         endif
@@ -4755,7 +4755,7 @@ br_0314c:
         if      FW_VERSION >= 212
         dec     byte ptr [bx + TBL_8B4D]
         else
-        dec     byte ptr [bx - 718fh]
+        dec     byte ptr [bx +W_8E71_V112]
         endif
 br_03150:
         or      dx, dx
@@ -4850,14 +4850,14 @@ br_031b3:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [bx + 8]
         else
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         endif
         jc      br_031c7
         jnz     br_031bf
         if      FW_VERSION >= 212
         cmp     si, word ptr [bx + 6]
         else
-        cmp     si, word ptr [0a458h]
+        cmp     si, word ptr [W_A458_V112]
         endif
         jc      br_031c7
 br_031bf:
@@ -4866,9 +4866,9 @@ br_031bf:
         mov     es, dx
         mov     si, word ptr [bx + 0ah]
         else
-        mov     dx, word ptr [0a45eh]
+        mov     dx, word ptr [W_A45E_V112]
         mov     es, dx
-        mov     si, word ptr [0a45ch]
+        mov     si, word ptr [W_A45C_V112]
         endif
 br_031c7:
         ret
@@ -5241,7 +5241,7 @@ br_034ef:
         or      ax, ax
         jnz     br_0354b
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -5263,7 +5263,7 @@ br_03521:
         mov     bl, byte ptr [B_A06A]
         sub     bh, bh
         if      FW_VERSION < 212
-        test    byte ptr [bx - 775bh], 1
+        test    byte ptr [bx +TBL_88A5_V112], 1
         else
         test    byte ptr [bx + TBL_7C25], 1
         endif
@@ -5311,9 +5311,9 @@ br_03571:
         jmp     br_036aa
 br_0358e:
         if      FW_VERSION < 212
-        mov     cx, word ptr [5207h]
+        mov     cx, word ptr [W_5207_V112]
         mov     word ptr [W_7E59], cx
-        mov     cx, word ptr [5209h]
+        mov     cx, word ptr [W_5209_V112]
         else
         mov     cx, word ptr [W_94C8]
         mov     word ptr [W_7E59], cx
@@ -5322,7 +5322,7 @@ br_0358e:
         mov     word ptr [W_7E5B], cx
 br_0359e:
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -5337,7 +5337,7 @@ br_0359e:
         mov     bl, byte ptr [B_A06A]
         xor     bh, bh
         if      FW_VERSION < 212
-        test    byte ptr [bx - 775bh], 1
+        test    byte ptr [bx +TBL_88A5_V112], 1
         else
         test    byte ptr [bx + TBL_7C25], 1
         endif
@@ -5359,7 +5359,7 @@ br_035de:
         cmp     cx, word ptr [W_7E5B]
         jnz     br_03621
         if      FW_VERSION < 212
-        cmp     byte ptr [4cbfh], 0
+        cmp     byte ptr [B_4CBF_V112], 0
         jz      br_03624
         else
         cmp     byte ptr [B_9D35], 0
@@ -5409,11 +5409,11 @@ br_0366e:
         jnc     br_036a2
         mov     cx, word ptr [W_94E4]
         if      FW_VERSION < 212
-        add     word ptr [5207h], cx
-        adc     word ptr [5209h], 0
-        mov     cx, word ptr [5207h]
+        add     word ptr [W_5207_V112], cx
+        adc     word ptr [W_5209_V112], 0
+        mov     cx, word ptr [W_5207_V112]
         mov     word ptr [W_7E59], cx
-        mov     cx, word ptr [5209h]
+        mov     cx, word ptr [W_5209_V112]
         else
         add     word ptr [W_94C8], cx
         adc     word ptr [W_94CA], 0
@@ -5522,7 +5522,7 @@ br_03764:
 br_03770:
         mov     bx, word ptr [W_94D0]
         if      FW_VERSION < 212
-        cmp     byte ptr [5759h], 0
+        cmp     byte ptr [B_5759_V112], 0
         else
         cmp     byte ptr [B_A06E], 0
         endif
@@ -5592,7 +5592,7 @@ tgt_03828:
         cmp     byte ptr [B_8CD5], 0
         jz      br_03882
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_94A6], 0
         endif
@@ -5840,10 +5840,10 @@ br_03a72:
         jmp     word ptr cs:[word bx + 2eh]
 L_03fbe:
         add     al, byte ptr [bp+si]
-        add     byte ptr ds:[200h], bh
+        add     byte ptr ds:[B_01ED+7], bh
         add     al, byte ptr [bp+si]
         add     al, byte ptr [bp+si]
-        add     bh, byte ptr [3e00h]
+        add     bh, byte ptr [B_35A9+9]
         add.d0  ah, al
         push    ds
         push    es
@@ -5881,7 +5881,7 @@ TBL_03a7f:
         dw      br_03c65
         dw      br_03c65
 tgt_03ae0:
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         db      021h, 002h, 03fh, 000h, 03fh, 000h, 021h, 002h, 021h, 002h, 021h, 002h, 03fh, 000h, 03fh, 000h
         endif
@@ -5981,8 +5981,8 @@ br_03b8f:
         add     ax, 1
         adc     dx, 0
         if      FW_VERSION < 212
-        sub     ax, word ptr [51fah]
-        sbb     dx, word ptr [51fch]
+        sub     ax, word ptr [W_51FA_V112]
+        sbb     dx, word ptr [W_51FC_V112]
         endif
         mov     word ptr [W_5381], ax
         mov     word ptr [W_5383], dx
@@ -6244,7 +6244,7 @@ br_03f54:
         cmp     byte ptr [B_52AD], 0
         jz      br_03f67
         if      FW_VERSION < 212
-        mov     al, byte ptr [si + 5212h]
+        mov     al, byte ptr [si +TBL_5212_V112]
         else
         mov     al, byte ptr [si + TBL_9FAC]
         endif
@@ -6286,7 +6286,7 @@ br_03faf:
 br_03fb5:
         mov     byte ptr [B_8BE0], al
         mov     al, byte ptr [B_9D37]
-        mov     byte ptr [0ab7h], al
+        mov     byte ptr [B_0AB6+1], al
         mov     cx, 9
         mov     ax, A_0AB6
         mov     bx, B_94A6
@@ -6295,7 +6295,7 @@ br_03fb5:
         push    bx
         callf   SEG_05A0:far_05a01
         add     sp, 6
-        mov     byte ptr [0ab7h], 0
+        mov     byte ptr [B_0AB6+1], 0
         mov     bl, byte ptr [B_9D37]
         sub     bh, bh
         or      byte ptr [bx + TBL_954C], 2
@@ -6373,7 +6373,7 @@ br_0404d:
         cmp     byte ptr [B_52AD], 0
         jz      br_04060
         if      FW_VERSION < 212
-        mov     al, byte ptr [si + 5232h]
+        mov     al, byte ptr [si +TBL_5232_V112]
         else
         mov     al, byte ptr [si + TBL_9FCC]
         endif
@@ -6417,7 +6417,7 @@ br_040a8:
 br_040ae:
         mov     byte ptr [B_8BE1], al
         mov     al, byte ptr [B_9D37]
-        mov     byte ptr [0ab7h], al
+        mov     byte ptr [B_0AB6+1], al
         mov     cx, 9
         mov     ax, A_0AB6
         mov     bx, B_94A6
@@ -6426,7 +6426,7 @@ br_040ae:
         push    bx
         callf   SEG_05A0:far_05a01
         add     sp, 6
-        mov     byte ptr [0ab7h], 0
+        mov     byte ptr [B_0AB6+1], 0
         mov     bl, byte ptr [B_9D37]
         sub     bh, bh
         or      byte ptr [bx + TBL_954C], 2
@@ -6519,7 +6519,7 @@ br_04146:
         cmp     byte ptr [B_52AE], 0
         jz      br_04159
         if      FW_VERSION < 212
-        mov     al, byte ptr [si + 5252h]
+        mov     al, byte ptr [si +TBL_5252_V112]
         else
         mov     al, byte ptr [si + TBL_9FEC]
         endif
@@ -6563,7 +6563,7 @@ br_041a1:
 br_041a7:
         mov     byte ptr [B_8BE2], al
         mov     al, byte ptr [B_9D37]
-        mov     byte ptr [0ab7h], al
+        mov     byte ptr [B_0AB6+1], al
         mov     cx, 9
         mov     ax, A_0AB6
         mov     bx, B_94A6
@@ -6572,7 +6572,7 @@ br_041a7:
         push    bx
         callf   SEG_05A0:far_05a01
         add     sp, 6
-        mov     byte ptr [0ab7h], 0
+        mov     byte ptr [B_0AB6+1], 0
         mov     bl, byte ptr [B_9D37]
         sub     bh, bh
         or      byte ptr [bx + TBL_954C], 2
@@ -6623,7 +6623,7 @@ br_04237:
         cmp     byte ptr [B_5216], 0
         jz      br_04250
         if      FW_VERSION < 212
-        mov     ax, word ptr [bx + 5272h]
+        mov     ax, word ptr [bx +TBL_5272_V112]
         else
         mov     ax, word ptr [bx + TBL_A00C]
         endif
@@ -6708,7 +6708,7 @@ br_042d3:
         mov     bl, byte ptr [B_9D36]
         sub     bh, bh
         shl     bx, 1
-        mov     dx, word ptr [bx + 512eh]
+        mov     dx, word ptr [bx +TBL_512E_V112]
         endif
         mov     si, TBL_8C49
         mov     bx, 7fh
@@ -6717,7 +6717,7 @@ br_042d3:
         mov     bx, 1fh
         call    fn_04470
         if      FW_VERSION < 212
-        mov     byte ptr [8fc9h], 0
+        mov     byte ptr [B_8FC9_V112], 0
         else
         mov     byte ptr [B_8CC9], 0
         endif
@@ -6872,7 +6872,7 @@ L_045c5:
         jmp     L_045ec
         db      090h
 L_045ce:
-        mov     al, byte ptr [9019h]
+        mov     al, byte ptr [B_9019_V112]
         mov     byte ptr [B_0AC5], 0c0h
         mov     byte ptr [B_0AC6], 0
         mov     byte ptr [B_0AC7], al
@@ -6937,7 +6937,7 @@ fn_04464:
         mov     bl, byte ptr [B_9D36]
         sub     bh, bh
         shl     bx, 1
-        mov     dx, word ptr [bx + 512eh]
+        mov     dx, word ptr [bx +TBL_512E_V112]
         endif
         mov     si, TBL_8C49
         mov     bx, 7fh
@@ -7051,10 +7051,10 @@ RUN_BR_05A1A macro   {GLOBALSYMBOLS}
         cmp     byte ptr [B_A064], 0
         else
         push    di
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     br_05a33
         mov     di, 1
-        cmp     byte ptr [52e1h], 0
+        cmp     byte ptr [B_52E1_V112], 0
         endif
         jz      br_05a1a
         mov     di, 4
@@ -7149,7 +7149,7 @@ L_046de:
         if      FW_VERSION >= 212
         mov     al, byte ptr [B_52B4]
         else
-        mov     al, byte ptr [5d9bh]
+        mov     al, byte ptr [B_5D9B_V112]
         endif
         cmp     ax, si
         jnz     br_05b3f
@@ -7179,7 +7179,7 @@ br_05b61:
         if      FW_VERSION >= 212
         mov     al, byte ptr [si + TBL_509E]
         else
-        mov     al, byte ptr [si + 5cd2h]
+        mov     al, byte ptr [si +TBL_5CD2_V112]
         endif
         mov     byte ptr [di + 2], al
 br_05b68:
@@ -7488,9 +7488,9 @@ TBL_04d3e:
 far_04d5e:
         push    di
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jnz     br_04de1
-        test    byte ptr [52e1h], 1
+        test    byte ptr [B_52E1_V112], 1
         else
         mov     al, byte ptr [B_94A6]
         or      al, byte ptr [B_7E63]
@@ -7507,7 +7507,7 @@ br_04d7b:
 br_04d7e:
         mov     di, word ptr [W_A059]
         if      FW_VERSION < 212
-        mov     ax, word ptr [52d6h]
+        mov     ax, word ptr [W_52D6_V112]
         else
         mov     ax, word ptr [W_A05B]
         endif
@@ -7527,7 +7527,7 @@ br_04d8d:
         jz      br_04ddd
         push    ax
         if      FW_VERSION < 212
-        cmp     byte ptr [903fh], 88h
+        cmp     byte ptr [B_903F_V112], 88h
         else
         cmp     byte ptr [TBL_8E65], 88h
         endif
@@ -7561,7 +7561,7 @@ br_04ddd:
 br_04de1:
         mov     byte ptr [B_7E5E], 0
         if      FW_VERSION < 212
-        mov     byte ptr [52e1h], 0
+        mov     byte ptr [B_52E1_V112], 0
         else
         mov     byte ptr [B_A064], 0
         endif
@@ -7588,7 +7588,7 @@ L_04a4e:
         shr     ax, 1
         mov     si, ax
         mov     al, byte ptr [di + 2]
-        mov     byte ptr [0ae6h], al
+        mov     byte ptr [TBL_0AE2_V112+4], al
         sub     ah, ah
         add     si, ax
         mov     dx, word ptr [bp + 8]
@@ -7596,11 +7596,11 @@ L_04a4e:
         mov     bx, si
         cmp     word ptr es:[bx+si + 3010h], 0ffffh
         jz      L_04a95
-        mov     byte ptr [0ad6h], 80h
+        mov     byte ptr [L_0AD2_V112+4], 80h
         mov     byte ptr [B_869F], 0
-        mov     byte ptr [0ad8h], al
+        mov     byte ptr [L_0AD2_V112+6], al
         mov     al, byte ptr es:[si + 2810h]
-        mov     byte ptr [0ad9h], al
+        mov     byte ptr [L_0AD2_V112+7], al
         push    dx
         push    4
         push    word 0ad6h
@@ -7608,11 +7608,11 @@ L_04a4e:
         add     sp, 4
         pop     dx
 L_04a95:
-        cmp     byte ptr [0ae6h], 0
+        cmp     byte ptr [TBL_0AE2_V112+4], 0
         jnz     br_04ec0
-        mov     byte ptr [0adah], 0b0h
-        mov     byte ptr [0adbh], 0
-        mov     al, byte ptr [5d9bh]
+        mov     byte ptr [L_0AD2_V112+8], 0b0h
+        mov     byte ptr [L_0AD2_V112+9], 0
+        mov     al, byte ptr [B_5D9B_V112]
         mov     byte ptr [B_86A0], al
         mov     al, byte ptr [di + 4]
         mov     byte ptr [B_86A1], al
@@ -7636,8 +7636,8 @@ br_04ec0:
         mov     ah, byte ptr [di + 6]
         shr     ax, 1
         or      al, byte ptr [di + 5]
-        mov     word ptr [0ae4h], ax
-        add     ax, word ptr [0ae2h]
+        mov     word ptr [TBL_0AE2_V112+2], ax
+        add     ax, word ptr [TBL_0AE2_V112]
         shl     si, 1
         mov     word ptr es:[si + 3010h], ax
         mov     bx, word ptr [bp + 8]
@@ -7664,7 +7664,7 @@ L_04b24:
 L_04b2c:
         push    ax
         mov     ax, word ptr [W_856C]
-        sub     ax, word ptr [0ae4h]
+        sub     ax, word ptr [TBL_0AE2_V112+2]
         sub     word ptr [W_856C], ax
         sub     word ptr [W_856E], ax
         pop     ax
@@ -7799,7 +7799,7 @@ far_04ed4:
         mov     word ptr [W_856C], ax
         mov     word ptr [W_856E], ax
         if      FW_VERSION < 212
-        mov     word ptr [0ae2h], 0
+        mov     word ptr [TBL_0AE2_V112], 0
         mov     cx, 80h
         mov     di, 2710h
         rep stosw
@@ -7845,7 +7845,7 @@ L_04bcf:
 L_04bdf:
         mov     ax, word ptr [W_856E]
         sub     ax, word ptr [W_856C]
-        mov     word ptr [0ae2h], ax
+        mov     word ptr [TBL_0AE2_V112], ax
         retf
 L_04bea:
         push    cx
@@ -7866,13 +7866,13 @@ L_04c02:
         jnz     L_04c46
         dec     word ptr es:[si + 3010h]
         pusha
-        mov     byte ptr [0ad6h], 80h
+        mov     byte ptr [L_0AD2_V112+4], 80h
         mov     byte ptr [B_869F], 0
-        mov     byte ptr [0ad8h], 80h
-        sub     byte ptr [0ad8h], cl
+        mov     byte ptr [L_0AD2_V112+6], 80h
+        sub     byte ptr [L_0AD2_V112+6], cl
         shr     si, 1
         mov     al, byte ptr es:[si + 2810h]
-        mov     byte ptr [0ad9h], al
+        mov     byte ptr [L_0AD2_V112+7], al
         push    di
         push    4
         push    word 0ad6h
@@ -7962,7 +7962,7 @@ far_04f7e:
         jz      L_04cda
         mov     word ptr [W_856C], 0ffffh
         mov     word ptr [W_856E], 0ffffh
-        mov     word ptr [0ae2h], 0
+        mov     word ptr [TBL_0AE2_V112], 0
         mov     cx, 10h
         sub     bx, bx
 L_04c87:
@@ -7980,12 +7980,12 @@ L_04c8d:
         shr     si, 1
         shr     bx, 1
         xchg    byte ptr es:[bx+si + 2810h], al
-        mov     byte ptr [0ad6h], 80h
+        mov     byte ptr [L_0AD2_V112+4], 80h
         mov     byte ptr [B_869F], 0
         mov     ah, 80h
         sub     ah, cl
-        mov     byte ptr [0ad8h], ah
-        mov     byte ptr [0ad9h], al
+        mov     byte ptr [L_0AD2_V112+6], ah
+        mov     byte ptr [L_0AD2_V112+7], al
         push    dx
         push    4
         push    word 0ad6h
@@ -8032,7 +8032,7 @@ far_04fa0:
         push    di
         push    si
         if      FW_VERSION < 212
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         else
         cmp     byte ptr [B_7E63], 0
         jnz     br_04fde
@@ -8078,7 +8078,7 @@ br_04fde:
 br_04fe2:
         mov     bx, cx
         if      FW_VERSION < 212
-        cmp     byte ptr [bx - 7710h], 0feh
+        cmp     byte ptr [bx +TBL_88F0_V112], 0feh
         else
         cmp     byte ptr [bx + TBL_7E6C], 0feh
         endif
@@ -8093,10 +8093,10 @@ br_04fee:
 br_04ffd:
         endif
         if      FW_VERSION = 212
-        mov     byte ptr [bx + 7fech], 0ffh
+        mov     byte ptr [bx +TBL_7FEC_V212], 0ffh
         endif
         if      FW_VERSION >= 214
-        mov     byte ptr [bx - 7c94h], 0ffh
+        mov     byte ptr [bx +TBL_836C], 0ffh
         endif
         cmp     word ptr [W_A059], 0
         jz      br_05033
@@ -8120,7 +8120,7 @@ br_05033:
         cbw
         mov     si, ax
         if      FW_VERSION < 212
-        or      byte ptr [si + 50cah], 2
+        or      byte ptr [si +TBL_50CA_V112], 2
         else
         or      byte ptr [si + TBL_954C], 2
         endif
@@ -8128,9 +8128,9 @@ br_05033:
         mov     al, bl
         callf   SEG_05C6:far_05c64
         if      FW_VERSION < 212
-        mov     al, byte ptr [bx - 7710h]
+        mov     al, byte ptr [bx +TBL_88F0_V112]
         callf   SEG_05C6:far_05c64
-        mov     al, byte ptr [bx - 7590h]
+        mov     al, byte ptr [bx +TBL_8A70_V112]
         else
         mov     al, byte ptr [bx + TBL_7E6C]
         callf   SEG_05C6:far_05c64
@@ -8140,8 +8140,8 @@ br_05033:
         jz      br_05083
         callf   SEG_05C6:far_05c64
         if      FW_VERSION < 212
-        mov     byte ptr [bx - 7710h], 0ffh
-        mov     byte ptr [bx - 7590h], 0ffh
+        mov     byte ptr [bx +TBL_88F0_V112], 0ffh
+        mov     byte ptr [bx +TBL_8A70_V112], 0ffh
         else
         mov     byte ptr [bx + TBL_7E6C], 0ffh
         mov     byte ptr [bx + TBL_7FEC], 0ffh
@@ -8151,7 +8151,7 @@ br_05033:
         jmp     near br_04fd8
 br_05083:
         if      FW_VERSION < 212
-        mov     byte ptr [bx - 7710h], 0feh
+        mov     byte ptr [bx +TBL_88F0_V112], 0feh
         shl     bx, 1
         else
         mov     byte ptr [bx + TBL_7E6C], 0feh
@@ -8170,7 +8170,7 @@ br_05083:
         if      FW_VERSION < 212
         jmp     near br_04fd8
 br_050b1:
-        mov     dl, byte ptr [bx - 7590h]
+        mov     dl, byte ptr [bx +TBL_8A70_V112]
         else
         jmp     br_04fd8
 br_050b1:
@@ -8181,8 +8181,8 @@ br_050b1:
         if      FW_VERSION < 212
         jmp     br_04fd8
 br_050bd:
-        mov     byte ptr [bx - 7710h], 0ffh
-        mov     byte ptr [bx - 7590h], 0ffh
+        mov     byte ptr [bx +TBL_88F0_V112], 0ffh
+        mov     byte ptr [bx +TBL_8A70_V112], 0ffh
         else
         jmp     br_050f2
         db      090h
@@ -8211,10 +8211,10 @@ br_050f2:
         mov     bx, cx
         endif
         if      FW_VERSION = 212
-        cmp     byte ptr [bx + 7fech], 0ffh
+        cmp     byte ptr [bx +TBL_7FEC_V212], 0ffh
         endif
         if      FW_VERSION >= 214
-        cmp     byte ptr [bx - 7c94h], 0ffh
+        cmp     byte ptr [bx +TBL_836C], 0ffh
         endif
         if      FW_VERSION >= 212
         jnz     br_050fe
@@ -8244,10 +8244,10 @@ br_0512f:
         callf   SEG_05C6:far_05c64
         endif
         if      FW_VERSION = 212
-        mov     al, byte ptr [bx + 7fech]
+        mov     al, byte ptr [bx +TBL_7FEC_V212]
         endif
         if      FW_VERSION >= 214
-        mov     al, byte ptr [bx - 7c94h]
+        mov     al, byte ptr [bx +TBL_836C]
         endif
         if      FW_VERSION >= 212
         callf   SEG_05C6:far_05c64
@@ -8255,10 +8255,10 @@ br_0512f:
         callf   SEG_05C6:far_05c64
         endif
         if      FW_VERSION = 212
-        mov     byte ptr [bx + 7fech], 0ffh
+        mov     byte ptr [bx +TBL_7FEC_V212], 0ffh
         endif
         if      FW_VERSION >= 214
-        mov     byte ptr [bx - 7c94h], 0ffh
+        mov     byte ptr [bx +TBL_836C], 0ffh
         endif
         if      FW_VERSION >= 212
         shl     bx, 1
@@ -8271,7 +8271,7 @@ br_0512f:
 fn_0517d:
         mov     dx, word ptr [bx + TBL_806C]
         if      FW_VERSION < 212
-        sub     dx, word ptr [bx - 7690h]
+        sub     dx, word ptr [bx +TBL_8970_V112]
         else
         sub     dx, word ptr [bx + TBL_7EEC]
         endif
@@ -8498,8 +8498,8 @@ br_057f4:
         mov     al, byte ptr [bx + TBL_52B1]
         cmp     al, byte ptr [B_AE8C]
         else
-        mov     al, byte ptr [bx + 5c79h]
-        cmp     al, byte ptr [0aef1h]
+        mov     al, byte ptr [bx +B_5C79_V112]
+        cmp     al, byte ptr [B_AEF1_V112]
         endif
         jnc     br_0580b
         cmp     bx, 2
@@ -8533,7 +8533,7 @@ br_0580b:
         if      FW_VERSION >= 212
         mov     al, byte ptr [di + TBL_5224]
         else
-        mov     al, byte ptr [di + 5c59h]
+        mov     al, byte ptr [di +TBL_5C59_V112]
         endif
         dec     al
         mov     di, ax
@@ -8562,10 +8562,10 @@ far_0583f:
         endm
         if      FW_VERSION < 212
         RUN_FAR_0579F
-        cmp     al, byte ptr [5d9bh]
+        cmp     al, byte ptr [B_5D9B_V112]
         jnz     L_04fb8
         mov     al, byte ptr [bx + 3]
-        mov     byte ptr [0aef1h], al
+        mov     byte ptr [B_AEF1_V112], al
         mov     si, 0
 L_04fa3:
         mov     al, byte ptr [si + TBL_AE2C]
@@ -8598,7 +8598,7 @@ far_05303:
         mov     bp, sp
         if      FW_VERSION < 212
         mov     ax, word ptr [bp + 0ah]
-        cmp     byte ptr [52b5h], 0
+        cmp     byte ptr [B_52B5_V112], 0
         jz      L_04fcb
         jmp     L_050d2
 L_04fcb:
@@ -8735,12 +8735,12 @@ br_053e2:
         if      FW_VERSION >= 212
         cmp     dx, word ptr [W_94AE]
         else
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         endif
         jc      br_053fa
         jnz     br_053f0
         if      FW_VERSION < 212
-        cmp     di, word ptr [0a458h]
+        cmp     di, word ptr [W_A458_V112]
         else
         cmp     di, word ptr [W_94AC]
         endif
@@ -8755,13 +8755,13 @@ br_053fa:
         jnz     br_05410
         cmp     dx, word ptr [W_94BA]
         else
-        mov     dx, word ptr [0a45eh]
+        mov     dx, word ptr [W_A45E_V112]
         mov     es, dx
-        mov     di, word ptr [0a45ch]
+        mov     di, word ptr [W_A45C_V112]
 br_053fa:
-        cmp     di, word ptr [0a464h]
+        cmp     di, word ptr [W_A464_V112]
         jnz     br_05410
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         endif
         jnz     br_05410
         or      byte ptr [B_8D78], 4
@@ -8774,8 +8774,8 @@ br_05410:
         cmp     byte ptr [si], 0ffh
         jnz     br_05422
         if      FW_VERSION < 212
-        mov     word ptr [0a460h], di
-        mov     word ptr [0a462h], dx
+        mov     word ptr [W_A460_V112], di
+        mov     word ptr [W_A462_V112], dx
         else
         mov     word ptr [W_94B4], di
         mov     word ptr [W_94B6], dx
@@ -8809,19 +8809,19 @@ L_050d4:
         add     dx, 1000h
         mov     es, dx
 L_050ea:
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         jc      L_05102
         jnz     L_050f8
-        cmp     di, word ptr [0a458h]
+        cmp     di, word ptr [W_A458_V112]
         jc      L_05102
 L_050f8:
-        mov     dx, word ptr [0a45eh]
+        mov     dx, word ptr [W_A45E_V112]
         mov     es, dx
-        mov     di, word ptr [0a45ch]
+        mov     di, word ptr [W_A45C_V112]
 L_05102:
-        cmp     di, word ptr [0a464h]
+        cmp     di, word ptr [W_A464_V112]
         jnz     L_05116
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         jnz     L_05116
         or      byte ptr [B_8D78], 4
         jmp     L_0511e
@@ -8857,7 +8857,7 @@ br_05a44:
         mov     ax, 1
         mov     cl, bl
         shl     ax, cl
-        or      word ptr [88ddh], ax
+        or      word ptr [W_88DD_V112], ax
         mov     al, byte ptr [si]
         and     al, 0f0h
         cmp     al, 0f0h
@@ -8874,7 +8874,7 @@ L_0530a:
         jnz     br_05a92
         mov     byte ptr [si + 3], bl
 br_05a92:
-        mov     al, byte ptr [bx + 5cf2h]
+        mov     al, byte ptr [bx +TBL_5CF2_V112]
         push    ax
         push    word ptr [bp + 8]
         jmp     L_05339
@@ -8882,7 +8882,7 @@ br_05a92:
 L_0532a:
         or      al, bl
         mov     byte ptr [si + 1], al
-        mov     al, byte ptr [bx + 5cf2h]
+        mov     al, byte ptr [bx +TBL_5CF2_V112]
         push    ax
         mov     ax, word ptr [bp + 8]
         dec     ax
@@ -9833,10 +9833,10 @@ far_05bb5:
 br_05bdd:
         endif
         if      FW_VERSION = 212
-        mov     byte ptr [bx + 7fech], al
+        mov     byte ptr [bx +TBL_7FEC_V212], al
         endif
         if      FW_VERSION >= 214
-        mov     byte ptr [bx - 7c94h], al
+        mov     byte ptr [bx +TBL_836C], al
         endif
         if      FW_VERSION >= 212
         mov     byte ptr [bx + TBL_83EC], ah
@@ -9866,7 +9866,7 @@ far_05bef:
         jnz     br_05c27
         callf   SEG_04D5:far_04d5e
         if      FW_VERSION < 212
-        mov     byte ptr [52e1h], 2
+        mov     byte ptr [B_52E1_V112], 2
         else
         mov     byte ptr [B_A064], 2
         endif
@@ -9988,45 +9988,45 @@ L_05444:
         dw      L_05502
         dw      L_05512
 L_0545c:
-        mov     ax, word ptr [0a464h]
-        cmp     ax, word ptr [0a460h]
+        mov     ax, word ptr [W_A464_V112]
+        cmp     ax, word ptr [W_A460_V112]
         jnz     L_0547a_v112
-        mov     ax, word ptr [0a466h]
-        cmp     ax, word ptr [0a462h]
+        mov     ax, word ptr [W_A466_V112]
+        cmp     ax, word ptr [W_A462_V112]
         jnz     L_0547a_v112
         mov     ax, word ptr [W_94BC]
-        mov     word ptr [0a460h], ax
+        mov     word ptr [W_A460_V112], ax
         mov     ax, word ptr [W_94BE]
-        mov     word ptr [0a462h], ax
+        mov     word ptr [W_A462_V112], ax
 L_0547a_v112:
         ret
 L_0547b:
-        les     bx, dword ptr [0a464h]
+        les     bx, dword ptr [W_A464_V112]
         mov     al, byte ptr es:[bx]
         xor     ah, ah
         ret
 L_05485:
-        mov     ax, word ptr [0a464h]
-        mov     dx, word ptr [0a466h]
+        mov     ax, word ptr [W_A464_V112]
+        mov     dx, word ptr [W_A466_V112]
         ret
 L_0548d:
-        mov     word ptr [0a464h], cx
-        mov     word ptr [0a466h], bx
+        mov     word ptr [W_A464_V112], cx
+        mov     word ptr [W_A466_V112], bx
         ret
 L_05496:
-        les     si, dword ptr [0a464h]
+        les     si, dword ptr [W_A464_V112]
         call    L_0552f
-        mov     word ptr [0a464h], si
-        mov     word ptr [0a466h], dx
+        mov     word ptr [W_A464_V112], si
+        mov     word ptr [W_A466_V112], dx
         ret
 L_054a6:
         call    L_054b2
-        mov     word ptr [0a464h], si
-        mov     word ptr [0a466h], dx
+        mov     word ptr [W_A464_V112], si
+        mov     word ptr [W_A466_V112], dx
         ret
 L_054b2:
         mov     di, cx
-        les     si, dword ptr [0a464h]
+        les     si, dword ptr [W_A464_V112]
 L_054b8:
         call    L_0552f
         jnz     L_054c2
@@ -10038,9 +10038,9 @@ L_054c2:
         sub     ax, cx
         ret
 L_054c7_v112:
-        mov     bx, word ptr [0a466h]
+        mov     bx, word ptr [W_A466_V112]
         cmp     bx, word ptr [W_94BE]
-        mov     ax, word ptr [0a464h]
+        mov     ax, word ptr [W_A464_V112]
         jnz     L_054da
         cmp     ax, word ptr [W_94BC]
         jz      L_054ea
@@ -10121,15 +10121,15 @@ L_0552f:
         add     dx, 1000h
         mov     es, dx
 L_0553d:
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         jc      L_05555
         jnz     L_0554b
-        cmp     si, word ptr [0a458h]
+        cmp     si, word ptr [W_A458_V112]
         jc      L_05555
 L_0554b:
-        mov     dx, word ptr [0a45eh]
+        mov     dx, word ptr [W_A45E_V112]
         mov     es, dx
-        mov     si, word ptr [0a45ch]
+        mov     si, word ptr [W_A45C_V112]
 L_05555:
         xor     ah, ah
         ret
@@ -10152,27 +10152,27 @@ fn_05c80:
         mov     es, dx
 br_05c90:
         if      FW_VERSION < 212
-        cmp     dx, word ptr [0a45ah]
+        cmp     dx, word ptr [W_A45A_V112]
         else
         cmp     dx, word ptr [W_94AE]
         endif
         jc      br_05ca8
         jnz     br_05c9e
         if      FW_VERSION < 212
-        cmp     di, word ptr [0a458h]
+        cmp     di, word ptr [W_A458_V112]
         else
         cmp     di, word ptr [W_94AC]
         endif
         jc      br_05ca8
 br_05c9e:
         if      FW_VERSION < 212
-        mov     dx, word ptr [0a45eh]
+        mov     dx, word ptr [W_A45E_V112]
         mov     es, dx
-        mov     di, word ptr [0a45ch]
+        mov     di, word ptr [W_A45C_V112]
 br_05ca8:
-        cmp     di, word ptr [0a464h]
+        cmp     di, word ptr [W_A464_V112]
         jnz     br_05cbc
-        cmp     dx, word ptr [0a466h]
+        cmp     dx, word ptr [W_A466_V112]
         else
         mov     dx, word ptr [W_94B2]
         mov     es, dx
@@ -10196,21 +10196,21 @@ br_05cbc:
 TBL_05cc2:
         if      FW_VERSION < 212
         mov     cl, 4
-        mov     si, word ptr [0a464h]
+        mov     si, word ptr [W_A464_V112]
         shr     si, cl
-        add     si, word ptr [0a466h]
+        add     si, word ptr [W_A466_V112]
         mov     di, word ptr [W_94BC]
         shr     di, cl
-        add     di, word ptr [0a466h]
+        add     di, word ptr [W_A466_V112]
         cmp     si, di
         ja      L_055ce
-        mov     ax, word ptr [0a458h]
+        mov     ax, word ptr [W_A458_V112]
         shr     ax, cl
-        add     ax, word ptr [0a45ah]
+        add     ax, word ptr [W_A45A_V112]
         sub     ax, di
-        mov     dx, word ptr [0a45ch]
+        mov     dx, word ptr [W_A45C_V112]
         shr     dx, cl
-        add     dx, word ptr [0a45eh]
+        add     dx, word ptr [W_A45E_V112]
         sub     si, dx
         add     ax, si
         ret
@@ -10250,37 +10250,37 @@ L_055ec:
         dw      L_05652
         dw      L_05656
 L_05604:
-        mov     ax, word ptr [0a474h]
-        mov     word ptr [0a478h], ax
-        mov     ax, word ptr [0a476h]
-        mov     word ptr [0a47ah], ax
+        mov     ax, word ptr [W_A474_V112]
+        mov     word ptr [W_A478_V112], ax
+        mov     ax, word ptr [W_A476_V112]
+        mov     word ptr [W_A47A_V112], ax
         ret
 L_05611:
-        les     bx, dword ptr [0a478h]
+        les     bx, dword ptr [W_A478_V112]
         mov     al, byte ptr es:[bx]
         xor     ah, ah
         ret
 L_0561b:
-        mov     ax, word ptr [0a478h]
-        mov     dx, word ptr [0a47ah]
+        mov     ax, word ptr [W_A478_V112]
+        mov     dx, word ptr [W_A47A_V112]
         ret
 L_05623:
-        mov     word ptr [0a478h], cx
-        mov     word ptr [0a47ah], bx
+        mov     word ptr [W_A478_V112], cx
+        mov     word ptr [W_A47A_V112], bx
         ret
 L_0562c:
-        les     si, dword ptr [0a478h]
+        les     si, dword ptr [W_A478_V112]
         call    L_0565a
 L_05633:
-        mov     word ptr [0a478h], si
-        mov     word ptr [0a47ah], dx
+        mov     word ptr [W_A478_V112], si
+        mov     word ptr [W_A47A_V112], dx
         ret
 L_0563c:
         call    L_05641_v112
         jmp     L_05633
 L_05641_v112:
         mov     di, cx
-        les     si, dword ptr [0a478h]
+        les     si, dword ptr [W_A478_V112]
 L_05647:
         call    L_0565a
         mov     byte ptr [bx], al
@@ -10303,23 +10303,23 @@ L_0565a:
         add     dx, 1000h
         mov     es, dx
 L_05668:
-        cmp     dx, word ptr [0a46eh]
+        cmp     dx, word ptr [W_A46E_V112]
         jc      L_05680
         jnz     L_05676
-        cmp     si, word ptr [0a46ch]
+        cmp     si, word ptr [W_A46C_V112]
         jc      L_05680
 L_05676:
-        mov     dx, word ptr [0a472h]
+        mov     dx, word ptr [W_A472_V112]
         mov     es, dx
-        mov     si, word ptr [0a470h]
+        mov     si, word ptr [W_A470_V112]
 L_05680:
-        cmp     si, word ptr [0a474h]
+        cmp     si, word ptr [W_A474_V112]
         jnz     L_05696
-        cmp     dx, word ptr [0a476h]
+        cmp     dx, word ptr [W_A476_V112]
         jnz     L_05696
-        mov     dx, word ptr [0a47eh]
+        mov     dx, word ptr [W_A47E_V112]
         mov     es, dx
-        mov     si, word ptr [0a47ch]
+        mov     si, word ptr [W_A47C_V112]
 L_05696:
         xor     ah, ah
         ret
@@ -10521,9 +10521,15 @@ L_057d3:
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 0ffh, 0ffh, 0ffh, 0ffh, 004h, 000h, 020h, 0c0h, 004h
         db      000h, 006h, 0c0h, 0ffh, 0ffh, 0ffh, 0ffh, 078h, 000h, 00ah, 000h, 0c0h, 0d4h, 08ah, 005h, 0b0h
         db      000h, 07eh, 005h, 0ffh, 0ffh, 0ffh, 0ffh, 0cbh, 090h, 001h, 000h, 008h, 000h, 000h, 000h, 000h
+DGROUP0 equ     $+7
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 0e0h
+B_0009_V112 equ     $-DGROUP0
         db      000h, 000h, 040h, 0b0h, 000h, 07bh, 000h, 0dch, 000h, 000h, 000h, 000h, 000h, 0fbh, 003h, 0fbh
         db      003h
+L_002C_V112 equ     $-DGROUP0+12h
+L_002D_V112 equ     $-DGROUP0+13h
+L_0030_V112 equ     $-DGROUP0+16h
+L_0036_V112 equ     $-DGROUP0+1ch
         db      27h dup (000h)
         else
         db      001h, 000h, 002h, 000h, 004h, 000h, 008h, 000h, 010h, 000h, 020h, 000h, 040h, 000h, 080h, 000h
@@ -10717,6 +10723,7 @@ br_05e28:
         db      0beh, 005h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 0ffh, 0ffh, 0ffh, 0ffh
         db      004h, 000h, 021h, 0c0h, 004h, 000h, 006h, 0c0h, 0ffh, 0ffh, 0ffh, 0ffh, 078h, 000h, 00ah, 000h
         db      068h, 0cfh, 0beh, 005h, 0b0h, 000h, 0b2h, 005h, 0ffh, 0ffh, 0ffh, 0ffh, 0cbh, 090h, 001h, 000h
+DGROUP0 equ     $+0ch
         db      008h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 0dch, 000h, 000h, 000h
         db      000h, 000h, 000h, 07ah, 004h, 07ah, 004h
         endif
@@ -10733,10 +10740,15 @@ br_05e28:
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 0ffh, 0ffh, 0ffh, 0ffh, 004h, 000h, 021h, 0c0h
         db      004h, 000h, 006h, 0c0h, 0ffh, 0ffh, 0ffh, 0ffh, 078h, 000h, 00ah, 000h, 078h, 0d3h, 0f4h, 005h
         db      0b0h, 000h, 0e8h, 005h, 0ffh, 0ffh, 0ffh, 0ffh, 0cbh, 090h, 001h, 000h, 008h, 000h, 000h, 000h
+DGROUP0 equ     $+8
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 0e1h, 000h, 000h, 000h, 000h, 000h, 000h, 07fh
         db      004h, 07fh, 004h
         endif
         if      FW_VERSION >= 212
+L_0020  equ     $-DGROUP0+15h
+L_0021  equ     $-DGROUP0+16h
+L_0024  equ     $-DGROUP0+19h
+L_002A  equ     $-DGROUP0+1fh
         db      2ah dup (000h)
         endif
         db      00eh, 011h, 011h, 013h, 015h, 019h, 011h, 011h, 00eh, 004h, 00ch, 004h, 004h, 004h, 004h, 004h
@@ -10758,24 +10770,30 @@ br_05e28:
         db      011h, 011h, 011h, 011h, 00eh, 000h, 000h, 000h, 016h, 019h, 010h, 010h, 010h, 010h, 000h, 000h
         db      011h, 011h, 00ah, 004h, 00ah, 011h, 011h, 000h, 000h, 000h, 01fh, 000h, 01fh, 000h, 000h, 000h
         db      01fh, 00eh, 004h, 004h, 00eh, 01fh
+TBL_015B equ     $-DGROUP0
         db      " 0123456789ABCDEHIMNOPRSTcehiorx=", 0
         if      FW_VERSION < 212
+L_0189_V112 equ     $-DGROUP0
         db      038h, 000h, 041h, 000h, 04ah, 000h, 053h, 000h, 05ch, 000h, 065h, 000h, 06eh, 000h, 077h, 000h
         db      080h, 000h, 089h, 000h, 092h, 000h, 09bh, 000h, 0a4h, 000h, 0adh, 000h, 0b6h, 000h, 0bfh, 000h
         db      0c8h, 000h, 0d1h, 000h, 0dah, 000h, 0e3h, 000h, 0ech, 000h, 0f5h, 000h, 0feh, 000h, 007h, 001h
         db      010h, 001h, 019h, 001h, 022h, 001h, 02bh, 001h, 034h, 001h, 03dh, 001h, 046h, 001h, 04fh, 001h
+L_01C9_V112 equ     $-DGROUP0
         db      058h, 001h, 061h, 001h, 064h, 001h, 0edh, 001h, 003h, 002h, 019h, 002h, 02fh, 002h, 045h, 002h
         db      05bh, 002h, 071h, 002h, 087h, 002h, 09dh, 002h, 0b3h, 002h, 0c9h, 002h, 0dfh, 002h, 0f5h, 002h
         db      00bh, 003h, 021h, 003h, 0f8h, 000h, 004h, 001h, 002h, 002h, 001h, 004h, 001h, 004h, 021h, 004h
         else
+L_017D  equ     $-DGROUP0
         db      02ch, 000h, 035h, 000h, 03eh, 000h, 047h, 000h, 050h, 000h, 059h, 000h, 062h, 000h, 06bh, 000h
         db      074h, 000h, 07dh, 000h, 086h, 000h, 08fh, 000h, 098h, 000h, 0a1h, 000h, 0aah, 000h, 0b3h, 000h
         db      0bch, 000h, 0c5h, 000h, 0ceh, 000h, 0d7h, 000h, 0e0h, 000h, 0e9h, 000h, 0f2h, 000h, 0fbh, 000h
         db      004h, 001h, 00dh, 001h, 016h, 001h, 01fh, 001h, 028h, 001h, 031h, 001h, 03ah, 001h, 043h, 001h
+L_01BD  equ     $-DGROUP0
         db      04ch, 001h, 055h, 001h, 058h, 001h, 0e1h, 001h, 0f7h, 001h, 00dh, 002h, 023h, 002h, 039h, 002h
         db      04fh, 002h, 065h, 002h, 07bh, 002h, 091h, 002h, 0a7h, 002h, 0bdh, 002h, 0d3h, 002h, 0e9h, 002h
         db      0ffh, 002h, 015h, 003h, 0f8h, 000h, 004h, 001h, 002h, 002h, 001h, 004h, 001h, 004h, 021h, 004h
         endif
+B_01ED  equ     $-DGROUP0
         db      021h, 004h, 041h, 004h, 042h, 002h, 084h, 001h, 0f8h, 000h, 0f8h, 000h, 004h, 001h, 002h, 002h
         db      001h, 004h, 001h, 004h, 021h, 004h, 041h, 004h, 081h, 004h, 002h, 003h, 004h, 001h, 0f8h, 000h
         db      0f8h, 000h, 004h, 001h, 002h, 002h, 001h, 004h, 001h, 004h, 061h, 004h, 081h, 005h, 001h, 006h
@@ -10796,18 +10814,54 @@ br_05e28:
         db      0f8h, 000h, 0f8h, 000h, 004h, 001h, 002h, 002h, 001h, 004h, 001h, 004h, 021h, 004h, 011h, 004h
         db      009h, 004h, 006h, 002h, 004h, 001h, 0f8h, 000h, 0f8h, 000h, 004h, 001h, 002h, 002h, 001h, 004h
         db      001h, 004h, 021h, 004h, 021h, 004h, 011h, 004h, 012h, 002h, 00ch, 001h, 0f8h
+L_064C  equ     $-DGROUP0+322h
+L_0636  equ     $-DGROUP0+30ch
+L_065C  equ     $-DGROUP0+332h
+L_0646  equ     $-DGROUP0+31ch
+L_0A7F  equ     $-DGROUP0+755h
+L_0A69  equ     $-DGROUP0+73fh
+L_0643  equ     $-DGROUP0+319h
+L_062D  equ     $-DGROUP0+303h
+L_0645  equ     $-DGROUP0+31bh
+L_062F  equ     $-DGROUP0+305h
+L_064A  equ     $-DGROUP0+320h
+L_0634  equ     $-DGROUP0+30ah
+L_0656  equ     $-DGROUP0+32ch
+L_0640  equ     $-DGROUP0+316h
+L_065D  equ     $-DGROUP0+333h
+L_0647  equ     $-DGROUP0+31dh
+W_0AAB  equ     $-DGROUP0+781h
+W_0AAE  equ     $-DGROUP0+784h
+W_0AB0  equ     $-DGROUP0+786h
+W_0AB2  equ     $-DGROUP0+788h
+W_0AB4  equ     $-DGROUP0+78ah
         db      78ch dup (000h)
+B_0ABC  equ     $-DGROUP0+6
+B_0ABD  equ     $-DGROUP0+7
+B_0ABE  equ     $-DGROUP0+8
+B_0AC5  equ     $-DGROUP0+0fh
+B_0AB6  equ     $-DGROUP0
         db      0f0h, 000h, 047h, 000h, 044h, 045h, 000h, 000h, 000h, 000h, 000h, 0b0h, 000h, 07bh, 000h, 000h
         if      FW_VERSION < 212
+L_0AD2_V112 equ     $-DGROUP0
+B_869F  equ     $-DGROUP0+5
+B_86A0  equ     $-DGROUP0+0ah
+B_86A1  equ     $-DGROUP0+0bh
+W_856C  equ     $-DGROUP0+0ch
+W_856E  equ     $-DGROUP0+0eh
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
+TBL_0AE2_V112 equ     $-DGROUP0
         db      000h, 000h, 000h, 000h, 000h, 000h, 060h, 009h, 0c4h, 009h, 0b8h, 00bh, 0b5h, 00bh, 040h, 038h
         db      098h
+TBL_0AF3_V112 equ     $-DGROUP0
         db      ":PF>F", 0
+TBL_0AF9_V112 equ     $-DGROUP0
         db      02fh, 00dh, 000h, 0a0h, 0bbh, 00dh, 000h, 0c0h, 07ah, 010h, 000h, 088h, 076h, 010h, 000h, 00eh
         db      00bh, 012h, 00bh, 000h, 000h, 04eh, 04fh, 020h, 000h, 059h, 045h, 053h, 000h, 01ch, 00bh, 020h
         db      00bh, 000h, 000h, 04fh, 046h, 046h, 000h, 04fh, 04eh, 020h, 000h, 02ah, 00bh, 033h, 00bh, 000h
         db      000h
         else
+L_0AC6  equ     $-DGROUP0
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 0e0h, 000h, 000h, 040h
         db      0b0h, 000h, 07bh, 000h, 0b0h, 000h, 040h, 000h, 0e6h, 00ah, 0f2h, 00ah, 0feh, 00ah, 000h, 000h
         db      "ALL EVENTS ", 0
@@ -10827,13 +10881,17 @@ br_05e28:
         db      042h, 00bh, 046h, 00bh, 000h, 000h, 042h, 050h, 04dh, 000h, 046h, 050h, 042h, 000h, 054h, 00bh
         db      05bh, 00bh, 062h, 00bh, 069h, 00bh, 000h, 000h, 032h, 034h, 020h, 020h, 020h, 020h, 000h, 032h
         else
+TBL_0B6A equ     $-DGROUP0
         db      070h, 00bh, 074h, 00bh, 000h, 000h, 042h, 050h, 04dh, 000h, 046h, 050h, 042h, 000h, 082h, 00bh
         db      089h, 00bh, 090h, 00bh, 097h, 00bh, 000h, 000h, 032h, 034h, 020h, 020h, 020h, 020h, 000h, 032h
         endif
         db      035h, 020h, 020h, 020h, 020h, 000h, 033h, 030h, 020h, 020h, 020h, 020h, 000h
         db      "30DROP", 0
+TBL_0B9E equ     $-DGROUP0
+TBL_0BA8 equ     $-DGROUP0+0ah
         db      02ch, 001h, 030h, 000h, 032h, 000h, 03ch, 000h, 03ch, 000h, 0b8h, 00bh, 0e0h, 001h, 0f4h, 001h
         if      FW_VERSION < 212
+L_0B80_V112 equ     $-DGROUP0
         db      058h, 002h, 058h, 002h, 0c6h, 00bh, 0cbh, 00bh, 0d0h, 00bh, 0d5h, 00bh, 0dah, 00bh, 0dfh, 00bh
         db      0e4h, 00bh, 0e9h, 00bh, 0eeh, 00bh, 0f3h, 00bh, 0f8h, 00bh, 0fdh, 00bh, 002h, 00ch, 007h, 00ch
         db      00ch, 00ch, 011h, 00ch, 016h, 00ch, 01bh, 00ch, 020h, 00ch, 025h, 00ch, 02ah, 00ch, 02fh, 00ch
@@ -10841,6 +10899,7 @@ br_05e28:
         db      05ch, 00ch, 061h, 00ch, 000h, 000h
         else
         db      058h, 002h, 058h, 002h, 0bch, 00bh, 0beh, 00bh, 0c0h, 00bh, 0c2h, 00bh, 000h, 000h, 041h, 000h
+L_0BBE  equ     $-DGROUP0
         db      042h, 000h, 043h, 000h, 044h, 000h, 006h, 00ch, 00bh, 00ch, 010h, 00ch, 015h, 00ch, 01ah, 00ch
         db      01fh, 00ch, 024h, 00ch, 029h, 00ch, 02eh, 00ch, 033h, 00ch, 038h, 00ch, 03dh, 00ch, 042h, 00ch
         db      047h, 00ch, 04ch, 00ch, 051h, 00ch, 056h, 00ch, 05bh, 00ch, 060h, 00ch, 065h, 00ch, 06ah, 00ch
@@ -10880,18 +10939,24 @@ br_05e28:
         db      "DR15", 0
         db      "DR16", 0
         if      FW_VERSION < 212
+TBL_0C66_V112 equ     $-DGROUP0
         db      0aah, 00ch
         db      42h dup (000h)
         db      "NONE", 0
+L_0CAF_V112 equ     $-DGROUP0
         db      0f5h, 00ch, 0ffh, 00ch, 009h, 00dh, 013h, 00dh, 01dh, 00dh, 027h, 00dh, 031h, 00dh, 03bh, 00dh
         db      045h, 00dh, 04fh, 00dh, 059h, 00dh, 063h, 00dh, 06dh, 00dh, 077h, 00dh, 081h, 00dh, 08bh, 00dh
         db      095h, 00dh, 09fh, 00dh, 0a9h, 00dh, 0b3h, 00dh, 0bdh, 00dh, 0c7h, 00dh, 0d1h, 00dh, 0dbh, 00dh
         db      0e5h, 00dh, 0efh, 00dh, 0f9h, 00dh, 003h, 00eh, 00dh, 00eh, 017h, 00eh, 021h, 00eh, 02bh, 00eh
         db      035h, 00eh, 03fh, 00eh, 000h, 000h
         else
+TBL_0CA6 equ     $-DGROUP0
         db      0ech, 00ch
+W_0CE8  equ     $-DGROUP0+40h
+W_0CEA  equ     $-DGROUP0+42h
         db      44h dup (000h)
         db      "NONE", 0
+L_0CF1  equ     $-DGROUP0
         db      037h, 00dh, 041h, 00dh, 04bh, 00dh, 055h, 00dh, 05fh, 00dh, 069h, 00dh, 073h, 00dh, 07dh, 00dh
         db      087h, 00dh, 091h, 00dh, 09bh, 00dh, 0a5h, 00dh, 0afh, 00dh, 0b9h, 00dh, 0c3h, 00dh, 0cdh, 00dh
         db      0d7h, 00dh, 0e1h, 00dh, 0ebh, 00dh, 0f5h, 00dh, 0ffh, 00dh, 009h, 00eh, 013h, 00eh, 01dh, 00eh
@@ -10949,9 +11014,11 @@ br_05e28:
         db      "ECHO VOL ", 0
         db      "DRUM TUNE", 0
         if      FW_VERSION < 212
+TBL_0EB7_V112 equ     $-DGROUP0
         db      0d1h, 00eh, 0d2h, 00eh, 0d7h, 00eh, 0e5h, 00eh, 0f0h, 00eh, 0ffh, 00eh, 00ch, 00fh, 017h, 00fh
         db      01dh, 00fh, 028h, 00fh, 030h, 00fh, 03ch, 00fh, 000h, 000h, 000h
         else
+TBL_0EF9 equ     $-DGROUP0
         db      013h, 00fh, 014h, 00fh, 019h, 00fh, 027h, 00fh, 02eh, 00fh, 03dh, 00fh, 04ah, 00fh, 055h, 00fh
         db      05bh, 00fh, 066h, 00fh, 06eh, 00fh, 07ah, 00fh, 000h, 000h, 000h
         endif
@@ -10972,21 +11039,29 @@ br_05e28:
         db      "Tune", 0
         if      FW_VERSION < 212
         db      04bh, 00fh, 04eh, 00fh, 051h, 00fh, 054h, 00fh, 000h, 000h, 030h, 034h, 000h, 030h, 038h, 000h
+L_0F51_V112 equ     $-DGROUP0
         db      031h, 036h, 000h, 033h, 032h, 000h, 0e6h, 001h, 0e2h, 001h, 0e8h, 001h, 0c6h, 001h, 0cch, 001h
+L_0F61_V112 equ     $-DGROUP0
         db      0c0h, 001h, 0ceh, 001h, 0cah, 001h, 0ech, 001h, 0eah, 001h, 0eeh, 001h, 0c2h, 001h, 0e4h, 001h
+L_0F71_V112 equ     $-DGROUP0
         db      0c4h, 001h, 0c8h, 001h, 0e0h, 001h, 04dh, 000h, 04dh, 001h, 047h, 000h, 02fh, 000h, 046h, 001h
         db      04bh, 000h, 04bh, 001h, 04bh, 002h, 04bh, 003h, 04ah, 000h, 04ch, 001h, 04ch, 015h, 04ch, 003h
         db      04ch, 004h, 04ch, 005h, 04ch, 006h, 04ch, 007h, 04ch, 008h, 04ch, 009h, 055h, 001h, 055h, 002h
         db      055h, 003h, 055h, 004h, 055h, 005h, 055h, 006h, 055h, 007h, 055h, 008h, 053h, 001h, 049h, 000h
         db      04fh, 000h, 042h, 000h, 073h, 001h, 073h, 002h, 041h, 000h, 074h, 000h, 045h, 000h, 045h, 002h
+L_0FC1_V112 equ     $-DGROUP0
         db      045h, 003h, 052h, 000h, 000h, 000h, 060h, 040h, 030h, 020h, 018h, 010h, 00ch, 008h, 001h, 004h
+TBL_0FD1_V112 equ     $-DGROUP0
         db      001h, 004h, 004h, 001h, 001h, 060h, 0e7h, 096h, 001h, 000h, 0a0h, 086h, 001h, 000h, 085h, 045h
         db      001h, 000h, 0d9h, 045h, 001h, 000h
         else
         db      089h, 00fh, 08ch, 00fh, 08fh, 00fh, 092h, 00fh, 000h, 000h, 020h, 034h, 000h, 020h, 038h, 000h
         db      031h, 036h, 000h, 033h, 032h, 000h, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh
+L_0F9F  equ     $-DGROUP0
         db      03fh, 000h, 0e6h, 001h, 0e2h, 001h, 0e8h, 001h, 0c6h, 001h, 0cch, 001h, 0c0h, 001h, 0ceh, 001h
+L_0FAF  equ     $-DGROUP0
         db      0cah, 001h, 0ech, 001h, 0eah, 001h, 0eeh, 001h, 0c2h, 001h, 0e4h, 001h, 0c4h, 001h, 0c8h, 001h
+L_0FBF  equ     $-DGROUP0
         db      0e0h, 001h, 02fh, 000h, 041h, 000h, 042h, 000h, 045h, 000h, 045h, 002h, 045h, 003h, 046h, 001h
         endif
         if      FW_VERSION = 212
@@ -10994,9 +11069,13 @@ br_05e28:
         db      04ch, 001h, 04ch, 00bh, 04ch, 002h, 04ch, 014h, 04ch, 003h, 04ch, 004h, 04ch, 005h, 04ch, 006h
         db      04ch, 042h, 04ch, 007h, 04ch, 008h, 04dh, 000h, 04dh, 001h, 04fh, 000h, 052h, 000h, 053h, 000h
         db      053h, 001h, 073h, 001h, 073h, 002h, 073h, 003h, 074h, 000h, 055h, 002h, 055h, 003h, 055h, 004h
+L_100F_V212 equ     $-DGROUP0
         db      055h, 005h, 055h, 006h, 055h, 007h, 055h, 008h, 055h, 009h, 000h, 000h, 060h, 040h, 030h, 020h
+L_101F_V212 equ     $-DGROUP0
         db      018h, 010h, 00ch, 008h, 001h, 004h, 001h, 004h, 004h, 001h, 001h, 060h, 0e7h, 096h, 001h, 000h
+L_102F_V212 equ     $-DGROUP0
         db      0a0h, 086h, 001h, 000h, 085h, 045h, 001h, 000h, 0d9h, 045h, 001h, 000h, 0abh, 0aah, 0e6h, 096h
+L_103F_V212 equ     $-DGROUP0
         db      001h, 000h, 000h, 000h, 0a0h, 086h, 001h, 000h, 055h, 055h, 085h, 045h, 001h, 000h, 005h, 0c0h
         db      0d8h, 045h, 001h, 000h
         endif
@@ -11006,12 +11085,17 @@ br_05e28:
         db      04ch, 003h, 04ch, 004h, 04ch, 005h, 04ch, 006h, 04ch, 042h, 04ch, 007h, 04ch, 008h, 04dh, 000h
         db      04dh, 001h, 04fh, 000h, 052h, 000h, 053h, 000h, 053h, 001h, 073h, 001h, 073h, 002h, 073h, 003h
         db      074h, 000h, 055h, 002h, 055h, 003h, 055h, 004h, 055h, 005h, 055h, 006h, 055h, 007h, 055h, 008h
+L_101F  equ     $-DGROUP0
         db      055h, 009h, 000h, 000h, 060h, 040h, 030h, 020h, 018h, 010h, 00ch, 008h, 001h, 004h, 001h, 004h
+L_102F  equ     $-DGROUP0
         db      004h, 001h, 001h, 060h, 0e7h, 096h, 001h, 000h, 0a0h, 086h, 001h, 000h, 085h, 045h, 001h, 000h
+L_103F  equ     $-DGROUP0
         db      0d9h, 045h, 001h, 000h, 0abh, 0aah, 0e6h, 096h, 001h, 000h, 000h, 000h, 0a0h, 086h, 001h, 000h
         db      055h, 055h, 085h, 045h, 001h, 000h, 005h, 0c0h, 0d8h, 045h, 001h, 000h
         endif
+TBL_105B equ     $-DGROUP0
         db      "xyzuFKJLGUSlsOkA^tBC![{/}]ER", 0
+TBL_1078 equ     $-DGROUP0
         db      "ABCDEFGHIJKLMNOPQRSTUVWXYZ &", 0
         if      FW_VERSION < 212
         db      "Akai MPC60", 0
@@ -11019,6 +11103,7 @@ br_05e28:
         db      "AKAI ELECTRIC CO., LTD", 0
         db      "Version 1.12", 0
         else
+TBL_1095 equ     $-DGROUP0
         db      000h, 008h, 00ch, 008h, 018h, 008h, 024h, 008h, 030h, 008h, 03ch, 008h, 048h, 008h, 055h, 008h
         db      061h, 008h, 06dh, 008h, 07ah, 008h, 086h, 008h, 093h, 008h, 0a0h, 008h, 0ach, 008h, 0b9h, 008h
         db      0c6h, 008h, 0d3h, 008h, 0e0h, 008h, 0eeh, 008h, 0fbh, 008h, 008h, 009h, 016h, 009h, 023h, 009h
@@ -11047,6 +11132,7 @@ br_05e28:
         db      039h, 031h, 000h
         endif
         if      FW_VERSION >= 214
+TBL_11F5 equ     $-DGROUP0
         db      01ch, 016h, 03dh, 016h, 05eh, 016h, 07fh, 016h, 0a1h, 016h, 037h, 012h, 048h, 012h, 059h, 012h
         db      06ah, 012h, 07bh, 012h, 08ch, 012h, 09dh, 012h, 0aeh, 012h, 0bfh, 012h, 0d0h, 012h, 0e1h, 012h
         db      0f2h, 012h, 003h, 013h, 014h, 013h, 025h, 013h, 036h, 013h, 047h, 013h, 058h, 013h, 069h, 013h
@@ -11082,8 +11168,11 @@ br_05e28:
         db      031h, 031h, 02fh, 031h, 030h, 02fh, 039h, 031h, 000h
         endif
         if      FW_VERSION >= 212
+STR_140B equ     $-DGROUP0
         db      "Akai MPC60", 0
+STR_1416 equ     $-DGROUP0
         db      "Copyright 1987-1991", 0
+STR_142A equ     $-DGROUP0
         db      "AKAI ELECTRIC CO., LTD", 0
         endif
         if      FW_VERSION = 212
@@ -11099,7 +11188,9 @@ br_05e28:
         endif
         db      03fh, 03fh, 03fh, 03fh, 03fh, 03fh
         db      "??SET", 0
+STR_14AA equ     $-DGROUP0
         db      "SYSTEM  ALL", 0
+STR_14B6 equ     $-DGROUP0
         db      "SYSTEM  ", 0
         if      FW_VERSION < 212
         db      " function"
@@ -11108,6 +11199,7 @@ br_05e28:
         db      00ah, 000h, 00ah
         db      "(press any key to continue)", 0
         db      000h, 0deh, 010h, 0e2h, 010h, 000h, 000h, 042h, 050h, 04dh, 000h, 046h, 050h, 042h, 000h
+L_10E6_V112 equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
         db      "  Tmpo:", 0
@@ -11123,19 +11215,28 @@ br_05e28:
         db      02dh, 000h
         db      "<TrkOnOff><Solo=   ", 0
         db      "><TmpoSel><SortTrks>", 0
+L_1174_V112 equ     $-DGROUP0
         db      "(Hold drums or keys to erase)", 0
+L_1192_V112 equ     $-DGROUP0
         db      "(Hold notes to repeat)", 0
         db      "Bar:001.01.00           Time=00:00:00:00", 0
+L_11D2_V112 equ     $-DGROUP0
         db      04fh, 046h, 046h, 000h, 04fh, 04eh, 020h, 000h
         db      "(off)   ", 0
+L_11E3_V112 equ     $-DGROUP0
         db      "Drums   ", 0
+L_11EC_V112 equ     $-DGROUP0
         db      03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 020h, 028h, 04eh, 065h, 078h, 074h
         db      020h, 053h, 065h, 071h, 075h, 065h, 06eh, 063h, 065h, 03ah, 025h, 032h, 064h, 029h, 020h, 03dh
         db      03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 000h
+L_1216_V112 equ     $-DGROUP0
         db      "Play/Record (Record Ready)", 0
+L_1231_V112 equ     $-DGROUP0
         db      "Play/Record", 0
+L_123D_V112 equ     $-DGROUP0
         db      000h, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 020h
         db      045h, 063h, 068h, 06fh, 020h, 04dh, 069h, 078h, 065h, 072h, 020h, 03dh, 03dh, 03dh, 03dh, 03dh
+TBL_125D_V112 equ     $-DGROUP0
         db      03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 000h, 000h, 06eh, 012h, 072h, 012h, 000h
         db      000h, 042h, 050h, 04dh, 000h, 046h, 050h, 042h, 000h, 088h, 012h, 09fh, 012h, 0b6h, 012h, 0cdh
         db      012h, 0e4h, 012h, 0fbh, 012h, 012h, 013h, 029h, 013h, 000h, 000h
@@ -11162,31 +11263,50 @@ br_05e28:
         endif
 
 RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
+L_321F  equ     $-DGROUP0
+STR_321F equ     $-DGROUP0
         db      "Tempo", 0
+STR_3225 equ     $-DGROUP0
         db      "Tempo Source Select:", 0
+STR_323A equ     $-DGROUP0
         db      "Sequence:", 0
+STR_3244 equ     $-DGROUP0
         db      "        Master:", 0
+STR_3254 equ     $-DGROUP0
         db      "Display Mode", 0
+STR_3261 equ     $-DGROUP0
         db      "BPM/FPB:", 0
         if      FW_VERSION >= 212
+STR_326A equ     $-DGROUP0
         db      "           Frames/sec:", 0
+STR_3281 equ     $-DGROUP0
         db      "Other", 0
+STR_3287 equ     $-DGROUP0
         db      "Tap averaging:", 0
         else
         db      "           Frames/Sec:", 0
         db      "Other", 0
         db      "Tap Averaging:", 0
         endif
+STR_3296 equ     $-DGROUP0
         db      "<SyncScreen><TempoChanges>", 0
+STR_32B1 equ     $-DGROUP0
         db      "Sync Input Settings", 0
+STR_32C5 equ     $-DGROUP0
         db      "Mode:", 0
         if      FW_VERSION >= 212
+STR_32CB equ     $-DGROUP0
         db      "Shift sync early(ms):", 0
+STR_32E1 equ     $-DGROUP0
         db      "Midi in:", 0
+STR_32EA equ     $-DGROUP0
         db      "Sequence starts at SMPTE#:", 0
         db      03ah, 000h, 03ah, 000h, 03ah, 000h, 02eh, 000h
+STR_330D equ     $-DGROUP0
         db      "SMPTE accuracy:", 0
+STR_331D equ     $-DGROUP0
         db      "Midi in:", 0
+STR_3326 equ     $-DGROUP0
         db      "Shift sync early(ms):", 0
         else
         db      "Sequence Starts at SMPTE# ", 0
@@ -11194,28 +11314,41 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         db      "Shift sync early (msec):", 0
         db      "     Midi In:", 0
         endif
+STR_333C equ     $-DGROUP0
         db      "1/4 click sync starts at:", 0
+STR_3356 equ     $-DGROUP0
         db      "Sync Output Settings", 0
+STR_336B equ     $-DGROUP0
         db      "Mode:", 0
         if      FW_VERSION >= 212
+STR_3371 equ     $-DGROUP0
         db      "Midi clock:", 0
         else
         db      "         Midi Clock:", 0
         endif
+STR_337D equ     $-DGROUP0
         db      "<GenSMPTE>", 0
+STR_3388 equ     $-DGROUP0
         db      "Mid Sequence Tempo Changes", 0
         if      FW_VERSION >= 212
+STR_33A3 equ     $-DGROUP0
         db      "Tempo changes:", 0
         else
         db      "Tempo Changes:", 0
         endif
+STR_33B2 equ     $-DGROUP0
         db      "Location for inserted change: ", 0
+STR_33D1 equ     $-DGROUP0
         db      "Change#: Bar#:       %Change:  Tempo:", 0
         db      020h, 020h, 000h, 000h, 02eh, 000h
+STR_33FD equ     $-DGROUP0
         db      "<Insert New> <Delete> <Previous> <Next>", 0
+STR_3425 equ     $-DGROUP0
         db      025h
         db      "3d.%d %s", 0
+STR_342F equ     $-DGROUP0
         db      "Generate SMPTE", 0
+STR_343E equ     $-DGROUP0
         db      "Start=", 0
         db      03ah, 000h, 03ah, 000h, 03ah, 000h
         endm
@@ -11224,6 +11357,7 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         db      "    Frames/Sec:", 0
         db      "<Start>   <Stop>", 0
         db      025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 02dh
+W_15DB_V112 equ     $-DGROUP0
         db      02dh, 000h, 000h, 0e0h, 015h
         db      "(no files)", 0
         db      000h, 000h, 000h, 000h, 000h
@@ -11241,6 +11375,7 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION >= 214
 
+TBL_14BF equ     $-DGROUP0
         db      000h, 0d0h, 014h, 0d4h, 014h, 0d8h, 014h, 0dch, 014h, 0e0h, 014h, 0e4h, 014h, 0e8h, 014h, 000h
         db      000h, 053h, 045h, 054h, 000h, 053h, 04eh, 044h, 000h, 053h, 045h, 051h, 000h, 041h, 04ch, 04ch
         db      000h, 050h, 041h, 052h, 000h, 053h, 054h, 031h, 000h, 053h, 054h, 032h, 000h
@@ -11248,13 +11383,18 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         db      "(no files)", 0
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
+STR_1503 equ     $-DGROUP0
         db      "Disk", 0
+STR_1508 equ     $-DGROUP0
         db      "1)Save a sequence  2)Save all seqs/songs", 0
+STR_1531 equ     $-DGROUP0
         db      "3)Save a sound     4)Save all sounds", 0
+STR_1556 equ     $-DGROUP0
         db      "5)Save parameters  6)Load/erase/rename", 0
         endif
         if      FW_VERSION = 212
         db      "7)Format disk      8)Copy a disk", 0
+L_1328_V212 equ     $-DGROUP0
         db      "Load/Erase/Rename Files", 0
         db      "Select file, then press <Load it>:", 0
         db      "File: ", 0
@@ -11295,6 +11435,7 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         db      025h, 033h, 064h, 000h, 000h, 025h, 030h, 032h, 064h, 000h, 025h, 030h, 032h, 064h, 000h
         db      "(This will take up to 10 minutes.)", 0
         db      "Formatting hard disk...", 0
+L_164D  equ     $-DGROUP0
         db      "Load/Erase/Rename Files", 0
         db      "Select file, then press <Load>:", 0
         db      000h
@@ -11307,24 +11448,35 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         db      "Size:%5uKB", 0
         endif
         if      FW_VERSION >= 212
+STR_16F8 equ     $-DGROUP0
         db      "Load a Sound File (.SND)", 0
         db      "Select the drum to load the selected"
         db      00ah
         db      "sound into: ", 0
         endif
+STR_1743 equ     $-DGROUP0
         db      "<Load file>", 0
+STR_174F equ     $-DGROUP0
         db      "loading...   ", 0
+STR_175D equ     $-DGROUP0
         db      "Load a Sequence File (.SEQ)", 0
+STR_1779 equ     $-DGROUP0
         db      "Sequence number to load into: ", 0
+STR_1798 equ     $-DGROUP0
         db      "<Load file>", 0
+STR_17A4 equ     $-DGROUP0
         db      "loading...     ", 0
+STR_17B4 equ     $-DGROUP0
         db      "Load All Seqs and Songs (.ALL)", 0
         db      "This will erase all sequences and songs"
         db      00ah
         db      "currently in memory!", 0
+STR_1810 equ     $-DGROUP0
         db      "<Load file>", 0
+STR_181C equ     $-DGROUP0
         db      "loading file ... ", 0
         if      FW_VERSION >= 212
+STR_182E equ     $-DGROUP0
         db      "Load a Parameter File (.PAR)", 0
         db      "This will replace all existing system"
         db      00ah, 000h
@@ -11332,19 +11484,31 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         db      00ah, 000h
         db      "which are normally retained while power"
         db      00ah, 000h
+STR_18C2 equ     $-DGROUP0
         db      "is off.)", 0
+STR_18CB equ     $-DGROUP0
         db      "<Load file>", 0
+STR_18D7 equ     $-DGROUP0
         db      "loading...     ", 0
         endif
+STR_18E7 equ     $-DGROUP0
         db      "Erase a File", 0
+STR_18F4 equ     $-DGROUP0
         db      "Erase the file: ", 0
         db      020h, 03fh, 000h
+STR_1908 equ     $-DGROUP0
         db      "<Erase it>", 0
+STR_1913 equ     $-DGROUP0
         db      "Erasing file ...", 0
+STR_1924 equ     $-DGROUP0
         db      "Rename a File", 0
+STR_1932 equ     $-DGROUP0
         db      "Rename the file: ", 0
+STR_1944 equ     $-DGROUP0
         db      "to the new name: ", 0
+STR_1956 equ     $-DGROUP0
         db      "<Rename it>", 0
+STR_1962 equ     $-DGROUP0
         db      "Renaming file ...", 0
         if      FW_VERSION < 214
         db      "Format Disk", 0
@@ -11359,7 +11523,9 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         db      "Format a Floppy Disk", 0
         db      "This will erase the entire disk!", 0
         endif
+STR_1A0B equ     $-DGROUP0
         db      "<Format it>", 0
+STR_1A17 equ     $-DGROUP0
         db      "Formatting...", 0
         if      FW_VERSION < 212
         db      02ch, 01ah
@@ -11374,26 +11540,38 @@ RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
         endif
 
 RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
+STR_2E85 equ     $-DGROUP0
         db      "Save All Sequences & Songs", 0
+STR_2EA0 equ     $-DGROUP0
         db      ".ALL", 0
+STR_2EA5 equ     $-DGROUP0
+L_2EA5  equ     $-DGROUP0
         db      "ALL_SEQS", 0
+L_2EAE  equ     $-DGROUP0
         db      "Name 'ALL' file to save:"
         db      00ah, 000h
         if      FW_VERSION >= 212
+STR_2EC8 equ     $-DGROUP0
         db      "Save a Sound", 0
         else
         db      "Save Sound", 0
         endif
+STR_2ED5 equ     $-DGROUP0
         db      ".SND", 0
+STR_2EDA equ     $-DGROUP0
         db      "Select sound to save:     Drum:", 0
+STR_2EFA equ     $-DGROUP0
         db      "Name:", 0
         if      FW_VERSION < 212
         db      "(The first 8 letters of the sound name"
         db      00ah
         db      " will be used as the file name.)", 0
         endif
+STR_2F00 equ     $-DGROUP0
         db      "Save All Sounds", 0
+STR_2F10 equ     $-DGROUP0
         db      ".SET", 0
+STR_2F15 equ     $-DGROUP0
         db      "ALL_SNDS", 0
         db      "Name 'SET' file to save:"
         db      00ah, 000h
@@ -11422,25 +11600,36 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         elseif  FW_VERSION = 212
 
         db      "Copy a Disk", 0
+L_16D2_V212 equ     $-DGROUP0
         db      "THIS WILL ERASE ALL SEQUENCES IN MEMORY!", 0
         db      "Are you sure you want to copy a disk ?", 0
+L_1722_V212 equ     $-DGROUP0
         db      "<Yes, proceed>", 0
         db      "Copy a Disk", 0
         else
 
         db      "Copy a Floppy Disk", 0
+L_1A38  equ     $-DGROUP0
         db      "THIS WILL ERASE ALL SEQUENCES IN MEMORY!", 0
         db      "Are you sure you want to copy a disk?", 0
+L_1A87  equ     $-DGROUP0
         db      "<Yes, proceed>", 0
         db      "Copy a Floppy Disk", 0
         endif
         if      FW_VERSION >= 212
+STR_1AA9 equ     $-DGROUP0
         db      "Insert disk to be copied FROM, then", 0
+STR_1ACD equ     $-DGROUP0
         db      "press <Proceed>", 0
+STR_1ADD equ     $-DGROUP0
         db      "<Proceed>", 0
+STR_1AE7 equ     $-DGROUP0
         db      "Copying source disk. Please wait...", 0
+STR_1B0B equ     $-DGROUP0
         db      "Insert disk to copy TO, then         ", 0
+STR_1B31 equ     $-DGROUP0
         db      "<Proceed>", 0
+STR_1B3B equ     $-DGROUP0
         db      "Writing destination disk. Please wait...", 0
         endif
         if      FW_VERSION = 212
@@ -11451,34 +11640,58 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION >= 212
         db      "TO BAR", 0
+L_1B79  equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
+STR_1B81 equ     $-DGROUP0
         db      " Tmpo:", 0
         db      020h, 000h
+STR_1B8A equ     $-DGROUP0
         db      "Tsig:  /     Bars:       Loop:", 0
         db      000h
+STR_1BAA equ     $-DGROUP0
         db      "Track Data", 0
+STR_1BB5 equ     $-DGROUP0
         db      "Trak:", 0
         db      02dh, 000h
+STR_1BBD equ     $-DGROUP0
         db      " Ch:", 0
         db      000h, 02dh, 000h
+STR_1BC5 equ     $-DGROUP0
         db      "Vol%:", 0
+STR_1BCB equ     $-DGROUP0
         db      "     Prog:", 0
+STR_1BD6 equ     $-DGROUP0
         db      "    Ch:", 0
         db      000h, 02dh, 000h
+STR_1BE1 equ     $-DGROUP0
         db      "<Trak=   ><Solo=   ><Tmpo=   ><SortTrks>", 0
+L_1C0A  equ     $-DGROUP0
         db      "(Hold drums or keys to erase)", 0
+L_1C28  equ     $-DGROUP0
         db      "(Hold notes to repeat)", 0
+STR_1C3F equ     $-DGROUP0
         db      03dh, 03dh, 03dh, 03dh, 03dh
         db      " Now:001.01.00 (00:00:00.00) ======", 0
+STR_1C68 equ     $-DGROUP0
+STR_1C6C equ     $-DGROUP0+4
+L_1C68  equ     $-DGROUP0
         db      04fh, 046h, 046h, 000h, 04fh, 04eh, 020h, 000h, 04fh, 046h, 046h, 000h, 04fh, 04eh, 020h, 000h
+STR_1C78 equ     $-DGROUP0
+STR_1C7C equ     $-DGROUP0+4
+STR_1C80 equ     $-DGROUP0+8
         db      04dh, 041h, 053h, 000h, 053h, 045h, 051h, 000h, 020h, 020h, 020h, 000h
+STR_1C84 equ     $-DGROUP0
         db      "(off)   ", 0
+L_1C8D  equ     $-DGROUP0
         db      "Drums   ", 0
+L_1C96  equ     $-DGROUP0
         db      03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 020h, 028h, 04eh, 065h, 078h, 074h
         db      020h, 053h, 065h, 071h, 075h, 065h, 06eh, 063h, 065h, 03ah, 025h, 032h, 064h, 029h, 020h, 03dh
         db      03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 000h
+L_1CC0  equ     $-DGROUP0
         db      "Play/Record (Record Ready)", 0
+L_1CDB  equ     $-DGROUP0
         db      "Play/Record", 0
         db      000h
         db      " function"
@@ -11507,52 +11720,93 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         db      "NONE", 0
         db      "DRUM NOTES", 0
         db      "NOTES/MIX/TUNE", 0
+STR_1D63 equ     $-DGROUP0
         db      "Midi", 0
+STR_1D68 equ     $-DGROUP0
         db      "1)Midi input filter, soft thru, other", 0
+STR_1D8E equ     $-DGROUP0
         db      "2)External drum triggering, drums chan", 0
+STR_1DB5 equ     $-DGROUP0
         db      "3)Akai ME-35T audio/midi interface", 0
+STR_1DD8 equ     $-DGROUP0
         db      "4)Turn All Notes Off", 0
+STR_1DED equ     $-DGROUP0
         db      "Midi Input Filter", 0
+STR_1DFF equ     $-DGROUP0
         db      "Event:", 0
+STR_1E06 equ     $-DGROUP0
         db      "Pass event?:", 0
         db      000h
+STR_1E14 equ     $-DGROUP0
         db      "Velocity mode:", 0
         db      "Fixed velocity:", 0
+STR_1E33 equ     $-DGROUP0
         db      "Other Midi", 0
+STR_1E3E equ     $-DGROUP0
         db      "Midi soft thru:", 0
+STR_1E4E equ     $-DGROUP0
         db      "Default chan:", 0
         db      000h
+STR_1E5D equ     $-DGROUP0
         db      "Special sustain pedal processing:", 0
+STR_1E7F equ     $-DGROUP0
         db      "<All notes off>", 0
+STR_1E8F equ     $-DGROUP0
         db      "Minimum change:", 0
+STR_1E9F equ     $-DGROUP0
         db      "Assign Incoming Notes to Drums", 0
+STR_1EBE equ     $-DGROUP0
         db      "Incoming notes play drums:", 0
+STR_1ED9 equ     $-DGROUP0
         db      "Note:", 0
         db      028h, 000h, 029h, 000h
+STR_1EE3 equ     $-DGROUP0
         db      "Plays:", 0
+STR_1EEA equ     $-DGROUP0
         db      "Assign Outgoing Drums to Notes", 0
+STR_1F09 equ     $-DGROUP0
         db      "Midi drum data sent out:", 0
+STR_1F22 equ     $-DGROUP0
         db      "Drum:", 0
+STR_1F28 equ     $-DGROUP0
         db      "Plays note:", 0
         db      028h, 000h, 029h, 000h
+STR_1F38 equ     $-DGROUP0
         db      "Other", 0
+STR_1F3E equ     $-DGROUP0
         db      "Midi drums chan:", 0
+STR_1F4F equ     $-DGROUP0
         db      "ME-35T Trigger Interface", 0
+STR_1F68 equ     $-DGROUP0
         db      "Midi in:", 0
+STR_1F71 equ     $-DGROUP0
         db      "  Out:", 0
+STR_1F78 equ     $-DGROUP0
         db      "Unit:", 0
+STR_1F7E equ     $-DGROUP0
         db      "   Unit ch:", 0
+STR_1F8A equ     $-DGROUP0
         db      "Settings for Input:", 0
         db      000h
+STR_1F9F equ     $-DGROUP0
         db      "Note:", 0
+STR_1FA5 equ     $-DGROUP0
         db      "Sensitivity:", 0
+STR_1FB2 equ     $-DGROUP0
         db      "Trigger:", 0
+STR_1FBB equ     $-DGROUP0
         db      "Capture time:", 0
+STR_1FC9 equ     $-DGROUP0
         db      "Recovery time:", 0
+STR_1FD8 equ     $-DGROUP0
         db      "'On' time:", 0
+STR_1FE3 equ     $-DGROUP0
         db      "Velocity curve:", 0
+STR_1FF3 equ     $-DGROUP0
         db      "Midi channel:", 0
+STR_2001 equ     $-DGROUP0
         db      "<Read from> <Send to>", 0
+STR_2017 equ     $-DGROUP0
         db      "Attention", 0
         db      "The ME-35T is not turned on (connected)"
         db      00ah, 000h
@@ -11560,7 +11814,10 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         db      00ah, 000h
         db      "port has been detected"
         db      00ah, 000h
+STR_208B equ     $-DGROUP0
         db      "<Cancel>", 0
+STR_2094 equ     $-DGROUP0
+L_2094  equ     $-DGROUP0
         db      028h, 025h, 073h, 029h, 000h, 000h, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh
         db      03dh, 03dh, 03dh, 03dh, 020h, 045h, 063h, 068h, 06fh, 020h, 04dh, 069h, 078h, 065h, 072h, 020h
         db      03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 000h, 000h
@@ -11592,6 +11849,7 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         db      046h, 021h, 054h, 021h, 062h, 021h, 070h, 021h, 07eh, 021h, 08ch, 021h, 09ah, 021h, 0a8h, 021h
         db      0b6h, 021h, 0c4h, 021h, 0d2h, 021h, 000h, 000h
         endif
+L_2146  equ     $-DGROUP0
         db      "PLAY/STOP    ", 0
         db      "PLAY-STRT/STP", 0
         db      "ERASE        ", 0
@@ -11609,16 +11867,25 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         db      "Other", 0
         db      "Metronome Vol:", 0
         db      "    Rate:", 0
+L_1E1C_V112 equ     $-DGROUP0
         db      "Foot1:", 0
+L_1E23_V112 equ     $-DGROUP0
         db      " Foot2:", 0
+L_1E2B_V112 equ     $-DGROUP0
         db      "Free sequence memory: %d%%", 0
         db      "<Reset to defaults>", 0
+L_1E5A_V112 equ     $-DGROUP0
         db      "Reset to Defaults", 0
+L_1E6C_V112 equ     $-DGROUP0
         db      "<Reset to defaults>", 0
+L_1E80_V112 equ     $-DGROUP0
         db      "Debug Functions", 0
         db      "Date of this version: 06/09/88", 0
+L_1EAF_V112 equ     $-DGROUP0
         db      "Voices Off Insurance:", 0
+L_1EC5_V112 equ     $-DGROUP0
         db      "Help Codes:", 0
+L_1ED1_V112 equ     $-DGROUP0
         db      "<sync>    <sounds>", 0
         elseif  FW_VERSION = 212
         db      076h, 01eh, 07ah, 01eh, 000h, 000h, 04dh, 049h, 043h, 000h
@@ -11627,31 +11894,52 @@ RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION >= 212
         db      "LINE", 0
+STR_21EF equ     $-DGROUP0
         db      "Metronome", 0
+STR_21F9 equ     $-DGROUP0
         db      "Volume:", 0
+STR_2201 equ     $-DGROUP0
         db      "   Rate:", 0
+STR_220A equ     $-DGROUP0
         db      "  In play:", 0
+STR_2215 equ     $-DGROUP0
         db      "Foot switches", 0
+L_2223  equ     $-DGROUP0
         db      "Foot1:", 0
+L_222A  equ     $-DGROUP0
         db      " Foot2:", 0
+STR_2232 equ     $-DGROUP0
         db      "Other", 0
+L_2238  equ     $-DGROUP0
         db      "Free sequence memory: %d%%", 0
+STR_2253 equ     $-DGROUP0
         db      "<Defaults><Record 16 Chs>", 0
+L_226D  equ     $-DGROUP0
         db      "Reset to Defaults", 0
+L_227F  equ     $-DGROUP0
         db      "<Reset to defaults>", 0
         db      000h
+L_2294  equ     $-DGROUP0
         db      "Debug Functions", 0
+STR_22A4 equ     $-DGROUP0
         db      "Date of this version: ", 0
+L_22BB  equ     $-DGROUP0
         db      "Voices Off Insurance:", 0
+L_22D1  equ     $-DGROUP0
         db      "Help Codes:", 0
+STR_22DD equ     $-DGROUP0
         db      "Max HiHat Decay:", 0
+L_22EE  equ     $-DGROUP0
         db      "<sync>    <sounds>", 0
         endif
 
 RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
 
+STR_2301 equ     $-DGROUP0
         db      "Sync Parameters", 0
+STR_2311 equ     $-DGROUP0
         db      "<exit>", 0
+STR_2318 equ     $-DGROUP0
         db      "Btempo:%5u  Tempo:%5u  Htempo:%5u", 0
         db      00ah
         db      "Exttick:%10lu  Exttime:%10lu", 0
@@ -11663,12 +11951,15 @@ RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
         db      "Frmnum: %10lu  Frmfrc: %10lu", 0
         db      00ah
         db      "Syncin:%d  Insync:%2d Esmpte: ", 0
+STR_23D2 equ     $-DGROUP0
         db      "Mtccnt:%3d", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_3
         endif
+STR_23DD equ     $-DGROUP0
         db      "Sound Data", 0
+STR_23E8 equ     $-DGROUP0
         db      "1) Sound Directory", 0
         db      00ah
         db      "2) Sound Mem Allocation Map", 0
@@ -11681,7 +11972,9 @@ RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
         else
         db      "3) View Sound Memory", 0
         endif
+STR_242E equ     $-DGROUP0
         db      "Sound ", 0
+STR_2435 equ     $-DGROUP0
         db      ": %-16s  Drum %2d", 0
         db      00ah
         if      FW_VERSION < 212
@@ -11694,6 +11987,7 @@ RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
         db      "abgn:%6ld  ampl: %5d  lnk:%9d", 0
         endif
         db      00ah
+L_247D  equ     $-DGROUP0
         db      "len:%7ld  decay:%6d achan:%7d", 0
         db      00ah
         if      FW_VERSION < 212
@@ -11709,13 +12003,20 @@ RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
         db      "tatk:%6d  vol:%7d  rpan:%4d=%02xh", 0
         db      00ah
         db      "tdcy:%6d  pan:%7d  lpan:%4d=%02xh", 0
+STR_2529 equ     $-DGROUP0
         db      "Sound Mem Allocation", 0
+STR_253E equ     $-DGROUP0
         db      "Index:", 0
+STR_2545 equ     $-DGROUP0
         db      "stat: %2d        snd:%2d", 0
+STR_255E equ     $-DGROUP0
         db      "start:%7ld   len:%7ld", 0
+STR_2574 equ     $-DGROUP0
         db      "START ADDRESS", 0
         db      "address = %ld [%05lxh]"
+STR_259A equ     $-DGROUP0+2
         db      00ah, 000h, 025h, 030h, 034h, 078h, 020h, 000h
+STR_25A0 equ     $-DGROUP0
         db      "%s = %ld: ", 0
         if      FW_VERSION < 212
         RUN_AFTER_BR_05E28_3
@@ -11763,7 +12064,9 @@ RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         db      "16 VOLUMES", 0
         db      "16 TUNINGS", 0
+TBL_26A6 equ     $-DGROUP0
         db      00ch, 00dh, 00eh, 00fh, 008h, 009h, 00ah, 00bh, 004h, 005h, 006h, 007h, 000h, 001h, 002h, 003h
+STR_26B6 equ     $-DGROUP0
         db      "Sounds", 0
         db      "1)Sample new sound  2)Edit a sound"
         db      00ah, 000h
@@ -11771,30 +12074,43 @@ RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
         db      00ah, 000h
         db      "5)Assign mix outs   6)Midi sample dump"
         db      00ah, 000h
+STR_272B equ     $-DGROUP0
         db      "7)Audio trigger     8)Mixer/hihat/other", 0
         endif
 
 RUN_AFTER_BR_05E28_4 macro   {GLOBALSYMBOLS}
 
+STR_2753 equ     $-DGROUP0
         db      "Assignable Mix Outputs", 0
         db      03ah, 000h
+STR_276C equ     $-DGROUP0
         db      "(0=No output assignment)", 0
+STR_2785 equ     $-DGROUP0
         db      "Mixer Modes", 0
+STR_2791 equ     $-DGROUP0
         db      "Stereo Mix:", 0
         if      FW_VERSION >= 212
         db      000h
+STR_279E equ     $-DGROUP0
         db      "Echo   Mix:", 0
         db      000h
         else
         db      "Echo Mix:", 0
         endif
+STR_27AB equ     $-DGROUP0
         db      "HiHat Decay Switch Thresholds", 0
+STR_27C9 equ     $-DGROUP0
         db      "Closed/Medium:", 0
+STR_27D8 equ     $-DGROUP0
         db      "     Medium/Open:", 0
         if      FW_VERSION >= 212
+STR_27EA equ     $-DGROUP0
         db      "Other", 0
+STR_27F0 equ     $-DGROUP0
         db      "Controller number for hihat decay:", 0
+STR_2813 equ     $-DGROUP0
         db      "Function of '16 levels':", 0
+STR_282C equ     $-DGROUP0
         db      "Rcrd live chngs:", 0
         else
         db      "Controller number for HiHat Decay:", 0
@@ -11816,7 +12132,9 @@ RUN_AFTER_BR_05E28_4 macro   {GLOBALSYMBOLS}
         db      "<Cancel>", 0
         db      "<Cancel>", 0
         endif
+STR_283D equ     $-DGROUP0
         db      "Audio Trigger (Use Sync Input)", 0
+STR_285C equ     $-DGROUP0
         db      "Plays Drum:", 0
         db      "(Triggering is only active while this"
         db      00ah
@@ -11824,72 +12142,128 @@ RUN_AFTER_BR_05E28_4 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_4
+L_28A4  equ     $-DGROUP0
         db      "Sample New Sound", 0
+L_28B5  equ     $-DGROUP0
         db      "Drum:", 0
+L_28BB  equ     $-DGROUP0
         db      "    Name:", 0
+STR_28C5 equ     $-DGROUP0
         db      "(All sequence memory, and the existing", 0
+STR_28EC equ     $-DGROUP0
         db      "drum sound for the drum to be sampled", 0
+STR_2912 equ     $-DGROUP0
         db      "into, will be erased! Are you sure you", 0
+STR_2939 equ     $-DGROUP0
         db      "want to proceed?)", 0
         endif
 
 RUN_AFTER_BR_05E28_5 macro   {GLOBALSYMBOLS}
 
+STR_294B equ     $-DGROUP0
         db      "<Proceed>", 0
+STR_2955 equ     $-DGROUP0
         db      "Sample New Sound", 0
+STR_2966 equ     $-DGROUP0
         db      "Drum:", 0
+STR_296C equ     $-DGROUP0
         db      "   Name:", 0
+STR_2975 equ     $-DGROUP0
         db      "Length(sec):", 0
+STR_2982 equ     $-DGROUP0
         db      " Pre-Record (msec):  ", 0
+STR_2998 equ     $-DGROUP0
         db      "Hear Input: ", 0
+STR_29A5 equ     $-DGROUP0
         db      "  Fadeout Time(msec):", 0
+STR_29BB equ     $-DGROUP0
         db      "Record Level:", 0
+STR_29C9 equ     $-DGROUP0
         db      "  Threshold%(T):", 0
+STR_29DA equ     $-DGROUP0
         db      "Meter:", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_5
+STR_29E1 equ     $-DGROUP0
         db      "(Record lite=ON when threshold exceeded)", 0
+L_2A0A  equ     $-DGROUP0
         db      "<Cancel>", 0
+L_2A13  equ     $-DGROUP0
         db      "(Loading sound into Sound Generator)    ", 0
+L_2A3C  equ     $-DGROUP0
         db      "<Playback> <Ready...>", 0
+STR_2A52 equ     $-DGROUP0
         db      "sound", 0
+STR_2A58 equ     $-DGROUP0
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h, 000h
+STR_2A62 equ     $-DGROUP0
         db      "Edit a Sound (page 1)", 0
+L_2A78  equ     $-DGROUP0
         db      "Drum:", 0
+L_2A7E  equ     $-DGROUP0
         db      "     Name:", 0
+STR_2A89 equ     $-DGROUP0
         db      "Double Play", 0
+STR_2A95 equ     $-DGROUP0
         db      "Also plays:", 0
+STR_2AA1 equ     $-DGROUP0
         db      "    Velsw:", 0
+STR_2AAC equ     $-DGROUP0
         db      " If over:", 0
+STR_2AB6 equ     $-DGROUP0
         db      "Data", 0
+STR_2ABB equ     $-DGROUP0
         db      "Volume%:", 0
+STR_2AC4 equ     $-DGROUP0
         db      "        Tuning:", 0
+STR_2AD4 equ     $-DGROUP0
         db      "Start (msec):", 0
+STR_2AE2 equ     $-DGROUP0
         db      "  End(msec):", 0
+STR_2AEF equ     $-DGROUP0
         db      "<Cutoff ends><Reverse> <Delete> <Page 2>", 0
+STR_2B18 equ     $-DGROUP0
         db      "Edit a Sound (page 2)", 0
+STR_2B2E equ     $-DGROUP0
         db      "Drum:", 0
+STR_2B34 equ     $-DGROUP0
         db      "     Name:", 0
+STR_2B3F equ     $-DGROUP0
         db      "Envelope", 0
+STR_2B48 equ     $-DGROUP0
         db      "Attack(msec):", 0
+STR_2B56 equ     $-DGROUP0
         db      "  Fadeout(msec):", 0
+STR_2B67 equ     $-DGROUP0
         db      "Velocity", 0
         db      "Vel>start(ms):", 0
+STR_2B7F equ     $-DGROUP0
         db      "  Vel>attack(ms):", 0
+STR_2B91 equ     $-DGROUP0
         db      "Vel>vol(0-100):", 0
+STR_2BA1 equ     $-DGROUP0
         db      "<Cutoff ends><Reverse> <Delete> <Page 1>", 0
+STR_2BCA equ     $-DGROUP0
         db      "Cutoff Ends", 0
+STR_2BD6 equ     $-DGROUP0
         db      "Reverse a Sound", 0
+STR_2BE6 equ     $-DGROUP0
         db      "Drum:", 0
         db      025h, 073h, 000h
+STR_2BEF equ     $-DGROUP0
         db      "   Name:", 0
         db      025h, 073h, 000h
+STR_2BFB equ     $-DGROUP0
         db      "Delete a Sound", 0
+STR_2C0A equ     $-DGROUP0
         db      "Drum:", 0
         db      025h, 073h, 000h
+STR_2C13 equ     $-DGROUP0
         db      "   Name:", 0
         db      025h, 073h, 000h
+STR_2C1F equ     $-DGROUP0
+L_2C1F  equ     $-DGROUP0
         db      "Reversing the sound. Please wait ...", 0
         endif
         if      FW_VERSION = 212
@@ -11901,43 +12275,78 @@ RUN_AFTER_BR_05E28_5 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         db      "STANDARD", 0
         db      053h, 039h, 030h, 030h, 000h
+STR_2C58 equ     $-DGROUP0
         db      "Midi sample dump (Receive)", 0
+STR_2C73 equ     $-DGROUP0
         db      "Midi input:", 0
+STR_2C7F equ     $-DGROUP0
         db      "       Midi output:", 0
+STR_2C93 equ     $-DGROUP0
         db      "Format:", 0
+STR_2C9B equ     $-DGROUP0
         db      "Free Mem(Smpls):%4dK", 0
+STR_2CB0 equ     $-DGROUP0
         db      "Drum:", 0
+STR_2CB6 equ     $-DGROUP0
         db      "Name:", 0
+STR_2CBC equ     $-DGROUP0
         db      "(Press <Receive> or start ext sampler)", 0
+STR_2CE3 equ     $-DGROUP0
         db      "Select sound for <Receive>", 0
+STR_2CFE equ     $-DGROUP0
         db      "Request Chan:", 0
+STR_2D0C equ     $-DGROUP0
         db      "    Request sound:", 0
+STR_2D1F equ     $-DGROUP0
         db      "<Receive> <Send/Recv>", 0
+STR_2D35 equ     $-DGROUP0
         db      025h, 032h, 064h, 000h
+STR_2D39 equ     $-DGROUP0
         db      "Erasing the above sound ...", 0
+STR_2D55 equ     $-DGROUP0
         db      "(Ready to receive Midi sample dump ...)", 0
+STR_2D7D equ     $-DGROUP0
         db      "<Cancel>", 0
+STR_2D86 equ     $-DGROUP0
         db      "Midi sample dump (Send)", 0
+STR_2D9E equ     $-DGROUP0
         db      "Midi input:", 0
+STR_2DAA equ     $-DGROUP0
         db      "       Midi output:", 0
+STR_2DBE equ     $-DGROUP0
         db      "Format:", 0
+STR_2DC6 equ     $-DGROUP0
         db      "    Send channel:", 0
+STR_2DD8 equ     $-DGROUP0
         db      "Start external sampler or press <send>", 0
+STR_2DFF equ     $-DGROUP0
         db      "Select sound for <Send>", 0
+STR_2E17 equ     $-DGROUP0
         db      "Drum:", 0
+STR_2E1F equ     $-DGROUP0+2
         db      028h, 000h, 025h, 032h, 064h, 000h, 029h, 000h
+STR_2E25 equ     $-DGROUP0
         db      " Name:", 0
+STR_2E2C equ     $-DGROUP0
         db      "<Send>    <Send/Recv>", 0
+STR_2E42 equ     $-DGROUP0
+STR_2E46 equ     $-DGROUP0+4
         db      025h, 032h, 064h, 000h, 025h, 032h, 064h, 000h
+STR_2E4A equ     $-DGROUP0
         db      "<Cancel>", 0
         db      000h
+STR_2E54 equ     $-DGROUP0
         db      "Save a Sequence", 0
+STR_2E64 equ     $-DGROUP0
         db      ".SEQ", 0
         db      "Select sequence to save:"
         db      00ah, 000h, 02dh, 000h
         RUN_AFTER_BR_05E28_2
+STR_2F38 equ     $-DGROUP0
         db      "Save Parameters", 0
+STR_2F48 equ     $-DGROUP0
         db      ".PAR", 0
+STR_2F4D equ     $-DGROUP0
         db      "PARAMS  ", 0
         db      "Name 'PAR' file to save:"
         db      00ah, 000h
@@ -11945,29 +12354,39 @@ RUN_AFTER_BR_05E28_5 macro   {GLOBALSYMBOLS}
         if      FW_VERSION = 212
         db      "Size:    K", 0
         db      "Disk space available (bytes):", 0
+L_2C29_V212 equ     $-DGROUP0
         db      "<save it to disk>", 0
         endif
         if      FW_VERSION >= 214
         db      "Size:     KB", 0
         db      "Free:", 0
+L_2F83  equ     $-DGROUP0
         db      "<save it to disk>", 0
         db      "Disk:", 0
         db      "<Select disk>", 0
         endif
         if      FW_VERSION >= 212
+STR_2FA9 equ     $-DGROUP0
         db      "saving file ...  ", 0
+STR_2FBB equ     $-DGROUP0
         db      "FILE ALREADY EXISTS.  OVERWRITE IT?     ", 0
+STR_2FE4 equ     $-DGROUP0
         db      "<yes>      <no>  ", 0
+STR_2FF6 equ     $-DGROUP0
         db      "saving file ...  ", 0
+STR_3008 equ     $-DGROUP0
         db      "<Save 1st part>", 0
+STR_3018 equ     $-DGROUP0
         db      "<Save 2nd part>", 0
         endif
         if      FW_VERSION = 212
         db      0b8h, 020h, 00dh, 006h, 098h, 000h, 03ch, 040h, 040h, 060h, 000h, 0c0h, 000h, 000h, 0e0h, 000h
         db      000h, 040h, 0d0h, 000h, 040h, 0a0h, 000h, 03ch, 040h, 0f0h, 000h, 000h, 0f0h, 000h, 047h, 000h
         db      044h, 045h, 001h, 000h, 040h, 0f0h, 000h, 047h, 000h, 044h, 045h, 002h, 000h, 040h, 0f0h, 000h
+L_2CEA_V212 equ     $-DGROUP0
         db      047h, 000h, 044h, 045h, 003h, 000h, 040h, 0b0h, 000h, 000h, 000h, 0bah, 02ch, 0beh, 02ch, 0c5h
         db      02ch, 0c8h, 02ch, 0cch, 02ch, 0cfh, 02ch, 0d3h, 02ch, 0d6h, 02ch, 0dfh, 02ch, 0e8h, 02ch, 0f1h
+L_2D0A_V212 equ     $-DGROUP0
         db      02ch, 004h, 007h, 003h, 004h, 003h, 004h, 003h, 009h, 009h, 009h, 004h
         endif
         if      FW_VERSION >= 214
@@ -11975,57 +12394,80 @@ RUN_AFTER_BR_05E28_5 macro   {GLOBALSYMBOLS}
         db      000h, 000h, 0e0h, 000h, 000h, 040h, 0d0h, 000h, 040h, 0a0h, 000h, 03ch, 040h, 0f0h, 000h, 000h
         db      0f0h, 000h, 047h, 000h, 044h, 045h, 001h, 000h, 040h, 0f0h, 000h, 047h, 000h, 044h, 045h, 002h
         db      000h, 040h, 0f0h, 000h, 047h, 000h, 044h, 045h, 003h, 000h, 040h, 0b0h, 000h, 000h, 000h
+L_3067  equ     $-DGROUP0
         db      ",00070:0>0A0E0H0Q0Z0c0"
+L_307D  equ     $-DGROUP0
         db      004h, 007h, 003h, 004h, 003h, 004h, 003h, 009h, 009h, 009h, 004h
         endif
 
 RUN_AFTER_BR_05E28_6 macro   {GLOBALSYMBOLS}
 
+STR_3088 equ     $-DGROUP0
         db      "%02d-(no more events at this location)", 0
+STR_30AF equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 02dh, 000h, 020h, 000h
+STR_30B7 equ     $-DGROUP0
         db      " Vel:", 0
+STR_30BD equ     $-DGROUP0
         db      " Dcy:", 0
         if      FW_VERSION >= 212
+STR_30C3 equ     $-DGROUP0
         db      " Tun:", 0
         endif
+STR_30C9 equ     $-DGROUP0
         db      " Vel:", 0
         db      02fh, 000h
+STR_30D1 equ     $-DGROUP0
         db      "Dur:", 0
+STR_30D6 equ     $-DGROUP0
         db      " Note:", 0
         db      000h
         if      FW_VERSION < 212
         db      " Number:", 0
         db      "        Sign:", 0
         endif
+STR_30DE equ     $-DGROUP0
         db      "Val:", 0
+STR_30E3 equ     $-DGROUP0
         db      "  Size:", 0
         if      FW_VERSION >= 212
+STR_30EB equ     $-DGROUP0
         db      " Byte:", 0
+STR_30F2 equ     $-DGROUP0
         db      " Val:", 0
         else
         db      "  Byte:", 0
         db      "  Val:", 0
         endif
+STR_30F8 equ     $-DGROUP0
         db      "Drum:", 0
+STR_30FE equ     $-DGROUP0
         db      " Drum:", 0
         if      FW_VERSION < 212
         db      "  Sign:", 0
         endif
+STR_3105 equ     $-DGROUP0
         db      "Val:", 0
+STR_310A equ     $-DGROUP0
         db      "(end of sequence)", 0
+STR_311C equ     $-DGROUP0
         db      "Unknown>", 0
+STR_3125 equ     $-DGROUP0
         db      020h, 025h, 030h, 032h, 078h, 000h
+STR_312B equ     $-DGROUP0
         db      "Val: ", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_6
         endif
         if      FW_VERSION = 212
+L_2DBF_V212 equ     $-DGROUP0
         db      000h, 0c6h, 02dh, 0cah, 02dh, 000h, 000h, 042h, 050h, 04dh, 000h, 046h, 050h, 042h, 000h, 0e0h
         db      02dh, 0e4h, 02dh, 0eah, 02dh, 0f2h, 02dh, 0fdh, 02dh, 014h, 02eh, 023h, 02eh, 029h, 02eh, 000h
         db      000h, 04fh, 046h, 046h, 000h
         endif
         if      FW_VERSION >= 214
+L_3131  equ     $-DGROUP0
         db      000h, 038h, 031h, 03ch, 031h, 000h, 000h, 042h, 050h, 04dh, 000h, 046h, 050h, 042h, 000h
         db      "R1V1"
         db      05ch
@@ -12082,43 +12524,70 @@ RUN_AFTER_BR_05E28_6 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         db      "EXACT", 0
         db      "BEFORE V2.0", 0
+TBL_321B equ     $-DGROUP0
+L_321B  equ     $-DGROUP0
         db      017h, 018h, 01dh, 01dh
         RUN_AFTER_BR_05E28
+STR_344B equ     $-DGROUP0
         db      "    Frames/sec:", 0
+STR_345B equ     $-DGROUP0
         db      "<Start>   <Stop>", 0
+STR_346C equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 02dh
+L_347C  equ     $-DGROUP0
         db      02dh, 000h, 00ch, 00dh, 00eh, 00fh, 008h, 009h, 00ah, 00bh, 004h, 005h, 006h, 007h, 000h, 001h
         db      002h, 003h
+STR_348E equ     $-DGROUP0
         db      "Tune Drums", 0
+STR_3499 equ     $-DGROUP0
         db      03ch
         db      "All=0>", 0
         db      000h
+L_34A2  equ     $-DGROUP0
         db      "Mode:", 0
+TBL_34AA equ     $-DGROUP0+2
         db      03ah, 000h, 003h, 002h, 002h, 001h, 004h, 004h, 005h, 005h, 006h, 006h, 007h, 007h, 008h, 008h
         db      008h, 008h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
         db      000h, 000h
+TBL_34CA equ     $-DGROUP0
         db      "*&'$0/-)68134579<=>?@ABCDEFGHIJK"
+TBL_34EA equ     $-DGROUP0
         db      07fh, 073h, 073h, 07fh
+TBL_350A equ     $-DGROUP0+1ch
         db      "ZZZZLLZZZZZZffffffffffffffff%@@@", 0
         db      025h, 05bh, 07fh, 000h, 025h, 05bh, 07fh, 000h, 025h, 05bh, 07fh, 040h, 040h, 040h, 040h, 040h
+TBL_352A equ     $-DGROUP0+0bh
         db      040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 026h, 07fh, 07fh
         db      "&ffff33&&3333MMMMMMMMMMMMMMMM"
+TBL_354A equ     $-DGROUP0
         db      004h, 003h, 002h, 003h, 002h, 008h, 001h, 008h, 001h, 007h, 021h, 006h, 005h, 00bh, 005h, 00ch
         db      00dh, 00eh, 009h, 00fh, 00ah, 010h, 000h, 000h, 011h, 012h, 013h, 014h, 015h, 016h, 017h, 018h
         db      019h, 01ah, 01bh, 01ch, 01dh, 01eh, 01fh
         db      " SYNTH", 0
+L_3578  equ     $-DGROUP0
         db      035h, 00ch, 07dh, 000h, 071h, 002h, 02ah, 04ah, 040h, 002h, 018h, 000h, 090h, 000h, 012h, 011h
+L_3588  equ     $-DGROUP0
+STR_358A equ     $-DGROUP0+2
         db      000h, 000h, 025h, 032h, 064h, 000h
         endif
 
 RUN_AFTER_BR_05E28_7 macro   {GLOBALSYMBOLS}
 
+STR_358E equ     $-DGROUP0
         db      "<Cancel>", 0
         db      000h
+STR_3598 equ     $-DGROUP0
         db      "(unused)        ", 0
+STR_35A9 equ     $-DGROUP0
+B_35A9  equ     $-DGROUP0
         db      "(unused)        ", 0
+STR_35BA equ     $-DGROUP0
+STR_35BE equ     $-DGROUP0+4
         db      054h, 052h, 04bh, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h
+STR_35CA equ     $-DGROUP0
+STR_35CE equ     $-DGROUP0+4
         db      053h, 045h, 051h, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h
+STR_35DA equ     $-DGROUP0
         db      "Analyzing sequence, please wait ... ", 0
         db      000h
         if      FW_VERSION >= 214
@@ -12127,88 +12596,129 @@ RUN_AFTER_BR_05E28_7 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION < 212
         db      "Recovering sequence, please wait ... ", 0
+L_3E74_V112 equ     $-DGROUP0
         db      000h, 000h
         endif
+STR_360A equ     $-DGROUP0
         db      "Help", 0
+STR_360F equ     $-DGROUP0
         db      "%c %d %d", 0
         if      FW_VERSION >= 214
+L_3618  equ     $-DGROUP0
         db      "06366696<6?6B6E6H6K6N6Q6C.", 0
         db      043h, 023h, 000h, 044h, 02eh, 000h, 044h, 023h, 000h, 045h, 02eh, 000h, 046h, 02eh, 000h, 046h
         db      023h, 000h, 047h, 02eh, 000h, 047h, 023h, 000h, 041h, 02eh, 000h, 041h, 023h, 000h, 042h, 02eh
         db      000h
         endif
         if      FW_VERSION = 212
+L_329C_V212 equ     $-DGROUP0
         db      0b4h, 032h, 0b7h, 032h, 0bah, 032h, 0bdh, 032h, 0c0h, 032h, 0c3h, 032h, 0c6h, 032h, 0c9h, 032h
         db      0cch, 032h, 0cfh, 032h, 0d2h, 032h, 0d5h, 032h, 043h, 02eh, 000h, 043h, 023h, 000h, 044h, 02eh
         db      000h, 044h, 023h, 000h, 045h, 02eh, 000h, 046h, 02eh, 000h, 046h, 023h, 000h, 047h, 02eh, 000h
         db      047h, 023h, 000h, 041h, 02eh, 000h, 041h, 023h, 000h, 042h, 02eh, 000h
         endif
         if      FW_VERSION >= 212
+STR_3654 equ     $-DGROUP0
         db      "Select option: ", 0
         else
         db      "Select Option: ", 0
         db      03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 000h, 03fh, 03fh, 03fh, 03fh
         db      03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 000h
         endif
+STR_3664 equ     $-DGROUP0
         db      "Attention!", 0
+STR_366F equ     $-DGROUP0
         db      "<Cancel>", 0
+STR_3678 equ     $-DGROUP0
         db      "[Error code: %04x]", 0
         if      FW_VERSION >= 212
         db      000h
+STR_368C equ     $-DGROUP0
         db      "Extern Sync", 0
+STR_3698 equ     $-DGROUP0
         db      "%2d/%2d   Bars:%3d", 0
         else
+TBL_3ED3_V112 equ     $-DGROUP0
         db      000h, 073h, 0cbh, 050h, 0c3h, 0c2h, 0a2h, 0ech, 0a2h
         db      "(Ext Sync) ", 0
         endif
+STR_36AB equ     $-DGROUP0
         db      "(Ext)", 0
+STR_36B1 equ     $-DGROUP0
         db      025h
         db      "3d.%d", 0
         db      02dh, 02dh, 000h
+STR_36BB equ     $-DGROUP0
         db      "%02d:%02d:%02d:%02d", 0
+STR_36CF equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 02dh
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_7
         db      02dh, 000h
+STR_36E1 equ     $-DGROUP0
         db      "(Ext)", 0
+STR_36E7 equ     $-DGROUP0
         db      025h
         db      "3d.%d", 0
         endif
 
 RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
 
+STR_36EE equ     $-DGROUP0
         db      "(unused)        ", 0
         db      000h
+STR_3700 equ     $-DGROUP0
         db      "(Receiving midi sample dump...)", 0
+STR_3720 equ     $-DGROUP0
         db      "(Converting to special data format...)", 0
         db      000h
+STR_3748 equ     $-DGROUP0
         db      "(Converting to linear data format...)", 0
+STR_376E equ     $-DGROUP0
         db      "(Sending sample data over midi ...)", 0
         if      FW_VERSION >= 212
+B_3794  equ     $-DGROUP0+2
+B_3795  equ     $-DGROUP0+3
+B_3796  equ     $-DGROUP0+4
+B_379A  equ     $-DGROUP0+8
         db      0f0h, 07eh, 000h, 000h, 000h, 0f7h, 0f0h, 07eh, 000h, 0f7h
         endif
+STR_379C equ     $-DGROUP0
         db      "(Receiving midi sample dump...)", 0
+STR_37BC equ     $-DGROUP0
         db      "(Converting to special data format...)", 0
         db      000h
+STR_37E4 equ     $-DGROUP0
         db      "(Converting to linear data format...)", 0
+STR_380A equ     $-DGROUP0
         db      "(Sending sample data over midi ...)", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_8
+STR_382E equ     $-DGROUP0
         db      "2nd Sequence", 0
+STR_383B equ     $-DGROUP0
         db      "On/Off:", 0
+STR_3843 equ     $-DGROUP0
         db      "  Sequence:", 0
         db      02dh, 000h
+STR_3851 equ     $-DGROUP0
         db      "(This sequence will play simultaneously", 0
         db      00ah
         db      " with the active sequence or song.)", 0
+STR_389E equ     $-DGROUP0
         db      "Sort Tracks", 0
+STR_38AA equ     $-DGROUP0
         db      "(Tracks between those displayed above", 0
+STR_38D0 equ     $-DGROUP0
         db      "will be renumbered.)", 0
+STR_38E5 equ     $-DGROUP0
         db      "<Execute>", 0
+STR_38EF equ     $-DGROUP0
         db      " Place track:", 0
         db      02dh, 000h
+STR_38FF equ     $-DGROUP0
         db      "before track:", 0
         endif
         if      FW_VERSION = 212
@@ -12233,20 +12743,28 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      "SUBTRACT 'VALUE' FROM EACH", 0
         db      "MULTIPLY EACH BY 'VALUE' %", 0
         db      "REPLACE EACH WITH 'VALUE'", 0
+STR_3996 equ     $-DGROUP0
         db      "Edit Sequence", 0
         db      "1)View time sign    2)Create sequence"
         db      00ah, 000h
         db      "3)Insert blank bars 4)Delete bars"
         db      00ah, 000h
+STR_39EE equ     $-DGROUP0
         db      "5)Copy all tracks   6)Copy/merge a track", 0
         db      "7)Copy a sequence   8)Convert song"
         db      00ah, 000h
+STR_3A3B equ     $-DGROUP0
         db      "9)Change bar length 0)Change veloc/dur", 0
+STR_3A62 equ     $-DGROUP0
         db      "View Time Signature", 0
         endif
+STR_3A76 equ     $-DGROUP0
         db      "<NextPage><PreviousPage>", 0
+STR_3A8F equ     $-DGROUP0
         db      "Empty sequence", 0
+STR_3A9E equ     $-DGROUP0
         db      "Bar%3d -%3d:%2d/%2d", 0
+STR_3AB2 equ     $-DGROUP0
         db      "Bar%3d -%3d:%2d/%2d", 0
         if      FW_VERSION < 212
         db      "Create New Time Sig/Number of Bars", 0
@@ -12268,49 +12786,85 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION >= 212
         db      "TO BAR", 0
+STR_3AE9 equ     $-DGROUP0
         db      "Create New Sequence", 0
+STR_3AFD equ     $-DGROUP0
         db      "Time sig:", 0
         db      02fh, 000h
+STR_3B09 equ     $-DGROUP0
         db      "       Number of bars:", 0
+STR_3B20 equ     $-DGROUP0
         db      "Loop:", 0
+STR_3B27 equ     $-DGROUP0+1
         db      000h, 020h, 020h, 020h, 000h
+STR_3B2B equ     $-DGROUP0
         db      "       Tempo:", 0
         db      020h, 000h
+STR_3B3B equ     $-DGROUP0
         db      "Midi channel for track ", 0
+STR_3B53 equ     $-DGROUP0
         db      " (0=Unused):", 0
         db      000h
+STR_3B61 equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3B6B equ     $-DGROUP0
         db      020h, 020h, 020h, 000h
         endif
+STR_3B6F equ     $-DGROUP0
         db      "Creating new format ...", 0
+STR_3B87 equ     $-DGROUP0
         db      "Insert Blank Bars", 0
+STR_3B99 equ     $-DGROUP0
         db      "Number of bars:", 0
+STR_3BA9 equ     $-DGROUP0
         db      "      Time sig: ", 0
         db      02fh, 000h
+STR_3BBC equ     $-DGROUP0
         db      "Insert before bar:", 0
+STR_3BCF equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3BD9 equ     $-DGROUP0
         db      "Inserting bars ...", 0
+STR_3BEC equ     $-DGROUP0
         db      "Delete Bars", 0
+STR_3BF8 equ     $-DGROUP0
         db      "From bar:", 0
+STR_3C02 equ     $-DGROUP0
         db      "To bar:", 0
         if      FW_VERSION < 212
         db      "(Note: Deletion of bars may affect loop-to-bar status.)", 0
         endif
+STR_3C0A equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3C14 equ     $-DGROUP0
         db      "Deleting sequence ...", 0
+STR_3C2A equ     $-DGROUP0
         db      "Deleting bars ...", 0
+STR_3C3C equ     $-DGROUP0
         db      "Copy all tracks from", 0
+STR_3C51 equ     $-DGROUP0
         db      "Sequence: ", 0
+STR_3C5C equ     $-DGROUP0
         db      "From bar:", 0
+STR_3C66 equ     $-DGROUP0
         db      "To bar:", 0
+STR_3C6E equ     $-DGROUP0
         db      "Copy all tracks to", 0
+STR_3C81 equ     $-DGROUP0
         db      "Sequence: ", 0
+STR_3C8C equ     $-DGROUP0
         db      "Copies:  ", 0
+STR_3C96 equ     $-DGROUP0
         db      "Insert before bar:", 0
+STR_3CA9 equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3CB3 equ     $-DGROUP0
         db      "Copying bars ...", 0
+STR_3CC4 equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 000h
+STR_3CC9 equ     $-DGROUP0
         db      "%02d and %02d", 0
+STR_3CD7 equ     $-DGROUP0
         db      "<Abort>", 0
         if      FW_VERSION < 212
         db      0a2h, 025h, 0aah, 025h, 000h, 000h
@@ -12322,61 +12876,99 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         endif
         db      "REPLACE", 0
         db      "MERGE  ", 0
+STR_3CF5 equ     $-DGROUP0
         db      "Copy/merge a track from", 0
+STR_3D0D equ     $-DGROUP0
         db      "Sequence: ", 0
+STR_3D18 equ     $-DGROUP0
         db      "Track:", 0
         if      FW_VERSION < 212
         db      "From bar:", 0
         db      "To bar:", 0
         else
+STR_3D1F equ     $-DGROUP0
         db      "From:", 0
+STR_3D25 equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
         endif
+STR_3D29 equ     $-DGROUP0
         db      "Copy/merge a track to", 0
+STR_3D3F equ     $-DGROUP0
         db      "Sequence: ", 0
+STR_3D4A equ     $-DGROUP0
         db      "Track:", 0
         if      FW_VERSION < 212
         db      "Copies:  ", 0
         db      "1st bar:", 0
         else
+STR_3D51 equ     $-DGROUP0
         db      "Copies:", 0
+STR_3D59 equ     $-DGROUP0
         db      "Start copy at:", 0
         endif
+STR_3D68 equ     $-DGROUP0
         db      "Mode:", 0
+STR_3D6E equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3D78 equ     $-DGROUP0
         db      "Copying track ...", 0
+STR_3D8A equ     $-DGROUP0
         db      "Copy One Sequence To Another", 0
+STR_3DA7 equ     $-DGROUP0
         db      "Copy contents of sequence:", 0
+STR_3DC2 equ     $-DGROUP0
         db      "into sequence:", 0
+STR_3DD1 equ     $-DGROUP0
         db      "(The existing contents of the des-", 0
+STR_3DF4 equ     $-DGROUP0
         db      "tination sequence will be erased!)", 0
+STR_3E17 equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3E21 equ     $-DGROUP0
         db      "Copying sequence ...", 0
+STR_3E36 equ     $-DGROUP0
         db      "Convert Song to Sequence", 0
+STR_3E4F equ     $-DGROUP0
         db      "Convert song:", 0
+STR_3E5D equ     $-DGROUP0
         db      "Into sequence:", 0
         if      FW_VERSION < 212
         db      "(the existing contents of the", 0
         else
+STR_3E6C equ     $-DGROUP0
         db      "(The existing contents of the", 0
         endif
+STR_3E8A equ     $-DGROUP0
         db      "destination sequence will be erased!)", 0
+STR_3EB0 equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3EBA equ     $-DGROUP0
         db      "Converting song ...", 0
+STR_3ECE equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 000h
+STR_3ED3 equ     $-DGROUP0
         db      "%02d and %02d", 0
+STR_3EE1 equ     $-DGROUP0
         db      "<Abort>", 0
+TBL_3EE9 equ     $-DGROUP0
+TBL_3EE9_2 equ     $-DGROUP0
         db      004h, 000h, 008h, 000h, 010h, 000h, 020h, 000h
         if      FW_VERSION < 212
         db      "Shorten / Lengthen a Bar", 0
         else
+STR_3EF1 equ     $-DGROUP0
         db      "Change Bar Length", 0
         endif
+STR_3F03 equ     $-DGROUP0
         db      "Change the time signature of bar:", 0
+STR_3F25 equ     $-DGROUP0
         db      "from       to ", 0
         db      02fh, 000h
+STR_3F36 equ     $-DGROUP0
         db      "(If the new time sig is shorter, the end", 0
+STR_3F5F equ     $-DGROUP0
         db      "of the bar is truncated; if longer,", 0
+STR_3F83 equ     $-DGROUP0
         db      "blank space is added to the end.)", 0
         if      FW_VERSION < 212
         db      "%02d/%02d", 0
@@ -12398,25 +12990,39 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      03ch, 040h, 040h, 060h, 000h, 0a0h, 000h, 03ch, 040h, 0b0h, 000h, 001h, 000h, 0c0h, 000h, 000h
         db      0d0h, 000h, 040h, 0e0h, 000h, 000h, 040h, 0f0h, 000h, 000h, 0f0h, 000h, 047h, 000h, 044h, 045h
         db      001h, 000h, 040h, 0f0h, 000h, 047h, 000h, 044h, 045h, 002h, 000h, 040h, 0f0h, 000h, 047h, 000h
+TBL_29C0_V112 equ     $-DGROUP0
         db      044h, 045h, 003h, 000h, 040h, 0f0h, 000h, 047h, 000h, 044h, 045h, 004h, 000h, 000h, 040h, 08ah
         db      029h, 08eh, 029h, 095h, 029h, 099h, 029h, 09dh, 029h, 0a0h, 029h, 0a3h, 029h, 0a7h, 029h, 0aah
+TBL_29E0_V112 equ     $-DGROUP0
         db      029h, 0b3h, 029h, 0bch, 029h, 0c5h, 029h, 004h, 007h, 004h, 004h, 003h, 003h, 004h, 003h, 009h
         db      009h, 009h, 00ah
         RUN_AFTER_BR_05E28_6
         db      000h
         else
+STR_3FA5 equ     $-DGROUP0
         db      "<Execute>", 0
+STR_3FAF equ     $-DGROUP0
         db      "Changing bar ...", 0
+STR_3FC0 equ     $-DGROUP0
         db      025h
         db      "2d/%2d", 0
+STR_3FC8 equ     $-DGROUP0
         db      "Change Velocity/Duration", 0
+STR_3FE1 equ     $-DGROUP0
         db      "Track:", 0
+STR_3FE8 equ     $-DGROUP0
         db      "   From:", 0
+STR_3FF1 equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
+STR_3FF5 equ     $-DGROUP0
         db      "Change:", 0
+STR_3FFD equ     $-DGROUP0
         db      "Value:", 0
+STR_4004 equ     $-DGROUP0
         db      "Action:", 0
+STR_400C equ     $-DGROUP0
         db      "<Execute>", 0
+STR_4016 equ     $-DGROUP0
         db      "Changing Notes ...  ", 0
         endif
         if      FW_VERSION = 212
@@ -12428,25 +13034,43 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         db      "SAME AS STEP", 0
         db      "AS PLAYED", 0
+STR_4049 equ     $-DGROUP0
         db      "Step Edit", 0
+STR_4053 equ     $-DGROUP0
         db      "<Insert> <Delete> <PlayEvent> <Options>", 0
+STR_407B equ     $-DGROUP0
         db      "Step Edit Options", 0
+STR_408D equ     $-DGROUP0
         db      "Event to insert: ", 0
+STR_409F equ     $-DGROUP0
         db      "Auto step increment on key release:", 0
+STR_40C3 equ     $-DGROUP0
         db      "Duration of recorded notes:", 0
+STR_40DF equ     $-DGROUP0
         db      "Step Edit Display Filter", 0
+STR_40F8 equ     $-DGROUP0
         db      "View:", 0
+STR_40FE equ     $-DGROUP0
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
+STR_4116 equ     $-DGROUP0+8
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h
         endif
+STR_412E equ     $-DGROUP0
         db      "Edit Loop", 0
+STR_4138 equ     $-DGROUP0
         db      "# of Bars:", 0
+STR_4143 equ     $-DGROUP0
         db      "       1st Bar:", 0
+STR_4153 equ     $-DGROUP0
         db      "<Turn It Off><Turn Off-Ignore Changes>", 0
+STR_417A equ     $-DGROUP0
         db      "Saving loop data ...", 0
+STR_418F equ     $-DGROUP0
         db      "Restoring original sequence ...", 0
+STR_41AF equ     $-DGROUP0
         db      "<Turn Loop On>", 0
+STR_41BE equ     $-DGROUP0
         db      "Analyzing sequence, please wait ...", 0
         if      FW_VERSION < 212
         db      072h, 02bh, 077h, 02bh, 000h, 000h
@@ -12459,9 +13083,12 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION >= 212
         db      "TO STEP", 0
+TBL_41F4 equ     $-DGROUP0
         db      017h, 018h, 01dh, 01dh
         endif
+STR_41F8 equ     $-DGROUP0
         db      "Song Mode", 0
+STR_4202 equ     $-DGROUP0
         db      "Song:", 0
         if      FW_VERSION < 212
         db      "    End:", 0
@@ -12486,34 +13113,59 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      02dh, 02dh, 02dh, 02dh, 02dh, 02dh, 02dh, 02dh, 000h
         else
         db      02dh, 000h
+STR_420A equ     $-DGROUP0
         db      "Loop:", 0
+STR_4211 equ     $-DGROUP0+1
         db      000h, 020h, 020h, 020h, 000h
+STR_4215 equ     $-DGROUP0
         db      "Song starts at SMPTE#:", 0
         db      03ah, 000h, 03ah, 000h, 03ah, 000h, 02eh, 000h
+STR_4234 equ     $-DGROUP0
         db      "========= Contents of Step:", 0
+STR_4250 equ     $-DGROUP0
         db      020h, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 000h
+STR_425B equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
+STR_4263 equ     $-DGROUP0
         db      "Reps(0=end): ", 0
+STR_4271 equ     $-DGROUP0
         db      "<InsertB4>  <Delete>  <Step-1>  <Step+1>", 0
+STR_429A equ     $-DGROUP0
         db      020h, 020h, 020h, 000h
+STR_429E equ     $-DGROUP0
         db      "Bars:", 0
+STR_42A4 equ     $-DGROUP0
         db      025h, 033h, 064h, 000h
+STR_42A8 equ     $-DGROUP0
         db      "Tempo:", 0
+STR_42AF equ     $-DGROUP0
         db      "(end of song)", 0
         db      000h
+STR_42BE equ     $-DGROUP0
         db      "Erase", 0
+STR_42C4 equ     $-DGROUP0
         db      "Track(0=All):", 0
+STR_42D2 equ     $-DGROUP0
         db      "From:", 0
+STR_42D8 equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
+STR_42DC equ     $-DGROUP0
         db      "Erase filter", 0
+STR_42E9 equ     $-DGROUP0
         db      "Erase:", 0
+STR_42F0 equ     $-DGROUP0
         db      "    (All notes/drums will be erased)    ", 0
+STR_4319 equ     $-DGROUP0
         db      "<Erase It><All Bars>", 0
+STR_432E equ     $-DGROUP0
         db      "Press Drums To Be Erased", 0
+STR_4347 equ     $-DGROUP0
         db      "<Erase It><All Bars><All Drums>", 0
         endif
+STR_4367 equ     $-DGROUP0
         db      "Lowest: ", 0
+STR_4370 equ     $-DGROUP0
         db      "Highest: ", 0
         if      FW_VERSION < 212
         db      "(Press 2 keys on Midi keyboard", 0
@@ -12539,8 +13191,11 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      "Erasing ...", 0
         db      000h, 076h, 02eh, 07eh, 02eh, 000h, 000h
         else
+STR_437A equ     $-DGROUP0
         db      "    (Press 2 keys to set note range)    ", 0
+STR_43A3 equ     $-DGROUP0
         db      "<Erase It><All Bars><All Notes>", 0
+STR_43C3 equ     $-DGROUP0
         db      "Erasing ...", 0
         endif
         if      FW_VERSION = 212
@@ -12567,7 +13222,10 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      "1/16 TRPLT", 0
         db      "1/32 NOTE ", 0
         db      "1/32 TRPLT", 0
+TBL_4443 equ     $-DGROUP0
+TBL_4443_2 equ     $-DGROUP0
         db      001h, 030h, 020h, 018h, 010h, 00ch, 008h
+STR_444A equ     $-DGROUP0
         db      "Timing Correct / Step Size", 0
         if      FW_VERSION < 212
         db      "Note Value:", 0
@@ -12586,29 +13244,52 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      " Out=", 0
         db      "Last Punch: In=", 0
         else
+STR_4465 equ     $-DGROUP0
         db      "Note value:", 0
+STR_4471 equ     $-DGROUP0
         db      "    Shuffle(%):", 0
+STR_4481 equ     $-DGROUP0
         db      "Shift timing:", 0
+STR_448F equ     $-DGROUP0
         db      "     Shift amount:", 0
+STR_44A2 equ     $-DGROUP0
         db      "Move Existing Notes", 0
+STR_44B6 equ     $-DGROUP0
         db      "Track(0=All):", 0
+STR_44C4 equ     $-DGROUP0
         db      "From:", 0
+STR_44CA equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
+STR_44CE equ     $-DGROUP0
         db      "<Move Existing>", 0
+STR_44DE equ     $-DGROUP0
         db      "Moving notes... (this may take a while)", 0
+STR_4506 equ     $-DGROUP0
         db      "Auto Punch", 0
+STR_4511 equ     $-DGROUP0
         db      "On/off:", 0
+STR_4519 equ     $-DGROUP0
         db      "Auto punch: In=", 0
+STR_4529 equ     $-DGROUP0
         db      " Out=", 0
+STR_452F equ     $-DGROUP0
         db      "Last punch: In=", 0
         endif
+STR_453F equ     $-DGROUP0
         db      " Out=", 0
+STR_4545 equ     $-DGROUP0
         db      "<Use 'Last'>", 0
+STR_4552 equ     $-DGROUP0
         db      "Locate", 0
+STR_4559 equ     $-DGROUP0
         db      "Press Softkeys to go to markers:", 0
+STR_457A equ     $-DGROUP0
         db      "Marker A: ", 0
+STR_4585 equ     $-DGROUP0
         db      "Marker B: ", 0
+STR_4590 equ     $-DGROUP0
         db      "Marker C: ", 0
+STR_459B equ     $-DGROUP0
         db      03ch, 047h, 06fh, 074h, 06fh, 027h, 041h, 027h, 03eh, 03ch
         db      "Goto'B'><Goto'C'><Load'Bar'>", 0
         if      FW_VERSION < 212
@@ -12666,16 +13347,23 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      "       To Bar:", 0
         db      "<Transpose Permanent>", 0
         db      "Transposing ...  ", 0
+TBL_33DA_V112 equ     $-DGROUP0
         db      0ech, 001h, 0eah, 001h, 0eeh, 001h, 0cah, 001h, 0c8h, 001h, 0cch, 001h, 0ceh, 001h, 0c6h, 001h
         db      0e4h, 001h, 0e2h, 001h, 0e6h, 001h, 0c0h, 001h, 0e8h, 001h, 0c2h, 001h, 0c4h, 001h, 0e0h, 001h
+TBL_33FA_V112 equ     $-DGROUP0
         db      003h, 002h, 002h, 001h, 004h, 004h, 005h, 005h, 006h, 006h, 007h, 007h, 008h, 008h, 008h, 008h
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
+TBL_341A_V112 equ     $-DGROUP0
         db      "*&'$0/-)68134579<=>?@ABCDEFGHIJK"
+TBL_343A_V112 equ     $-DGROUP0
         db      07fh, 073h, 073h, 07fh
+TBL_343E_V112 equ     $-DGROUP0
         db      "ZZZZLLZZZZZZffffffffffffffff%@@@", 0
         db      025h, 05bh, 07fh, 000h, 025h, 05bh, 07fh, 000h, 025h, 05bh, 07fh, 040h, 040h, 040h, 040h, 040h
+TBL_346F_V112 equ     $-DGROUP0
         db      040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 026h, 07fh, 07fh
         db      "&ffff33&&3333MMMMMMMMMMMMMMMM"
+TBL_349A_V112 equ     $-DGROUP0
         db      004h, 003h, 002h, 003h, 002h, 008h, 001h, 008h, 001h, 007h, 001h, 006h, 005h, 00bh, 005h, 00ch
         db      00dh, 00eh, 009h, 00fh, 00ah, 010h, 000h, 000h, 011h, 012h, 013h, 014h, 015h, 016h, 017h, 018h
         db      019h, 01ah, 01bh, 01ch, 01dh, 01eh, 01fh
@@ -12687,6 +13375,7 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      035h, 026h, 035h, 000h, 000h, 037h, 04ch, 000h, 036h, 04ch, 000h, 035h, 04ch, 000h, 034h, 04ch
         db      000h, 033h, 04ch, 000h, 032h, 04ch, 000h, 031h, 04ch, 000h, 043h, 020h, 000h, 031h, 052h, 000h
         db      032h, 052h, 000h, 033h, 052h, 000h, 034h, 052h, 000h, 035h, 052h, 000h, 036h, 052h, 000h, 037h
+L_3527_V112 equ     $-DGROUP0
         db      052h, 000h, 00ch, 00dh, 00eh, 00fh, 008h, 009h, 00ah, 00bh, 004h, 005h, 006h, 007h, 000h, 001h
         db      002h, 003h
         db      "Sounds", 0
@@ -12709,8 +13398,11 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      "Drum:", 0
         db      "            Also Plays:", 0
         db      "<DeleteSound>", 0
+L_3693_V112 equ     $-DGROUP0
         db      "Sample New Sound", 0
+L_36A4_V112 equ     $-DGROUP0
         db      "Drum:", 0
+L_36AA_V112 equ     $-DGROUP0
         db      "    Name:", 0
         db      "All sequence memory, and the existing", 0
         db      "drum sound for the drum to be sampled", 0
@@ -12718,11 +13410,16 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      "want to proceed?", 0
         RUN_AFTER_BR_05E28_5
         db      "(Record light=ON when threhold exceeded)", 0
+L_37F7_V112 equ     $-DGROUP0
         db      "<Cancel>", 0
+L_3800_V112 equ     $-DGROUP0
         db      "(Loading sound into Sound Generator)    ", 0
+L_3829_V112 equ     $-DGROUP0
         db      "<Playback> <Ready...>", 0
         db      "Edit a Sound", 0
+L_384C_V112 equ     $-DGROUP0
         db      "Drum:", 0
+L_3852_V112 equ     $-DGROUP0
         db      "     Name:", 0
         db      "Start(msec):", 0
         db      "   End(msec):", 0
@@ -12734,10 +13431,13 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      03ch, 020h, 02bh
         db      " / - >  <All=0>", 0
         db      000h
+L_38CB_V112 equ     $-DGROUP0
         db      "Mode:", 0
         db      03ah, 000h, 02bh, 000h, 02dh, 000h
         RUN_AFTER_BR_05E28_4
+L_3B28_V112 equ     $-DGROUP0
         db      035h, 00ch, 07dh, 000h, 071h, 002h, 02ah, 04ah, 040h, 002h, 018h, 000h, 090h, 000h, 012h, 011h
+TBL_3B38_V112 equ     $-DGROUP0
         db      006h, 008h, 00ch, 008h, 018h, 008h, 024h, 008h, 030h, 008h, 03ch, 008h, 048h, 008h, 055h, 008h
         db      061h, 008h, 06dh, 008h, 07ah, 008h, 086h, 008h
         phase   4060h
@@ -12766,76 +13466,128 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_05E28_8
         db      025h, 032h, 064h, 000h
         RUN_AFTER_BR_05E28_7
+TBL_5516 equ     $-DGROUP0+2
         db      02dh, 000h, 000h, 003h, 006h, 009h, 00ch, 00fh, 012h, 015h, 018h, 01bh, 01fh, 022h
         else
+STR_45C2 equ     $-DGROUP0
         db      "Transpose", 0
+STR_45CC equ     $-DGROUP0
         db      "Track(0=All):", 0
+STR_45DA equ     $-DGROUP0
         db      "Amount:", 0
+STR_45E2 equ     $-DGROUP0
         db      "(Play synth key to set amount)", 0
+STR_4601 equ     $-DGROUP0
         db      "Transpose Permanent", 0
+STR_4615 equ     $-DGROUP0
         db      "From:", 0
+STR_461B equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
+STR_461F equ     $-DGROUP0
         db      "<Transpose permanent>", 0
+STR_4635 equ     $-DGROUP0
         db      "Transposing ...  ", 0
+TBL_4648 equ     $-DGROUP0+1
         db      000h, 0ech, 001h, 0eah, 001h, 0eeh, 001h, 0cah, 001h, 0c8h, 001h, 0cch, 001h, 0ceh, 001h, 0c6h
         db      001h, 0e4h, 001h, 0e2h, 001h, 0e6h, 001h, 0c0h, 001h, 0e8h, 001h, 0c2h, 001h, 0c4h, 001h, 0e0h
         db      001h
+STR_4668 equ     $-DGROUP0
         db      "Record All 16 Channels", 0
+STR_467F equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
+STR_4687 equ     $-DGROUP0
         db      "Time sig: ", 0
         db      02fh, 000h
+STR_4694 equ     $-DGROUP0
         db      "Enter data, then press <Proceed>.", 0
         db      "WARNING: THE EXISTING SEQUENCE CONTENTS"
         db      00ah, 000h
+STR_46DF equ     $-DGROUP0
         db      "WILL BE ERASED! Timing correct is forced", 0
+STR_4708 equ     $-DGROUP0
         db      "to 'OFF (1/384)' during record.", 0
+STR_4728 equ     $-DGROUP0
         db      "<Proceed>", 0
+STR_4732 equ     $-DGROUP0
         db      "Record All 16 Channels", 0
+STR_4749 equ     $-DGROUP0
         db      "Sqnc:%2d", 0
         db      02dh, 000h
+STR_4754 equ     $-DGROUP0
         db      " Tmpo:", 0
         db      020h, 000h
+STR_475D equ     $-DGROUP0
         db      "Tsig:  /     Bars:       Loop:OFF", 0
         db      " (Hold RECORD & play ext sequencer."
         db      00ah, 000h
         db      "  The channels will record into tracks"
         db      00ah, 000h
+STR_47CC equ     $-DGROUP0
         db      "  1 through 16, with ", 0
+STR_47E2 equ     $-DGROUP0
         db      "no drums track.", 0
+STR_47F2 equ     $-DGROUP0
         db      "drums on %d.)", 0
+STR_4800 equ     $-DGROUP0
         db      "Load an All Sounds File (.SET)", 0
         db      "This will erase all sounds currently in"
         db      00ah
         db      "memory!", 0
+STR_484F equ     $-DGROUP0
         db      "<Load file>", 0
+STR_485B equ     $-DGROUP0
         db      "loading file ...", 0
+STR_486C equ     $-DGROUP0
         db      "Load an All Sounds File (.ST1)", 0
         db      "This will erase all sounds currently in"
         db      00ah
         db      "memory!", 0
+STR_48BB equ     $-DGROUP0
         db      "<Load file>", 0
+STR_48C7 equ     $-DGROUP0
         db      "loading file ... ", 0
+STR_48D9 equ     $-DGROUP0
         db      "Load SET File", 0
+STR_48E7 equ     $-DGROUP0
         db      "1)Load entire file. (This will erase all", 0
+STR_4910 equ     $-DGROUP0
         db      "  sounds currently in memory!)", 0
+STR_492F equ     $-DGROUP0
         db      "2)Load one sound from the SET file.", 0
+STR_4953 equ     $-DGROUP0
         db      "Reading file.  Please wait ...", 0
+STR_4972 equ     $-DGROUP0
         db      "Load One Sound from SET File", 0
+STR_498F equ     $-DGROUP0
         db      "Select drum to load from file: ", 0
+STR_49AF equ     $-DGROUP0
         db      "Select drum to load into: ", 0
+STR_49CA equ     $-DGROUP0
         db      "Sound memory available (bytes):", 0
+STR_49EA equ     $-DGROUP0
         db      "%4dK", 0
+STR_49EF equ     $-DGROUP0
         db      "<Load it> ", 0
+STR_49FA equ     $-DGROUP0
         db      "loading...", 0
+STR_4A05 equ     $-DGROUP0
         db      "(unused)        ", 0
+STR_4A16 equ     $-DGROUP0
         db      "Sound:%s   Size:%4dK", 0
         db      000h
+STR_4A2C equ     $-DGROUP0
         db      "Recovering sequence, please wait ... ", 0
         db      "(unused)        ", 0
+B_4A67  equ     $-DGROUP0+4
+B_4A68  equ     $-DGROUP0+5
+STR_4A63 equ     $-DGROUP0
         db      "SONG            ", 0
+L_4A74  equ     $-DGROUP0
+TBL_4A74 equ     $-DGROUP0
         db      098h, 0c0h, 0e0h, 0d0h, 0a0h, 0f0h, 0f0h, 0f0h, 0f0h, 000h, 000h, 000h, 000h, 000h, 03ch, 020h
         db      020h, 02dh, 040h, 021h, 023h, 024h, 025h, 026h, 028h, 029h, 07bh, 07dh, 027h, 05fh, 03eh, 000h
+TBL_4A94 equ     $-DGROUP0
         db      000h, 003h, 006h, 009h, 00ch, 00fh, 012h, 015h, 018h, 01bh, 01fh, 022h
         endif
         db      "%(+.158>ADGJMPSVY"
@@ -12847,12 +13599,16 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      0e5h, 0e7h, 0e8h, 0eah, 0ebh, 0ech, 0edh, 0eeh, 0efh, 0f0h, 0f1h, 0f2h, 0f3h, 0f4h, 0f5h, 0f6h
         db      0f7h, 0f7h, 0f8h, 0f9h, 0f9h, 0fah, 0fbh, 0fbh, 0fch, 0fch, 0fdh, 0fdh, 0fdh, 0feh, 0feh, 0feh
         if      FW_VERSION < 212
+B_3F98_V112 equ     $-DGROUP0
         db      0feh, 0feh, 0feh, 0feh, 0ffh, 0ffh, 0f0h, 07eh, 000h, 000h, 000h, 0f7h, 0f0h, 07eh, 000h, 0f7h
+L_3FA8_V112 equ     $-DGROUP0
         db      000h, 000h, 000h, 000h, 03ch, 020h, 020h, 02dh, 040h, 021h, 023h, 024h, 025h, 026h, 028h, 029h
+TBL_3FB8_V112 equ     $-DGROUP0
         db      07bh, 07dh, 027h, 05fh, 03eh, 000h, 0d6h, 03fh, 0d9h, 03fh, 0dch, 03fh, 0dfh, 03fh, 0e2h, 03fh
         db      0e5h, 03fh, 0e8h, 03fh, 0ebh, 03fh, 0eeh, 03fh, 0f1h, 03fh, 0f4h, 03fh, 0f7h, 03fh, 043h, 02eh
         db      000h, 043h, 023h, 000h, 044h, 02eh, 000h, 044h, 023h, 000h, 045h, 02eh, 000h, 046h, 02eh, 000h
         db      046h, 023h, 000h, 047h, 02eh, 000h, 047h, 023h, 000h, 041h, 02eh, 000h, 041h, 023h, 000h, 042h
+L_3FF8_V112 equ     $-DGROUP0
         db      02eh, 000h, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 030h, 030h, 030h, 030h
         db      030h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
         db      020h, 020h, 020h, 090h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h
@@ -12862,6 +13618,7 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      040h, 040h, 040h, 040h, 00ah, 00ah, 00ah, 00ah, 00ah, 00ah, 002h, 002h, 002h, 002h, 002h, 002h
         db      002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 040h, 040h
         db      040h, 040h, 020h, 000h
+L_407C_V112 equ     $-DGROUP0
         db      "0123456789abcdef", 0
         db      000h, 000h, 000h
 ; end of block copied to RAM.
@@ -12869,6 +13626,7 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      7f2ah dup (000h)
         db      5b96h dup (0ffh)
         else
+L_4B0E  equ     $-DGROUP0
         db      0feh, 0feh, 0feh, 0feh, 0ffh, 0ffh, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
         db      030h, 030h, 030h, 030h, 030h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 090h, 040h, 040h, 040h, 040h, 040h, 040h, 040h, 040h
@@ -12878,6 +13636,7 @@ RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
         db      001h, 001h, 040h, 040h, 040h, 040h, 040h, 040h, 00ah, 00ah, 00ah, 00ah, 00ah, 00ah, 002h, 002h
         db      002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h, 002h
         db      002h, 002h, 040h, 040h, 040h, 040h, 020h, 000h
+L_4B96  equ     $-DGROUP0
         db      "0123456789abcdef", 0
         endif
         if      FW_VERSION = 212

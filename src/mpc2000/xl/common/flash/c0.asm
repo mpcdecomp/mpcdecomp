@@ -1415,7 +1415,7 @@ L_32B86:
         mov     byte ptr es:[si+2], al
         if      FW_VERSION >= 120
 L_331D3:
-        call    L_381FE
+        call    APP3_BASE+fn_281FE-SEGBASE
         jmp     SHORT L_32B86
 L_331D8:
         db      0cdh, 0d6h, 0c6h, 06h, 2eh, 0fh
@@ -12125,7 +12125,6 @@ br_381F2:
         jl      br_38204
         cmp     byte ptr [bp+0ch], 62h
         jg      br_38204
-L_381FE:
         mov     dx, 1
         jmp     br_38206
         nop

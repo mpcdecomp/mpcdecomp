@@ -23352,7 +23352,7 @@ L_32575:
         db      00h, 06h, 8eh, 06h, 10h, 0fh, 26h, 80h, 0bfh, 0c0h, 05h, 00h, 07h, 75h, 14h, 02h
         db      06h, 1ch, 07h, 2ch, 0ch, 73h, 02h, 04h, 0ch, 3ch, 7fh, 72h, 02h, 2ch, 0ch, 26h
         db      88h, 44h, 04h
-        call    C0_BASE+L_381FE-SEGBASE
+        call    fn_281FE
         jmp     SHORT L_32575
         db      0c6h, 06h, 1ch, 07h, 0ch, 0cdh, 0d6h, 5ah
         db      58h, 0b3h, 0ah, 0cdh, 87h

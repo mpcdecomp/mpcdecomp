@@ -1,0 +1,347 @@
+/* differs: 308 at +3, 2261 bytes; 311 at +3, 2257 bytes; 312 at +3, 2258 bytes */
+extern int W_9449;
+extern int W_944B;
+extern int W_944D;
+extern int W_D5DF;
+extern int W_D5E1;
+
+long far fn_b1508(int arg_0)
+{
+    int ax;
+    unsigned int ax10;
+    unsigned int ax11;
+    unsigned int ax12;
+    unsigned int ax13;
+    unsigned int ax14;
+    unsigned int ax15;
+    unsigned int ax16;
+    unsigned int ax17;
+    int ax18;
+    unsigned int ax19;
+    unsigned int ax2;
+    unsigned int ax20;
+    unsigned int ax21;
+    unsigned int ax22;
+    unsigned int ax23;
+    unsigned int ax24;
+    unsigned int ax25;
+    int ax26;
+    unsigned int ax3;
+    unsigned int ax4;
+    unsigned int ax5;
+    unsigned int ax6;
+    unsigned int ax7;
+    unsigned int ax8;
+    int ax9;
+    int bp;
+    int bp2;
+    int bp3;
+    unsigned int bx;
+    unsigned int bx10;
+    unsigned int bx11;
+    unsigned int bx12;
+    unsigned int bx13;
+    unsigned int bx14;
+    unsigned int bx15;
+    unsigned int bx16;
+    unsigned int bx17;
+    unsigned int bx18;
+    unsigned int bx2;
+    unsigned int bx3;
+    unsigned int bx4;
+    unsigned int bx5;
+    unsigned int bx6;
+    unsigned int bx7;
+    unsigned int bx8;
+    unsigned int bx9;
+    int cx;
+    int cx10;
+    int cx11;
+    int cx12;
+    int cx13;
+    int cx14;
+    int cx15;
+    int cx16;
+    int cx17;
+    int cx18;
+    int cx19;
+    int cx2;
+    int cx20;
+    int cx21;
+    int cx22;
+    int cx23;
+    int cx3;
+    int cx4;
+    int cx5;
+    int cx6;
+    int cx7;
+    int cx8;
+    int cx9;
+    int di;
+    int di2;
+    int dx;
+    int dx10;
+    int dx11;
+    int dx12;
+    int dx13;
+    int dx14;
+    int dx15;
+    int dx16;
+    int dx17;
+    int dx18;
+    int dx19;
+    int dx2;
+    int dx20;
+    int dx21;
+    int dx22;
+    int dx23;
+    int dx3;
+    int dx4;
+    int dx5;
+    int dx6;
+    int dx7;
+    int dx8;
+    int dx9;
+    int p10;
+    int p8;
+    int si;
+    long t1;
+
+    ax = W_D5DF;
+    bx = ax;
+    ax2 = -(ax < 0);
+    dx = -(ax2 < 0);
+    bp = dx;
+    cx = 3;
+    do {
+        bx = bx << 1;
+        ax2 = ax2 << 1 | bx >> 15 & 1;
+        dx = dx << 1 | ax2 >> 15 & 1;
+        cx = cx - 1;
+    } while (cx != 0);
+    bx2 = bx + ax;
+    ax3 = ax2 + -(ax < 0) + (bx2 < bx);
+    dx2 = dx + bp + (ax3 < ax2);
+    cx2 = 4;
+    do {
+        bx2 = bx2 << 1;
+        ax3 = ax3 << 1 | bx2 >> 15 & 1;
+        dx2 = dx2 << 1 | ax3 >> 15 & 1;
+        cx2 = cx2 - 1;
+    } while (cx2 != 0);
+    bx3 = bx2 - ax;
+    ax4 = (int)(((long)ax3 << 16 | (unsigned)bx2) - (long)(int)ax >> 16);
+    dx3 = (int)(((long)dx2 << 16 | (unsigned)ax3) - ((long)bp << 16 | (unsigned)-(ax < 0)) >> 16);
+    cx3 = 4;
+    do {
+        bx3 = bx3 << 1;
+        ax4 = ax4 << 1 | bx3 >> 15 & 1;
+        dx3 = dx3 << 1 | ax4 >> 15 & 1;
+        cx3 = cx3 - 1;
+    } while (cx3 != 0);
+    bx4 = bx3 - ax;
+    ax5 = (int)(((long)ax4 << 16 | (unsigned)bx3) - (long)(int)ax >> 16);
+    dx4 = (int)(((long)dx3 << 16 | (unsigned)ax4) - ((long)bp << 16 | (unsigned)-(ax < 0)) >> 16);
+    cx4 = 3;
+    do {
+        bx4 = bx4 << 1;
+        ax5 = ax5 << 1 | bx4 >> 15 & 1;
+        dx4 = dx4 << 1 | ax5 >> 15 & 1;
+        cx4 = cx4 - 1;
+    } while (cx4 != 0);
+    bx5 = bx4 + ax;
+    ax6 = ax5 + -(ax < 0) + (bx5 < bx4);
+    dx5 = dx4 + bp + (ax6 < ax5);
+    cx5 = 3;
+    do {
+        bx5 = bx5 << 1;
+        ax6 = ax6 << 1 | bx5 >> 15 & 1;
+        dx5 = dx5 << 1 | ax6 >> 15 & 1;
+        cx5 = cx5 - 1;
+    } while (cx5 != 0);
+    bx6 = bx5 - ax;
+    ax7 = (int)(((long)ax6 << 16 | (unsigned)bx5) - (long)(int)ax >> 16);
+    dx6 = (int)(((long)dx5 << 16 | (unsigned)ax6) - ((long)bp << 16 | (unsigned)-(ax < 0)) >> 16);
+    cx6 = 2;
+    do {
+        bx6 = bx6 << 1;
+        ax7 = ax7 << 1 | bx6 >> 15 & 1;
+        dx6 = dx6 << 1 | ax7 >> 15 & 1;
+        cx6 = cx6 - 1;
+    } while (cx6 != 0);
+    ax8 = (int)(((long)ax7 << 16 | (unsigned)bx6) - (long)(int)ax >> 16);
+    dx7 = (int)(((long)dx6 << 16 | (unsigned)ax7) - ((long)bp << 16 | (unsigned)-(ax < 0)) >> 16);
+    cx7 = 4;
+    do {
+        dx7 = dx7 >> 1;
+        ax8 = ax8 >> 1 | (dx7 & 1) << 15;
+        cx7 = cx7 - 1;
+    } while (cx7 != 0);
+    p8 = ax8;
+    p10 = dx7;
+    ax9 = W_D5E1;
+    bx7 = ax9;
+    ax10 = -(ax9 < 0);
+    dx8 = -(ax10 < 0);
+    bp2 = dx8;
+    cx8 = 2;
+    do {
+        bx7 = bx7 << 1;
+        ax10 = ax10 << 1 | bx7 >> 15 & 1;
+        dx8 = dx8 << 1 | ax10 >> 15 & 1;
+        cx8 = cx8 - 1;
+    } while (cx8 != 0);
+    bx8 = bx7 + ax9;
+    ax11 = ax10 + -(ax9 < 0) + (bx8 < bx7);
+    dx9 = dx8 + bp2 + (ax11 < ax10);
+    cx9 = 2;
+    do {
+        bx8 = bx8 << 1;
+        ax11 = ax11 << 1 | bx8 >> 15 & 1;
+        dx9 = dx9 << 1 | ax11 >> 15 & 1;
+        cx9 = cx9 - 1;
+    } while (cx9 != 0);
+    bx9 = bx8 + ax9;
+    ax12 = ax11 + -(ax9 < 0) + (bx9 < bx8);
+    dx10 = dx9 + bp2 + (ax12 < ax11);
+    cx10 = 2;
+    do {
+        bx9 = bx9 << 1;
+        ax12 = ax12 << 1 | bx9 >> 15 & 1;
+        dx10 = dx10 << 1 | ax12 >> 15 & 1;
+        cx10 = cx10 - 1;
+    } while (cx10 != 0);
+    bx10 = bx9 + ax9;
+    ax13 = ax12 + -(ax9 < 0) + (bx10 < bx9);
+    dx11 = dx10 + bp2 + (ax13 < ax12);
+    cx11 = 3;
+    do {
+        bx10 = bx10 << 1;
+        ax13 = ax13 << 1 | bx10 >> 15 & 1;
+        dx11 = dx11 << 1 | ax13 >> 15 & 1;
+        cx11 = cx11 - 1;
+    } while (cx11 != 0);
+    bx11 = bx10 + ax9;
+    ax14 = ax13 + -(ax9 < 0) + (bx11 < bx10);
+    dx12 = dx11 + bp2 + (ax14 < ax13);
+    cx12 = 3;
+    do {
+        bx11 = bx11 << 1;
+        ax14 = ax14 << 1 | bx11 >> 15 & 1;
+        dx12 = dx12 << 1 | ax14 >> 15 & 1;
+        cx12 = cx12 - 1;
+    } while (cx12 != 0);
+    bx12 = bx11 - ax9;
+    ax15 = (int)(((long)ax14 << 16 | (unsigned)bx11) - (long)(int)ax9 >> 16);
+    dx13 = (int)(((long)dx12 << 16 | (unsigned)ax14) - ((long)bp2 << 16 | (unsigned)-(ax9 < 0)) >> 16);
+    cx13 = 4;
+    do {
+        bx12 = bx12 << 1;
+        ax15 = ax15 << 1 | bx12 >> 15 & 1;
+        dx13 = dx13 << 1 | ax15 >> 15 & 1;
+        cx13 = cx13 - 1;
+    } while (cx13 != 0);
+    bx13 = bx12 + ax9;
+    ax16 = ax15 + -(ax9 < 0) + (bx13 < bx12);
+    dx14 = dx13 + bp2 + (ax16 < ax15);
+    cx14 = 2;
+    do {
+        bx13 = bx13 << 1;
+        ax16 = ax16 << 1 | bx13 >> 15 & 1;
+        dx14 = dx14 << 1 | ax16 >> 15 & 1;
+        cx14 = cx14 - 1;
+    } while (cx14 != 0);
+    ax17 = (int)(((long)ax16 << 16 | (unsigned)bx13) - (long)(int)ax9 >> 16);
+    dx15 = (int)(((long)dx14 << 16 | (unsigned)ax16) - ((long)bp2 << 16 | (unsigned)-(ax9 < 0)) >> 16);
+    cx15 = 4;
+    do {
+        dx15 = dx15 >> 1;
+        ax17 = ax17 >> 1 | (dx15 & 1) << 15;
+        cx15 = cx15 - 1;
+    } while (cx15 != 0);
+    si = p8 - ax17;
+    di = (int)(((long)p10 << 16 | (unsigned)p8) - ((long)dx15 << 16 | (unsigned)ax17) >> 16);
+    ax18 = arg_0 >> 2;
+    bx14 = ax18;
+    ax19 = -(ax18 < 0);
+    dx16 = -(ax19 < 0);
+    bp3 = dx16;
+    cx16 = 4;
+    do {
+        bx14 = bx14 << 1;
+        ax19 = ax19 << 1 | bx14 >> 15 & 1;
+        dx16 = dx16 << 1 | ax19 >> 15 & 1;
+        cx16 = cx16 - 1;
+    } while (cx16 != 0);
+    bx15 = bx14 + ax18;
+    ax20 = ax19 + -(ax18 < 0) + (bx15 < bx14);
+    dx17 = dx16 + bp3 + (ax20 < ax19);
+    cx17 = 2;
+    do {
+        bx15 = bx15 << 1;
+        ax20 = ax20 << 1 | bx15 >> 15 & 1;
+        dx17 = dx17 << 1 | ax20 >> 15 & 1;
+        cx17 = cx17 - 1;
+    } while (cx17 != 0);
+    bx16 = bx15 - ax18;
+    ax21 = (int)(((long)ax20 << 16 | (unsigned)bx15) - (long)(int)ax18 >> 16);
+    dx18 = (int)(((long)dx17 << 16 | (unsigned)ax20) - ((long)bp3 << 16 | (unsigned)-(ax18 < 0)) >> 16);
+    cx18 = 4;
+    do {
+        bx16 = bx16 << 1;
+        ax21 = ax21 << 1 | bx16 >> 15 & 1;
+        dx18 = dx18 << 1 | ax21 >> 15 & 1;
+        cx18 = cx18 - 1;
+    } while (cx18 != 0);
+    bx17 = bx16 + ax18;
+    ax22 = ax21 + -(ax18 < 0) + (bx17 < bx16);
+    dx19 = dx18 + bp3 + (ax22 < ax21);
+    cx19 = 3;
+    do {
+        bx17 = bx17 << 1;
+        ax22 = ax22 << 1 | bx17 >> 15 & 1;
+        dx19 = dx19 << 1 | ax22 >> 15 & 1;
+        cx19 = cx19 - 1;
+    } while (cx19 != 0);
+    bx18 = bx17 - ax18;
+    ax23 = (int)(((long)ax22 << 16 | (unsigned)bx17) - (long)(int)ax18 >> 16);
+    dx20 = (int)(((long)dx19 << 16 | (unsigned)ax22) - ((long)bp3 << 16 | (unsigned)-(ax18 < 0)) >> 16);
+    cx20 = 2;
+    do {
+        bx18 = bx18 << 1;
+        ax23 = ax23 << 1 | bx18 >> 15 & 1;
+        dx20 = dx20 << 1 | ax23 >> 15 & 1;
+        cx20 = cx20 - 1;
+    } while (cx20 != 0);
+    ax24 = (int)(((long)ax23 << 16 | (unsigned)bx18) - (long)(int)ax18 >> 16);
+    dx21 = (int)(((long)dx20 << 16 | (unsigned)ax23) - ((long)bp3 << 16 | (unsigned)-(ax18 < 0)) >> 16);
+    cx21 = 4;
+    do {
+        dx21 = dx21 >> 1;
+        ax24 = ax24 >> 1 | (dx21 & 1) << 15;
+        cx21 = cx21 - 1;
+    } while (cx21 != 0);
+    di2 = (int)(((long)di << 16 | (unsigned)si) - ((long)dx21 << 16 | (unsigned)ax24) >> 16);
+    W_D5E1 = W_D5DF;
+    W_D5DF = arg_0 >> 2;
+    ax25 = si - ax24;
+    dx22 = di2;
+    cx22 = 17;
+    do {
+        ax25 = ax25 << 1;
+        dx22 = dx22 << 1 | ax25 >> 15 & 1;
+        cx22 = cx22 - 1;
+    } while (cx22 != 0);
+    cx23 = W_944D;
+    t1 = ((long)dx22 << 16 | (unsigned)ax25);
+    ax26 = (int)(t1 / (long)(int)cx23);
+    dx23 = (int)(t1 % (long)(int)cx23);
+    if (ax26 <= W_944B) {
+        if (ax26 < W_9449) {
+            W_9449 = ax26;
+        }
+    } else {
+        W_944B = ax26;
+    }
+    return ((long)dx23 << 16 | (unsigned)ax26);
+}

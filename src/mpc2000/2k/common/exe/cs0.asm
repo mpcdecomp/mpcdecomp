@@ -93,8 +93,12 @@ ivt:
         dw      isr_iret, CS0_SEG                    ; 39h
         dw      isr_int3a, CS0_SEG                   ; 3Ah
         dw      isr_int3b, CS0_SEG                   ; 3Bh
+; INT 3Ch-3Eh are never raised: their slots hold far pointers
+vec_3c:
         dw      isr_iret, CS0_SEG                    ; 3Ch
+vec_3d:
         dw      isr_iret, CS0_SEG                    ; 3Dh
+vec_3e:
         dw      isr_iret, CS0_SEG                    ; 3Eh
         dw      isr_int3f, CS0_SEG                   ; 3Fh
         dw      error_disk_full_1b7c6, CS1_SEG       ; 40h
@@ -1146,7 +1150,7 @@ L_0094A:
         or      bl, byte ptr [G_PAD_BANK_OFS]
         mov     byte ptr [G_LAST_PAD], bl
         sub     bh, bh
-        les     si, cs:[0f0h]
+        les     si, cs:[vec_3c]
         mov     bh, byte ptr es:[bx+si]
         mov     byte ptr [G_LAST_PAD_NOTE], bh
         mov     bx, UI_SLOT_PAD_HIT
@@ -1157,7 +1161,7 @@ note_to_pad_lookup:
         jb      L_0098B
         cmp     al, 63h
         jae     L_0098B
-        les     si, cs:[0f0h]
+        les     si, cs:[vec_3c]
         mov     bx, 0
 L_0097F:
         cmp     al, byte ptr es:[bx+si]
@@ -1719,8 +1723,8 @@ loop_00E08:
         mov     word ptr [si+44h], calls_buffer_init_10_0b41d
         mov     word ptr [si+46h], cs
         sub     ax, ax
-        mov     word ptr cs:[0f8h], ax
-        mov     word ptr cs:[0fah], ax
+        mov     word ptr cs:[vec_3e], ax
+        mov     word ptr cs:[vec_3e+2], ax
         cmp     byte ptr [B_14D5], 0
 L_00E95:
         je      L_00E9A
@@ -1794,7 +1798,7 @@ isr_int2a_error_msg:
 display_00EFF:
         BC_DISPLAY
 L_00F02:
-        les     si, cs:[0f8h]
+        les     si, cs:[vec_3e]
         mov     ax, es
         or      ax, si
         je      calls_compare_bytes_d20_00f1e
@@ -1805,8 +1809,8 @@ lcd_coord_00F11:
         BC_FLUSH
 calls_compare_bytes_d20_00f14:
         sub     ax, ax
-        mov     word ptr cs:[0f8h], ax
-        mov     word ptr cs:[0fah], ax
+        mov     word ptr cs:[vec_3e], ax
+        mov     word ptr cs:[vec_3e+2], ax
 calls_compare_bytes_d20_00f1e:
         call    panel_event_dequeue
         cmp     bh, 84h
@@ -17371,7 +17375,7 @@ br_08F9B:
         mov     ah, byte ptr [B_596B]
         push    es
         push    si
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         cmp     ah, byte ptr es:[si+TBL_0013]
         pop     si
         pop     es
@@ -17401,7 +17405,7 @@ br_08FCA:
         je      L_08FE7
         push    es
         push    si
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         cmp     al, byte ptr es:[si+TBL_0013]
         pop     si
         pop     es
@@ -17650,17 +17654,9 @@ L_0919E:
         mov     dl, 2bh
 L_091A2:
         BC_UI_84
-        if      FW_VERSION = 172
-        db      0c6h, 06h, 7eh, 5ah
-        db      00h, 0c7h, 06h, 83h, 5ah, 87h, 91h, 0c3h
-        else
-        db      0c6h, 06h, 70h, 5ah
-        db      00h, 0c7h, 06h
-        db      75h
-        db      5ah
-        db      0c7h, 8fh
-        db      0c3h
-        endif
+        mov     byte ptr [STEP_FIELD], 0
+        mov     word ptr [G_STEP_FIELD_VEC], W_5A4E_SELF
+        ret
 step_edit_row2_pad_note_inc:
         mov     cl, al
         les     si, [STEP_EVENT_PTR]
@@ -17833,7 +17829,7 @@ status_n___off_________d_____v_0933a:
 fn_0933E:
         and     al, 7fh
         mov     dx, es
-        les     di, cs:[0f0h]
+        les     di, cs:[vec_3c]
         sub     bx, bx
 L_09349:
         cmp     al, byte ptr es:[bx+di]
@@ -18027,19 +18023,9 @@ calls_get_screen_position_094c2:
         mov     dl, 37h
 L_094C9:
         BC_UI_84
-        if      FW_VERSION = 172
-        db      0c6h, 06h, 7eh, 5ah
-        db      00h, 0c7h, 06h, 83h, 5ah, 0aeh, 94h, 0c3h
-        else
-        db      0c6h, 06h, 70h, 5ah
-        db      00h, 0c7h
-        push    es
-        db      75h
-        db      5ah
-        out     dx, al
-        xchg    dx, ax
+        mov     byte ptr [STEP_FIELD], 0
+        mov     word ptr [G_STEP_FIELD_VEC], L_094AE
         ret
-        endif
 step_edit_data1_inc:
         mov     cl, al
         les     si, [STEP_EVENT_PTR]
@@ -18714,8 +18700,13 @@ L_09AB9:
         if      FW_VERSION = 150
 L_0A505                         equ     $+3
         endif
-        db      26h, 8ah, 5ch, 06h, 0b7h, 00h, 06h, 2eh, 0c4h, 3eh, 0f0h, 00h
-        db      26h, 8ah, 01h, 07h, 8ah, 0e3h
+        mov     bl, byte ptr es:[si+6]
+        mov     bh, 0
+        push    es
+        les     di, cs:[vec_3c]
+        mov     al, byte ptr es:[bx+di]
+        pop     es
+        mov     ah, bl
         if      FW_VERSION = 150
 L_0A518                         equ     $+4
         endif
@@ -18881,20 +18872,11 @@ L_09BB9:
         mov     dl, 25h
 L_09BBD:
         BC_UI_84
-        if      FW_VERSION = 172
-        db      0cdh, 6ah, 0c7h, 9bh
-        db      0dch, 9bh, 0c3h
+        INT_6A  L_09BC7, L_09BDC
+        ret
 L_09BC7:
         les     si, [STEP_EVENT_PTR]
 L_09BCC                         equ     $+1
-        else
-        db      0cdh
-        push    7
-        callf   0c4c3h:09a1ch
-        db      36h
-        db      74h
-        db      59h
-        endif
         mov     al, byte ptr es:[si+0ch]
         inc     al
         cmp     al, 3fh
@@ -18940,13 +18922,8 @@ bc_int6a_09c1b:
         BC_UI_84
         INT_60 calls_softkey_tc_07a89
 bc_int6a_09c22:
-        if      FW_VERSION = 172
         INT_61 calls_get_screen_position_09c2d
-        else
-        db      0cdh, 61h
-        endif
 bc_int6a_09c26:
-        if      FW_VERSION = 172
         INT_6A calls_event_handler_09c4c, tempo_change_status_09C5E
 calls_get_screen_position_09c2c:
         ret
@@ -18955,16 +18932,6 @@ calls_get_screen_position_09c2d:
 calls_get_screen_position_09c33:
         call    get_screen_position
         mov     cl, 8fh
-        else
-        insw
-        callf   09a8ch:06acdh
-        sahf
-        callf   04806h:0c7c3h
-        pop     dx
-        insw
-        callf   0b1e7h:096e8h
-        db      8fh
-        endif
         mov     dl, 1fh
 bc_int6a_09c3a:
         BC_UI_84
@@ -19959,7 +19926,7 @@ status_assign_noteoff_0a4c6:
         else
 status_assign_noteoff_0a4c6     equ     $+1
         endif
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         sub     ah, ah
         cmp     al, 0
@@ -20113,11 +20080,11 @@ pgm_note_entry:
         mov     ah, 1dh
         mul     ah
         add     ax, 1eh
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         add     si, ax
         ret
 note_program_lookup:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         cmp     al, 23h
         jb      L_0A635
@@ -20142,13 +20109,13 @@ bc_int6c_0a654:
 
         INT_6C NULL_HANDLER_OFS, slider_note_right, NULL_HANDLER_OFS, slider_note_down
 L_0A65E:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         cmp     al, 0
         jne     loop_0A6B9
         ret
 slider_note_down:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
 L_0A671:
         call    note_in_range_check
 L_0A674:
@@ -20157,7 +20124,7 @@ L_0A674:
 L_0A679:
         jmp     NEAR ui_ctrl_0a705
 slider_note_right:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
 L_0A681:
         call    note_in_range_check
 L_0A684:
@@ -20175,7 +20142,7 @@ L_0A69B:
         sub     al, al
         ret
 slider_note_inc:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         inc     al
         cmp     al, 23h
@@ -20188,7 +20155,7 @@ br_0A6AF:
 L_0A6B5:
         mov     byte ptr es:[si+TBL_0013], al
 loop_0A6B9:
-        les     si, cs:[0f0h]
+        les     si, cs:[vec_3c]
         mov     bx, 0
 L_0A6C1:
         cmp     al, byte ptr es:[bx+si]
@@ -20201,7 +20168,7 @@ L_0A6CD:
         mov     byte ptr [G_SLIDER_PAD], bl
         ret
 slider_note_dec:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         sub     al, 1
         jae     br_0A6E0
@@ -20223,7 +20190,7 @@ br_0A6F2:
         mov     al, byte ptr [G_LAST_PAD]
         mov     byte ptr [G_SLIDER_PAD], al
         mov     al, byte ptr [G_LAST_PAD_NOTE]
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     byte ptr es:[si+TBL_0013], al
         ret
 ui_ctrl_0a705:
@@ -20242,7 +20209,7 @@ bc_int6c_0a714:
 calls_calc_program_offset_0a71e:
         ret
 calls_calc_program_offset_0a71f:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         call    pgm_note_entry
         mov     al, byte ptr es:[si+1bh]
@@ -20259,7 +20226,7 @@ calls_calc_program_offset_0a73b:
 L_0A575:
 calls_calc_program_offset_0a73b equ     $+4
         endif
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr es:[si+TBL_0013]
         call    pgm_note_entry
         mov     al, byte ptr es:[si+1bh]
@@ -20332,7 +20299,7 @@ br_0A7C5:
         dec     al
         jmp     SHORT L_0A7B9
 L_0A7C9:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     al, byte ptr [G_NOTE_VAR_TYPE]
         sub     ah, ah
         shl     ax, 1
@@ -20359,7 +20326,7 @@ bc_int6c_0a7ff:
 L_0A809:
         ret
 slider_ctrl_change_left:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
 L_0A80F:
         call    note_in_range_check
 L_0A812:
@@ -20368,7 +20335,7 @@ L_0A812:
 L_0A817:
         jmp     NEAR ui_ctrl_0a705
 slider_ctrl_change_up:
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
 L_0A81F:
         call    note_in_range_check
 L_0A822:
@@ -20515,7 +20482,7 @@ jmp_init_with_int50_0a981:
 sixteen_levels_toggle_off_init:
         mov     byte ptr [SIXTEEN_LEVELS_ON], 0
         mov     byte ptr [G_NOTE_VAR_TYPE], 0
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     byte ptr es:[si+TBL_0013], 0
         ret
 assign_16_levels_turn_on:
@@ -20528,7 +20495,7 @@ L_0A9AB:
         if      FW_VERSION = 150
 L_0B3EB                         equ     $+1
         endif
-        les     si, cs:[0f4h]
+        les     si, cs:[vec_3d]
         mov     byte ptr es:[si+TBL_0013], al
 ui_ctrl_0a9b9:
         jmp     main_screen_enter
@@ -24127,7 +24094,7 @@ L_0CEDE:
         mov     word ptr [D_0C17], ax
         ret
 ui_ctrl_0cee2:
-        mov     word ptr [D_779F], 0cee2h
+        mov     word ptr [D_779F], ui_ctrl_0cee2
 ui_ctrl_0cee8:
         INT_6C ui_ctrl_0ce96, NULL_HANDLER_OFS, ui_ctrl_0ce6d, NULL_HANDLER_OFS
 ui_ctrl_0cef2:
@@ -28129,7 +28096,7 @@ conversion_table_entry_get:
         mov     al, byte ptr [bx]
         ret
 L_0ED32:
-        les     si, cs:[0f0h]
+        les     si, cs:[vec_3c]
         mov     bx, 0
 L_0ED3A:
         cmp     al, byte ptr es:[bx+si]
@@ -29576,7 +29543,7 @@ L_0F7C8:
         cmp     al, 0
         je      br_0F7E7
         add     al, 22h
-        les     si, cs:[0f0h]
+        les     si, cs:[vec_3c]
         mov     bx, 0
 L_0F7D8:
         mov     ah, byte ptr es:[bx+si]
@@ -29593,7 +29560,7 @@ br_0F7E7:
         mov     byte ptr [B_78C4], ah
         mov     bl, ah
         sub     bh, bh
-        les     si, cs:[0f0h]
+        les     si, cs:[vec_3c]
         mov     al, byte ptr es:[bx+si]
         sub     al, 22h
         mov     byte ptr [B_78C3], al

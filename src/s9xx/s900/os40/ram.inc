@@ -1,9 +1,9 @@
 ; S900 OS v4.0: RAM variables the shared names stand for here, by address.
 
-W_7D00                          equ     7d00h
-B_7D05                          equ     7d05h
-W_7D26                          equ     7d26h
-P_7D2A                          equ     7d2ah
+W_7D00                          equ     W_7CFE+2
+B_7D05                          equ     L_7D04+1
+W_7D26                          equ     W_7D24+2
+P_7D2A                          equ     L_7D29+1
 P_8126                          equ     8126h
 P_8148                          equ     8148h
 P_86EE                          equ     86eeh
@@ -28,6 +28,7 @@ P_8F00                          equ     8f00h
 P_8F06                          equ     8f06h
 P_8F21                          equ     8f21h
 P_953E                          equ     953eh
+TBL_9550                        equ     9550h
 KEY_CODE                        equ     9562h
 B_9564                          equ     9564h
 B_9565                          equ     9565h
@@ -100,6 +101,7 @@ W_95DA                          equ     95dah
 W_95DC                          equ     95dch
 W_95DE                          equ     95deh
 FP_95E0                         equ     95e0h
+W_95E2                          equ     95e2h
 W_95E4                          equ     95e4h
 W_95E6                          equ     95e6h
 W_95E8                          equ     95e8h
@@ -183,3 +185,14 @@ P_B532                          equ     0b532h
 P_B569                          equ     0b569h
 P_B5A0                          equ     0b5a0h
 P_B5D7                          equ     0b5d7h
+W_B60E                          equ     0b60eh
+W_B610                          equ     0b610h
+W_B62A                          equ     0b62ah
+W_B62C                          equ     0b62ch
+W_B62E                          equ     0b62eh
+W_B630                          equ     0b630h
+W_B632                          equ     0b632h
+W_B634                          equ     0b634h
+W_B636                          equ     0b636h
+W_B64C                          equ     0b64ch
+W_B64E                          equ     0b64eh

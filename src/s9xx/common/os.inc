@@ -41,6 +41,7 @@ os_entry:                               ; jmpf 0:0 lands here; costs INT 00h its
         dw      isr_trap, 0             ; INT 01h single step
         dw      isr_midi_rx, 0             ; INT 02h NMI
         dw      isr_trap, 0             ; INT 03h breakpoint
+W_0010:
         dw      isr_trap, 0             ; INT 04h overflow
         dw      isr_trap, 0             ; INT 05h
         dw      isr_5dd2, 0             ; INT 06h
@@ -58,9 +59,16 @@ os_entry:
         jmp     br_7cef
         endif
         if      MODEL = 950
+B_0043_S950:
         db      03h, 0deh, 0ffh, 00h, 0f0h, 02h, 08h
         endif
         if      (MODEL = 950) && (FW_VERSION = 100)
+B_00F0_S950 equ     $+0a6h
+B_00F1_S950 equ     $+0a7h
+W_00F2_S950 equ     $+0a8h
+W_00F4_S950 equ     $+0aah
+W_00F6_S950 equ     $+0ach
+W_00F8_S950 equ     $+0aeh
         db      178 dup (0)
         endif
         if      (MODEL = 950) && (FW_VERSION = 120)
@@ -70,8 +78,14 @@ fn_004a_s950:
         je      br_0052_s950
         pop     ax
 br_0052_s950:
-        cmp     byte ptr [0b46dh], 0ffh
+        cmp     byte ptr [B_B46D_S950], 0ffh
         ret
+B_00F0_S950 equ     $+98h
+B_00F1_S950 equ     $+99h
+W_00F2_S950 equ     $+9ah
+W_00F4_S950 equ     $+9ch
+W_00F6_S950 equ     $+9eh
+W_00F8_S950 equ     $+0a0h
         db      164 dup (0)
         endif
         if      MODEL = 950
@@ -117,14 +131,22 @@ B_1DE3:
 ; dump tool left in image.
 rom_dump_int_e0:
 W_1DE4:                                 ; the dump tool's bytes are variables once the ROM runs
+W_1DE6  equ     $+2
         mov     si, 0
+W_0104_V12A equ     $+1
         mov     bx, P_8148
+W_0106_V12A:
         mov     dl, bl
+L_0108_V12A:
+W_0108_V12A:
         call    int_e0_print_dispatch
+W_1DF0  equ     $+1
         mov     dl, bh
+W_1DF2  equ     $+1
         call    int_e0_print_dispatch
 loop_0110_v12a:
 W_1DF4:
+W_1DF6  equ     $+2
         mov     dl, byte ptr cs:[si]
         call    int_e0_print_dispatch
         lodsb
@@ -158,13 +180,18 @@ W_1DE6:
         mov     ss, ax
         endif
         if      MODEL = 950
+W_0104_V12A:
         mov     ds, ax
+W_0108_V12A equ     $+2
+W_0106_V12A:
         mov     sp, 0ff80h
+L_0109_S950:
         mov     dx, 300h
 W_1DF0:
         mov     al, 17h
 W_1DF2:
         out     dx, al
+W_010F_S950:
         mov     al, 15h
         out     dx, al
 W_1DF6:
@@ -268,7 +295,7 @@ program_sample_name_xref_resolve:
         ret
 
 fn_0167_s950:
-        mov     byte ptr [1dch], 11h
+        mov     byte ptr [B_01DC_S950], 11h
         nop
         endif
         pusha
@@ -300,7 +327,7 @@ br_1e36:
         jmp     word ptr [IDLE_HOOK]
 
 fn_018c_s950:
-        ror     byte ptr [1dch], 1
+        ror     byte ptr [B_01DC_S950], 1
         jae     fn_1e3e
         call    word ptr [IDLE_HOOK]
         endif
@@ -350,6 +377,7 @@ br_1e82:
         pop     cx
         ret
         if      MODEL = 950
+B_01DC_S950:
         db      00h
         endif
 
@@ -1038,7 +1066,7 @@ fn_235a:
         RUN_BR_22A3
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        cmp     bp, word ptr [91d6h]
+        cmp     bp, word ptr [W_91D6_V12A]
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         cmp     bp, word ptr [FIELD_PREVIOUS]
@@ -1048,7 +1076,7 @@ fn_235a:
         je      br_2368
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     bp, word ptr [91d6h]
+        mov     bp, word ptr [W_91D6_V12A]
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         mov     bp, word ptr [FIELD_PREVIOUS]
@@ -1074,7 +1102,7 @@ menu_selection_history:
         RUN_BR_2368
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        pop     word ptr [91d6h]
+        pop     word ptr [W_91D6_V12A]
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         pop     word ptr [FIELD_PREVIOUS]
@@ -1703,7 +1731,7 @@ br_2791:
         RUN_BR_2783
         endif
         if      MODEL = 950
-        mov     cx, word ptr [1e78h]
+        mov     cx, word ptr [W_1E78_S950]
         endif
         if      (MODEL = 900) && (FW_VERSION < 400)
         mov     cx, 40h
@@ -1738,7 +1766,7 @@ br_0b3a_s950:
         pop     ax
         add     ax, ax
         jb      br_0b50_s950
-        mov     byte ptr [0b462h], 1
+        mov     byte ptr [B_B462_S950], 1
         pusha
         call    word ptr [bp+7]
         popa
@@ -1802,9 +1830,9 @@ isr_trap:
         RUN_BR_27A0
         endif
         if      FW_VERSION < 210
-        mov     word ptr [104h], bx
-        mov     word ptr [106h], cx
-        mov     word ptr [108h], di
+        mov     word ptr [W_0104_V12A], bx
+        mov     word ptr [W_0106_V12A], cx
+        mov     word ptr [W_0108_V12A], di
         endif
         if      FW_VERSION = 210
         mov     word ptr [W_1DE8], bx
@@ -1817,7 +1845,7 @@ isr_trap:
         pop     word ptr [W_1DF2]
         endif
         if      MODEL = 950
-        mov     word ptr [110h], si
+        mov     word ptr [W_010F_S950+1], si
         endif
         if      (MODEL = 900) && (FW_VERSION < 400)
         mov     word ptr [W_1DF4], si
@@ -1844,10 +1872,10 @@ RUN_LOOP_282A macro   {GLOBALSYMBOLS}
         call    lcd_redraw
         if      MODEL = 950
         mov     dx, 1c4h
-        mov     al, byte ptr [48h]
+        mov     al, byte ptr [B_0043_S950+5]
         out     dx, al
         mov     dx, 1c6h
-        mov     al, byte ptr [49h]
+        mov     al, byte ptr [B_0043_S950+6]
         out     dx, al
         endif
 loop_282a:
@@ -2184,7 +2212,7 @@ br_2a0c:
         ret
         if      MODEL = 950
 loop_0de4_s950:
-        test    byte ptr [43h], 3
+        test    byte ptr [B_0043_S950], 3
         je      loop_2a0f
         call    fn_22f6_s950
         endif
@@ -2232,19 +2260,19 @@ br_2a24:
         mov     cx, bp
         shr     cx, 1
         inc     cx
-        mov     al, byte ptr [1ce4h]
+        mov     al, byte ptr [B_1CE4]
         shr     al, cl
         jb      br_2ab1
-        mov     al, byte ptr [1ce4h]
+        mov     al, byte ptr [B_1CE4]
         xor     al, 0ffh
-        mov     byte ptr [1ce4h], al
+        mov     byte ptr [B_1CE4], al
         mov     ax, 1ce3h
         sub     ax, DISK_LAST_FIELD
         push    ax
-        mov     al, byte ptr [1ce5h]
+        mov     al, byte ptr [B_1CE4+1]
         shr     al, 1
         jae     br_2a7e
-        mov     byte ptr [1ce5h], 0
+        mov     byte ptr [B_1CE4+1], 0
         xor     di, di
         mov     ds, di
         inc     di
@@ -2259,7 +2287,7 @@ br_2a24:
         jmp     br_2a9e
         db      90h
 br_2a7e:
-        mov     byte ptr [1ce5h], 1
+        mov     byte ptr [B_1CE4+1], 1
         xor     di, di
         mov     ds, di
         mov     di, 3700h
@@ -2365,7 +2393,7 @@ br_2b18:
         endif
         if      MODEL = 950
         mov     bx, 0
-        mov     cx, word ptr [0b4a2h]
+        mov     cx, word ptr [W_B4A2_S950]
         mov     ax, 8000h
         mov     dx, 1
         je      br_0e9f_s950
@@ -2475,7 +2503,7 @@ br_2b9c:
         RUN_LOOP_2B77
         endif
         if      MODEL = 950
-        mov     cx, word ptr [0b4a2h]
+        mov     cx, word ptr [W_B4A2_S950]
         endif
         if      (MODEL = 900) && (FW_VERSION < 400)
         mov     cx, 8
@@ -2553,9 +2581,9 @@ br_2bde:
 
 fn_2be9:
         if      FW_VERSION = 210
-        mov     byte ptr [0ebch], al
+        mov     byte ptr [B_2C1F+1], al
         else
-        mov     byte ptr [0e30h], al
+        mov     byte ptr [B_2C1F+1], al
         endif
         mov     ax, word ptr [MIDI_RX_HEAD]
         mov     word ptr [MIDI_RX_TAIL], ax
@@ -2599,6 +2627,7 @@ RUN_ISR_MIDI_RX macro   {GLOBALSYMBOLS}
 isr_midi_rx:
         push    ax
         push    bx
+B_2C1F:
         in      al, 56h
         mov     bx, word ptr cs:[MIDI_RX_HEAD]
         mov     byte ptr cs:[bx], al
@@ -2858,7 +2887,7 @@ br_10eb_s950:
         and     ax, 0f8h
         add     ax, cx
         mov     bx, ax
-        mov     ax, word ptr [bx+1157h]
+        mov     ax, word ptr [bx+TBL_1157_S950]
         mov     si, MSG_BAD_IC
         mov     word ptr [si+6], ax
         jmp     lcd_print_home
@@ -2914,6 +2943,7 @@ fn_1130_s950:
         mov     ax, 3000h
         mov     ds, ax
         ret
+TBL_1157_S950:
         db      "45464748..495051,,L1L2L3;;L4L5L6<<H1H2H3>>H4H5H6"
 MSG_BAD_IC:
         db      "Bad IC## "
@@ -5447,13 +5477,13 @@ L_8cf1_s950:
         jne     br_8cfb_s950
         jmp     L_1cb2_s950
 br_8cfb_s950:
-        mov     word ptr [0b520h], P_9F4E
+        mov     word ptr [W_B520_S950], P_9F4E
         mov     word ptr [si], 8d05h
-        mov     bx, word ptr [0b520h]
+        mov     bx, word ptr [W_B520_S950]
         mov     byte ptr [bx+7], ah
         cmp     byte ptr [bx], 7
         je      br_8d17_s950
-        add     word ptr [0b520h], 1eh
+        add     word ptr [W_B520_S950], 1eh
         ret
 br_8d17_s950:
         mov     word ptr [si], L_8d1c_s950
@@ -5466,7 +5496,7 @@ L_8d1c_s950:
 
 L_8d27_s950:
         call    sysex_send
-        mov     byte ptr [0b458h], 0
+        mov     byte ptr [B_B458_S950], 0
         endif
 loop_681e:
         jmp     br_67b1
@@ -6704,13 +6734,13 @@ drum_inputs_poll:
         je      br_14be_s950
         jmp     br_1558_s950
 br_14be_s950:
-        cmp     byte ptr [0b458h], 0
+        cmp     byte ptr [B_B458_S950], 0
         jne     br_14cf_s950
         mov     si, SYSEX_02_49_08
 
 L_14c8_s950:
         call    sysex_send
-        dec     byte ptr [0b458h]
+        dec     byte ptr [B_B458_S950]
 br_14cf_s950:
         mov     bx, word ptr [DRUM_INPUT_PTR]
         mov     al, byte ptr [bx+7]
@@ -7462,8 +7492,8 @@ L_439c:
         call    sysex_send
         mov     si, SYSEX_02_49_00
         call    sysex_send
-        mov     byte ptr [0b458h], 0
-        mov     byte ptr [0b413h], 0
+        mov     byte ptr [B_B458_S950], 0
+        mov     byte ptr [B_B413_S950], 0
         mov     word ptr [FIELD_RECENT], FLD_DRUM_INPUT_MIDI_INPUT
         endif
         if      FW_VERSION = 210
@@ -7741,7 +7771,7 @@ MSG_SENDING_TO_ME35T:
 
 read_me35t_settings:
         call    take_enter
-        mov     byte ptr [0b413h], 0ffh
+        mov     byte ptr [B_B413_S950], 0ffh
         mov     al, 0
 loop_1ca8_s950:
         mov     si, SYSEX_06_49_00
@@ -7763,61 +7793,61 @@ br_1cc4_s950:
         mov     cl, 1eh
         mul     cl
         add     ax, P_9F4E
-        mov     word ptr [0b51eh], ax
+        mov     word ptr [W_B51E_S950], ax
         mov     word ptr [si], L_1cd5_s950
         ret
 
 L_1cd5_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+1], ah
         mov     word ptr [si], L_1ce1_s950
         ret
 
 L_1ce1_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+2], ah
         mov     word ptr [si], L_1ced_s950
         ret
 
 L_1ced_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+3], ah
         mov     word ptr [si], L_1cf9_s950
         ret
 
 L_1cf9_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+9], ah
         mov     word ptr [si], L_1d05_s950
         ret
 
 L_1d05_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+0ah], ah
         mov     word ptr [si], L_1d11_s950
         ret
 
 L_1d11_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+0ch], ah
         mov     word ptr [si], L_1d1d_s950
         ret
 
 L_1d1d_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+10h], ah
         mov     word ptr [si], L_1d29_s950
         ret
 
 L_1d29_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     byte ptr [bx+0eh], ah
         mov     word ptr [si], L_1d35_s950
         ret
 
 L_1d35_s950:
         mov     word ptr [si], L_1d48_s950
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     al, byte ptr [bx+0eh]
         add     al, al
         shr     ax, 1
@@ -7829,7 +7859,7 @@ L_1d48_s950:
         je      br_1d50_s950
         jmp     br_67b1
 br_1d50_s950:
-        mov     ax, word ptr [0b51eh]
+        mov     ax, word ptr [W_B51E_S950]
         cmp     ax, word ptr [DRUM_INPUT_PTR]
         jne     br_1d5c_s950
 
@@ -7837,14 +7867,14 @@ L_1d59_s950:
         call    utility_fill
 
 br_1d5c_s950:
-        mov     bx, word ptr [0b51eh]
+        mov     bx, word ptr [W_B51E_S950]
         mov     al, byte ptr [bx]
         cmp     al, 7
         je      br_1d6a_s950
         inc     ax
         jmp     loop_1ca8_s950
 br_1d6a_s950:
-        mov     byte ptr [0b413h], 0
+        mov     byte ptr [B_B413_S950], 0
         jmp     loop_1c67_s950
         endif
 
@@ -9250,6 +9280,7 @@ FP_02CE:
 
 W_02D0:
         endif
+W_02D0_2:
         db      00h, 00h
 B_02D2:
         if      MODEL = 950
@@ -9260,8 +9291,23 @@ B_02D2:
         db      0feh
         db      "5l74="
         db      8bh, 3dh, 0bbh, 3dh, 00h, 20h, 80h, 00h, 0dfh, 2eh
+W_1E64_S950 equ     $+2
+W_1E66_S950 equ     $+4
+W_1E68_S950 equ     $+6
+W_1E6A_S950 equ     $+8
+W_1E6C_S950 equ     $+0ah
+W_1E6E_S950 equ     $+0ch
+W_1E70_S950 equ     $+0eh
+W_1E72_S950 equ     $+10h
+W_1E74_S950 equ     $+12h
+W_1E76_S950 equ     $+14h
+W_1E78_S950 equ     $+16h
+W_1E7A_S950 equ     $+18h
+W_1E62_S950:
         db      26 dup (0)
+FP_1E7C_S950:
         db      10h, 46h, 00h, 10h, 10h, 46h, 00h, 10h, 04h, 06h, 00h, 10h, 00h, 00h, 00h, 10h
+W_1E8C_S950:
         db      8 dup (0)
 MSG_CANT_DO_THIS:
         db      " Cant do this! "
@@ -9276,6 +9322,7 @@ MSG_HARD_DISK_NOT_READY:
         db      "*HDunit1 *Park_ *Rename Floppy      100%"
 SCR_VOLUME:
         db      "*01 VOLUME *Slct,create Floppy     V  99"
+B_1F20_S950:
         db      "*HDcont1 *Hdrive1 *Rename 0123456789100%"
 SCR_CLEAR_MEMORY_AND_LOAD:
         db      "*02 *Clear mem & load disk (1), Mem-xxx%"
@@ -9317,9 +9364,11 @@ SCR_LOAD_SAMPLE:
         db      00h, 00h, 00h, 00h
 SCR_CLEAR_MEMORY_AND_LOAD:
         db      "*01 Clear memory and load    Memory-  0%"
+B_02FE:
         db      "    *ensemble 1   0% (ENT)     Disk-  0%"
 SCR_LOAD_PROGRM:
         db      "*02 LOAD PROGRM (ENT)   *PR only _   Mem"
+B_034E:
         db      " ens 1 *name "
 P_035B:
         db      "NONE       *PR&smpls _   0%"
@@ -9420,6 +9469,7 @@ SCR_FORMAT_FLOPPY:
 SCR_LOAD_DRUM_SETTINGS:
         db      "*10  *Load drum settings (ENT) _    Vol "
         db      "     *Save drum settings (ENT) _    xxx%"
+B_2218_S950:
         db      "*11   MIDI program changes can now load hard dis"
         db      "k volume. 0123456789 number 123 "
 SCR_PARK_HARD_DISK:
@@ -9464,11 +9514,13 @@ P_0600:
         dw      P_04A1+1ah
         endif
         if      FW_VERSION >= 400
+B_039E:
         db      "     ens 1   *name "
 P_03B1:
         db      "NONE                 "
         db      00h
         db      "04 Clear ensemble and save     Mem-  0%     ens "
+B_03F7:
         db      "1        0% (ENT)      Dsk-  0%"
 SCR_SAVE_PROGRM:
         db      "*05 SAVE PROGRM (ENT)   *PR only _  Disk"
@@ -9549,7 +9601,7 @@ fn_22f6_s950:
         jne     br_230e_s950
         ret
 br_230e_s950:
-        test    byte ptr [43h], 1
+        test    byte ptr [B_0043_S950], 1
         je      br_2318_s950
         jmp     br_2965_s950
 br_2318_s950:
@@ -9564,7 +9616,7 @@ fn_231b_s950:
 
 fn_2327_s950:
         xor     ax, ax
-        cmp     byte ptr [0b46dh], al
+        cmp     byte ptr [B_B46D_S950], al
         je      br_2351_s950
         push    ds
         mov     ax, 1000h
@@ -9696,7 +9748,7 @@ br_06c7:
 
 fn_06c8:
         if      MODEL = 950
-        mov     ax, word ptr [0b49ch]
+        mov     ax, word ptr [W_B49C_S950]
         mov     word ptr [W_7CD4], ax
         elseif  (MODEL = 900) && (FW_VERSION < 400)
         mov     word ptr [W_7CD4], 0c40h
@@ -9706,7 +9758,7 @@ fn_06c8:
         mov     word ptr [W_95EA], 0
         mov     word ptr [FP_02CE], DISK_CATALOG
         if      MODEL = 950
-        mov     word ptr [1e26h], 0
+        mov     word ptr [W_02D0_2], 0
         else
         mov     word ptr [W_02D0], 0
         endif
@@ -9780,7 +9832,7 @@ fn_0726:
         inc     byte ptr [B_95C6]
         mov     si, word ptr [di+14h]
         if      MODEL = 950
-        jmp     word ptr [1e62h]
+        jmp     word ptr [W_1E62_S950]
         endif
 loop_0731:
         xor     ax, ax
@@ -9810,10 +9862,10 @@ loop_241b_s950:
 disk_catalog_scan:
         mov     word ptr [W_95C8], ax
         if      MODEL = 950
-        mov     word ptr [0b4bch], sp
+        mov     word ptr [W_B4BC_S950], sp
         mov     al, 1
         out     8fh, al
-        mov     al, byte ptr [0b41ch]
+        mov     al, byte ptr [B_B41C_S950]
         xor     al, 0ffh
         and     al, 2
         or      al, 0a9h
@@ -9959,7 +10011,7 @@ br_07dd:
 
 fn_24e3_s950:
         mov     word ptr [W_95C8], ax
-        mov     word ptr [0b4bch], sp
+        mov     word ptr [W_B4BC_S950], sp
         push    ax
         call    fn_38af_s950
         pop     ax
@@ -10030,7 +10082,7 @@ br_0805:
         mov     si, P_02A8
         call    fdc_command
         if      MODEL = 950
-        cmp     byte ptr [0b4ddh], 53h
+        cmp     byte ptr [B_B4DD_S950], 53h
         jne     br_1181
         call    fn_2571_s950
         jmp     br_254d_s950
@@ -10136,51 +10188,51 @@ br_089c:
 
 fn_2571_s950:
         mov     ax, word ptr [W_95E4]
-        mov     word ptr [0b48eh], ax
+        mov     word ptr [W_B48E_S950], ax
         mov     ax, word ptr [W_95D6]
-        mov     word ptr [0b48ch], ax
+        mov     word ptr [W_B48C_S950], ax
         mov     ax, word ptr [W_7CD4]
-        mov     word ptr [0b48ah], ax
+        mov     word ptr [W_B48A_S950], ax
         mov     ax, word ptr [W_95DC]
-        mov     word ptr [0b494h], ax
+        mov     word ptr [W_B494_S950], ax
         mov     dx, word ptr [W_95DE]
-        mov     word ptr [0b496h], dx
+        mov     word ptr [W_B496_S950], dx
         mov     ax, word ptr [W_95CE]
-        mov     word ptr [0b490h], ax
+        mov     word ptr [W_B490_S950], ax
         mov     dx, word ptr [W_95D0]
-        mov     word ptr [0b492h], dx
+        mov     word ptr [W_B492_S950], dx
         add     ax, word ptr [W_7CFE]
         adc     dx, word ptr [W_7D00]
-        mov     word ptr [0b498h], ax
-        mov     word ptr [0b49ah], dx
+        mov     word ptr [W_B498_S950], ax
+        mov     word ptr [W_B49A_S950], dx
 loop_25ae_s950:
         call    fn_3dd3_s950
-        mov     ax, word ptr [0b48ah]
-        or      ax, word ptr [0b48ch]
-        or      ax, word ptr [0b48eh]
+        mov     ax, word ptr [W_B48A_S950]
+        or      ax, word ptr [W_B48C_S950]
+        or      ax, word ptr [W_B48E_S950]
         jne     br_25bf_s950
         ret
 br_25bf_s950:
         in      ax, 84h
-        sub     ax, word ptr [0b486h]
-        mov     bx, word ptr [0b48ah]
+        sub     ax, word ptr [W_B486_S950]
+        mov     bx, word ptr [W_B48A_S950]
         call    fn_26e0_s950
         jcxz    br_25d8_s950
-        sub     word ptr [0b48ah], cx
+        sub     word ptr [W_B48A_S950], cx
         sub     ax, cx
-        add     word ptr [0b486h], cx
+        add     word ptr [W_B486_S950], cx
 br_25d8_s950:
-        mov     bx, word ptr [0b48ch]
+        mov     bx, word ptr [W_B48C_S950]
         call    fn_26e0_s950
         and.w   cx, 0fffeh
         jne     br_25e8_s950
         jmp     br_267a_s950
 br_25e8_s950:
-        sub     word ptr [0b48ch], cx
+        sub     word ptr [W_B48C_S950], cx
         push    ax
         push    cx
-        mov     si, word ptr [0b486h]
-        mov     ax, word ptr [0b488h]
+        mov     si, word ptr [W_B486_S950]
+        mov     ax, word ptr [W_B488_S950]
         ror     ax, 4
         push    ds
         mov     ds, ax
@@ -10254,17 +10306,17 @@ br_2669_s950:
         adc     word ptr [bp+2], 0
         pop     ax
         sub     ax, cx
-        add     word ptr [0b486h], cx
+        add     word ptr [W_B486_S950], cx
 br_267a_s950:
-        cmp     word ptr [0b48ch], 0
+        cmp     word ptr [W_B48C_S950], 0
         jne     br_26dd_s950
-        mov     bx, word ptr [0b48eh]
+        mov     bx, word ptr [W_B48E_S950]
         call    fn_26e0_s950
         jcxz    br_26dd_s950
-        sub     word ptr [0b48eh], cx
-        mov     si, word ptr [0b486h]
-        mov     ax, word ptr [0b488h]
-        add     word ptr [0b486h], cx
+        sub     word ptr [W_B48E_S950], cx
+        mov     si, word ptr [W_B486_S950]
+        mov     ax, word ptr [W_B488_S950]
+        add     word ptr [W_B486_S950], cx
         ror     ax, 4
         push    ds
         mov     ds, ax
@@ -10342,7 +10394,7 @@ fn_2706_s950:
         add     ax, word ptr [W_95E4]
         xchg    bp, ax
         mov     di, 1e7ch
-        cmp     byte ptr [0b4ddh], 53h
+        cmp     byte ptr [B_B4DD_S950], 53h
         je      fn_2723_s950
         mov     bp, word ptr [W_7CD4]
         mov     di, FP_02CE
@@ -10359,10 +10411,10 @@ fn_2723_s950:
         add     ax, word ptr [di]
         adc     dl, 0
         out     84h, ax
-        mov     word ptr [0b486h], ax
+        mov     word ptr [W_B486_S950], ax
         xchg    dx, ax
         out     86h, al
-        mov     word ptr [0b488h], ax
+        mov     word ptr [W_B488_S950], ax
         mov     ax, bp
         test    bh, 0ffh
         je      br_2752_s950
@@ -10393,7 +10445,7 @@ mode_disk:
         mov     word ptr [FIELD_RECENT], FLD_CLEAR_MEMORY_AND_LOAD
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [91d6h], FLD_LOAD_PROGRM_NAME
+        mov     word ptr [W_91D6_V12A], FLD_LOAD_PROGRM_NAME
         endif
         if      FW_VERSION >= 400
         call    fn_15fa
@@ -10408,12 +10460,12 @@ mode_disk:
         if      MODEL = 950
         xor     ax, ax
         mov     byte ptr [B_95BC], al
-        mov     word ptr [1e26h], ax
+        mov     word ptr [W_02D0_2], ax
         mov     byte ptr [B_02D2], al
 
 L_2781_s950:
         call    disk_menu_action_guard
-        call    word ptr [1e6eh]
+        call    word ptr [W_1E6E_S950]
         else
 
         mov     byte ptr [B_95BC], 0
@@ -10439,25 +10491,25 @@ br_27a9_s950:
         mov     ax, word ptr [W_95EA]
         mov     cx, 10h
         mul     cx
-        mov     word ptr [0b482h], ax
-        mov     word ptr [0b484h], dx
+        mov     word ptr [W_B482_S950], ax
+        mov     word ptr [W_B484_S950], dx
         mov     ax, word ptr [W_7CD4]
         add     ax, word ptr [W_95D6]
         add     ax, word ptr [W_95E4]
-        mov     word ptr [1e2ah], ax
+        mov     word ptr [B_02D2+2], ax
         jmp     br_38d3_s950
 br_27c9_s950:
         test    byte ptr [B_95FD], 40h
         je      br_27d3_s950
         jmp     br_09c9
 br_27d3_s950:
-        cmp     byte ptr [0b464h], 0
+        cmp     byte ptr [B_B464_S950], 0
         je      br_27e0_s950
         mov     ax, MSG_CANT_DO_THIS
         jmp     error_restart
 br_27e0_s950:
         call    fn_3ab5_s950
-        cmp     byte ptr [0b4ddh], 53h
+        cmp     byte ptr [B_B4DD_S950], 53h
         jne     br_27ed_s950
         call    fn_2823_s950
 br_27ed_s950:
@@ -10604,7 +10656,7 @@ br_099b:
 fn_2823_s950:
         push    ds
         push    es
-        les     di, [1e7ch]
+        les     di, [FP_1E7C_S950]
         mov     cx, word ptr [W_7CD4]
         lds     si, [FP_02CE]
         jcxz    br_2835_s950
@@ -10669,7 +10721,7 @@ br_099e:
         mov     byte ptr [B_02D2], al
 loop_09b3:
         if      MODEL = 950
-        mov     sp, word ptr [0b4bch]
+        mov     sp, word ptr [W_B4BC_S950]
         mov     al, 1
         out     8fh, al
         mov     al, 0
@@ -10742,13 +10794,13 @@ br_2921_s950:
         inc     bp
         add     bx, 46h
         loop    loop_28fd_s950
-        cmp     byte ptr [0b457h], cl
+        cmp     byte ptr [B_B457_S950], cl
         je      L_5b5b_os21
         mov     si, 0b42eh
         mov     di, MIDI_SETTINGS
         mov     cx, 28h
         rep movsb
-        mov     byte ptr [0b457h], cl
+        mov     byte ptr [B_B457_S950], cl
 L_5b5b_os21:
         call    fn_78a8_s950
         mov     dx, MIDI_SETTINGS
@@ -10787,7 +10839,7 @@ br_2977_s950:
 
 fn_2984_s950:
         mov     di, DISK_CATALOG
-        mov     cx, word ptr [1e78h]
+        mov     cx, word ptr [W_1E78_S950]
         sub     ax, ax
         ret
 br_298e_s950:
@@ -10834,7 +10886,7 @@ br_308b_v12a:
         mov     al, 50h
         mov     si, P_890E
         if      MODEL = 950
-        mov     cx, word ptr [1e78h]
+        mov     cx, word ptr [W_1E78_S950]
         else
         mov     cx, 40h
         endif
@@ -10888,7 +10940,7 @@ br_2a08_s950:
 L_1006:
         call    fn_2984_s950
         mov     al, 53h
-        mov     byte ptr [0b41fh], 0
+        mov     byte ptr [B_B41F_S950], 0
         call    fn_0a65
         mov     byte ptr [B_04D7], 0
         call    word ptr [IDLE_HOOK]
@@ -10934,15 +10986,15 @@ fn_0a65:
         mov     dx, di
         if      MODEL = 950
 loop_2a36_s950:
-        mov     byte ptr [0b421h], 0
+        mov     byte ptr [B_B421_S950], 0
         endif
         pusha
         call    disk_catalog_entry_handler
         popa
         if      MODEL = 950
-        cmp     byte ptr [0b421h], 0
+        cmp     byte ptr [B_B421_S950], 0
         jne     loop_2a36_s950
-        cmp     byte ptr [0b41fh], 0
+        cmp     byte ptr [B_B41F_S950], 0
         jne     br_2a53_s950
         endif
 br_0a71:
@@ -10999,7 +11051,7 @@ loop_0abe:
         call    fn_66aa
         sti
         if      MODEL = 950
-        call    word ptr [1e6eh]
+        call    word ptr [W_1E6E_S950]
         endif
         jmp     lcd_redraw
 
@@ -11119,7 +11171,7 @@ set_hard_disk_unit:
         cmp     ax, word ptr [bp+0fh]
         je      br_2b48_s950
         mov     word ptr [bp+0fh], ax
-        mov     byte ptr [0b46dh], 0
+        mov     byte ptr [B_B46D_S950], 0
         call    disk_menu_action_guard
         jmp     fn_0ab5
 br_2b48_s950:
@@ -11203,9 +11255,9 @@ br_0bb2:
         jne     br_0c2c
         endif
         if      MODEL = 950
-        mov     byte ptr [43h], 2
+        mov     byte ptr [B_0043_S950], 2
         mov     word ptr [FP_02CE], 0
-        mov     word ptr [1e26h], 0
+        mov     word ptr [W_02D0_2], 0
         mov     word ptr [W_7CD4], P_8148
         mov     bx, 2bd5h
         mov     bp, 2bd4h
@@ -11353,7 +11405,7 @@ br_3279_v12a:
         call    fn_1607
         if      MODEL = 950
         mov     al, 53h
-        call    word ptr [1e7ah]
+        call    word ptr [W_1E7A_S950]
         else
 br_0c6b:
         mov     al, 53h
@@ -11368,7 +11420,7 @@ br_0c6b:
         if      MODEL = 950
 
 L_2c15_s950:
-        mov     byte ptr [0b426h], 0ffh
+        mov     byte ptr [B_B426_S950], 0ffh
         ret
         endif
 
@@ -11427,7 +11479,7 @@ loop_0cc3:
 br_0cd6:
         mov     ax, 5744h
         if      MODEL = 950
-        call    word ptr [1e64h]
+        call    word ptr [W_1E64_S950]
         else
         call    disk_catalog_scan
         endif
@@ -11525,6 +11577,7 @@ br_0d42:
         jmp     br_0ab8
         if      MODEL = 950
 
+B_2CEB_S950:
         db      00h
 
 format_hard_disk:
@@ -11534,21 +11587,21 @@ format_hard_disk:
 wipe_hard_disk:
         mov     al, 0
 br_2cf2_s950:
-        mov     byte ptr [2cebh], al
+        mov     byte ptr [B_2CEB_S950], al
         call    take_enter
         call    fn_3089_s950
         call    fn_231b_s950
-        cmp     byte ptr [2cebh], 46h
+        cmp     byte ptr [B_2CEB_S950], 46h
         jne     br_2d0b_s950
         mov     si, 1df0h
         call    br_38d3_s950
 br_2d0b_s950:
         push    es
-        les     di, [1e88h]
+        les     di, [FP_1E7C_S950+0ch]
         xor     ax, ax
         mov     cx, 600h
         rep stosb
-        mov     ax, word ptr [1e2ch]
+        mov     ax, word ptr [B_02D2+4]
         stosw
         mov     ax, 0ffh
         stosw
@@ -11564,7 +11617,7 @@ br_2d0b_s950:
         mov     ax, 5744h
         call    fn_24e3_s950
         mov     di, word ptr [W_05F6]
-        mov     ax, word ptr [1e2ch]
+        mov     ax, word ptr [B_02D2+4]
         sub     ax, 4
         mov     cx, 2000h
         mul     cx
@@ -11608,7 +11661,7 @@ br_2d7f_s950:
         mov     dx, 1f10h
         call    fn_2fa3_s950
         jb      loop_2d79_s950
-        cmp     byte ptr [1f3ah], 2dh
+        cmp     byte ptr [B_1F20_S950+1ah], 2dh
         jne     br_2de6_s950
         push    ds
         mov     ax, 1000h
@@ -11654,7 +11707,7 @@ fn_2dfc_s950:
         mov     di, dx
         xchg    cx, ax
         push    ds
-        lds     si, [1e88h]
+        lds     si, [FP_1E7C_S950+0ch]
         inc     cx
         jmp     br_2e0a_s950
 loop_2e07_s950:
@@ -11777,7 +11830,7 @@ br_0d8f:
 
 take_enter:
         if      MODEL = 950
-        mov     byte ptr [0b426h], 0
+        mov     byte ptr [B_B426_S950], 0
         endif
         cmp     byte ptr [ENTER_KEY], 0
         jne     br_0d9b
@@ -11812,7 +11865,7 @@ br_0dae:
         mov     ah, 1
         call    lcd_goto
         if      MODEL = 950
-        mov     byte ptr [0b466h], 1
+        mov     byte ptr [B_B466_S950], 1
         endif
         mov     byte ptr [B_02B8], 0
 loop_0db8:
@@ -11821,13 +11874,13 @@ loop_0db8:
         mov     byte ptr [B_02B7], 0
         call    fn_1492
         if      MODEL = 950
-        mov     al, byte ptr [0b466h]
-        add     al, byte ptr [0b467h]
-        cmp     al, byte ptr [1e04h]
+        mov     al, byte ptr [B_B466_S950]
+        add     al, byte ptr [B_B467_S950]
+        cmp     al, byte ptr [P_029E+4]
         jbe     br_2f19_s950
-        sub     al, byte ptr [1e04h]
+        sub     al, byte ptr [P_029E+4]
 br_2f19_s950:
-        mov     byte ptr [0b466h], al
+        mov     byte ptr [B_B466_S950], al
         call    fn_2f36_s950
         else
         add     bl, 3
@@ -11852,29 +11905,29 @@ br_0dce:
 
 fn_2f36_s950:
         push    es
-        les     di, [1e7ch]
+        les     di, [FP_1E7C_S950]
         mov     ch, 0
-        mov     cl, byte ptr [1e04h]
+        mov     cl, byte ptr [P_029E+4]
 loop_2f41_s950:
         mov     al, byte ptr [B_02B8]
         stosb
         mov     al, byte ptr [B_02B7]
         shr     al, 2
         stosb
-        mov     al, byte ptr [0b466h]
+        mov     al, byte ptr [B_B466_S950]
         stosb
         inc     al
-        cmp     al, byte ptr [1e04h]
+        cmp     al, byte ptr [P_029E+4]
         jbe     br_2f5a_s950
         mov     al, 1
 br_2f5a_s950:
-        mov     byte ptr [0b466h], al
-        mov     al, byte ptr [1e03h]
+        mov     byte ptr [B_B466_S950], al
+        mov     al, byte ptr [P_029E+3]
         stosb
         loop    loop_2f41_s950
         pop     es
         mov     di, 1e7ch
-        mov     al, byte ptr [1e04h]
+        mov     al, byte ptr [P_029E+4]
         cbw
         add     ax, ax
         add     ax, ax
@@ -11952,7 +12005,7 @@ br_2fa0_s950:
 
 fn_2fa3_s950:
         push    ds
-        lds     si, [1e88h]
+        lds     si, [FP_1E7C_S950+0ch]
         xor     ax, ax
         mov     cx, 80h
 loop_2fad_s950:
@@ -11990,7 +12043,7 @@ loop_2fd4_s950:
         ret
 
 L_2fe0_s950:
-        mov     dx, word ptr [0b4ceh]
+        mov     dx, word ptr [W_B4CE_S950]
         else
         mov     al, byte ptr [FDC_RESULT]
         and     al, 0c0h
@@ -12007,7 +12060,7 @@ fn_0e5c:
         push    di
         mov     di, dx
         if      MODEL = 950
-        mov     cx, word ptr [0b4d0h]
+        mov     cx, word ptr [W_B4D0_S950]
         else
         mov     cx, 321h
         endif
@@ -12029,7 +12082,7 @@ fn_0e5c:
         cwd
 loop_0e85:
         if      MODEL = 950
-        add     dx, word ptr [1e76h]
+        add     dx, word ptr [W_1E76_S950]
         else
         add     dx, 400h
         endif
@@ -12049,10 +12102,10 @@ fn_301e_s950:
 
 fn_3021_s950:
         push    si
-        mov     cx, word ptr [1e2ch]
+        mov     cx, word ptr [B_02D2+4]
         sub     cx, dx
         push    ds
-        lds     si, [1e84h]
+        lds     si, [FP_1E7C_S950+8]
         add     dx, dx
         mov     si, dx
 loop_3031_s950:
@@ -12082,7 +12135,7 @@ L_0e95:
         mov     ax, word ptr [si+TBL_8EFE]
         mov     word ptr [W_95EA], ax
         mov     word ptr [W_95EC], ax
-        mov     ax, word ptr [1e76h]
+        mov     ax, word ptr [W_1E76_S950]
         mov     word ptr [W_95EE], ax
         ret
 
@@ -12106,7 +12159,7 @@ fn_3089_s950:
 loop_3092_s950:
         add     word ptr [W_95EA], bp
         mov     word ptr [FP_02CE], 4610h
-        mov     word ptr [1e26h], 1000h
+        mov     word ptr [W_02D0_2], 1000h
         mov     word ptr [W_7CD4], 2000h
         mov     ax, P_476E
         push    bp
@@ -12122,7 +12175,7 @@ br_30bb_s950:
         shr     bp, 1
         jae     loop_3092_s950
         mov     ax, word ptr [W_95EA]
-        mov     word ptr [1e2ch], ax
+        mov     word ptr [B_02D2+4], ax
         elseif  (MODEL = 900) && (FW_VERSION < 210)
         mov     ax, word ptr [si+TBL_8EFE]
         else
@@ -12143,6 +12196,7 @@ FIELDS_CLEAR_MEMORY_AND_LOAD:
         dw      8000h+FLD_CLEAR_MEMORY_AND_LOAD, 8000h+FLD_LOAD_PROGRM_NAME, FLD_LOAD_PROGRM_PR_ONLY, FLD_PR_AND_SAMPLES
         dw      8000h+FLD_LOAD_SAMPLE_NAME, 8000h+FLD_CLEAR_DISK_AND_SAVE, 8000h+FLD_SAVE_PROGRM_NAME, FLD_SAVE_PROGRM_PR_ONLY
         dw      FLD_SAVE_PROGRM_PR_AND_SMPLS, 8000h+FLD_SAVE_SAMPLE_NAME, 8000h+FLD_ERASE_SAMPLE, FLD_PROGRM
+W_34F0_V12A:
         dw      8000h+FLD_DISK_FORMAT, 8000h+FLD_LOAD_DRUM_SETTINGS, FLD_SAVE_DRUM_SETTINGS, 0
         db      8 dup (0)
         else
@@ -12165,6 +12219,7 @@ P_0EAE:
         dw      8000h+FLD_PR_AND_SAMPLES+48h
 FIELDS_SAVE_PROGRM:
         dw      8000h+FLD_SAVE_PROGRM_NAME, FLD_SAVE_PROGRM_PR_ONLY, FLD_SAVE_PROGRM_PR_AND_SMPLS, 8000h+FLD_SAVE_SAMPLE_NAME
+W_2968_OS21:
         dw      8000h+FLD_ERASE_SAMPLE, FLD_PROGRM, 8000h+FLD_DISK_FORMAT, 0
         dw      FLD_PR_AND_SAMPLES+1eh
         db      00h, 00h
@@ -12178,7 +12233,9 @@ FIELDS_SAVE_PROGRM:
         dw      8000h+FLD_SAVE_PROGRM_PR_AND_SMPLS+0fh
         db      63h, 8fh, 5ah, 0fh
         dw      8000h+FLD_SAVE_PROGRM_PR_AND_SMPLS+18h
+W_0EC8:
         dw      8000h+FLD_LOAD_PROGRM_PR_AND_SMPLS+0fh
+W_0ECA:
         db      4bh, 0fh, 30h, 8fh, 00h, 00h
         endif
 P_0ED0:
@@ -12319,6 +12376,7 @@ FLD_DISK_FORMAT:
         FIELD   SCR_LOAD_DRUM_SETTINGS, 5, 32, 33, FT_KEYS, 0, load_drum_settings, 0, KEYS_LOAD_DRUM_SETTINGS, 1
         if      FW_VERSION >= 400
         db      0a6h, 05h, 04h, 37h, 38h, 60h, 00h, 44h, 0fh, 00h, 00h, 3fh, 0fh, 02h, 00h, 2bh
+B_0F40:
         db      2dh, 01h, 00h, 00h, 0d1h, 0e9h, 88h, 0eh, 41h, 0fh, 0c3h
         endif
 FLD_SAVE_DRUM_SETTINGS:
@@ -12345,18 +12403,18 @@ field_0fc3:
         and     ax, 0ffh
         sub     ax, 31h
         js      br_0ffd
-        mov     word ptr [2d4h], 0
+        mov     word ptr [B_02D2+2], 0
 
 L_0fd1:
         call    fn_10b8
         je      br_0ff7
         shl     ax, 1
-        mov     word ptr [2d4h], ax
+        mov     word ptr [B_02D2+2], ax
         push    ax
         mov     ax, 3f46h
         call    disk_catalog_scan
         pop     ax
-        mov     word ptr [2d4h], ax
+        mov     word ptr [B_02D2+2], ax
         call    fn_100a
         cmp     ax, 0
         jne     br_0ffd
@@ -12377,12 +12435,12 @@ L_1006:
         ret
 
 fn_100a:
-        mov     bx, word ptr [2d4h]
+        mov     bx, word ptr [B_02D2+2]
         mov     ax, word ptr [bx+P_953E]
         ret
 
 fn_1013:
-        mov     bx, word ptr [2d4h]
+        mov     bx, word ptr [B_02D2+2]
         mov     ax, word ptr [bx+P_953E]
         mov     word ptr [W_95EA], ax
         mov     word ptr [FP_02CE], DISK_CATALOG
@@ -12393,7 +12451,7 @@ fn_1013:
 
 fn_1031:
         mov     word ptr [W_7CD4], P_0600
-        mov     bx, word ptr [2d4h]
+        mov     bx, word ptr [B_02D2+2]
         mov     ax, word ptr [bx+P_953E]
         mov     word ptr [W_95EA], ax
         mov     word ptr [FP_02CE], DISK_CATALOG
@@ -12416,14 +12474,14 @@ loop_1057:
         inc     dx
         jmp     loop_1057
 br_1064:
-        mov     bx, word ptr [2d4h]
+        mov     bx, word ptr [B_02D2+2]
         mov     word ptr [bx+P_953E], dx
-        mov     word ptr [bx-6ab0h], 40h
+        mov     word ptr [bx+TBL_9550], 40h
         mov     bx, dx
         shl     bx, 1
         inc     dx
         mov     word ptr [bx+TBL_8EFE], dx
-        mov     word ptr [bx-7100h], 8000h
+        mov     word ptr [bx+P_8F00], 8000h
         xor     ax, ax
         mov     word ptr [W_95EA], ax
         mov     word ptr [FP_02CE], DISK_CATALOG
@@ -12435,10 +12493,10 @@ br_1064:
         mov     cx, 600h
         shr     cx, 1
         rep stosw
-        mov     ax, word ptr [2d4h]
+        mov     ax, word ptr [B_02D2+2]
         shr     ax, 1
         add     ax, 31h
-        mov     byte ptr [30ch], al
+        mov     byte ptr [B_02FE+0eh], al
         call    fn_10b8
         pop     bx
         pop     ax
@@ -12449,10 +12507,10 @@ br_1064:
 
 fn_10b8:
         push    ax
-        mov     al, byte ptr [30ch]
-        mov     byte ptr [353h], al
-        mov     byte ptr [3a7h], al
-        mov     byte ptr [3f7h], al
+        mov     al, byte ptr [B_02FE+0eh]
+        mov     byte ptr [B_034E+5], al
+        mov     byte ptr [B_039E+9], al
+        mov     byte ptr [B_03F7], al
         mov     byte ptr [B_0443], al
         mov     byte ptr [B_0497], al
         mov     byte ptr [B_04D7], al
@@ -12474,15 +12532,15 @@ loop_10dc:
         shl     bx, 1
         cmp     word ptr [bx+P_953E], 0
         je      br_110e
-        cmp     word ptr [bx-6ab0h], 40h
+        cmp     word ptr [bx+TBL_9550], 40h
         jne     br_110e
         mov     ax, word ptr [bx+P_953E]
         mov     word ptr [bx+P_953E], 0
-        mov     word ptr [bx-6ab0h], 0
+        mov     word ptr [bx+TBL_9550], 0
         mov     bx, ax
         shl     bx, 1
         mov     word ptr [bx+TBL_8EFE], 0
-        mov     word ptr [bx-7100h], 0
+        mov     word ptr [bx+P_8F00], 0
 br_110e:
         loop    loop_10dc
         pop     cx
@@ -12507,17 +12565,17 @@ br_111e:
         if      MODEL = 950
         mov     word ptr [W_95EC], ax
         mov     word ptr [FP_02CE], W_7CEE
-        mov     word ptr [1e26h], 0
+        mov     word ptr [W_02D0_2], 0
         mov     ax, 3e8h
         cmp     byte ptr [B_95CC], 50h
         je      br_328f_s950
         cmp     byte ptr [B_95CC], 4dh
         jne     br_32b3_s950
 br_328f_s950:
-        mov     ax, word ptr [1e7ch]
+        mov     ax, word ptr [FP_1E7C_S950]
         mov     word ptr [FP_02CE], ax
-        mov     ax, word ptr [1e7eh]
-        mov     word ptr [1e26h], ax
+        mov     ax, word ptr [FP_1E7C_S950+2]
+        mov     word ptr [W_02D0_2], ax
         mov     ax, word ptr [di+11h]
         sub     ax, word ptr [W_95EE]
         mov     word ptr [W_95BE], ax
@@ -12536,7 +12594,7 @@ br_32b3_s950:
         mov     word ptr [W_95C0], di
         if      MODEL = 950
         push    dx
-        call    word ptr [1e64h]
+        call    word ptr [W_1E64_S950]
         pop     dx
         else
         cmp     byte ptr [B_95CC], 46h
@@ -12562,7 +12620,7 @@ br_114d:
         cmp     byte ptr [B_04D7], 0
         je      loop_115d
         mov     di, 0b42eh
-        mov     byte ptr [0b457h], 0ffh
+        mov     byte ptr [B_B457_S950], 0ffh
         else
         mov     di, MIDI_SETTINGS
         mov     cx, 28h
@@ -12592,7 +12650,7 @@ br_3300_s950:
         mov     ax, 0
         mov     es, ax
         mov     di, 0
-        lds     si, [1e7ch]
+        lds     si, [FP_1E7C_S950]
         mov     cx, 8000h
         int     11h
 br_3317_s950:
@@ -12653,17 +12711,17 @@ loop_3349_s950:
 br_335a_s950:
         mov     word ptr [W_7CD4], ax
         mov     ax, 4452h
-        call    word ptr [1e64h]
+        call    word ptr [W_1E64_S950]
 
 fn_3364_s950:
-        call    word ptr [1e6ah]
-        test    byte ptr [0b4f9h], 80h
+        call    word ptr [W_1E6A_S950]
+        test    byte ptr [B_B4F9_S950], 80h
         je      loop_3349_s950
         clc
         ret
 L_0641:
         call    fn_3364_s950
-        cmp     byte ptr [0b464h], 0
+        cmp     byte ptr [B_B464_S950], 0
         je      br_337e_s950
         call    fn_95c2_s950
 br_337e_s950:
@@ -12723,12 +12781,12 @@ fn_11c7:
         mov     word ptr [CUR_PROGRAM], bx
 br_33be_s950:
         push    ds
-        lds     si, [1e7ch]
+        lds     si, [FP_1E7C_S950]
         mov     al, byte ptr [si+17h]
         rep movsb
         pop     ds
         mov     byte ptr [bx+0ah], 0
-        mov     byte ptr [0b41eh], al
+        mov     byte ptr [B_B41E_S950], al
         else
         mov     word ptr [CUR_PROGRAM], bx
         mov     si, W_7CEE
@@ -12743,18 +12801,18 @@ loop_11df:
         mov     di, bx
         if      MODEL = 950
         push    ds
-        lds     ax, [1e7ch]
+        lds     ax, [FP_1E7C_S950]
         mov     word ptr [si+28h], 0
         mov     word ptr [si+3eh], 0
         rep movsb
         pop     ds
-        dec     byte ptr [0b41eh]
+        dec     byte ptr [B_B41E_S950]
         lea     di, [bx+44h]
         jne     loop_11df
         pop     bx
         ret
 br_33fe_s950:
-        cmp     byte ptr [0b464h], 0
+        cmp     byte ptr [B_B464_S950], 0
         je      br_3408_s950
         call    fn_9803_s950
 br_3408_s950:
@@ -12808,7 +12866,7 @@ br_122c:
         if      MODEL = 950
         mov     bx, 9f7ah
         xchg    word ptr [FP_02CE], bx
-        mov     ax, word ptr [1e6ah]
+        mov     ax, word ptr [W_1E6A_S950]
         mov     word ptr [W_95F0], ax
         mov     word ptr [W_95C2], L_347b_s950
         elseif  (MODEL = 900) && (FW_VERSION < 210)
@@ -12869,7 +12927,7 @@ br_3475_s950:
 
 L_347b_s950:
         mov     ax, 5352h
-        jmp     word ptr [1e64h]
+        jmp     word ptr [W_1E64_S950]
         RUN_BR_11F9
         jae     br_349a_s950
         jmp     loop_1197
@@ -12885,11 +12943,11 @@ loop_34a4_s950:
         je      br_34bd_s950
         cmp     byte ptr [KEY_CODE], 0dh
         jne     loop_34a4_s950
-        mov     byte ptr [0b41fh], 0ffh
+        mov     byte ptr [B_B41F_S950], 0ffh
         jmp     br_34c8_s950
 br_34bd_s950:
         call    fn_28f1_s950
-        mov     byte ptr [0b421h], 0ffh
+        mov     byte ptr [B_B421_S950], 0ffh
         call    show_loading
 br_34c8_s950:
         mov     byte ptr [KEY_CODE], 0
@@ -12954,7 +13012,7 @@ fn_1288:
         call    fn_0726
 br_1293:
         if      MODEL = 950
-        mov     cx, word ptr [1e78h]
+        mov     cx, word ptr [W_1E78_S950]
         else
         mov     cx, 40h
         endif
@@ -12979,7 +13037,7 @@ loop_12a2:
         mov     byte ptr [di+13h], dl
         if      MODEL = 950
         mov     dh, 0
-        mov     cx, word ptr [1e76h]
+        mov     cx, word ptr [W_1E76_S950]
         dec     cx
         add     ax, cx
         adc     dx, 0
@@ -12988,7 +13046,7 @@ loop_12a2:
         if      FW_VERSION >= 400
         cmp     byte ptr [bp], 53h
         jne     br_12cf
-        cmp     byte ptr [0f41h], 0
+        cmp     byte ptr [B_0F40+1], 0
         jne     br_12ed
         endif
         if      FW_VERSION >= 210
@@ -13011,9 +13069,9 @@ br_12e0:
         mov     ax, 5744h
         if      MODEL = 950
         pusha
-        call    word ptr [1e64h]
+        call    word ptr [W_1E64_S950]
         popa
-        cmp     byte ptr [0b426h], 0
+        cmp     byte ptr [B_B426_S950], 0
         je      br_359f_s950
         call    fn_36e4_s950
         jmp     fn_1288
@@ -13035,7 +13093,7 @@ br_12ed:
         mov     al, byte ptr [bp]
         mov     byte ptr [di+10h], al
         if      MODEL = 950
-        call    word ptr [1e66h]
+        call    word ptr [W_1E66_S950]
         else
         call    fn_0e59
         endif
@@ -13078,15 +13136,15 @@ br_1319:
         xchg    cx, ax
         cwd
         if      MODEL = 950
-        jmp     word ptr [1e6ch]
+        jmp     word ptr [W_1E6C_S950]
 
 L_35df_s950:
         mov     di, P_8EFE
-        add     di, word ptr [0b4ceh]
-        add     di, word ptr [0b4ceh]
-        mov     cx, word ptr [0b4d0h]
+        add     di, word ptr [W_B4CE_S950]
+        add     di, word ptr [W_B4CE_S950]
+        mov     cx, word ptr [W_B4D0_S950]
         dec     cx
-        sub     cx, word ptr [0b4ceh]
+        sub     cx, word ptr [W_B4CE_S950]
         else
         mov     cx, 31ch
         endif
@@ -13104,9 +13162,9 @@ loop_35f9_s950:
         if      MODEL = 950
 
 L_35fe_s950:
-        mov     cx, word ptr [1e2ch]
+        mov     cx, word ptr [B_02D2+4]
         push    ds
-        lds     si, [1e84h]
+        lds     si, [FP_1E7C_S950+8]
         xor     ax, ax
 loop_3609_s950:
         cmp     word ptr [si], ax
@@ -13118,25 +13176,25 @@ br_360e_s950:
         pop     ds
         jmp     loop_35f9_s950
 br_3616_s950:
-        mov     byte ptr [0b464h], 0
+        mov     byte ptr [B_B464_S950], 0
         call    fn_36c8_s950
         call    fn_275a_s950
         push    ds
-        lds     si, [1e88h]
+        lds     si, [FP_1E7C_S950+0ch]
         cmp     byte ptr [si+602h], 0ffh
         mov     ax, 9c4h
         jne     br_3634_s950
         mov     ax, word ptr [si+600h]
 br_3634_s950:
         pop     ds
-        mov     word ptr [1e2ch], ax
+        mov     word ptr [B_02D2+4], ax
         call    fn_3683_s950
         jae     br_3643_s950
         call    fn_275a_s950
         call    fn_36a9_s950
 br_3643_s950:
         call    fn_275a_s950
-        mov     byte ptr [0b46dh], 0ffh
+        mov     byte ptr [B_B46D_S950], 0ffh
         call    fn_3659_s950
         call    fn_3666_s950
         jb      br_3656_s950
@@ -13154,7 +13212,7 @@ fn_3659_s950:
 
 fn_3666_s950:
         call    fn_231b_s950
-        mov     word ptr [1e26h], ax
+        mov     word ptr [W_02D0_2], ax
         mov     word ptr [FP_02CE], DISK_CATALOG
         mov     dx, 1f10h
         call    fn_2fa3_s950
@@ -13165,9 +13223,9 @@ fn_3666_s950:
 fn_3683_s950:
         call    fn_231b_s950
         mov     word ptr [FP_02CE], 604h
-        mov     word ptr [1e26h], 1000h
+        mov     word ptr [W_02D0_2], 1000h
         mov     word ptr [W_95EA], 1
-        mov     ax, word ptr [1e2ch]
+        mov     ax, word ptr [B_02D2+4]
         add     ax, ax
         mov     bx, 2000h
         cmp     bx, ax
@@ -13180,9 +13238,9 @@ br_36a5_s950:
 fn_36a9_s950:
         call    fn_231b_s950
         mov     word ptr [FP_02CE], 2604h
-        mov     word ptr [1e26h], 1000h
+        mov     word ptr [W_02D0_2], 1000h
         mov     word ptr [W_95EA], 2
-        mov     ax, word ptr [1e2ch]
+        mov     ax, word ptr [B_02D2+4]
         add     ax, ax
         sub     ax, 2000h
         jmp     br_36a5_s950
@@ -13190,7 +13248,7 @@ fn_36a9_s950:
 fn_36c8_s950:
         call    fn_231b_s950
         mov     word ptr [FP_02CE], 0
-        mov     word ptr [1e26h], 1000h
+        mov     word ptr [W_02D0_2], 1000h
         mov     word ptr [W_7CD4], 604h
         mov     word ptr [W_95EA], 0
         ret
@@ -13335,7 +13393,7 @@ br_13a1:
         if      MODEL = 950
         call    fn_231b_s950
         mov     ax, 3f46h
-        call    word ptr [1e64h]
+        call    word ptr [W_1E64_S950]
         else
         mov     ax, 3f46h
         endif
@@ -13352,16 +13410,16 @@ L_13ac:
         if      MODEL = 950
 
 fn_379d_s950:
-        push    word ptr [0b41ch]
-        mov     byte ptr [0b41ch], 0
-        mov     word ptr [1e1fh], 0ad2h
-        mov     byte ptr [1e04h], 5
-        mov     byte ptr [1e0eh], 5
-        mov     word ptr [0b4beh], 0ah
-        mov     byte ptr [0b467h], 3
-        mov     word ptr [0b49ch], 0c40h
-        mov     word ptr [0b4ceh], 4
-        mov     word ptr [0b4d0h], 321h
+        push    word ptr [B_B41C_S950]
+        mov     byte ptr [B_B41C_S950], 0
+        mov     word ptr [P_02BC+4], 0ad2h
+        mov     byte ptr [P_029E+4], 5
+        mov     byte ptr [B_02AD+2], 5
+        mov     word ptr [W_B4BE_S950], 0ah
+        mov     byte ptr [B_B467_S950], 3
+        mov     word ptr [W_B49C_S950], 0c40h
+        mov     word ptr [W_B4CE_S950], 4
+        mov     word ptr [W_B4D0_S950], 321h
         mov     al, byte ptr [FLOPPY_CTRL]
         push    ax
         or      al, 1
@@ -13371,18 +13429,18 @@ fn_379d_s950:
         pop     ax
         out     8, al
         jne     br_3815_s950
-        dec     byte ptr [0b41ch]
-        mov     byte ptr [1e04h], 0ah
-        mov     byte ptr [1e0eh], 0ah
-        mov     word ptr [0b4beh], 14h
-        mov     byte ptr [0b467h], 6
-        mov     word ptr [0b49ch], 1280h
-        mov     word ptr [0b4ceh], 5
-        mov     word ptr [0b4d0h], 641h
-        mov     word ptr [1e1fh], 14a4h
+        dec     byte ptr [B_B41C_S950]
+        mov     byte ptr [P_029E+4], 0ah
+        mov     byte ptr [B_02AD+2], 0ah
+        mov     word ptr [W_B4BE_S950], 14h
+        mov     byte ptr [B_B467_S950], 6
+        mov     word ptr [W_B49C_S950], 1280h
+        mov     word ptr [W_B4CE_S950], 5
+        mov     word ptr [W_B4D0_S950], 641h
+        mov     word ptr [P_02BC+4], 14a4h
 br_3815_s950:
         pop     ax
-        cmp     al, byte ptr [0b41ch]
+        cmp     al, byte ptr [B_B41C_S950]
         je      br_3821_s950
         mov     byte ptr [B_0497], 0
 br_3821_s950:
@@ -13392,7 +13450,7 @@ br_0d1d:
         call    fn_06c8
         call    fn_251f_s950
         call    fn_2984_s950
-        mov     byte ptr [0b464h], al
+        mov     byte ptr [B_B464_S950], al
 loop_382e_s950:
         mov     al, byte ptr [di+10h]
         cmp     al, 73h
@@ -13400,7 +13458,7 @@ loop_382e_s950:
         cmp     al, 70h
         jne     br_3844_s950
 br_3839_s950:
-        or      byte ptr [0b464h], al
+        or      byte ptr [B_B464_S950], al
         sub     byte ptr [di+10h], 20h
         call    fn_384a_s950
 br_3844_s950:
@@ -13442,8 +13500,8 @@ L_13bb:
         jmp     br_13d7
         db      90h
 br_13cc:
-        mov     word ptr [2d4h], 0
-        mov     byte ptr [30ch], 31h
+        mov     word ptr [B_02D2+2], 0
+        mov     byte ptr [B_02FE+0eh], 31h
 br_13d7:
         call    fn_10b8
         pop     ax
@@ -13518,13 +13576,13 @@ loop_38cd_s950:
 L_38d0_s950:
         jmp     br_3a2d_s950
 br_38d3_s950:
-        inc     word ptr [0f2h]
-        mov     word ptr [0f4h], 0ffffh
-        mov     word ptr [0f6h], 0ffffh
-        mov     word ptr [0f8h], 0ffffh
+        inc     word ptr [W_00F2_S950]
+        mov     word ptr [W_00F4_S950], 0ffffh
+        mov     word ptr [W_00F6_S950], 0ffffh
+        mov     word ptr [W_00F8_S950], 0ffffh
         cmp     si, 1dfch
         je      br_38f3_s950
-        mov     word ptr [1e8eh], si
+        mov     word ptr [W_1E8C_S950+2], si
 br_38f3_s950:
         in      al, 6ah
         and     al, 4
@@ -13537,7 +13595,7 @@ br_38fc_s950:
         mov     bx, 144h
         test    byte ptr [si+1], 10h
         jne     br_3919_s950
-        cmp     byte ptr [0b4ddh], 53h
+        cmp     byte ptr [B_B4DD_S950], 53h
         jne     br_3916_s950
         call    fn_2823_s950
 br_3916_s950:
@@ -13554,33 +13612,33 @@ br_3928_s950:
         mov     al, 1
         out     5ah, al
         call    fn_3a02_s950
-        mov     ax, word ptr [3234h]
+        mov     ax, word ptr [FLD_HDRIVE1+9]
         dec     ax
         shl     ax, 5
         or      al, byte ptr [si]
         out     5ch, al
         mov     al, 3
         out     5ah, al
-        mov     ax, word ptr [3223h]
+        mov     ax, word ptr [FLD_HDCONT1+9]
         dec     ax
         shl     ax, 5
         mov     dx, ax
         mov     al, byte ptr [si+1]
         cbw
-        mov     al, byte ptr [0b484h]
+        mov     al, byte ptr [W_B484_S950]
         and     al, ah
         add     ax, dx
         call    fn_3a16_s950
-        mov     al, byte ptr [0b483h]
+        mov     al, byte ptr [B_B483_S950]
         and     al, ah
         call    fn_3a16_s950
-        mov     al, byte ptr [0b482h]
+        mov     al, byte ptr [W_B482_S950]
         and     al, ah
         call    fn_3a16_s950
         mov     al, byte ptr [si+2]
         test    byte ptr [si+1], 40h
         je      br_397a_s950
-        mov     ax, word ptr [1e2ah]
+        mov     ax, word ptr [B_02D2+2]
         add     ax, 1ffh
         cwd
         mov     cx, 200h
@@ -13596,13 +13654,13 @@ br_397a_s950:
 br_398d_s950:
         out     5ah, al
         je      br_39a1_s950
-        cmp     byte ptr [0b4ddh], 53h
+        cmp     byte ptr [B_B4DD_S950], 53h
         jne     br_39a1_s950
         mov     word ptr [W_95B0], 0fh
         call    fn_2571_s950
 br_39a1_s950:
         mov     word ptr [W_95B0], 2eh
-        cmp     word ptr [1e8eh], 1df0h
+        cmp     word ptr [W_1E8C_S950+2], 1df0h
         jne     br_39b5_s950
         mov     word ptr [W_95B0], 125ch
 br_39b5_s950:
@@ -13611,7 +13669,7 @@ br_39b5_s950:
         jne     br_39c8_s950
         call    fn_2f1d
         jne     br_39b5_s950
-        mov     byte ptr [0f0h], 4
+        mov     byte ptr [B_00F0_S950], 4
         jmp     br_3a2d_s950
         db      90h
 br_39c8_s950:
@@ -13620,7 +13678,7 @@ br_39c8_s950:
         in      al, 5ch
         cmp     al, 0
         je      br_39f2_s950
-        cmp     word ptr [1e8eh], 1dech
+        cmp     word ptr [W_1E8C_S950+2], 1dech
         jne     br_39df_s950
 loop_39da_s950:
         call    fn_38be_s950
@@ -13628,15 +13686,15 @@ loop_39da_s950:
 br_39df_s950:
         cmp     word ptr [W_95C8], P_476E
         je      loop_39da_s950
-        mov     byte ptr [0f0h], 5
-        mov     byte ptr [0f1h], al
+        mov     byte ptr [B_00F0_S950], 5
+        mov     byte ptr [B_00F1_S950], al
         jmp     br_3a2d_s950
         db      90h
 br_39f2_s950:
         mov     al, 1
         out     81h, al
         in      ax, 84h
-        mov     word ptr [0b502h], ax
+        mov     word ptr [W_B502_S950], ax
         mov     al, 0
         out     81h, al
         sub     ax, ax
@@ -13647,7 +13705,7 @@ fn_3a02_s950:
         out     81h, al
 loop_3a06_s950:
         in      ax, 84h
-        sub     ax, word ptr [0b502h]
+        sub     ax, word ptr [W_B502_S950]
         endif
         if      (MODEL = 950) && (FW_VERSION = 100)
         cmp     ax, 18h
@@ -13670,9 +13728,9 @@ loop_3a1d_s950:
         jne     br_3a42_s950
         call    fn_2f1d
         jne     loop_3a1d_s950
-        mov     byte ptr [0f0h], 2
+        mov     byte ptr [B_00F0_S950], 2
 br_3a2d_s950:
-        mov     word ptr [0f4h], si
+        mov     word ptr [W_00F4_S950], si
         mov     si, 1eb0h
         mov     di, 1f10h
         mov     cx, 5
@@ -13691,7 +13749,7 @@ br_3a42_s950:
         je      br_142a
         xor     ax, ax
         mov     al, byte ptr [B_95C6]
-        mov     word ptr [bx-6ab0h], ax
+        mov     word ptr [bx+TBL_9550], ax
         call    fn_1013
         mov     word ptr [W_7CD4], 0c64h
         sub     word ptr [W_7CD4], 400h
@@ -13724,7 +13782,7 @@ disk_catalog_find:
         push    si
         if      MODEL = 950
         mov     di, DISK_CATALOG
-        mov     cx, word ptr [1e78h]
+        mov     cx, word ptr [W_1E78_S950]
         mov     dx, di
         else
         mov     dx, DISK_CATALOG
@@ -13747,7 +13805,7 @@ loop_1450:
         jne     loop_1450
         mov     ax, word ptr [di+14h]
         if      MODEL = 950
-        mov     dx, word ptr [1e76h]
+        mov     dx, word ptr [W_1E76_S950]
         mov     word ptr [W_95EE], dx
         else
         call    sample_rate_table_lookup
@@ -13800,12 +13858,12 @@ br_14a8:
 
 fn_3ab5_s950:
         mov     ax, word ptr [W_95EA]
-        mov     cx, word ptr [0b4beh]
+        mov     cx, word ptr [W_B4BE_S950]
         div     cl
-        cmp     ah, byte ptr [1e04h]
+        cmp     ah, byte ptr [P_029E+4]
         jb      br_3aca_s950
         inc     ch
-        sub     ah, byte ptr [1e04h]
+        sub     ah, byte ptr [P_029E+4]
 br_3aca_s950:
         inc     ah
         else
@@ -13846,7 +13904,7 @@ br_14c9:
         cwd
         mov     bl, 53h
         mov     bp, 3ch
-        cmp     byte ptr [0b464h], al
+        cmp     byte ptr [B_B464_S950], al
         pushf
         je      br_3b15_s950
         mov     bp, 96h
@@ -13891,7 +13949,7 @@ br_14f0:
         call    fn_159e
         if      MODEL = 950
         mov     ax, word ptr [W_95C4]
-        mul     word ptr [1e76h]
+        mul     word ptr [W_1E76_S950]
         call    fn_3c3d_s950
         div     cx
         elseif  (MODEL = 900) && (FW_VERSION < 400)
@@ -14006,7 +14064,7 @@ L_15a6:
         pop     ax
         je      br_15c6
         if      MODEL = 950
-        mov     cx, word ptr [1e78h]
+        mov     cx, word ptr [W_1E78_S950]
         else
         mov     cx, 40h
         endif
@@ -14069,7 +14127,7 @@ fn_2e3f_os21:
         ret
 
 fn_3c2f_s950:
-        mov     dx, word ptr [0b4a2h]
+        mov     dx, word ptr [W_B4A2_S950]
         mov     ax, 0
         sub     ax, 8000h
         sbb     dx, 1
@@ -14130,7 +14188,7 @@ fn_1601:
 
 fn_1607:
         if      MODEL = 950
-        mov     byte ptr [0b41dh], 0
+        mov     byte ptr [B_B41D_S950], 0
         endif
         call    fn_0d57
         call    fn_1288
@@ -14139,7 +14197,7 @@ fn_1607:
         jne     br_161f
         mov     word ptr [FP_02CE], MIDI_SETTINGS
         if      MODEL = 950
-        mov     word ptr [1e26h], 0
+        mov     word ptr [W_02D0_2], 0
         endif
         jmp     br_1633
 br_161f:
@@ -14147,7 +14205,7 @@ br_161f:
         jne     br_162d
         mov     word ptr [FP_02CE], DRUM_INPUTS_ON
         if      MODEL = 950
-        mov     word ptr [1e26h], 0
+        mov     word ptr [W_02D0_2], 0
         endif
         jmp     br_1633
 br_162d:
@@ -14175,7 +14233,7 @@ br_1642:
         mov     di, W_7CEE
         mov     word ptr [FP_02CE], di
         if      MODEL = 950
-        mov     word ptr [1e26h], 0
+        mov     word ptr [W_02D0_2], 0
         else
         mov     word ptr [W_02D0], 0
         endif
@@ -14183,10 +14241,10 @@ br_1642:
         jne     br_1678
         if      MODEL = 950
         push    es
-        les     di, [1e80h]
+        les     di, [FP_1E7C_S950+4]
         mov     word ptr [FP_02CE], di
         mov     ax, es
-        mov     word ptr [1e26h], ax
+        mov     word ptr [W_02D0_2], ax
         endif
         mov     cx, 26h
         rep movsb
@@ -14212,7 +14270,7 @@ br_1678:
         rep movsb
         if      MODEL = 950
         mov     byte ptr [di-12h], cl
-        mov     ax, word ptr [1e70h]
+        mov     ax, word ptr [W_1E70_S950]
         mov     word ptr [W_95F0], ax
         else
         mov     word ptr [W_95F0], L_16a2
@@ -14231,9 +14289,9 @@ L_168d:
         add     ax, word ptr [W_95E4]
         xchg    dx, ax
         if      MODEL = 950
-        call    word ptr [1e74h]
+        call    word ptr [W_1E74_S950]
         mov     ax, 5357h
-        jmp     word ptr [1e64h]
+        jmp     word ptr [W_1E64_S950]
         else
         call    fn_16f7
         mov     ax, 5357h
@@ -14287,7 +14345,7 @@ br_16b4:
         if      MODEL = 950
         add     ax, ax
         mov     dx, word ptr [W_95EC]
-        call    word ptr [1e68h]
+        call    word ptr [W_1E68_S950]
         else
         mov     dx, word ptr [W_95EC]
         call    fn_0e5c
@@ -14295,15 +14353,15 @@ br_16b4:
         mov     di, word ptr [W_95EC]
         shl     di, 1
         if      MODEL = 950
-        call    word ptr [1e72h]
+        call    word ptr [W_1E72_S950]
         jmp     br_16b4
 
 fn_3d74_s950:
-        call    word ptr [1e74h]
+        call    word ptr [W_1E74_S950]
         call    fn_231b_s950
         mov     word ptr [W_7CD4], dx
         mov     ax, 4457h
-        jmp     word ptr [1e64h]
+        jmp     word ptr [W_1E64_S950]
 
 L_3d86_s950:
         mov     word ptr [di+TBL_8EFE], dx
@@ -14346,7 +14404,7 @@ fn_16f7:
 loop_1702:
         inc     ax
         if      MODEL = 950
-        sub     dx, word ptr [1e76h]
+        sub     dx, word ptr [W_1E76_S950]
         else
         sub     dx, 400h
         endif
@@ -14395,7 +14453,7 @@ fn_1724:
         if      MODEL = 950
         mov     dx, word ptr [bx+38h]
         mov     word ptr [W_95D0], dx
-        cmp     byte ptr [0b464h], 0
+        cmp     byte ptr [B_B464_S950], 0
         je      br_3dfa_s950
         jmp     br_9916_s950
 br_3dfa_s950:
@@ -14525,7 +14583,7 @@ br_1828:
         if      MODEL = 950
 
 fn_3efa_s950:
-        mov     word ptr [1f1bh], 2056h
+        mov     word ptr [SCR_VOLUME+23h], 2056h
         pusha
         mov     si, 1f10h
         mov     di, 2252h
@@ -14552,7 +14610,7 @@ br_3f18_s950:
         mov     si, 3f4ch
         mov     di, 1f1bh
         mov     cx, 5
-        cmp     byte ptr [0b464h], ch
+        cmp     byte ptr [B_B464_S950], ch
         jne     br_3f48_s950
         mov     si, 3f51h
 br_3f48_s950:
@@ -14678,6 +14736,7 @@ fn_1c82:
 
 fn_1cc6:
         db      30 dup (0)
+B_1CE4:
         db      10h, 01h
 
 fn_1ce6:
@@ -14923,7 +14982,7 @@ B_296A:
         ret
 
 fn_2be9:
-        mov     byte ptr [2c20h], al
+        mov     byte ptr [B_2C1F+1], al
         mov     ax, word ptr [MIDI_RX_HEAD]
         mov     word ptr [MIDI_RX_TAIL], ax
         RUN_FN_2BF3
@@ -15198,7 +15257,7 @@ br_3378:
 
 fn_448f_s950:
         call    fn_4fe0_s950
-        mov     word ptr [10h], 4489h
+        mov     word ptr [W_0010], 4489h
         mov     dx, 1a0h
         mov     al, 0
         out     dx, al
@@ -15210,9 +15269,9 @@ L_449e_s950:
         mov     al, byte ptr [B_7CD2]
         call    fn_377b
         mov     byte ptr [B_2F7A], 0
-        mov     ax, word ptr [49aeh]
+        mov     ax, word ptr [FLD_DIGITAL_AUDIO_BOOST+9]
         dec     ax
-        mov     byte ptr [0b47ah], al
+        mov     byte ptr [B_B47A_S950], al
         push    es
         mov     ax, 1000h
         mov     es, ax
@@ -15221,23 +15280,23 @@ L_449e_s950:
         mov     cx, 2000h
         rep stosw
         pop     es
-        mov     byte ptr [0b46dh], cl
+        mov     byte ptr [B_B46D_S950], cl
         mov     dx, 1a0h
         mov     al, 1ah
-        cmp     byte ptr [499fh], 3
+        cmp     byte ptr [FLD_REC_AUDIO_SOURCE+9], 3
         je      br_44da_s950
         or      al, 1
 br_44da_s950:
-        cmp     byte ptr [49cch], 1
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_LEFT_RIGHT+9], 1
         jne     br_44e3_s950
         sub     al, 8
 br_44e3_s950:
-        cmp     byte ptr [49cch], 2
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_LEFT_RIGHT+9], 2
         jne     br_44ec_s950
         sub     al, 10h
 br_44ec_s950:
         out     dx, al
-        mov     byte ptr [0b411h], al
+        mov     byte ptr [B_B411_S950], al
         mov     si, MSG_WAITING_FOR_DIGITAL_LEADER
         mov     dx, 1
         call    lcd_print
@@ -15278,16 +15337,16 @@ loop_4505_s950:
         out     82h, ax
         mov     al, 2
         out     8fh, al
-        or      byte ptr [0b411h], 20h
+        or      byte ptr [B_B411_S950], 20h
         mov     dx, 1a0h
-        mov     al, byte ptr [0b411h]
+        mov     al, byte ptr [B_B411_S950]
         out     dx, al
         mov     ax, 4
         mov     bx, 16bh
-        cmp     byte ptr [49bdh], 1
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_CD_KHZ+9], 1
         je      br_455d_s950
         mov     bx, 14dh
-        cmp     byte ptr [49bdh], 3
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_CD_KHZ+9], 3
         je      br_455d_s950
         mov     bx, 1f4h
         mov     ax, 6
@@ -15295,7 +15354,7 @@ br_455d_s950:
         out     28h, al
         mov     al, ah
         out     28h, al
-        cmp     byte ptr [49cch], 3
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_LEFT_RIGHT+9], 3
         jne     br_456c_s950
         shr     bx, 1
 br_456c_s950:
@@ -15303,7 +15362,7 @@ br_456c_s950:
         out     10h, al
         mov     al, bh
         out     10h, al
-        mov     word ptr [0fcf5h], bx
+        mov     word ptr [W_FCF5_S950], bx
         mov     al, 1
         out     0afh, al
         mov     al, 0
@@ -15327,7 +15386,7 @@ br_456c_s950:
         mov     al, 0
         out     0afh, al
         mov     ax, 0fh
-        mul     word ptr [0b47ah]
+        mul     word ptr [B_B47A_S950]
         add     al, 0cah
         out     78h, al
         sub     ax, ax
@@ -15384,7 +15443,7 @@ br_462a_s950:
         call    br_38a4
         in      ax, 84h
         mov     bx, 0fa0h
-        cmp     byte ptr [49cch], 3
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_LEFT_RIGHT+9], 3
         jne     br_463b_s950
         add     bx, bx
 br_463b_s950:
@@ -15661,7 +15720,7 @@ MSG_WAITING_FOR_DIGITAL_LEADER:
 fn_47db_s950:
         call    word ptr [IDLE_HOOK]
         call    key_get
-        mov     ah, byte ptr [49aeh]
+        mov     ah, byte ptr [FLD_DIGITAL_AUDIO_BOOST+9]
         cmp     al, 2bh
         je      br_47f1_s950
         cmp     al, 2dh
@@ -15674,16 +15733,16 @@ br_47f1_s950:
         jb      br_47fa_s950
         mov     ah, 3
 br_47fa_s950:
-        mov     byte ptr [49aeh], ah
+        mov     byte ptr [FLD_DIGITAL_AUDIO_BOOST+9], ah
         dec     ah
-        mov     byte ptr [0b47ah], ah
+        mov     byte ptr [B_B47A_S950], ah
         mov     al, 0fh
         mul     ah
         add     al, 0cah
         out     78h, al
         pusha
         mov     ax, 5
-        mul     byte ptr [0b47ah]
+        mul     byte ptr [B_B47A_S950]
         add     ax, 482fh
         xchg    si, ax
         mov     dx, 25h
@@ -15826,7 +15885,7 @@ fn_48df_s950:
         mov     ax, 4000h
         sub     ax, word ptr [W_966E]
 br_48f0_s950:
-        cmp     byte ptr [49cch], 3
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_LEFT_RIGHT+9], 3
         jne     br_48f9_s950
         shr     ax, 1
 br_48f9_s950:
@@ -15848,7 +15907,7 @@ br_490b_s950:
         mov     di, dx
         mov     es, ax
         mov     bp, word ptr cs:[W_959E]
-        call    word ptr cs:[0b538h]
+        call    word ptr cs:[W_B538_S950]
         pop     es
         pop     ds
         add     ax, ax
@@ -15872,9 +15931,9 @@ br_495e_s950:
 ; block loop calls word ptr cs:[0B538h]. one of six by [49CCh] (3 or not),
 ; [49AEh] (1, 2, other).
 fn_495f_s950:
-        mov     cx, word ptr [49aeh]
+        mov     cx, word ptr [FLD_DIGITAL_AUDIO_BOOST+9]
         mov     ax, L_483e_s950
-        cmp     byte ptr [49cch], 3
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_LEFT_RIGHT+9], 3
         jne     br_497f_s950
         cmp     cl, 1
         je      br_4992_s950
@@ -15892,7 +15951,7 @@ br_497f_s950:
         je      br_4992_s950
         mov     ax, L_478b_s950
 br_4992_s950:
-        mov     word ptr [0b538h], ax
+        mov     word ptr [W_B538_S950], ax
         ret
 FLD_REC_AUDIO_SOURCE:
         FIELD   SCR_REC_AUDIO_SOURCE, 99, 77, 78, FT_NUM, 0, L_3bab, 1, 1, 3
@@ -16383,7 +16442,7 @@ fn_4ccc_s950:
         mov     word ptr [bx], 0
 br_4ce2_s950:
         mov     bp, word ptr [W_959E]
-        mov     cl, byte ptr [0b47ah]
+        mov     cl, byte ptr [B_B47A_S950]
         shr     bp, cl
         shr     ax, 1
         xchg    cx, ax
@@ -16402,7 +16461,7 @@ loop_4cf5_s950:
         loop    loop_4cf5_s950
         pop     ds
         xchg    bp, ax
-        mov     cl, byte ptr [0b47ah]
+        mov     cl, byte ptr [B_B47A_S950]
         shl     ax, cl
         jno     br_4d11_s950
         mov     ax, 7fffh
@@ -16440,7 +16499,7 @@ fn_379b:
         mov     word ptr [W_2F8A], 0
         mov     word ptr [FIELD_RECENT], FLD_REC_SAMPLE_NAME
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [91d6h], FLD_REC_START_WITH
+        mov     word ptr [W_91D6_V12A], FLD_REC_START_WITH
         else
         mov     word ptr [LAST_FIELD_PTR], REC_LAST_FIELD
         mov     ax, word ptr [REC_LAST_FIELD]
@@ -16640,7 +16699,7 @@ br_38cb:
         mov     dx, 1
         call    lcd_print
         if      MODEL = 950
-        mov     ax, word ptr [49fch]
+        mov     ax, word ptr [FLD_REC_TIME+9]
         xor     dx, dx
         mov     cx, 18h
         else
@@ -16903,7 +16962,7 @@ br_3a63:
         ret
 
 fn_4fd3_s950:
-        cmp     word ptr [49fch], 0
+        cmp     word ptr [FLD_REC_TIME+9], 0
         jne     fn_4fe0_s950
         mov     ax, MSG_MEMORY_FULL_ERASE_SAMPLE
         jmp     error_restart
@@ -16953,7 +17012,7 @@ fn_3a9a:
         if      MODEL = 950
         mov     bx, FIELD_PREVIOUS
         mov     si, FIELDS_REC_BANDWIDTH
-        cmp     word ptr [499fh], 1
+        cmp     word ptr [FLD_REC_AUDIO_SOURCE+9], 1
         je      br_505b_s950
         cmp     word ptr [bx], FLD_REC_BANDWIDTH
         jne     br_5036_s950
@@ -16961,10 +17020,10 @@ fn_3a9a:
 br_5036_s950:
         mov     si, FIELDS_DIGITAL_AUDIO_CD_KHZ
         mov     word ptr [FLD_REC_BANDWIDTH+9], 44e8h
-        cmp     byte ptr [49bdh], 1
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_CD_KHZ+9], 1
         je      br_506b_s950
         mov     word ptr [FLD_REC_BANDWIDTH+9], 3200h
-        cmp     byte ptr [49bdh], 2
+        cmp     byte ptr [FLD_DIGITAL_AUDIO_CD_KHZ+9], 2
         je      br_506b_s950
         mov     word ptr [FLD_REC_BANDWIDTH+9], 4b00h
         jmp     br_506b_s950
@@ -17027,7 +17086,7 @@ br_3b01:
         mul     word ptr [FLD_REC_BANDWIDTH+9]
         mov     cx, 0c8h
         div     cx
-        mul     word ptr [49fch]
+        mul     word ptr [FLD_REC_TIME+9]
         and     ax, 0fffeh
         else
         mov     ax, word ptr [FLD_REC_BANDWIDTH+9]
@@ -17078,7 +17137,7 @@ set_rec_start_with:
 br_3b73:
         mov     byte ptr [B_2F7C], al
         if      MODEL = 950
-        cmp     byte ptr [499fh], 1
+        cmp     byte ptr [FLD_REC_AUDIO_SOURCE+9], 1
         je      br_512a_s950
         call    fn_448f_s950
         jmp     br_512d_s950
@@ -17633,7 +17692,7 @@ mode_edit_program:
         mov     word ptr [FIELD_RECENT], FLD_SELECT_COPY_PROGRAM
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [91d6h], FLD_SELECT
+        mov     word ptr [W_91D6_V12A], FLD_SELECT
         endif
         if      FW_VERSION >= 210
         mov     word ptr [FIELD_RECENT], P_514B
@@ -19391,7 +19450,7 @@ mode_edit_sample:
         mov     word ptr [FIELD_RECENT], FLD_SELECT_COPY_SAMPLE
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [91d6h], FLD_REPLAY_MODE_ONE_SHOT
+        mov     word ptr [W_91D6_V12A], FLD_REPLAY_MODE_ONE_SHOT
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         mov     word ptr [LAST_FIELD_PTR], SAMPLE_LAST_FIELD
@@ -20213,6 +20272,7 @@ br_59fa_os21:
         endm
         if      FW_VERSION = 210
         RUN_FN_1CC6
+W_5A01_OS21:
         db      00h, 00h, 00h
 W_5A04_OS21:
         db      20h, 00h
@@ -20513,7 +20573,7 @@ br_5b67_os21:
         mov     di, bx
         mov     cx, 0ah
         rep movsb
-        mov     word ptr [5a02h], bx
+        mov     word ptr [W_5A01_OS21+1], bx
         mov     bx, word ptr [W_A03C_OS21]
         call    fn_663e_os21
         xchg    si, ax
@@ -20521,7 +20581,7 @@ br_5b67_os21:
         mov     bx, word ptr [W_A01A_OS21]
         call    fn_663e_os21
         call    min_max32
-        mov     bx, word ptr [5a02h]
+        mov     bx, word ptr [W_5A01_OS21+1]
         mov     word ptr [bx+1ch], ax
         mov     word ptr [bx+1eh], dx
         add     ax, ax
@@ -20533,7 +20593,7 @@ br_5b67_os21:
 loop_5bc3_os21:
         jmp     br_64b6_os21
 br_5bc6_os21:
-        mov     bp, word ptr [5a02h]
+        mov     bp, word ptr [W_5A01_OS21+1]
         mov     word ptr [bp+36h], ax
         mov     word ptr [bp+38h], dx
         rcr     cx, 1
@@ -20550,7 +20610,7 @@ br_5bc6_os21:
         mov     word ptr [bx+22h], ax
         mov     word ptr [bx+28h], ax
         call    fn_688f_os21
-        mov     bp, word ptr [5a02h]
+        mov     bp, word ptr [W_5A01_OS21+1]
         mov     bx, word ptr [W_A01A_OS21]
         xor     ax, ax
         call    fn_5c14_os21
@@ -21314,7 +21374,7 @@ fn_6707_os21:
 br_670b_os21:
         endif
         if      FW_VERSION < 400
-        mov     word ptr [10h], P_6714_OS21
+        mov     word ptr [W_0010], P_6714_OS21
         endif
         if      MODEL = 950
         jmp     fn_70d7_s950
@@ -21453,7 +21513,7 @@ br_67af_os21:
         jne     br_67bb_os21
         jmp     lcd_redraw
 br_67bb_os21:
-        mov     byte ptr [5a12h], al
+        mov     byte ptr [W_5A10_OS21+2], al
         mov     dx, P_5283_OS21
         call    fn_5b39_os21
 
@@ -21464,7 +21524,7 @@ L_67c4_os21:
         push    dx
         je      br_67e4_os21
         mov     bp, word ptr [CUR_SAMPLE]
-        mov     ax, word ptr [5806h]
+        mov     ax, word ptr [FLD_VX_TIME_SKEW_TIME+9]
         cwd
         add     ax, ax
         add     ax, word ptr [bp+10h]
@@ -21497,14 +21557,14 @@ br_67e7_os21:
         mov     word ptr [W_9674], L_620d_os21
         mov     di, 0
         mov     si, di
-        cmp     byte ptr [5a12h], 31h
+        cmp     byte ptr [W_5A10_OS21+2], 31h
         jne     br_682d_os21
         dec     si
 br_682d_os21:
         call    fn_6854_os21
         mov     di, 8
         mov     si, 0
-        cmp     byte ptr [5a12h], 32h
+        cmp     byte ptr [W_5A10_OS21+2], 32h
         jne     br_683e_os21
         dec     si
 br_683e_os21:
@@ -21525,7 +21585,7 @@ fn_6854_os21:
         mov     word ptr [W_9670], ax
         mov     ax, word ptr [bp+36h]
         mov     dx, word ptr [bp+38h]
-        mov     cx, word ptr [5806h]
+        mov     cx, word ptr [FLD_VX_TIME_SKEW_TIME+9]
         and     cx, si
         add     cx, cx
         add     ax, cx
@@ -21935,11 +21995,13 @@ loop_012d:
         mov     cx, SLOT_COUNT
         RUN_LOOP_01A1
         RUN_FN_1CC6
+W_7990_S950:
         db      15 dup (0)
 SCR_STRETCH:
         db      "*14 STRETCH *New name "
 P_5283_OS21:
         db      "NEW SAMPLE  *200% "
+B_79C7_S950:
         db      " *D-time 1000 *Auto D_ *Mon1/pol2 2 *Do_"
 FLD_AUTO_D:
         FIELD   SCR_STRETCH, 54, 62, 63, FT_KEYS, 0, L_5b52_os21, 0, KEYS_AUTO_D, 1
@@ -21961,11 +22023,11 @@ L_5b52_os21:
         jne     br_7a4a_s950
         ret
 br_7a4a_s950:
-        mov     word ptr [7a16h], 1
-        mov     byte ptr [79e9h], 31h
+        mov     word ptr [FLD_MON1_POL2+9], 1
+        mov     byte ptr [B_79C7_S950+22h], 31h
         push    word ptr [bx+24h]
         push    word ptr [bx+26h]
-        mov     ax, word ptr [7a07h]
+        mov     ax, word ptr [FLD_D_TIME+9]
         mov     word ptr [bx+24h], ax
         mov     word ptr [bx+26h], 0
         call    fn_6e7a_s950
@@ -21999,7 +22061,7 @@ loop_7a9e_s950:
         mov     ax, MSG_CANT_DO_THIS
         jmp     error_restart
 br_7aa4_s950:
-        cmp     word ptr [7a16h], 2
+        cmp     word ptr [FLD_MON1_POL2+9], 2
         jne     br_7aeb_s950
         push    es
         mov     bx, W_A034_OS21
@@ -22027,7 +22089,7 @@ loop_7ac5_s950:
         sbb     word ptr [bx+2], dx
         loop    loop_7ac5_s950
         pop     es
-        mov     byte ptr [0b46dh], cl
+        mov     byte ptr [B_B46D_S950], cl
 br_7aeb_s950:
         mov     dx, P_5283_OS21
         call    br_11f9
@@ -22035,11 +22097,11 @@ br_7aeb_s950:
         push    bp
         push    word ptr [0]
 loop_7af7_s950:
-        mov     ax, word ptr [7a07h]
-        cmp     word ptr [7a2eh], 64h
+        mov     ax, word ptr [FLD_D_TIME+9]
+        cmp     word ptr [FLD_STRETCH+9], 64h
         jne     br_7b0f_s950
-        mov     word ptr [7990h], 0
-        mov     word ptr [7992h], 0
+        mov     word ptr [W_7990_S950], 0
+        mov     word ptr [W_7990_S950+2], 0
         jmp     br_7b4c_s950
 br_7b0f_s950:
         jb      br_7b13_s950
@@ -22049,23 +22111,23 @@ br_7b13_s950:
         mov     bp, ax
         shl     ax, 1
         rcl     dx, 1
-        mov     word ptr [7990h], ax
-        mov     word ptr [7992h], dx
+        mov     word ptr [W_7990_S950], ax
+        mov     word ptr [W_7990_S950+2], dx
         mov     word ptr [0], 7b46h
-        mov     byte ptr [799eh], 0
-        mov     ax, word ptr [7a2eh]
+        mov     byte ptr [W_7990_S950+0eh], 0
+        mov     ax, word ptr [FLD_STRETCH+9]
         mov     cx, ax
         neg     bp
         imul    bp
         sub     cx, 64h
         idiv    cx
-        shr     byte ptr [799eh], 1
+        shr     byte ptr [W_7990_S950+0eh], 1
         jae     br_7b4c_s950
-        shr     word ptr [7a07h], 1
+        shr     word ptr [FLD_D_TIME+9], 1
         jmp     loop_7af7_s950
         db      0c6h, 06h, 9eh, 79h, 01h, 0cfh
 br_7b4c_s950:
-        mov     word ptr [799ch], ax
+        mov     word ptr [W_7990_S950+0ch], ax
         pop     word ptr [0]
         and     ax, ax
         jne     br_7b5a_s950
@@ -22080,7 +22142,7 @@ br_7b5a_s950:
         div     cx
         add     dx, -1
         adc     ax, 0
-        mov     dx, word ptr [7a2eh]
+        mov     dx, word ptr [FLD_STRETCH+9]
         inc     dx
         mul     dx
         add     ax, word ptr [si+20h]
@@ -22089,13 +22151,13 @@ br_7b5a_s950:
         adc     dx, word ptr [si+12h]
         sub     ax, word ptr [si+1ch]
         sbb     dx, word ptr [si+1eh]
-        add     ax, word ptr [799ch]
+        add     ax, word ptr [W_7990_S950+0ch]
         adc     dx, 0
         push    ax
         push    dx
         call    fn_2aef
-        mov     word ptr [7994h], ax
-        mov     word ptr [7996h], dx
+        mov     word ptr [W_7990_S950+4], ax
+        mov     word ptr [W_7990_S950+6], dx
         pop     dx
         pop     ax
         sub     bx, ax
@@ -22116,18 +22178,18 @@ br_67e7_os21:
         rep movsb
         mov     word ptr [bx+20h], cx
         mov     word ptr [bx+22h], cx
-        mov     ax, word ptr [7994h]
+        mov     ax, word ptr [W_7990_S950+4]
         mov     word ptr [bx+36h], ax
-        mov     dx, word ptr [7996h]
+        mov     dx, word ptr [W_7990_S950+6]
         mov     word ptr [bx+38h], dx
         mov     si, word ptr [CUR_SAMPLE]
         mov     ax, word ptr [si+20h]
         mov     dx, word ptr [si+22h]
         push    ax
         push    dx
-        cmp     word ptr [7a2eh], 65h
+        cmp     word ptr [FLD_STRETCH+9], 65h
         jb      br_7c0f_s950
-        sub     ax, word ptr [7a07h]
+        sub     ax, word ptr [FLD_D_TIME+9]
         sbb     dx, 0
         jae     br_7c0f_s950
         neg     ax
@@ -22161,9 +22223,9 @@ loop_7c35_s950:
         mov     ax, 10h
         mov     word ptr [W_A036_OS21], ax
         cwd
-        div     word ptr [799ch]
+        div     word ptr [W_7990_S950+0ch]
         xchg    cx, ax
-        div     word ptr [799ch]
+        div     word ptr [W_7990_S950+0ch]
         sub     word ptr [W_A038_OS21], ax
         sbb     word ptr [W_A03A_OS21], cx
         push    word ptr [W_966E]
@@ -22171,11 +22233,11 @@ loop_7c35_s950:
         push    word ptr [W_9642]
         push    word ptr [W_9644]
         mov     word ptr [W_9674], L_6748_os21
-        cmp     word ptr [7a16h], 1
+        cmp     word ptr [FLD_MON1_POL2+9], 1
         je      br_7c73_s950
         mov     word ptr [W_9674], L_7d5e_s950
 br_7c73_s950:
-        mov     ax, word ptr [799ch]
+        mov     ax, word ptr [W_7990_S950+0ch]
         mov     word ptr [W_9600], ax
         mov     word ptr [W_9602], 0
         call    fn_70d7_s950
@@ -22183,24 +22245,24 @@ br_7c73_s950:
         pop     word ptr [W_9642]
         pop     dx
         pop     ax
-        add     ax, word ptr [7990h]
-        adc     dx, word ptr [7992h]
+        add     ax, word ptr [W_7990_S950]
+        adc     dx, word ptr [W_7990_S950+2]
         mov     word ptr [W_966E], ax
         mov     word ptr [W_9670], dx
         call    fn_66e4_os21
         mov     ax, 10h
         cwd
-        div     word ptr [799ch]
+        div     word ptr [W_7990_S950+0ch]
         xchg    cx, ax
-        div     word ptr [799ch]
+        div     word ptr [W_7990_S950+0ch]
         mov     word ptr [W_A038_OS21], ax
         mov     word ptr [W_A03A_OS21], cx
         mov     word ptr [W_9674], L_6773_os21
-        cmp     word ptr [7a16h], 1
+        cmp     word ptr [FLD_MON1_POL2+9], 1
         je      br_7cc5_s950
         mov     word ptr [W_9674], L_7dae_s950
 br_7cc5_s950:
-        mov     ax, word ptr [799ch]
+        mov     ax, word ptr [W_7990_S950+0ch]
         mov     word ptr [W_9600], ax
         add     word ptr [bp+10h], ax
         adc     word ptr [bp+12h], 0
@@ -22214,11 +22276,11 @@ br_7cc5_s950:
         rcr     ax, 1
         mov     si, ax
         mov     di, dx
-        add     ax, word ptr [799ch]
+        add     ax, word ptr [W_7990_S950+0ch]
         adc     dx, 0
-        cmp     word ptr [7a2eh], 64h
+        cmp     word ptr [FLD_STRETCH+9], 64h
         jae     br_7d05_s950
-        add     ax, word ptr [7a07h]
+        add     ax, word ptr [FLD_D_TIME+9]
         adc     dx, 0
 br_7d05_s950:
         sub     ax, word ptr [bx+1ch]
@@ -22383,23 +22445,23 @@ B_3BC1:
         RUN_FLD_BASIC_MIDI_CHANNEL
         jmp     loop_1d2a
         RUN_SET_MIDI_TEST_VELOCITY
-        mov     word ptr [91d6h], FLD_CHANNEL
+        mov     word ptr [W_91D6_V12A], FLD_CHANNEL
         RUN_L_4271
         cmp     word ptr [FIELD_LIST], P_0A5C
         RUN_LOOP_42CE
-        mov     word ptr [91d6h], FLD_MASTER_TUNING
+        mov     word ptr [W_91D6_V12A], FLD_MASTER_TUNING
         RUN_SET_MASTER_TUNING
         dw      FLD_MASTER_TUNING
         db      8 dup (0)
         RUN_FLD_MASTER_TUNING
-        mov     word ptr [91d6h], FLD_DRUM_INPUT_GAIN_INPUT
+        mov     word ptr [W_91D6_V12A], FLD_DRUM_INPUT_GAIN_INPUT
         mov     ax, P_43E8
         mov     word ptr [IDLE_HOOK], idle_tasks_drums
         jmp     loop_2223
 br_43cd:
         mov     word ptr [MODE_FILL], L_43e5
         mov     word ptr [FIELD_RECENT], P_4772
-        mov     word ptr [91d6h], P_4772
+        mov     word ptr [W_91D6_V12A], P_4772
         mov     ax, P_476E
         jmp     menu_navigation_loop
 
@@ -22607,7 +22669,7 @@ br_6109:
         je      loop_6108
         cmp     word ptr [FIELD_LIST], P_0EAE
         jne     br_8654_s950
-        cmp     byte ptr [2218h], 0
+        cmp     byte ptr [B_2218_S950], 0
         je      br_8693_s950
 br_8654_s950:
         mov     bx, SLOTS
@@ -22642,7 +22704,7 @@ br_8693_s950:
         endif
         if      (MODEL = 950) && (FW_VERSION = 100)
         push    ax
-        cmp     byte ptr [0b46dh], 0ffh
+        cmp     byte ptr [B_B46D_S950], 0ffh
         endif
         if      (MODEL = 950) && (FW_VERSION = 120)
         call    fn_004a_s950
@@ -22889,7 +22951,7 @@ br_6787:
         je      br_8cbc_s950
         cmp     byte ptr [B_58D8], 1
         jne     br_67b1
-        cmp     byte ptr [0b413h], 0
+        cmp     byte ptr [B_B413_S950], 0
         je      br_67b1
 br_8cbc_s950:
         mov     word ptr [si], L_8cf1_s950
@@ -22937,13 +22999,13 @@ fn_90dd_s950:
         pop     ds
         RUN_AFTER_LOOP_6CA9
         RUN_LOOP_6D21
-        push    word ptr [1e7ch]
-        push    word ptr [1e7eh]
-        mov     word ptr [1e7ch], W_7CEE
-        mov     word ptr [1e7eh], 0
+        push    word ptr [FP_1E7C_S950]
+        push    word ptr [FP_1E7C_S950+2]
+        mov     word ptr [FP_1E7C_S950], W_7CEE
+        mov     word ptr [FP_1E7C_S950+2], 0
         call    fn_33a6_s950
-        pop     word ptr [1e7eh]
-        pop     word ptr [1e7ch]
+        pop     word ptr [FP_1E7C_S950+2]
+        pop     word ptr [FP_1E7C_S950]
         RUN_L_6ECD
         mov     cx, SLOT_COUNT
         RUN_LOOP_6EE3
@@ -23079,14 +23141,14 @@ fn_70b8:
         if      MODEL = 950
         mov     bp, W_7CEE
         push    ds
-        lds     si, [1e7ch]
+        lds     si, [FP_1E7C_S950]
         mov     di, bp
         mov     cx, 4bh
         rep movsw
         pop     ds
         mov     di, 9d7dh
         call    fn_384a_s950
-        les     di, [1e7ch]
+        les     di, [FP_1E7C_S950]
         mov     si, bp
         push    di
         mov     cx, 26h
@@ -23098,7 +23160,7 @@ fn_70b8:
         mov     cx, 5
         rep movsw
         pop     di
-        lds     si, [1e7ch]
+        lds     si, [FP_1E7C_S950]
         mov     al, byte ptr [bp+1bh]
         cbw
         mov     word ptr [di+10h], ax
@@ -23315,35 +23377,35 @@ br_97d9_s950:
         if      FW_VERSION >= 400
         call    fn_7223
         mov     bx, 0b650h
-        mov     word ptr [0b62ch], bx
-        mov     word ptr [0b630h], 0
+        mov     word ptr [W_B62C], bx
+        mov     word ptr [W_B630], 0
         mov     si, 1894h
-        mov     word ptr [0b62eh], si
-        mov     word ptr [0b632h], si
+        mov     word ptr [W_B62E], si
+        mov     word ptr [W_B632], si
         call    fn_771a
         jmp     br_70ff
         db      90h
 loop_70e1:
-        mov     si, word ptr [0b62eh]
-        mov     cx, word ptr [0b632h]
+        mov     si, word ptr [W_B62E]
+        mov     cx, word ptr [W_B632]
         sub     cx, si
         mov     di, 1894h
-        mov     word ptr [0b62eh], di
-        mov     word ptr [0b632h], di
-        add     word ptr [0b632h], cx
+        mov     word ptr [W_B62E], di
+        mov     word ptr [W_B632], di
+        add     word ptr [W_B632], cx
         rep movsb
         call    fn_75ce
 br_70ff:
         or      ax, ax
         je      br_717c
-        add     ax, word ptr [0b632h]
-        mov     word ptr [0b632h], ax
+        add     ax, word ptr [W_B632]
+        mov     word ptr [W_B632], ax
 loop_710a:
-        mov     si, word ptr [0b62eh]
+        mov     si, word ptr [W_B62E]
         mov     ah, byte ptr [si]
         inc     si
         mov     al, byte ptr [si]
-        mov     cx, word ptr [0b630h]
+        mov     cx, word ptr [W_B630]
         shl     ax, cl
         mov     cl, 0ch
         shr     ax, cl
@@ -23358,20 +23420,20 @@ br_7129:
         je      br_7134
         add     ax, 0ah
 br_7134:
-        add     ax, word ptr [0b630h]
+        add     ax, word ptr [W_B630]
         sar     ax, 1
         sar     ax, 1
         sar     ax, 1
-        add     ax, word ptr [0b62eh]
-        cmp     word ptr [0b632h], ax
+        add     ax, word ptr [W_B62E]
+        cmp     word ptr [W_B632], ax
         jbe     loop_70e1
         push    ds
         mov     ax, 0b638h
         push    ax
         push    ds
-        mov     ax, word ptr [0b62eh]
+        mov     ax, word ptr [W_B62E]
         push    ax
-        mov     ax, word ptr [0b630h]
+        mov     ax, word ptr [W_B630]
         push    ax
         mov     ax, 0ah
         push    ax
@@ -23381,24 +23443,24 @@ br_7134:
         sar     ax, 1
         sar     ax, 1
         sar     ax, 1
-        add     ax, word ptr [0b62eh]
-        mov     word ptr [0b62eh], ax
+        add     ax, word ptr [W_B62E]
+        mov     word ptr [W_B62E], ax
         and.w   dx, 7
-        mov     word ptr [0b630h], dx
+        mov     word ptr [W_B630], dx
         call    fn_71aa
         jmp     loop_710a
 br_717c:
-        mov     ax, word ptr [0b62eh]
+        mov     ax, word ptr [W_B62E]
         inc     ax
-        cmp     word ptr [0b632h], ax
+        cmp     word ptr [W_B632], ax
         jbe     br_71a1
         push    ds
         mov     ax, 0b638h
         push    ax
         push    ds
-        mov     ax, word ptr [0b62eh]
+        mov     ax, word ptr [W_B62E]
         push    ax
-        mov     ax, word ptr [0b630h]
+        mov     ax, word ptr [W_B630]
         push    ax
         mov     ax, 0ah
         push    ax
@@ -23552,12 +23614,12 @@ br_71c8:
         inc     bx
         loop    loop_71b0
         mov     ax, word ptr [bx-2]
-        mov     word ptr [0b636h], ax
+        mov     word ptr [W_B636], ax
         mov     ax, word ptr [bx-4]
-        mov     word ptr [0b634h], ax
+        mov     word ptr [W_B634], ax
         mov     si, 0b638h
         mov     cx, 0ah
-        mov     bx, word ptr [0b62ch]
+        mov     bx, word ptr [W_B62C]
 loop_71e4:
         mov     ax, word ptr [bx+4]
         or      ax, ax
@@ -23573,7 +23635,7 @@ loop_71f7:
         ja      br_7207
         mov     word ptr [bx+8], di
         add     bx, 0ah
-        mov     word ptr [0b62ch], bx
+        mov     word ptr [W_B62C], bx
         jmp     loop_71e4
 br_7207:
         lodsw
@@ -23612,14 +23674,14 @@ fn_7223:
         xor     ax, ax
         rep stosb
         xor     ax, ax
-        mov     word ptr [0b634h], ax
-        mov     word ptr [0b636h], ax
+        mov     word ptr [W_B634], ax
+        mov     word ptr [W_B636], ax
         ret
 
 fn_7250:
         push    ax
         xor     ax, ax
-        cmp     byte ptr [0f41h], al
+        cmp     byte ptr [B_0F40+1], al
         pop     ax
         jne     br_725d
         jmp     fn_1724
@@ -23632,10 +23694,10 @@ fn_7264:
         call    fn_7223
         call    fn_775a
         mov     bx, 0b650h
-        mov     word ptr [0b62ch], bx
-        mov     word ptr [0b630h], 0
+        mov     word ptr [W_B62C], bx
+        mov     word ptr [W_B630], 0
         mov     di, 18d0h
-        mov     word ptr [0b62eh], di
+        mov     word ptr [W_B62E], di
 loop_727e:
         call    fn_72d8
         jcxz    br_72bf
@@ -23643,9 +23705,9 @@ loop_727e:
         mov     ax, 0b638h
         push    ax
         push    ds
-        mov     ax, word ptr [0b62eh]
+        mov     ax, word ptr [W_B62E]
         push    ax
-        mov     ax, word ptr [0b630h]
+        mov     ax, word ptr [W_B630]
         push    ax
         mov     ax, cx
         push    ax
@@ -23655,10 +23717,10 @@ loop_727e:
         sar     ax, 1
         sar     ax, 1
         sar     ax, 1
-        add     ax, word ptr [0b62eh]
-        mov     word ptr [0b62eh], ax
+        add     ax, word ptr [W_B62E]
+        mov     word ptr [W_B62E], ax
         and.w   dx, 7
-        mov     word ptr [0b630h], dx
+        mov     word ptr [W_B630], dx
         sub     ax, 1894h
         cmp     ax, 400h
         jl      loop_727e
@@ -23666,8 +23728,8 @@ loop_727e:
         jmp     loop_727e
         db      0c3h
 br_72bf:
-        mov     cx, word ptr [0b62eh]
-        mov     ax, word ptr [0b630h]
+        mov     cx, word ptr [W_B62E]
+        mov     ax, word ptr [W_B630]
         or      ax, ax
         je      br_72cb
         inc     cx
@@ -23680,7 +23742,7 @@ br_72d4:
         ret
 
 fn_72d8:
-        mov     bx, word ptr [0b62ch]
+        mov     bx, word ptr [W_B62C]
         mov     cx, word ptr [bx+4]
         jcxz    br_7358
         mov     di, 0b638h
@@ -23751,12 +23813,12 @@ fn_7359:
         pop     es
         xor     ax, ax
         rep stosb
-        mov     cx, word ptr [0b62eh]
+        mov     cx, word ptr [W_B62E]
         sub     cx, 400h
-        mov     word ptr [0b62eh], cx
+        mov     word ptr [W_B62E], cx
         sub     cx, 1894h
         inc     cx
-        mov     ax, word ptr [0b630h]
+        mov     ax, word ptr [W_B630]
         or      ax, ax
         je      br_7383
 br_7383:
@@ -23907,21 +23969,21 @@ br_7494:
         and.w   bx, 7
         mov     si, word ptr [bp+0ch]
         mov     di, word ptr [bp+8]
-        mov     ax, word ptr [0b610h]
+        mov     ax, word ptr [W_B610]
         and     ax, 0fh
         mov     dx, 4
         add     word ptr [bp+6], dx
         call    fn_74e8
         or      ax, ax
         je      br_74e3
-        mov     ax, word ptr [0b60eh]
+        mov     ax, word ptr [W_B60E]
         mov     dx, word ptr [bp+4]
         add     word ptr [bp+6], dx
         call    fn_74e8
-        mov     ax, word ptr [0b610h]
+        mov     ax, word ptr [W_B610]
         neg     ax
         add     ax, 10h
-        mov     word ptr [0b610h], ax
+        mov     word ptr [W_B610], ax
         mov     cx, word ptr [bp+4]
 loop_74d2:
         mov     ax, word ptr es:[si]
@@ -23970,7 +24032,7 @@ br_9916_s950:
         mov     word ptr [W_7CD4], bp
         endif
         if      FW_VERSION >= 400
-        mov     dx, word ptr [0b610h]
+        mov     dx, word ptr [W_B610]
         add     word ptr [bp+6], dx
         call    fn_74e8
         loop    loop_74d2
@@ -24019,7 +24081,7 @@ br_750f:
 
 fn_7524:
         xor     ax, ax
-        mov     word ptr [0b62ah], ax
+        mov     word ptr [W_B62A], ax
         mov     cx, 8
         mov     di, 0b622h
         rep stosb
@@ -24085,8 +24147,8 @@ br_994f_s950:
         call    fn_7595
         add     bx, 0ah
         mov     word ptr [bx+4], 0
-        mov     word ptr [0b64ch], 0
-        mov     word ptr [0b64ch], 0
+        mov     word ptr [W_B64C], 0
+        mov     word ptr [W_B64C], 0
         mov     di, 0b64ch
         mov     si, word ptr [W_95C0]
         add     si, 11h
@@ -24127,10 +24189,10 @@ fn_75c3:
         ret
 
 fn_75ce:
-        mov     ax, word ptr [0b64ch]
+        mov     ax, word ptr [W_B64C]
         or      ax, ax
         jne     br_75dc
-        mov     ax, word ptr [0b64eh]
+        mov     ax, word ptr [W_B64E]
         or      ax, ax
         je      br_75e6
 br_75dc:
@@ -24158,7 +24220,7 @@ fn_75e7:
         mov     si, ax
         mov     si, word ptr [si]
         inc     si
-        mov     di, word ptr [0b632h]
+        mov     di, word ptr [W_B632]
         mov     ax, 8000h
         mov     ds, ax
         mov     cx, 400h
@@ -24169,12 +24231,12 @@ loop_7615:
         xor     dx, dx
         mov     ds, dx
         mov     ax, 400h
-        sub     word ptr [0b64ch], ax
-        sbb     word ptr [0b64eh], dx
+        sub     word ptr [W_B64C], ax
+        sbb     word ptr [W_B64E], dx
         jae     br_7636
-        add     ax, word ptr [0b64ch]
-        mov     word ptr [0b64ch], dx
-        mov     word ptr [0b64eh], dx
+        add     ax, word ptr [W_B64C]
+        mov     word ptr [W_B64C], dx
+        mov     word ptr [W_B64E], dx
 br_7636:
         ret
 br_7637:
@@ -24188,23 +24250,23 @@ fn_763a:
         mov     word ptr [W_95E4], ax
         mov     word ptr [W_02D0], ax
         mov     word ptr [W_7CD4], 400h
-        mov     ax, word ptr [0b632h]
+        mov     ax, word ptr [W_B632]
         mov     word ptr [FP_02CE], ax
         mov     ax, 4452h
         call    disk_catalog_scan
         mov     ax, 400h
         xor     dx, dx
-        sub     word ptr [0b64ch], ax
-        sbb     word ptr [0b64eh], dx
+        sub     word ptr [W_B64C], ax
+        sbb     word ptr [W_B64E], dx
         jae     br_7676
-        add     ax, word ptr [0b64ch]
-        mov     word ptr [0b64ch], dx
-        mov     word ptr [0b64eh], dx
+        add     ax, word ptr [W_B64C]
+        mov     word ptr [W_B64C], dx
+        mov     word ptr [W_B64E], dx
         ret
 br_7676:
         push    ax
-        push    word ptr [0b64ch]
-        push    word ptr [0b64eh]
+        push    word ptr [W_B64C]
+        push    word ptr [W_B64E]
         mov     cx, 8
         mov     bx, 0b612h
         mov     di, 0b622h
@@ -24219,16 +24281,16 @@ loop_7696:
         je      br_769f
         loop    loop_7696
 br_769f:
-        pop     word ptr [0b64eh]
-        pop     word ptr [0b64ch]
+        pop     word ptr [W_B64E]
+        pop     word ptr [W_B64C]
         pop     ax
         ret
 
 fn_76a9:
-        mov     ax, word ptr [0b64ch]
+        mov     ax, word ptr [W_B64C]
         or      ax, ax
         jne     br_76b7
-        mov     ax, word ptr [0b64eh]
+        mov     ax, word ptr [W_B64E]
         or      ax, ax
         je      br_770b
 br_76b7:
@@ -24242,7 +24304,7 @@ br_76b7:
         mov     word ptr [FP_02CE], ax
         mov     word ptr [W_02D0], ax
         mov     word ptr [W_95E4], 400h
-        mov     word ptr [95e2h], 8000h
+        mov     word ptr [W_95E2], 8000h
         mov     ax, word ptr [bx]
         mov     word ptr [FP_95E0], ax
         mov     ax, 5352h
@@ -24259,12 +24321,12 @@ br_76b7:
         inc     bx
         mov     ax, 400h
         xor     dx, dx
-        sub     word ptr [0b64ch], ax
-        sbb     word ptr [0b64eh], dx
+        sub     word ptr [W_B64C], ax
+        sbb     word ptr [W_B64E], dx
         jae     br_770b
-        add     ax, word ptr [0b64ch]
-        mov     word ptr [0b64ch], dx
-        mov     word ptr [0b64eh], dx
+        add     ax, word ptr [W_B64C]
+        mov     word ptr [W_B64C], dx
+        mov     word ptr [W_B64E], dx
 br_770b:
         ret
 
@@ -24277,12 +24339,12 @@ fn_770c:
 
 fn_771a:
         mov     ax, 3ch
-        sub     word ptr [0b64ch], ax
-        sbb     word ptr [0b64eh], 0
-        mov     ax, word ptr [0b64ch]
+        sub     word ptr [W_B64C], ax
+        sbb     word ptr [W_B64E], 0
+        mov     ax, word ptr [W_B64C]
         or      ax, ax
         jne     br_7734
-        mov     ax, word ptr [0b64eh]
+        mov     ax, word ptr [W_B64E]
         or      ax, ax
         je      br_7759
 br_7734:
@@ -24292,19 +24354,19 @@ br_7734:
         mov     si, P_7D2A
         rep movsb
         xor     dx, dx
-        sub     word ptr [0b64ch], ax
-        sbb     word ptr [0b64eh], dx
+        sub     word ptr [W_B64C], ax
+        sbb     word ptr [W_B64E], dx
         jae     br_7759
-        add     ax, word ptr [0b64ch]
-        mov     word ptr [0b64ch], dx
-        mov     word ptr [0b64eh], dx
+        add     ax, word ptr [W_B64C]
+        mov     word ptr [W_B64C], dx
+        mov     word ptr [W_B64E], dx
 br_7759:
         ret
 
 fn_775a:
         xor     ax, ax
-        mov     word ptr [0b64ch], ax
-        mov     word ptr [0b64eh], ax
+        mov     word ptr [W_B64C], ax
+        mov     word ptr [W_B64E], ax
         mov     cx, 3ch
         mov     di, 1894h
         mov     si, W_7CEE
@@ -24312,8 +24374,8 @@ fn_775a:
         ret
 
 fn_776e:
-        add     word ptr [0b64ch], cx
-        adc     word ptr [0b64eh], 0
+        add     word ptr [W_B64C], cx
+        adc     word ptr [W_B64E], 0
         cmp     word ptr [W_95C4], 0
         je      br_7793
         dec     word ptr [W_95C4]
@@ -24321,7 +24383,7 @@ fn_776e:
         or      ax, ax
         jne     br_7792
         call    fn_77e6
-        mov     word ptr [0b62ah], 0
+        mov     word ptr [W_B62A], 0
 br_7792:
         ret
 br_7793:
@@ -24330,17 +24392,17 @@ br_7793:
         jmp     loop_06ff
 
 fn_779c:
-        add     word ptr [0b64ch], cx
-        adc     word ptr [0b64eh], 0
+        add     word ptr [W_B64C], cx
+        adc     word ptr [W_B64E], 0
         cmp     word ptr [W_95C4], 0
         je      br_7793
         dec     word ptr [W_95C4]
         call    fn_77e6
-        mov     word ptr [0b62ah], 0
+        mov     word ptr [W_B62A], 0
         ret
 
 fn_77ba:
-        mov     ax, word ptr [0b62ah]
+        mov     ax, word ptr [W_B62A]
         cmp     ax, 8
         jge     br_77e3
         mov     di, ax
@@ -24349,7 +24411,7 @@ fn_77ba:
         mov     di, word ptr [di]
         inc     di
         inc     ax
-        mov     word ptr [0b62ah], ax
+        mov     word ptr [W_B62A], ax
         mov     si, 1894h
         mov     ax, 8000h
         mov     es, ax
@@ -24366,7 +24428,7 @@ br_77e3:
         ret
 
 fn_77e6:
-        mov     cx, word ptr [0b62ah]
+        mov     cx, word ptr [W_B62A]
         jcxz    br_7804
         mov     bx, 0b612h
         xor     ax, ax
@@ -24409,7 +24471,7 @@ fn_7843:
         mov     word ptr [W_02D0], ax
         mov     word ptr [FP_02CE], ax
         mov     word ptr [W_95E4], 400h
-        mov     word ptr [95e2h], 8000h
+        mov     word ptr [W_95E2], 8000h
         mov     ax, word ptr [bx]
         mov     word ptr [FP_95E0], ax
         mov     ax, 5357h
@@ -24594,6 +24656,7 @@ P_7C8C:
         endif
 B_7CD2:
         if      MODEL = 950
+W_7CD4  equ     $+2
         db      14h, 90h, 00h, 04h
 CUR_PROGRAM:
         db      38h, 0c4h
@@ -24754,18 +24817,21 @@ br_7cef:
         call    fn_3521_s950
         mov     al, 0
         else
+L_7CFB:
         mov     word ptr [2], ax
         endif
         if      FW_VERSION >= 400
 W_7CFE:
         endif
         if      MODEL = 900
+L_7CFE:
         mov     word ptr [0], isr_divide_error
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
 B_7D05:
         endif
         if      MODEL = 900
+L_7D04:
         mov     al, 8
         endif
         out     8, al
@@ -24799,7 +24865,9 @@ W_7D24:
         if      MODEL = 900
         mov     cx, 8000h
         rep stosw
+L_7D29:
         sub     dx, 1000h
+L_7D2D:
         jne     loop_7d20
         mov     es, ax
         endif
@@ -24911,7 +24979,7 @@ loop_9e9b_s950:
         scasb
         loope   loop_9e9b_s950
         je      loop_9e7b_s950
-        mov     word ptr [0b4a2h], bx
+        mov     word ptr [W_B4A2_S950], bx
         mov     bx, 1
 loop_9eaa_s950:
         mov     dx, 1c4h
@@ -24922,11 +24990,11 @@ loop_9eaa_s950:
         mov     cx, 8000h
         rep stosw
         inc     bx
-        cmp     bx, word ptr [0b4a2h]
+        cmp     bx, word ptr [W_B4A2_S950]
         jne     loop_9eaa_s950
         mov     es, ax
         mov     ax, 20h
-        mul     word ptr [0b4a2h]
+        mul     word ptr [W_B4A2_S950]
         mov     bp, 0a002h
         call    put_field_value
         endif
@@ -25034,11 +25102,11 @@ loop_7e3a:
         xchg    cx, ax
         endif
         if      FW_VERSION = 210
-        mov     word ptr [296eh], ax
+        mov     word ptr [W_2968_OS21+6], ax
         endif
         if      FW_VERSION >= 400
-        mov     word ptr [0ec8h], 8f30h
-        mov     word ptr [0ecah], ax
+        mov     word ptr [W_0EC8], 8f30h
+        mov     word ptr [W_0ECA], ax
         endif
         if      FW_VERSION >= 210
         mov     byte ptr [B_4403], al
@@ -25125,17 +25193,17 @@ loop_7e9d:
         if      (MODEL = 900) && (FW_VERSION < 210)
         jmp     br_7d87_v12a
 br_7d81_v12a:
-        mov     word ptr [34f2h], 0
+        mov     word ptr [W_34F0_V12A+2], 0
 br_7d87_v12a:
         mov     si, 7da0h
         nop
         endif
         if      FW_VERSION = 210
-        mov     word ptr [296eh], P_8F21
+        mov     word ptr [W_2968_OS21+6], P_8F21
         endif
         if      FW_VERSION >= 400
-        mov     word ptr [0ec8h], P_8F21
-        mov     word ptr [0ecah], 0f4bh
+        mov     word ptr [W_0EC8], P_8F21
+        mov     word ptr [W_0ECA], 0f4bh
         endif
         if      FW_VERSION >= 210
 br_7ed8:
@@ -25284,6 +25352,234 @@ DISK_CATALOG:
         db      16 dup (0)
 P_890E:
         db      630 dup (0)
+P_8EB6_OS21 equ     $+14ah
+P_8EE6  equ     $+362h
+P_8EFE  equ     $+37ah
+TBL_8EFE equ     $+37ah
+P_8F00  equ     $+37ch
+P_86EE  equ     $+57ah
+TBL_86EE equ     $+57ah
+P_86F2  equ     $+57eh
+P_86F7  equ     $+583h
+P_86FF  equ     $+58bh
+P_8709  equ     $+595h
+W_870A  equ     $+596h
+B_87F6  equ     $+682h
+TBL_87F6 equ     $+682h
+P_87F7  equ     $+683h
+P_8810  equ     $+69ch
+P_8811  equ     $+69dh
+P_953E  equ     $+0ffah
+KEY_CODE equ     $+0ffbh
+B_95BC  equ     $+0ffch
+B_9564  equ     $+0ffeh
+B_9566  equ     $+1000h
+B_9567  equ     $+1001h
+B_9568  equ     $+1002h
+B_9569  equ     $+1003h
+B_956A  equ     $+1004h
+SYSEX_CHECKSUM equ     $+1005h
+B_9605  equ     $+1006h
+B_9606  equ     $+1007h
+B_9607  equ     $+1008h
+B_9608  equ     $+1009h
+B_9609  equ     $+100ah
+B_960A  equ     $+100bh
+B_960C  equ     $+100dh
+B_960D  equ     $+100eh
+B_960E  equ     $+100fh
+B_956B  equ     $+1010h
+B_B411_S950 equ     $+1011h
+B_956C  equ     $+1012h
+B_B413_S950 equ     $+1013h
+FLOPPY_CTRL equ     $+1015h
+ENTER_KEY equ     $+1017h
+B_9570  equ     $+1018h
+B_0443  equ     $+101bh
+B_B41C_S950 equ     $+101ch
+B_B41D_S950 equ     $+101dh
+B_B41E_S950 equ     $+101eh
+B_B41F_S950 equ     $+101fh
+B_04D7  equ     $+1020h
+B_B421_S950 equ     $+1021h
+B_9571  equ     $+1022h
+B_9572  equ     $+1023h
+B_9573  equ     $+1024h
+B_9575  equ     $+1025h
+B_B426_S950 equ     $+1026h
+B_960F  equ     $+1027h
+B_9610  equ     $+1028h
+B_9611  equ     $+1029h
+B_9612  equ     $+102ah
+B_9576  equ     $+102bh
+B_9577  equ     $+102ch
+B_9578  equ     $+102dh
+B_B457_S950 equ     $+1057h
+B_B458_S950 equ     $+1058h
+B_02C2  equ     $+1059h
+B_0497  equ     $+105ah
+FDC_RESULT equ     $+105bh
+B_B462_S950 equ     $+1062h
+B_B464_S950 equ     $+1064h
+B_957A  equ     $+1065h
+B_B466_S950 equ     $+1066h
+B_B467_S950 equ     $+1067h
+B_02C3  equ     $+1068h
+B_95FD  equ     $+1069h
+FIELD_COUNT equ     $+106ah
+B_957C  equ     $+106bh
+B_957D  equ     $+106ch
+B_B46D_S950 equ     $+106dh
+TIMER_TICKS equ     $+106eh
+W_9580  equ     $+1070h
+W_9582  equ     $+1072h
+CUR_SAMPLE equ     $+1074h
+W_9586  equ     $+1076h
+W_9588  equ     $+1078h
+B_B47A_S950 equ     $+107ah
+ERROR_MSG equ     $+107ch
+W_B482_S950 equ     $+1082h
+B_B483_S950 equ     $+1083h
+W_B484_S950 equ     $+1084h
+W_B486_S950 equ     $+1086h
+W_B488_S950 equ     $+1088h
+W_B48A_S950 equ     $+108ah
+W_B48C_S950 equ     $+108ch
+W_B48E_S950 equ     $+108eh
+W_B490_S950 equ     $+1090h
+W_B492_S950 equ     $+1092h
+W_B494_S950 equ     $+1094h
+W_B496_S950 equ     $+1096h
+W_B498_S950 equ     $+1098h
+W_B49A_S950 equ     $+109ah
+W_B49C_S950 equ     $+109ch
+FIELD_LIST_POS equ     $+109eh
+CUR_KEYGROUP equ     $+10a0h
+W_B4A2_S950 equ     $+10a2h
+B_9594  equ     $+10a4h
+W_9596  equ     $+10a6h
+LAST_FIELD_PTR equ     $+10a8h
+W_959A  equ     $+10aah
+MASTER_TUNING equ     $+10ach
+W_959E  equ     $+10aeh
+FIELD_LIST equ     $+10b0h
+MODE_FILL equ     $+10b2h
+FIELD_RECENT equ     $+10b4h
+FIELD_PREVIOUS equ     $+10b6h
+MIDI_RUNNING_CHANNEL equ     $+10b8h
+W_95AA  equ     $+10bah
+W_B4BC_S950 equ     $+10bch
+W_B4BE_S950 equ     $+10beh
+MODE_SP equ     $+10c0h
+W_95B0  equ     $+10c2h
+W_95B2  equ     $+10c4h
+TBL_95B4 equ     $+10c6h
+W_95B4  equ     $+10c6h
+W_95B6  equ     $+10c8h
+W_B4CE_S950 equ     $+10ceh
+W_B4D0_S950 equ     $+10d0h
+W_95BE  equ     $+10d2h
+W_95C0  equ     $+10d4h
+W_95C2  equ     $+10d6h
+W_95C4  equ     $+10d8h
+B_95C6  equ     $+10dah
+W_95C8  equ     $+10dch
+B_B4DD_S950 equ     $+10ddh
+W_95CA  equ     $+10deh
+B_95CC  equ     $+10e0h
+W_95CE  equ     $+10e4h
+W_95D0  equ     $+10e6h
+W_95D6  equ     $+10e8h
+W_95D8  equ     $+10eah
+W_95DA  equ     $+10ech
+W_95DC  equ     $+10eeh
+W_95DE  equ     $+10f0h
+W_95E4  equ     $+10f2h
+W_95E6  equ     $+10f4h
+W_95E8  equ     $+10f6h
+W_95EA  equ     $+10f8h
+B_B4F9_S950 equ     $+10f9h
+W_95EC  equ     $+10fah
+W_95EE  equ     $+10fch
+W_95F0  equ     $+10feh
+W_95F2  equ     $+1100h
+W_B502_S950 equ     $+1102h
+W_95FE  equ     $+1104h
+P_9614  equ     $+1106h
+W_961E  equ     $+1110h
+B_9620  equ     $+1112h
+W_9622  equ     $+1114h
+W_9624  equ     $+1116h
+W_9626  equ     $+1118h
+W_9628  equ     $+111ah
+W_B51E_S950 equ     $+111eh
+W_B520_S950 equ     $+1120h
+P_962C  equ     $+1122h
+W_9630  equ     $+1126h
+W_9632  equ     $+1128h
+B_9633  equ     $+1129h
+W_9636  equ     $+112ch
+W_9638  equ     $+112eh
+W_963A  equ     $+1130h
+W_A00C_OS21 equ     $+1132h
+W_963E  equ     $+1134h
+W_9640  equ     $+1136h
+W_B538_S950 equ     $+1138h
+W_9642  equ     $+113ah
+W_9644  equ     $+113ch
+W_A016_OS21 equ     $+113eh
+W_9648  equ     $+1140h
+W_A01A_OS21 equ     $+1142h
+W_A01C_OS21 equ     $+1144h
+W_A01E_OS21 equ     $+1146h
+W_9658  equ     $+1150h
+W_A02A_OS21 equ     $+1152h
+B_A02C_OS21 equ     $+1154h
+W_A02E_OS21 equ     $+1156h
+W_A030_OS21 equ     $+1158h
+W_A034_OS21 equ     $+115ch
+W_A036_OS21 equ     $+115eh
+W_A038_OS21 equ     $+1160h
+W_A03A_OS21 equ     $+1162h
+W_A03C_OS21 equ     $+116ah
+W_966E  equ     $+116ch
+W_9670  equ     $+116eh
+W_A042_OS21 equ     $+1170h
+W_9674  equ     $+1172h
+B_A046_OS21 equ     $+1174h
+W_A048_OS21 equ     $+1176h
+W_9600  equ     $+1178h
+W_9602  equ     $+117ah
+P_967A  equ     $+117ch
+W_9E4A  equ     $+1d34h
+SLOT_TAGS equ     $+1d36h
+B_9E4E  equ     $+1d38h
+P_9E8E  equ     $+1dfch
+TBL_9E8E equ     $+1dfch
+TBL_9EB0 equ     $+1e1eh
+P_9ED2  equ     $+1e40h
+TBL_9ED2 equ     $+1e40h
+P_9EF4  equ     $+1e62h
+TBL_9EF4 equ     $+1e62h
+P_9F16  equ     $+1e84h
+TBL_9F16 equ     $+1e84h
+DRUM_INPUTS_ON equ     $+1ea6h
+DRUM_INPUT equ     $+1ea8h
+P_9F4E  equ     $+1ebch
+P_A03E  equ     $+1fach
+P_AA2A_OS21 equ     $+1fc4h
+P_A084  equ     $+1ff2h
+SLOTS   equ     $+2038h
+P_A100  equ     $+206eh
+MIDI_RX_BUF equ     $+565ch
+MIDI_RX_END equ     $+585ch
+VOICES  equ     $+58dch
+W_FCF5_S950 equ     $+58f5h
+P_B48D  equ     $+5911h
+P_B4C4  equ     $+5946h
+P_B4FB  equ     $+597bh
+P_B532  equ     $+59b0h
+P_B569  equ     $+59e5h
         db      23042 dup (0ffh)
         db      24 dup (0)
 P_B5A0:

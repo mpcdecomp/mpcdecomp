@@ -1,14 +1,10 @@
 ; S900 ROM v1.2a: RAM variables the shared names stand for here, by address.
 
-W_1DE6                          equ     102h
-W_1DEE                          equ     10ah
-W_1DF0                          equ     10ch
-W_1DF2                          equ     10eh
-W_1DF6                          equ     112h
-W_7CFE                          equ     7bc4h
-W_7D00                          equ     7bc6h
-W_7D24                          equ     7beah
-W_7D26                          equ     7bech
+W_1DEE                          equ     L_0108_V12A+2
+W_7CFE                          equ     L_7CFB+2
+W_7D00                          equ     L_7CFE+1
+W_7D24                          equ     L_7D29+3
+W_7D26                          equ     L_7D2D+1
 P_8EB6_OS21                     equ     8384h
 P_80BC                          equ     83b4h
 KEY_CODE                        equ     9194h
@@ -54,6 +50,7 @@ W_959E                          equ     91ceh
 FIELD_LIST                      equ     91d0h
 MODE_FILL                       equ     91d2h
 FIELD_RECENT                    equ     91d4h
+W_91D6_V12A                     equ     91d6h
 MIDI_RUNNING_CHANNEL            equ     91d8h
 W_95AA                          equ     91dah
 W_95AC                          equ     91dch

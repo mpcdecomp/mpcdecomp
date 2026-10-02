@@ -635,7 +635,7 @@ loop_1AEB3:
         call    disp_svc_invert
         mov     cl, 0d0h
         mov     ch, 12h
-        mov     si, 569h
+        mov     si, (APP2_BASE+tbl_1AF19-APP2_SEG*16)
         call    fn_1B945
         call    fn_1ABDC
         pop     si
@@ -667,7 +667,7 @@ disp_svc8f_hex8:
 disp_svc_hex8:
         call    fn_1BAC7
 fn_1AF73:
-        mov     si, 5dfh
+        mov     si, (APP2_BASE+TBL_HEX_DIGITS_8F-APP2_SEG*16)
         mov     bl, al
         mov     bh, 0
         push    bx
@@ -679,6 +679,7 @@ fn_1AF73:
         mov     al, byte ptr cs:[bx+si]
         call    fn_1B18A
         ret
+TBL_HEX_DIGITS_8F:
         db      "0123456789ABCDEF"
 disp_svc8f_hex16:
         mov     cl, byte ptr es:[bp]
@@ -4451,7 +4452,7 @@ L_1CE3D:
         add     word ptr [A2_W_DIR_LIST_TOP], ax
         mov     word ptr [A2_W_DIR_LIST_ROW], 0
         if      FW_VERSION >= 114
-        mov     si, 2985h
+        mov     si, (APP2_BASE+L_1D335-APP2_SEG*16)
         elseif  FW_VERSION >= 110
         mov     si, 2973h
         else

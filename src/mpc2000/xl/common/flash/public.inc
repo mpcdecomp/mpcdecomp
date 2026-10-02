@@ -5015,3 +5015,17 @@ A1_W_0EEC2                               equ 0eec2h
 A1_W_0EEC4                               equ 0eec4h
 A1_W_0EEC8                               equ 0eec8h
 A1_W_0EECE                               equ 0eeceh
+
+; ---- data the parts read through their DS, from the labels at them.
+
+A2_B_04942                               equ (RAM_BASE+d_a2_b_04942-RAM_SEG*16)
+A3_B_007C1                               equ (APP2_BASE+d_a3_b_007c1-APPDATA_SEG*16)
+AT_B_0A8AB                               equ (RAM_BASE+d_at_b_0a8ab-RAM_SEG*16)
+AT_B_0A8AC                               equ (RAM_BASE+d_at_b_0a8ac-RAM_SEG*16)
+AT_W_0A8AE                               equ (RAM_BASE+d_at_w_0a8ae-RAM_SEG*16)
+AT_W_0A8B0                               equ (RAM_BASE+d_at_w_0a8b0-RAM_SEG*16)
+AT_W_0A8B2                               equ (RAM_BASE+d_at_w_0a8b2-RAM_SEG*16)
+C0_TBL_08E74                             equ (CONSTS_BASE+d_c0_tbl_08e74-DS_SEG*16)
+C0_TBL_08E76                             equ (CONSTS_BASE+d_c0_tbl_08e76-DS_SEG*16)
+C0_TBL_08E78                             equ (CONSTS_BASE+d_c0_tbl_08e78-DS_SEG*16)
+C2_TBL_08E7A                             equ (CONSTS_BASE+d_c2_tbl_08e7a-DS_SEG*16)

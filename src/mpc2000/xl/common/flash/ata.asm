@@ -194,7 +194,7 @@ L_0F4B1:
         stosw
         loop    tgt_0F740
         mov     ax, word ptr es:[7eh]
-        mov     byte ptr [0a8abh], ah
+        mov     byte ptr [AT_B_0A8AB], ah
         cmp     al, 0
         je      br_0F7BD
         mov     byte ptr [A1_B_0A88A], 1
@@ -461,7 +461,7 @@ L_0F817:
         pop     dx
         stosw
         loop    L_0F811
-        mov     ax, word ptr [0a8b2h]
+        mov     ax, word ptr [AT_W_0A8B2]
         cmp     ax, 848ah
         je      L_0F832
         cmp     ax, 35c3h
@@ -471,13 +471,13 @@ L_0F817:
         ret
 L_0F832:
         mov     byte ptr [A1_B_0A88A], 0
-        mov     byte ptr [0a8ach], 1
+        mov     byte ptr [AT_B_0A8AC], 1
         mov     di, 0a8b2h
         mov     bx, word ptr [di+0eh]
         endif
         mov     cx, word ptr [di+10h]
-        mov     word ptr [0a8aeh], cx
-        mov     word ptr [0a8b0h], bx
+        mov     word ptr [AT_W_0A8AE], cx
+        mov     word ptr [AT_W_0A8B0], bx
         mov     dx, 1e2h
         mov     ax, 3
         out     dx, ax
@@ -504,7 +504,7 @@ L_0F832:
         endif
 tgt_0F880:
         if      FW_VERSION >= 120
-        cmp     byte ptr [0a8ach], 0
+        cmp     byte ptr [AT_B_0A8AC], 0
         jne     L_0F8A3
         endif
         mov     word ptr [P_A864], di
@@ -539,7 +539,7 @@ L_0F8A3:
         endif
 tgt_0F8B7:
         if      FW_VERSION >= 120
-        cmp     byte ptr [0a8ach], 0
+        cmp     byte ptr [AT_B_0A8AC], 0
         jne     L_0F904
         endif
         mov     word ptr [P_A864], P_A86A
@@ -575,8 +575,8 @@ tgt_0F8B7:
         ret
         if      FW_VERSION >= 120
 L_0F904:
-        mov     ax, word ptr [0a8aeh]
-        mov     dx, word ptr [0a8b0h]
+        mov     ax, word ptr [AT_W_0A8AE]
+        mov     dx, word ptr [AT_W_0A8B0]
         mov     bx, 0
         mov     cx, 200h
         clc
@@ -584,7 +584,7 @@ L_0F904:
         endif
 tgt_0F913:
         if      FW_VERSION >= 120
-        cmp     byte ptr [0a8ach], 0
+        cmp     byte ptr [AT_B_0A8AC], 0
         jne     L_0F94F
         endif
         if      FW_VERSION >= 114
@@ -645,7 +645,7 @@ L_0F94F:
         endif
 tgt_0F951:
         if      FW_VERSION >= 120
-        cmp     byte ptr [0a8ach], 0
+        cmp     byte ptr [AT_B_0A8AC], 0
         jne     L_0F98B
         endif
         mov     word ptr [P_A864], di
@@ -693,7 +693,7 @@ tgt_0F9BE:
         call    fn_0FB72
         ret
 tgt_0F9BE:
-        cmp     byte ptr [0a8ach], 0
+        cmp     byte ptr [AT_B_0A8AC], 0
         jne     L_0F9F8
         mov     word ptr [A1_W_0A844], di
         mov     word ptr [P_A866], es
@@ -758,7 +758,7 @@ L_0F9F8:
         if      FW_VERSION >= 114
 tgt_0FA2F:
         if      FW_VERSION >= 120
-        cmp     byte ptr [0a8ach], 0
+        cmp     byte ptr [AT_B_0A8AC], 0
         jne     L_0FA48
         endif
         call    fn_0FBE9

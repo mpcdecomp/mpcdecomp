@@ -10807,7 +10807,7 @@ br_4CDC6:
         push    ax
         push    word ptr [C1_W_0D7DE]
         push    ds
-        push    8e76h
+        push    C0_TBL_08E76
         mov     al, byte ptr [C1_B_0D7DC]
         cbw
         push    ax
@@ -11708,7 +11708,7 @@ br_4D4B0:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    0ch
         push    1ah
@@ -11720,8 +11720,8 @@ br_4D4B0:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
         push    0ch
         push    7ah
         nop
@@ -11771,9 +11771,9 @@ br_4D533:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         callf   EP_WAVE_REGION_HIGHLIGHT_SEG:EP_WAVE_REGION_HIGHLIGHT_OFF
         add     sp, 8
@@ -11827,8 +11827,8 @@ L_4D5D0:
         mov     dx, word ptr [bx+C0_B_08E70]
         mov     word ptr [C2_W_028D2], ax
         mov     word ptr [C2_W_028D4], dx
-        mov     ax, word ptr [bx-718ah]
-        mov     dx, word ptr [bx-7188h]
+        mov     ax, word ptr [bx+C0_TBL_08E76]
+        mov     dx, word ptr [bx+C0_TBL_08E78]
         mov     word ptr [C2_W_028D6], ax
         mov     word ptr [C2_W_028D8], dx
         add     bx, 8e72h
@@ -11847,10 +11847,10 @@ L_4D612:
         mov     bx, ax
         shl     bx, 2
         mov     ax, word ptr [bx+C0_TBL_08E72]
-        mov     dx, word ptr [bx-718ch]
+        mov     dx, word ptr [bx+C0_TBL_08E74]
         mov     word ptr [C2_W_028FC], ax
         mov     word ptr [C2_W_028FE], dx
-        mov     ax, word ptr [bx-7186h]
+        mov     ax, word ptr [bx+C2_TBL_08E7A]
         mov     dx, word ptr [bx+C2_TBL_08E7C]
         mov     word ptr [C2_W_02900], ax
         mov     word ptr [C2_W_02902], dx
@@ -11908,7 +11908,7 @@ br_4D6AE:
         mov     word ptr [bp-2], dx
 br_4D6C0:
         sub     ax, ax
-        mov     word ptr [8e74h], ax
+        mov     word ptr [C0_TBL_08E74], ax
         mov     word ptr [C0_TBL_08E72], ax
         mov     si, 1
         mov     al, byte ptr [C1_B_0D7DC]
@@ -11945,7 +11945,7 @@ br_4D709:
         shl     si, 2
         mov     dx, word ptr [bp-2]
         mov     word ptr [si+C0_TBL_08E72], ax
-        mov     word ptr [si-718ch], dx
+        mov     word ptr [si+C0_TBL_08E74], dx
         pop     si
         pop     di
         leave
@@ -11968,7 +11968,7 @@ br_4D73E:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
@@ -11992,7 +11992,7 @@ br_4D77B:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
@@ -12014,7 +12014,7 @@ br_4D7AF:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
@@ -12066,7 +12066,7 @@ zone_start_fine_paint:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    0ch
         push    0b5h
@@ -12078,10 +12078,10 @@ zone_start_fine_paint:
         cbw
         mov     bx, ax
         shl     bx, 2
-        mov     ax, word ptr [bx-718ah]
-        mov     dx, word ptr [bx-7188h]
+        mov     ax, word ptr [bx+C0_TBL_08E76]
+        mov     dx, word ptr [bx+C0_TBL_08E78]
         sub     ax, word ptr [bx+C0_TBL_08E72]
-        sbb     dx, word ptr [bx-718ch]
+        sbb     dx, word ptr [bx+C0_TBL_08E74]
         push    dx
         push    ax
         push    15h
@@ -12125,8 +12125,8 @@ L_4D28A:
         mov     dx, word ptr [bx+C0_B_08E70]
         mov     word ptr [C2_W_029CE], ax
         mov     word ptr [C2_W_029D0], dx
-        mov     ax, word ptr [bx-718ah]
-        mov     dx, word ptr [bx-7188h]
+        mov     ax, word ptr [bx+C0_TBL_08E76]
+        mov     dx, word ptr [bx+C0_TBL_08E78]
         mov     word ptr [C2_W_029D2], ax
         mov     word ptr [C2_W_029D4], dx
         add     bx, 8e72h
@@ -12142,7 +12142,7 @@ L_4D8CC:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-718ch]
+        push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
@@ -12189,8 +12189,8 @@ br_4D936:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
         nop
@@ -12227,8 +12227,8 @@ br_4D9A7:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
         nop
@@ -12279,8 +12279,8 @@ zone_end_fine_paint:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
         push    0ch
         push    0b5h
         nop
@@ -12291,10 +12291,10 @@ zone_end_fine_paint:
         cbw
         mov     bx, ax
         shl     bx, 2
-        mov     ax, word ptr [bx-718ah]
-        mov     dx, word ptr [bx-7188h]
+        mov     ax, word ptr [bx+C0_TBL_08E76]
+        mov     dx, word ptr [bx+C0_TBL_08E78]
         sub     ax, word ptr [bx+C0_TBL_08E72]
-        sbb     dx, word ptr [bx-718ch]
+        sbb     dx, word ptr [bx+C0_TBL_08E74]
         push    dx
         push    ax
         push    15h
@@ -12335,10 +12335,10 @@ L_4DA82:
         mov     bx, ax
         shl     bx, 2
         mov     ax, word ptr [bx+C0_TBL_08E72]
-        mov     dx, word ptr [bx-718ch]
+        mov     dx, word ptr [bx+C0_TBL_08E74]
         mov     word ptr [C2_W_02A9E], ax
         mov     word ptr [C2_W_02AA0], dx
-        mov     ax, word ptr [bx-7186h]
+        mov     ax, word ptr [bx+C2_TBL_08E7A]
         mov     dx, word ptr [bx+C2_TBL_08E7C]
         mov     word ptr [C2_W_02AA2], ax
         mov     word ptr [C2_W_02AA4], dx
@@ -12355,8 +12355,8 @@ L_4DAC4:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
         push    word ptr [C0_W_0D7C4]
         push    word ptr [C0_W_0D7C2]
         nop

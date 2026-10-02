@@ -10442,7 +10442,13 @@ d_c2_tbl_08e6e:
 d_c0_b_08e70:
         db      "  "
 d_c0_tbl_08e72:
-        db      "     -74"
+        db      "  "
+d_c0_tbl_08e74:
+        db      "  "
+d_c0_tbl_08e76:
+        db      " -"
+d_c0_tbl_08e78:
+        db      "74"
         elseif  FW_VERSION >= 114
         db      31h, 2eh, 31h, 34h
 d_c2_tbl_08e6e:
@@ -10450,7 +10456,13 @@ d_c2_tbl_08e6e:
 d_c0_b_08e70:
         db      20h, 20h
 d_c0_tbl_08e72:
-        db      20h, 20h, 20h, 20h, 20h, 2dh, 37h, 32h
+        db      20h, 20h
+d_c0_tbl_08e74:
+        db      20h, 20h
+d_c0_tbl_08e76:
+        db      20h, 2dh
+d_c0_tbl_08e78:
+        db      37h, 32h
         elseif  FW_VERSION >= 112
         db      31h, 2eh, 31h, 32h
 d_c2_tbl_08e6e:
@@ -10458,7 +10470,13 @@ d_c2_tbl_08e6e:
 d_c0_b_08e70:
         db      20h, 20h
 d_c0_tbl_08e72:
-        db      20h, 20h, 20h, 20h, 20h, 2dh, 36h, 35h
+        db      20h, 20h
+d_c0_tbl_08e74:
+        db      20h, 20h
+d_c0_tbl_08e76:
+        db      20h, 2dh
+d_c0_tbl_08e78:
+        db      36h, 35h
         elseif  FW_VERSION >= 111
         db      31h, 2eh, 31h, 31h
 d_c2_tbl_08e6e:
@@ -10466,7 +10484,13 @@ d_c2_tbl_08e6e:
 d_c0_b_08e70:
         db      20h, 20h
 d_c0_tbl_08e72:
-        db      20h, 20h, 20h, 20h, 20h, 2dh, 36h, 33h
+        db      20h, 20h
+d_c0_tbl_08e74:
+        db      20h, 20h
+d_c0_tbl_08e76:
+        db      20h, 2dh
+d_c0_tbl_08e78:
+        db      36h, 33h
         elseif  FW_VERSION >= 110
         db      31h, 2eh, 31h, 30h
 d_c2_tbl_08e6e:
@@ -10474,7 +10498,13 @@ d_c2_tbl_08e6e:
 d_c0_b_08e70:
         db      20h, 20h
 d_c0_tbl_08e72:
-        db      20h, 20h, 20h, 20h, 20h, 2dh, 36h, 31h
+        db      20h, 20h
+d_c0_tbl_08e74:
+        db      20h, 20h
+d_c0_tbl_08e76:
+        db      20h, 2dh
+d_c0_tbl_08e78:
+        db      36h, 31h
         else
         db      31h, 2eh, 30h, 37h, 20h, 20h, 20h, 20h, 20h, 20h
 d_c2_tbl_08e6e:
@@ -10483,6 +10513,7 @@ d_c0_b_08e70:
         db      20h, 2dh
 d_c0_tbl_08e72:
         db      35h, 34h
+d_c0_tbl_08e74:
         endif
 
 ; erased flash 0x6112a-0x65cd6, 19372 bytes, but none of it free at runtime:
@@ -10494,6 +10525,16 @@ d_c0_tbl_08e72:
         error   "consts: bytes after the version stamp, where the OS fills or keeps its program records"
         endif
 BSS_6112A:
+        if      FW_VERSION < 110
+        PAD_TO  DS_SEG*16+08e76h-SEGBASE, 0
+d_c0_tbl_08e76:
+        endif
+        if      FW_VERSION < 110
+        PAD_TO  DS_SEG*16+08e78h-SEGBASE, 0
+d_c0_tbl_08e78:
+        endif
+        PAD_TO  DS_SEG*16+08e7ah-SEGBASE, 0
+d_c2_tbl_08e7a:
         PAD_TO  (DS_SEG*16+08ebeh-SEGBASE)-042h, 0
 d_c2_tbl_08e7c:
         PAD_TO  DS_SEG*16+08ebeh-SEGBASE, 0

@@ -481,3 +481,7 @@ C0_W_02BE6_2                             equ (APP3_BASE+d_c0_w_02be6-APPDATA_SEG
 C2_B_08D61                               equ (CONSTS_BASE+d_c2_b_08d61-DS_SEG*16)
 C2_B_08D63                               equ (CONSTS_BASE+d_c2_b_08d63-DS_SEG*16)
 C2_B_08D65                               equ (CONSTS_BASE+d_c2_b_08d65-DS_SEG*16)
+
+; ---- data the parts read through their DS, from the labels at them.
+
+A2_B_02ED7                               equ (APP3_BASE+d_a2_b_02ed7-APPDATA_SEG*16)

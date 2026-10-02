@@ -1138,7 +1138,7 @@ isr_00AE2:
         mov     bp, RAM_SEG
         mov     ds, bp
         mov     byte ptr [A0_B_00084], al
-        mov     byte ptr [85h], ah
+        mov     byte ptr [A0_B_00085], ah
         pop     bp
         pop     ds
         iret
@@ -4881,7 +4881,7 @@ br_02A12:
         mov     word ptr [A0_W_028C4], bx
         ret
 fn_02A25:
-        cmp     byte ptr [6bh], 0
+        cmp     byte ptr [A0_B_0006B], 0
         jne     loop_02A41
         cmp     byte ptr [A0_B_0436E], 0
         je      br_02A43

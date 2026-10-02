@@ -19271,11 +19271,11 @@ loop_3C279:
         mov     bx, ax
         shl     bx, 2
         mov     ax, word ptr [bx+C0_TBL_08E72]
-        mov     dx, word ptr [bx-718ch]
+        mov     dx, word ptr [bx+C0_TBL_08E74]
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
-        mov     cx, word ptr [bx-718ah]
-        mov     si, word ptr [bx-7188h]
+        mov     cx, word ptr [bx+C0_TBL_08E76]
+        mov     si, word ptr [bx+C0_TBL_08E78]
         sub     cx, ax
         sbb     si, dx
         mov     word ptr [bp-0ch], cx

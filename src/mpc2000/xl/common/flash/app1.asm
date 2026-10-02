@@ -8523,7 +8523,7 @@ fn_0EF58:
         jmp     br_0EFEC
 L_0ECEA:
         call    fn_0F087
-        mov     word ptr [0b8ch], 1388h
+        mov     word ptr [A0_W_00B8C], 1388h
 loop_0EF7D:
         call    fn_0F0AC
         test    al, 80h
@@ -8531,7 +8531,7 @@ loop_0EF7D:
         test    al, 4
         jne     br_0EF94
 br_0EF88:
-        cmp     word ptr [0b8ch], 0
+        cmp     word ptr [A0_W_00B8C], 0
         jne     loop_0EF7D
         mov     al, 14h
         jmp     loop_0E33A
@@ -8547,7 +8547,7 @@ br_0EF94:
         les     di, [A1_W_FLASHFS_DATA_ADDR_LO]
         call    fn_0F22B
         call    fn_0F11D
-        mov     word ptr [0b8ch], 1388h
+        mov     word ptr [A0_W_00B8C], 1388h
 loop_0EFB9:
         call    fn_0F0AC
         test    al, 80h
@@ -8555,7 +8555,7 @@ loop_0EFB9:
         test    al, 4
         jne     br_0EFD0
 br_0EFC4:
-        cmp     word ptr [0b8ch], 0
+        cmp     word ptr [A0_W_00B8C], 0
         jne     loop_0EFB9
         mov     al, 14h
         jmp     loop_0E33A
@@ -8622,25 +8622,25 @@ br_0F050:
         mov     al, 15h
         jmp     loop_0E33A
 fn_0F055:
-        mov     word ptr [0b8ch], 1388h
+        mov     word ptr [A0_W_00B8C], 1388h
 loop_0F05B:
         call    fn_0F090
         test    al, 80h
         je      br_0F063
         ret
 br_0F063:
-        cmp     word ptr [0b8ch], 0
+        cmp     word ptr [A0_W_00B8C], 0
         jne     loop_0F05B
         ret
 L_0EF77:
-        mov     word ptr [0b8ch], 1388h
+        mov     word ptr [A0_W_00B8C], 1388h
 loop_0F071:
         call    fn_0F0AC
         test    al, 80h
         je      br_0F079
         ret
 br_0F079:
-        cmp     word ptr [0b8ch], 0
+        cmp     word ptr [A0_W_00B8C], 0
         jne     loop_0F071
         ret
 fn_0F081:
@@ -9447,49 +9447,49 @@ isr_0F5F2:
         iret
 L_0F5F8:
         cli
-        mov     bx, word ptr [0d9ch]
-        cmp     bx, word ptr [0d9eh]
+        mov     bx, word ptr [A0_W_00D9C]
+        cmp     bx, word ptr [A0_W_00D9E]
         je      br_0F615
-        mov     bx, word ptr [0d9eh]
-        mov     byte ptr [bx+0b9ch], al
+        mov     bx, word ptr [A0_W_00D9E]
+        mov     byte ptr [bx+A0_TBL_00B9C], al
         inc     bx
         and     bh, 1
-        mov     word ptr [0d9eh], bx
+        mov     word ptr [A0_W_00D9E], bx
         jmp     br_0F621
 br_0F615:
         dec     bx
         and     bh, 1
-        mov     byte ptr [bx+0b9ch], al
-        mov     word ptr [0d9ch], bx
+        mov     byte ptr [bx+A0_TBL_00B9C], al
+        mov     word ptr [A0_W_00D9C], bx
 br_0F621:
         mov     dx, 186h
         mov     al, 0f7h
         out     dx, al
         sti
-        mov     byte ptr [0ea4h], 0ffh
+        mov     byte ptr [A0_B_00EA4], 0ffh
         ret
 L_0F62E:
         cli
-        mov     bx, word ptr [10a6h]
-        cmp     bx, word ptr [10a8h]
+        mov     bx, word ptr [A0_W_010A6]
+        cmp     bx, word ptr [A0_W_010A8]
         je      br_0F64B
-        mov     bx, word ptr [10a8h]
-        mov     byte ptr [bx+0ea6h], al
+        mov     bx, word ptr [A0_W_010A8]
+        mov     byte ptr [bx+A0_TBL_00EA6], al
         inc     bx
         and     bh, 1
-        mov     word ptr [10a8h], bx
+        mov     word ptr [A0_W_010A8], bx
         jmp     br_0F657
 br_0F64B:
         dec     bx
         and     bh, 1
-        mov     byte ptr [bx+0ea6h], al
-        mov     word ptr [10a6h], bx
+        mov     byte ptr [bx+A0_TBL_00EA6], al
+        mov     word ptr [A0_W_010A6], bx
 br_0F657:
         mov     dx, 1a6h
         mov     al, 0f7h
         out     dx, al
         sti
-        mov     byte ptr [11aeh], 0ffh
+        mov     byte ptr [A0_B_011AE], 0ffh
         ret
 isr_0F664:
         mov     bp, RAM_SEG

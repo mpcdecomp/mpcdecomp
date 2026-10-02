@@ -2201,7 +2201,9 @@ d_p_48cb:
 d_a0_w_048b4:
         db      2 dup (0)
 d_a0_w_048b6:
-        db      3590 dup (0)
+        db      112 dup (0)
+d_a2_b_04942:
+        db      3478 dup (0)
 d_a0_w_056d8:
         db      2 dup (0)
 d_a0_w_056da:
@@ -2227,7 +2229,19 @@ d_p_48cb:
 d_a0_w_048b4:
         db      2 dup (0)
 d_a0_w_048b6:
-        db      852 dup (0)
+        db      140 dup (0)
+        if      (FW_VERSION >= 112) && (FW_VERSION < 114)
+d_a2_b_04942:
+        endif
+        db      4 dup (0)
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+d_a2_b_04942:
+        endif
+        db      30 dup (0)
+        if      FW_VERSION < 110
+d_a2_b_04942:
+        endif
+        db      678 dup (0)
 d_a0_tbl_04c06:
         db      2738 dup (0)
 d_a0_w_056d8:
@@ -3337,6 +3351,16 @@ d_p_a86a:
 d_a1_w_0a888:
         db      2 dup (0)
 d_a1_b_0a88a:
+        PAD_TO  RAM_SEG*16+0a8abh-SEGBASE, 000h
+d_at_b_0a8ab:
+        PAD_TO  RAM_SEG*16+0a8ach-SEGBASE, 000h
+d_at_b_0a8ac:
+        PAD_TO  RAM_SEG*16+0a8aeh-SEGBASE, 000h
+d_at_w_0a8ae:
+        PAD_TO  RAM_SEG*16+0a8b0h-SEGBASE, 000h
+d_at_w_0a8b0:
+        PAD_TO  RAM_SEG*16+0a8b2h-SEGBASE, 000h
+d_at_w_0a8b2:
         PAD_TO  RAM_TAIL, 000h
         ifdef   GROWTH_PROOF
         db      GROWTH_PROOF dup (90h)

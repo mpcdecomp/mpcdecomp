@@ -1274,6 +1274,8 @@ FREE_255E4:
 d_a2_b_02ee7:
         PAD_TO  APPDATA_SEG*16+02F0Ah-SEGBASE, 000h
         else
+        PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
+d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
@@ -1282,6 +1284,8 @@ d_a2_w_02ee2:
         else
 FREE_24E14:
 FREE_255E4:
+        PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
+d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
         PAD_TO  APPDATA_SEG*16+02EFAh-SEGBASE, 000h
@@ -1291,6 +1295,8 @@ d_a2_w_02ee2:
 FREE_24E14:
 ; 0x24fb3-0x250ae, 251 bytes of 00h -- unverified, do not assume free
 FREE_255E4:
+        PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
+d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-010h, 000h
@@ -1302,6 +1308,8 @@ d_a2_w_02eea:
 
 ; 0x24ae4-0x24b5a, 118 bytes of 00h -- unverified, do not assume free
 FREE_24AE4:
+        PAD_TO  APPDATA_SEG*16+02ed7h-SEGBASE, 000h
+d_a2_b_02ed7:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-018h, 000h
 d_a2_w_02ee2:
         PAD_TO  (APPDATA_SEG*16+02EFAh-SEGBASE)-010h, 000h
@@ -2399,7 +2407,7 @@ fn_271BC:
         jne     br_271C3
         ret
 br_271C3:
-        cmp     byte ptr [7c1h], 0
+        cmp     byte ptr [A3_B_007C1], 0
         jne     br_271CB
         ret
 br_271CB:
@@ -3882,7 +3890,7 @@ seq_buffer_init_blank:
         call    fn_27F33
         retf
 fn_27F33:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         sub     di, di
         sub     ax, ax
         mov     cx, 2000h
@@ -3896,14 +3904,14 @@ fn_27F33:
         mov     cx, 10h
         rep movsb
         call    fn_27F67
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         mov     di, 2800h
         mov     al, 0ffh
         mov     cx, 10h
         rep stosb
         ret
 fn_27F67:
-        mov     es, word ptr [0f10h]
+        mov     es, word ptr [A3_W_00F10]
         mov     di, 700h
         mov     word ptr es:[di], 3e8h
         sub     ax, ax
@@ -10615,7 +10623,7 @@ L_2B86A:
         jne     br_2B871
         retf
 br_2B871:
-        cmp     byte ptr [7c1h], 0
+        cmp     byte ptr [A3_B_007C1], 0
         jne     br_2B879
         retf
 br_2B879:
@@ -12371,7 +12379,7 @@ fn_2C8EC:
         DISP_TEXT       71h, 0dh, "Prog^change>Seq:"
         mov     cl, 0ceh
         mov     ch, 0dh
-        mov     al, byte ptr [7c1h]
+        mov     al, byte ptr [A3_B_007C1]
         call    fn_26D9C
         ret
 fn_2C90D:

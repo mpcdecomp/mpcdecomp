@@ -2758,7 +2758,7 @@ tgt_1C1D5:
         DISP_NUM        0ceh, 09h, 06h
 L_1C1E1:
         if      FW_VERSION < 120
-        mov     al, byte ptr [2ed7h]
+        mov     al, byte ptr [A2_B_02ED7]
         mov     bx, 2fd3h
         else
         mov     al, byte ptr [A2_B_02EE7]
@@ -6552,7 +6552,7 @@ d_str_mpc2kxl_sys:
 d_str_mpc2kxl_bin:
         db      "MPC2KX"
         db      "L        "
-        and     byte ptr [4942h], ch
+        and     byte ptr [A2_B_04942], ch
         dec     si
 br_1EAAC:
         call    fn_1E892
@@ -13172,6 +13172,7 @@ d_a3_b_007bf:
         db      00h
 d_a3_b_007c0:
         db      64h
+d_a3_b_007c1:
         if      FW_VERSION >= 110
         if      FW_VERSION < 114
 FREE_22941:

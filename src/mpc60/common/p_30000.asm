@@ -7779,7 +7779,7 @@ far_04ed4:
         if      FW_VERSION < 212
         mov     word ptr [TBL_0AE2_V112], 0
         mov     cx, 80h
-        mov     di, 2710h
+        mov     di, STR_3E4F
         rep stosw
         else
         mov     word ptr [W_8570], 1

@@ -15102,7 +15102,7 @@ br_cae68:
         mov     word ptr [bp - 0eh], 1
         mov     word ptr [bp - 10h], 100h
         mov     word ptr [bp - 0ah], 0
-        mov     word ptr [bp - 0ch], 2710h
+        mov     word ptr [bp - 0ch], STR_3E4F
         endif
         jmp     br_caee1
 br_cae85:
@@ -23533,10 +23533,10 @@ br_c8c4f:
         push    ax
         endif
         if      FW_VERSION = 212
-        mov     ax, 2b3eh
+        mov     ax, L_2EAE
         endif
         if      FW_VERSION >= 214
-        mov     ax, 2eaeh
+        mov     ax, L_2EAE
         endif
         if      FW_VERSION >= 212
         push    ax

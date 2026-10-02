@@ -25683,7 +25683,7 @@ br_db82c:
 br_db831:
         cmp     word ptr [bp - 2], 0
         jle     br_db870
-        mov     word ptr [bp - 6], 640h
+        mov     word ptr [bp - 6], L_0640
         mov     ax, word ptr [bp - 2]
         cmp     ax, word ptr [bp - 6]
         jge     br_db847
@@ -27106,7 +27106,7 @@ br_dc3ca:
 br_dc3e2:
         cmp     word ptr [bp - 2], 0
         jle     br_dc421
-        mov     word ptr [bp - 4], 640h
+        mov     word ptr [bp - 4], L_0640
         mov     ax, word ptr [bp - 2]
         cmp     ax, word ptr [bp - 4]
         jge     br_dc3f8
@@ -35852,7 +35852,7 @@ far_e15ef:
         push    bp
         mov     bp, sp
         add     sp, 0fffch
-        mov     word ptr [bp - 4], 640h
+        mov     word ptr [bp - 4], L_0640
         push    word ptr [bp - 4]
         mov     ax, TBL_8E65
         push    ax
@@ -55168,7 +55168,7 @@ br_ee7d4:
         mov     word ptr [bp - 6], ax
         else
         mov     word ptr [bp - 4], 0
-        mov     word ptr [bp - 6], 20h
+        mov     word ptr [bp - 6], L_0020
         endif
 br_ee7de:
         mov     dx, word ptr [bp - 4]

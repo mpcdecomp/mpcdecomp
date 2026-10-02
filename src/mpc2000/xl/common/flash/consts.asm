@@ -6713,7 +6713,10 @@ d_c2_tbl_031aa:
         db      00h, 00h, 00h, 00h
         dw      EP_FAR_4EE52_OFF, EP_FAR_4EE52_SEG
         dw      EP_L_4EE46_OFF, EP_L_4EE46_SEG
-        db      00h, 00h, 00h, 00h
+d_c2_tbl_031c2:
+        db      00h, 00h
+d_c2_tbl_031c4:
+        db      00h, 00h
 TBL_FIELDS_319C:                        ; 6 x FIELD_SIZE; the part of the array this .asm emits itself
         db      0ddh, 02h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_FAR_4EE52_OFF, EP_FAR_4EE52_SEG ; THUNK  PREV  NEXT
@@ -10721,6 +10724,8 @@ d_c1_b_0d7bf:
 d_c0_b_0d7c1:
         PAD_TO  10000h-0264h, 00h
 d_c0_w_0d7c2:
+        PAD_TO  10000h-0262h, 00h
+d_c2_w_0d7c4:
         PAD_TO  10000h-0260h, 00h
 d_c1_b_0d7c6:
         PAD_TO  10000h-025eh, 00h

@@ -18,7 +18,7 @@ SKIP_DRUM_HOOK  macro   target
         nop
         else
         push    ds
-        push    2b8eh
+        push    C2_TBL_WINKEYS_MIXER_SELECT_PGM
         nop
         push    cs
         call    target

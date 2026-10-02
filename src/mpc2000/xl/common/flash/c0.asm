@@ -4058,11 +4058,11 @@ br_34519:
         mov     bh, 0
         push    ds
         mov     ds, dx
-        cmp     byte ptr [12h], 0
+        cmp     byte ptr [C0_B_00012], 0
         jne     br_34538
         jmp     br_345BC
 br_34538:
-        mov     ax, word ptr [1ah]
+        mov     ax, word ptr [C0_W_0001A]
         mov     word ptr es:[di-0ah], ax
         mul     bx
         if      FW_VERSION >= 110
@@ -4074,8 +4074,8 @@ br_34538:
         endif
         mov     word ptr es:[di], ax
         mov     word ptr es:[di+2], dx
-        mov     ax, word ptr [1ch]
-        mov     dx, word ptr [1eh]
+        mov     ax, word ptr [C0_W_0001C]
+        mov     dx, word ptr [C0_W_0001E]
         mov     word ptr es:[di-8], ax
         mov     word ptr es:[di-6], dx
         push    si
@@ -20383,8 +20383,8 @@ br_3CB29:
         add     di, ax
         add     bx, di
         shl     bx, 2
-        mov     ax, word ptr [bx+43dah]
-        mov     dx, word ptr [bx+43dch]
+        mov     ax, word ptr [bx+C0_TBL_043F2-18h]
+        mov     dx, word ptr [bx+C0_TBL_043F2-16h]
         mov     si, ax
         mov     word ptr [bp-6], dx
         mov     di, ax

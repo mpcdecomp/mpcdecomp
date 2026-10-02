@@ -5023,7 +5023,7 @@ L_1D1DF:
         DISP_WIN        50h, 14h, 58h, 15h, ""
         db      00h, 0b3h, 1ch, 0cdh
         xchg    cx, bp
-        xchg    dh, byte ptr [bx+di-4a9eh]
+        db      86h, 0b1h, 62h, 0b5h
         if      FW_VERSION >= 111
         db      1bh
         if      FW_VERSION < 120

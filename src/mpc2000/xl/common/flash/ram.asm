@@ -3351,6 +3351,10 @@ d_p_a86a:
 d_a1_w_0a888:
         db      2 dup (0)
 d_a1_b_0a88a:
+        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
+        PAD_TO  RAM_SEG*16+0a88bh-SEGBASE, 000h
+d_at_b_0a88b:
+        endif
         PAD_TO  RAM_SEG*16+0a8abh-SEGBASE, 000h
 d_at_b_0a8ab:
         PAD_TO  RAM_SEG*16+0a8ach-SEGBASE, 000h

@@ -361,7 +361,7 @@ L_0F4B1:
         stosw
         loop    tgt_0F740
         mov     ax, word ptr es:[7eh]
-        mov     byte ptr [0a88bh], ah
+        mov     byte ptr [AT_B_0A88B], ah
         cmp     al, 0
         je      br_0F7BD
         mov     byte ptr [A1_B_0A88A], 1

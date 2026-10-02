@@ -1850,7 +1850,7 @@ cb_26B35:
 L_2636E:
         DISP_TEXT       0a8h, 01h, "Now:  H  M  S"
         db      0cdh
-        sar     byte ptr [bx-1180h], 0beh
+        db      0c0h, 0bfh, 80h, 0eeh, 0beh
         db      36h, 00h, 0cdh
         mov     ax, 183ch
         jb      br_26B61
@@ -1911,7 +1911,7 @@ fn_26BEB:
         ret
 cb_26C06:
         db      0b1h
-        mov     dh, byte ptr [di-4febh]
+        db      8ah, 0b5h, 15h, 0b0h
         adc     cx, bp
         mov     al, 0c3h
 fn_26C0F:
@@ -2837,8 +2837,8 @@ L_2755B:
 L_26C6E                         equ     $+1
         db      0cbh, 0e8h
         pop     dx
-        or      sp, word ptr [0a480h]
-        add     byte ptr [0e8fdh], 11h
+        db      0bh, 26h, 80h, 0a4h
+        db      80h, 06h, 0fdh, 0e8h, 11h
         or      cx, bx
         endif
 L_27568:
@@ -11192,7 +11192,7 @@ fn_2BF52:
         mov     byte ptr [A3_B_01577], 0
         mov     byte ptr [A3_B_01578], 7fh
         mov     byte ptr [A3_B_01579], 41h
-        mov     byte ptr [1888h], 0
+        mov     byte ptr [A3_B_01888], 0
         call    fn_2D5E3
         ret
 fn_2BF86:
@@ -13299,7 +13299,7 @@ L_2CF8D                         equ     $+2
         endif
         else
         db      0e8h
-        xchg    dh, byte ptr [bx+di-75dah]
+        db      86h, 0b1h, 26h, 8ah
         test    byte ptr [bx+si+A3_TBL_02406], al
         add     al, 0b1h
         test    byte ptr [di+A3_TBL_0E823], dh
@@ -13372,7 +13372,7 @@ cb_2D058:
 cb_2D061:
         db      0b1h, 0ceh, 0b5h
 tgt_2D064:
-        adc     byte ptr [bx+si-32edh], dh
+        db      10h, 0b0h, 13h, 0cdh
         mov     al, 0c3h
 cb_2D06A:
         DISP_CURSOR     3eh, 2ah, 25h
@@ -13579,7 +13579,7 @@ cb_2D058:
 cb_2D061:
         db      0b1h, 0ceh, 0b5h
 tgt_2D064:
-        adc     byte ptr [bx+si-32edh], dh
+        db      10h, 0b0h, 13h, 0cdh
         mov     al, 0c3h
 cb_2D06A:
         DISP_CURSOR     3eh, 2ah, 25h
@@ -13881,12 +13881,12 @@ fn_2D3AD:
         je      br_2D3E4
         ret
 br_2D3E4:
-        mov     al, byte ptr [188ah]
+        mov     al, byte ptr [A3_B_0188A]
         sub     ah, ah
         DISP_NUM        0bch, 21h, 03h
         ret
 fn_2D3F0:
-        cmp     byte ptr [1888h], 0
+        cmp     byte ptr [A3_B_01888], 0
         je      br_2D3FF
         cmp     byte ptr [A3_B_01889], 0
         je      br_2D3FF
@@ -13949,7 +13949,7 @@ L_2CBC4:
         call    fn_2D4AE
         retf
 fn_2D4AE:
-        add     al, byte ptr [1888h]
+        add     al, byte ptr [A3_B_01888]
         sub     al, cl
         jae     br_2D4B8
         mov     al, 0
@@ -13958,7 +13958,7 @@ br_2D4B8:
         jb      L_2D4BE
         mov     al, 2
 L_2D4BE:
-        mov     byte ptr [1888h], al
+        mov     byte ptr [A3_B_01888], al
         cmp     al, 0
         if      FW_VERSION >= 112
         je      L_2CF08
@@ -14102,15 +14102,15 @@ fn_2D5E3:
         mov     bl, byte ptr [A3_B_0157A]
         mov     bh, bl
 br_2D609:
-        cmp     byte ptr [1888h], 0
+        cmp     byte ptr [A3_B_01888], 0
         je      br_2D61B
         cmp     byte ptr [A3_B_01889], 0
         je      br_2D61B
         mov     bh, 80h
         mov     bl, 80h
 br_2D61B:
-        mov     byte ptr [188bh], bl
-        mov     byte ptr [188ch], bh
+        mov     byte ptr [A3_B_0188B], bl
+        mov     byte ptr [A3_B_0188C], bh
         int     84h
         push    si
         push    es
@@ -14157,7 +14157,7 @@ br_2D67F:
         cmp     ch, byte ptr [A3_W_01886]
         jne     br_2D6B4
 br_2D687:
-        cmp     byte ptr [1888h], 1
+        cmp     byte ptr [A3_B_01888], 1
         jb      br_2D69E
         je      br_2D697
         call    fn_2D6B8
@@ -14170,9 +14170,9 @@ br_2D697:
 br_2D69E:
         cmp     al, 80h
         jae     br_2D6B0
-        cmp     al, byte ptr [188bh]
+        cmp     al, byte ptr [A3_B_0188B]
         jb      br_2D6B4
-        cmp     al, byte ptr [188ch]
+        cmp     al, byte ptr [A3_B_0188C]
         ja      br_2D6B4
         jmp     br_2D6B0
 br_2D6B0:
@@ -14214,7 +14214,7 @@ br_2D6F0:
         cmp     ah, 2
         jne     loop_2D70A
         mov     ah, byte ptr es:[si+5]
-        cmp     ah, byte ptr [188ah]
+        cmp     ah, byte ptr [A3_B_0188A]
         je      loop_2D708
         jmp     loop_2D70A
 br_2D701:
@@ -14232,9 +14232,9 @@ br_2D70C:
         jne     loop_2D70A
         mov     ah, byte ptr es:[si+4]
         and     ah, 7fh
-        cmp     ah, byte ptr [188bh]
+        cmp     ah, byte ptr [A3_B_0188B]
         jb      loop_2D70A
-        cmp     ah, byte ptr [188ch]
+        cmp     ah, byte ptr [A3_B_0188C]
         ja      loop_2D70A
         jmp     loop_2D708
 L_2CE54:
@@ -16161,7 +16161,7 @@ L_2E997:
         db      8ah, 2eh, 10h
         db      19h, 0feh
         int     0b0h
-        sbb     word ptr [si-4cf7h], si
+        db      19h, 0b4h, 09h, 0b3h
         adc     al, 0cdh
         nop
         else
@@ -16596,7 +16596,7 @@ L_2DF0D:
         KEY_CURSOR      EP_FAR_2DCB9_OFF, EP_FAR_2DCB9_SEG, EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, EP_L_2DD1F_OFF, APP3_SEG, EP_APP3_7E4A_OFF, APP3_SEG
         db      0c4h
         db      3eh, 20h, 19h, 26h, 8ah, 45h, 05h, 24h, 7fh, 0b4h, 00h, 0b3h
-        add     word ptr [bx-4600h], si
+        db      01h, 0b7h, 00h, 0bah
         add     byte ptr [bx+si], 0bfh
         inc     sp
         test    bp, cx
@@ -17689,7 +17689,7 @@ far_2F786:
 L_2EEDE:
         db      0e8h
         push    si
-        add     byte ptr [bx+di-4a88h], dh
+        db      00h, 0b1h, 78h, 0b5h
         adc     al, 0b0h
         cmp     ax, 0b0cdh
         endif
@@ -17808,7 +17808,7 @@ L_2F8EA:
 L_2F8EA:
         db      0e8h
         push    sp
-        add     byte ptr [bx+di-4a88h], dh
+        db      00h, 0b1h, 78h, 0b5h
         adc     al, 0b0h
         cmp     ax, 0b0cdh
         endif
@@ -17944,7 +17944,7 @@ L_2F164:
         mov     dx, ds
         DISP_TEXT_IDX   96h, 1ah, 01968h, 02135h
         db      0b1h, 96h, 0b5h
-        sbb     dh, byte ptr [bx+si-32edh]
+        db      1ah, 0b0h, 13h, 0cdh
         mov     al, 0cbh
 L_2F191:
         mov     word ptr [A3_W_01964], 0
@@ -18072,7 +18072,7 @@ L_2F2BA:
         KEY_DOWN        1ah, 0000h, 0000h
         db      8ch, 0d9h, 0beh
         push    0b319h
-        add     byte ptr [bx-4600h], dh
+        db      00h, 0b7h, 00h, 0bah
         if      FW_VERSION >= 112
         enter   -4100h, 7ch
         elseif  FW_VERSION >= 111
@@ -18151,7 +18151,7 @@ L_2F356:
         KEY_DOWN        1ah, 0000h, 0000h
         db      8ch, 0d9h, 0beh
         push    0b319h
-        add     byte ptr [bx-4600h], dh
+        db      00h, 0b7h, 00h, 0bah
         if      FW_VERSION >= 112
         enter   -4100h, 7ch
         elseif  FW_VERSION >= 111
@@ -20168,7 +20168,7 @@ tgt_310C2:
         db      86h, 2ah, 0e8h, 68h, 02h, 26h, 8ah, 44h, 16h, 0a2h, 87h, 2ah, 0ffh, 1eh, 80h, 2ah
         else
         db      0e8h, 8ch
-        add     ah, byte ptr [448ah]
+        db      02h, 26h, 8ah, 44h
         adc     cx, bp
         jnp     L_3025D
         xchg    byte ptr es:[bp+si], ch

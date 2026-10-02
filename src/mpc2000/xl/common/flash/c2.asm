@@ -11563,17 +11563,17 @@ br_4D3CF:
         db      0d9h
         endif
         mov     ax, C1_TBL_SOUNDS_END
-        cmp     ax, word ptr [0d7c2h]
+        cmp     ax, word ptr [C0_W_0D7C2]
         jne     br_4D3CF
         endif
         else
         db      2eh, 57h
         mov     ds, cx
         mov     ax, C1_TBL_SOUNDS_END
-        cmp     ax, word ptr [0d7c2h]
+        cmp     ax, word ptr [C0_W_0D7C2]
         jne     br_4D3CF
         endif
-        cmp     cx, word ptr [0d7c4h]
+        cmp     cx, word ptr [C2_W_0D7C4]
         je      br_4D3FB
         if      FW_VERSION < 114
 br_4D3CF:
@@ -11584,14 +11584,14 @@ br_4D3CF:
         nop
         push    cs
         call    zone_screen_refresh
-        mov     al, byte ptr [0d7ddh]
+        mov     al, byte ptr [C0_B_0D7DD]
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx-7188h]
-        push    word ptr [bx-718ah]
-        push    word ptr [bx-718ch]
-        push    word ptr [bx-718eh]
+        push    word ptr [bx+C0_TBL_08E78]
+        push    word ptr [bx+C0_TBL_08E76]
+        push    word ptr [bx+C0_TBL_08E74]
+        push    word ptr [bx+C0_TBL_08E72]
         push    C1_SEG
         push    EP_FAR_4D36C_OFF
         nop
@@ -14676,14 +14676,14 @@ pgm_midi_open:
         else
         mov     ds, cx
         imul    bx, word ptr [C2_W_PGM_MIDI_CURSOR], 2ah
-        mov     ax, word ptr [bx+31c4h]
-        or      ax, word ptr [bx+31c2h]
+        mov     ax, word ptr [bx+C2_TBL_031C4]
+        or      ax, word ptr [bx+C2_TBL_031C2]
         je      L_4E4A1
         nop
         push    cs
         call    pgm_midi_refresh
         imul    bx, word ptr [C2_W_PGM_MIDI_CURSOR], 2ah
-        callf   [bx+31c2h]
+        callf   [bx+C2_TBL_031C2]
 L_4E4A1:
         pop     ds
 far_4EDD2:

@@ -5029,3 +5029,22 @@ C0_TBL_08E74                             equ (CONSTS_BASE+d_c0_tbl_08e74-DS_SEG*
 C0_TBL_08E76                             equ (CONSTS_BASE+d_c0_tbl_08e76-DS_SEG*16)
 C0_TBL_08E78                             equ (CONSTS_BASE+d_c0_tbl_08e78-DS_SEG*16)
 C2_TBL_08E7A                             equ (CONSTS_BASE+d_c2_tbl_08e7a-DS_SEG*16)
+C2_TBL_WINKEYS_MIXER_SELECT_PGM          equ (CONSTS_BASE+TBL_WINKEYS_MIXER_SELECT_PGM-DS_SEG*16)
+
+; ---- DS frames outside the image: the code loads DS with the segment, the offsets are numbers.
+
+; DS=0EC00h: the window INT 0DEh maps a memory page into; offsets in it stay numbers.
+C0_B_00012                               equ 00012h
+
+; ---- data the parts read through their DS, from the labels at them.
+
+A3_B_01888                               equ (APP3_BASE+d_a3_w_01886+2-APPDATA_SEG*16)
+A3_B_0188A                               equ (APP3_BASE+d_a3_w_01886+4-APPDATA_SEG*16)
+A3_B_0188B                               equ (APP3_BASE+d_a3_w_01886+5-APPDATA_SEG*16)
+A3_B_0188C                               equ (APP3_BASE+d_a3_w_01886+6-APPDATA_SEG*16)
+
+; ---- data the parts read through their DS, from the labels at them.
+
+C2_TBL_031C2                             equ (CONSTS_BASE+d_c2_tbl_031c2-DS_SEG*16)
+C2_TBL_031C4                             equ (CONSTS_BASE+d_c2_tbl_031c4-DS_SEG*16)
+C2_W_0D7C4                               equ (CONSTS_BASE+d_c2_w_0d7c4-DS_SEG*16)

@@ -484,3 +484,7 @@ A0_W_05763_2                             equ (RAM_BASE+d_a0_w_05763-RAM_SEG*16)
 ; ---- data the parts read through their DS, from the labels at them.
 
 A2_B_02ED7                               equ (APP3_BASE+d_a2_b_02ed7-APPDATA_SEG*16)
+
+; ---- data the parts read through their DS, from the labels at them.
+
+AT_B_0A88B                               equ (RAM_BASE+d_at_b_0a88b-RAM_SEG*16)

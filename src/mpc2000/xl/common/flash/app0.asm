@@ -7285,7 +7285,7 @@ isr_03DFD:
         if      FW_VERSION >= 114
         or      ax, 0bf29h
         sub     ax, 0b229h
-        add     byte ptr [di-17f2h], dh
+        db      00h, 0b5h, 0eh, 0e8h
         and     byte ptr [bx+si], al
         inc     si
         inc     di

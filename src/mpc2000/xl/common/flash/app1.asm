@@ -8173,7 +8173,7 @@ isr_0EBAB:
 fn_0EBE8:
         DISP_WIN_WIDE   "F-ROM  Fragmentation"
         db      0b1h, 34h, 0b5h
-        or      si, word ptr [bx+si-4b6fh]
+        db      0bh, 0b0h, 91h, 0b4h
         add     word ptr [bp+di-32eeh], si
         nop
         add     ch, 3

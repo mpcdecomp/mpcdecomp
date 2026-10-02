@@ -327,7 +327,7 @@ armed:
 ; relocated "allowed while playing" key gate -- the stock gate verbatim plus
 ; two codes with no room in place.  entered from the XL2K_PLAY_GATE arm, jumps
 ; back to br_040CC.  AX = panel button code; while the transport runs
-; ([04371h] != 0) only the listed codes pass.  40 bytes.
+; (A0_B_PLAY_STATE non-zero) only the listed codes pass.  40 bytes.
 XL2K_PLAY_GATE_BODY macro {GLOBALSYMBOLS}
 play_gate:
         cmp     ax, 03ch
@@ -342,7 +342,7 @@ play_gate:
         je      pg_pass
         cmp     ax, 012ch               ; NEW: SHIFT + GO TO     -> NEXT SEQ
         je      pg_pass
-        cmp     byte ptr [04371h], 0    ; not running: everything passes
+        cmp     byte ptr [A0_B_PLAY_STATE], 0 ; not running: everything passes
         je      pg_pass
         ret
 pg_pass:

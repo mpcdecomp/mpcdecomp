@@ -40,12 +40,11 @@ PGM_MIDI_PGM            equ     01ch    ; db 0-based; program_close draws +1 in
 PGM_HDR_1D              equ     01dh    ; db, 023h init = PGM_NOTE_BASE;
                                         ;   unreferenced  ?
 
-; 64 entries x01Dh, MIDI note 023h..062h. two idioms: raw note with
-;   -PGM_PAD_BIAS (=-3D9h) or note-23h with +PGM_PADS. loop_05AA2
+; 64 entries x01Dh, MIDI note 023h..062h. two idioms: raw note * stride
+;   + PGM_PAD_NOTE0 (=-3D9h) or note-23h with +PGM_PADS. loop_05AA2
 ;   copies entry 0 forward until [bp-1]==40h. every note: lea
 ;   ax,[si-23h]/cmp ax,3fh/ja.
 PGM_PAD_STRIDE          equ     01dh    ; 29.  21 stride multiplies
-PGM_PAD_BIAS            equ     003d9h  ; = PGM_NOTE_BASE * PGM_PAD_STRIDE
 PGM_NOTE_BASE           equ     023h
 PGM_NOTE_MAX            equ     062h    ; 023h + 63
 PGM_PADS_PER_BANK       equ     16      ; four banks A..D
@@ -56,6 +55,8 @@ SIZEOF_PGM_NOTE         equ     PGM_PAD_STRIDE
 PGM_FX_GAP              equ     0
         include "program_record.inc"
 PGM_PADS                equ     PGM_NOTES       ; PGM_PADS alias, 21 sites
+PGM_PAD_BIAS            equ     PGM_NOTE_BASE*PGM_PAD_STRIDE-PGM_PADS   ; raw note * stride - this = pad offset
+PGM_PAD_NOTE0           equ     -PGM_PAD_BIAS   ; where note 0's pad entry would sit: [rec+note*stride+PGM_PAD_NOTE0]
 
 PGM_PAD_SND             equ     000h    ; dd: SND far ptr (0=none); pushed
                                         ;   to timer_value_read_4, which

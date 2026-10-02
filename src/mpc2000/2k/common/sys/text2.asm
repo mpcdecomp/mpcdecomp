@@ -13819,7 +13819,7 @@ br_0674B:
         shl     si, 2
         les     si, [si+PGM_TABLE]
         push    ds
-        lea     di, [bx+si-PGM_PAD_BIAS]
+        lea     di, [bx+si+PGM_PAD_NOTE0]
         mov     si, cx
         mov     ds, dx
         mov     cx, 0eh
@@ -14461,8 +14461,8 @@ X_06C42:
         mov     word ptr [bp-2], dx
         imul    di, di, PGM_PAD_STRIDE
         les     bx, [PGM_CURRENT]
-        mov     ax, word ptr es:[bx+di-PGM_PAD_BIAS]
-        mov     dx, word ptr es:[bx+di-PGM_PAD_BIAS+PGM_PAD_SND_SEG]
+        mov     ax, word ptr es:[bx+di+PGM_PAD_NOTE0]
+        mov     dx, word ptr es:[bx+di+PGM_PAD_NOTE0+PGM_PAD_SND_SEG]
         mov     si, ax
         mov     word ptr [bp-8], dx
         push    12h
@@ -14909,8 +14909,8 @@ L_06F7F:
         sub     ah, ah
         imul    di, ax, PGM_PAD_STRIDE
         les     bx, [PGM_CURRENT]
-        mov     ax, word ptr es:[bx+di-PGM_PAD_BIAS]
-        mov     dx, word ptr es:[bx+di-PGM_PAD_BIAS+PGM_PAD_SND_SEG]
+        mov     ax, word ptr es:[bx+di+PGM_PAD_NOTE0]
+        mov     dx, word ptr es:[bx+di+PGM_PAD_NOTE0+PGM_PAD_SND_SEG]
         mov     si, ax
         mov     word ptr [bp-6], dx
         mov     al, byte ptr [G_PAD_NOTE_BASE]
@@ -24058,7 +24058,7 @@ loop_0B82E:
         mov     es, word ptr [bp-6]
         mov     word ptr [bp-12h], bx
         mov     word ptr [bp-10h], es
-        mov     byte ptr es:[bx-PGM_PAD_BIAS+PGM_PAD_MODE], 2
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_MODE], 2
         jmp     tgt_0B873
         db      90h
 tgt_0B85E:
@@ -24067,7 +24067,7 @@ tgt_0B85E:
         mov     es, word ptr [bp-6]
         mov     word ptr [bp-12h], bx
         mov     word ptr [bp-10h], es
-        mov     byte ptr es:[bx-PGM_PAD_BIAS+PGM_PAD_MODE], 1
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_MODE], 1
 tgt_0B873:
         mov     al, byte ptr [si+TBL_6459]
         cbw
@@ -24076,10 +24076,10 @@ tgt_0B873:
         mov     es, word ptr [bp-0ah]
         mov     al, byte ptr es:[bx+1]
         les     bx, [bp-12h]
-        mov     byte ptr es:[bx-PGM_PAD_BIAS+PGM_PAD_ALT1], al
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_ALT1], al
         mov     al, byte ptr [si+TBL_6499]
-        mov     byte ptr es:[bx-PGM_PAD_BIAS+PGM_PAD_SW1], al
-        mov     byte ptr es:[bx-PGM_PAD_BIAS+PGM_PAD_SW2], 7fh
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_SW1], al
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_SW2], 7fh
 tgt_0B89B:
         inc     si
         cmp     si, 20h
@@ -24175,8 +24175,8 @@ br_0B946:
         les     bx, [FP_56C2]
         mov     ax, word ptr [W_56C6]
         mov     dx, word ptr [W_56C8]
-        mov     word ptr es:[bx+si-PGM_PAD_BIAS], ax
-        mov     word ptr es:[bx+si-PGM_PAD_BIAS+PGM_PAD_SND_SEG], dx
+        mov     word ptr es:[bx+si+PGM_PAD_NOTE0], ax
+        mov     word ptr es:[bx+si+PGM_PAD_NOTE0+PGM_PAD_SND_SEG], dx
 
 br_0B96D:
         inc     byte ptr [G_MPC60_PAD_IDX]
@@ -24244,8 +24244,8 @@ br_0B9D2:
         les     bx, [FP_56C2]
         mov     ax, word ptr [W_56C6]
         mov     dx, word ptr [W_56C8]
-        mov     word ptr es:[bx+si-PGM_PAD_BIAS], ax
-        mov     word ptr es:[bx+si-PGM_PAD_BIAS+PGM_PAD_SND_SEG], dx
+        mov     word ptr es:[bx+si+PGM_PAD_NOTE0], ax
+        mov     word ptr es:[bx+si+PGM_PAD_NOTE0+PGM_PAD_SND_SEG], dx
 loop_0B9F9:
         inc     byte ptr [G_MPC60_PAD_IDX]
         cmp     byte ptr [G_MPC60_PAD_IDX], 22h

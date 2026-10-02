@@ -17773,8 +17773,8 @@ br_08C6E:
         sub     ch, ch
         imul    si, cx, PGM_PAD_STRIDE
         les     bx, [PGM_CURRENT]
-        mov     word ptr es:[bx+si-PGM_PAD_BIAS], ax
-        mov     word ptr es:[bx+si-PGM_PAD_BIAS+PGM_PAD_SND_SEG], dx
+        mov     word ptr es:[bx+si+PGM_PAD_NOTE0], ax
+        mov     word ptr es:[bx+si+PGM_PAD_NOTE0+PGM_PAD_SND_SEG], dx
 br_08C99:
         sub     ax, ax
         mov     word ptr [FP_LOADED_SND_SEG], ax
@@ -22922,8 +22922,8 @@ br_0B6CA:
         imul    di, ax, PGM_PAD_STRIDE
         les     bx, [PGM_CURRENT]
         mov     ax, word ptr [bp-2]
-        mov     word ptr es:[bx+di-PGM_PAD_BIAS], si
-        mov     word ptr es:[bx+di-PGM_PAD_BIAS+PGM_PAD_SND_SEG], ax
+        mov     word ptr es:[bx+di+PGM_PAD_NOTE0], si
+        mov     word ptr es:[bx+di+PGM_PAD_NOTE0+PGM_PAD_SND_SEG], ax
 br_0B6F2:
         mov     ax, word ptr [bp-2]
         mov     word ptr [SND_CURRENT], si

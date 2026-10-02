@@ -1,2 +1,2 @@
 IMAGE  := MPC2000.SYS
-CHECKS := farptr dsaddr relocseg branch
+CHECKS := branch callslot codeptr csptr dbcsptr dsaddr farptr ivt numseg relocseg

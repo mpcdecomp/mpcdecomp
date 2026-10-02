@@ -4859,3 +4859,82 @@ C2_B_07668                               equ (CONSTS_BASE+d_c2_b_07668-DS_SEG*16
 C2_TBL_08E7C                             equ (CONSTS_BASE+d_c2_tbl_08e7c-DS_SEG*16)
 C2_TBL_0CB1F                             equ (CONSTS_BASE+d_c2_tbl_0cb1f-DS_SEG*16)
 C2_W_03C8E                               equ (CONSTS_BASE+d_c2_w_03c8e-DS_SEG*16)
+
+; ---- DS frames outside the image: the code loads DS with the segment, the offsets are numbers.
+
+; DS=0EC00h: EC00:0000, above the OS image; offsets in it stay numbers.
+A0_B_00012                               equ 00012h
+A0_W_00010                               equ 00010h
+
+; DS=0F000h: the disk drivers' work area at F000:0000, above the OS image; offsets in it stay numbers.
+A0_W_0001A                               equ 0001ah
+A1_B_00010                               equ 00010h
+A1_B_0800D                               equ 0800dh
+A1_B_081C2                               equ 081c2h
+A1_B_0A092                               equ 0a092h
+A1_B_0A093                               equ 0a093h
+A1_B_0A094                               equ 0a094h
+A1_B_0A095                               equ 0a095h
+A1_B_0A096                               equ 0a096h
+A1_B_0A10D                               equ 0a10dh
+A1_B_0A10E                               equ 0a10eh
+A1_B_0A10F                               equ 0a10fh
+A1_B_0A110                               equ 0a110h
+A1_B_0A111                               equ 0a111h
+A1_B_0A112                               equ 0a112h
+A1_B_0A113                               equ 0a113h
+A1_B_0A114                               equ 0a114h
+A1_B_0A115                               equ 0a115h
+A1_B_0A116                               equ 0a116h
+A1_B_0A119                               equ 0a119h
+A1_B_0A11A                               equ 0a11ah
+A1_B_0A11B                               equ 0a11bh
+A1_B_0A11C                               equ 0a11ch
+A1_B_0A11D                               equ 0a11dh
+A1_B_0A11E                               equ 0a11eh
+A1_B_0A11F                               equ 0a11fh
+A1_B_0E803                               equ 0e803h
+A1_B_0E806                               equ 0e806h
+A1_B_0E867                               equ 0e867h
+A1_B_0E87D                               equ 0e87dh
+A1_W_08013                               equ 08013h
+A1_W_081C6                               equ 081c6h
+A1_W_081CA                               equ 081cah
+A1_W_081CC                               equ 081cch
+A1_W_081FE                               equ 081feh
+A1_W_083FE                               equ 083feh
+A1_W_0A000                               equ 0a000h
+A1_W_0A098                               equ 0a098h
+A1_W_0A0A4                               equ 0a0a4h
+A1_W_0A0AA                               equ 0a0aah
+A1_W_0A0AC                               equ 0a0ach
+A1_W_0A0B2                               equ 0a0b2h
+A1_W_0A0B4                               equ 0a0b4h
+A1_W_0A0B6                               equ 0a0b6h
+A1_W_0A0B8                               equ 0a0b8h
+A1_W_0A0BA                               equ 0a0bah
+A1_W_0A0BC                               equ 0a0bch
+A1_W_0A0BE                               equ 0a0beh
+A1_W_0A0C0                               equ 0a0c0h
+A1_W_0A0C2                               equ 0a0c2h
+A1_W_0A0C4                               equ 0a0c4h
+A1_W_0A0C6                               equ 0a0c6h
+A1_W_0A0C8                               equ 0a0c8h
+A1_W_0A0CA                               equ 0a0cah
+A1_W_0A0CC                               equ 0a0cch
+A1_W_0A0CE                               equ 0a0ceh
+A1_W_0E800                               equ 0e800h
+A1_W_0E87E                               equ 0e87eh
+A1_W_0E880                               equ 0e880h
+A1_W_0E882                               equ 0e882h
+A1_W_0E884                               equ 0e884h
+A1_W_0E888                               equ 0e888h
+A1_W_0E88A                               equ 0e88ah
+
+; DS=0F800h: F800:0000, above the OS image; offsets in it stay numbers.
+A0_TBL_00580                             equ 00580h
+A0_TBL_005C0                             equ 005c0h
+A0_TBL_00600                             equ 00600h
+A0_TBL_00640                             equ 00640h
+A0_TBL_00680                             equ 00680h
+A0_W_0001A_F800                          equ 0001ah

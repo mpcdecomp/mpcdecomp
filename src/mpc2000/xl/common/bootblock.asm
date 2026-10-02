@@ -72,6 +72,95 @@ lcd_style   equ     946h+DPG2           ; per-style byte table
 lcd_fb      equ     94eh+DPG2           ; 1920-byte shadow framebuffer
 mz_hdr      equ     10ceh+DPG2          ; staged OS image; +8 e_cparhdr, +14h e_ip, +16h e_cs
 
+; Work area at DS=4000h: the boot drivers' work area, RAM the OS image is copied over later.
+wk_b_0800d  equ     0800dh
+wk_b_08010  equ     08010h
+wk_b_081c2  equ     081c2h
+wk_b_0a092  equ     0a092h
+wk_b_0a093  equ     0a093h
+wk_b_0a094  equ     0a094h
+wk_b_0a095  equ     0a095h
+wk_b_0a096  equ     0a096h
+wk_b_0a0e3  equ     0a0e3h
+wk_b_0a0e4  equ     0a0e4h
+wk_b_0a0e5  equ     0a0e5h
+wk_b_0a0e6  equ     0a0e6h
+wk_b_0a0e7  equ     0a0e7h
+wk_b_0a0e8  equ     0a0e8h
+wk_b_0a0e9  equ     0a0e9h
+wk_b_0a0ea  equ     0a0eah
+wk_b_0a0eb  equ     0a0ebh
+wk_b_0a0ec  equ     0a0ech
+wk_b_0a0ed  equ     0a0edh
+wk_b_0a0f0  equ     0a0f0h
+wk_b_0a0f1  equ     0a0f1h
+wk_b_0a0f2  equ     0a0f2h
+wk_b_0a0f3  equ     0a0f3h
+wk_b_0a0f5  equ     0a0f5h
+wk_b_0d800  equ     0d800h
+wk_b_0e804  equ     0e804h
+wk_b_0e806  equ     0e806h
+wk_b_0e866  equ     0e866h
+wk_b_0e867  equ     0e867h
+wk_b_0e89d  equ     0e89dh
+wk_tbl_0720c equ     0720ch
+wk_tbl_08000 equ     08000h
+wk_w_0800b  equ     0800bh
+wk_w_0800e  equ     0800eh
+wk_w_08011  equ     08011h
+wk_w_08013  equ     08013h
+wk_w_08016  equ     08016h
+wk_w_08020  equ     08020h
+wk_w_08022  equ     08022h
+wk_w_081fe  equ     081feh
+wk_w_0a000  equ     0a000h
+wk_w_0a098  equ     0a098h
+wk_w_0a09a  equ     0a09ah
+wk_w_0a09c  equ     0a09ch
+wk_w_0a09e  equ     0a09eh
+wk_w_0a0a0  equ     0a0a0h
+wk_w_0a0a2  equ     0a0a2h
+wk_w_0a0a4  equ     0a0a4h
+wk_w_0a0a6  equ     0a0a6h
+wk_w_0a0a8  equ     0a0a8h
+wk_w_0a0aa  equ     0a0aah
+wk_w_0a0ac  equ     0a0ach
+wk_w_0a0ae  equ     0a0aeh
+wk_w_0a0b0  equ     0a0b0h
+wk_w_0a0b2  equ     0a0b2h
+wk_w_0a0b4  equ     0a0b4h
+wk_w_0a0b6  equ     0a0b6h
+wk_w_0a0b8  equ     0a0b8h
+wk_w_0a0ba  equ     0a0bah
+wk_w_0a0bc  equ     0a0bch
+wk_w_0a0be  equ     0a0beh
+wk_w_0b400  equ     0b400h
+wk_w_0e800  equ     0e800h
+wk_w_0e87c  equ     0e87ch
+wk_w_0e87e  equ     0e87eh
+wk_w_0e884  equ     0e884h
+wk_w_0e886  equ     0e886h
+wk_w_0e888  equ     0e888h
+wk_w_0e88a  equ     0e88ah
+wk_w_0e88c  equ     0e88ch
+wk_w_0e88e  equ     0e88eh
+wk_w_0e890  equ     0e890h
+wk_w_0e892  equ     0e892h
+wk_w_0e894  equ     0e894h
+wk_w_0e896  equ     0e896h
+wk_w_0eca0  equ     0eca0h
+wk_w_0eca2  equ     0eca2h
+wk_w_0eca4  equ     0eca4h
+wk_w_0ecaa  equ     0ecaah
+wk_w_0eeac  equ     0eeach
+wk_w_0eeae  equ     0eeaeh
+wk_w_0eeb0  equ     0eeb0h
+wk_w_0eeb6  equ     0eeb6h
+wk_w_0eeb8  equ     0eeb8h
+wk_w_0eeba  equ     0eebah
+wk_w_0eebc  equ     0eebch
+wk_w_0eebe  equ     0eebeh
+
 ; free space 0x78000-0x7c000, 16384 bytes of 00h -- add features here
 free_low:
         PAD_TO  07C000h-SEGBASE, 000h
@@ -783,7 +872,7 @@ L037:
         db      19h
         db      "Loading:MPC2KXL.BIN", 00h
         db      0cdh, 8fh
-        add     word ptr [bx+si-8000h], di
+        add     word ptr [bx+si+wk_tbl_08000], di
         mov     es, ax
 L038:
         push    es
@@ -1700,7 +1789,7 @@ L108:
         sub     bh, bh
         shl     bx, 1
         add     bx, bp
-        mov     word ptr [0a000h], sp
+        mov     word ptr [wk_w_0a000], sp
         call    word ptr cs:[bx]
 L109:
         pop     ds
@@ -1722,7 +1811,7 @@ L111:
         jmp     L112
 L112:
         cli
-        mov     sp, word ptr [0a000h]
+        mov     sp, word ptr [wk_w_0a000]
         stc
         jmp     L109
 tbl_text_op:
@@ -1750,14 +1839,14 @@ L115:
         mov     cx, 7eh
         sub     ax, ax
         rep stosw
-        mov     byte ptr [0a0e3h], 3
-        mov     byte ptr [0a0e4h], 3
-        mov     byte ptr [0a0e5h], 0c4h
-        mov     byte ptr [0a0e6h], 14h
+        mov     byte ptr [wk_b_0a0e3], 3
+        mov     byte ptr [wk_b_0a0e4], 3
+        mov     byte ptr [wk_b_0a0e5], 0c4h
+        mov     byte ptr [wk_b_0a0e6], 14h
         call    L195
         mov     ah, 4bh
         call    check_disk_status
-        mov     byte ptr [0a095h], 0
+        mov     byte ptr [wk_b_0a095], 0
         call    L213
         ret
 L120:
@@ -1794,24 +1883,24 @@ L125:
         clc
         ret
 L126:
-        mov     byte ptr [0a0e9h], 2
-        mov     byte ptr [0a0eah], 12h
-        mov     byte ptr [0a0ebh], 1bh
-        mov     byte ptr [0a0ech], 0ffh
-        mov     word ptr [0a0a0h], 200h
-        mov     word ptr [0a09ch], 1200h
-        mov     word ptr [0a09eh], 0b1fh
-        mov     word ptr [0a0ach], 21h
-        mov     word ptr [0a0aeh], 1
-        mov     word ptr [0a0b0h], 200h
-        mov     word ptr [0a0a4h], 2600h
-        mov     word ptr [0a0a6h], 0e0h
-        mov     byte ptr [0a093h], 1
-        mov     byte ptr [0a094h], 0
-        mov     byte ptr [0a0f0h], 2
-        mov     byte ptr [0a0f1h], 12h
-        mov     byte ptr [0a0f2h], 54h
-        mov     byte ptr [0a0f3h], 0f6h
+        mov     byte ptr [wk_b_0a0e9], 2
+        mov     byte ptr [wk_b_0a0ea], 12h
+        mov     byte ptr [wk_b_0a0eb], 1bh
+        mov     byte ptr [wk_b_0a0ec], 0ffh
+        mov     word ptr [wk_w_0a0a0], 200h
+        mov     word ptr [wk_w_0a09c], 1200h
+        mov     word ptr [wk_w_0a09e], 0b1fh
+        mov     word ptr [wk_w_0a0ac], 21h
+        mov     word ptr [wk_w_0a0ae], 1
+        mov     word ptr [wk_w_0a0b0], 200h
+        mov     word ptr [wk_w_0a0a4], 2600h
+        mov     word ptr [wk_w_0a0a6], 0e0h
+        mov     byte ptr [wk_b_0a093], 1
+        mov     byte ptr [wk_b_0a094], 0
+        mov     byte ptr [wk_b_0a0f0], 2
+        mov     byte ptr [wk_b_0a0f1], 12h
+        mov     byte ptr [wk_b_0a0f2], 54h
+        mov     byte ptr [wk_b_0a0f3], 0f6h
         mov     ah, 4fh
         call    check_disk_status
         mov     ah, 4bh
@@ -1832,24 +1921,24 @@ L128:
         sub     bx, bx
         ret
 L129:
-        mov     byte ptr [0a0e9h], 2
-        mov     byte ptr [0a0eah], 9
-        mov     byte ptr [0a0ebh], 1bh
-        mov     byte ptr [0a0ech], 0ffh
-        mov     word ptr [0a0a0h], 200h
-        mov     word ptr [0a09ch], 600h
-        mov     word ptr [0a09eh], 2c9h
-        mov     word ptr [0a0ach], 0eh
-        mov     word ptr [0a0aeh], 2
-        mov     word ptr [0a0b0h], 200h
-        mov     word ptr [0a0a4h], 0e00h
-        mov     word ptr [0a0a6h], 70h
-        mov     byte ptr [0a093h], 0
-        mov     byte ptr [0a094h], 0
-        mov     byte ptr [0a0f0h], 2
-        mov     byte ptr [0a0f1h], 9
-        mov     byte ptr [0a0f2h], 54h
-        mov     byte ptr [0a0f3h], 0e5h
+        mov     byte ptr [wk_b_0a0e9], 2
+        mov     byte ptr [wk_b_0a0ea], 9
+        mov     byte ptr [wk_b_0a0eb], 1bh
+        mov     byte ptr [wk_b_0a0ec], 0ffh
+        mov     word ptr [wk_w_0a0a0], 200h
+        mov     word ptr [wk_w_0a09c], 600h
+        mov     word ptr [wk_w_0a09e], 2c9h
+        mov     word ptr [wk_w_0a0ac], 0eh
+        mov     word ptr [wk_w_0a0ae], 2
+        mov     word ptr [wk_w_0a0b0], 200h
+        mov     word ptr [wk_w_0a0a4], 0e00h
+        mov     word ptr [wk_w_0a0a6], 70h
+        mov     byte ptr [wk_b_0a093], 0
+        mov     byte ptr [wk_b_0a094], 0
+        mov     byte ptr [wk_b_0a0f0], 2
+        mov     byte ptr [wk_b_0a0f1], 9
+        mov     byte ptr [wk_b_0a0f2], 54h
+        mov     byte ptr [wk_b_0a0f3], 0e5h
         mov     ah, 4fh
         call    check_disk_status
         mov     ah, 0bh
@@ -1872,9 +1961,9 @@ L131:
 L132:
         mov     ax, 0
         call    L177
-        mov     ch, byte ptr [0a0eah]
+        mov     ch, byte ptr [wk_b_0a0ea]
         add     ch, ch
-        cmp     byte ptr [0a0e9h], 3
+        cmp     byte ptr [wk_b_0a0e9], 3
         jne     L133
         shl     ch, 1
 L133:
@@ -1884,7 +1973,7 @@ L133:
         mov     di, 0
         mov     si, 5000h
         rep movsw
-        and     byte ptr [0a0f5h], 0c0h
+        and     byte ptr [wk_b_0a0f5], 0c0h
         ret
 L134:
         mov     si, 0bh
@@ -1894,11 +1983,11 @@ L134:
         repe cmpsb
         ret
 L135:
-        cmp     ax, word ptr [0a0a6h]
+        cmp     ax, word ptr [wk_w_0a0a6]
         jae     L137
         mov     si, ax
         shl     si, 5
-        add     si, word ptr [0a0a4h]
+        add     si, word ptr [wk_w_0a0a4]
         cmp     byte ptr [si], 0
         je      L137
         push    ax
@@ -1909,7 +1998,7 @@ L135:
         jmp     L135
 L136:
         push    ax
-        mov     word ptr [0a0a2h], si
+        mov     word ptr [wk_w_0a0a2], si
         call    L143
         pop     ax
         clc
@@ -1929,12 +2018,12 @@ L137:
         stc
         ret
 L138:
-        cmp     ax, word ptr [0a0a6h]
+        cmp     ax, word ptr [wk_w_0a0a6]
         jae     L140
 L139:
         mov     si, ax
         shl     si, 5
-        add     si, word ptr [0a0a4h]
+        add     si, word ptr [wk_w_0a0a4]
         push    ax
         call    L141
         pop     ax
@@ -1944,7 +2033,7 @@ L139:
         dec     ax
         jmp     L139
 L140:
-        mov     ax, word ptr [0a0a6h]
+        mov     ax, word ptr [wk_w_0a0a6]
         jmp     L137
 L141:
         mov     al, byte ptr [si]
@@ -2016,11 +2105,11 @@ L147:
         pop     si
         stc
         ret
-        mov     cx, word ptr [0a0a6h]
-        mov     di, word ptr [0a0a4h]
+        mov     cx, word ptr [wk_w_0a0a6]
+        mov     di, word ptr [wk_w_0a0a4]
 L148:
         mov     al, byte ptr [di]
-        mov     word ptr [0a0a2h], si
+        mov     word ptr [wk_w_0a0a2], si
         cmp     al, 0
         jne     L149
         ret
@@ -2086,19 +2175,19 @@ L158:
         jae     L159
         ret
 L159:
-        mov     si, word ptr [0a0a2h]
+        mov     si, word ptr [wk_w_0a0a2]
         mov     ax, word ptr [si+1ah]
-        mov     word ptr [0a0bah], ax
+        mov     word ptr [wk_w_0a0ba], ax
         sub     ax, ax
-        mov     word ptr [0a0bch], ax
-        mov     word ptr [0a0b4h], ax
-        mov     word ptr [0a0b2h], ax
-        mov     word ptr [0a0a8h], ax
-        mov     word ptr [0a0aah], ax
+        mov     word ptr [wk_w_0a0bc], ax
+        mov     word ptr [wk_w_0a0b4], ax
+        mov     word ptr [wk_w_0a0b2], ax
+        mov     word ptr [wk_w_0a0a8], ax
+        mov     word ptr [wk_w_0a0aa], ax
         mov     bx, word ptr [si+1ch]
         mov     dx, word ptr [si+1eh]
-        mov     word ptr [0a0b6h], bx
-        mov     word ptr [0a0b8h], dx
+        mov     word ptr [wk_w_0a0b6], bx
+        mov     word ptr [wk_w_0a0b8], dx
         push    ds
         pop     es
         sub     ax, ax
@@ -2134,17 +2223,17 @@ L162:
 L163:
         ret
 L164:
-        mov     ax, word ptr [0a0b6h]
-        or      ax, word ptr [0a0b8h]
+        mov     ax, word ptr [wk_w_0a0b6]
+        or      ax, word ptr [wk_w_0a0b8]
         jne     L165
         ret
 L165:
-        sub     word ptr [0a0b6h], cx
-        sbb     word ptr [0a0b8h], 0
+        sub     word ptr [wk_w_0a0b6], cx
+        sbb     word ptr [wk_w_0a0b8], 0
         jae     L166
-        add     cx, word ptr [0a0b6h]
-        mov     word ptr [0a0b6h], 0
-        mov     word ptr [0a0b8h], 0
+        add     cx, word ptr [wk_w_0a0b6]
+        mov     word ptr [wk_w_0a0b6], 0
+        mov     word ptr [wk_w_0a0b8], 0
 L166:
         push    cx
         call    L167
@@ -2152,13 +2241,13 @@ L166:
         clc
         ret
 L167:
-        cmp     cx, word ptr [0a0bch]
+        cmp     cx, word ptr [wk_w_0a0bc]
         jbe     L168
-        sub     cx, word ptr [0a0bch]
+        sub     cx, word ptr [wk_w_0a0bc]
         push    cx
-        mov     cx, word ptr [0a0bch]
-        mov     word ptr [0a0bch], 0
-        mov     si, word ptr [0a0beh]
+        mov     cx, word ptr [wk_w_0a0bc]
+        mov     word ptr [wk_w_0a0bc], 0
+        mov     si, word ptr [wk_w_0a0be]
         rep movsb
         push    di
         push    es
@@ -2166,20 +2255,20 @@ L167:
         pop     es
         pop     di
         pop     cx
-        cmp     word ptr [0a0bch], 0
+        cmp     word ptr [wk_w_0a0bc], 0
         jne     L167
         ret
 L168:
-        sub     word ptr [0a0bch], cx
-        mov     si, word ptr [0a0beh]
+        sub     word ptr [wk_w_0a0bc], cx
+        mov     si, word ptr [wk_w_0a0be]
         rep movsb
-        mov     word ptr [0a0beh], si
+        mov     word ptr [wk_w_0a0be], si
         ret
 L169:
-        mov     ax, word ptr [0a0b4h]
-        cmp     word ptr [0a0b2h], 0
+        mov     ax, word ptr [wk_w_0a0b4]
+        cmp     word ptr [wk_w_0a0b2], 0
         jne     L171
-        mov     ax, word ptr [0a0bah]
+        mov     ax, word ptr [wk_w_0a0ba]
         mov     bx, 0ff6h
         sub     bx, ax
         jae     L170
@@ -2187,19 +2276,19 @@ L169:
 L170:
         call    L176
 L171:
-        cmp     ax, word ptr [0a0a8h]
+        cmp     ax, word ptr [wk_w_0a0a8]
         jb      L173
-        cmp     ax, word ptr [0a0aah]
+        cmp     ax, word ptr [wk_w_0a0aa]
         jae     L173
-        sub     ax, word ptr [0a0a8h]
+        sub     ax, word ptr [wk_w_0a0a8]
         mov     ah, al
         sub     al, al
         shl     ax, 1
         add     ax, 5000h
-        mov     word ptr [0a0beh], ax
-        mov     word ptr [0a0bch], 200h
-        inc     word ptr [0a0b4h]
-        dec     word ptr [0a0b2h]
+        mov     word ptr [wk_w_0a0be], ax
+        mov     word ptr [wk_w_0a0bc], 200h
+        inc     word ptr [wk_w_0a0b4]
+        dec     word ptr [wk_w_0a0b2]
         je      L172
         ret
 L172:
@@ -2207,36 +2296,36 @@ L172:
         ret
 L173:
         call    L177
-        test    byte ptr [0a0f5h], 0c0h
+        test    byte ptr [wk_b_0a0f5], 0c0h
         je      L169
-        mov     al, byte ptr [0a0f5h]
+        mov     al, byte ptr [wk_b_0a0f5]
         jmp     L110
 L174:
-        mov     ax, word ptr [0a0bah]
+        mov     ax, word ptr [wk_w_0a0ba]
         mov     bx, ax
         shr     bx, 1
         pushf
         add     bx, ax
-        add     bx, word ptr [0a0a0h]
+        add     bx, word ptr [wk_w_0a0a0]
         mov     ax, word ptr [bx]
         popf
         jae     L175
         shr     ax, 4
 L175:
         and     ah, 0fh
-        mov     word ptr [0a0bah], ax
+        mov     word ptr [wk_w_0a0ba], ax
         ret
 L176:
         sub     ax, 2
-        mov     bx, word ptr [0a0aeh]
+        mov     bx, word ptr [wk_w_0a0ae]
         mul     bx
-        add     ax, word ptr [0a0ach]
-        mov     word ptr [0a0b4h], ax
-        mov     word ptr [0a0b2h], bx
+        add     ax, word ptr [wk_w_0a0ac]
+        mov     word ptr [wk_w_0a0b4], ax
+        mov     word ptr [wk_w_0a0b2], bx
         ret
 L177:
         push    ax
-        mov     bh, byte ptr [0a0eah]
+        mov     bh, byte ptr [wk_b_0a0ea]
         div     bh
         mov     bl, ah
         sub     ah, ah
@@ -2245,7 +2334,7 @@ L177:
         sub     bh, bl
         cmp     ah, 0
         jne     L178
-        add     bh, byte ptr [0a0eah]
+        add     bh, byte ptr [wk_b_0a0ea]
 L178:
         inc     bl
         push    bx
@@ -2254,21 +2343,21 @@ L178:
         mov     bl, bh
         sub     bh, bh
         pop     ax
-        mov     word ptr [0a0a8h], ax
+        mov     word ptr [wk_w_0a0a8], ax
         add     ax, bx
-        mov     word ptr [0a0aah], ax
+        mov     word ptr [wk_w_0a0aa], ax
         ret
 L179:
-        mov     byte ptr [0a0e3h], 2
-        mov     byte ptr [0a0e4h], 4
-        mov     byte ptr [0a0e5h], 0
+        mov     byte ptr [wk_b_0a0e3], 2
+        mov     byte ptr [wk_b_0a0e4], 4
+        mov     byte ptr [wk_b_0a0e5], 0
         call    L195
         call    L192
         xor     al, 38h
         mov     ah, al
         mov     bl, al
         and     bl, 40h
-        mov     byte ptr [0a092h], bl
+        mov     byte ptr [wk_b_0a092], bl
         mov     bh, 0
         and     ah, 8
         sub     ah, 8
@@ -2280,9 +2369,9 @@ L180:
         stc
         ret
 L181:
-        mov     byte ptr [0a0e3h], 2
-        mov     byte ptr [0a0e4h], 7
-        mov     byte ptr [0a0e5h], 0
+        mov     byte ptr [wk_b_0a0e3], 2
+        mov     byte ptr [wk_b_0a0e4], 7
+        mov     byte ptr [wk_b_0a0e5], 0
         cli
         call    L195
         sti
@@ -2299,10 +2388,10 @@ L183:
         stc
         ret
 L184:
-        mov     byte ptr [0a0e3h], 3
-        mov     byte ptr [0a0e4h], 0fh
-        mov     byte ptr [0a0e5h], 0
-        mov     byte ptr [0a0e6h], al
+        mov     byte ptr [wk_b_0a0e3], 3
+        mov     byte ptr [wk_b_0a0e4], 0fh
+        mov     byte ptr [wk_b_0a0e5], 0
+        mov     byte ptr [wk_b_0a0e6], al
         cli
         call    L195
         sti
@@ -2319,18 +2408,18 @@ L186:
         call    L184
         pop     bx
         pop     ax
-        mov     byte ptr [0a0e3h], 9
+        mov     byte ptr [wk_b_0a0e3], 9
         mov     cl, ah
         xor     cl, 1
         ror     cl, 1
         or      cl, 46h
-        mov     byte ptr [0a0e4h], cl
+        mov     byte ptr [wk_b_0a0e4], cl
         mov     cl, ah
         rol     cl, 2
-        mov     byte ptr [0a0e5h], cl
-        mov     byte ptr [0a0e6h], al
-        mov     byte ptr [0a0e7h], ah
-        mov     byte ptr [0a0e8h], bl
+        mov     byte ptr [wk_b_0a0e5], cl
+        mov     byte ptr [wk_b_0a0e6], al
+        mov     byte ptr [wk_b_0a0e7], ah
+        mov     byte ptr [wk_b_0a0e8], bl
         call    L208
         mov     dx, 0c031h
         mov     al, 1
@@ -2360,7 +2449,7 @@ L187:
         mov     ah, bh
         shl     ah, 1
         sub     al, al
-        cmp     byte ptr [0a0e9h], 3
+        cmp     byte ptr [wk_b_0a0e9], 3
         jne     L188
         shl     ax, 1
 L188:
@@ -2403,8 +2492,8 @@ L190:
         je      L191
         jmp     L192
 L191:
-        mov     byte ptr [0a0e3h], 1
-        mov     byte ptr [0a0e4h], 8
+        mov     byte ptr [wk_b_0a0e3], 1
+        mov     byte ptr [wk_b_0a0e4], 8
         call    L195
         call    L192
         and     al, 0f8h
@@ -2426,7 +2515,7 @@ L193:
         inc     si
         jmp     L193
 L194:
-        mov     al, byte ptr [0a0f5h]
+        mov     al, byte ptr [wk_b_0a0f5]
         ret
 L195:
         mov     si, 0a0e4h
@@ -2435,7 +2524,7 @@ L196:
         call    L199
         lodsb
         out     22h, al
-        dec     byte ptr [0a0e3h]
+        dec     byte ptr [wk_b_0a0e3]
         jne     L196
         ret
         mov     si, 0a0eeh
@@ -2444,7 +2533,7 @@ L197:
         call    L199
         lodsb
         out     22h, al
-        dec     byte ptr [0a0edh]
+        dec     byte ptr [wk_b_0a0ed]
         jne     L197
         ret
 check_disk_status:
@@ -2477,11 +2566,11 @@ L202:
 L203:
         mov     ah, 1eh
         call    check_disk_status
-        cmp     byte ptr [0a096h], 0
+        cmp     byte ptr [wk_b_0a096], 0
         je      L204
         ret
 L204:
-        mov     byte ptr [0a096h], 1
+        mov     byte ptr [wk_b_0a096], 1
         mov     bl, 7
 L205:
         mov     cx, 0ffffh
@@ -2494,7 +2583,7 @@ L206:
 L207:
         mov     ah, 0eh
         call    check_disk_status
-        mov     byte ptr [0a096h], 0
+        mov     byte ptr [wk_b_0a096], 0
         ret
 L208:
         pusha
@@ -2508,7 +2597,7 @@ L208:
         mov     al, 1
         out     dx, al
         mov     al, 31h
-        cmp     byte ptr [0a093h], 0
+        cmp     byte ptr [wk_b_0a093], 0
         jne     L209
         mov     al, 71h
 L209:
@@ -2548,8 +2637,8 @@ L213:
         popa
         ret
 L214:
-        mov     word ptr [0a098h], 0
-        mov     word ptr [0a09ah], 14h
+        mov     word ptr [wk_w_0a098], 0
+        mov     word ptr [wk_w_0a09a], 14h
         ret
 L215:
         push    ax
@@ -2558,11 +2647,11 @@ L215:
         mul     ax
         pop     dx
         pop     ax
-        dec     word ptr [0a098h]
+        dec     word ptr [wk_w_0a098]
         je      L216
         ret
 L216:
-        dec     word ptr [0a09ah]
+        dec     word ptr [wk_w_0a09a]
         jne     L217
         jmp     L110
 L217:
@@ -4645,12 +4734,12 @@ L413:
         push    ds
         mov     bp, 4000h
         mov     ds, bp
-        mov     bh, byte ptr [0e804h]
+        mov     bh, byte ptr [wk_b_0e804]
         mov     bp, tbl_fdc_cmd-CSBASE
         sub     bh, bh
         shl     bx, 1
         add     bx, bp
-        mov     word ptr [0e800h], sp
+        mov     word ptr [wk_w_0e800], sp
         call    word ptr cs:[bx]
 L414:
         pop     ds
@@ -4662,7 +4751,7 @@ L414:
         iret
 L415:
         cli
-        mov     sp, word ptr [0e800h]
+        mov     sp, word ptr [wk_w_0e800]
         stc
         jmp     L414
 tbl_fdc_cmd:
@@ -4689,7 +4778,7 @@ L418:
         push    ds
         pop     es
         mov     si, 0e806h
-        mov     di, word ptr [0e888h]
+        mov     di, word ptr [wk_w_0e888]
         ret
 L419:
         mov     ax, ds
@@ -4698,7 +4787,7 @@ L419:
         mov     cx, 36ch
         sub     ax, ax
         rep stosw
-        mov     byte ptr [0e804h], 0
+        mov     byte ptr [wk_b_0e804], 0
         mov     bl, 8
         int     93h
         mov     dx, ds
@@ -4710,7 +4799,7 @@ L419:
         jae     L420
         jmp     L430
 L420:
-        mov     ah, byte ptr [0e806h]
+        mov     ah, byte ptr [wk_b_0e806]
         cmp     ah, 0
         mov     al, 5
         je      L421
@@ -4722,25 +4811,25 @@ L420:
         je      L421
         jmp     L431
 L421:
-        mov     byte ptr [0e867h], al
+        mov     byte ptr [wk_b_0e867], al
         mov     bl, 5
         int     93h
         jae     L422
         jmp     L431
 L422:
-        mov     word ptr [0e87ch], ax
-        mov     word ptr [0e87eh], dx
+        mov     word ptr [wk_w_0e87c], ax
+        mov     word ptr [wk_w_0e87e], dx
         mov     bx, 7a1h
         div     bx
-        mov     word ptr [0e888h], ax
-        mov     word ptr [0e884h], 0
-        mov     word ptr [0e886h], 0
+        mov     word ptr [wk_w_0e888], ax
+        mov     word ptr [wk_w_0e884], 0
+        mov     word ptr [wk_w_0e886], 0
         sub     ax, ax
         sub     dx, dx
         mov     cx, 1
         mov     di, 8000h
         call    L489
-        cmp     word ptr [81feh], 0aa55h
+        cmp     word ptr [wk_w_081fe], 0aa55h
         je      L423
         jmp     L447
 L423:
@@ -4771,8 +4860,8 @@ L426:
         jne     L427
         ret
 L427:
-        mov     word ptr [0e884h], ax
-        mov     word ptr [0e886h], dx
+        mov     word ptr [wk_w_0e884], ax
+        mov     word ptr [wk_w_0e886], dx
         sub     ax, ax
         sub     dx, dx
         mov     cx, 1
@@ -4784,8 +4873,8 @@ L427:
         ret
 L428:
         sub     ax, ax
-        mov     word ptr [0e884h], ax
-        mov     word ptr [0e886h], dx
+        mov     word ptr [wk_w_0e884], ax
+        mov     word ptr [wk_w_0e886], dx
         call    L431
         sub     dx, dx
         sub     bx, bx
@@ -4798,7 +4887,7 @@ L429:
         ret
 L430:
         mov     byte ptr [0], 0
-        mov     byte ptr [0d800h], 0
+        mov     byte ptr [wk_b_0d800], 0
         mov     al, 4
         mov     ah, 0
         sub     dx, dx
@@ -4813,9 +4902,9 @@ L431:
         sub     bx, bx
         ret
 L432:
-        cmp     byte ptr [8000h], 0ebh
+        cmp     byte ptr [wk_tbl_08000], 0ebh
         je      L433
-        cmp     byte ptr [8000h], 0e9h
+        cmp     byte ptr [wk_tbl_08000], 0e9h
         je      L433
         jmp     L447
 L433:
@@ -4825,7 +4914,7 @@ L433:
         inc     cx
         push    sp
         xor     word ptr [bp+si], si
-        add     byte ptr [si+720ch], dh
+        add     byte ptr [si+wk_tbl_0720c], dh
         add     bp, cx
         db      63h
         db      01h, 0e8h
@@ -4833,40 +4922,40 @@ L433:
         inc     si
         inc     cx
         push    sp
-        xor     word ptr [0b400h], si
+        xor     word ptr [wk_w_0b400], si
         adc     byte ptr [bp+di+11h], dh
-        cmp     byte ptr [81c2h], 4
+        cmp     byte ptr [wk_b_081c2], 4
         je      L434
-        cmp     word ptr [8013h], 0
+        cmp     word ptr [wk_w_08013], 0
         je      L434
         jmp     L447
 L434:
-        mov     byte ptr [0e866h], ah
-        cmp     word ptr [800bh], 200h
+        mov     byte ptr [wk_b_0e866], ah
+        cmp     word ptr [wk_w_0800b], 200h
         je      L435
         jmp     L447
 L435:
-        mov     bl, byte ptr [8010h]
+        mov     bl, byte ptr [wk_b_08010]
         cmp     bl, 2
         je      L436
         jmp     L447
 L436:
-        mov     ax, word ptr [800eh]
-        mov     word ptr [0e890h], ax
-        mov     cx, word ptr [8016h]
-        mov     word ptr [0e894h], cx
+        mov     ax, word ptr [wk_w_0800e]
+        mov     word ptr [wk_w_0e890], ax
+        mov     cx, word ptr [wk_w_08016]
+        mov     word ptr [wk_w_0e894], cx
         add     ax, cx
-        mov     word ptr [0e892h], ax
+        mov     word ptr [wk_w_0e892], ax
         add     ax, cx
-        mov     word ptr [0eeach], ax
-        mov     word ptr [0eeaeh], 0
-        mov     ax, word ptr [8011h]
+        mov     word ptr [wk_w_0eeac], ax
+        mov     word ptr [wk_w_0eeae], 0
+        mov     ax, word ptr [wk_w_08011]
         cmp     ax, 401h
         jb      L437
         mov     ax, 400h
 L437:
-        mov     word ptr [0eeb0h], ax
-        mov     ax, word ptr [8011h]
+        mov     word ptr [wk_w_0eeb0], ax
+        mov     ax, word ptr [wk_w_08011]
         mov     dx, 20h
         mul     dx
         mov     bx, 200h
@@ -4875,10 +4964,10 @@ L437:
         je      L438
         inc     ax
 L438:
-        add     ax, word ptr [0eeach]
-        mov     word ptr [0e896h], ax
+        add     ax, word ptr [wk_w_0eeac]
+        mov     word ptr [wk_w_0e896], ax
         mov     di, ax
-        mov     al, byte ptr [800dh]
+        mov     al, byte ptr [wk_b_0800d]
         or      al, al
         jne     L439
         jmp     L447
@@ -4888,44 +4977,44 @@ L439:
         jmp     L447
 L440:
         sub     ah, ah
-        mov     word ptr [0e88eh], ax
+        mov     word ptr [wk_w_0e88e], ax
         mov     bx, 200h
         mul     bx
-        mov     word ptr [0e88ah], ax
+        mov     word ptr [wk_w_0e88a], ax
         sub     dx, dx
-        mov     ax, word ptr [8013h]
+        mov     ax, word ptr [wk_w_08013]
         or      ax, ax
         jne     L441
-        mov     ax, word ptr [8020h]
-        mov     dx, word ptr [8022h]
+        mov     ax, word ptr [wk_w_08020]
+        mov     dx, word ptr [wk_w_08022]
 L441:
         sub     ax, di
         sbb     dx, 0
-        mov     bx, word ptr [0e88eh]
+        mov     bx, word ptr [wk_w_0e88e]
         cmp     dx, bx
         jb      L442
         jmp     L447
 L442:
         div     bx
-        mov     word ptr [0e88ch], ax
+        mov     word ptr [wk_w_0e88c], ax
         mov     ax, 0
         call    L487
-        cmp     byte ptr [0e866h], 0ch
+        cmp     byte ptr [wk_b_0e866], 0ch
         jne     L443
-        mov     ax, word ptr [0e890h]
+        mov     ax, word ptr [wk_w_0e890]
         sub     dx, dx
-        mov     cx, word ptr [0e894h]
+        mov     cx, word ptr [wk_w_0e894]
         mov     di, 0c000h
         call    L489
 L443:
         mov     ax, 0
         call    L487
-        mov     ax, word ptr [0eeach]
-        mov     dx, word ptr [0eeaeh]
-        mov     word ptr [0eca0h], ax
-        mov     word ptr [0eca2h], dx
-        mov     cx, word ptr [0eeb0h]
-        mov     word ptr [0eca4h], cx
+        mov     ax, word ptr [wk_w_0eeac]
+        mov     dx, word ptr [wk_w_0eeae]
+        mov     word ptr [wk_w_0eca0], ax
+        mov     word ptr [wk_w_0eca2], dx
+        mov     cx, word ptr [wk_w_0eeb0]
+        mov     word ptr [wk_w_0eca4], cx
         shr     cx, 4
         mov     di, 0
         call    L489
@@ -4954,7 +5043,7 @@ L443:
         ret
         call    L448
         mov     cx, ax
-        mov     al, byte ptr [0e867h]
+        mov     al, byte ptr [wk_b_0e867]
         mov     ah, 0ch
         sub     dx, dx
         sub     bx, bx
@@ -4977,7 +5066,7 @@ L446:
         call    L448
         mov     cx, ax
         pop     dx
-        mov     al, byte ptr [0e867h]
+        mov     al, byte ptr [wk_b_0e867]
         sub     bx, bx
         ret
 L447:
@@ -5015,7 +5104,7 @@ L453:
         rep stosw
         ret
 L454:
-        cmp     ax, word ptr [0eca4h]
+        cmp     ax, word ptr [wk_w_0eca4]
         jae     L456
         mov     si, ax
         shl     si, 5
@@ -5030,7 +5119,7 @@ L454:
         jmp     L454
 L455:
         push    ax
-        mov     word ptr [0ecaah], si
+        mov     word ptr [wk_w_0ecaa], si
         call    L493
         pop     ax
         clc
@@ -5050,7 +5139,7 @@ L456:
         stc
         ret
 L457:
-        cmp     ax, word ptr [0eca4h]
+        cmp     ax, word ptr [wk_w_0eca4]
         jae     L459
 L458:
         push    ax
@@ -5065,9 +5154,9 @@ L458:
         dec     ax
         jmp     L458
 L459:
-        mov     ax, word ptr [0eca4h]
+        mov     ax, word ptr [wk_w_0eca4]
         jmp     L456
-        mov     cx, word ptr [0eca4h]
+        mov     cx, word ptr [wk_w_0eca4]
         mov     di, 0
 L460:
         mov     al, byte ptr [di]
@@ -5148,33 +5237,33 @@ L472:
         jae     L473
         ret
 L473:
-        mov     si, word ptr [0ecaah]
+        mov     si, word ptr [wk_w_0ecaa]
         mov     ax, word ptr [si+1ah]
-        mov     word ptr [0eebah], ax
-        mov     word ptr [0eebch], 0
+        mov     word ptr [wk_w_0eeba], ax
+        mov     word ptr [wk_w_0eebc], 0
         mov     bx, word ptr [si+1ch]
         mov     dx, word ptr [si+1eh]
-        mov     word ptr [0eeb6h], bx
-        mov     word ptr [0eeb8h], dx
+        mov     word ptr [wk_w_0eeb6], bx
+        mov     word ptr [wk_w_0eeb8], dx
         push    ds
         pop     es
         sub     ax, ax
         clc
         ret
 L474:
-        mov     ax, word ptr [0eeb6h]
-        or      ax, word ptr [0eeb8h]
+        mov     ax, word ptr [wk_w_0eeb6]
+        or      ax, word ptr [wk_w_0eeb8]
         je      L476
-        sub     word ptr [0eeb6h], 1
-        sbb     word ptr [0eeb8h], 0
-        cmp     word ptr [0eebch], 0
+        sub     word ptr [wk_w_0eeb6], 1
+        sbb     word ptr [wk_w_0eeb8], 0
+        cmp     word ptr [wk_w_0eebc], 0
         jne     L475
         call    L482
 L475:
-        mov     si, word ptr [0eebeh]
+        mov     si, word ptr [wk_w_0eebe]
         mov     al, byte ptr [si]
-        inc     word ptr [0eebeh]
-        dec     word ptr [0eebch]
+        inc     word ptr [wk_w_0eebe]
+        dec     word ptr [wk_w_0eebc]
         mov     ah, 0
         clc
         ret
@@ -5182,17 +5271,17 @@ L476:
         stc
         ret
 L477:
-        mov     ax, word ptr [0eeb6h]
-        or      ax, word ptr [0eeb8h]
+        mov     ax, word ptr [wk_w_0eeb6]
+        or      ax, word ptr [wk_w_0eeb8]
         jne     L478
         ret
 L478:
-        sub     word ptr [0eeb6h], cx
-        sbb     word ptr [0eeb8h], 0
+        sub     word ptr [wk_w_0eeb6], cx
+        sbb     word ptr [wk_w_0eeb8], 0
         jae     L479
-        add     cx, word ptr [0eeb6h]
-        mov     word ptr [0eeb6h], 0
-        mov     word ptr [0eeb8h], 0
+        add     cx, word ptr [wk_w_0eeb6]
+        mov     word ptr [wk_w_0eeb6], 0
+        mov     word ptr [wk_w_0eeb8], 0
 L479:
         push    cx
         call    L480
@@ -5201,13 +5290,13 @@ L479:
         clc
         ret
 L480:
-        cmp     cx, word ptr [0eebch]
+        cmp     cx, word ptr [wk_w_0eebc]
         jbe     L481
-        sub     cx, word ptr [0eebch]
+        sub     cx, word ptr [wk_w_0eebc]
         push    cx
-        mov     cx, word ptr [0eebch]
-        mov     word ptr [0eebch], 0
-        mov     si, word ptr [0eebeh]
+        mov     cx, word ptr [wk_w_0eebc]
+        mov     word ptr [wk_w_0eebc], 0
+        mov     si, word ptr [wk_w_0eebe]
         rep movsb
         push    di
         push    es
@@ -5215,33 +5304,33 @@ L480:
         pop     es
         pop     di
         pop     cx
-        cmp     word ptr [0eebch], 0
+        cmp     word ptr [wk_w_0eebc], 0
         jne     L480
         ret
 L481:
-        sub     word ptr [0eebch], cx
-        mov     si, word ptr [0eebeh]
+        sub     word ptr [wk_w_0eebc], cx
+        mov     si, word ptr [wk_w_0eebe]
         rep movsb
-        mov     word ptr [0eebeh], si
+        mov     word ptr [wk_w_0eebe], si
         ret
 L482:
-        mov     ax, word ptr [0eebah]
+        mov     ax, word ptr [wk_w_0eeba]
         cmp     ax, 0ffffh
         jne     L483
         ret
 L483:
         call    L488
-        mov     cx, word ptr [0e88eh]
+        mov     cx, word ptr [wk_w_0e88e]
         mov     di, 8000h
-        mov     word ptr [0eebeh], di
+        mov     word ptr [wk_w_0eebe], di
         call    L489
-        mov     ax, word ptr [0e88ah]
-        mov     word ptr [0eebch], ax
+        mov     ax, word ptr [wk_w_0e88a]
+        mov     word ptr [wk_w_0eebc], ax
         call    L484
         ret
 L484:
-        mov     ax, word ptr [0eebah]
-        cmp     ah, byte ptr [0e89dh]
+        mov     ax, word ptr [wk_w_0eeba]
+        cmp     ah, byte ptr [wk_b_0e89d]
         je      L485
         call    L487
 L485:
@@ -5254,14 +5343,14 @@ L485:
         jb      L486
         mov     ax, 0ffffh
 L486:
-        mov     word ptr [0eebah], ax
+        mov     word ptr [wk_w_0eeba], ax
         ret
 L487:
         push    ax
-        mov     byte ptr [0e89dh], ah
+        mov     byte ptr [wk_b_0e89d], ah
         mov     al, ah
         sub     ah, ah
-        add     ax, word ptr [0e890h]
+        add     ax, word ptr [wk_w_0e890]
         sub     dx, dx
         mov     cx, 2
         mov     di, 0e8a0h
@@ -5270,15 +5359,15 @@ L487:
         ret
 L488:
         sub     ax, 2
-        mov     bx, word ptr [0e88eh]
+        mov     bx, word ptr [wk_w_0e88e]
         mul     bx
-        add     ax, word ptr [0e896h]
+        add     ax, word ptr [wk_w_0e896]
         adc     dx, 0
         ret
 L489:
         pusha
-        add     ax, word ptr [0e884h]
-        adc     dx, word ptr [0e886h]
+        add     ax, word ptr [wk_w_0e884]
+        adc     dx, word ptr [wk_w_0e886]
         mov     bx, ds
         mov     es, bx
         mov     bl, 2

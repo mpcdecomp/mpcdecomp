@@ -3285,9 +3285,9 @@ isr_01B25:
         mov     cx, 8
         rep movsw
         mov     ax, 0
-        cmp     byte ptr [12h], 0
+        cmp     byte ptr [A0_B_00012], 0
         je      isr_01B4D
-        mov     ax, word ptr [10h]
+        mov     ax, word ptr [A0_W_00010]
         add     ax, 280h
 isr_01B4D:
         stosw
@@ -16043,10 +16043,10 @@ loop_08A31:
         je      br_08A7D
         test    byte ptr es:[bx+A0_TBL_SEQ_TRK_FLAGS], 1
         jne     br_08A7D
-        mov     al, byte ptr [bx+5c0h]
-        mov     ah, byte ptr [bx+580h]
-        mov     cl, byte ptr [bx+600h]
-        mov     ch, byte ptr [bx+640h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
+        mov     ah, byte ptr [bx+A0_TBL_00580]
+        mov     cl, byte ptr [bx+A0_TBL_00600]
+        mov     ch, byte ptr [bx+A0_TBL_00640]
         mov     dl, byte ptr [bx+A0_TBL_SEQ_TRK_FLAGS]
         mov     byte ptr es:[bx+5c0h], al
         mov     byte ptr es:[bx+580h], ah
@@ -16124,7 +16124,7 @@ tgt_08AC1:
         push    ds
         mov     bx, 0f000h
         mov     ds, bx
-        mov     cx, word ptr [1ah]
+        mov     cx, word ptr [A0_W_0001A]
         sub     cx, bp
         inc     cx
 tgt_08B05:
@@ -16800,10 +16800,10 @@ br_0910E:
         push    ds
         mov     ax, 0f800h
         mov     ds, ax
-        mov     al, byte ptr [si+5c0h]
-        mov     ah, byte ptr [si+580h]
-        mov     cl, byte ptr [si+600h]
-        mov     ch, byte ptr [si+640h]
+        mov     al, byte ptr [si+A0_TBL_005C0]
+        mov     ah, byte ptr [si+A0_TBL_00580]
+        mov     cl, byte ptr [si+A0_TBL_00600]
+        mov     ch, byte ptr [si+A0_TBL_00640]
         mov     dl, byte ptr [si+A0_TBL_SEQ_TRK_FLAGS]
         mov     byte ptr es:[bx+5c0h], al
         mov     byte ptr es:[bx+580h], ah
@@ -17164,7 +17164,7 @@ fn_09414:
         push    ds
         mov     dx, 0f800h
         mov     ds, dx
-        mov     cx, word ptr [1ah]
+        mov     cx, word ptr [A0_W_0001A_F800]
         push    es
         push    cx
 tgt_0943A:
@@ -17302,10 +17302,10 @@ loop_095C8:
         je      br_0961E
         test    byte ptr es:[bx+A0_TBL_SEQ_TRK_FLAGS], 1
         jne     br_0961E
-        mov     al, byte ptr [bx+5c0h]
-        mov     ah, byte ptr [bx+580h]
-        mov     cl, byte ptr [bx+600h]
-        mov     ch, byte ptr [bx+640h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
+        mov     ah, byte ptr [bx+A0_TBL_00580]
+        mov     cl, byte ptr [bx+A0_TBL_00600]
+        mov     ch, byte ptr [bx+A0_TBL_00640]
         mov     dl, byte ptr [bx+A0_TBL_SEQ_TRK_FLAGS]
         mov     byte ptr es:[bx+5c0h], al
         mov     byte ptr es:[bx+580h], ah
@@ -17343,11 +17343,11 @@ loop_09563:
         endif
         test    byte ptr es:[bx+A0_TBL_SEQ_TRK_FLAGS], 1
         jne     br_095AF
-        mov     al, byte ptr [bx+5c0h]
-        mov     ah, byte ptr [bx+580h]
-        mov     cl, byte ptr [bx+600h]
-        mov     ch, byte ptr [bx+640h]
-        mov     dl, byte ptr [bx+680h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
+        mov     ah, byte ptr [bx+A0_TBL_00580]
+        mov     cl, byte ptr [bx+A0_TBL_00600]
+        mov     ch, byte ptr [bx+A0_TBL_00640]
+        mov     dl, byte ptr [bx+A0_TBL_00680]
         mov     byte ptr es:[bx+5c0h], al
         mov     byte ptr es:[bx+580h], ah
         mov     byte ptr es:[bx+600h], cl
@@ -17383,11 +17383,11 @@ loop_095C8:
         je      br_0961E
         test    byte ptr es:[bx+A0_TBL_SEQ_TRK_FLAGS], 1
         jne     br_0961B
-        mov     al, byte ptr [bx+5c0h]
-        mov     ah, byte ptr [bx+580h]
-        mov     cl, byte ptr [bx+600h]
-        mov     ch, byte ptr [bx+640h]
-        mov     dl, byte ptr [bx+680h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
+        mov     ah, byte ptr [bx+A0_TBL_00580]
+        mov     cl, byte ptr [bx+A0_TBL_00600]
+        mov     ch, byte ptr [bx+A0_TBL_00640]
+        mov     dl, byte ptr [bx+A0_TBL_00680]
         mov     byte ptr es:[bx+5c0h], al
         mov     byte ptr es:[bx+580h], ah
         mov     byte ptr es:[bx+600h], cl
@@ -17423,11 +17423,11 @@ loop_095C8:
         je      br_0961E
         test    byte ptr es:[bx+A0_TBL_SEQ_TRK_FLAGS], 1
         jne     br_0961B
-        mov     al, byte ptr [bx+5c0h]
-        mov     ah, byte ptr [bx+580h]
-        mov     cl, byte ptr [bx+600h]
-        mov     ch, byte ptr [bx+640h]
-        mov     dl, byte ptr [bx+680h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
+        mov     ah, byte ptr [bx+A0_TBL_00580]
+        mov     cl, byte ptr [bx+A0_TBL_00600]
+        mov     ch, byte ptr [bx+A0_TBL_00640]
+        mov     dl, byte ptr [bx+A0_TBL_00680]
         mov     byte ptr es:[bx+5c0h], al
         mov     byte ptr es:[bx+580h], ah
         mov     byte ptr es:[bx+600h], cl
@@ -17459,10 +17459,10 @@ loop_09634:
         je      br_096A2
         test    byte ptr [bx+A0_TBL_SEQ_TRK_FLAGS], 2
         je      br_096A2
-        mov     al, byte ptr [bx+580h]
+        mov     al, byte ptr [bx+A0_TBL_00580]
         sub     al, 1
         jae     br_09654
-        mov     al, byte ptr [bx+5c0h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
         sub     al, 1
         jb      br_096A2
         add     al, 20h
@@ -17471,11 +17471,11 @@ br_09654:
         mov     si, ax
         test    byte ptr es:[si+A0_TBL_SEQ_TRK_FLAGS], 1
         jne     L_0969B
-        mov     al, byte ptr [bx+5c0h]
-        mov     ah, byte ptr [bx+580h]
-        mov     cl, byte ptr [bx+600h]
-        mov     ch, byte ptr [bx+640h]
-        mov     dl, byte ptr [bx+680h]
+        mov     al, byte ptr [bx+A0_TBL_005C0]
+        mov     ah, byte ptr [bx+A0_TBL_00580]
+        mov     cl, byte ptr [bx+A0_TBL_00600]
+        mov     ch, byte ptr [bx+A0_TBL_00640]
+        mov     dl, byte ptr [bx+A0_TBL_00680]
         mov     byte ptr es:[si+5c0h], al
         mov     byte ptr es:[si+580h], ah
         mov     byte ptr es:[si+600h], cl
@@ -17498,7 +17498,7 @@ br_096A2:
         pop     ds
         ret
 fn_096AB:
-        mov     al, byte ptr [bx+600h]
+        mov     al, byte ptr [bx+A0_TBL_00600]
         cmp     al, byte ptr es:[bx+600h]
         jne     br_096B7
         ret
@@ -17534,7 +17534,7 @@ br_096E7:
         popa
         ret
 fn_096F4:
-        mov     al, byte ptr [bx+600h]
+        mov     al, byte ptr [bx+A0_TBL_00600]
         cmp     al, byte ptr es:[si+600h]
         jne     br_09700
         ret

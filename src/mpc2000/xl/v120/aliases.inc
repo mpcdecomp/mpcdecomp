@@ -470,3 +470,4 @@ A3_W_01596_2                             equ (APP3_BASE+d_a3_w_01596_2-APPDATA_S
 C2_B_08D61                               equ (CONSTS_BASE+d_c2_b_08d61-DS_SEG*16)
 C2_B_08D63                               equ (CONSTS_BASE+d_c2_b_08d63-DS_SEG*16)
 C2_B_08D65                               equ (CONSTS_BASE+d_c2_b_08d65-DS_SEG*16)
+A1_W_0E88C                               equ 0e88ch

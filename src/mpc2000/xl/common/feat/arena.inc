@@ -16,6 +16,10 @@ FREE_ARENA equ  FEAT_ARENA_LIN-SEGBASE
         if      FREE_ARENA > 10000h
         error   "free: the OS's program-record array runs past the free part"
         endif
+        PAD_TO  FREE_ARENA-0d6f2h, 000h
+d_c2_tbl_0e80e:
+        PAD_TO  FREE_ARENA-0c4bah, 000h
+d_c0_tbl_0fa46:
         PAD_TO  FREE_ARENA, 000h
         ASSERT_AT FREE_ARENA
 

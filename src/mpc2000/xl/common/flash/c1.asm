@@ -16,7 +16,7 @@ br_3DFE6:
         mov     es, word ptr [bp-2]
         cmp     byte ptr es:[si+25h], 0
         je      br_3E00C
-        cmp     byte ptr [0d7d7h], 0
+        cmp     byte ptr [C1_B_0D7D7], 0
         je      br_3E00C
         mov     bx, 1
         jmp     SHORT br_3E00E
@@ -743,7 +743,7 @@ dma_0162d:
 loop_3E5D5:
         push    7fffh
         push    ds
-        push    418h
+        push    C1_W_00418
         push    si
         nop
         push    cs
@@ -945,7 +945,7 @@ L_3E19C:
         mov     bp, sp
         push    1e7eh
         push    ds
-        push    418h
+        push    C1_W_00418
         push    ax
         nop
         push    cs
@@ -956,7 +956,7 @@ L_3E19C:
         mov     bp, sp
         push    18h
         push    ds
-        push    418h
+        push    C1_W_00418
         push    ax
         nop
         push    cs
@@ -1449,7 +1449,7 @@ L_3EA6A:
         callf   EP_DRAW_VLINE_SEG:EP_DRAW_VLINE_OFF
         add     sp, 6
         push    ds
-        push    444h
+        push    C1_W_00444
         nop
         push    cs
         call    disp_list_run
@@ -1815,13 +1815,13 @@ handler_install_one:
         push    bp
         mov     bp, sp
         mov     al, byte ptr [bp+6]
-        mov     byte ptr [45ah], al
+        mov     byte ptr [C1_B_0045A], al
         mov     ax, word ptr [bp+8]
         mov     dx, word ptr [bp+0ah]
-        mov     word ptr [45bh], ax
-        mov     word ptr [45dh], dx
+        mov     word ptr [C1_W_0045B], ax
+        mov     word ptr [C1_W_0045D], dx
         push    ds
-        push    45ah
+        push    C1_B_0045A
         nop
         push    cs
         call    handler_set_install
@@ -1940,8 +1940,8 @@ pow10_lookup:                           ; dword POW10_TABLE[[bp+6]]
         mov     bp, sp
         mov     bx, word ptr [bp+6]
         shl     bx, 2
-        mov     ax, word ptr [bx+464h]
-        mov     dx, word ptr [bx+466h]
+        mov     ax, word ptr [bx+C1_TBL_00464]
+        mov     dx, word ptr [bx+C1_TBL_00466]
         leave
         retf
         nop
@@ -1968,32 +1968,32 @@ L_3E59E:
 far_3EEE6:
         push    di
         push    si
-        mov     byte ptr [0d776h], 1
-        mov     byte ptr [0d777h], 0
+        mov     byte ptr [C0_B_0D776], 1
+        mov     byte ptr [C1_B_0D777], 0
         push    ds
-        push    0d778h
+        push    C0_W_0D778
         nop
         push    cs
         call    far_3F46E
         add     sp, 4
-        mov     byte ptr [0d7c6h], 7fh
-        mov     byte ptr [0d7b8h], 0
-        mov     byte ptr [0d7b9h], 0
-        mov     byte ptr [0d7bah], 1
-        mov     byte ptr [0d7bbh], 0
+        mov     byte ptr [C1_B_0D7C6], 7fh
+        mov     byte ptr [C0_B_0D7B8], 0
+        mov     byte ptr [C0_B_0D7B9], 0
+        mov     byte ptr [C1_B_0D7BA], 1
+        mov     byte ptr [C0_B_0D7BB], 0
         mov     byte ptr [C2_B_PAD_DRUM], 0
-        mov     byte ptr [0d7bfh], 0
+        mov     byte ptr [C1_B_0D7BF], 0
         mov     byte ptr [C2_B_PAD_NOTE], 3ch
-        mov     byte ptr [0d7c1h], 0
+        mov     byte ptr [C0_B_0D7C1], 0
         push    0
         nop
         push    cs
         call    far_3F084
         add     sp, 2
-        mov     byte ptr [0d7c7h], 0
-        mov     byte ptr [0d7bdh], 0
+        mov     byte ptr [C0_B_0D7C7], 0
+        mov     byte ptr [C1_B_0D7BD], 0
         xor     di, di
-        mov     byte ptr [0d7bch], 0
+        mov     byte ptr [C0_B_0D7BC], 0
         mov     si, 8fe0h
         jmp     br_3EF6A
         db      90h
@@ -2019,26 +2019,26 @@ br_3EF6A:
         push    cs
         call    EP_NAME_SPLIT_NUMBER_SUFFIX_OFF+C1_CSBASE
         add     sp, 4
-        mov     byte ptr [0d7c8h], 1
-        mov     byte ptr [0d7c9h], 0
-        mov     byte ptr [0d7cah], 0
-        mov     byte ptr [0d7cbh], 0
+        mov     byte ptr [C1_B_0D7C8], 1
+        mov     byte ptr [C0_B_0D7C9], 0
+        mov     byte ptr [C1_B_0D7CA], 0
+        mov     byte ptr [C1_B_0D7CB], 0
         mov     byte ptr [C2_B_0D7CC], 0
-        mov     byte ptr [0d7cdh], 2
+        mov     byte ptr [C1_B_0D7CD], 2
         mov     byte ptr [C2_B_0D7CE], 1
-        mov     word ptr [0d7d0h], 0ffech
-        mov     word ptr [0d7d2h], 64h
-        mov     word ptr [0d7d4h], 64h
-        mov     byte ptr [0d7d6h], 0
-        mov     byte ptr [0d7d7h], 0
-        mov     byte ptr [0d7dbh], 0
-        mov     byte ptr [0d7d8h], 0
-        mov     byte ptr [0d7dah], 1
-        mov     byte ptr [0d7d9h], 4
-        mov     byte ptr [0d7dch], 10h
-        mov     byte ptr [0d7ddh], 1
-        mov     word ptr [0d7deh], 1eh
-        mov     byte ptr [0d7e0h], 1
+        mov     word ptr [C1_W_0D7D0], 0ffech
+        mov     word ptr [C1_W_0D7D2], 64h
+        mov     word ptr [C1_W_0D7D4], 64h
+        mov     byte ptr [C0_B_0D7D6], 0
+        mov     byte ptr [C1_B_0D7D7], 0
+        mov     byte ptr [C1_B_0D7DB], 0
+        mov     byte ptr [C1_B_0D7D8], 0
+        mov     byte ptr [C1_B_0D7DA], 1
+        mov     byte ptr [C1_B_0D7D9], 4
+        mov     byte ptr [C1_B_0D7DC], 10h
+        mov     byte ptr [C0_B_0D7DD], 1
+        mov     word ptr [C1_W_0D7DE], 1eh
+        mov     byte ptr [C1_B_0D7E0], 1
         pop     si
         pop     di
         retf
@@ -2053,8 +2053,8 @@ pgm_memory_init:
         call    far_3F906
         mov     ax, word ptr [C0_W_098DC]
         mov     dx, word ptr [98deh]
-        mov     word ptr [0d7c2h], ax
-        mov     word ptr [0d7c4h], dx
+        mov     word ptr [C0_W_0D7C2], ax
+        mov     word ptr [C0_W_0D7C4], dx
         push    ds
         push    PGM_ARRAY_DS
         nop
@@ -2132,14 +2132,14 @@ br_3F090:
         mov     al, 2
 br_3F099:
         mov     byte ptr [bp+6], al
-        mov     byte ptr [0d775h], al
+        mov     byte ptr [C1_B_0D775], al
         add     al, 0dh
         mov     byte ptr [bp+6], al
         cbw
         nop
         push    cs
         call    far_3E58A
-        mov     al, byte ptr [0d775h]
+        mov     al, byte ptr [C1_B_0D775]
         leave
         retf
         db      00h
@@ -2696,7 +2696,7 @@ br_3F59A:
         jle     br_3F5A2
         mov     si, 62h
 br_3F5A2:
-        cmp     byte ptr [0d7b8h], 0
+        cmp     byte ptr [C0_B_0D7B8], 0
         jne     br_3F5BE
         mov     ax, word ptr [bp+6]
         add     ax, 5ch
@@ -2734,7 +2734,7 @@ br_3F5EE:
         jle     br_3F5F6
         mov     si, 62h
 br_3F5F6:
-        cmp     byte ptr [0d7b9h], 0
+        cmp     byte ptr [C0_B_0D7B9], 0
         jne     br_3F612
         mov     ax, word ptr [bp+6]
         add     ax, 5ch
@@ -2834,7 +2834,7 @@ pgm_fx_section_ptr:
         jl      br_3F6CE
         xor     si, si
 br_3F6CE:
-        mov     al, byte ptr [0d7bch]
+        mov     al, byte ptr [C0_B_0D7BC]
         cbw
         add     ax, 5ch
         push    ax
@@ -2856,7 +2856,7 @@ pgm_fx_reverb_ptr:
         jl      br_3F6F8
         xor     si, si
 br_3F6F8:
-        mov     al, byte ptr [0d7bch]
+        mov     al, byte ptr [C0_B_0D7BC]
         cbw
         add     ax, 5ch
         push    ax
@@ -2885,7 +2885,7 @@ pad_route_mode_set:
         callf   EP_EVENT_CB_SET_AUX_SEG:EP_EVENT_CB_SET_AUX_OFF
         add     sp, 4
         xor     si, si
-        cmp     byte ptr [0d777h], 0
+        cmp     byte ptr [C1_B_0D777], 0
         je      br_3F74C
         mov     ax, 0d778h
         mov     di, ax
@@ -2924,7 +2924,7 @@ br_3F780:
         add     sp, 4
         xor     si, si
 loop_3F790:
-        cmp     byte ptr [0d777h], 0
+        cmp     byte ptr [C1_B_0D777], 0
         je      br_3F7A2
         mov     ax, 0d778h
         mov     di, ax
@@ -2958,7 +2958,7 @@ pad_assign_master_set:
         push    si
         xor     si, si
         mov     al, byte ptr [bp+6]
-        mov     byte ptr [0d777h], al
+        mov     byte ptr [C1_B_0D777], al
 loop_3F7DD:
         cmp     word ptr [bp+6], 0
         je      br_3F7EE
@@ -2993,7 +2993,7 @@ br_3F815:
         inc     si
         cmp     si, 3
         jle     loop_3F7DD
-        mov     al, byte ptr [0d777h]
+        mov     al, byte ptr [C1_B_0D777]
         pop     si
         leave
         retf
@@ -3013,7 +3013,7 @@ drum_program_select:
         mov     dx, word ptr [989ch]
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
-        cmp     byte ptr [0d7bah], 0
+        cmp     byte ptr [C1_B_0D7BA], 0
         je      br_3F884
         mov     ax, word ptr [bp-0ch]
         mov     dx, word ptr [bp-8]
@@ -3036,7 +3036,7 @@ br_3F884:
         push    ax
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        cmp     byte ptr [0d777h], 0
+        cmp     byte ptr [C1_B_0D777], 0
         je      br_3F8AA
         mov     ax, 0d778h
         mov     di, ax
@@ -3072,7 +3072,7 @@ loop_3F8D6:
         cmp     si, 3
         jle     loop_3F8D6
 br_3F8EC:
-        mov     al, byte ptr [0d7bch]
+        mov     al, byte ptr [C0_B_0D7BC]
         cbw
         cmp     word ptr [bp+6], ax
         jne     br_3F901
@@ -3130,16 +3130,16 @@ br_3F947:
         mov     word ptr [98e0h], ax
         mov     byte ptr [98eeh], al
         or      byte ptr [98e4h], 0ffh
-        mov     word ptr [0d724h], 2280h
-        mov     word ptr [0d726h], 1
-        mov     word ptr [0d728h], 400h
-        mov     word ptr [0d72ah], ax
-        mov     word ptr [0d71eh], 98dch
-        mov     word ptr [0d720h], ds
-        mov     word ptr [0d71ch], ax
+        mov     word ptr [C1_W_0D724], 2280h
+        mov     word ptr [C1_W_0D726], 1
+        mov     word ptr [C1_W_0D728], 400h
+        mov     word ptr [C1_W_0D72A], ax
+        mov     word ptr [C1_W_0D71E], 98dch
+        mov     word ptr [C1_W_0D720], ds
+        mov     word ptr [C1_W_0D71C], ax
         mov     word ptr [C1_TBL_SOUNDS_END], ax
         push    ds
-        push    0d72ch
+        push    C1_W_0D72C
         nop
         push    cs
         call    far_3FDB0
@@ -3190,8 +3190,8 @@ br_3F9C7:
         mov     word ptr es:[si], C1_TBL_SOUNDS_END
         mov     word ptr es:[si+2], ds
         mov     es, word ptr [bp-2]
-        mov     ax, word ptr [0d71eh]
-        mov     dx, word ptr [0d720h]
+        mov     ax, word ptr [C1_W_0D71E]
+        mov     dx, word ptr [C1_W_0D720]
         mov     word ptr es:[si+4], ax
         mov     word ptr es:[si+6], dx
         mov     cx, es
@@ -3514,13 +3514,13 @@ loop_3FD24:
         rep movsw
         movsb
         pop     ds
-        mov     ax, word ptr [4d4h]
+        mov     ax, word ptr [C1_W_004D4]
         mov     cx, 64h
         cwd
         idiv    cx
         add     al, 30h
         mov     byte ptr [bp-11h], al
-        mov     ax, word ptr [4d4h]
+        mov     ax, word ptr [C1_W_004D4]
         cwd
         idiv    cx
         mov     ax, dx
@@ -3529,7 +3529,7 @@ loop_3FD24:
         idiv    cx
         add     al, 30h
         mov     byte ptr [bp-10h], al
-        mov     ax, word ptr [4d4h]
+        mov     ax, word ptr [C1_W_004D4]
         cwd
         idiv    cx
         add     dl, 30h
@@ -3564,12 +3564,12 @@ loop_3FD24:
         adc     cx, cx
         rep movsb
         pop     ds
-        mov     ax, word ptr [4d4h]
+        mov     ax, word ptr [C1_W_004D4]
         inc     ax
         mov     cx, 3e8h
         cwd
         idiv    cx
-        mov     word ptr [4d4h], dx
+        mov     word ptr [C1_W_004D4], dx
         pop     si
         pop     di
         leave
@@ -6220,7 +6220,7 @@ loop_41650:
         mov     cx, 10h
         mov     di, 0d7feh
         rep stosw
-        cmp     byte ptr [0d760h], al
+        cmp     byte ptr [C0_B_0D760], al
         je      br_4167D
         or      byte ptr [C1_B_0D7FE], 1
         or      byte ptr [C1_B_0D80E], 1
@@ -6252,7 +6252,7 @@ br_416B1:
         cbw
         mov     bx, ax
         mov     word ptr [bp-8], ax
-        cmp     byte ptr [bx-2802h], 0
+        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         jne     br_41709
         add     bx, ax
         mov     ax, word ptr [bx-70fch]
@@ -6289,7 +6289,7 @@ loop_41712:
         mov     al, byte ptr [C1_B_004D6]
         cbw
         mov     bx, ax
-        cmp     byte ptr [bx-2802h], 0
+        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         je      br_41734
         inc     byte ptr [C1_B_004D6]
         cmp     byte ptr [C1_B_004D6], 20h
@@ -6313,7 +6313,7 @@ loop_4174E:
         cbw
         mov     bx, ax
         mov     word ptr [bp-0ch], ax
-        cmp     byte ptr [bx-2802h], 0
+        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         jne     br_41790
         mov     al, byte ptr [bp+6]
         cbw
@@ -6360,7 +6360,7 @@ loop_417B6:
         cbw
         mov     bx, ax
         mov     word ptr [bp-0ch], ax
-        cmp     byte ptr [bx-2802h], 0
+        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         jne     br_417F8
         mov     al, byte ptr [bp+6]
         cbw
@@ -6397,7 +6397,7 @@ loop_4180C:
         cbw
         mov     bx, ax
         mov     word ptr [bp-0ch], ax
-        cmp     byte ptr [bx-2802h], 0
+        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         jne     br_4182E
         add     bx, ax
         mov     ax, word ptr [bx+C1_TBL_081BA]
@@ -6589,7 +6589,7 @@ br_419C0:
         mov     al, byte ptr es:[bx+C1_TBL_0000C]
         cbw
         mov     si, ax
-        mov     al, byte ptr [si+488h]
+        mov     al, byte ptr [si+C1_TBL_00488]
         cbw
         or      ax, cx
         out     84h, ax
@@ -6602,9 +6602,9 @@ br_419E6:
         cbw
         mov     bx, ax
         if      FW_VERSION >= 110
-        cmp     byte ptr [bx+6475h], 0
+        cmp     byte ptr [bx+C1_TBL_06475], 0
         else
-        cmp     byte ptr [bx+646fh], 0
+        cmp     byte ptr [bx+C1_TBL_06475], 0
         endif
         jne     br_41A01
         mov     bx, word ptr [bp+6]
@@ -6687,7 +6687,7 @@ loop_41A84:
         push    cs
         call    voice_release_full
         add     sp, 2
-        or      byte ptr [si-2802h], 2
+        or      byte ptr [si+C1_TBL_0D7FE], 2
         add     si, 2
         cmp     si, 20h
         jl      loop_41A84
@@ -6703,7 +6703,7 @@ far_41A9E:
         jne     br_41AB6
         xor     bx, bx
 loop_41AA9:
-        and     byte ptr [bx-2802h], 0fdh
+        and     byte ptr [bx+C1_TBL_0D7FE], 0fdh
         add     bx, 2
         cmp     bx, 20h
         jl      loop_41AA9
@@ -6716,13 +6716,13 @@ L_41188:
         mov     ax, word ptr [bp+6]
         mov     cx, ax
         mov     bx, 0ah
-        sub     ax, word ptr [4d8h]
+        sub     ax, word ptr [C1_W_004D8]
         xor     dx, dx
         div     bx
         or      ax, ax
         je      br_41ADB
         sub     cx, dx
-        mov     word ptr [4d8h], cx
+        mov     word ptr [C1_W_004D8], cx
         push    ax
         nop
         push    cs
@@ -6839,7 +6839,7 @@ voice_release_full:
         push    cs
         call    voice_release
         add     sp, 2
-        cmp     byte ptr [si-2802h], 0
+        cmp     byte ptr [si+C1_TBL_0D7FE], 0
         jne     br_41BC2
         mov     bx, si
         mov     word ptr [bx+si-707ch], 0
@@ -6861,7 +6861,7 @@ voice_release:
         push    si
         mov     si, word ptr [bp+6]
 resume_41BCD:
-        cmp     byte ptr [si-2802h], 0
+        cmp     byte ptr [si+C1_TBL_0D7FE], 0
         jne     br_41C04
         xor     ax, ax
         mov     bx, si
@@ -7897,7 +7897,7 @@ br_424A2:
         je      br_424F4
 br_424B3:
         mov     cx, ds
-        les     bx, [0d7c2h]
+        les     bx, [C0_W_0D7C2]
         cmp     word ptr es:[bx], ax
         jne     br_424C4
         cmp     word ptr es:[bx+SND_DD_00+2], cx
@@ -7910,23 +7910,23 @@ br_424C4:
 br_424CE:
         mov     ax, word ptr [C0_W_098DC]
         mov     dx, word ptr [98deh]
-        cmp     word ptr [0d7c2h], ax
+        cmp     word ptr [C0_W_0D7C2], ax
         jne     br_424E1
-        cmp     word ptr [0d7c4h], dx
+        cmp     word ptr [C0_W_0D7C4], dx
         je      br_424F4
 br_424E1:
-        les     bx, [0d7c2h]
+        les     bx, [C0_W_0D7C2]
         mov     ax, word ptr es:[bx+SND_FP_04]
         mov     dx, word ptr es:[bx+SND_FP_04+2]
 br_424ED:
-        mov     word ptr [0d7c2h], ax
-        mov     word ptr [0d7c4h], dx
+        mov     word ptr [C0_W_0D7C2], ax
+        mov     word ptr [C0_W_0D7C4], dx
 br_424F4:
         mov     ax, C1_TBL_SOUNDS_END
         mov     cx, ds
-        cmp     ax, word ptr [0d7c2h]
+        cmp     ax, word ptr [C0_W_0D7C2]
         jne     br_4251A
-        cmp     cx, word ptr [0d7c4h]
+        cmp     cx, word ptr [C0_W_0D7C4]
         jne     br_4251A
         xor     ax, ax
         cwd
@@ -7938,12 +7938,12 @@ br_424F4:
         jmp     br_42558
         db      90h
 br_4251A:
-        mov     ax, word ptr [0d7c2h]
-        mov     dx, word ptr [0d7c4h]
+        mov     ax, word ptr [C0_W_0D7C2]
+        mov     dx, word ptr [C0_W_0D7C4]
         add     ax, 12h
         mov     si, ax
         mov     word ptr [bp-2], dx
-        les     bx, [0d7c2h]
+        les     bx, [C0_W_0D7C2]
         push    word ptr es:[bx+SND_LENGTH+2]
         push    word ptr es:[bx+SND_LENGTH]
         mov     al, byte ptr es:[bx+SND_STEREO]
@@ -7980,7 +7980,7 @@ L_42560:
         call    far_3F36E
         jmp     br_4258F
 br_42576:
-        mov     al, byte ptr [0d7bfh]
+        mov     al, byte ptr [C1_B_0D7BF]
         cbw
         push    ax
         nop
@@ -7988,7 +7988,7 @@ br_42576:
         call    far_3F39A
         jmp     br_4258C
 br_42582:
-        mov     al, byte ptr [0d7bfh]
+        mov     al, byte ptr [C1_B_0D7BF]
         cbw
         push    ax
         nop
@@ -7997,7 +7997,7 @@ br_42582:
 br_4258C:
         add     sp, 2
 br_4258F:
-        mov     byte ptr [0d7bfh], al
+        mov     byte ptr [C1_B_0D7BF], al
         cbw
         mov     di, ax
         cbw
@@ -8341,8 +8341,8 @@ fs_error_msg:
         mov     bx, 0ah
 br_4283E:
         shl     bx, 2
-        mov     ax, word ptr [bx+73ch]
-        mov     dx, word ptr [bx+73eh]
+        mov     ax, word ptr [bx+C1_TBL_0073C]
+        mov     dx, word ptr [bx+C1_TBL_0073E]
         leave
         retf
         db      00h
@@ -9313,7 +9313,7 @@ br_4306C:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     bx, ax
-        mov     al, byte ptr [bx+748h]
+        mov     al, byte ptr [bx+C1_TBL_00748]
         mov     bx, di
         mov     byte ptr es:[bx+si], al
 br_4307E:
@@ -9646,7 +9646,7 @@ br_43343:
         adc     cx, cx
         rep movsb
         pop     ds
-        cmp     byte ptr [0d7c9h], al
+        cmp     byte ptr [C0_B_0D7C9], al
         jne     br_433BA
         les     bx, [bp-4]
         mov     ax, word ptr es:[bx+2]
@@ -10566,12 +10566,12 @@ br_43B20:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    7e8h
+        push    C1_W_007E8
         nop
         push    cs
         call    disp_list_run
         add     sp, 4
-        cmp     byte ptr [0d7c9h], 0
+        cmp     byte ptr [C0_B_0D7C9], 0
         je      br_43B46
         mov     ax, C1_W_05A00
         mov     dx, C1_SEG
@@ -10597,9 +10597,9 @@ br_43B4C:
         db      00h
 L_43B62:
         push    ds
-        push    0d7c9h
+        push    C0_B_0D7C9
         push    ds
-        push    86eh
+        push    C1_W_0086E
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
         add     sp, 8
         retf
@@ -10636,7 +10636,7 @@ br_43BD4:
         mov     word ptr [C1_W_08B04], cx
 br_43BD8:
         push    ds
-        push    898h
+        push    C1_W_00898
         nop
         push    cs
         call    handler_set_install
@@ -10652,7 +10652,7 @@ br_43BD8:
         call    handler_install_one
         add     sp, 6
 br_43BFD:
-        callf   [998h]
+        callf   [C1_FP_00998]
         nop
         push    cs
         call    disp_request_flush
@@ -10724,7 +10724,7 @@ cant_find_file_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    8b2h
+        push    C1_W_008B2
         nop
         push    cs
         call    disp_list_run
@@ -10744,11 +10744,11 @@ cant_find_file_paint:
         or      ax, ax
         jne     br_43CC4
         push    ds
-        push    8dah
+        push    C1_W_008DA
         jmp     br_43CC8
 br_43CC4:
         push    ds
-        push    94eh
+        push    C1_W_0094E
 br_43CC8:
         nop
         push    cs
@@ -10766,7 +10766,7 @@ far_43CD8:
         push    ds
         push    98b8h
         push    ds
-        push    98ah
+        push    C1_W_0098A
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
         add     sp, 8
         retf
@@ -10849,7 +10849,7 @@ L_43D82:
         xor     al, al
         mov     byte ptr es:[bx+15h], al
         mov     byte ptr es:[bx+16h], al
-        mov     al, byte ptr [0d775h]
+        mov     al, byte ptr [C1_B_0D775]
         mov     byte ptr es:[bx+17h], al
         pop     si
         pop     di
@@ -10882,45 +10882,45 @@ far_43DCC:
         rep movsb
         pop     ds
         les     bx, [bp+6]
-        mov     al, byte ptr [0d776h]
+        mov     al, byte ptr [C0_B_0D776]
         mov     cx, word ptr es:[bx+11h]
         xor     al, cl
         and     ax, 1
         xor     cx, ax
-        mov     ah, byte ptr [0d777h]
+        mov     ah, byte ptr [C1_B_0D777]
         xor     ah, ch
         and     ax, 100h
         xor     cx, ax
         mov     word ptr es:[bx+11h], cx
         les     bx, [bp+6]
-        mov     al, byte ptr [0d7b8h]
+        mov     al, byte ptr [C0_B_0D7B8]
         mov     cx, word ptr es:[bx+13h]
         xor     al, cl
         and     ax, 1
         xor     cx, ax
-        mov     al, byte ptr [0d7b9h]
+        mov     al, byte ptr [C0_B_0D7B9]
         add     al, al
         xor     al, cl
         and     ax, 2
         xor     cx, ax
-        mov     ah, byte ptr [0d7bah]
+        mov     ah, byte ptr [C1_B_0D7BA]
         xor     ah, ch
         and     ax, 100h
         xor     cx, ax
-        mov     al, byte ptr [0d7bbh]
+        mov     al, byte ptr [C0_B_0D7BB]
         cbw
         shl     ax, 0ch
         xor     ah, ch
         and     ax, 1000h
         xor     cx, ax
         mov     word ptr es:[bx+13h], cx
-        mov     al, byte ptr [0d7bch]
+        mov     al, byte ptr [C0_B_0D7BC]
         les     bx, [bp+6]
         mov     byte ptr es:[bx+15h], al
-        mov     al, byte ptr [0d7bdh]
+        mov     al, byte ptr [C1_B_0D7BD]
         les     bx, [bp+6]
         mov     byte ptr es:[bx+16h], al
-        mov     al, byte ptr [0d775h]
+        mov     al, byte ptr [C1_B_0D775]
         mov     byte ptr es:[bx+17h], al
         pop     si
         pop     di
@@ -10953,7 +10953,7 @@ L_43E70:
         les     bx, [bp+6]
         mov     al, byte ptr es:[bx+11h]
         and     al, 1
-        mov     byte ptr [0d776h], al
+        mov     byte ptr [C0_B_0D776], al
         mov     al, byte ptr es:[bx+12h]
         and     ax, 1
         push    ax
@@ -10964,22 +10964,22 @@ L_43E70:
         les     bx, [bp+6]
         mov     al, byte ptr es:[bx+13h]
         and     al, 1
-        mov     byte ptr [0d7b8h], al
+        mov     byte ptr [C0_B_0D7B8], al
         mov     ax, word ptr es:[bx+13h]
         shr     ax, 1
         and     al, 1
-        mov     byte ptr [0d7b9h], al
+        mov     byte ptr [C0_B_0D7B9], al
         mov     al, byte ptr es:[bx+14h]
         and     al, 1
-        mov     byte ptr [0d7bah], al
+        mov     byte ptr [C1_B_0D7BA], al
         mov     ax, word ptr es:[bx+13h]
         shr     ax, 0ch
         and     al, 1
-        mov     byte ptr [0d7bbh], al
+        mov     byte ptr [C0_B_0D7BB], al
         mov     al, byte ptr es:[bx+15h]
-        mov     byte ptr [0d7bch], al
+        mov     byte ptr [C0_B_0D7BC], al
         mov     al, byte ptr es:[bx+16h]
-        mov     byte ptr [0d7bdh], al
+        mov     byte ptr [C1_B_0D7BD], al
         mov     al, byte ptr es:[bx+17h]
         push    ax
         nop
@@ -10993,7 +10993,7 @@ L_43E70:
         nop
 far_43EFE:
         push    ds
-        push    9b4h
+        push    C1_W_009B4
         nop
         push    cs
         call    handler_set_install
@@ -11029,7 +11029,7 @@ load_aps_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    9ceh
+        push    C1_W_009CE
         nop
         push    cs
         call    disp_list_run
@@ -11062,7 +11062,7 @@ pgm_save_to_disk:
         add     sp, 4
         jmp     br_43FA0
 br_43F8A:
-        cmp     byte ptr [0d7c8h], 0
+        cmp     byte ptr [C1_B_0D7C8], 0
         je      br_43FA0
         push    7c00h
         push    0
@@ -11733,7 +11733,7 @@ br_4452A:
         adc     cx, cx
         rep movsb
         pop     ds
-        cmp     byte ptr [0d7c8h], 2
+        cmp     byte ptr [C1_B_0D7C8], 2
         jne     L_4455E
         mov     ax, (C1_BASE+L_43130-C1_SEG*16)
         mov     dx, C1_SEG
@@ -11778,12 +11778,12 @@ br_44564:
         add     sp, 4
         or      ax, ax
         jne     br_445E6
-        cmp     byte ptr [0d7cah], 0
+        cmp     byte ptr [C1_B_0D7CA], 0
         je      br_4462F
         callf   EP_FAR_37E82_SEG:EP_FAR_37E82_OFF
         cmp     ax, 2
         jne     br_445CF
-        cmp     byte ptr [0d7c8h], 1
+        cmp     byte ptr [C1_B_0D7C8], 1
         jne     br_445CF
         les     bx, [bp-8]
         les     bx, es:[bx]
@@ -11802,7 +11802,7 @@ br_445CF:
         je      br_445E6
         jmp     br_44686
 br_445E6:
-        cmp     byte ptr [0d7c8h], 2
+        cmp     byte ptr [C1_B_0D7C8], 2
         jne     br_44604
         lea     ax, [bp-28h]
         push    ss
@@ -11891,7 +11891,7 @@ br_4469A:
         nop
 far_446A4:
         push    ds
-        push    0a26h
+        push    C1_W_00A26
         nop
         push    cs
         call    handler_set_install
@@ -11904,7 +11904,7 @@ br_446BE:
         mov     word ptr [C1_W_08B0C], 0
 br_446C4:
         imul    bx, word ptr [C1_W_08B0C], 2ah
-        callf   [bx+0a90h]
+        callf   [bx+C1_TBL_00A90]
         retf
 save_a_program_wipe:
         push    di
@@ -11915,7 +11915,7 @@ save_a_program_wipe:
         callf   EP_FAR_37E82_SEG:EP_FAR_37E82_OFF
         or      ax, ax
         jne     br_44749
-        mov     al, byte ptr [0d7bfh]
+        mov     al, byte ptr [C1_B_0D7BF]
         cbw
         imul    bx, ax, 99eh
         add     bx, word ptr [989ah]
@@ -11991,7 +11991,7 @@ save_a_program_save:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     al, byte ptr [0d7bfh]
+        mov     al, byte ptr [C1_B_0D7BF]
         cbw
         imul    bx, ax, 99eh
         add     bx, word ptr [989ah]
@@ -12043,7 +12043,7 @@ save_a_program_save:
         rep movsb
         pop     ds
         push    ds
-        push    0d7e8h
+        push    C0_W_0D7E8
         nop
         push    cs
         call    fs_find_file
@@ -12059,8 +12059,8 @@ save_a_program_save:
         retf
 br_447E2:
         push    ds
-        push    0d7e8h
-        mov     al, byte ptr [0d7bfh]
+        push    C0_W_0D7E8
+        mov     al, byte ptr [C1_B_0D7BF]
         push    ax
         nop
         push    cs
@@ -12077,7 +12077,7 @@ save_a_program_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     al, byte ptr [0d7bfh]
+        mov     al, byte ptr [C1_B_0D7BF]
         cbw
         mov     word ptr [bp-2], ax
         imul    bx, ax, 99eh
@@ -12145,7 +12145,7 @@ save_a_program_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    0a44h
+        push    C1_W_00A44
         nop
         push    cs
         call    disp_list_run
@@ -12159,19 +12159,19 @@ save_a_program_paint:
         push    cs
         call    draw_string_at
         add     sp, 8
-        mov     al, byte ptr [0d7c8h]
+        mov     al, byte ptr [C1_B_0D7C8]
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx+0a1ch]
-        push    word ptr [bx+0a1ah]
+        push    word ptr [bx+C1_TBL_00A1C]
+        push    word ptr [bx+C1_TBL_00A1A]
         push    1ch
         push    65h
         nop
         push    cs
         call    draw_string_at
         add     sp, 8
-        cmp     byte ptr [0d7cah], 0
+        cmp     byte ptr [C1_B_0D7CA], 0
         je      br_448D6
         mov     ax, C1_W_05A00
         mov     dx, C1_SEG
@@ -12215,9 +12215,9 @@ L_44909:
 save_pgm_field0_thunk:                  ; descriptor DS:0a82h
         mov     word ptr [C1_W_08B0C], 0
         push    ds
-        push    0d7c8h
+        push    C1_B_0D7C8
         push    ds
-        push    0a82h
+        push    C1_W_00A82
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -12225,9 +12225,9 @@ save_pgm_field0_thunk:                  ; descriptor DS:0a82h
 save_pgm_field1_thunk:                  ; descriptor DS:0aach
         mov     word ptr [C1_W_08B0C], 1
         push    ds
-        push    0d7cah
+        push    C1_B_0D7CA
         push    ds
-        push    0aach
+        push    C1_W_00AAC
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -12265,7 +12265,7 @@ L_44190                         equ     $+1
 L_43F60                         equ     $+1
         endif
         endif
-        push    0ad6h
+        push    C1_W_00AD6
         nop
         push    cs
         call    handler_set_install
@@ -12368,7 +12368,7 @@ disk_full_paint:
         add     sp, 8
 br_44A57:
         push    ds
-        push    0af4h
+        push    C1_W_00AF4
         nop
         push    cs
         call    disp_list_run
@@ -12406,7 +12406,7 @@ aps_save_to_disk:
         add     sp, 4
         jmp     br_44ABA
 br_44AA4:
-        cmp     byte ptr [0d7c8h], 0
+        cmp     byte ptr [C1_B_0D7C8], 0
         je      br_44ABA
         push    7c00h
         push    0
@@ -12554,7 +12554,7 @@ br_44BAC:
         push    40h
         push    1
         push    ds
-        push    0d778h
+        push    C0_W_0D778
         nop
         push    cs
         call    fs_write
@@ -12856,7 +12856,7 @@ br_44E29:
         retf
 far_44E40:
         push    ds
-        push    0b7ch
+        push    C1_W_00B7C
         nop
         push    cs
         call    handler_set_install
@@ -12869,7 +12869,7 @@ br_44E5A:
         mov     word ptr [C1_W_08B12], 0
 br_44E60:
         imul    bx, word ptr [C1_W_08B12], 2ah
-        callf   [bx+0be6h]
+        callf   [bx+C1_TBL_00BE6]
         retf
 save_aps_f3:
         push    di
@@ -12996,7 +12996,7 @@ save_aps_save:
         rep movsb
         pop     ds
         push    ds
-        push    0d7e8h
+        push    C0_W_0D7E8
         nop
         push    cs
         call    fs_find_file
@@ -13012,7 +13012,7 @@ save_aps_save:
         retf
 br_44F5A:
         push    ds
-        push    0d7e8h
+        push    C0_W_0D7E8
         nop
         push    cs
         call    aps_save_to_disk
@@ -13089,7 +13089,7 @@ save_aps_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    0b9ah
+        push    C1_W_00B9A
         nop
         push    cs
         call    disp_list_run
@@ -13103,19 +13103,19 @@ save_aps_paint:
         push    cs
         call    draw_string_at
         add     sp, 8
-        mov     al, byte ptr [0d7c8h]
+        mov     al, byte ptr [C1_B_0D7C8]
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx+0b72h]
-        push    word ptr [bx+0b70h]
+        push    word ptr [bx+C1_TBL_00B72]
+        push    word ptr [bx+C1_TBL_00B70]
         push    1ch
         push    65h
         nop
         push    cs
         call    draw_string_at
         add     sp, 8
-        cmp     byte ptr [0d7cah], 0
+        cmp     byte ptr [C1_B_0D7CA], 0
         je      br_45036
         mov     ax, C1_W_05A00
         mov     dx, C1_SEG
@@ -13160,9 +13160,9 @@ L_4472D:
 save_aps_field0_thunk:                  ; descriptor DS:0bd8h
         mov     word ptr [C1_W_08B12], 0
         push    ds
-        push    0d7c8h
+        push    C1_B_0D7C8
         push    ds
-        push    0bd8h
+        push    C1_W_00BD8
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -13170,9 +13170,9 @@ save_aps_field0_thunk:                  ; descriptor DS:0bd8h
 save_aps_field1_thunk:                  ; descriptor DS:0c02h
         mov     word ptr [C1_W_08B12], 1
         push    ds
-        push    0d7cah
+        push    C1_B_0D7CA
         push    ds
-        push    0c02h
+        push    C1_W_00C02
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -13182,7 +13182,7 @@ save_aps_field2_thunk:                  ; descriptor DS:0c2ch
         push    ds
         push    C1_TBL_APS_NAME
         push    ds
-        push    0c2ch
+        push    C1_W_00C2C
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -14970,7 +14970,7 @@ br_46088:
         callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
         endif
         mov     bx, ax
-        mov     al, byte ptr [bx+0c24h]
+        mov     al, byte ptr [bx+C1_TBL_00C24]
         leave
         retf
         db      90h
@@ -14986,14 +14986,14 @@ L_460F0:
         db      "Unknown .WAV file"
         db      " format", 000h, 000h
 far_4610A:
-        mov     word ptr [0d762h], 7fffh
+        mov     word ptr [C1_W_0D762], 7fffh
         sub     ax, ax
         mov     word ptr [98dah], ax
         mov     word ptr [98d8h], ax
         mov     word ptr [8ec2h], ax
         mov     word ptr [8ec0h], ax
         mov     word ptr [98a4h], ax
-        mov     word ptr [0d7e6h], ax
+        mov     word ptr [C0_W_0D7E6], ax
         retf
         db      90h
 far_46126:
@@ -15002,8 +15002,8 @@ far_46126:
         push    si
         mov     ax, word ptr [bp+6]
         mov     dx, word ptr [bp+8]
-        mov     word ptr [0d7c2h], ax
-        mov     word ptr [0d7c4h], dx
+        mov     word ptr [C0_W_0D7C2], ax
+        mov     word ptr [C0_W_0D7C4], dx
         nop
         push    cs
         call    far_3E8D0
@@ -15015,12 +15015,12 @@ far_46126:
         mov     byte ptr [C2_B_PAD_DRUM], al
 br_4614A:
         push    ds
-        push    0ceeh
+        push    C1_W_00CEE
         nop
         push    cs
         call    handler_set_install
         add     sp, 4
-        callf   [0d62h]
+        callf   [C1_FP_00D62]
         pop     si
         leave
         retf
@@ -15030,8 +15030,8 @@ L_45818:
         mov     cx, DS_SEG
         mov     ds, cx
         push    7fh
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    far_41C08
@@ -15043,8 +15043,8 @@ far_46178:
         mov     cx, DS_SEG
         mov     ds, cx
         push    0
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    far_41C08
@@ -15058,8 +15058,8 @@ load_sound_discard:
         nop
         push    cs
         call    far_46178
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    sound_list_unlink
@@ -15099,8 +15099,8 @@ br_461F0:
 br_461F2:
         or      dx, dx
         je      br_46215
-        mov     ax, word ptr [0d7c2h]
-        mov     dx, word ptr [0d7c4h]
+        mov     ax, word ptr [C0_W_0D7C2]
+        mov     dx, word ptr [C0_W_0D7C4]
         mov     es, word ptr [bp-2]
         mov     bl, byte ptr [C2_B_PAD_NOTE]
         sub     bh, bh
@@ -15109,8 +15109,8 @@ br_461F2:
         mov     word ptr es:[bx+752h], ax
         mov     word ptr es:[bx+754h], dx
 br_46215:
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         push    0
         push    0
         nop
@@ -15142,8 +15142,8 @@ load_sound_refresh:
         nop
         push    cs
         call    far_46178
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    sound_list_unlink
@@ -15162,13 +15162,13 @@ load_sound_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    0d1ch
+        push    C1_W_00D1C
         nop
         push    cs
         call    disp_list_run
         add     sp, 4
-        mov     ax, word ptr [0d7c2h]
-        mov     dx, word ptr [0d7c4h]
+        mov     ax, word ptr [C0_W_0D7C2]
+        mov     dx, word ptr [C0_W_0D7C4]
         add     ax, 12h
         push    dx
         push    ax
@@ -15213,14 +15213,14 @@ load_sound_pad:
         mov     di, word ptr [C2_B_PAD_DRUM]
         and     di, 0ffh
         mov     al, ch
-        mov     byte ptr [0d7c1h], ch
+        mov     byte ptr [C0_B_0D7C1], ch
         lea     ax, [di+C1_TBL_00060]
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        mov     si, word ptr [0d7c1h]
+        mov     si, word ptr [C0_B_0D7C1]
         and     si, 0ffh
         mov     al, byte ptr es:[bx+si]
         cbw
@@ -15239,7 +15239,7 @@ br_46310:
         je      L_46317
         mov     byte ptr [C2_B_PAD_NOTE], al
 L_46317:
-        callf   [0d62h]
+        callf   [C1_FP_00D62]
 br_4631B:
         pop     ds
         pop     si
@@ -15251,7 +15251,7 @@ far_46320:
         push    ds
         push    C2_B_PAD_NOTE
         push    ds
-        push    0d54h
+        push    C1_W_00D54
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -15261,7 +15261,7 @@ L_46332:
         db      00h, 00h
 far_46340:
         push    ds
-        push    0d7eh
+        push    C1_W_00D7E
         nop
         push    cs
         call    handler_set_install
@@ -15273,8 +15273,8 @@ load_sound_exists_replace:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         lea     ax, [bp-4]
         push    ss
         push    ax
@@ -15284,8 +15284,8 @@ load_sound_exists_replace:
         add     sp, 8
         or      ax, ax
         je      br_46395
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         push    word ptr [bp-2]
         push    word ptr [bp-4]
         nop
@@ -15310,8 +15310,8 @@ load_sound_exists_cancel:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    sound_list_unlink
@@ -15326,8 +15326,8 @@ load_sound_exists_refresh:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    sound_list_unlink
@@ -15345,7 +15345,7 @@ load_sound_exists_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    0da2h
+        push    C1_W_00DA2
         nop
         push    cs
         call    disp_list_run
@@ -15365,8 +15365,8 @@ load_sound_exists_rename:
         add     sp, 6
         push    0
         push    0
-        mov     ax, word ptr [0d7c2h]
-        mov     dx, word ptr [0d7c4h]
+        mov     ax, word ptr [C0_W_0D7C2]
+        mov     dx, word ptr [C0_W_0D7C4]
         add     ax, 12h
         push    dx
         push    ax
@@ -15387,8 +15387,8 @@ L_46436:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         push    0
         push    0
         nop
@@ -15642,13 +15642,13 @@ br_4666B:
 far_4668A:
         mov     ax, C1_TBL_SOUNDS_END
         mov     cx, ds
-        cmp     ax, word ptr [0d7c2h]
+        cmp     ax, word ptr [C0_W_0D7C2]
         jne     br_4669B
-        cmp     cx, word ptr [0d7c4h]
+        cmp     cx, word ptr [C0_W_0D7C4]
         je      br_466C4
 br_4669B:
         push    ds
-        push    0df0h
+        push    C1_W_00DF0
         nop
         push    cs
         call    handler_set_install
@@ -15661,7 +15661,7 @@ save_a_sound_f3:
         mov     word ptr [C1_W_08B14], 0
 br_466BB:
         imul    bx, word ptr [C1_W_08B14], 2ah
-        callf   [bx+0e46h]
+        callf   [bx+C1_TBL_00E46]
 br_466C4:
         retf
         db      00h
@@ -15675,8 +15675,8 @@ save_a_sound_wipe:
         callf   EP_FAR_37E82_SEG:EP_FAR_37E82_OFF
         or      ax, ax
         jne     br_46752
-        mov     bx, word ptr [0d7c2h]
-        mov     cx, word ptr [0d7c4h]
+        mov     bx, word ptr [C0_W_0D7C2]
+        mov     cx, word ptr [C0_W_0D7C4]
         add     bx, 12h
         mov     di, bx
         mov     si, 0d7e8h
@@ -15696,7 +15696,7 @@ save_a_sound_wipe:
         adc     cx, cx
         rep movsb
         pop     ds
-        cmp     byte ptr [0d7cbh], 0
+        cmp     byte ptr [C1_B_0D7CB], 0
         je      br_46716
         mov     ax, (C1_BASE+L_43130-C1_SEG*16)
         mov     dx, C1_SEG
@@ -15758,8 +15758,8 @@ save_a_sound_save:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     bx, word ptr [0d7c2h]
-        mov     cx, word ptr [0d7c4h]
+        mov     bx, word ptr [C0_W_0D7C2]
+        mov     cx, word ptr [C0_W_0D7C4]
         add     bx, 12h
         mov     di, bx
         mov     si, 0d7e8h
@@ -15780,7 +15780,7 @@ save_a_sound_save:
         adc     cx, cx
         rep movsb
         pop     ds
-        cmp     byte ptr [0d7cbh], al
+        cmp     byte ptr [C1_B_0D7CB], al
         je      br_467AE
         mov     ax, (C1_BASE+L_43130-C1_SEG*16)
         mov     dx, C1_SEG
@@ -15816,7 +15816,7 @@ br_467B4:
         rep movsb
         pop     ds
         push    ds
-        push    0d7e8h
+        push    C0_W_0D7E8
         nop
         push    cs
         call    fs_find_file
@@ -15833,12 +15833,12 @@ br_467B4:
         retf
         db      90h
 br_46800:
-        mov     al, byte ptr [0d7cbh]
+        mov     al, byte ptr [C1_B_0D7CB]
         push    ax
         push    ds
-        push    0d7e8h
-        push    word ptr [0d7c4h]
-        push    word ptr [0d7c2h]
+        push    C0_W_0D7E8
+        push    word ptr [C0_W_0D7C4]
+        push    word ptr [C0_W_0D7C2]
         nop
         push    cs
         call    far_46478
@@ -15866,13 +15866,13 @@ save_a_sound_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    0e0eh
+        push    C1_W_00E0E
         nop
         push    cs
         call    EP_DISP_LIST_RUN_OFF+C1_CSBASE
         add     sp, 4
-        mov     ax, word ptr [0d7c2h]
-        mov     dx, word ptr [0d7c4h]
+        mov     ax, word ptr [C0_W_0D7C2]
+        mov     dx, word ptr [C0_W_0D7C4]
         add     ax, 12h
         push    dx
         push    ax
@@ -15882,7 +15882,7 @@ save_a_sound_paint:
         push    cs
         call    draw_string_at
         add     sp, 8
-        cmp     byte ptr [0d7cbh], 0
+        cmp     byte ptr [C1_B_0D7CB], 0
         je      br_4686A
         mov     ax, C1_W_0874E
         mov     dx, C1_SEG
@@ -15922,9 +15922,9 @@ L_45F4B:
 save_snd_field0_thunk:                  ; descriptor DS:0e38h
         mov     word ptr [C1_W_08B14], 0
         push    ds
-        push    0d7c2h
+        push    C0_W_0D7C2
         push    ds
-        push    0e38h
+        push    C1_W_00E38
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -15932,9 +15932,9 @@ save_snd_field0_thunk:                  ; descriptor DS:0e38h
 save_snd_field1_thunk:                  ; descriptor DS:0e62h
         mov     word ptr [C1_W_08B14], 1
         push    ds
-        push    0d7cbh
+        push    C1_B_0D7CB
         push    ds
-        push    0e62h
+        push    C1_W_00E62
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF                   ; = 0x3BDBE ui_field_engine
         add     sp, 8
         retf
@@ -15949,7 +15949,7 @@ L_468E2:
         db      00h
 far_468EA:
         push    ds
-        push    0e8ch
+        push    C1_W_00E8C
         nop
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
@@ -15977,7 +15977,7 @@ file_exists_paint:
         call    far_3ED98
         add     sp, 4
         push    ds
-        push    0eaah
+        push    C1_W_00EAA
         nop
         push    cs
         call    EP_DISP_LIST_RUN_OFF+C1_CSBASE
@@ -15985,10 +15985,10 @@ file_exists_paint:
         callf   EP_FAR_37E82_SEG:EP_FAR_37E82_OFF
         cmp     ax, 2
         jne     br_46947
-        cmp     byte ptr [0d7f9h], 53h
+        cmp     byte ptr [C0_B_0D7F9], 53h
         jne     br_46947
         push    ds
-        push    0d7e8h
+        push    C0_W_0D7E8
         nop
         push    cs
         if      FW_VERSION >= 112
@@ -16001,7 +16001,7 @@ file_exists_paint:
         jne     br_46953
 br_46947:
         push    ds
-        push    0ed8h
+        push    C1_W_00ED8
         nop
         push    cs
         call    EP_DISP_LIST_RUN_OFF+C1_CSBASE
@@ -16014,7 +16014,7 @@ file_exists_f5:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     byte ptr [0d7f8h], 0
+        mov     byte ptr [C0_B_0D7F8], 0
         push    EP_L_3A7C4_SEG
         push    EP_L_3A7C4_OFF
         push    32h
@@ -16025,7 +16025,7 @@ file_exists_f5:
         push    0
         push    0
         push    ds
-        push    0d7e8h
+        push    C0_W_0D7E8
         nop
         push    cs
         call    far_3EE00
@@ -16042,7 +16042,7 @@ L_46398:
         db      72h, 6fh, 72h, 00h, 00h
 far_469A8:
         push    ds
-        push    0efah
+        push    C1_W_00EFA
         nop
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
@@ -16074,7 +16074,7 @@ L_469C4:
         call    draw_frame_window
         add     sp, 0ch
         push    ds
-        push    0f14h
+        push    C1_W_00F14
         nop
         push    cs
         call    EP_DISP_LIST_RUN_OFF+C1_CSBASE

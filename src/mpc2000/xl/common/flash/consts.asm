@@ -1958,7 +1958,7 @@ L_56FFA:
         add     sp, 8
         mov     word ptr [K0_W_08E54], ax
         push    0
-        push    word ptr [2602h]
+        push    word ptr [C2_W_02602]
         push    0
         push    2710h
         cwd
@@ -2030,9 +2030,9 @@ br_570C0:
         jne     br_570EF
         cmp     ax, 4e20h
         ja      br_570EF
-        mov     word ptr [2602h], ax
+        mov     word ptr [C2_W_02602], ax
         push    ds
-        push    2600h
+        push    C2_W_02600
         push    ds
         push    8fcbh
         push    ds
@@ -2062,8 +2062,8 @@ br_570EF:
 br_5710C:
         mov     ax, word ptr [98aah]
         mov     dx, word ptr [98ach]
-        mov     word ptr [0d7c2h], ax
-        mov     word ptr [0d7c4h], dx
+        mov     word ptr [C0_W_0D7C2], ax
+        mov     word ptr [C0_W_0D7C4], dx
         callf   EP_FAR_4D21C_SEG:EP_FAR_4D21C_OFF
         pop     ds
         pop     si
@@ -3501,7 +3501,7 @@ wave_region_highlight:
         enter   4, 0
         push    di
         push    si
-        les     bx, [0d7c2h]
+        les     bx, [C0_W_0D7C2]
         mov     ax, word ptr es:[bx+SND_LENGTH]
         mov     dx, word ptr es:[bx+SND_LENGTH+2]
         mov     word ptr [bp-4], ax
@@ -3921,19 +3921,45 @@ DS_ORIGIN:
         db      59h, 39h, 0aeh, 39h, 04h, 3ah, 5ah, 3ah, 0b0h, 3ah, 07h, 3bh, 5fh, 3bh, 0b7h, 3bh
         db      0fh, 3ch, 68h, 3ch, 0c2h, 3ch, 1ch, 3dh, 77h, 3dh, 0d2h, 3dh, 2eh, 3eh, 8ah, 3eh
         db      0e7h
-        db      3eh, 44h, 3fh, 0a2h, 3fh, 00h, 40h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 10h, 00h
+        db      3eh, 44h, 3fh, 0a2h, 3fh, 00h, 40h
+d_c1_w_00418:
+        db      00h, 00h, 00h, 00h, 00h, 01h, 00h, 10h, 00h
         db      10h, 00h, 00h, 00h, 0c0h, 00h, 40h, 00h, 00h, 00h, 00h, 24h, 0fah, 00h, 00h, 00h
         db      00h, 00h, 00h, 24h, 0fah, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 0bh, 00h, 30h, 0f7h, 0bh, 01h, 31h, 0f7h, 0eh, 00h, 01h, 2fh, 0eh
-        db      0f6h, 0bh, 25h, 0eh, 0f7h, 0ch, 25h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h
+d_c1_w_00444:
+        db      0bh, 00h, 30h, 0f7h, 0bh, 01h, 31h, 0f7h, 0eh, 00h, 01h, 2fh, 0eh
+        db      0f6h, 0bh, 25h, 0eh, 0f7h, 0ch, 25h, 00h, 00h
+d_c1_b_0045a:
+        db      00h
+d_c1_w_0045b:
+        db      00h, 00h
+d_c1_w_0045d:
+        db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h
 pow10_dwords:                           ; dd[9] 1..10^8 = DS:POW10_TABLE
-        db      01h, 00h, 00h, 00h, 0ah, 00h, 00h, 00h, 64h, 00h, 00h, 00h, 0e8h
+        db      01h, 00h
+d_c1_tbl_00466:
+        db      00h, 00h, 0ah, 00h, 00h, 00h, 64h, 00h, 00h, 00h, 0e8h
         db      03h, 00h, 00h, 10h, 27h, 00h, 00h, 0a0h, 86h, 01h, 00h, 40h, 42h, 0fh, 00h, 80h
-        db      96h, 98h, 00h, 00h, 0e1h, 0f5h, 05h, 00h, 07h, 06h, 03h, 02h, 05h, 04h, 01h, 00h
+        db      96h, 98h, 00h, 00h
+d_c2_tbl_00485:
+        db      0e1h
+d_c2_tbl_00486:
+        db      0f5h, 05h
+d_c1_tbl_00488:
+        db      00h
+d_c2_tbl_00489:
+        db      07h, 06h, 03h, 02h, 05h, 04h, 01h, 00h
         db      00h, 00h, 00h
         db      "%$*R(&.,0/-+17356EQPABLM8>?@IJG'49:;<=CDFHKNO#)2STUVWXYZ[\\]^_"
-        db      60h, 61h, 62h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 02h, 00h, 05h
+        db      60h, 61h, 62h
+d_c1_w_004d4:
+        db      00h, 00h, 00h, 00h
+d_c1_w_004d8:
+        db      00h, 00h
+d_c0_tbl_004da:
+        db      00h, 00h, 01h, 00h, 02h, 00h, 05h
         db      00h, 08h, 00h, 0dh, 00h, 12h, 00h, 19h, 00h, 20h, 00h, 29h, 00h, 32h, 00h, 3dh
         db      00h, 48h, 00h, 55h, 00h, 62h, 00h, 71h, 00h, 80h, 00h, 91h, 00h, 0a2h, 00h, 0b5h
         db      00h, 0c8h, 00h, 0ddh, 00h, 0f2h, 00h, 09h, 01h, 20h, 01h, 39h, 01h, 52h, 01h, 6dh
@@ -3946,7 +3972,9 @@ pow10_dwords:                           ; dd[9] 1..10^8 = DS:POW10_TABLE
         db      0ah, 48h, 0bh, 95h, 0bh, 0e2h, 0bh, 31h, 0ch, 80h, 0ch, 0d1h, 0ch, 22h, 0dh, 75h
         db      0dh, 0c8h, 0dh, 1dh, 0eh, 72h, 0eh, 0c9h, 0eh, 20h, 0fh, 79h, 0fh, 0d2h, 0fh, 2dh
         db      10h, 88h, 10h, 0e5h, 10h, 42h, 11h, 0a1h, 11h, 00h, 12h, 61h, 12h, 0c2h, 12h, 25h
-        db      13h, 88h, 13h, 00h, 00h, 0ah, 00h, 15h, 00h, 1fh, 00h, 29h, 00h, 33h, 00h, 3dh
+        db      13h, 88h, 13h
+d_c0_tbl_005a4:
+        db      00h, 00h, 0ah, 00h, 15h, 00h, 1fh, 00h, 29h, 00h, 33h, 00h, 3dh
         db      00h, 48h, 00h, 52h, 00h, 5ch, 00h, 66h, 00h, 70h, 00h, 7ah, 00h, 84h, 00h, 8eh
         db      00h, 98h, 00h, 0a2h, 00h, 0ach, 00h, 0b6h, 00h, 0c0h, 00h, 0cah, 00h, 0d3h, 00h, 0ddh
         db      00h, 0e7h, 00h, 0f0h, 00h, 0fah, 00h, 03h, 01h, 0dh, 01h, 16h, 01h, 1fh, 01h, 28h
@@ -3958,7 +3986,9 @@ pow10_dwords:                           ; dd[9] 1..10^8 = DS:POW10_TABLE
         db      02h, 4ah, 02h, 4fh, 02h, 53h, 02h, 57h, 02h, 5bh, 02h, 5fh, 02h, 63h, 02h, 66h ; .J.O.S.W.[._.c.f
         db      02h, 6ah, 02h, 6dh, 02h, 70h, 02h, 73h, 02h, 76h, 02h, 78h, 02h, 7bh, 02h, 7dh ; .j.m.p.s.v.x.{.}
         db      02h, 7fh, 02h, 81h, 02h, 83h, 02h, 85h, 02h, 86h, 02h, 88h, 02h, 89h, 02h, 8ah
-        db      02h, 8bh, 02h, 8ch, 02h, 8ch, 02h, 8ch, 02h, 8dh, 02h, 8dh, 02h, 0a4h, 00h, 0ach
+        db      02h, 8bh, 02h, 8ch, 02h, 8ch, 02h, 8ch, 02h, 8dh, 02h, 8dh, 02h
+d_c0_tbl_0066e:
+        db      0a4h, 00h, 0ach
         db      00h, 0b4h, 00h, 0bch, 00h, 0c5h, 00h, 0ceh, 00h, 0d8h, 00h, 0e2h, 00h, 0edh, 00h, 0f8h
         db      00h, 04h, 01h, 10h, 01h, 1dh, 01h, 2ah, 01h, 38h, 01h, 47h, 01h, 56h, 01h, 66h
         db      01h, 77h, 01h, 89h, 01h, 9ch, 01h, 0afh, 01h, 0c3h, 01h, 0d8h, 01h, 0efh, 01h, 06h
@@ -3977,10 +4007,17 @@ d_c0_b_00716:
         db      "&a(H*F,\\."
         db      8ch, 30h, 0d5h, 32h, 3bh, 35h, 0bdh
         db      37h, 5dh, 3ah, 1eh, 3dh, 0ffh, 3fh
-        dw      EP_FAR_42192_OFF, EP_FAR_42192_SEG
-        db      00h, 00h, 00h, 00h
+d_c0_w_00738:
+        dw      EP_FAR_42192_OFF
+d_c0_w_0073a:
+        dw      EP_FAR_42192_SEG
+d_c1_tbl_0073c:
+        db      00h, 00h
+d_c1_tbl_0073e:
+        db      00h, 00h
         dw      (C1_BASE+L_43160-C1_SEG*16), C1_SEG
         dw      EP_FAR_43178_OFF, EP_FAR_43178_SEG
+d_c1_tbl_00748:
         dw      EP_FAR_4318C_OFF, EP_FAR_4318C_SEG
         dw      EP_FAR_431A4_OFF, EP_FAR_431A4_SEG
         dw      (C1_BASE+L_431B6-C1_SEG*16), C1_SEG
@@ -3998,6 +4035,7 @@ TBL_WINKEYS_LOAD_SET:
         WIN_KEY   WIN_K_F5, EP_LOAD_SET_LOAD_SEG, EP_LOAD_SET_LOAD_OFF
         WIN_KEY   WIN_K_PAINT, EP_LOAD_SET_PAINT_SEG, EP_LOAD_SET_PAINT_OFF
         WIN_KEY_END
+d_c1_w_007e8:
         WIN_SOFTKEY 3, 1, "CLEAR"
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "LOAD"
@@ -4006,8 +4044,11 @@ TBL_WINKEYS_LOAD_SET:
         WIN_LABEL 23h, 1eh, "[CLEAR] erases existing P & S"
         WIN_LABEL 23h, 27h, "[^LOAD^] adds to existing P & S"
         WIN_END
-        db      00h, 59h, 15h, 3ch
+        db      00h
+d_c1_w_0086e:
+        db      59h, 15h, 3ch
         db      01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h
+d_c0_fp_0087c:
         dw      EP_L_43B62_OFF, EP_L_43B62_SEG
         db      00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -4018,13 +4059,17 @@ TBL_WINKEYS_CANT_FIND_FILE:
         WIN_KEY   WIN_K_F3, EP_CANT_FIND_FILE_SKIP_SEG, EP_CANT_FIND_FILE_SKIP_OFF
         WIN_KEY   WIN_K_PAINT, EP_CANT_FIND_FILE_PAINT_SEG, EP_CANT_FIND_FILE_PAINT_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h
+        db      00h
+d_c1_w_008b2:
+        db      1ah, 02h, 01h
         db      "AL SKP"
         db      00h, 1ah, 03h, 01h
         db      "SKIP"
         db      00h, 07h, 19h, 0dh
         db      "Can't find file:"
-        db      00h, 00h, 00h, 1ah, 05h, 01h
+        db      00h, 00h, 00h
+d_c1_w_008da:
+        db      1ah, 05h, 01h
         db      "LOAD"
         db      00h, 07h, 19h, 16h
         db      "Insert disk with this file and"
@@ -4032,12 +4077,17 @@ TBL_WINKEYS_CANT_FIND_FILE:
         db      "press LOAD. To skip, press SKIP"
         db      00h, 07h, 19h
         db      "((this file) or AL SKP(all files)."
-        db      00h, 00h, 00h, 07h, 19h, 1fh
+        db      00h, 00h, 00h
+d_c1_w_0094e:
+        db      07h, 19h, 1fh
         db      "To skip, press SKIP(this file)"
         db      00h, 07h, 19h
         db      "(or AL SKP(all files)."
-        db      00h, 00h, 79h, 0dh, 60h, 03h, 01h, 40h, 00h
+        db      00h, 00h
+d_c1_w_0098a:
+        db      79h, 0dh, 60h, 03h, 01h, 40h, 00h
         db      00h, 00h, 00h, 0ffh, 00h, 00h, 00h
+d_c1_fp_00998:
         dw      EP_FAR_43CD8_OFF, EP_FAR_43CD8_SEG
         db      00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -4050,7 +4100,9 @@ TBL_WINKEYS_LOAD_APS:
         WIN_KEY   WIN_K_F5, EP_LOAD_APS_LOAD_SEG, EP_LOAD_APS_LOAD_OFF
         WIN_KEY   WIN_K_PAINT, EP_LOAD_APS_PAINT_SEG, EP_LOAD_APS_PAINT_OFF
         WIN_KEY_END
-        db      00h, 07h, 23h, 15h
+        db      00h
+d_c1_w_009ce:
+        db      07h, 23h, 15h
         db      "This will replace all existing"
         db      00h, 07h, 23h, 1eh
         db      "programs and sounds"
@@ -4060,7 +4112,10 @@ TBL_WINKEYS_LOAD_APS:
         db      1ah, 05h, 01h
         db      "LOAD"
         db      00h, 00h
-        dw      (C1_BASE+L_44010-C1_SEG*16), C1_SEG
+d_c1_tbl_00a1a:
+        dw      (C1_BASE+L_44010-C1_SEG*16)
+d_c1_tbl_00a1c:
+        dw      C1_SEG
         dw      EP_MSG_WITH_SOUNDS_OFF, EP_MSG_WITH_SOUNDS_SEG
         dw      EP_MSG_WITH_WAV_OFF, EP_MSG_WITH_WAV_SEG
 TBL_WINKEYS_SAVE_A_PROGRAM:
@@ -4070,13 +4125,17 @@ TBL_WINKEYS_SAVE_A_PROGRAM:
         WIN_KEY   WIN_K_F5, EP_SAVE_A_PROGRAM_SAVE_SEG, EP_SAVE_A_PROGRAM_SAVE_OFF
         WIN_KEY   WIN_K_PAINT, EP_SAVE_A_PROGRAM_PAINT_SEG, EP_SAVE_A_PROGRAM_PAINT_OFF
         WIN_KEY_END
+d_c1_w_00a44:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "SAVE"
         WIN_LABEL 35h, 0eh, "File="
         WIN_LABEL 47h, 1ch, "Save:"
         WIN_LABEL 35h, 26h, "Replace same sounds:"
         WIN_END
-        db      00h, 65h, 1ch, 48h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 02h, 00h, 00h, 00h
+        db      00h
+d_c1_w_00a82:
+        db      65h, 1ch, 48h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 02h, 00h, 00h, 00h
+d_c1_tbl_00a90:
         dw      EP_SAVE_PGM_FIELD0_THUNK_OFF, EP_SAVE_PGM_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_SAVE_PGM_FIELD1_THUNK_OFF, EP_SAVE_PGM_FIELD1_THUNK_SEG
@@ -4099,6 +4158,7 @@ TBL_WINKEYS_DISK_FULL:
         endif
         WIN_KEY   WIN_K_PAINT, EP_DISK_FULL_PAINT_SEG, EP_DISK_FULL_PAINT_OFF
         WIN_KEY_END
+d_c1_w_00af4:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "SAVE"
         WIN_BITMAP 37h, 13h, 00h
@@ -4107,7 +4167,10 @@ TBL_WINKEYS_DISK_FULL:
         WIN_LABEL 4fh, 21h, "Please insert a different"
         WIN_LABEL 4fh, 2ah, "disk, then press SAVE."
         WIN_END
-        dw      (C1_BASE+L_450BC-C1_SEG*16), C1_SEG
+d_c1_tbl_00b70:
+        dw      (C1_BASE+L_450BC-C1_SEG*16)
+d_c1_tbl_00b72:
+        dw      C1_SEG
         dw      EP_MSG_WITH_SOUNDS_OFF, EP_MSG_WITH_SOUNDS_SEG
         dw      EP_MSG_WITH_WAV_OFF, EP_MSG_WITH_WAV_SEG
 TBL_WINKEYS_SAVE_APS:
@@ -4117,6 +4180,7 @@ TBL_WINKEYS_SAVE_APS:
         WIN_KEY   WIN_K_F5, EP_SAVE_APS_SAVE_SEG, EP_SAVE_APS_SAVE_OFF
         WIN_KEY   WIN_K_PAINT, EP_SAVE_APS_PAINT_SEG, EP_SAVE_APS_PAINT_OFF
         WIN_KEY_END
+d_c1_w_00b9a:
         db      1ah, 04h, 02h, 43h, 41h, 4eh, 43h
         db      45h, 4ch, 00h
         WIN_SOFTKEY 5, 1, "SAVE"
@@ -4124,8 +4188,11 @@ TBL_WINKEYS_SAVE_APS:
         WIN_LABEL 47h, 1ch, "Save:"
         WIN_LABEL 35h, 26h, "Replace same sounds:"
         WIN_END
-        db      00h, 65h, 1ch, 42h, 01h, 01h, 40h, 00h, 00h, 00h
+        db      00h
+d_c1_w_00bd8:
+        db      65h, 1ch, 42h, 01h, 01h, 40h, 00h, 00h, 00h
         db      00h, 02h, 00h, 00h, 00h
+d_c1_tbl_00be6:
         dw      EP_SAVE_APS_FIELD0_THUNK_OFF, EP_SAVE_APS_FIELD0_THUNK_SEG
         dw      EP_SAVE_APS_FIELD2_THUNK_OFF, EP_SAVE_APS_FIELD2_THUNK_SEG
         dw      EP_SAVE_APS_FIELD1_THUNK_OFF, EP_SAVE_APS_FIELD1_THUNK_SEG
@@ -4135,7 +4202,10 @@ TBL_FIELDS_0BD8:                        ; 3 x FIELD_SIZE, DS:0BD8h = SAVE_APS_FI
         db      0adh, 26h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SAVE_APS_FIELD1_THUNK_OFF, EP_SAVE_APS_FIELD1_THUNK_SEG, EP_SAVE_APS_FIELD0_THUNK_OFF, EP_SAVE_APS_FIELD0_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c1_tbl_00c24:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h; +1Ah..+21h  NOTIFY  ENTER
+d_c1_w_00c2c:
         db      53h, 0eh, 60h, 01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SAVE_APS_FIELD2_THUNK_OFF, EP_SAVE_APS_FIELD2_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -4147,7 +4217,9 @@ TBL_FIELDS_0BD8:                        ; 3 x FIELD_SIZE, DS:0BD8h = SAVE_APS_FI
         db      0f3h, 0f5h, 0f7h, 0f9h, 0fbh, 0fdh, 0feh, 00h, 02h, 03h, 05h, 07h, 08h, 0ah, 0ch, 0dh
         db      0fh, 11h, 12h, 14h, 15h, 17h, 18h, 1ah, 1bh, 1dh, 1eh, 20h, 21h, 22h, 24h, 25h
         db      "'()+,-/01345789:;=>?@BCDEFGHJKLMNOPQRTUVWXYZ[\\]^_`abcdefghijkklmnopqrstuuvwx"
-        db      00h, 01h, 00h, 00h
+        db      00h
+d_c1_w_00cee:
+        db      01h, 00h, 00h
         db      00h, 00h, 04h
         dw      EP_L_45818_OFF, EP_L_45818_SEG
         db      84h
@@ -4159,7 +4231,9 @@ TBL_WINKEYS_LOAD_SOUND:
         WIN_KEY   WIN_K_PAINT, EP_LOAD_SOUND_PAINT_SEG, EP_LOAD_SOUND_PAINT_OFF
         WIN_KEY   WIN_K_REFRESH, EP_LOAD_SOUND_REFRESH_SEG, EP_LOAD_SOUND_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 03h, 01h, 50h, 4ch
+        db      00h
+d_c1_w_00d1c:
+        db      1ah, 03h, 01h, 50h, 4ch
         db      41h, 59h, 00h, 1ah, 04h, 02h
         db      "DSCARD"
         db      00h, 1ah, 05h, 01h
@@ -4168,8 +4242,11 @@ TBL_WINKEYS_LOAD_SOUND:
         db      "File:"
         db      00h, 07h
         db      ")'Assign to note:"
-        db      00h, 00h, 00h, 83h, 27h, 24h, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h
+        db      00h, 00h, 00h
+d_c1_w_00d54:
+        db      83h, 27h, 24h, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h
         db      00h
+d_c1_fp_00d62:
         dw      EP_FAR_46320_OFF, EP_FAR_46320_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -4181,7 +4258,9 @@ TBL_WINKEYS_LOAD_SOUND_EXISTS:
         WIN_KEY   WIN_K_PAINT, EP_LOAD_SOUND_EXISTS_PAINT_SEG, EP_LOAD_SOUND_EXISTS_PAINT_OFF
         WIN_KEY   WIN_K_REFRESH, EP_LOAD_SOUND_EXISTS_REFRESH_SEG, EP_LOAD_SOUND_EXISTS_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 25h, 1dh, 13h, 00h, 07h, 4dh, 13h
+        db      00h
+d_c1_w_00da2:
+        db      25h, 1dh, 13h, 00h, 07h, 4dh, 13h
         db      "File name exists!"
         db      00h, 07h, 4dh, 1ch
         db      "Replace or rename?"
@@ -4199,19 +4278,24 @@ TBL_WINKEYS_SAVE_A_SOUND:
         WIN_KEY   WIN_K_F5, EP_SAVE_A_SOUND_SAVE_SEG, EP_SAVE_A_SOUND_SAVE_OFF
         WIN_KEY   WIN_K_PAINT, EP_SAVE_A_SOUND_PAINT_SEG, EP_SAVE_A_SOUND_PAINT_OFF
         WIN_KEY_END
+d_c1_w_00e0e:
         db      1ah, 04h, 02h
         db      43h, 41h, 4eh, 43h, 45h, 4ch, 00h
         WIN_SOFTKEY 5, 1, "SAVE"
         WIN_LABEL 29h, 13h, "File:"
         WIN_LABEL 29h, 25h, "File type:"
         WIN_END
+d_c1_w_00e38:
         db      47h, 13h, 78h, 01h, 00h, 42h, 01h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h
+d_c1_tbl_00e46:
         dw      EP_SAVE_SND_FIELD0_THUNK_OFF, EP_SAVE_SND_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_SAVE_SND_FIELD1_THUNK_OFF, EP_SAVE_SND_FIELD1_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 65h, 25h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h
+        db      00h
+d_c1_w_00e62:
+        db      65h, 25h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h
         dw      EP_SAVE_SND_FIELD1_THUNK_OFF, EP_SAVE_SND_FIELD1_THUNK_SEG
         dw      EP_SAVE_SND_FIELD0_THUNK_OFF, EP_SAVE_SND_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -4223,22 +4307,27 @@ TBL_WINKEYS_FILE_EXISTS:
         WIN_KEY   WIN_K_F5, EP_FILE_EXISTS_F5_SEG, EP_FILE_EXISTS_F5_OFF
         WIN_KEY   WIN_K_PAINT, EP_FILE_EXISTS_PAINT_SEG, EP_FILE_EXISTS_PAINT_OFF
         WIN_KEY_END
+d_c1_w_00eaa:
         db      1ah, 04h, 02h, 43h, 41h, 4eh, 43h
         db      45h, 4ch, 00h
         WIN_SOFTKEY 5, 1, "RENAME"
         WIN_BITMAP 1dh, 13h, 00h
         WIN_LABEL 4dh, 13h, "File name exists!"
         WIN_END
+d_c1_w_00ed8:
         WIN_SOFTKEY 3, 1, "REPLAC"
         WIN_LABEL 4dh, 1ch, "Replace or rename?"
         WIN_END
         db      00h
+d_c1_w_00efa:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F4, EP_L_469B6_SEG, EP_L_469B6_OFF
         WIN_KEY   WIN_K_F5, EP_X_3A862_SEG, EP_X_3A862_OFF
         WIN_KEY   WIN_K_PAINT, EP_L_469C4_SEG, EP_L_469C4_OFF
         WIN_KEY_END
-        db      00h, 1ah, 04h, 02h, 43h, 41h, 4eh, 43h, 45h, 4ch, 00h, 1ah, 05h, 01h
+        db      00h
+d_c1_w_00f14:
+        db      1ah, 04h, 02h, 43h, 41h, 4eh, 43h, 45h, 4ch, 00h, 1ah, 05h, 01h
         db      "WIPE"
         db      00h, 25h, 35h, 13h, 00h
 d_c0_w_00f2a:
@@ -4250,6 +4339,7 @@ d_c0_b_00f2d:
         db      00h, 07h, 4dh, 1ch
         db      "contents !!"
         db      00h, 00h
+d_c0_tbl_00f52:
         db      "0123456789 ABCDEFGHIJKLMNOPQRSTUVWXYZ#&-!"
         db      00h
 TBL_WINKEYS_5825C:
@@ -4259,6 +4349,7 @@ TBL_WINKEYS_5825C:
         WIN_KEY   WIN_K_F5, EP_L_46FD4_SEG, EP_L_46FD4_OFF
         WIN_KEY   WIN_K_PAINT, EP_L_460B0_SEG, EP_L_460B0_OFF
         WIN_KEY_END
+d_c2_w_00f9a:
         db      1ah, 03h, 01h, 53h, 4fh, 55h, 4eh
         db      44h, 00h
         WIN_SOFTKEY 4, 2, "CANCEL"
@@ -4270,13 +4361,22 @@ TBL_WINKEYS_5825C:
         if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         db      00h
-        dw      (C2_BASE+L_4713C-C1_SEG*16), C1_SEG
+d_c2_tbl_01000:
+        dw      (C2_BASE+L_4713C-C1_SEG*16)
+d_c2_tbl_01002:
+        dw      C1_SEG
         else
-        db      00h, 86h
+        db      00h
+d_c2_tbl_01000:
+        db      86h
         if      FW_VERSION >= 111
-        db      8fh, 86h, 3dh
+        db      8fh
+d_c2_tbl_01002:
+        db      86h, 3dh
         else
-        db      8fh, 76h, 3dh
+        db      8fh
+d_c2_tbl_01002:
+        db      76h, 3dh
         endif
         endif
         dw      EP_FAR_4714C_OFF, EP_FAR_4714C_SEG
@@ -4332,8 +4432,12 @@ TBL_WINKEYS_5825C:
         endif
         dw      (C2_BASE+L_4727C-C1_SEG*16), C1_SEG
         else
-        db      00h, 8ah
-        db      8fh, 28h, 3dh, 9ah, 8fh, 28h, 3dh, 0aah, 8fh, 28h, 3dh, 0bah, 8fh, 28h, 3dh, 0cah
+        db      00h
+d_c2_tbl_01000:
+        db      8ah
+        db      8fh
+d_c2_tbl_01002:
+        db      28h, 3dh, 9ah, 8fh, 28h, 3dh, 0aah, 8fh, 28h, 3dh, 0bah, 8fh, 28h, 3dh, 0cah
         db      8fh, 28h, 3dh, 0dah, 8fh
         db      28h, 3dh, 0eah, 8fh, 28h, 3dh, 0fah, 8fh, 28h, 3dh, 0ah
         db      90h, 28h, 3dh, 1ah, 90h, 28h, 3dh, 2ah
@@ -4395,7 +4499,9 @@ TBL_WINKEYS_CONVERSION_TABLE:
         WIN_KEY   WIN_K_F5, EP_CONVERSION_TABLE_LOAD_SEG, EP_CONVERSION_TABLE_LOAD_OFF
         WIN_KEY   WIN_K_PAINT, EP_CONVERSION_TABLE_PAINT_SEG, EP_CONVERSION_TABLE_PAINT_OFF
         WIN_KEY_END
-        db      00h, 1ah, 04h, 02h
+        db      00h
+d_c2_w_010a2:
+        db      1ah, 04h, 02h
         db      "CANCEL"
         db      00h, 1ah, 05h, 01h
         db      "LOAD"
@@ -4403,8 +4509,11 @@ TBL_WINKEYS_CONVERSION_TABLE:
         db      "MPC60 pad:"
         db      00h, 25h, 25h, 19h, 02h, 0ch, 37h, 1dh, 0aeh, 07h
         db      "C%Becomes note:"
-        db      00h, 00h, 7fh, 0fh, 5ah, 02h, 01h
+        db      00h, 00h
+d_c2_w_010dc:
+        db      7fh, 0fh, 5ah, 02h, 01h
         db      40h, 00h, 00h, 00h, 00h, 21h, 00h, 00h, 00h
+d_c2_tbl_010ea:
         dw      EP_CONV_TABLE_FOCUS_FIELD0_OFF, EP_CONV_TABLE_FOCUS_FIELD0_SEG
         db      00h, 00h, 00h
         db      00h
@@ -4448,13 +4557,18 @@ TBL_WINKEYS_LOAD_MPC60_SOUND:
         WIN_KEY   WIN_K_F5, EP_LOAD_MPC60_SOUND_DO_IT_SEG, EP_LOAD_MPC60_SOUND_DO_IT_OFF
         WIN_KEY   WIN_K_PAINT, EP_LOAD_MPC60_SOUND_PAINT_SEG, EP_LOAD_MPC60_SOUND_PAINT_OFF
         WIN_KEY_END
-        db      00h, 1ah, 04h, 02h, 43h, 41h, 4eh, 43h
+        db      00h
+d_c2_w_0114a:
+        db      1ah, 04h, 02h, 43h, 41h, 4eh, 43h
         db      45h, 4ch, 00h, 07h, 3fh, 14h
         db      "MPC60 pad:"
         db      00h, 07h
         db      "]$File:"
-        db      00h, 00h, 7dh, 14h, 5ah, 01h, 01h
+        db      00h, 00h
+d_c2_w_0116c:
+        db      7dh, 14h, 5ah, 01h, 01h
         db      40h, 00h, 00h, 00h, 00h, 21h, 00h, 00h, 00h
+d_c2_fp_0117a:
         dw      EP_L_47AA0_OFF, EP_L_47AA0_SEG
         db      00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -4466,6 +4580,7 @@ TBL_WINKEYS_CHANGE_DISK:
         WIN_KEY   WIN_K_F4, EP_CHANGE_DISK_F4_SEG, EP_CHANGE_DISK_F4_OFF
         WIN_KEY   WIN_K_F5, EP_CHANGE_DISK_F5_SEG, EP_CHANGE_DISK_F5_OFF
         WIN_KEY_END
+d_c2_w_011b4:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_LABEL 6eh, 14h, "Insert next disk"
@@ -4519,13 +4634,21 @@ TBL_WINKEYS_59524:
         WIN_KEY   WIN_K_RIGHT, EP_L_47A80_SEG, EP_L_47A80_OFF
         WIN_KEY   WIN_K_LEFT, EP_L_47A80_SEG, EP_L_47A80_OFF
         WIN_KEY_END
-        db      00h, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah
+        db      00h
+d_c2_tbl_012a2:
+        db      0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah
         db      0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah
         db      0ah, 0ah, 0ah, 0ah, 00h
-        dw      EP_FAR_4947C_OFF, EP_FAR_4947C_SEG
+d_c2_tbl_012c6:
+        dw      EP_FAR_4947C_OFF
+d_c2_tbl_012c8:
+        dw      EP_FAR_4947C_SEG
         dw      EP_FAR_49A84_OFF, EP_FAR_49A84_SEG
         dw      EP_FAR_49A8C_OFF, EP_FAR_49A8C_SEG
-        dw      (C2_BASE+L_4782A-C1_SEG*16), C1_SEG
+d_c2_tbl_012d2:
+        dw      (C2_BASE+L_4782A-C1_SEG*16)
+d_c2_tbl_012d4:
+        dw      C1_SEG
         dw      EP_FAR_49A94_OFF, EP_FAR_49A94_SEG
         dw      EP_FAR_49A98_OFF, EP_FAR_49A98_SEG
         dw      EP_L_49A9C_OFF, EP_L_49A9C_SEG
@@ -4570,28 +4693,43 @@ TBL_WINKEYS_SAMPLE_RECORDING:
         db      "Time:"
         db      00h, 07h, 97h, 0ah, 73h, 00h, 07h, 0a9h, 0ah
         db      "Pre-rec:___ms"
-        db      00h, 00h, 11h, 02h, 33h, 49h, 09h, 07h, 09h
+        db      00h, 00h
+d_c2_w_013a8:
+        db      11h, 02h, 33h, 49h, 09h, 07h, 09h
         db      "4RESET PEAK"
-        db      00h, 00h, 07h, 01h
+        db      00h, 00h
+d_c2_w_013bc:
+        db      07h, 01h
         db      "4Waiting for input signal..."
         db      00h, 1ah, 05h, 01h
         db      "CANCEL"
         db      00h, 1ah, 06h, 01h
         db      "START"
-        db      00h, 00h, 00h, 07h, 01h
+        db      00h, 00h, 00h
+d_c2_w_013f0:
+        db      07h, 01h
         db      "4Recording..."
         db      00h, 1ah, 05h, 01h
         db      "CANCEL"
         db      00h, 1ah, 06h, 01h
         db      "STOP"
-        db      00h, 00h, 00h, 07h, 55h, 15h
+        db      00h, 00h, 00h
+d_c2_w_01414:
+        db      07h, 55h, 15h
         db      "LEVEL METER"
         db      00h, 07h, 04h, 1eh
         db      "LEFT :"
         db      00h, 07h, 04h
         db      "'RIGHT:"
-        db      00h, 00h, 25h, 01h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h
-        db      00h, 01h, 00h, 00h, 00h
+        db      00h, 00h
+d_c2_w_01438:
+        db      25h, 01h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h
+        db      00h
+d_c2_w_01442:
+        db      01h, 00h
+d_c2_w_01444:
+        db      00h, 00h
+d_c2_tbl_01446:
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD0_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD0_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD3_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD3_SEG
@@ -4607,7 +4745,12 @@ TBL_FIELDS_1438:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD4_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD4_SEG
         dw      (C2_BASE+SAMPLE_RECORD_FOCUS_FIELD0-C1_SEG*16), C1_SEG, (C2_BASE+SAMPLE_RECORD_FOCUS_FIELD2-C1_SEG*16), C1_SEG, (C2_BASE+L_48E9C-C1_SEG*16), C1_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
-        db      0d9h, 01h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 05h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
+d_c2_w_0148c:
+        db      0d9h, 01h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h
+d_c2_w_01496:
+        db      05h, 00h
+d_c2_w_01498:
+        db      00h, 00h; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD2_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD2_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD5_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD5_SEG
@@ -4626,6 +4769,7 @@ TBL_FIELDS_1438:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD1_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD1_SEG
         db      62h, 0adh, 28h, 3dh, 42h, 0adh, 28h, 3dh, 00h, 00h, 00h, 00h
         endif
+d_c2_w_014b6:
         db      3dh, 0ah, 12h, 02h, 02h, 80h, 0c0h, 0ffh, 0ffh, 0ffh, 00h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 111
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD3_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD3_SEG, EP_SAMPLE_RECORD_FOCUS_FIELD0_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD0_SEG ; THUNK  PREV  NEXT
@@ -4640,7 +4784,12 @@ TBL_FIELDS_1438:                        ; 6 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD2_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD2_SEG, EP_SAMPLE_RECORD_FOCUS_FIELD4_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD4_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      79h, 0ah, 1eh, 04h, 12h, 00h, 00h, 00h, 00h, 00h, 0fh, 27h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
+d_c2_w_014e0:
+        db      79h, 0ah, 1eh, 04h, 12h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_014ea:
+        db      0fh, 27h
+d_c2_w_014ec:
+        db      00h, 00h; [4] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD4_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD4_SEG, EP_SAMPLE_RECORD_FOCUS_FIELD1_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD1_SEG, EP_SAMPLE_RECORD_FOCUS_FIELD0_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD0_SEG ; THUNK  PREV  NEXT
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD3_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD3_SEG, EP_SAMPLE_RECORD_FOCUS_FIELD5_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD5_SEG ; +1Ah..+21h  NOTIFY  ENTER
@@ -4656,6 +4805,7 @@ TBL_FIELDS_1438:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD5_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD5_SEG
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_0150a:
         db      0d9h, 0ah, 12h, 03h, 02h, 00h, 00h
         db      00h, 00h, 00h, 64h, 00h, 00h, 00h
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD5_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD5_SEG
@@ -4664,7 +4814,9 @@ TBL_FIELDS_1438:                        ; 6 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h
         dw      EP_SAMPLE_RECORD_FOCUS_FIELD4_OFF, EP_SAMPLE_RECORD_FOCUS_FIELD4_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 0d0h, 0d6h, 0dch, 0dfh, 0e2h, 0e4h, 0e5h, 0e7h, 0e8h, 0e9h, 0eah, 0ebh, 0ebh
+        db      00h, 00h, 00h
+d_c2_tbl_01534:
+        db      0d0h, 0d6h, 0dch, 0dfh, 0e2h, 0e4h, 0e5h, 0e7h, 0e8h, 0e9h, 0eah, 0ebh, 0ebh
         db      0ech, 0edh, 0edh, 0eeh, 0eeh, 0efh, 0efh, 0f0h, 0f0h, 0f1h, 0f1h, 0f1h, 0f2h, 0f2h, 0f2h, 0f3h
         db      0f3h, 0f3h, 0f4h, 0f4h, 0f4h, 0f4h, 0f5h, 0f5h, 0f5h, 0f5h, 0f6h, 0f6h, 0f6h, 0f6h, 0f7h, 0f7h
         db      0f7h, 0f7h, 0f7h, 0f7h, 0f8h, 0f8h, 0f8h, 0f8h, 0f8h, 0f9h, 0f9h, 0f9h, 0f9h, 0f9h, 0f9h, 0f9h
@@ -4677,23 +4829,47 @@ TBL_FIELDS_1438:                        ; 6 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 10h, 00h, 01h, 00h, 10h, 0ffh, 0ffh, 1fh, 00h, 00h, 0f0h, 40h, 11h, 00h
         db      00h, 00h, 00h, 0e1h, 02h, 1ah, 74h, 0ffh, 0ffh, 0ffh, 3fh, 47h, 01h, 0f0h, 7fh, 80h
-        db      80h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      80h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_0160c:
+        db      00h, 00h
 TBL_WINKEYS_SOUND_MEMORY:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, EP_SOUND_MEMORY_PAINT_SEG, EP_SOUND_MEMORY_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_SOUND_MEMORY_CLOSE_SEG, EP_SOUND_MEMORY_CLOSE_OFF
         WIN_KEY   WIN_K_F4, EP_SOUND_MEMORY_CLOSE_SEG, EP_SOUND_MEMORY_CLOSE_OFF
         WIN_KEY_END
-        db      00h, 1ah, 04h, 02h, 43h, 4ch, 4fh, 53h, 45h, 00h
+        db      00h
+d_c2_w_01628:
+        db      1ah, 04h, 02h, 43h, 4ch, 4fh, 53h, 45h, 00h
         db      07h, 31h, 0ch
         db      "Free memory(time):"
         db      00h, 07h, 0bbh, 0ch, 73h, 65h, 63h, 00h, 07h
         db      "O(Megabytes instal"
         db      6ch, 65h, 64h, 00h, 11h, 17h, 19h, 0c8h, 0ah, 0bh, 16h, 17h, 0cah, 0bh, 16h, 24h
         db      0cah, 0eh, 15h, 18h, 0ch, 0eh, 0e0h, 18h, 0dh, 0bh, 17h, 25h, 0cah, 0eh, 0e1h, 19h
-        db      0ch, 00h, 00h, 0ch, 17h, 1ah, 0c8h, 0ch, 18h, 1bh, 0c7h, 0ch, 17h, 1ch, 0c8h, 0ch
-        db      18h, 1dh, 0c7h, 0ch, 17h, 1eh, 0c8h, 0ch, 18h, 1fh, 0c7h, 0ch, 17h, 20h, 0c8h, 0ch
-        db      18h, 21h, 0c7h, 00h, 00h, 01h, 00h, 00h, 00h, 00h, 03h
+        db      0ch, 00h, 00h
+d_c2_w_01684:
+        db      0ch, 17h, 1ah
+d_c2_b_01687:
+        db      0c8h, 0ch, 18h, 1bh
+d_c2_b_0168b:
+        db      0c7h, 0ch, 17h, 1ch
+d_c2_b_0168f:
+        db      0c8h, 0ch
+        db      18h, 1dh
+d_c2_b_01693:
+        db      0c7h, 0ch, 17h, 1eh
+d_c2_b_01697:
+        db      0c8h, 0ch, 18h, 1fh
+d_c2_b_0169b:
+        db      0c7h, 0ch, 17h, 20h
+d_c2_b_0169f:
+        db      0c8h, 0ch
+        db      18h, 21h
+d_c2_b_016a3:
+        db      0c7h, 00h, 00h
+d_c2_w_016a6:
+        db      01h, 00h, 00h, 00h, 00h, 03h
         dw      EP_FAR_49C88_OFF, EP_FAR_49C88_SEG
         db      05h
         dw      EP_L_493B2_OFF, EP_L_493B2_SEG
@@ -4704,6 +4880,7 @@ TBL_WINKEYS_KEEP_OR_RETRY:
         WIN_KEY   WIN_K_PAINT, EP_KEEP_OR_RETRY_PAINT_SEG, EP_KEEP_OR_RETRY_PAINT_OFF
         WIN_KEY   WIN_K_REFRESH, EP_KEEP_OR_RETRY_REFRESH_SEG, EP_KEEP_OR_RETRY_REFRESH_OFF
         WIN_KEY_END
+d_c2_w_016ce:
         db      1ah, 02h, 01h
         db      52h, 45h, 54h, 52h, 59h, 00h
         WIN_SOFTKEY 4, 1, "PLAY"
@@ -4711,7 +4888,9 @@ TBL_WINKEYS_KEEP_OR_RETRY:
         WIN_LABEL 13h, 13h, "Name for new sound:"
         WIN_LABEL 2bh, 25h, "Assign to note:"
         WIN_END
+d_c2_w_01712:
         db      85h, 13h, 60h, 01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_01720:
         dw      EP_L_49E60_OFF, EP_L_49E60_SEG
         db      00h, 00h, 00h, 00h
         dw      (C2_BASE+L_49E84-C1_SEG*16), C1_SEG
@@ -4763,17 +4942,25 @@ TBL_WINKEYS_TRIM:
         WIN_LABEL 62h, 0ch, "End:"
         WIN_LABEL 0b6h, 0ch, "View:"
         WIN_END
-        db      00h, 1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_w_01802:
+        db      1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_01810:
         dw      EP_TRIM_FOCUS_SOUND_OFF, EP_TRIM_FOCUS_SOUND_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_TRIM_FOCUS_START_OFF, EP_TRIM_FOCUS_START_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_TRIM_FOCUS_PLAY_X_OFF, EP_TRIM_FOCUS_PLAY_X_SEG
         dw      (C2_BASE+far_4A176-C1_SEG*16), C1_SEG
+d_c2_tbl_01828:
         if      FW_VERSION >= 112
-        dw      EP_FAR_4A182_OFF, C1_SEG
+        dw      EP_FAR_4A182_OFF
+d_c2_tbl_0182a:
+        dw      C1_SEG
         else
-        dw      EP_FAR_49824_OFF, C1_SEG
+        dw      EP_FAR_49824_OFF
+d_c2_tbl_0182a:
+        dw      C1_SEG
         endif
 TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
@@ -4782,18 +4969,21 @@ TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
         dw      EP_TRIM_FOCUS_VIEW_OFF, EP_TRIM_FOCUS_VIEW_SEG
         dw      EP_TRIM_FOCUS_SOUND_OFF, EP_TRIM_FOCUS_SOUND_SEG, EP_TRIM_FOCUS_START_OFF, EP_TRIM_FOCUS_START_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_01856:
         db      1ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      (C2_BASE+TRIM_FOCUS_START-C1_SEG*16), C1_SEG, (C2_BASE+TRIM_FOCUS_SOUND-C1_SEG*16), C1_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_TRIM_FOCUS_PLAY_X_OFF, EP_TRIM_FOCUS_PLAY_X_SEG, EP_TRIM_FOCUS_END_OFF, EP_TRIM_FOCUS_END_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_L_4AF92_OFF, EP_L_4AF92_SEG
+d_c2_w_01880:
         db      7ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_TRIM_FOCUS_END_OFF, EP_TRIM_FOCUS_END_SEG, EP_TRIM_FOCUS_SOUND_OFF, EP_TRIM_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_TRIM_FOCUS_START_OFF, EP_TRIM_FOCUS_START_SEG, EP_TRIM_FOCUS_VIEW_OFF, EP_TRIM_FOCUS_VIEW_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_L_4B3B2_OFF, EP_L_4B3B2_SEG
+d_c2_w_018aa:
         db      0d4h, 0ch, 1eh, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_TRIM_FOCUS_VIEW_OFF, EP_TRIM_FOCUS_VIEW_SEG, EP_TRIM_FOCUS_PLAY_X_OFF, EP_TRIM_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -4801,8 +4991,12 @@ TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
         db      00h, 00h, 00h, 00h
         dw      EP_L_4A1EA_OFF, EP_L_4A1EA_SEG
         db      00h, 00h, 00h, 00h
+d_c2_w_018d4:
         db      00h, 00h
-        dw      (C1_BASE+sound_cmp_name-C1_SEG*16), C1_SEG
+d_c2_tbl_018d6:
+        dw      (C1_BASE+sound_cmp_name-C1_SEG*16)
+d_c2_tbl_018d8:
+        dw      C1_SEG
         dw      EP_SOUND_CMP_SIZE_OFF, EP_SOUND_CMP_SIZE_SEG
         dw      EP_FAR_4029A_OFF, EP_FAR_4029A_SEG
         if      FW_VERSION >= 112
@@ -4818,14 +5012,23 @@ TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
         db      "EMORY"
         db      00h, 00h
         if      FW_VERSION >= 114
-        dw      (C2_BASE+far_4A030-C1_SEG*16), C1_SEG
+d_c2_tbl_018f8:
+        dw      (C2_BASE+far_4A030-C1_SEG*16)
+d_c2_tbl_018fa:
+        dw      C1_SEG
         dw      (C2_BASE+L_4AF6E-C1_SEG*16), C1_SEG
         else
-        dw      (C2_BASE+L_4A76A-C1_SEG*16), C1_SEG, (C2_BASE+L_4A76E-C1_SEG*16), C1_SEG
+d_c2_tbl_018f8:
+        dw      (C2_BASE+L_4A76A-C1_SEG*16)
+d_c2_tbl_018fa:
+        dw      C1_SEG, (C2_BASE+L_4A76E-C1_SEG*16), C1_SEG
         endif
         else
         db      45h, 4dh, 4fh, 52h, 59h, 00h, 00h
-        dw      (C2_BASE+L_4A76A-C1_SEG*16), C1_SEG
+d_c2_tbl_018f8:
+        dw      (C2_BASE+L_4A76A-C1_SEG*16)
+d_c2_tbl_018fa:
+        dw      C1_SEG
         if      FW_VERSION >= 111
         db      0b0h, 0cdh, 86h, 3dh
         else
@@ -4835,16 +5038,22 @@ TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
         dw      (C2_BASE+L_4AF74-C1_SEG*16), C1_SEG
         else
         db      45h, 4dh, 4fh, 52h, 59h, 00h, 00h
-        dw      (C2_BASE+L_4A76A-C1_SEG*16), C1_SEG
+d_c2_tbl_018f8:
+        dw      (C2_BASE+L_4A76A-C1_SEG*16)
+d_c2_tbl_018fa:
+        dw      C1_SEG
         db      0b4h, 0cdh, 28h, 3dh, 0bah
         db      0cdh, 28h, 3dh
         endif
         dw      EP_FAR_4AF7E_OFF, EP_FAR_4AF7E_SEG
         if      FW_VERSION >= 110
         dw      EP_FAR_4AF88_OFF, EP_FAR_4AF88_SEG
+d_c2_w_0190c:
         db      01h, 00h, 00h, 00h, 00h
         else
-        db      0ceh, 0cdh, 28h, 3dh, 01h, 00h, 00h, 00h, 00h
+        db      0ceh, 0cdh, 28h, 3dh
+d_c2_w_0190c:
+        db      01h, 00h, 00h, 00h, 00h
         endif
         db      03h
         dw      EP_FAR_4AFFC_OFF, EP_FAR_4AFFC_SEG
@@ -4866,7 +5075,9 @@ TBL_WINKEYS_START_FINE:
         WIN_KEY   WIN_K_OPEN, EP_START_FINE_OPEN_SEG, EP_START_FINE_OPEN_OFF
         WIN_KEY   WIN_K_REFRESH, EP_START_FINE_REFRESH_SEG, EP_START_FINE_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h, 1ah, 03h, 01h, 5ah
+        db      00h
+d_c2_w_01944:
+        db      1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h, 1ah, 03h, 01h, 5ah
         db      "OOM+"
         db      00h, 1ah, 04h, 02h
         db      "CLOSE"
@@ -4879,8 +5090,11 @@ TBL_WINKEYS_START_FINE:
         db      00h, 07h, 8bh, 1fh
         db      "Smpl Lngth:"
         db      00h, 07h, 8bh, 28h, 50h, 4ch
-        db      41h, 59h, 20h, 58h, 3ah, 00h, 00h, 0b5h, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h
+        db      41h, 59h, 20h, 58h, 3ah, 00h, 00h
+d_c2_w_01998:
+        db      0b5h, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h
+d_c2_tbl_019a6:
         dw      EP_L_4B110_OFF, EP_L_4B110_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4B13C_OFF, EP_L_4B13C_SEG
@@ -4892,10 +5106,12 @@ TBL_FIELDS_1998:                        ; 3 x FIELD_SIZE; the part of the array 
         db      0cdh, 1fh, 18h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B13C_OFF, EP_L_4B13C_SEG, EP_L_4B110_OFF, EP_L_4B110_SEG, EP_L_4B154_OFF, EP_L_4B154_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_019ec:
         db      0b5h, 28h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B154_OFF, EP_L_4B154_SEG, EP_L_4B13C_OFF, EP_L_4B13C_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_01a16:
         db      01h, 00h, 00h, 00h, 00h, 03h
         dw      EP_L_4AABE_OFF, EP_L_4AABE_SEG
         db      04h
@@ -4916,7 +5132,9 @@ TBL_WINKEYS_END_FINE:
         WIN_KEY   WIN_K_OPEN, EP_END_FINE_OPEN_SEG, EP_END_FINE_OPEN_OFF
         WIN_KEY   WIN_K_REFRESH, EP_END_FINE_REFRESH_SEG, EP_END_FINE_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h
+        db      00h
+d_c2_w_01a4e:
+        db      1ah, 02h, 01h
         db      "ZOOM-"
         db      00h, 1ah, 03h, 01h
         db      "ZOOM+"
@@ -4932,8 +5150,11 @@ TBL_WINKEYS_END_FINE:
         db      "Smpl Lngth:"
         db      00h, 07h, 8bh
         db      "(PLAY X:"
-        db      00h, 00h, 0b5h
+        db      00h, 00h
+d_c2_w_01aa0:
+        db      0b5h
         db      0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_01aae:
         dw      EP_L_4B530_OFF, EP_L_4B530_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4B55C_OFF, EP_L_4B55C_SEG
@@ -4945,10 +5166,12 @@ TBL_FIELDS_1AA0:                        ; 3 x FIELD_SIZE; the part of the array 
         db      0cdh, 1fh, 18h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B55C_OFF, EP_L_4B55C_SEG, EP_L_4B530_OFF, EP_L_4B530_SEG, EP_L_4B574_OFF, EP_L_4B574_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_01af4:
         db      0b5h, 28h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B574_OFF, EP_L_4B574_SEG, EP_L_4B55C_OFF, EP_L_4B55C_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_01b1e:
         db      01h, 00h, 00h
         db      00h, 00h, 03h
         dw      EP_FAR_4B62A_OFF, EP_FAR_4B62A_SEG
@@ -4970,7 +5193,9 @@ TBL_WINKEYS_LOOP_FINE:
         WIN_KEY   WIN_K_OPEN, EP_LOOP_FINE_CLOSE_SEG, EP_LOOP_FINE_CLOSE_OFF
         WIN_KEY   WIN_K_REFRESH, EP_LOOP_FINE_REFRESH_SEG, EP_LOOP_FINE_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h, 1ah, 03h
+        db      00h
+d_c2_w_01b56:
+        db      1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h, 1ah, 03h
         db      01h
         db      "ZOOM+"
         db      00h, 1ah, 04h, 02h
@@ -4983,8 +5208,11 @@ TBL_WINKEYS_LOOP_FINE:
         db      "Loop Lngth:"
         db      00h, 07h, 8bh
         db      "(PLA"
-        db      59h, 20h, 58h, 3ah, 00h, 00h, 00h, 0b5h, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h
+        db      59h, 20h, 58h, 3ah, 00h, 00h, 00h
+d_c2_w_01ba8:
+        db      0b5h, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h
+d_c2_tbl_01bb6:
         dw      EP_L_4B752_OFF, EP_L_4B752_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4B788_OFF, EP_L_4B788_SEG
@@ -4998,13 +5226,16 @@ TBL_FIELDS_1BA8:                        ; 4 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_L_4B79C_OFF, EP_L_4B79C_SEG
         db      00h, 00h, 00h, 00h
+d_c2_w_01bfc:
         db      0cdh, 1fh, 18h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B7BE_OFF, EP_L_4B7BE_SEG, EP_L_4B788_OFF, EP_L_4B788_SEG, EP_L_4B7D6_OFF, EP_L_4B7D6_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_01c26:
         db      0b5h, 28h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B7D6_OFF, EP_L_4B7D6_SEG, EP_L_4B7BE_OFF, EP_L_4B7BE_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_01c50:
         db      01h
         db      00h, 00h, 00h, 00h, 03h
         dw      EP_FAR_4B866_OFF, EP_FAR_4B866_SEG
@@ -5026,7 +5257,9 @@ TBL_WINKEYS_LOOP_END_FINE:
         WIN_KEY   WIN_K_OPEN, EP_LOOP_END_FINE_OPEN_SEG, EP_LOOP_END_FINE_OPEN_OFF
         WIN_KEY   WIN_K_REFRESH, EP_LOOP_END_FINE_REFRESH_SEG, EP_LOOP_END_FINE_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h
+        db      00h
+d_c2_w_01c88:
+        db      1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h
         db      1ah, 03h, 01h
         db      "ZOOM+"
         db      00h, 1ah, 04h, 02h
@@ -5041,8 +5274,11 @@ TBL_WINKEYS_LOOP_END_FINE:
         db      "Loop Lngth:"
         db      00h, 07h, 8bh
         db      "(PLAY X:"
-        db      00h, 00h, 0b5h, 0ch, 30h, 08h, 04h, 10h, 00h
+        db      00h, 00h
+d_c2_w_01cda:
+        db      0b5h, 0ch, 30h, 08h, 04h, 10h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_01ce8:
         dw      EP_L_4B970_OFF, EP_L_4B970_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4B99C_OFF, EP_L_4B99C_SEG
@@ -5066,6 +5302,7 @@ TBL_FIELDS_1CDA:                        ; 4 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_L_4B9B0_OFF, EP_L_4B9B0_SEG
         db      00h, 00h, 00h, 00h
+d_c2_w_01d2e:
         db      0cdh, 1fh, 18h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
         dw      EP_L_4B9C8_OFF, EP_L_4B9C8_SEG, EP_L_4B99C_OFF, EP_L_4B99C_SEG, EP_L_4B9E0_OFF, EP_L_4B9E0_SEG ; THUNK  PREV  NEXT
@@ -5075,6 +5312,7 @@ TBL_FIELDS_1CDA:                        ; 4 x FIELD_SIZE; the part of the array 
         dw      (C2_BASE+L_4B9E0-C1_SEG*16), C1_SEG
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_01d58:
         db      0b5h, 28h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4B9E0_OFF, EP_L_4B9E0_SEG, EP_L_4B9C8_OFF, EP_L_4B9C8_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -5111,6 +5349,7 @@ TBL_WINKEYS_LOOP:
         WIN_KEY   WIN_K_OPEN, EP_LOOP_SCREEN_OPEN_SEG, EP_LOOP_SCREEN_OPEN_OFF
         WIN_KEY   WIN_K_REFRESH, EP_LOOP_SCREEN_REFRESH_SEG, EP_LOOP_SCREEN_REFRESH_OFF
         WIN_KEY_END
+d_c2_w_01dd2:
         WIN_CLEAR
         WIN_SOFTKEY 1, 2, "TRIM"
         WIN_SOFTKEY 2, 0, "LOOP"
@@ -5121,8 +5360,11 @@ TBL_WINKEYS_LOOP:
         WIN_LABEL 08h, 0ch, "To:"
         WIN_LABEL 0b6h, 0ch, "Loop:"
         WIN_END
-        db      00h, 1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_w_01e16:
+        db      1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h
+d_c2_tbl_01e24:
         dw      EP_LOOP_FOCUS_SOUND_OFF, EP_LOOP_FOCUS_SOUND_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_LOOP_FOCUS_TO_OFF, EP_LOOP_FOCUS_TO_SEG
@@ -5130,7 +5372,10 @@ TBL_WINKEYS_LOOP:
         db      00h, 00h, 00h
         dw      EP_LOOP_FOCUS_PLAY_X_OFF, EP_LOOP_FOCUS_PLAY_X_SEG
         dw      EP_FAR_4BC9E_OFF, EP_FAR_4BC9E_SEG
-        dw      EP_FAR_4BCAA_OFF, EP_FAR_4BCAA_SEG
+d_c2_tbl_01e3c:
+        dw      EP_FAR_4BCAA_OFF
+d_c2_tbl_01e3e:
+        dw      EP_FAR_4BCAA_SEG
 TBL_FIELDS_1E40:                        ; 5 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_PLAY_X_OFF, EP_LOOP_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5138,12 +5383,14 @@ TBL_FIELDS_1E40:                        ; 5 x FIELD_SIZE
         dw      EP_LOOP_FOCUS_LOOP_ON_OFF, EP_LOOP_FOCUS_LOOP_ON_SEG
         dw      EP_LOOP_FOCUS_SOUND_OFF, EP_LOOP_FOCUS_SOUND_SEG, EP_LOOP_FOCUS_TO_OFF, EP_LOOP_FOCUS_TO_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_01e6a:
         db      1ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_TO_OFF, EP_LOOP_FOCUS_TO_SEG, EP_LOOP_FOCUS_SOUND_OFF, EP_LOOP_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_LOOP_FOCUS_PLAY_X_OFF, EP_LOOP_FOCUS_PLAY_X_SEG, EP_LOOP_FOCUS_LOCK_OFF, EP_LOOP_FOCUS_LOCK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_L_4AF96_OFF, EP_L_4AF96_SEG
+d_c2_w_01e94:
         db      56h, 0ch, 1eh, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_LOCK_OFF, EP_LOOP_FOCUS_LOCK_SEG, EP_LOOP_FOCUS_SOUND_OFF, EP_LOOP_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -5154,6 +5401,7 @@ TBL_FIELDS_1E40:                        ; 5 x FIELD_SIZE
         else
         dw      EP_FAR_4A8C2_OFF, C1_SEG
         endif
+d_c2_w_01ebe:
         db      7ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_LENGTH_OFF, EP_LOOP_FOCUS_LENGTH_SEG, EP_LOOP_FOCUS_SOUND_OFF, EP_LOOP_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -5164,6 +5412,7 @@ TBL_FIELDS_1E40:                        ; 5 x FIELD_SIZE
         else
         dw      EP_FAR_4A8C2_OFF, C1_SEG
         endif
+d_c2_w_01ee8:
         db      0d4h, 0ch, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_LOOP_ON_OFF, EP_LOOP_FOCUS_LOOP_ON_SEG, EP_LOOP_FOCUS_PLAY_X_OFF, EP_LOOP_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -5222,8 +5471,11 @@ TBL_WINKEYS_SND_PARAMS:
         WIN_LABEL 55h, 23h, "FUNCTION"
         WIN_LABEL 0b5h, 11h, "Beat:"
         WIN_END
-        db      00h, 1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h
+d_c2_w_01fc4:
+        db      1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_tbl_01fd2:
         dw      EP_SND_PARAMS_FOCUS_SOUND_OFF, EP_SND_PARAMS_FOCUS_SOUND_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_SND_PARAMS_FOCUS_LEVEL_OFF, EP_SND_PARAMS_FOCUS_LEVEL_SEG
@@ -5231,7 +5483,10 @@ TBL_WINKEYS_SND_PARAMS:
         db      00h
         dw      EP_SND_PARAMS_FOCUS_PLAY_X_OFF, EP_SND_PARAMS_FOCUS_PLAY_X_SEG
         dw      EP_L_4BFDE_OFF, EP_L_4BFDE_SEG
-        dw      EP_FAR_4BFEA_OFF, EP_FAR_4BFEA_SEG
+d_c2_tbl_01fea:
+        dw      EP_FAR_4BFEA_OFF
+d_c2_tbl_01fec:
+        dw      EP_FAR_4BFEA_SEG
 TBL_FIELDS_1FEE:                        ; 4 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SND_PARAMS_FOCUS_PLAY_X_OFF, EP_SND_PARAMS_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5239,20 +5494,24 @@ TBL_FIELDS_1FEE:                        ; 4 x FIELD_SIZE
         dw      EP_SND_PARAMS_FOCUS_BEAT_OFF, EP_SND_PARAMS_FOCUS_BEAT_SEG
         dw      EP_SND_PARAMS_FOCUS_SOUND_OFF, EP_SND_PARAMS_FOCUS_SOUND_SEG, EP_SND_PARAMS_FOCUS_LEVEL_OFF, EP_SND_PARAMS_FOCUS_LEVEL_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_02018:
         db      31h, 13h, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 0c8h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SND_PARAMS_FOCUS_LEVEL_OFF, EP_SND_PARAMS_FOCUS_LEVEL_SEG, EP_SND_PARAMS_FOCUS_SOUND_OFF, EP_SND_PARAMS_FOCUS_SOUND_SEG, EP_SND_PARAMS_FOCUS_TUNE_OFF, EP_SND_PARAMS_FOCUS_TUNE_SEG ; THUNK  PREV  NEXT
         dw      EP_SND_PARAMS_FOCUS_PLAY_X_OFF, EP_SND_PARAMS_FOCUS_PLAY_X_SEG, EP_SND_PARAMS_FOCUS_BEAT_OFF, EP_SND_PARAMS_FOCUS_BEAT_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_02042:
         db      2bh, 23h, 18h, 03h, 01h, 80h, 88h, 0ffh, 0ffh, 0ffh, 78h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SND_PARAMS_FOCUS_TUNE_OFF, EP_SND_PARAMS_FOCUS_TUNE_SEG, EP_SND_PARAMS_FOCUS_LEVEL_OFF, EP_SND_PARAMS_FOCUS_LEVEL_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_SND_PARAMS_FOCUS_BEAT_OFF, EP_SND_PARAMS_FOCUS_BEAT_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_0206c:
         db      0d3h, 11h, 0ch, 02h, 01h, 00h, 01h, 00h, 00h, 00h, 20h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SND_PARAMS_FOCUS_BEAT_OFF, EP_SND_PARAMS_FOCUS_BEAT_SEG, EP_SND_PARAMS_FOCUS_PLAY_X_OFF, EP_SND_PARAMS_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_SND_PARAMS_FOCUS_LEVEL_OFF, EP_SND_PARAMS_FOCUS_LEVEL_SEG, EP_SND_PARAMS_FOCUS_TUNE_OFF, EP_SND_PARAMS_FOCUS_TUNE_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_02096:
         db      01h, 00h, 00h, 00h, 00h, 03h
         dw      (C2_BASE+L_4B848-C1_SEG*16), C1_SEG
 TBL_WINKEYS_SOUND_SPEC:
@@ -5262,6 +5521,7 @@ TBL_WINKEYS_SOUND_SPEC:
         WIN_KEY   WIN_K_PAINT, EP_SOUND_SPEC_PAINT_SEG, EP_SOUND_SPEC_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_SOUND_SPEC_OPEN_SEG, EP_SOUND_SPEC_OPEN_OFF
         WIN_KEY_END
+d_c0_w_020be:
         db      1ah, 02h, 01h
         db      44h, 45h, 4ch, 45h, 54h, 45h, 00h
         WIN_SOFTKEY 3, 1, "CONVRT"
@@ -5274,8 +5534,10 @@ TBL_WINKEYS_SOUND_SPEC:
         WIN_LABEL 0cdh, 1eh, "Hz"
         WIN_LABEL 8bh, 27h, "Size:"
         WIN_END
+d_c2_w_0211a:
         db      67h, 0dh, 60h, 01h, 00h, 41h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_fp_02128:
         dw      EP_L_4B7CE_OFF, EP_L_4B7CE_SEG
         db      00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -5290,7 +5552,9 @@ TBL_WINKEYS_DELETE_SOUND:
         WIN_KEY   WIN_K_PAINT, EP_DELETE_SOUND_PAINT_SEG, EP_DELETE_SOUND_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_DELETE_SOUND_CANCEL_SEG, EP_DELETE_SOUND_CANCEL_OFF
         WIN_KEY_END
-        db      00h, 1ah, 03h, 01h, 41h, 4ch, 4ch, 00h, 1ah, 04h
+        db      00h
+d_c2_w_02168:
+        db      1ah, 03h, 01h, 41h, 4ch, 4ch, 00h, 1ah, 04h
         db      02h
         db      "CANCEL"
         db      00h, 1ah, 05h, 01h
@@ -5299,8 +5563,11 @@ TBL_WINKEYS_DELETE_SOUND:
         db      "Pressing DO IT will erase"
         db      00h, 07h
         db      "7'this sound "
-        db      21h, 21h, 00h, 00h, 00h, 61h, 11h, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h
+        db      21h, 21h, 00h, 00h, 00h
+d_c2_w_021b6:
+        db      61h, 11h, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h
+d_c2_fp_021c4:
         dw      EP_FAR_4C2D0_OFF, EP_FAR_4C2D0_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h
@@ -5317,6 +5584,7 @@ TBL_WINKEYS_DELETE_ALL_SOUNDS:
         WIN_KEY   WIN_K_PAINT, EP_DELETE_ALL_SOUNDS_PAINT_SEG, EP_DELETE_ALL_SOUNDS_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_DELETE_ALL_SOUNDS_OPEN_SEG, EP_DELETE_ALL_SOUNDS_OPEN_OFF
         WIN_KEY_END
+d_c2_w_021fe:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_BITMAP 0d9h, 1ch, 01h
@@ -5332,21 +5600,27 @@ TBL_WINKEYS_COPY_SOUND:
         WIN_KEY   WIN_K_F4, EP_COPY_SOUND_CANCEL_SEG, EP_COPY_SOUND_CANCEL_OFF
         WIN_KEY   WIN_K_F5, EP_COPY_SOUND_DO_IT_SEG, EP_COPY_SOUND_DO_IT_OFF
         WIN_KEY_END
+d_c2_w_02266:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_BITMAP 85h, 19h, 02h
         WIN_LABEL 97h, 1ch, "COPY"
         WIN_LABEL 3dh, 28h, "New Name:"
         WIN_END
-        db      00h, 73h, 10h, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h
+d_c2_w_02294:
+        db      73h, 10h, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_tbl_022a2:
         dw      EP_FAR_4C514_OFF, EP_FAR_4C514_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4BBE8_OFF, EP_L_4BBE8_SEG
         db      00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h
         dw      EP_L_4BBCE_OFF, EP_L_4BBCE_SEG
-        db      00h, 00h, 00h, 00h, 73h, 28h, 60h
+        db      00h, 00h, 00h, 00h
+d_c2_w_022be:
+        db      73h, 28h, 60h
         db      01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_L_4BBE8_OFF, EP_L_4BBE8_SEG
         dw      EP_FAR_4C514_OFF, EP_FAR_4C514_SEG
@@ -5360,13 +5634,18 @@ TBL_WINKEYS_COPY_SOUND:
         dw      EP_FAR_4C5DA_OFF, EP_FAR_4C5DA_SEG
         db      15h
         dw      EP_L_4C59E_OFF, EP_L_4C59E_SEG
-        db      000h, 000h, 000h, 000h, 000h, 01ah, 004h, 002h, "CANCEL", 000h, 01ah
+        db      000h, 000h, 000h, 000h, 000h
+d_c2_w_02306:
+        db      01ah, 004h, 002h, "CANCEL", 000h, 01ah
         db      05h, 01h
         db      "NEXT"
         db      00h, 07h, 4fh, 1ch
         db      "Conver"
-        db      74h, 3ah, 00h, 00h, 00h, 7fh, 1ch, 54h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h
+        db      74h, 3ah, 00h, 00h, 00h
+d_c2_w_02326:
+        db      7fh, 1ch, 54h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h
         db      00h, 00h, 00h
+d_c2_fp_02334:
         dw      EP_L_4C63A_OFF, EP_L_4C63A_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -5377,6 +5656,7 @@ TBL_WINKEYS_MONO_TO_STEREO:
         WIN_KEY   WIN_K_PAINT, EP_MONO_TO_STEREO_PAINT_SEG, EP_MONO_TO_STEREO_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_MONO_TO_STEREO_OPEN_SEG, EP_MONO_TO_STEREO_OPEN_OFF
         WIN_KEY_END
+d_c2_w_0236e:
         db      1ah, 04h, 02h
         db      43h, 41h, 4eh, 43h, 45h, 4ch, 00h
         WIN_RULE  0ch, 35h, 19h, 0b9h
@@ -5384,18 +5664,25 @@ TBL_WINKEYS_MONO_TO_STEREO:
         WIN_LABEL 55h, 1eh, "R source:"
         WIN_LABEL 43h, 28h, "New ST name:"
         WIN_END
-        db      00h, 8bh, 0fh, 60h, 01h, 00h, 42h, 01h, 00h, 00h
+        db      00h
+d_c2_w_023a8:
+        db      8bh, 0fh, 60h, 01h, 00h, 42h, 01h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h
+d_c2_fp_023b6:
         dw      EP_L_4BEA8_OFF, EP_L_4BEA8_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4C81E_OFF, EP_L_4C81E_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 8bh, 1eh, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_w_023d2:
+        db      8bh, 1eh, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_L_4C81E_OFF, EP_L_4C81E_SEG
         dw      EP_L_4BEA8_OFF, EP_L_4BEA8_SEG
         dw      EP_L_4BED8_OFF, EP_L_4BED8_SEG
         db      00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 8bh, 28h, 60h, 01h, 00h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_023fc:
+        db      8bh, 28h, 60h, 01h, 00h
         db      41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_L_4BED8_OFF, EP_L_4BED8_SEG
         dw      EP_L_4C81E_OFF, EP_L_4C81E_SEG
@@ -5409,14 +5696,18 @@ TBL_WINKEYS_STEREO_TO_MONO:
         WIN_KEY   WIN_K_PAINT, EP_STEREO_TO_MONO_PAINT_SEG, EP_STEREO_TO_MONO_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_STEREO_TO_MONO_CANCEL_SEG, EP_STEREO_TO_MONO_CANCEL_OFF
         WIN_KEY_END
+d_c2_w_02444:
         WIN_LABEL 37h, 0fh, "Stereo source:"
         WIN_LABEL 49h, 1eh, "New L name:"
         WIN_LABEL 49h, 28h, "New R name:"
         WIN_RULE  0ch, 35h, 19h, 0b9h
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_END
-        db      00h, 8bh, 0fh, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h
+d_c2_w_02484:
+        db      8bh, 0fh, 60h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_fp_02492:
         dw      EP_ST_TO_MONO_FOCUS_SOURCE_OFF, EP_ST_TO_MONO_FOCUS_SOURCE_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_ST_TO_MONO_FOCUS_L_NAME_OFF, EP_ST_TO_MONO_FOCUS_L_NAME_SEG
@@ -5434,13 +5725,19 @@ TBL_FIELDS_24AE:                        ; 2 x FIELD_SIZE
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_NAME_FIELD_ENTER_OFF, EP_NAME_FIELD_ENTER_SEG
         db      00h, 00h, 00h, 00h
+d_c2_w_024d8:
         db      8bh, 28h, 60h, 01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_ST_TO_MONO_FOCUS_R_NAME_OFF, EP_ST_TO_MONO_FOCUS_R_NAME_SEG, EP_ST_TO_MONO_FOCUS_L_NAME_OFF, EP_ST_TO_MONO_FOCUS_L_NAME_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_NAME_FIELD_ENTER_OFF, EP_NAME_FIELD_ENTER_SEG
         db      00h, 00h, 00h, 00h
-        db      44h, 0ach, 00h, 00h, 4ch, 4fh, 57h, 00h, 00h, 4dh, 45h, 44h, 00h, 00h, 48h
+d_c2_w_02502:
+        db      44h, 0ach
+d_c2_b_02504:
+        db      00h
+d_c2_w_02505:
+        db      00h, 4ch, 4fh, 57h, 00h, 00h, 4dh, 45h, 44h, 00h, 00h, 48h
         db      49h, 47h, 48h, 00h, 00h
 TBL_WINKEYS_RESAMPLE:
         WIN_KEY_CLEAR
@@ -5451,29 +5748,36 @@ TBL_WINKEYS_RESAMPLE:
         WIN_KEY_END
 TBL_FIELDS_2534:                        ; 4 x FIELD_SIZE
         db      6dh, 0fh, 1eh, 05h, 02h, 00h, 0a0h, 0fh, 00h, 00h, 0e8h, 0fdh, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
+d_c2_fp_02542:
         dw      EP_RESAMPLE_FOCUS_NEW_FS_OFF, EP_RESAMPLE_FOCUS_NEW_FS_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_RESAMPLE_FOCUS_QUALITY_OFF, EP_RESAMPLE_FOCUS_QUALITY_SEG
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_RESAMPLE_FOCUS_NEW_BIT_OFF, EP_RESAMPLE_FOCUS_NEW_BIT_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_0255e:
         db      6dh, 1ah, 1eh, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 02h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_RESAMPLE_FOCUS_QUALITY_OFF, EP_RESAMPLE_FOCUS_QUALITY_SEG, EP_RESAMPLE_FOCUS_NEW_FS_OFF, EP_RESAMPLE_FOCUS_NEW_FS_SEG, EP_RESAMPLE_FOCUS_NEW_NAME_OFF, EP_RESAMPLE_FOCUS_NEW_NAME_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_RESAMPLE_FOCUS_NEW_BIT_OFF, EP_RESAMPLE_FOCUS_NEW_BIT_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_02588:
         db      6dh, 25h, 60h, 01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_RESAMPLE_FOCUS_NEW_NAME_OFF, EP_RESAMPLE_FOCUS_NEW_NAME_SEG, EP_RESAMPLE_FOCUS_QUALITY_OFF, EP_RESAMPLE_FOCUS_QUALITY_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_RESAMPLE_FOCUS_NEW_BIT_OFF, EP_RESAMPLE_FOCUS_NEW_BIT_SEG, EP_NAME_FIELD_ENTER_OFF, EP_NAME_FIELD_ENTER_SEG
         db      00h, 00h, 00h, 00h
+d_c2_w_025b2:
         db      0d3h, 0fh, 18h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 02h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_RESAMPLE_FOCUS_NEW_BIT_OFF, EP_RESAMPLE_FOCUS_NEW_BIT_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_RESAMPLE_FOCUS_NEW_FS_OFF, EP_RESAMPLE_FOCUS_NEW_FS_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        dw      EP_L_4C8C4_OFF, EP_L_4C8C4_SEG
+d_c2_tbl_025dc:
+        dw      EP_L_4C8C4_OFF
+d_c2_tbl_025de:
+        dw      EP_L_4C8C4_SEG
         if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4D22A_120-C1_SEG*16), C1_SEG
@@ -5529,7 +5833,11 @@ TBL_FIELDS_2534:                        ; 4 x FIELD_SIZE
         endif
 ts_params:
         db      00h
-        db      00h, 10h, 27h, 00h, 00h
+        db      00h
+d_c2_w_02602:
+        db      10h, 27h
+d_c2_b_02604:
+        db      00h, 00h
 TBL_WINKEYS_EDIT_SOUND:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F2, EP_EDIT_SOUND_F2_SEG, EP_EDIT_SOUND_F2_OFF
@@ -5542,7 +5850,9 @@ TBL_WINKEYS_EDIT_SOUND:
         WIN_KEY   WIN_K_PAINT, EP_EDIT_SOUND_PAINT_SEG, EP_EDIT_SOUND_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_EDIT_SOUND_CANCEL_SEG, EP_EDIT_SOUND_CANCEL_OFF
         WIN_KEY_END
-        db      00h, 07h, 37h, 14h, 53h, 65h, 63h, 74h
+        db      00h
+d_c2_w_0262a:
+        db      07h, 37h, 14h, 53h, 65h, 63h, 74h
         db      69h, 6fh, 6eh, 00h, 0bh, 2fh, 19h, 05h, 0bh, 30h, 1ah, 03h, 0bh, 31h, 1bh, 01h
         db      0bh, 73h, 19h, 05h, 0bh, 74h, 1ah, 03h, 0bh, 75h, 1bh, 01h, 12h, 1fh, 1ch, 0fh
         db      06h, 11h, 31h, 1ch, 45h, 06h, 12h, 79h, 1ch, 0fh, 06h, 0fh, 25h, 23h, 04h, 0fh
@@ -5552,18 +5862,27 @@ TBL_WINKEYS_EDIT_SOUND:
         db      00h, 00h
 ts_screen_field_array:                  ; DS:TS_SCREEN_FIELDS, 8 x FIELD_SIZE, cur 08D56h
         db      31h, 0bh, 0a8h, 01h, 01h                                        ; 1....
-        db      40h, 00h, 00h, 00h, 00h, 08h, 00h, 00h, 00h
+        db      40h, 00h, 00h, 00h, 00h
+d_c2_w_02696:
+        db      08h, 00h
+d_c2_w_02698:
+        db      00h, 00h
+d_c2_fp_0269a:
         dw      EP_L_4D108_OFF, EP_L_4D108_SEG
         db      00h, 00h, 00h
         db      00h
         dw      EP_L_4D140_OFF, EP_L_4D140_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 55h, 15h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h, 00h
+d_c2_w_026b6:
+        db      55h, 15h, 78h, 01h, 00h, 42h, 01h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h
         dw      EP_FAR_4D166_OFF, EP_FAR_4D166_SEG
         dw      EP_L_4D108_OFF, EP_L_4D108_SEG
         db      00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 49h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_026e0:
+        db      49h
         if      FW_VERSION >= 112
         if      FW_VERSION >= 114
         db      15h, 60h, 01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -5582,13 +5901,17 @@ ts_screen_field_array:                  ; DS:TS_SCREEN_FIELDS, 8 x FIELD_SIZE, c
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h
         dw      EP_NAME_FIELD_ENTER_OFF, EP_NAME_FIELD_ENTER_SEG
-        db      00h, 00h, 00h, 00h, 91h, 18h, 0ch, 02h, 01h, 00h, 00h
+        db      00h, 00h, 00h, 00h
+d_c2_w_0270a:
+        db      91h, 18h, 0ch, 02h, 01h, 00h, 00h
         db      00h, 00h, 00h, 63h, 00h, 00h, 00h
         dw      EP_FAR_4D1A4_OFF, EP_FAR_4D1A4_SEG
         dw      EP_L_4D108_OFF, EP_L_4D108_SEG
         dw      EP_L_4C85E_OFF, EP_L_4C85E_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 91h, 23h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h
+        db      00h, 00h, 00h
+d_c2_w_02734:
+        db      91h, 23h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h
         db      00h
         dw      EP_L_4C85E_OFF, EP_L_4C85E_SEG
         dw      EP_FAR_4D1A4_OFF, EP_FAR_4D1A4_SEG
@@ -5661,15 +5984,21 @@ TBL_WINKEYS_ZONE:
         WIN_LABEL 62h, 0ch, "End:"
         WIN_LABEL 0b6h, 0ch, "Zone:"
         WIN_END
-        db      00h, 1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h
+        db      00h
+d_c2_w_02878:
+        db      1ah, 02h, 78h, 01h, 00h, 42h, 01h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h
+d_c2_tbl_02886:
         dw      EP_ZONE_FOCUS_SOUND_OFF, EP_ZONE_FOCUS_SOUND_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4D5D0_OFF, EP_L_4D5D0_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_ZONE_FOCUS_PLAY_X_OFF, EP_ZONE_FOCUS_PLAY_X_SEG
         dw      EP_L_4D59C_OFF, EP_L_4D59C_SEG
-        dw      EP_L_4D5A8_OFF, EP_L_4D5A8_SEG
+d_c2_tbl_0289e:
+        dw      EP_L_4D5A8_OFF
+d_c2_tbl_028a0:
+        dw      EP_L_4D5A8_SEG
 TBL_FIELDS_28A2:                        ; 4 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_ZONE_FOCUS_PLAY_X_OFF, EP_ZONE_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5677,7 +6006,16 @@ TBL_FIELDS_28A2:                        ; 4 x FIELD_SIZE
         dw      EP_L_4D654_OFF, EP_L_4D654_SEG
         dw      EP_ZONE_FOCUS_SOUND_OFF, EP_ZONE_FOCUS_SOUND_SEG, EP_L_4D5D0_OFF, EP_L_4D5D0_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      1ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
+d_c2_w_028cc:
+        db      1ah, 0ch, 30h, 08h, 04h, 10h
+d_c2_w_028d2:
+        db      00h, 00h
+d_c2_w_028d4:
+        db      00h, 00h
+d_c2_w_028d6:
+        db      00h, 00h
+d_c2_w_028d8:
+        db      00h, 00h; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_L_4D5D0_OFF, EP_L_4D5D0_SEG, EP_ZONE_FOCUS_SOUND_OFF, EP_ZONE_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         if      FW_VERSION >= 110
@@ -5690,7 +6028,16 @@ TBL_FIELDS_28A2:                        ; 4 x FIELD_SIZE
         endif
         db      00h, 00h, 00h, 00h
         dw      EP_L_4D71E_OFF, EP_L_4D71E_SEG
-        db      7ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
+d_c2_w_028f6:
+        db      7ah, 0ch, 30h, 08h, 04h, 10h
+d_c2_w_028fc:
+        db      00h, 00h
+d_c2_w_028fe:
+        db      00h, 00h
+d_c2_w_02900:
+        db      00h, 00h
+d_c2_w_02902:
+        db      00h, 00h; [2] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 110
         dw      EP_L_4D612_OFF, EP_L_4D612_SEG, EP_ZONE_FOCUS_SOUND_OFF, EP_ZONE_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         else
@@ -5716,7 +6063,12 @@ TBL_FIELDS_28A2:                        ; 4 x FIELD_SIZE
         else
         dw      EP_L_4D116_OFF, C1_SEG
         endif
-        db      0d4h, 0ch, 0ch, 02h, 01h, 00h, 01h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
+d_c2_w_02920:
+        db      0d4h, 0ch, 0ch, 02h, 01h, 00h, 01h, 00h, 00h, 00h
+d_c2_w_0292a:
+        db      01h, 00h
+d_c2_w_0292c:
+        db      00h, 00h; [3] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 110
         dw      EP_L_4D654_OFF, EP_L_4D654_SEG, EP_ZONE_FOCUS_PLAY_X_OFF, EP_ZONE_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
         else
@@ -5728,6 +6080,7 @@ TBL_FIELDS_28A2:                        ; 4 x FIELD_SIZE
         dw      EP_L_4D612_OFF, EP_L_4D612_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_FAR_4DB0C_OFF, EP_FAR_4DB0C_SEG
+d_c2_w_0294a:
         db      01h, 00h, 00h, 00h, 00h, 03h
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4D79E-C1_SEG*16), C1_SEG
@@ -5758,7 +6111,9 @@ TBL_WINKEYS_ZONE_START_FINE:
         WIN_KEY   WIN_K_OPEN, EP_ZONE_START_FINE_OPEN_SEG, EP_ZONE_START_FINE_OPEN_OFF
         WIN_KEY   WIN_K_REFRESH, EP_ZONE_START_FINE_REFRESH_SEG, EP_ZONE_START_FINE_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h
+        db      00h
+d_c2_w_02982:
+        db      1ah, 02h, 01h
         db      "ZOOM-"
         db      00h, 1ah, 03h, 01h
         db      "ZOOM+"
@@ -5772,8 +6127,19 @@ TBL_WINKEYS_ZONE_START_FINE:
         db      "Lngth="
         db      00h, 07h, 8bh
         db      "(PLA"
-        db      59h, 20h, 58h, 3ah, 00h, 00h, 00h, 0b5h, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h
+        db      59h, 20h, 58h, 3ah, 00h, 00h, 00h
+d_c2_w_029c8:
+        db      0b5h, 0ch, 30h, 08h, 04h, 10h
+d_c2_w_029ce:
+        db      00h, 00h
+d_c2_w_029d0:
+        db      00h
+        db      00h
+d_c2_w_029d2:
+        db      00h, 00h
+d_c2_w_029d4:
+        db      00h, 00h
+d_c2_tbl_029d6:
         dw      EP_L_4D28A_OFF, EP_L_4D28A_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4D8EE_OFF, EP_L_4D8EE_SEG
@@ -5807,7 +6173,9 @@ TBL_WINKEYS_ZONE_END_FINE:
         WIN_KEY   WIN_K_OPEN, EP_ZONE_END_FINE_OPEN_SEG, EP_ZONE_END_FINE_OPEN_OFF
         WIN_KEY   WIN_K_REFRESH, EP_ZONE_END_FINE_REFRESH_SEG, EP_ZONE_END_FINE_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h, 1ah, 03h, 01h, 5ah
+        db      00h
+d_c2_w_02a54:
+        db      1ah, 02h, 01h, 5ah, 4fh, 4fh, 4dh, 2dh, 00h, 1ah, 03h, 01h, 5ah
         db      "OOM+"
         db      00h, 1ah, 04h, 02h
         db      "CLOSE"
@@ -5819,8 +6187,19 @@ TBL_WINKEYS_ZONE_END_FINE:
         db      "Lngth="
         db      00h, 07h, 8bh
         db      "(PLA"
-        db      59h, 20h, 58h, 3ah, 00h, 00h, 00h, 0b5h, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h
+        db      59h, 20h, 58h, 3ah, 00h, 00h, 00h
+d_c2_w_02a98:
+        db      0b5h, 0ch, 30h, 08h, 04h, 10h
+d_c2_w_02a9e:
+        db      00h, 00h
+d_c2_w_02aa0:
+        db      00h
+        db      00h
+d_c2_w_02aa2:
+        db      00h, 00h
+d_c2_w_02aa4:
+        db      00h, 00h
+d_c2_tbl_02aa6:
         dw      EP_L_4DA82_OFF, EP_L_4DA82_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4DAE6_OFF, EP_L_4DAE6_SEG
@@ -5840,6 +6219,7 @@ TBL_WINKEYS_ZONE_COUNT:
         WIN_KEY   WIN_K_PAINT, EP_ZONE_COUNT_PAINT_SEG, EP_ZONE_COUNT_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_ZONE_COUNT_CLOSE_SEG, EP_ZONE_COUNT_CLOSE_OFF
         WIN_KEY_END
+d_c2_w_02b0a:
         db      1ah, 04h, 02h, 43h, 4ch, 4fh, 53h
         db      45h, 00h
         WIN_SOFTKEY 5, 1, "DO IT"
@@ -5848,8 +6228,10 @@ TBL_WINKEYS_ZONE_COUNT:
         WIN_LABEL 31h, 1eh, "Pressing DO IT will reset"
         WIN_LABEL 31h, 27h, "St/End values."
         WIN_END
+d_c2_w_02b64:
         db      9dh, 0dh, 0ch, 02h, 01h, 00h, 01h, 00h, 00h, 00h, 10h, 00h, 00h
         db      00h
+d_c2_fp_02b72:
         dw      EP_L_4D22A_OFF, EP_L_4D22A_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -5901,10 +6283,14 @@ TBL_WINKEYS_PGM_ASSIGN:
         WIN_KEY   WIN_K_REFRESH, EP_PGM_ASSIGN_REFRESH_SEG, EP_PGM_ASSIGN_REFRESH_OFF
         WIN_KEY_END
         db      00h
-        dw      EP_L_4E668_OFF, EP_L_4E668_SEG
+d_c2_tbl_02bfe:
+        dw      EP_L_4E668_OFF
+d_c2_tbl_02c00:
+        dw      EP_L_4E668_SEG
         dw      (C2_BASE+L_4DD10-C2_SEG*16), C2_SEG
         dw      EP_L_4DD18_OFF, EP_L_4DD18_SEG
         dw      EP_L_4DD20_OFF, EP_L_4DD20_SEG
+d_c2_w_02c0e:
         db      01h, 1ah, 01h
         db      00h
         db      "ASSIGN"
@@ -5928,8 +6314,11 @@ TBL_WINKEYS_PGM_ASSIGN:
         db      "Note:__=Snd:"
         db      00h, 07h, 09h
         db      "(Mode:"
-        db      00h, 00h, 00h, 1bh, 02h, 72h
+        db      00h, 00h, 00h
+d_c2_w_02c8e:
+        db      1bh, 02h, 72h
         db      02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h
+d_c2_tbl_02c9c:
         if      FW_VERSION >= 112
         dw      0000h, C2_SEG
         else
@@ -5941,7 +6330,10 @@ TBL_WINKEYS_PGM_ASSIGN:
         db      00h, 00h, 00h, 00h
         dw      EP_PGM_ASSIGN_FOCUS_PGM_OFF, EP_PGM_ASSIGN_FOCUS_PGM_SEG
         dw      (C2_BASE+L_4845E-C1_SEG*16), C1_SEG
-        dw      EP_FAR_4E182_OFF, EP_FAR_4E182_SEG
+d_c2_tbl_02cb4:
+        dw      EP_FAR_4E182_OFF
+d_c2_tbl_02cb6:
+        dw      EP_FAR_4E182_SEG
 TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN_FIELDS + DS:2D8Ah = MAIN_PGM_FIELDS; the part this .asm emits
         db      21h, 0ch, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 3fh, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
@@ -5973,6 +6365,7 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         endif
         db      00h, 00h, 00h, 00h
         dw      (C2_BASE+PGM_ASSIGN_FOCUS_PAD-C2_SEG*16), C2_SEG, (C2_BASE+PGM_ASSIGN_FOCUS_NOTE-C2_SEG*16), C2_SEG, (C2_BASE+L_4E2B2-C2_SEG*16), C2_SEG, (C2_BASE+L_4F610-C2_SEG*16), C2_SEG ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_02d36:
         db      27h, 16h, 0ch, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
         dw      EP_PGM_ASSIGN_FOCUS_NOTE_OFF, EP_PGM_ASSIGN_FOCUS_NOTE_SEG, EP_PGM_ASSIGN_FOCUS_PGM_OFF, EP_PGM_ASSIGN_FOCUS_PGM_SEG, EP_PGM_ASSIGN_FOCUS_6_OFF, EP_PGM_ASSIGN_FOCUS_6_SEG ; THUNK  PREV  NEXT
@@ -5984,6 +6377,7 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         dw      EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_OFF, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_SEG, EP_PGM_ASSIGN_FOCUS_SOUND_OFF, EP_PGM_ASSIGN_FOCUS_SOUND_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_L_4E2DA_OFF, EP_L_4E2DA_SEG
+d_c2_w_02d60:
         db      51h, 16h, 60h, 01h, 00h, 42h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [5] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_ASSIGN_FOCUS_SOUND_OFF, EP_PGM_ASSIGN_FOCUS_SOUND_SEG, EP_PGM_ASSIGN_FOCUS_PAD_OFF, EP_PGM_ASSIGN_FOCUS_PAD_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -5995,22 +6389,33 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         db      00h, 00h, 00h, 00h
         dw      EP_PGM_ASSIGN_FOCUS_SOUND_OFF, EP_PGM_ASSIGN_FOCUS_SOUND_SEG, EP_L_4E3EC_OFF, EP_L_4E3EC_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_02db4:
         db      91h, 1fh, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 7eh, 00h, 00h, 00h ; [7] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_ASSIGN_MODE_FIELD_OFF, EP_PGM_ASSIGN_MODE_FIELD_SEG, EP_PGM_ASSIGN_FOCUS_SOUND_OFF, EP_PGM_ASSIGN_FOCUS_SOUND_SEG, EP_PGM_ASSIGN_FOCUS_THRESHOLD2_OFF, EP_PGM_ASSIGN_FOCUS_THRESHOLD2_SEG ; THUNK  PREV  NEXT
         dw      EP_PGM_ASSIGN_FOCUS_6_OFF, EP_PGM_ASSIGN_FOCUS_6_SEG, EP_PGM_ASSIGN_FOCUS_ALT_NOTE1_OFF, EP_PGM_ASSIGN_FOCUS_ALT_NOTE1_SEG, EP_L_4E47A_OFF, EP_L_4E47A_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
-        db      91h, 28h, 12h, 03h, 01h, 00h, 01h, 00h, 00h, 00h, 7fh, 00h, 00h, 00h ; [8] x,y,class,digits  STORE  MIN  MAX
+d_c2_w_02dde:
+        db      91h, 28h, 12h, 03h, 01h, 00h
+d_c2_w_02de4:
+        db      01h, 00h
+d_c2_w_02de6:
+        db      00h, 00h, 7fh, 00h, 00h, 00h; [8] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_ASSIGN_FOCUS_THRESHOLD2_OFF, EP_PGM_ASSIGN_FOCUS_THRESHOLD2_SEG, EP_PGM_ASSIGN_MODE_FIELD_OFF, EP_PGM_ASSIGN_MODE_FIELD_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_PGM_ASSIGN_FOCUS_6_OFF, EP_PGM_ASSIGN_FOCUS_6_SEG, EP_PGM_ASSIGN_FOCUS_ALT_NOTE2_OFF, EP_PGM_ASSIGN_FOCUS_ALT_NOTE2_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_02e08:
         db      0c7h, 1fh, 24h, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [9] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_ASSIGN_FOCUS_ALT_NOTE1_OFF, EP_PGM_ASSIGN_FOCUS_ALT_NOTE1_SEG, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_OFF, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_SEG, EP_PGM_ASSIGN_FOCUS_ALT_NOTE2_OFF, EP_PGM_ASSIGN_FOCUS_ALT_NOTE2_SEG ; THUNK  PREV  NEXT
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+        db      00h, 00h
+d_c2_w_02e24:
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_02e32:
         db      0c7h, 28h, 24h, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [10] x,y,class,digits  STORE  MIN  MAX
         dw      (C2_BASE+PGM_ASSIGN_FOCUS_ALT_NOTE2-C2_SEG*16), C2_SEG, (C2_BASE+PGM_ASSIGN_FOCUS_ALT_NOTE1-C2_SEG*16), C2_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_b_02e5c:
         db      00h, 00h, 01h, 00h, 00h
         db      00h, 00h, 02h
         dw      EP_L_4E338_OFF, EP_L_4E338_SEG
@@ -6039,8 +6444,11 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         db      34h
         dw      EP_AUDITION_STOP_OFF, EP_AUDITION_STOP_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_02ea0:
         if      FW_VERSION >= 111
-        dw      (C2_BASE+L_4EBF8-C2_SEG*16), C2_SEG
+        dw      (C2_BASE+L_4EBF8-C2_SEG*16)
+d_c2_tbl_02ea2:
+        dw      C2_SEG
         if      FW_VERSION >= 114
         dw      EP_L_4C168_OFF, C1_SEG
         else
@@ -6048,7 +6456,9 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         endif
         dw      EP_FAR_4EBFE_OFF, C2_SEG
         else
-        dw      (C2_BASE+far_4EBC8-C2_SEG*16), C2_SEG
+        dw      (C2_BASE+far_4EBC8-C2_SEG*16)
+d_c2_tbl_02ea2:
+        dw      C2_SEG
         dw      EP_FAR_4B80A_OFF, C1_SEG
         if      FW_VERSION >= 110
         dw      EP_L_4E29E_OFF, C2_SEG
@@ -6056,6 +6466,7 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         db      5eh, 0ah, 26h, 4dh
         endif
         endif
+d_c2_w_02eac:
         WIN_CLEAR
         db      1ah, 01h, 02h, 41h
         db      53h, 53h, 49h, 47h, 4eh, 00h
@@ -6079,6 +6490,7 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         WIN_LABEL 0beh, 16h, "Voice"
         WIN_LABEL 0beh, 1fh, "Overlap:"
         WIN_END
+d_c2_w_02f6a:
         WIN_PIXEL1 02h, 0ch
         WIN_RESET_PEN
         WIN_CLEAR
@@ -6095,7 +6507,10 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         dw      EP_FAR_4DAFA_OFF, C2_SEG
         endif
         dw      EP_L_4845E_OFF, EP_L_4845E_SEG
-        dw      (C2_BASE+L_4EA1C-C2_SEG*16), C2_SEG
+        dw      (C2_BASE+L_4EA1C-C2_SEG*16)
+d_c2_tbl_02f92:
+        dw      C2_SEG
+d_c2_w_02f94:
         db      4bh, 02h, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h
         db      00h
         if      FW_VERSION >= 110
@@ -6273,6 +6688,7 @@ TBL_WINKEYS_PGM_MIDI:
         WIN_KEY   WIN_K_REFRESH, EP_PGM_MIDI_REFRESH_SEG, EP_PGM_MIDI_REFRESH_OFF
         WIN_KEY_END
         db      00h
+d_c2_w_03112:
         WIN_CLEAR
         WIN_SOFTKEY 1, 2, "ASSIGN"
         WIN_SOFTKEY 2, 2, "PARAMS"
@@ -6285,8 +6701,11 @@ TBL_WINKEYS_PGM_MIDI:
         WIN_LABEL 15h, 24h, "MIDI volume:"
         WIN_LABEL 93h, 24h, "Current val.:"
         WIN_END
-        db      00h, 21h, 02h, 06h, 01h, 01h
+        db      00h
+d_c2_w_0319c:
+        db      21h, 02h, 06h, 01h, 01h
         db      20h, 00h, 00h, 00h, 00h, 03h, 00h, 00h, 00h
+d_c2_tbl_031aa:
         dw      EP_PGM_MIDI_FOCUS_PGM_OFF, EP_PGM_MIDI_FOCUS_PGM_SEG
         db      00h, 00h, 00h
         db      00h
@@ -6302,6 +6721,7 @@ TBL_FIELDS_319C:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_PGM_MIDI_FOCUS_FIELD5_OFF, EP_PGM_MIDI_FOCUS_FIELD5_SEG
         dw      (C2_BASE+PGM_MIDI_FOCUS_PGM-C2_SEG*16), C2_SEG, (C2_BASE+FAR_4EE6A-C2_SEG*16), C2_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_031f0:
         db      21h, 0eh, 72h, 02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
         dw      EP_FAR_4EE6A_OFF, EP_FAR_4EE6A_SEG, EP_PGM_MIDI_FOCUS_PGM_OFF, EP_PGM_MIDI_FOCUS_PGM_SEG, EP_PGM_MIDI_FOCUS_FIELD3_OFF, EP_PGM_MIDI_FOCUS_FIELD3_SEG ; THUNK  PREV  NEXT
@@ -6313,6 +6733,7 @@ TBL_FIELDS_319C:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      (C2_BASE+L_4845E-C1_SEG*16), C1_SEG
         dw      (C2_BASE+L_4EE8C-C2_SEG*16), C2_SEG
         endif
+d_c2_w_0321a:
         db      5dh, 19h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
         dw      EP_PGM_MIDI_FOCUS_FIELD3_OFF, EP_PGM_MIDI_FOCUS_FIELD3_SEG, EP_FAR_4EE6A_OFF, EP_FAR_4EE6A_SEG, EP_PGM_MIDI_FOCUS_FIELD4_OFF, EP_PGM_MIDI_FOCUS_FIELD4_SEG ; THUNK  PREV  NEXT
@@ -6323,11 +6744,13 @@ TBL_FIELDS_319C:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_PGM_MIDI_FOCUS_FIELD4_OFF, EP_PGM_MIDI_FOCUS_FIELD4_SEG
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03244:
         db      5dh, 24h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_MIDI_FOCUS_FIELD4_OFF, EP_PGM_MIDI_FOCUS_FIELD4_SEG, EP_PGM_MIDI_FOCUS_FIELD3_OFF, EP_PGM_MIDI_FOCUS_FIELD3_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_PGM_MIDI_FOCUS_FIELD3_OFF, EP_PGM_MIDI_FOCUS_FIELD3_SEG, EP_PGM_MIDI_FOCUS_FIELD5_OFF, EP_PGM_MIDI_FOCUS_FIELD5_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_0326e:
         db      0e1h, 24h, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 7fh, 00h, 00h, 00h ; [5] x,y,class,digits  STORE  MIN  MAX
         dw      EP_PGM_MIDI_FOCUS_FIELD5_OFF, EP_PGM_MIDI_FOCUS_FIELD5_SEG, EP_FAR_4EE52_OFF, EP_FAR_4EE52_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -6356,7 +6779,9 @@ TBL_WINKEYS_PURGE:
         WIN_LABEL 3fh, 1ah, "any programs in memory."
         WIN_LABEL 30h, 25h, "sounds not used in any programs."
         WIN_END
-        db      00h, 01h, 00h, 00h
+        db      00h
+d_c2_w_0335e:
+        db      01h, 00h, 00h
         db      00h, 00h, 03h
         dw      EP_L_4F180_OFF, EP_L_4F180_SEG
 TBL_WINKEYS_PROGRAM:
@@ -6366,6 +6791,7 @@ TBL_WINKEYS_PROGRAM:
         WIN_KEY   WIN_K_PAINT, EP_PROGRAM_PAINT_SEG, EP_PROGRAM_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_PROGRAM_CLOSE_SEG, EP_PROGRAM_CLOSE_OFF
         WIN_KEY_END
+d_c2_w_03386:
         WIN_LABEL 25h, 13h, "Program name:"
         WIN_LABEL 31h, 25h, "MIDI program change:"
         WIN_SOFTKEY 2, 1, "DELETE"
@@ -6373,7 +6799,9 @@ TBL_WINKEYS_PROGRAM:
         WIN_SOFTKEY 4, 2, "CLOSE"
         WIN_SOFTKEY 5, 1, "COPY"
         WIN_END
+d_c2_w_033d2:
         db      73h, 13h, 60h, 02h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_033e0:
         dw      EP_L_4F118_OFF, EP_L_4F118_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4F140_OFF, EP_L_4F140_SEG
@@ -6395,6 +6823,7 @@ TBL_WINKEYS_DELETE_PGM:
         WIN_KEY   WIN_K_OPEN, EP_DELETE_PGM_OPEN_SEG, EP_DELETE_PGM_OPEN_OFF
         WIN_KEY_END
         db      00h
+d_c2_w_0344a:
         WIN_BITMAP 0d9h, 1ch, 01h
         db      07h, 49h, 11h
         db      50h, 67h, 6dh, 3ah, 5fh, 5fh, 2dh, 00h
@@ -6404,8 +6833,10 @@ TBL_WINKEYS_DELETE_PGM:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_END
+d_c2_w_034a6:
         db      61h, 11h, 72h, 02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h
         db      00h, 00h, 00h
+d_c2_fp_034b4:
         dw      EP_FAR_4F260_OFF, EP_FAR_4F260_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
@@ -6439,13 +6870,17 @@ TBL_WINKEYS_NEW_PGM:
         WIN_KEY   WIN_K_PAINT, EP_NEW_PGM_PAINT_SEG, EP_NEW_PGM_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_NEW_PGM_CANCEL_SEG, EP_NEW_PGM_CANCEL_OFF
         WIN_KEY_END
+d_c2_w_03558:
         db      07h, 49h, 13h
         db      4eh, 65h, 77h, 20h, 6eh, 61h, 6dh, 65h, 3ah, 00h
         WIN_LABEL 49h, 25h, "MIDI program change:"
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_END
-        db      00h, 7fh, 13h, 60h, 02h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_w_03592:
+        db      7fh, 13h, 60h, 02h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_tbl_035a0:
         dw      EP_DELETE_PGM_FIELD0_THUNK_OFF, EP_DELETE_PGM_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_DELETE_PGM_FIELD1_THUNK_OFF, EP_DELETE_PGM_FIELD1_THUNK_SEG
@@ -6464,13 +6899,16 @@ TBL_WINKEYS_COPY_PGM:
         WIN_KEY   WIN_K_PAINT, EP_COPY_PGM_PAINT_SEG, EP_COPY_PGM_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_COPY_PGM_CANCEL_SEG, EP_COPY_PGM_CANCEL_OFF
         WIN_KEY_END
+d_c2_w_03604:
         WIN_LABEL 49h, 10h, "Pgm:__-"
         WIN_BITMAP 85h, 19h, 02h
         WIN_LABEL 97h, 1ch, "COPY"
         WIN_LABEL 49h, 28h, "Pgm:__-"
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_END
-        db      00h, 61h, 10h, 72h, 02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h
+        db      00h
+d_c2_w_03632:
+        db      61h, 10h, 72h, 02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h
         dw      EP_L_4F5D0_OFF, EP_L_4F5D0_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4F5E2_OFF, EP_L_4F5E2_SEG
@@ -6480,6 +6918,7 @@ TBL_WINKEYS_COPY_PGM:
         db      00h, 00h, 00h, 00h
 TBL_FIELDS_3632:                        ; 2 x FIELD_SIZE; the part of the array this .asm emits itself
         db      61h, 28h, 72h, 02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
+d_c2_fp_0366a:
         dw      EP_L_4F5E2_OFF, EP_L_4F5E2_SEG, EP_L_4F5D0_OFF, EP_L_4F5D0_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
@@ -6490,16 +6929,21 @@ TBL_WINKEYS_INIT_PAD_ASSIGN:
         WIN_KEY   WIN_K_PAINT, EP_INIT_PAD_ASSIGN_PAINT_SEG, EP_INIT_PAD_ASSIGN_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_INIT_PAD_ASSIGN_OPEN_SEG, EP_INIT_PAD_ASSIGN_OPEN_OFF
         WIN_KEY_END
+d_c2_w_036a4:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_LABEL 25h, 17h, "Initialize pad assign:"
         WIN_END
+d_c2_w_036d2:
         db      0a9h, 17h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h
+d_c2_fp_036e0:
         dw      (C2_BASE+L_4F6A4-C2_SEG*16), C2_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h
         dw      EP_FAR_4F6BC_OFF, EP_FAR_4F6BC_SEG
-        db      00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h
+d_c2_w_036fc:
+        db      01h, 00h, 00h, 00h, 00h
         db      05h
         dw      EP_ASSIGN_VIEW_CLOSE_OFF, EP_ASSIGN_VIEW_CLOSE_SEG
         db      3ch
@@ -6518,12 +6962,16 @@ TBL_WINKEYS_ASSIGN_VIEW:
         WIN_KEY   WIN_K_REFRESH, EP_ASSIGN_VIEW_REFRESH_SEG, EP_ASSIGN_VIEW_REFRESH_OFF
         WIN_KEY_END
         db      00h
+d_c2_w_03734:
         WIN_LABEL 13h, 0ah, "Bank:"
         WIN_LABEL 3dh, 0ah, "Note:__="
         WIN_SOFTKEY 4, 2, "CLOSE"
         WIN_END
-        db      00h, 5bh, 0ah, 0ch, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h
         db      00h
+d_c2_w_03754:
+        db      5bh, 0ah, 0ch, 02h, 01h, 00h, 22h, 00h, 00h, 00h, 62h, 00h, 00h
+        db      00h
+d_c0_fp_03762:
         dw      EP_FAR_4F98C_OFF, EP_FAR_4F98C_SEG
         if      FW_VERSION >= 112
         dw      EP_FAR_4F9B4_OFF, C2_SEG
@@ -6552,8 +7000,10 @@ TBL_WINKEYS_COPY_NOTE:
         WIN_LABEL 37h, 29h, "Note:__/___-"
         WIN_SOFTKEY 4, 2, "CLOSE"
         WIN_END
+d_c2_w_037ee:
         db      55h, 0bh, 72h
         db      02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h
+d_c2_tbl_037fc:
         dw      EP_COPY_NOTE_FIELD0_THUNK_OFF, EP_COPY_NOTE_FIELD0_THUNK_SEG
         db      00h
         db      00h, 00h, 00h
@@ -6565,15 +7015,18 @@ TBL_FIELDS_37EE:                        ; 4 x FIELD_SIZE; the part of the array 
         db      55h, 14h, 8ah, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_COPY_NOTE_FIELD1_THUNK_OFF, EP_COPY_NOTE_FIELD1_THUNK_SEG, EP_COPY_NOTE_FIELD0_THUNK_OFF, EP_COPY_NOTE_FIELD0_THUNK_SEG, EP_COPY_NOTE_FIELD2_THUNK_OFF, EP_COPY_NOTE_FIELD2_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_03842:
         db      55h, 20h, 72h, 02h, 01h, 20h, 00h, 00h, 00h, 00h, 17h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_COPY_NOTE_FIELD2_THUNK_OFF, EP_COPY_NOTE_FIELD2_THUNK_SEG, EP_COPY_NOTE_FIELD1_THUNK_OFF, EP_COPY_NOTE_FIELD1_THUNK_SEG, EP_FAR_4FCE8_OFF, EP_FAR_4FCE8_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_L_4845E_OFF, EP_L_4845E_SEG
         db      00h, 00h, 00h, 00h
+d_c2_w_0386c:
         db      55h, 29h, 8ah, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_FAR_4FCE8_OFF, EP_FAR_4FCE8_SEG, EP_COPY_NOTE_FIELD2_THUNK_OFF, EP_COPY_NOTE_FIELD2_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_03896:
         db      01h, 00h, 00h, 00h, 00h, 05h
         dw      EP_VELOCITY_MOD_OPEN_OFF, EP_VELOCITY_MOD_OPEN_SEG
         db      06h
@@ -6593,7 +7046,9 @@ TBL_WINKEYS_VELOCITY_MOD:
         dw      (C2_BASE+far_4F572-C2_SEG*16), C2_SEG
         endif
         WIN_KEY_END
-        db      00h, 07h, 19h, 0bh, 4eh, 6fh, 74h, 65h, 3ah, 00h, 0ch, 13h, 13h, 0d6h
+        db      00h
+d_c2_w_038c4:
+        db      07h, 19h, 0bh, 4eh, 6fh, 74h, 65h, 3ah, 00h, 0ch, 13h, 13h, 0d6h
         db      07h, 1fh, 17h
         db      "Velo"
         db      0ch
@@ -6612,8 +7067,11 @@ TBL_WINKEYS_VELOCITY_MOD:
         db      "CLOSE"
         db      00h, 1ah, 05h, 01h
         db      "PLAY"
-        db      00h, 00h, 37h, 0bh, 0a2h
+        db      00h, 00h
+d_c2_w_0391e:
+        db      37h, 0bh, 0a2h
         db      02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h
+d_c2_tbl_0392c:
         dw      EP_VELOCITY_MOD_FIELD0_THUNK_OFF, EP_VELOCITY_MOD_FIELD0_THUNK_SEG
         db      00h
         db      00h, 00h, 00h
@@ -6624,20 +7082,24 @@ TBL_FIELDS_391E:                        ; 5 x FIELD_SIZE; the part of the array 
         db      67h, 17h, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_VELOCITY_MOD_FIELD1_THUNK_OFF, EP_VELOCITY_MOD_FIELD1_THUNK_SEG, EP_VELOCITY_MOD_FIELD0_THUNK_OFF, EP_VELOCITY_MOD_FIELD0_THUNK_SEG, EP_VELOCITY_MOD_FIELD2_THUNK_OFF, EP_VELOCITY_MOD_FIELD2_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_03972:
         db      67h, 21h, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_VELOCITY_MOD_FIELD2_THUNK_OFF, EP_VELOCITY_MOD_FIELD2_THUNK_SEG, EP_VELOCITY_MOD_FIELD1_THUNK_OFF, EP_VELOCITY_MOD_FIELD1_THUNK_SEG, EP_VELOCITY_MOD_FIELD3_THUNK_OFF, EP_VELOCITY_MOD_FIELD3_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
+d_c2_w_0399c:
         db      67h, 2bh, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      (C2_BASE+VELOCITY_MOD_FIELD3_THUNK-C2_SEG*16), C2_SEG, (C2_BASE+VELOCITY_MOD_FIELD2_THUNK-C2_SEG*16), C2_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_VELOCITY_MOD_FIELD4_THUNK_OFF, EP_VELOCITY_MOD_FIELD4_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_039c6:
         db      0c7h, 28h, 12h, 03h, 01h, 00h, 01h, 00h, 00h, 00h, 7fh, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         dw      EP_VELOCITY_MOD_FIELD4_THUNK_OFF, EP_VELOCITY_MOD_FIELD4_THUNK_SEG, EP_VELOCITY_MOD_FIELD0_THUNK_OFF, EP_VELOCITY_MOD_FIELD0_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_VELOCITY_MOD_FIELD3_THUNK_OFF, EP_VELOCITY_MOD_FIELD3_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_039f0:
         db      01h
         db      00h, 00h, 00h, 00h, 05h
         dw      (C2_BASE+VELO_ENV_FILTER_OPEN-C2_SEG*16), C2_SEG
@@ -6655,7 +7117,9 @@ TBL_WINKEYS_VELOCITY_MOD:
         WIN_KEY   WIN_K_OPEN, C2_SEG, (C2_BASE+VELO_ENV_FILTER_OPEN-C2_SEG*16)
         WIN_KEY   WIN_K_REFRESH, EP_VELO_ENV_FILTER_REFRESH_SEG, EP_VELO_ENV_FILTER_REFRESH_OFF
         WIN_KEY_END
-        db      00h, 07h, 19h, 0bh
+        db      00h
+d_c2_w_03a1e:
+        db      07h, 19h, 0bh
         db      "Note:"
         db      00h, 0ch, 13h, 13h, 0d6h, 07h, 13h, 17h
         db      "Attack:"
@@ -6672,8 +7136,11 @@ TBL_WINKEYS_VELOCITY_MOD:
         db      00h, 1ah, 04h, 02h
         db      "CLOSE"
         db      00h, 1ah, 05h
-        db      001h, "PLAY", 000h, 000h, 037h, 00bh, 0a2h, 002h, 001h, 000h, 023h, 000h, 000h
+        db      001h, "PLAY", 000h, 000h
+d_c2_w_03a78:
+        db      037h, 00bh, 0a2h, 002h, 001h, 000h, 023h, 000h, 000h
         db      00h, 62h, 00h, 00h, 00h
+d_c2_tbl_03a86:
         dw      EP_VELO_ENV_FILTER_FIELD0_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_VELO_ENV_FILTER_FIELD1_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD1_THUNK_SEG
@@ -6695,17 +7162,20 @@ TBL_FIELDS_3A78:                        ; 6 x FIELD_SIZE, DS:3A78h = FILTER_FIEL
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_VELO_ENV_FILTER_FIELD4_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD4_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03acc:
         db      3dh, 21h, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      EP_VELO_ENV_FILTER_FIELD2_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD2_THUNK_SEG, EP_VELO_ENV_FILTER_FIELD1_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD1_THUNK_SEG, EP_VELO_ENV_FILTER_FIELD3_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD3_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_VELO_ENV_FILTER_FIELD4_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD4_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03af6:
         db      3dh, 2bh, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_VELO_ENV_FILTER_FIELD3_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD3_THUNK_SEG, EP_VELO_ENV_FILTER_FIELD2_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD2_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_VELO_ENV_FILTER_FIELD5_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD5_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03b20:
         db      0d3h, 1ch, 12h, 03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 110
         dw      EP_VELO_ENV_FILTER_FIELD4_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD4_THUNK_SEG, EP_VELO_ENV_FILTER_FIELD0_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD0_THUNK_SEG, EP_VELO_ENV_FILTER_FIELD5_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD5_THUNK_SEG ; THUNK  PREV  NEXT
@@ -6716,11 +7186,13 @@ TBL_FIELDS_3A78:                        ; 6 x FIELD_SIZE, DS:3A78h = FILTER_FIEL
         endif
         dw      EP_VELO_ENV_FILTER_FIELD1_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD1_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03b4a:
         db      0d3h, 28h, 12h, 03h, 01h, 00h, 01h, 00h, 00h, 00h, 7fh, 00h, 00h, 00h ; [5] x,y,class,digits  STORE  MIN  MAX
         dw      EP_VELO_ENV_FILTER_FIELD5_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD5_THUNK_SEG, EP_VELO_ENV_FILTER_FIELD4_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD4_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_VELO_ENV_FILTER_FIELD3_THUNK_OFF, EP_VELO_ENV_FILTER_FIELD3_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03b74:
         db      01h, 00h, 00h, 00h, 00h, 05h
         dw      (C2_BASE+VELO_PITCH_CLOSE-C2_SEG*16), C2_SEG
         db      06h
@@ -6737,7 +7209,9 @@ TBL_WINKEYS_VELO_ENV_FILTER:
         WIN_KEY   WIN_K_OPEN, C2_SEG, (C2_BASE+VELO_PITCH_CLOSE-C2_SEG*16)
         WIN_KEY   WIN_K_REFRESH, EP_VELO_PITCH_REFRESH_SEG, EP_VELO_PITCH_REFRESH_OFF
         WIN_KEY_END
-        db      000h, 007h, 019h, 00bh, "Note:", 000h, 00ch, 013h, 013h, 0d6h, 007h, 043h
+        db      000h
+d_c2_w_03ba2:
+        db      007h, 019h, 00bh, "Note:", 000h, 00ch, 013h, 013h, 0d6h, 007h, 043h
         db      1ch
         db      "Tune:"
         db      00h, 0fh, 87h, 13h, 20h, 07h, 8bh, 1ch
@@ -6749,8 +7223,11 @@ TBL_WINKEYS_VELO_ENV_FILTER:
         db      00h, 1ah, 04h, 02h
         db      "CLOSE"
         db      00h, 1ah, 05h, 01h, 50h
-        db      4ch, 41h, 59h, 00h, 00h, 37h, 0bh, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h
+        db      4ch, 41h, 59h, 00h, 00h
+d_c2_w_03be6:
+        db      37h, 0bh, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h
         db      00h, 00h, 00h
+d_c2_tbl_03bf4:
         if      FW_VERSION >= 112
         dw      EP_VELO_PITCH_FIELD0_THUNK_OFF, C2_SEG
         else
@@ -6762,7 +7239,9 @@ TBL_WINKEYS_VELO_ENV_FILTER:
         else
         dw      (C2_BASE+velo_pitch_field1_thunk-C2_SEG*16), C2_SEG
         endif
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 61h, 1ch, 18h, 03h, 02h, 80h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03c10:
+        db      61h, 1ch, 18h, 03h, 02h, 80h
         TUNE_RANGE
         if      FW_VERSION <> 110
         dw      EP_VELO_PITCH_FIELD1_THUNK_OFF, EP_VELO_PITCH_FIELD1_THUNK_SEG
@@ -6782,7 +7261,9 @@ TBL_WINKEYS_VELO_ENV_FILTER:
         else
         dw      EP_FAR_4FCA0_OFF, C2_SEG
         endif
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0cdh, 1ch, 18h, 03h, 01h, 80h, 88h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03c3a:
+        db      0cdh, 1ch, 18h, 03h, 01h, 80h, 88h
         db      0ffh, 0ffh, 0ffh, 78h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         dw      EP_VELO_PITCH_FIELD2_THUNK_OFF, C2_SEG
@@ -6797,7 +7278,9 @@ TBL_WINKEYS_VELO_ENV_FILTER:
         dw      (C2_BASE+velo_pitch_field1_thunk-C2_SEG*16), C2_SEG
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 0cdh, 28h, 12h, 03h, 01h, 00h, 01h, 00h, 00h, 00h, 7fh, 00h, 00h
+        db      00h, 00h, 00h
+d_c2_w_03c64:
+        db      0cdh, 28h, 12h, 03h, 01h, 00h, 01h, 00h, 00h, 00h, 7fh, 00h, 00h
         db      00h
         if      FW_VERSION >= 112
         dw      EP_VELO_PITCH_FIELD3_THUNK_OFF, EP_VELO_PITCH_FIELD3_THUNK_SEG
@@ -6830,6 +7313,7 @@ TBL_WINKEYS_VELO_PITCH:
         WIN_KEY   WIN_K_REFRESH, EP_MUTE_ASSIGN_REFRESH_SEG, EP_MUTE_ASSIGN_REFRESH_OFF
         WIN_KEY_END
         db      00h
+d_c2_w_03cbc:
         MG_DRAWLIST
 mute_field_array:                       ; MUTE ASSIGN, 3 x FIELD_SIZE, = DS:MUTE_FIELDS
         db      37h, 0bh, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
@@ -6853,11 +7337,14 @@ TBL_WINKEYS_AUTO_CHROMATIC:
         WIN_KEY   WIN_K_PAD, EP_AUTO_CHROMATIC_PAD_SEG, EP_AUTO_CHROMATIC_PAD_OFF
         WIN_KEY   WIN_K_PAINT, EP_AUTO_CHROMATIC_PAINT_SEG, EP_AUTO_CHROMATIC_PAINT_OFF
         WIN_KEY_END
+d_c2_w_03d94:
         WIN_SOFTKEY 4, 2, "CANCEL"
         WIN_SOFTKEY 5, 1, "DO IT"
         WIN_END
+d_c2_w_03da8:
         db      3fh, 0bh, 24h, 02h, 01h, 00h, 23h, 00h, 00h
         db      00h, 62h, 00h, 00h, 00h
+d_c2_tbl_03db6:
         dw      EP_AUTO_CHROMATIC_FIELD0_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_AUTO_CHROMATIC_FIELD2_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD2_THUNK_SEG
@@ -6865,38 +7352,53 @@ TBL_WINKEYS_AUTO_CHROMATIC:
         dw      EP_AUTO_CHROMATIC_FIELD1_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD1_THUNK_SEG
         dw      EP_L_50CFC_OFF, EP_L_50CFC_SEG
         db      00h, 00h, 00h
-        db      00h, 69h, 0bh, 78h, 01h, 00h, 42h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h
+d_c2_w_03dd2:
+        db      69h, 0bh, 78h, 01h, 00h, 42h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_AUTO_CHROMATIC_FIELD1_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD1_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_AUTO_CHROMATIC_FIELD2_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD2_THUNK_SEG
         dw      EP_AUTO_CHROMATIC_FIELD0_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD0_THUNK_SEG
         db      00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 69h, 15h, 24h, 02h, 01h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03dfc:
+        db      69h, 15h, 24h, 02h, 01h
         db      00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h
         dw      EP_AUTO_CHROMATIC_FIELD2_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD2_THUNK_SEG
         dw      EP_AUTO_CHROMATIC_FIELD1_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD1_THUNK_SEG
         dw      EP_AUTO_CHROMATIC_FIELD3_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD3_THUNK_SEG
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 69h, 1fh, 18h, 03h, 02h, 80h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03e26:
+        db      69h, 1fh, 18h, 03h, 02h, 80h
         TUNE_RANGE
         dw      EP_AUTO_CHROMATIC_FIELD3_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD3_THUNK_SEG
         dw      EP_AUTO_CHROMATIC_FIELD2_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD2_THUNK_SEG
         dw      EP_AUTO_CHROMATIC_FIELD4_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD4_THUNK_SEG
         db      00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 69h
+        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_03e50:
+        db      69h
         db      29h, 60h, 01h, 00h, 41h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_AUTO_CHROMATIC_FIELD4_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD4_THUNK_SEG
         dw      EP_AUTO_CHROMATIC_FIELD3_THUNK_OFF, EP_AUTO_CHROMATIC_FIELD3_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c0_tbl_03e7a:
         if      FW_VERSION >= 120
-        dw      EP_L_5FC44_OFF, DS_SEG
+        dw      EP_L_5FC44_OFF
+d_c0_tbl_03e7c:
+        dw      DS_SEG
         dw      EP_FAR_5F5EC_OFF, DS_SEG, EP_FAR_5F5F7_OFF, DS_SEG, EP_FAR_5F602_OFF, DS_SEG, EP_FAR_5F60D_OFF, DS_SEG
         dw      EP_FAR_5F618_OFF, DS_SEG, EP_FAR_5F623_OFF, DS_SEG, EP_FAR_5F62E_OFF, DS_SEG
         elseif  FW_VERSION >= 112
-        dw      EP_FAR_5F644_OFF, DS_SEG
+        dw      EP_FAR_5F644_OFF
+d_c0_tbl_03e7c:
+        dw      DS_SEG
         dw      EP_FAR_5F5EC_OFF, DS_SEG, EP_FAR_5F5F7_OFF, DS_SEG, EP_FAR_5F602_OFF, DS_SEG, EP_FAR_5F60D_OFF, DS_SEG, EP_FAR_5F618_OFF, DS_SEG, EP_FAR_5F623_OFF, DS_SEG, EP_FAR_5F62E_OFF, DS_SEG
         else
-        dw      EP_L_5FC44_OFF, DS_SEG
+        dw      EP_L_5FC44_OFF
+d_c0_tbl_03e7c:
+        dw      DS_SEG
         if      FW_VERSION >= 110
         if      FW_VERSION >= 111
         db      3ch, 79h, 8ch
@@ -6965,20 +7467,41 @@ TBL_WINKEYS_AUTO_CHROMATIC:
         db      2dh, 2dh
         endif
         db      00h, 4dh, 31h, 00h, 4dh
-        db      32h, 00h, 52h, 31h, 00h, 52h, 32h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      32h, 00h, 52h, 31h, 00h, 52h, 32h, 00h, 00h
+d_c0_w_03eda:
+        db      00h, 00h
+d_c2_b_03edc:
+        db      00h, 00h
+d_c0_tbl_03ede:
         if      FW_VERSION >= 112
-        dw      EP_L_51062_OFF, EP_L_51062_SEG, EP_L_510E6_OFF, C2_SEG, EP_L_5117C_OFF, EP_L_5117C_SEG, EP_L_51208_OFF, C2_SEG, EP_L_512A6_OFF, EP_L_512A6_SEG, EP_L_5132E_OFF, C2_SEG, EP_L_513C0_OFF, C2_SEG, EP_L_5142E_OFF, C2_SEG
+        dw      EP_L_51062_OFF
+d_c0_tbl_03ee0:
+        dw      EP_L_51062_SEG
+d_c0_tbl_03ee2:
+        dw      EP_L_510E6_OFF
+d_c0_tbl_03ee4:
+        dw      C2_SEG, EP_L_5117C_OFF, EP_L_5117C_SEG, EP_L_51208_OFF, C2_SEG, EP_L_512A6_OFF, EP_L_512A6_SEG, EP_L_5132E_OFF, C2_SEG, EP_L_513C0_OFF, C2_SEG, EP_L_5142E_OFF, C2_SEG
         dw      EP_L_514AE_OFF, C2_SEG, EP_L_51536_OFF, EP_L_51536_SEG, EP_L_515C8_OFF, C2_SEG, EP_L_51624_OFF, C2_SEG
+d_c2_w_03f0e:
         db      01h, 00h, 00h
         else
-        dw      EP_L_51062_OFF, EP_L_51062_SEG
+        dw      EP_L_51062_OFF
+d_c0_tbl_03ee0:
+        dw      EP_L_51062_SEG
+d_c0_tbl_03ee2:
         db      46h
         if      FW_VERSION >= 111
-        db      2fh, 84h
+        db      2fh
+d_c0_tbl_03ee4:
+        db      84h
         elseif  FW_VERSION >= 110
-        db      2fh, 74h
+        db      2fh
+d_c0_tbl_03ee4:
+        db      74h
         else
-        db      2fh, 26h
+        db      2fh
+d_c0_tbl_03ee4:
+        db      26h
         endif
         db      4dh
         dw      EP_L_5117C_OFF, EP_L_5117C_SEG
@@ -7001,11 +7524,17 @@ TBL_WINKEYS_AUTO_CHROMATIC:
         db      4dh
         dw      EP_L_51536_OFF, EP_L_51536_SEG
         if      FW_VERSION >= 111
-        db      28h, 34h, 84h, 4dh, 84h, 34h, 84h, 4dh, 01h, 00h, 00h
+        db      28h, 34h, 84h, 4dh, 84h, 34h, 84h, 4dh
+d_c2_w_03f0e:
+        db      01h, 00h, 00h
         elseif  FW_VERSION >= 110
-        db      28h, 34h, 74h, 4dh, 84h, 34h, 74h, 4dh, 01h, 00h, 00h
+        db      28h, 34h, 74h, 4dh, 84h, 34h, 74h, 4dh
+d_c2_w_03f0e:
+        db      01h, 00h, 00h
         else
-        db      28h, 34h, 26h, 4dh, 84h, 34h, 26h, 4dh, 01h, 00h, 00h
+        db      28h, 34h, 26h, 4dh, 84h, 34h, 26h, 4dh
+d_c2_w_03f0e:
+        db      01h, 00h, 00h
         endif
         endif
         db      00h, 00h, 02h
@@ -7144,15 +7673,21 @@ TBL_WINKEYS_MIXER_SETUP:
         WIN_RULE  0ch, 0a7h, 24h, 50h
         WIN_LABEL 0bbh, 27h, "Drum:"
         WIN_END
+d_c2_w_04066:
         db      75h, 0dh, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h
         db      00h, 00h, 00h
+d_c2_tbl_04074:
         dw      EP_MIXER_SETUP_FIELD0_THUNK_OFF, EP_MIXER_SETUP_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_MIXER_SETUP_FIELD1_THUNK_OFF, EP_MIXER_SETUP_FIELD1_THUNK_SEG
         db      00h
         db      00h, 00h, 00h
         dw      EP_MIXER_SETUP_FIELD4_THUNK_OFF, EP_MIXER_SETUP_FIELD4_THUNK_SEG
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      00h, 00h, 00h, 00h
+d_c2_tbl_0408c:
+        db      00h, 00h
+d_c2_tbl_0408e:
+        db      00h, 00h
 TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array this .asm emits itself
         db      75h, 16h, 2ah, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
@@ -7164,6 +7699,7 @@ TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_C2_3710_OFF, C2_SEG
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_040ba:
         db      8dh, 1fh, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         if      FW_VERSION >= 112
         dw      EP_MIXER_SETUP_FIELD2_THUNK_OFF, EP_MIXER_SETUP_FIELD2_THUNK_SEG, EP_MIXER_SETUP_FIELD1_THUNK_OFF, EP_MIXER_SETUP_FIELD1_THUNK_SEG, EP_MIXER_SETUP_FIELD3_THUNK_OFF, EP_MIXER_SETUP_FIELD3_THUNK_SEG ; THUNK  PREV  NEXT
@@ -7175,11 +7711,13 @@ TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_FAR_5098E_OFF, C2_SEG
         endif
         db      00h, 00h, 00h, 00h
+d_c2_w_040e4:
         db      8dh, 28h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_MIXER_SETUP_FIELD3_THUNK_OFF, EP_MIXER_SETUP_FIELD3_THUNK_SEG, EP_MIXER_SETUP_FIELD2_THUNK_OFF, EP_MIXER_SETUP_FIELD2_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_MIXER_SETUP_FIELD2_THUNK_OFF, EP_MIXER_SETUP_FIELD2_THUNK_SEG, EP_MIXER_SETUP_FIELD5_THUNK_OFF, EP_MIXER_SETUP_FIELD5_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_0410e:
         db      0c1h, 0eh, 1eh, 01h, 01h, 0c0h, 0f3h, 0ffh, 0ffh, 0ffh, 02h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         dw      EP_MIXER_SETUP_FIELD4_THUNK_OFF, EP_MIXER_SETUP_FIELD4_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -7191,6 +7729,7 @@ TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_L_51910_OFF, EP_L_51910_SEG
         endif
         db      00h, 00h, 00h, 00h
+d_c2_w_04138:
         db      0d9h, 27h, 06h, 01h, 01h, 20h, 00h, 00h, 00h, 00h, 03h, 00h, 00h, 00h ; [5] x,y,class,digits  STORE  MIN  MAX
         dw      EP_MIXER_SETUP_FIELD5_THUNK_OFF, EP_MIXER_SETUP_FIELD5_THUNK_SEG, EP_MIXER_SETUP_FIELD4_THUNK_OFF, EP_MIXER_SETUP_FIELD4_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -7198,7 +7737,10 @@ TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h
         dw      EP_L_5193C_OFF, EP_L_5193C_SEG
         db      00h, 00h, 00h, 00h
-        dw      EP_FAR_514DC_OFF, EP_FAR_514DC_SEG
+d_c2_tbl_04162:
+        dw      EP_FAR_514DC_OFF
+d_c2_tbl_04164:
+        dw      EP_FAR_514DC_SEG
         dw      EP_FAR_514E0_OFF, EP_FAR_514E0_SEG
         dw      EP_FAR_514E4_OFF, EP_FAR_514E4_SEG
         if      FW_VERSION >= 112
@@ -7226,6 +7768,7 @@ TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array 
         dw      EP_FAR_49AA4_OFF, EP_FAR_49AA4_SEG
         dw      EP_FAR_49AA4_OFF, EP_FAR_49AA4_SEG
         dw      EP_FAR_514DC_OFF, EP_FAR_514DC_SEG
+d_c2_w_041b2:
         db      01h, 00h, 00h, 00h, 00h, 05h
         dw      EP_L_51BFE_OFF, EP_L_51BFE_SEG
         db      32h
@@ -7247,6 +7790,7 @@ TBL_WINKEYS_5BA86:
         WIN_KEY_END
         endif
         db      00h
+d_c2_w_041d6:
         WIN_SOFTKEY 4, 2, "CLOSE"
         WIN_LABEL 19h, 0bh, "Note:"
         WIN_LABEL 25h, 16h, "STEREO"
@@ -7261,7 +7805,9 @@ TBL_WINKEYS_5BA86:
         WIN_LABEL 0bbh, 16h, "Follow"
         WIN_LABEL 0bbh, 1fh, "stereo:"
         WIN_END
-        db      00h, 37h
+        db      00h
+d_c2_w_04240:
+        db      37h
         db      0bh, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h, 00h
         dw      EP_MIXER_CHAN_FIELD0_THUNK_OFF, EP_MIXER_CHAN_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
@@ -7274,6 +7820,7 @@ TBL_FIELDS_4240:                        ; 8 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
         dw      EP_MIXER_CHAN_FIELD3_THUNK_OFF, EP_MIXER_CHAN_FIELD3_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_04294:
         db      3dh, 29h, 12h, 02h, 01h, 80h, 0ceh, 0ffh, 0ffh, 0ffh, 32h, 00h, 00h, 00h ; [2] x,y,class,digits  STORE  MIN  MAX
         dw      (C2_BASE+MIXER_CHAN_FIELD2_THUNK-C2_SEG*16), C2_SEG, (C2_BASE+MIXER_CHAN_FIELD1_THUNK-C2_SEG*16), C2_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -7284,6 +7831,7 @@ TBL_FIELDS_4240:                        ; 8 x FIELD_SIZE; the part of the array 
         dw      EP_MIXER_CHAN_FIELD3_THUNK_OFF, EP_MIXER_CHAN_FIELD3_THUNK_SEG, EP_MIXER_CHAN_FIELD0_THUNK_OFF, EP_MIXER_CHAN_FIELD0_THUNK_SEG, EP_MIXER_CHAN_FIELD4_THUNK_OFF, EP_MIXER_CHAN_FIELD4_THUNK_SEG ; THUNK  PREV  NEXT
         dw      EP_MIXER_CHAN_FIELD1_THUNK_OFF, EP_MIXER_CHAN_FIELD1_THUNK_SEG, EP_MIXER_CHAN_FIELD5_THUNK_OFF, EP_MIXER_CHAN_FIELD5_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_042e8:
         db      79h, 29h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 08h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         dw      EP_MIXER_CHAN_FIELD4_THUNK_OFF, EP_MIXER_CHAN_FIELD4_THUNK_SEG, EP_MIXER_CHAN_FIELD3_THUNK_OFF, EP_MIXER_CHAN_FIELD3_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -7298,6 +7846,7 @@ TBL_FIELDS_4240:                        ; 8 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h
         dw      EP_MIXER_CHAN_FIELD4_THUNK_OFF, EP_MIXER_CHAN_FIELD4_THUNK_SEG, EP_MIXER_CHAN_FIELD7_THUNK_OFF, EP_MIXER_CHAN_FIELD7_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+d_c2_w_04366:
         db      0c7h, 29h, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [7] x,y,class,digits  STORE  MIN  MAX
         dw      EP_MIXER_CHAN_FIELD7_THUNK_OFF, EP_MIXER_CHAN_FIELD7_THUNK_SEG, EP_MIXER_CHAN_FIELD0_THUNK_OFF, EP_MIXER_CHAN_FIELD0_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
@@ -7320,7 +7869,10 @@ TBL_WINKEYS_FX_NOT_INSTALLED:
         WIN_LABEL 13h, 0ah, "Effect board is"
         WIN_LABEL 19h, 13h, "not installed."
         WIN_END
-        dw      EP_L_51A3C_OFF, EP_L_51A3C_SEG
+d_c0_tbl_043f2:
+        dw      EP_L_51A3C_OFF
+d_c0_tbl_043f4:
+        dw      EP_L_51A3C_SEG
         if      FW_VERSION >= 112
         dw      EP_FAR_523A6_OFF, C2_SEG
         dw      EP_L_51A50_OFF, EP_L_51A50_SEG
@@ -7744,7 +8296,10 @@ d_c2_b_04b89:
 d_c2_b_04b89:
         db      30h, 31h, 31h, 31h, 33h, 31h, 34h, 31h, 36h, 31h, 38h, 32h, 30h, 32h, 32h, 32h, 35h, 32h, 38h, 33h, 32h, 33h, 36h, 34h, 30h, 34h, 35h, 35h, 30h, 35h, 36h, 36h, 33h, 37h, 30h, 38h, 30h, 39h, 30h
         endif
-        dw      (C2_BASE+far_5256E-C2_SEG*16), C2_SEG
+d_c0_tbl_04bb0:
+        dw      (C2_BASE+far_5256E-C2_SEG*16)
+d_c0_tbl_04bb2:
+        dw      C2_SEG
         dw      EP_FAR_534BA_OFF, EP_FAR_534BA_SEG
         dw      EP_FAR_534C2_OFF, EP_FAR_534C2_SEG
         dw      EP_FAR_534CA_OFF, EP_FAR_534CA_SEG
@@ -7980,7 +8535,9 @@ d_c0_w_0506a:
         WIN_LABEL 0d3h, 1fh, "ms"
         WIN_LABEL 5bh, 29h, "Feedback:"
         WIN_END
+d_c2_w_050b2:
         db      31h, 0bh, 60h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 06h, 00h, 00h, 00h
+d_c2_tbl_050c0:
         dw      EP_FX_PITCH_SHIFT_FIELD0_THUNK_OFF, EP_FX_PITCH_SHIFT_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      (C0_BASE+L_3D06E-C0_SEG*16), C0_SEG
@@ -8414,6 +8971,7 @@ TBL_WINKEYS_EFFECT_MIXER:
         WIN_END
 TBL_FIELDS_58FA:                        ; 2 x FIELD_SIZE
         db      0a9h, 1fh, 0ch, 02h, 01h, 00h, 00h, 00h, 00h, 00h, 63h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
+d_c2_tbl_05908:
         dw      EP_EFFECT_MIXER_FIELD0_THUNK_OFF, EP_EFFECT_MIXER_FIELD0_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h ; +1Ah..+21h  NOTIFY  ENTER
@@ -8651,7 +9209,9 @@ d_c2_w_06458:
 d_c2_w_06470:
         dw      EP_FAR_55406_OFF, EP_FAR_55406_SEG
 d_c2_b_06474:
-        db      01h, 00h
+        db      01h
+d_c1_tbl_06475:
+        db      00h
 d_c0_b_06476:
         db      00h, 00h
 d_c2_b_06478:
@@ -8722,6 +9282,7 @@ TBL_WINKEYS_5E78A:
 d_c2_w_065b4:
         db      69h, 02h, 06h, 01h, 01h, 20h
         db      00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h
+d_c0_tbl_065c2:
         dw      EP_SAMPLE_DUMP_FIELD0_THUNK_OFF, EP_SAMPLE_DUMP_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_SAMPLE_DUMP_FIELD1_THUNK_OFF, EP_SAMPLE_DUMP_FIELD1_THUNK_SEG
@@ -9119,6 +9680,7 @@ far_5FCA2:
         db      01h, 10h, 01h, 10h, 00h, 0e0h
 d_c2_w_07a0a:
         db      01h, 03h, 0f8h, 70h, 20h, 01h, 03h, 20h, 70h, 0f8h
+d_c0_w_07a14:
         db      01h, 07h, 80h, 0c0h, 0e0h, 0f0h, 0e0h, 0c0h, 80h
 d_c2_w_07a1d:
         db      03h, 05h, 00h, 0c6h, 00h, 01h, 29h
@@ -9147,7 +9709,9 @@ d_c2_w_07a2e:
         db      00h, 00h, 00h, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0feh, 00h, 00h, 07h, 0ffh, 0ffh, 0ffh
         db      0ffh, 0ffh, 0ffh, 0ffh, 0c0h, 00h, 1fh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0fch, 00h
         db      0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh, 0c0h, 7fh, 0ffh, 0ffh, 0ffh, 0ffh, 0ffh
-        db      0ffh, 0ffh, 0ffh, 00h, 03h, 13h, 7fh, 0ffh, 00h, 0a4h, 04h, 80h, 0a4h, 0e4h, 40h, 0a4h
+        db      0ffh, 0ffh, 0ffh, 00h
+d_c2_w_07b98:
+        db      03h, 13h, 7fh, 0ffh, 00h, 0a4h, 04h, 80h, 0a4h, 0e4h, 40h, 0a4h
         db      0a4h, 40h, 0a4h, 0a4h, 40h, 0a4h, 0e4h, 40h, 0a4h, 04h, 40h, 9fh, 0f8h, 40h, 80h, 00h
         db      40h, 9fh, 0feh, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h
         db      0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 7fh, 0ffh, 80h, 00h
@@ -9864,17 +10428,53 @@ d_k0_w_08e68:
         endif
 
         if      FW_VERSION >= 120
-        db      "1.14c        -74"
+        db      "1.14"
+d_c2_tbl_08e6e:
+        db      "c "
+d_c0_b_08e70:
+        db      "  "
+d_c0_tbl_08e72:
+        db      "     -74"
         elseif  FW_VERSION >= 114
-        db      31h, 2eh, 31h, 34h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 2dh, 37h, 32h
+        db      31h, 2eh, 31h, 34h
+d_c2_tbl_08e6e:
+        db      20h, 20h
+d_c0_b_08e70:
+        db      20h, 20h
+d_c0_tbl_08e72:
+        db      20h, 20h, 20h, 20h, 20h, 2dh, 37h, 32h
         elseif  FW_VERSION >= 112
-        db      31h, 2eh, 31h, 32h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 2dh, 36h, 35h
+        db      31h, 2eh, 31h, 32h
+d_c2_tbl_08e6e:
+        db      20h, 20h
+d_c0_b_08e70:
+        db      20h, 20h
+d_c0_tbl_08e72:
+        db      20h, 20h, 20h, 20h, 20h, 2dh, 36h, 35h
         elseif  FW_VERSION >= 111
-        db      31h, 2eh, 31h, 31h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 2dh, 36h, 33h
+        db      31h, 2eh, 31h, 31h
+d_c2_tbl_08e6e:
+        db      20h, 20h
+d_c0_b_08e70:
+        db      20h, 20h
+d_c0_tbl_08e72:
+        db      20h, 20h, 20h, 20h, 20h, 2dh, 36h, 33h
         elseif  FW_VERSION >= 110
-        db      31h, 2eh, 31h, 30h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 2dh, 36h, 31h
+        db      31h, 2eh, 31h, 30h
+d_c2_tbl_08e6e:
+        db      20h, 20h
+d_c0_b_08e70:
+        db      20h, 20h
+d_c0_tbl_08e72:
+        db      20h, 20h, 20h, 20h, 20h, 2dh, 36h, 31h
         else
-        db      31h, 2eh, 30h, 37h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 20h, 2dh, 35h, 34h
+        db      31h, 2eh, 30h, 37h, 20h, 20h, 20h, 20h, 20h, 20h
+d_c2_tbl_08e6e:
+        db      20h, 20h
+d_c0_b_08e70:
+        db      20h, 2dh
+d_c0_tbl_08e72:
+        db      35h, 34h
         endif
 
 ; erased flash 0x6112a-0x65cd6, 19372 bytes, but none of it free at runtime:
@@ -9889,5 +10489,101 @@ d_k0_w_08e68:
 d_c0_w_0c28f:
         db      2744 dup (0)
 d_p_cd33:
+        PAD_TO  10000h-030ah, 00h
+d_c1_w_0d71c:
+        PAD_TO  10000h-0308h, 00h
+d_c1_w_0d71e:
+        PAD_TO  10000h-0306h, 00h
+d_c1_w_0d720:
+        PAD_TO  10000h-0302h, 00h
+d_c1_w_0d724:
+        PAD_TO  10000h-0300h, 00h
+d_c1_w_0d726:
+        PAD_TO  10000h-02feh, 00h
+d_c1_w_0d728:
+        PAD_TO  10000h-02fch, 00h
+d_c1_w_0d72a:
+        PAD_TO  10000h-02fah, 00h
+d_c1_w_0d72c:
+        PAD_TO  10000h-02c6h, 00h
+d_c0_b_0d760:
+        PAD_TO  10000h-02c4h, 00h
+d_c1_w_0d762:
+        PAD_TO  10000h-02b1h, 00h
+d_c1_b_0d775:
+        PAD_TO  10000h-02b0h, 00h
+d_c0_b_0d776:
+        PAD_TO  10000h-02afh, 00h
+d_c1_b_0d777:
+        PAD_TO  10000h-02aeh, 00h
+d_c0_w_0d778:
+        PAD_TO  10000h-026eh, 00h
+d_c0_b_0d7b8:
+        PAD_TO  10000h-026dh, 00h
+d_c0_b_0d7b9:
+        PAD_TO  10000h-026ch, 00h
+d_c1_b_0d7ba:
+        PAD_TO  10000h-026bh, 00h
+d_c0_b_0d7bb:
+        PAD_TO  10000h-026ah, 00h
+d_c0_b_0d7bc:
+        PAD_TO  10000h-0269h, 00h
+d_c1_b_0d7bd:
+        PAD_TO  10000h-0267h, 00h
+d_c1_b_0d7bf:
+        PAD_TO  10000h-0265h, 00h
+d_c0_b_0d7c1:
+        PAD_TO  10000h-0264h, 00h
+d_c0_w_0d7c2:
+        PAD_TO  10000h-0260h, 00h
+d_c1_b_0d7c6:
+        PAD_TO  10000h-025eh, 00h
+d_c1_b_0d7c8:
+        PAD_TO  10000h-025dh, 00h
+d_c0_b_0d7c9:
+        PAD_TO  10000h-025ch, 00h
+d_c1_b_0d7ca:
+        PAD_TO  10000h-025bh, 00h
+d_c1_b_0d7cb:
+        PAD_TO  10000h-0259h, 00h
+d_c1_b_0d7cd:
+        PAD_TO  10000h-0256h, 00h
+d_c1_w_0d7d0:
+        PAD_TO  10000h-0254h, 00h
+d_c1_w_0d7d2:
+        PAD_TO  10000h-0252h, 00h
+d_c1_w_0d7d4:
+        PAD_TO  10000h-0250h, 00h
+d_c0_b_0d7d6:
+        PAD_TO  10000h-024fh, 00h
+d_c1_b_0d7d7:
+        PAD_TO  10000h-024eh, 00h
+d_c1_b_0d7d8:
+        PAD_TO  10000h-024dh, 00h
+d_c1_b_0d7d9:
+        PAD_TO  10000h-024ch, 00h
+d_c1_b_0d7da:
+        PAD_TO  10000h-024bh, 00h
+d_c1_b_0d7db:
+        PAD_TO  10000h-024ah, 00h
+d_c1_b_0d7dc:
+        PAD_TO  10000h-0249h, 00h
+d_c0_b_0d7dd:
+        PAD_TO  10000h-0248h, 00h
+d_c1_w_0d7de:
+        PAD_TO  10000h-0246h, 00h
+d_c1_b_0d7e0:
+        PAD_TO  10000h-0244h, 00h
+d_c0_b_0d7e2:
+        PAD_TO  10000h-0240h, 00h
+d_c0_w_0d7e6:
+        PAD_TO  10000h-023eh, 00h
+d_c0_w_0d7e8:
+        PAD_TO  10000h-022eh, 00h
+d_c0_b_0d7f8:
+        PAD_TO  10000h-022dh, 00h
+d_c0_b_0d7f9:
+        PAD_TO  10000h-0228h, 00h
+d_c1_tbl_0d7fe:
         PAD_TO  10000h, 00h
 CONSTS_END:

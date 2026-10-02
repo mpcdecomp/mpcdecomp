@@ -30865,13 +30865,8 @@ fn_ddbb5:
         shr     bh, 1
         and     bl, 1
         cmp     bl, al
-        if      FW_VERSION < 212
         push    ax
         push    bx
-        else
-        push    ax
-        push    bx
-        endif
         jz      br_ddbdd
         mov     al, byte ptr [B_5161]
         ja      br_ddbda
@@ -30881,13 +30876,8 @@ fn_ddbb5:
 br_ddbda:
         call    fn_ddc52
 br_ddbdd:
-        if      FW_VERSION < 212
         pop     bx
         pop     ax
-        else
-        pop     bx
-        pop     ax
-        endif
         cmp     bh, ah
         jz      br_ddbf1
         mov     al, byte ptr [B_5162]
@@ -30917,8 +30907,6 @@ br_ddc03:
         add     bx, bx
         if      FW_VERSION < 212
         call    word ptr cs:[bx + 133h]
-        elseif  FW_VERSION = 212
-        call    word ptr cs:[bx +TBL_ddcae]
         else
         call    word ptr cs:[bx +TBL_ddcae]
         endif
@@ -30982,8 +30970,6 @@ br_ddc67:
         add     bx, bx
         if      FW_VERSION < 212
         call    word ptr cs:[bx + 154h]
-        elseif  FW_VERSION = 212
-        call    word ptr cs:[bx +TBL_ddccf]
         else
         call    word ptr cs:[bx +TBL_ddccf]
         endif
@@ -49176,26 +49162,14 @@ br_eaa60:
         mov     word ptr [W_94C0], ax
         endif
 br_eaa77:
-        if      FW_VERSION < 212
         push    word ptr [bp - 0eh]
         push    word ptr [bp - 10h]
-        else
-        push    word ptr [bp - 0eh]
-        push    word ptr [bp - 10h]
-        endif
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
-        if      FW_VERSION < 212
         callf   SEG_DA9B:far_da9df
         add     sp, 8
         mov     word ptr [W_94BE], dx
         mov     word ptr [W_94BC], ax
-        else
-        callf   SEG_DA9B:far_da9df
-        add     sp, 8
-        mov     word ptr [W_94BE], dx
-        mov     word ptr [W_94BC], ax
-        endif
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
         if      FW_VERSION >= 212
@@ -49323,15 +49297,9 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         endif
         callf   SEG_DA9B:far_daa02
         add     sp, 8
-        if      FW_VERSION < 212
         neg     dx
         neg     ax
         sbb     dx, 0
-        else
-        neg     dx
-        neg     ax
-        sbb     dx, 0
-        endif
         mov     word ptr [bp - 16h], dx
         mov     word ptr [bp - 18h], ax
         if      FW_VERSION >= 212
@@ -49359,13 +49327,8 @@ L_e59fd:
         endif
         push    word ptr [bp - 12h]
         push    word ptr [bp - 14h]
-        if      FW_VERSION < 212
         push    dx
         push    ax
-        else
-        push    dx
-        push    ax
-        endif
         callf   SEG_DA9B:far_da9df
         add     sp, 8
         if      FW_VERSION >= 212

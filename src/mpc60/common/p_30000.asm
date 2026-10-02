@@ -6329,13 +6329,8 @@ br_04000:
 br_04009:
         mov     ax, word ptr [W_8CE0]
         mov     dx, word ptr [W_8CE2]
-        if      FW_VERSION < 212
         mov     word ptr [W_0AAE], ax
         mov     word ptr [W_0AB0], dx
-        else
-        mov     word ptr [W_0AAE], ax
-        mov     word ptr [W_0AB0], dx
-        endif
         mov     word ptr [W_8CE0], 0
         mov     word ptr [W_8CE2], 0
         mov     byte ptr [B_0ABC], 2
@@ -6473,35 +6468,18 @@ br_040f9:
 br_04102:
         mov     ax, word ptr [W_8CE4]
         mov     dx, word ptr [W_8CE6]
-        if      FW_VERSION < 212
         mov     word ptr [W_0AAE], ax
         mov     word ptr [W_0AB0], dx
-        else
-        mov     word ptr [W_0AAE], ax
-        mov     word ptr [W_0AB0], dx
-        endif
         mov     word ptr [W_8CE4], 0
         mov     word ptr [W_8CE6], 0
         mov     byte ptr [B_0ABC], 3
-        if      FW_VERSION < 212
         mov     word ptr [W_0AB2], 1
         mov     word ptr [W_0AB4], 0
         mov     si, 0
-        else
-        mov     word ptr [W_0AB2], 1
-        mov     word ptr [W_0AB4], 0
-        mov     si, 0
-        endif
 br_04130:
-        if      FW_VERSION < 212
         mov     ax, word ptr [W_0AAE]
         mov     dx, word ptr [W_0AB0]
         test    word ptr [W_0AB4], dx
-        else
-        mov     ax, word ptr [W_0AAE]
-        mov     dx, word ptr [W_0AB0]
-        test    word ptr [W_0AB4], dx
-        endif
         jnz     br_04141
         test    word ptr [W_0AB2], ax
 br_04141:

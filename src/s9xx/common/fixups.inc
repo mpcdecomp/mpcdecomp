@@ -62,6 +62,6 @@ fx_stub:
         mov     ds, ax
         mov     cx, 8000h
         rep movsw
-        jmpf    0:40h
+        jmpf    0:os_entry
 fx_stub_end:
         db      0

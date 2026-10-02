@@ -5941,13 +5941,13 @@ br_6b52:
 br_6b6e:
         cmp     al, byte ptr [SYSEX_CHECKSUM]
         if      FW_VERSION >= 400
-        mov     cx, 590ah
+        mov     cx, P_590A
         elseif  FW_VERSION = 210
-        mov     cx, 7957h
+        mov     cx, P_590A
         elseif  (MODEL = 900) && (FW_VERSION < 210)
-        mov     cx, 12d6h
+        mov     cx, P_590A
         else
-        mov     cx, 7e66h
+        mov     cx, P_590A
         endif
         je      br_6b86
         mov     di, W_966E
@@ -7458,7 +7458,7 @@ L_439c:
         call    fn_66aa
         mov     word ptr [MODE_FILL], utility_fill
         call    utility_fill
-        mov     si, 130dh
+        mov     si, SYSEX_08_49_F7
         call    sysex_send
         mov     si, SYSEX_02_49_00
         call    sysex_send
@@ -10827,7 +10827,7 @@ br_09dd:
         nop
         call    disk_catalog_entry_handler
         jb      br_308b_v12a
-        call    83b4h
+        call    P_80BC
 br_308b_v12a:
         endif
         xor     di, di
@@ -12608,7 +12608,7 @@ br_3323_s950:
         call    fn_11b2
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        jmp     83b4h
+        jmp     P_80BC
         endif
         if      FW_VERSION >= 210
         jmp     ffile_buf
@@ -16952,14 +16952,14 @@ fn_3a9a:
         call    fn_1cc6
         if      MODEL = 950
         mov     bx, FIELD_PREVIOUS
-        mov     si, 4a6ah
+        mov     si, FIELDS_REC_BANDWIDTH
         cmp     word ptr [499fh], 1
         je      br_505b_s950
-        cmp     word ptr [bx], 49e4h
+        cmp     word ptr [bx], FLD_REC_BANDWIDTH
         jne     br_5036_s950
-        mov     word ptr [bx], 49b4h
+        mov     word ptr [bx], FLD_DIGITAL_AUDIO_CD_KHZ
 br_5036_s950:
-        mov     si, 4a5ah
+        mov     si, FIELDS_DIGITAL_AUDIO_CD_KHZ
         mov     word ptr [FLD_REC_BANDWIDTH+9], 44e8h
         cmp     byte ptr [49bdh], 1
         je      br_506b_s950
@@ -16969,12 +16969,12 @@ br_5036_s950:
         mov     word ptr [FLD_REC_BANDWIDTH+9], 4b00h
         jmp     br_506b_s950
 br_505b_s950:
-        cmp     word ptr [bx], 49b4h
+        cmp     word ptr [bx], FLD_DIGITAL_AUDIO_CD_KHZ
         je      br_5067_s950
-        cmp     word ptr [bx], 49c3h
+        cmp     word ptr [bx], FLD_DIGITAL_AUDIO_LEFT_RIGHT
         jne     br_506b_s950
 br_5067_s950:
-        mov     word ptr [bx], 49e4h
+        mov     word ptr [bx], FLD_REC_BANDWIDTH
 br_506b_s950:
         mov     di, 4a4ah
         mov     cx, 7
@@ -19391,7 +19391,7 @@ mode_edit_sample:
         mov     word ptr [FIELD_RECENT], FLD_SELECT_COPY_SAMPLE
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [91d6h], 5eb8h
+        mov     word ptr [91d6h], FLD_REPLAY_MODE_ONE_SHOT
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         mov     word ptr [LAST_FIELD_PTR], SAMPLE_LAST_FIELD
@@ -20611,7 +20611,7 @@ fn_61ba_os21:
         ret
 
 fn_70d7_s950:
-        mov     word ptr [W_5A0C_OS21], 70d0h
+        mov     word ptr [W_5A0C_OS21], fn_61ba_os21
         endif
         if      (MODEL = 900) && (FW_VERSION < 400)
         cmpsw
@@ -21593,7 +21593,7 @@ L_68f3_os21:
         mov     word ptr [W_9642], ax
         mov     ax, word ptr [bp+38h]
         mov     word ptr [W_9644], ax
-        mov     word ptr [W_9674], 6966h
+        mov     word ptr [W_9674], loop_6966_os21
         mov     ax, word ptr [bx+10h]
         mov     dx, word ptr [bx+12h]
         shr     dx, 1
@@ -22173,7 +22173,7 @@ loop_7c35_s950:
         mov     word ptr [W_9674], L_6748_os21
         cmp     word ptr [7a16h], 1
         je      br_7c73_s950
-        mov     word ptr [W_9674], 7d5eh
+        mov     word ptr [W_9674], L_7d5e_s950
 br_7c73_s950:
         mov     ax, word ptr [799ch]
         mov     word ptr [W_9600], ax
@@ -22198,7 +22198,7 @@ br_7c73_s950:
         mov     word ptr [W_9674], L_6773_os21
         cmp     word ptr [7a16h], 1
         je      br_7cc5_s950
-        mov     word ptr [W_9674], 7daeh
+        mov     word ptr [W_9674], L_7dae_s950
 br_7cc5_s950:
         mov     ax, word ptr [799ch]
         mov     word ptr [W_9600], ax
@@ -22383,7 +22383,7 @@ B_3BC1:
         RUN_FLD_BASIC_MIDI_CHANNEL
         jmp     loop_1d2a
         RUN_SET_MIDI_TEST_VELOCITY
-        mov     word ptr [91d6h], 72d0h
+        mov     word ptr [91d6h], FLD_CHANNEL
         RUN_L_4271
         cmp     word ptr [FIELD_LIST], P_0A5C
         RUN_LOOP_42CE
@@ -22880,7 +22880,7 @@ br_6787:
         loop    loop_6751
         ret
         RUN_BR_678D
-        mov     word ptr [si], 8d32h
+        mov     word ptr [si], L_6820
         RUN_BR_67B1
         je      br_8cc1_s950
         cmp     ah, 49h
@@ -23051,7 +23051,7 @@ W_5946:
         RUN_LOOP_6EE3
         endif
         if      FW_VERSION = 210
-        call    9f76h
+        call    MODE_FILL
         endif
         if      FW_VERSION >= 400
         call    word ptr [MODE_FILL]
@@ -25414,7 +25414,7 @@ boot_copy_rom:
 boot_enter_os:
         endif
         if      MODEL = 950
-        jmpf    0:40h
+        jmpf    0:os_entry
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
         jmpf    0:0
@@ -25425,7 +25425,7 @@ boot_enter_os:
 reset_stub:
         endif
         if      MODEL = 950
-        jmpf    0f000h:0ff80h
+        jmpf    0f000h:shadow_copy_and_jump
         db      81h, 0f9h, 0dch, 06h, 72h, 1bh, 0c1h, 0e9h, 04h, 29h, 4dh
         elseif  (MODEL = 900) && (FW_VERSION < 210)
         mov     ax, 0f800h

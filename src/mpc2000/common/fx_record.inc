@@ -60,6 +60,7 @@ FXS_FIELD_46            equ     046h    ; byte, the effect type; picks the edit 
 FXS_FIELD_47            equ     047h    ; byte, `cmp ...,0`  ?
 SIZEOF_FXS              equ     048h    ; channel_validate's `imul ax,bx,48h`
 FXR_TYPE                equ     000h    ; byte, index into FX_REVERB_LABELS
+FXR_FIELD_01            equ     001h    ; byte, bit 0 tested  ?
 FXR_PREDELAY            equ     002h    ; word, ms
 FXR_FIELD_04            equ     004h    ; ?
 FXR_FIELD_06            equ     006h    ; ?

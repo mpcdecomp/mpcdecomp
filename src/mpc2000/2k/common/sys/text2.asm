@@ -3615,7 +3615,7 @@ misc_d33b:
         mov     bx, ax
         mov     es, dx
 ; ? voice_string_access @0x0d356 is mid-instruction
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_FIELD_01]
         push    ax
         nop
         push    cs
@@ -9110,7 +9110,7 @@ voice_process_full              equ     $+1
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_FIELD_01]
         and     al, 1
         cmp     al, 1
         sbb     ax, ax
@@ -9990,7 +9990,7 @@ tgt_04B6E:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_FIELD_45]
         jmp     L_04BA0
         db      90h
 br_04B8C:
@@ -10003,7 +10003,7 @@ br_04B8C:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_FIELD_01]
 
 L_04BA0:
         mov     byte ptr [B_4FE1], al
@@ -10044,7 +10044,7 @@ voice_dispatch_table:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_FIELD_45]
         jmp     br_04BFC
 
 L_04BE8:
@@ -10120,7 +10120,7 @@ L_04C5C                         equ     $+1
         endif
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_FIELD_01]
         mov     byte ptr [B_4FE1], al
         retf
         db      00h
@@ -16830,14 +16830,14 @@ X_07EBA:
         mov     word ptr [bp-2], ax
         mov     word ptr [bp-4], ax
         les     bx, [SND_CURRENT]
-        mov     ax, word ptr es:[bx+14h]
-        mov     dx, word ptr es:[bx+16h]
+        mov     ax, word ptr es:[bx+SND_START]
+        mov     dx, word ptr es:[bx+SND_START_HI]
         jmp     SHORT X_07EEA
 
 X_07ED0:
         les     bx, [SND_CURRENT]
-        mov     ax, word ptr es:[bx+18h]
-        mov     dx, word ptr es:[bx+1ah]
+        mov     ax, word ptr es:[bx+SND_END]
+        mov     dx, word ptr es:[bx+SND_END_HI]
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
 
@@ -17930,7 +17930,7 @@ X_08736:
         push    43h
         push    27h
         les     bx, [SND_CURRENT]
-        mov     al, byte ptr es:[bx+13h]
+        mov     al, byte ptr es:[bx+SND_STEREO]
         cbw
         mov     cx, ax
         add     ax, ax
@@ -17947,7 +17947,7 @@ X_08736:
         push    1eh
         les     bx, [SND_CURRENT]
         push    0
-        push    word ptr es:[bx+26h]
+        push    word ptr es:[bx+SND_RATE]
         push    5
         nop
         push    cs
@@ -18448,10 +18448,10 @@ L_08B5E:
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
-        cmp     word ptr es:[bx+1ah], dx
+        cmp     word ptr es:[bx+SND_END_HI], dx
         jg      L_08B7F
         jl      X_08B77
-        cmp     word ptr es:[bx+18h], ax
+        cmp     word ptr es:[bx+SND_END], ax
         jae     L_08B7F
 
 X_08B77:
@@ -18462,8 +18462,8 @@ L_08B7F:
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
-        mov     word ptr es:[bx+14h], ax
-        mov     word ptr es:[bx+16h], dx
+        mov     word ptr es:[bx+SND_START], ax
+        mov     word ptr es:[bx+SND_START_HI], dx
         retf
         db      00h
 
@@ -18761,10 +18761,10 @@ L_08E48:
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
-        cmp     word ptr es:[bx+16h], dx
+        cmp     word ptr es:[bx+SND_START_HI], dx
         jl      L_08E69
         jg      X_08E61
-        cmp     word ptr es:[bx+14h], ax
+        cmp     word ptr es:[bx+SND_START], ax
         jbe     L_08E69
 
 X_08E61:
@@ -18775,8 +18775,8 @@ L_08E69:
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
-        mov     word ptr es:[bx+18h], ax
-        mov     word ptr es:[bx+1ah], dx
+        mov     word ptr es:[bx+SND_END], ax
+        mov     word ptr es:[bx+SND_END_HI], dx
         retf
         db      00h
         if      FW_VERSION = 172
@@ -19500,8 +19500,8 @@ X_09465:
         sbb     word ptr es:[bx+SND_START_HI], dx
         else
         sub     ax, ax
-        mov     word ptr es:[bx+16h], ax
-        mov     word ptr es:[bx+14h], ax
+        mov     word ptr es:[bx+SND_START_HI], ax
+        mov     word ptr es:[bx+SND_START], ax
         endif
         mov     ax, word ptr [SND_CURRENT]
         mov     dx, word ptr [SND_CURRENT+2]
@@ -20324,10 +20324,10 @@ X_09BDE:
         mov     ax, word ptr [G_ZONE_END]
         mov     dx, word ptr [ZONE_END_HI]
         les     bx, [SND_CURRENT]
-        cmp     word ptr es:[bx+1eh], dx
+        cmp     word ptr es:[bx+SND_LENGTH_HI], dx
         jg      X_09C06
         jl      X_09BF7
-        cmp     word ptr es:[bx+1ch], ax
+        cmp     word ptr es:[bx+SND_LENGTH], ax
         jae     X_09C06
 
 X_09BF7:
@@ -21040,7 +21040,7 @@ X_0A171:
         push    13h
         les     bx, [SND_CURRENT]
         sub     ah, ah
-        mov     al, byte ptr es:[bx+11h]
+        mov     al, byte ptr es:[bx+SND_LEVEL]
         push    0
         push    ax
         push    3
@@ -21050,7 +21050,7 @@ X_0A171:
         push    2bh
         push    23h
         les     bx, [SND_CURRENT]
-        mov     al, byte ptr es:[bx+12h]
+        mov     al, byte ptr es:[bx+SND_TUNE]
         cbw
         cwd
         push    dx
@@ -21062,7 +21062,7 @@ X_0A171:
         push    0d3h
         push    11h
         les     bx, [SND_CURRENT]
-        mov     al, byte ptr es:[bx+25h]
+        mov     al, byte ptr es:[bx+SND_FIELD_25]
         cbw
         cwd
         push    dx
@@ -21088,7 +21088,7 @@ X_0A171:
         les     bx, [SND_CURRENT]
         push    es
         push    bx
-        mov     al, byte ptr es:[bx+12h]
+        mov     al, byte ptr es:[bx+SND_TUNE]
         cbw
         push    ax
         nop

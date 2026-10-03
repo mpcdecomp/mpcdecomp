@@ -5841,10 +5841,10 @@ br_02E01:
         nop
         push    cs
         call    draw_unsigned_value
-        mov     al, byte ptr [P_8CB2]
+        mov     al, byte ptr [WIN_FIELD_BOX_R]
         sub     ah, ah
         push    ax
-        mov     al, byte ptr [P_8CB3]
+        mov     al, byte ptr [WIN_FIELD_BOX_B]
         push    ax
         push    6
         push    0
@@ -5861,7 +5861,7 @@ br_02E36:
         add     ax, ax
         add     ax, cx
         add     ax, ax
-        mov     cl, byte ptr [P_8CB0]
+        mov     cl, byte ptr [WIN_FIELD_BOX_W]
         sub     ch, ch
         sub     cx, ax
         push    cx
@@ -5876,12 +5876,12 @@ br_02E5B:
         retf
         db      00h
 
-; stores the value into [PTR_SECONDARY] as byte, word or dword per the
+; stores the value into [WIN_FIELD_VAR] as byte, word or dword per the
 ; width code.
 field_value_store:
         push    bp
         mov     bp, sp
-        mov     al, byte ptr [P_8CB4]
+        mov     al, byte ptr [WIN_FIELD_MODE]
         sub     ah, ah
         or      ax, ax
         je      br_02E7E
@@ -5896,7 +5896,7 @@ field_value_store:
         leave
         retf    4
 br_02E7E:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         cmp     byte ptr [bp+6], al
         je      br_02ECC
@@ -5905,7 +5905,7 @@ br_02E7E:
         jmp     br_02EC8
 
 L_02E92:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
         cmp     word ptr [bp+6], ax
         je      br_02ECC
@@ -5915,9 +5915,9 @@ far_dispatch_e65e:
         jmp     br_02EC8
 
 br_02EA6:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         cmp     word ptr [bp+6], ax
         jne     br_02EBB
         cmp     word ptr [bp+8], dx
@@ -5927,7 +5927,7 @@ br_02EBB:
         mov     ax, word ptr [bp+6]
         mov     dx, word ptr [bp+8]
         mov     word ptr es:[bx], ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        mov     word ptr es:[bx+2], dx
 
 br_02EC8:
         callf   [WIN_FIELD_CHANGE_FN]
@@ -5949,7 +5949,7 @@ L_02ED5:
         mov     ds, cx
         mov     al, byte ptr [G_SEQ_MODE]
         mov     byte ptr [bp-1], al
-        mov     al, byte ptr [P_8CB4]
+        mov     al, byte ptr [WIN_FIELD_MODE]
         sub     ah, ah
         or      ax, ax
         je      br_02EFC
@@ -5969,7 +5969,7 @@ misc_e6ae:
         retf
 
 br_02EFC:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         sub     ah, ah
         mov     al, byte ptr es:[bx]
 
@@ -5980,19 +5980,19 @@ loop_02F05:
         db      90h
 
 br_02F10:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         cbw
         jmp     br_02F2B
 
 br_02F1A:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
         jmp     loop_02F05
         db      90h
 
 br_02F24:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
 
 br_02F2B:
@@ -6000,9 +6000,9 @@ br_02F2B:
         jmp     br_02F39
 
 br_02F2E:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
 
 br_02F39:
         mov     word ptr [bp-0ah], ax
@@ -6047,7 +6047,7 @@ br_02F67:
         push    word ptr [bp-4]
         push    word ptr [bp-6]
         push    word ptr [NUM_ENTRY_MAX_HI]
-        push    word ptr [P_8CBE]
+        push    word ptr [NUM_ENTRY_MAX]
         callf   TEXT1_SEG:__aFldiv
         cmp     dx, word ptr [bp-10h]
         jl      br_02FB1
@@ -6073,11 +6073,11 @@ br_02FB1:
         cmp     dx, word ptr [NUM_ENTRY_MIN_HI]
         jg      br_02FEF
         jl      br_02FDC
-        cmp     ax, word ptr [P_8CBA]
+        cmp     ax, word ptr [NUM_ENTRY_MIN]
         jae     br_02FEF
 
 br_02FDC:
-        mov     ax, word ptr [P_8CBA]
+        mov     ax, word ptr [NUM_ENTRY_MIN]
         mov     dx, word ptr [NUM_ENTRY_MIN_HI]
         add     ax, 1
         adc     dx, 0
@@ -6085,7 +6085,7 @@ br_02FDC:
         mov     word ptr [bp-8], dx
 
 br_02FEF:
-        mov     ax, word ptr [P_8CBE]
+        mov     ax, word ptr [NUM_ENTRY_MAX]
         mov     dx, word ptr [NUM_ENTRY_MAX_HI]
         cmp     word ptr [bp-8], dx
         jl      br_03008
@@ -6121,7 +6121,7 @@ L_0301D:
         mov     ds, cx
         mov     al, byte ptr [G_SEQ_MODE]
         mov     byte ptr [bp-1], al
-        mov     al, byte ptr [P_8CB4]
+        mov     al, byte ptr [WIN_FIELD_MODE]
         sub     ah, ah
         or      ax, ax
         je      br_03044
@@ -6140,7 +6140,7 @@ L_0301D:
         retf
 
 br_03044:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         sub     ah, ah
         mov     al, byte ptr es:[bx]
 
@@ -6151,19 +6151,19 @@ loop_0304D:
         db      90h
 
 br_03058:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         cbw
         jmp     br_03073
 
 br_03062:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
         jmp     loop_0304D
         db      90h
 
 L_0306C:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
 
 L_03070:
         mov     ax, word ptr es:[bx]
@@ -6173,9 +6173,9 @@ br_03073:
         jmp     br_03081
 
 br_03076:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
 
 br_03081:
         mov     word ptr [bp-0ah], ax
@@ -6220,7 +6220,7 @@ br_030AF:
         push    word ptr [bp-4]
         push    word ptr [bp-6]
         push    word ptr [NUM_ENTRY_MIN_HI]
-        push    word ptr [P_8CBA]
+        push    word ptr [NUM_ENTRY_MIN]
         callf   TEXT1_SEG:__aFldiv
         cmp     dx, word ptr [bp-10h]
         jg      br_030F9
@@ -6245,11 +6245,11 @@ br_030F9:
         cmp     dx, word ptr [NUM_ENTRY_MAX_HI]
         jl      br_03137
         jg      br_03124
-        cmp     ax, word ptr [P_8CBE]
+        cmp     ax, word ptr [NUM_ENTRY_MAX]
         jbe     br_03137
 
 br_03124:
-        mov     ax, word ptr [P_8CBE]
+        mov     ax, word ptr [NUM_ENTRY_MAX]
         mov     dx, word ptr [NUM_ENTRY_MAX_HI]
         sub     ax, 1
         sbb     dx, 0
@@ -6257,7 +6257,7 @@ br_03124:
         mov     word ptr [bp-8], dx
 
 br_03137:
-        mov     ax, word ptr [P_8CBA]
+        mov     ax, word ptr [NUM_ENTRY_MIN]
         mov     dx, word ptr [NUM_ENTRY_MIN_HI]
         cmp     word ptr [bp-8], dx
         jg      br_03150
@@ -6349,7 +6349,7 @@ field_value_commit:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        mov     al, byte ptr [P_8CB4]
+        mov     al, byte ptr [WIN_FIELD_MODE]
         sub     ah, ah
         or      ax, ax
         je      br_03214
@@ -6366,7 +6366,7 @@ field_value_commit:
         retf
 
 br_03214:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         sub     ah, ah
         mov     al, byte ptr es:[bx]
 
@@ -6375,19 +6375,19 @@ loop_0321D:
         jmp     br_03250
 
 br_t2_03224:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         cbw
         jmp     br_0323F
 
 br_0322E:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
         jmp     loop_0321D
         db      90h
 
 br_03238:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
 
 br_0323F:
@@ -6395,9 +6395,9 @@ br_0323F:
         jmp     L_0324D
 
 br_03242:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
 
 L_0324D:
         mov     word ptr [bp-2], dx
@@ -6427,11 +6427,11 @@ L_03277:
         if      FW_VERSION = 150
 L_03341:
         endif
-        cmp     word ptr [P_8CBE], ax
+        cmp     word ptr [NUM_ENTRY_MAX], ax
         jae     br_03296
 
 br_0328C:
-        mov     ax, word ptr [P_8CBE]
+        mov     ax, word ptr [NUM_ENTRY_MAX]
         mov     dx, word ptr [NUM_ENTRY_MAX_HI]
         jmp     br_032AB
         db      90h
@@ -6440,11 +6440,11 @@ br_03296:
         cmp     word ptr [NUM_ENTRY_MIN_HI], dx
         jl      br_032B2
         jg      br_032A4
-        cmp     word ptr [P_8CBA], ax
+        cmp     word ptr [NUM_ENTRY_MIN], ax
         jbe     br_032B2
 
 br_032A4:
-        mov     ax, word ptr [P_8CBA]
+        mov     ax, word ptr [NUM_ENTRY_MIN]
         mov     dx, word ptr [NUM_ENTRY_MIN_HI]
 
 br_032AB:
@@ -6487,7 +6487,7 @@ status_read_6A:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register          ; -> text1 +0x03582 (no label)
-        mov     byte ptr [P_8CB4], 2
+        mov     byte ptr [WIN_FIELD_MODE], 2
         leave
         retf    16h
         db      00h
@@ -6515,7 +6515,7 @@ status_read_6A_2:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register
-        mov     byte ptr [P_8CB4], 3
+        mov     byte ptr [WIN_FIELD_MODE], 3
         leave
         retf    16h
         db      00h
@@ -6549,7 +6549,7 @@ L_03361:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register
-        mov     byte ptr [P_8CB4], 0
+        mov     byte ptr [WIN_FIELD_MODE], 0
         leave
         retf    16h
         db      00h
@@ -6580,7 +6580,7 @@ field_register_s8:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register
-        mov     byte ptr [P_8CB4], 1
+        mov     byte ptr [WIN_FIELD_MODE], 1
         leave
         retf    16h
         db      00h
@@ -6611,8 +6611,8 @@ br_033DC:
         cmp     bx, BUF_NAME_EDIT
         jae     loop_033F2
         push    10h
-        push    word ptr [PTR_SECONDARY+2]
-        push    word ptr [PTR_SECONDARY]
+        push    word ptr [WIN_FIELD_VAR+2]
+        push    word ptr [WIN_FIELD_VAR]
         push    ds
         push    BUF_NAME_EDIT
         jmp     br_0341D
@@ -6636,8 +6636,8 @@ br_033FF:
         push    10h
         push    ds
         push    cx
-        push    word ptr [PTR_SECONDARY+2]
-        push    word ptr [PTR_SECONDARY]
+        push    word ptr [WIN_FIELD_VAR+2]
+        push    word ptr [WIN_FIELD_VAR]
 br_0341D:
         callf   TEXT1_SEG:__fstrncpy
         add     sp, 0ah
@@ -6655,7 +6655,7 @@ X_03432:
         add     al, al
         add     al, byte ptr [WIN_FIELD_X]
         mov     byte ptr [EDIT_CURSOR_X], al
-        mov     byte ptr [P_8CB2], al
+        mov     byte ptr [WIN_FIELD_BOX_R], al
         cmp     byte ptr [G_FLAG_8CA8], 0
         je      X_03472
         mov     al, byte ptr [WIN_FIELD_X]
@@ -6668,10 +6668,10 @@ X_03432:
         nop
         push    cs
         call    cmd_dispatch_1E
-        mov     al, byte ptr [P_8CB2]
+        mov     al, byte ptr [WIN_FIELD_BOX_R]
         sub     ah, ah
         push    ax
-        mov     al, byte ptr [P_8CB3]
+        mov     al, byte ptr [WIN_FIELD_BOX_B]
         push    ax
         push    6
         push    0
@@ -6684,7 +6684,7 @@ X_03472:
         push    ax
         mov     al, byte ptr [EDIT_CURSOR_Y]
         push    ax
-        mov     al, byte ptr [P_8CB0]
+        mov     al, byte ptr [WIN_FIELD_BOX_W]
         push    ax
         mov     al, byte ptr [EDIT_CURSOR_H]
         push    ax
@@ -6988,8 +6988,8 @@ X_036C0:
         mov     cx, DATA_SEG
         mov     ds, cx
         push    10h
-        push    word ptr [PTR_SECONDARY+2]
-        push    word ptr [PTR_SECONDARY]
+        push    word ptr [WIN_FIELD_VAR+2]
+        push    word ptr [WIN_FIELD_VAR]
         push    cx
         push    BUF_NAME_EDIT
         callf   TEXT1_SEG:__fstrncpy
@@ -7015,8 +7015,8 @@ X_036F0:
         call    far_078E4
         or      dx, ax
         je      T2_X_03743
-        les     bx, [PTR_SECONDARY]
-        mov     ax, word ptr es:[bx+MPC_SECONDARY_state_word]
+        les     bx, [WIN_FIELD_VAR]
+        mov     ax, word ptr es:[bx+2]
         or      ax, word ptr es:[bx]
         jne     br_03714
         nop
@@ -7031,15 +7031,15 @@ br_03714:
         mov     ax, word ptr es:[bx+SND_NEXT_SEG]
         or      ax, word ptr es:[bx+SND_NEXT]
         je      T2_X_03743
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         les     bx, es:[bx]
         mov     ax, word ptr es:[bx+MPC_STATE_ref_lo]
         mov     dx, word ptr es:[bx+MPC_STATE_ref_hi]
 
 br_03734:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     word ptr es:[bx], ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        mov     word ptr es:[bx+2], dx
         callf   [WIN_FIELD_CHANGE_FN]
 
 T2_X_03743:
@@ -7056,8 +7056,8 @@ L_03746:
         call    far_078E4
         or      dx, ax
         je      L_037A8
-        les     bx, [PTR_SECONDARY]
-        mov     ax, word ptr es:[bx+MPC_SECONDARY_state_word]
+        les     bx, [WIN_FIELD_VAR]
+        mov     ax, word ptr es:[bx+2]
         or      ax, word ptr es:[bx]
         je      L_037A8
         les     bx, es:[bx]
@@ -7065,22 +7065,22 @@ L_03746:
         mov     ax, word ptr es:[bx+SND_PREV_SEG]
         or      ax, word ptr es:[bx+SND_PREV]
         je      br_03790
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         les     bx, es:[bx]
         mov     ax, word ptr es:[bx+MPC_STATE_reserved_2c]
         mov     dx, word ptr es:[bx+MPC_SECONDARY_ptr2_hi]
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     word ptr es:[bx], ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        mov     word ptr es:[bx+2], dx
         jmp     L_037A4
         db      90h
 
 br_03790:
         cmp     byte ptr [B_8CAB], 0
         je      L_037A8
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         sub     ax, ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], ax
+        mov     word ptr es:[bx+2], ax
         mov     word ptr es:[bx], ax
 
 L_037A4:
@@ -7142,11 +7142,11 @@ L_03742:
 L_03808:
         cmp     byte ptr [G_FLAG_8CA8], 0
         je      X_03840
-        mov     al, byte ptr [P_8CB2]
+        mov     al, byte ptr [WIN_FIELD_BOX_R]
         sub     ah, ah
         add     ax, 6
         push    ax
-        mov     al, byte ptr [P_8CB3]
+        mov     al, byte ptr [WIN_FIELD_BOX_B]
         sub     ah, ah
         push    ax
         push    6
@@ -7184,13 +7184,13 @@ X_03855:
         add     al, al
         add     al, cl
         add     al, al
-        mov     byte ptr [P_8CB0], al
+        mov     byte ptr [WIN_FIELD_BOX_W], al
         mov     al, byte ptr [EDIT_CURSOR_X]
         sub     ah, ah
         push    ax
         mov     al, byte ptr [EDIT_CURSOR_Y]
         push    ax
-        mov     al, byte ptr [P_8CB0]
+        mov     al, byte ptr [WIN_FIELD_BOX_W]
         push    ax
         mov     al, byte ptr [EDIT_CURSOR_H]
         push    ax
@@ -7224,7 +7224,7 @@ voice_trigger_full:
         add     al, cl
         add     al, al
         sub     al, 6
-        mov     byte ptr [P_8CB0], al
+        mov     byte ptr [WIN_FIELD_BOX_W], al
         nop
         push    cs
         call    win_keys_merge_disable
@@ -7255,7 +7255,7 @@ timer_value_read_1:
         nop
         push    cs
         call    status_read_6A_3
-        mov     byte ptr [P_8CB0], 24h
+        mov     byte ptr [WIN_FIELD_BOX_W], 24h
         nop
         push    cs
         call    far_02DC8
@@ -8543,7 +8543,7 @@ read_io_chain:
         nop
         push    cs
         call    field_register_s8
-        mov     byte ptr [P_8CB0], 1eh
+        mov     byte ptr [WIN_FIELD_BOX_W], 1eh
         nop
         push    cs
         call    win_keys_merge_disable
@@ -9691,14 +9691,14 @@ cmd_exec_pair:
 num_entry_draw:
         cmp     byte ptr [G_FLAG_8CA8], 0
         je      X_049C8
-        mov     al, byte ptr [P_8CB2]
+        mov     al, byte ptr [WIN_FIELD_BOX_R]
         sub     ah, ah
         if      FW_VERSION = 172
 L_04988                         equ     $+2
         endif
         add     ax, 6
         push    ax
-        mov     al, byte ptr [P_8CB3]
+        mov     al, byte ptr [WIN_FIELD_BOX_B]
         sub     ah, ah
         push    ax
         push    6
@@ -9748,13 +9748,13 @@ X_049E3:
         add     al, al
         add     al, cl
         add     al, al
-        mov     byte ptr [P_8CB0], al
+        mov     byte ptr [WIN_FIELD_BOX_W], al
         mov     al, byte ptr [EDIT_CURSOR_X]
         sub     ah, ah
         push    ax
         mov     al, byte ptr [EDIT_CURSOR_Y]
         push    ax
-        mov     al, byte ptr [P_8CB0]
+        mov     al, byte ptr [WIN_FIELD_BOX_W]
         push    ax
         mov     al, byte ptr [EDIT_CURSOR_H]
         push    ax
@@ -10762,7 +10762,7 @@ br_0507E:
         leave
         retf    6
 L_050AA:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         push    word ptr es:[bx]
         nop
         push    cs
@@ -12720,12 +12720,12 @@ smem_addr_dma_read:
         mov     word ptr [FP_2602_SEG], dx
         mov     es, word ptr [bp+8]
         mov     word ptr es:[bx], ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        mov     word ptr es:[bx+2], dx
         mov     ax, word ptr [PTR_DMA_STATE]
         mov     dx, word ptr [PTR_DMA_STATE+2]
         cmp     word ptr es:[bx], ax
         jne     L_05FEE
-        cmp     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        cmp     word ptr es:[bx+2], dx
         jne     L_05FEE
         xor     ax, ax
         pop     si
@@ -12747,7 +12747,7 @@ smem_addr_dma_read2:
         mov     dx, word ptr es:[bx+MPC_STATE_ref_hi]
         les     bx, [bp+6]
         mov     word ptr es:[bx], ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        mov     word ptr es:[bx+2], dx
         mov     word ptr [FP_2602], ax
         mov     word ptr [FP_2602_SEG], dx
         mov     ax, word ptr [PTR_DMA_STATE]
@@ -12821,7 +12821,7 @@ T2_L_0607E:
 L_060A4:
         mov     es, word ptr [bp-2]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     word ptr [bp-1ah], ax
         mov     word ptr [bp-18h], dx
         or      dx, ax
@@ -12906,7 +12906,7 @@ L_0611A:
 L_0613E:
         mov     es, word ptr [bp-2]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     word ptr [bp-1ch], ax
         mov     word ptr [bp-1ah], dx
         or      dx, ax
@@ -13189,7 +13189,7 @@ L_05F76:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         sub     ah, ah
         mov     al, byte ptr es:[bx]
         inc     ax
@@ -13217,7 +13217,7 @@ loop_06375:
         db      90h
 
 br_0638A:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     byte ptr es:[bx], cl
         callf   [WIN_FIELD_CHANGE_FN]
 
@@ -13232,7 +13232,7 @@ L_05FBA:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         sub     ah, ah
         mov     al, byte ptr es:[bx]
         dec     ax
@@ -13255,7 +13255,7 @@ loop_063B8:
         db      90h
 
 br_063CA:
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     byte ptr es:[bx], cl
         callf   [WIN_FIELD_CHANGE_FN]
 
@@ -15095,7 +15095,7 @@ L_070FA:
         push    cs
         call    note_clamp_flag
         mov     si, ax
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         mov     es, dx
         mov     byte ptr es:[si], al
@@ -15110,7 +15110,7 @@ mix_pan_store:
         push    cs
         call    note_clamp_flag
         mov     si, ax
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         add     al, 32h
         mov     es, dx
@@ -15127,7 +15127,7 @@ L_07136:
         push    cs
         call    note_range_clamp
         mov     si, ax
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         mov     es, dx
         mov     byte ptr es:[si+PGM_MIX_IVOL], al
@@ -15147,7 +15147,7 @@ L_07154:
         mov     es, dx
         mov     al, byte ptr es:[si]
         and     al, 80h
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         or      al, byte ptr es:[bx]
         mov     es, dx
         mov     byte ptr es:[si], al
@@ -15168,7 +15168,7 @@ timer_poll_wait_5:
         mov     si, bx
         mov     word ptr [bp-2], es
         and     byte ptr es:[bx], 7fh
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         cmp     byte ptr es:[bx], 0
 ; ? misnomer: note_range_clamp for the current track [8CE0h], then toggles.
         je      L_071AB
@@ -15189,7 +15189,7 @@ L_071AE:
         push    cs
         call    note_range_clamp
         mov     si, ax
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         mov     es, dx
         mov     byte ptr es:[si+PGM_MIX_FX_LEVEL], al
@@ -15205,7 +15205,7 @@ L_071CC:
         push    cs
         call    note_range_clamp
         mov     si, ax
-        les     bx, [PTR_SECONDARY]
+        les     bx, [WIN_FIELD_VAR]
         mov     al, byte ptr es:[bx]
         mov     es, dx
         mov     byte ptr es:[si+PGM_MIX_FX_BUS], al
@@ -15252,7 +15252,7 @@ X_07230:
         nop
         push    cs
         call    timer_value_read_1
-        add     byte ptr [P_8CB0], 66h
+        add     byte ptr [WIN_FIELD_BOX_W], 66h
         leave
         retf
 
@@ -22663,7 +22663,7 @@ lcd_line_copy:
         mov     bx, word ptr [bp+0ah]
         sub     ax, ax
         mov     byte ptr es:[bx+MPC_STATE_range_lo], al
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], ax
+        mov     word ptr es:[bx+2], ax
         mov     word ptr es:[bx], ax
         pop     si
         pop     di
@@ -22689,7 +22689,7 @@ _memcpy_4:
         pop     ds
         mov     bx, word ptr [bp+0ah]
         sub     ax, ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], ax
+        mov     word ptr es:[bx+2], ax
         mov     word ptr es:[bx], ax
         pop     si
         pop     di
@@ -22704,7 +22704,7 @@ lcd_region_helper:
         mov     si, word ptr [bp+0ah]
         les     bx, [bp+6]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     es, word ptr [bp+0ch]
         mov     word ptr es:[si], ax
         mov     word ptr es:[si+2], dx
@@ -24018,7 +24018,7 @@ br_0B7A1:
         mov     byte ptr es:[bx+26h], 2ah
         endif
         les     bx, [bp-0ch]
-        mov     al, byte ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     al, byte ptr es:[bx+2]
         mov     bx, dx
         mov     es, cx
         mov     byte ptr es:[bx+PGM_PADS+PGM_PAD_ALT2], al
@@ -24028,7 +24028,7 @@ br_0B7A1:
         mov     es, cx
         mov     byte ptr es:[bx+PGM_PADS+PGM_PAD_MUTE1], al
         les     bx, [bp-0ch]
-        mov     al, byte ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     al, byte ptr es:[bx+2]
         mov     bx, dx
         mov     es, cx
         if      FW_VERSION = 172
@@ -24873,7 +24873,7 @@ L_0BE86:
 
 br_0BE8B:
         les     bx, [bp+8]
-        push    word ptr es:[bx+MPC_SECONDARY_state_word]
+        push    word ptr es:[bx+2]
         push    word ptr es:[bx]
         nop
         push    cs
@@ -24926,7 +24926,7 @@ br_0BED3:
         call    sample_pool_add
         les     bx, [bp+8]
         mov     word ptr es:[bx], ax
-        mov     word ptr es:[bx+MPC_SECONDARY_state_word], dx
+        mov     word ptr es:[bx+2], dx
         mov     si, word ptr [bp+8]
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[si+2]
@@ -25849,7 +25849,7 @@ loop_0C66B:
         mov     bx, cx
         mov     es, word ptr [bp-4]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     word ptr [bp-10h], ax
         mov     word ptr [bp-0eh], dx
         or      dx, ax
@@ -25895,7 +25895,7 @@ br_0C6C3:
         mov     byte ptr es:[bx+4], al
         les     bx, [bp-6]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     bx, word ptr [bp-8]
         shl     bx, 2
         mov     word ptr [bx+P_8D44], ax
@@ -26164,7 +26164,7 @@ loop_0C8F5:
         mov     es, word ptr [bp-2]
         lea     bx, [di-4]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     word ptr [bp-18h], ax
         mov     word ptr [bp-16h], dx
         or      dx, ax

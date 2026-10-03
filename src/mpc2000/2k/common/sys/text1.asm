@@ -5095,7 +5095,7 @@ br_02A56:
         cbw
         les     bx, [bp+6]
         sub     ch, ch
-        mov     cl, byte ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     cl, byte ptr es:[bx+2]
         cmp     cx, ax
         jle     br_02A82
         mov     es, word ptr [bp-4]
@@ -6206,12 +6206,12 @@ mpc_query_status:
         mov     cl, byte ptr [bp+0eh]
         mov     byte ptr [EDIT_CURSOR_Y], cl
         mov     byte ptr [EDIT_FIELD_Y], cl
-        mov     byte ptr [P_8CB0], 6
+        mov     byte ptr [WIN_FIELD_BOX_W], 6
         mov     byte ptr [EDIT_CURSOR_H], 8
-        mov     byte ptr [P_8CB2], al
+        mov     byte ptr [WIN_FIELD_BOX_R], al
         mov     al, cl
         add     al, byte ptr [EDIT_CURSOR_H]
-        mov     byte ptr [P_8CB3], al
+        mov     byte ptr [WIN_FIELD_BOX_B], al
         mov     ax, word ptr [bp+0ah]
         or      ax, si
         jne     br_034C4
@@ -6265,38 +6265,38 @@ field_register:
         mov     dx, word ptr [bp+1ah]
         mov     word ptr [NUM_ENTRY_VALUE], ax
         mov     word ptr [NUM_ENTRY_VALUE_HI], dx
-        mov     word ptr [P_8CBA], ax
+        mov     word ptr [NUM_ENTRY_MIN], ax
         mov     word ptr [NUM_ENTRY_MIN_HI], dx
         mov     ax, word ptr [bp+14h]
         mov     dx, word ptr [bp+16h]
-        mov     word ptr [P_8CBE], ax
+        mov     word ptr [NUM_ENTRY_MAX], ax
         mov     word ptr [NUM_ENTRY_MAX_HI], dx
         mov     al, byte ptr [bp+12h]
         mov     cl, al
         add     al, al
         add     al, cl
         add     al, al
-        mov     byte ptr [P_8CB0], al
+        mov     byte ptr [WIN_FIELD_BOX_W], al
         add     al, byte ptr [bp+10h]
         sub     al, 6
-        mov     byte ptr [P_8CB2], al
+        mov     byte ptr [WIN_FIELD_BOX_R], al
         mov     al, byte ptr [bp+0eh]
         add     al, 8
-        mov     byte ptr [P_8CB3], al
+        mov     byte ptr [WIN_FIELD_BOX_B], al
         cmp     word ptr [NUM_ENTRY_MIN_HI], 0
         jge     X_0356A
-        add     byte ptr [P_8CB0], 6
-        add     byte ptr [P_8CB2], 6
+        add     byte ptr [WIN_FIELD_BOX_W], 6
+        add     byte ptr [WIN_FIELD_BOX_R], 6
 
 X_0356A:
-        mov     byte ptr [P_8CB4], 4
+        mov     byte ptr [WIN_FIELD_MODE], 4
         mov     ax, word ptr [bp+1ch]
         if      FW_VERSION = 172
 T1_L_03573                      equ     $+1
         endif
         mov     dx, word ptr [bp+1eh]
-        mov     word ptr [PTR_SECONDARY], ax
-        mov     word ptr [PTR_SECONDARY+2], dx
+        mov     word ptr [WIN_FIELD_VAR], ax
+        mov     word ptr [WIN_FIELD_VAR+2], dx
         push    ds
         push    TBL_WINKEYS_00CBA
         nop
@@ -6329,8 +6329,8 @@ far_call_wrapper_1:
         push    10h
         mov     ax, word ptr [bp+0ah]
         mov     dx, word ptr [bp+0ch]
-        mov     word ptr [PTR_SECONDARY], ax
-        mov     word ptr [PTR_SECONDARY+2], dx
+        mov     word ptr [WIN_FIELD_VAR], ax
+        mov     word ptr [WIN_FIELD_VAR+2], dx
         push    dx
         push    ax
         push    ds
@@ -6372,11 +6372,11 @@ far_035F2:
         call    mpc_query_status
         mov     ax, word ptr [bp+10h]
         mov     dx, word ptr [bp+12h]
-        mov     word ptr [PTR_SECONDARY], ax
-        mov     word ptr [PTR_SECONDARY+2], dx
+        mov     word ptr [WIN_FIELD_VAR], ax
+        mov     word ptr [WIN_FIELD_VAR+2], dx
         mov     al, byte ptr [bp+0eh]
         mov     byte ptr [B_8CAB], al
-        mov     byte ptr [P_8CB0], 60h
+        mov     byte ptr [WIN_FIELD_BOX_W], 60h
         callf   TEXT2_SEG:win_keys_merge_disable
         push    ds
         push    TBL_WINKEYS_00D64
@@ -6585,7 +6585,7 @@ L_0376A:
         push    0
         callf   TEXT2_SEG:status_read_6A_3
         callf   TEXT2_SEG:win_keys_merge_disable
-        mov     byte ptr [P_8CB0], 1fh
+        mov     byte ptr [WIN_FIELD_BOX_W], 1fh
         mov     byte ptr [EDIT_CURSOR_H], 26h
         pop     si
         ret
@@ -6726,7 +6726,7 @@ br_03858:
         push    0
         callf   TEXT2_SEG:status_read_6A_3
         callf   TEXT2_SEG:win_keys_merge_disable
-        mov     byte ptr [P_8CB0], 1fh
+        mov     byte ptr [WIN_FIELD_BOX_W], 1fh
         mov     byte ptr [EDIT_CURSOR_H], 26h
         ret
 
@@ -7474,7 +7474,7 @@ X_03E11:
         push    fx_redraw
         callf   TEXT2_SEG:status_read_6A_3
         callf   TEXT2_SEG:win_keys_merge_disable
-        mov     byte ptr [P_8CB0], 12h
+        mov     byte ptr [WIN_FIELD_BOX_W], 12h
 
 L_03E2A:
         dec     byte ptr [G_FLAG_1589]
@@ -8682,7 +8682,7 @@ br_04626:
         push    fx_redraw
         callf   TEXT2_SEG:status_read_6A_3
         callf   TEXT2_SEG:win_keys_merge_disable
-        mov     byte ptr [P_8CB0], 12h
+        mov     byte ptr [WIN_FIELD_BOX_W], 12h
         jmp     br_04679
         db      90h
 br_04652:
@@ -8858,7 +8858,7 @@ X_04782:
         push    fx_redraw
         callf   TEXT2_SEG:status_read_6A_3
         callf   TEXT2_SEG:win_keys_merge_disable
-        mov     byte ptr [P_8CB0], 12h
+        mov     byte ptr [WIN_FIELD_BOX_W], 12h
         jmp     SHORT L_047D7
         db      90h
 
@@ -9272,7 +9272,7 @@ X_04A9A:
         push    far_04B42
         callf   TEXT2_SEG:status_read_6A_3
         callf   TEXT2_SEG:win_keys_merge_disable
-        mov     byte ptr [P_8CB0], 12h
+        mov     byte ptr [WIN_FIELD_BOX_W], 12h
         jmp     SHORT L_04AE1
         db      90h
 
@@ -10114,7 +10114,7 @@ X_04FF2:
         push    16h
         push    0
         callf   TEXT2_SEG:timer_value_read_1
-        mov     byte ptr [P_8CB0], 0ch
+        mov     byte ptr [WIN_FIELD_BOX_W], 0ch
         ret
 
 L_05012:
@@ -10827,7 +10827,7 @@ L_054DC:
         sub     al, 2bh
         neg     al
         mov     byte ptr [EDIT_CURSOR_Y], al
-        mov     byte ptr [P_8CB0], 30h
+        mov     byte ptr [WIN_FIELD_BOX_W], 30h
         pop     si
         pop     di
         ret
@@ -11252,7 +11252,7 @@ X_0586E:
         push    2
         push    0
         callf   TEXT2_SEG:timer_value_read_1
-        mov     byte ptr [P_8CB0], 0a6h
+        mov     byte ptr [WIN_FIELD_BOX_W], 0a6h
         jmp     NEAR X_0591E
 
 X_05890:
@@ -11342,7 +11342,7 @@ X_0592C:
         push    word TEXT1_SEG
         push    L_06570
         callf   TEXT2_SEG:seq_write_data
-        mov     byte ptr [P_8CB0], 0ch
+        mov     byte ptr [WIN_FIELD_BOX_W], 0ch
         pop     si
         pop     di
         leave
@@ -11606,7 +11606,7 @@ br_05B8C:
         push    0bh
         push    0
         callf   TEXT2_SEG:timer_value_read_1
-        mov     byte ptr [P_8CB0], 0a2h
+        mov     byte ptr [WIN_FIELD_BOX_W], 0a2h
         pop     si
         ret
 br_05BA2:
@@ -11856,7 +11856,7 @@ X_05D88:
         push    0bh
         push    0
         callf   TEXT2_SEG:timer_value_read_1
-        mov     byte ptr [P_8CB0], 0a2h
+        mov     byte ptr [WIN_FIELD_BOX_W], 0a2h
         pop     si
         leave
         ret
@@ -12165,7 +12165,7 @@ br_0600A:
         push    0bh
         push    0
         callf   TEXT2_SEG:timer_value_read_1
-        mov     byte ptr [P_8CB0], 0a2h
+        mov     byte ptr [WIN_FIELD_BOX_W], 0a2h
         pop     si
         ret
 
@@ -12478,7 +12478,7 @@ L_06277:
 
 X_06279:
         callf   TEXT2_SEG:timer_value_read_1
-        mov     byte ptr [P_8CB0], 0a2h
+        mov     byte ptr [WIN_FIELD_BOX_W], 0a2h
         pop     si
         ret
         db      00h
@@ -19561,7 +19561,7 @@ voice_play_request:
         pop     ds
         les     bx, [bp+8]
 
-        mov     al, byte ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     al, byte ptr es:[bx+2]
         dec     al
         mov     byte ptr [bp-23h], al
         push    0
@@ -20071,7 +20071,7 @@ br_09ECE:
 loop_09EE4:
         les     bx, [bp-4]
         mov     ax, word ptr es:[bx]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_state_word]
+        mov     dx, word ptr es:[bx+2]
         mov     word ptr [bp-22h], ax
         mov     word ptr [bp-20h], dx
         or      dx, ax
@@ -20149,7 +20149,7 @@ br_09F7A:
         cmp     word ptr [bp-8], 2
         jne     br_09F9A
         les     bx, [bp-4]
-        push    word ptr es:[bx+MPC_SECONDARY_state_word]
+        push    word ptr es:[bx+2]
         push    word ptr es:[bx]
         lea     ax, [bp-1eh]
         push    ss
@@ -20161,7 +20161,7 @@ br_09F7A:
 
 br_09F9A:
         les     bx, [bp-4]
-        push    word ptr es:[bx+MPC_SECONDARY_state_word]
+        push    word ptr es:[bx+2]
         push    word ptr es:[bx]
         lea     ax, [bp-1eh]
         push    ss

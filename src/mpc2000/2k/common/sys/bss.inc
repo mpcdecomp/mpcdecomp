@@ -135,6 +135,7 @@ _bss    set     BSS_BASE
         BSS     P_8B9E, 100h
         BSS     G_MIDI_IN_RING_WR, 1
         BSS     G_MIDI_IN_RING_RD, 1
+; the field a window edits, one record; field_register fills it
         BSS     WIN_FIELD_CHANGE_FN, 2
         BSS     WIN_FIELD_CHANGE_FN_SEG, 2
         BSS     WIN_FIELD_DRAW_FN, 2
@@ -147,15 +148,15 @@ _bss    set     BSS_BASE
         BSS     EDIT_FIELD_Y, 1
         BSS     EDIT_CURSOR_X, 1
         BSS     EDIT_CURSOR_Y, 1
-        BSS     P_8CB0, 1
+        BSS     WIN_FIELD_BOX_W, 1                     ; cursor box width, px = digits*6
         BSS     EDIT_CURSOR_H, 1
-        BSS     P_8CB2, 1
-        BSS     P_8CB3, 1
-        BSS     P_8CB4, 2
-        BSS     PTR_SECONDARY, 4                       ; secondary state, MPC_SECONDARY
-        BSS     P_8CBA, 2
+        BSS     WIN_FIELD_BOX_R, 1                     ; its right cell, x + box - 6
+        BSS     WIN_FIELD_BOX_B, 1                     ; its bottom, y + 8
+        BSS     WIN_FIELD_MODE, 2                      ; 0 u8 / 1 s8 / 2 u16 / 3 s16 / 4 u32
+        BSS     WIN_FIELD_VAR, 4                       ; far ptr to the value being edited
+        BSS     NUM_ENTRY_MIN, 2
         BSS     NUM_ENTRY_MIN_HI, 2
-        BSS     P_8CBE, 2
+        BSS     NUM_ENTRY_MAX, 2
         BSS     NUM_ENTRY_MAX_HI, 2
         BSS     NUM_ENTRY_VALUE, 2
         BSS     NUM_ENTRY_VALUE_HI, 2

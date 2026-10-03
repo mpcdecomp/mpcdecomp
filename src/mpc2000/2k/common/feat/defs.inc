@@ -73,17 +73,6 @@ ZS_T1S                          equ     ZS_LOAD_PARA+TEXT1_SEG
 ZS_T2S                          equ     ZS_LOAD_PARA+TEXT2_SEG
 ZS_DS                           equ     ZS_LOAD_PARA+DATA_SEG
 
-; field edit state block (live screen cursor, box, min/max range, digit count)
-; set by field_register (TEXT1 034FCh) via ZS_T2_FIELD_REG/ZS_T2_NOTE_FIELD hooks
-WIN_FIELD_BOX_W                 equ     P_8CB0          ; cursor box width, px = digits*6
-WIN_FIELD_BOX_R                 equ     P_8CB2          ; its right cell, x + box - 6
-WIN_FIELD_BOX_B                 equ     P_8CB3          ; its bottom, y + 8
-WIN_FIELD_MODE                  equ     P_8CB4          ; 0 u8 / 1 s8 / 2 u16 / 3 s16 / 4 u32
-WIN_FIELD_VAR                   equ     PTR_SECONDARY   ; far ptr to the byte being edited.  the
-                                        ; WIN_FIELD_MIN address also named PTR_SECONDARY; 37 sites reference it. only
-                                        ; field-edit sites confirmed for state, so both names retained.
-WIN_FIELD_MIN                   equ     P_8CBA          ; dword; if negative the box gains 6 px for
-WIN_FIELD_MAX                   equ     P_8CBE          ; dword
 WIN_FIELD_KEYS                  equ     TBL_WINKEYS_00CBA ; the handler table field_register merges
 
 PGM_TABLE_N                     equ     24

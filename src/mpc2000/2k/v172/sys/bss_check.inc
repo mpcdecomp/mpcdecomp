@@ -132,15 +132,15 @@ BSS_STOCK_BASE                  equ     05180h
         BSSCHK  EDIT_FIELD_Y, 08cadh
         BSSCHK  EDIT_CURSOR_X, 08caeh
         BSSCHK  EDIT_CURSOR_Y, 08cafh
-        BSSCHK  P_8CB0, 08cb0h
+        BSSCHK  WIN_FIELD_BOX_W, 08cb0h
         BSSCHK  EDIT_CURSOR_H, 08cb1h
-        BSSCHK  P_8CB2, 08cb2h
-        BSSCHK  P_8CB3, 08cb3h
-        BSSCHK  P_8CB4, 08cb4h
-        BSSCHK  PTR_SECONDARY, 08cb6h
-        BSSCHK  P_8CBA, 08cbah
+        BSSCHK  WIN_FIELD_BOX_R, 08cb2h
+        BSSCHK  WIN_FIELD_BOX_B, 08cb3h
+        BSSCHK  WIN_FIELD_MODE, 08cb4h
+        BSSCHK  WIN_FIELD_VAR, 08cb6h
+        BSSCHK  NUM_ENTRY_MIN, 08cbah
         BSSCHK  NUM_ENTRY_MIN_HI, 08cbch
-        BSSCHK  P_8CBE, 08cbeh
+        BSSCHK  NUM_ENTRY_MAX, 08cbeh
         BSSCHK  NUM_ENTRY_MAX_HI, 08cc0h
         BSSCHK  NUM_ENTRY_VALUE, 08cc2h
         BSSCHK  NUM_ENTRY_VALUE_HI, 08cc4h

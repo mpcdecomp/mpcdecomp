@@ -7027,14 +7027,14 @@ X_036F0:
 
 br_03714:
         les     bx, es:[bx]
-        les     bx, es:[bx+MPC_STATE_ref_lo]
+        les     bx, es:[bx+SND_NEXT]
         mov     ax, word ptr es:[bx+SND_NEXT_SEG]
         or      ax, word ptr es:[bx+SND_NEXT]
         je      T2_X_03743
         les     bx, [WIN_FIELD_VAR]
         les     bx, es:[bx]
-        mov     ax, word ptr es:[bx+MPC_STATE_ref_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_ref_hi]
+        mov     ax, word ptr es:[bx+SND_NEXT]
+        mov     dx, word ptr es:[bx+SND_NEXT_SEG]
 
 br_03734:
         les     bx, [WIN_FIELD_VAR]
@@ -7061,14 +7061,14 @@ L_03746:
         or      ax, word ptr es:[bx]
         je      L_037A8
         les     bx, es:[bx]
-        les     bx, es:[bx+MPC_STATE_reserved_2c]
+        les     bx, es:[bx+SND_PREV]
         mov     ax, word ptr es:[bx+SND_PREV_SEG]
         or      ax, word ptr es:[bx+SND_PREV]
         je      br_03790
         les     bx, [WIN_FIELD_VAR]
         les     bx, es:[bx]
-        mov     ax, word ptr es:[bx+MPC_STATE_reserved_2c]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_ptr2_hi]
+        mov     ax, word ptr es:[bx+SND_PREV]
+        mov     dx, word ptr es:[bx+SND_PREV_SEG]
         les     bx, [WIN_FIELD_VAR]
         mov     word ptr es:[bx], ax
         mov     word ptr es:[bx+2], dx

@@ -6923,7 +6923,7 @@ L_039C7:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+MPC_TRACK_flag_03]
+        mov     al, byte ptr es:[bx+3]
         sub     ah, ah
         push    0
         push    ax
@@ -8529,7 +8529,7 @@ ui_screen_enter_chan:
         mov     sp, bp
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+MPC_STATE_cache_lo], 3
+        cmp     byte ptr es:[bx+FXS_ECHO_TYPE], 3
         je      br_04526
         push    ds
         push    TBL_WINKEYS_01968
@@ -8577,7 +8577,7 @@ midi_dispatch_table:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+MPC_STATE_cache_lo]
+        mov     al, byte ptr es:[bx+FXS_ECHO_TYPE]
         cbw
         mov     bx, ax
         shl     bx, 2

@@ -1,0 +1,19 @@
+/* differs: XL v1.20; the oracle matches it, the check cannot place it: below its part's frame */
+extern int C1_W_0D7D2;
+extern char C2_B_098BC;
+extern char EP_MSG_SOUND_DIR_FULL_OFF[1];
+extern char EP_MSG_SOUND_DIR_FULL_SEG[1];
+void __far disp_alert_wait_key(char __near *, char __near *);
+int __far far_3FE60(void);
+
+void __far __fastcall __loadds sample_record_record(void)
+{
+	if (far_3FE60() >= 0x100) {
+		disp_alert_wait_key(EP_MSG_SOUND_DIR_FULL_OFF, EP_MSG_SOUND_DIR_FULL_SEG);
+		return;
+	}
+	if (!C1_W_0D7D2) goto br_48A92;
+	C2_B_098BC = 1;
+br_48A92:
+	;
+}

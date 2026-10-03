@@ -2248,8 +2248,6 @@ calls_check_flags_1d8a_1d8b_0126c:
 L_0126F:
         je      auto_punch_function_is_ac_status_01274
         jmp     L_01326
-        if      FW_VERSION = 150
-        endif
 auto_punch_function_is_ac_status_01274:
         cmp     byte ptr [P_70F9], 0
 auto_punch_function_is_ac_status:

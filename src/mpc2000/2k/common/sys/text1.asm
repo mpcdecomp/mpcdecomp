@@ -16229,7 +16229,7 @@ zone_action_new_sample:
         les     bx, [bp+10h]
 
 ; ZONE->NEW SAMPLE: new SAMPLE_POOL_DIR slot, copy [G_ZONE_START,G_ZONE_END).
-        mov     al, byte ptr es:[bx+MPC_STATE_flag_13]
+        mov     al, byte ptr es:[bx+SND_STEREO]
         mov     byte ptr [bp-27h], al
         push    ds
         lea     si, [bp-3ah]
@@ -16291,7 +16291,7 @@ br_07F30:
         pop     ds
         callf   TEXT2_SEG:sample_pool_add
         les     bx, [bp+10h]
-        mov     si, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     si, word ptr es:[bx+SND_POOL_IDX]
         mov     ax, si
         shl     si, 2
         add     si, ax
@@ -16313,10 +16313,10 @@ br_07F30:
         push    word ptr [bp-1eh]
         callf   TEXT2_SEG:smem_copy_buffered
         les     bx, [bp+10h]
-        cmp     byte ptr es:[bx+MPC_STATE_flag_13], 0
+        cmp     byte ptr es:[bx+SND_STEREO], 0
         je      L_07FFC
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         add     ax, 0fh
         adc     dx, 0
         and     al, 0f0h
@@ -22099,7 +22099,7 @@ br_0AFC8:
         jmp     br_0B06D
 
 br_0AFD6:
-        mov     si, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     si, word ptr es:[bx+SND_POOL_IDX]
         mov     ax, si
         shl     si, 2
         add     si, ax
@@ -22108,13 +22108,13 @@ br_0AFD6:
         mov     dx, word ptr [si+SMEM_POOL_BASE_HI]
         mov     word ptr [SDS_TX_ADDR], ax
         mov     word ptr [SDS_TX_ADDR_HI], dx
-        cmp     byte ptr es:[bx+MPC_STATE_flag_13], 0
+        cmp     byte ptr es:[bx+SND_STEREO], 0
         je      br_0B026
         cmp     byte ptr [SDS_STEREO_SIDE], 0
         je      br_0B026
         push    0
         push    2
-        mov     bx, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     bx, word ptr es:[bx+SND_POOL_IDX]
         mov     ax, bx
         shl     bx, 2
         add     bx, ax

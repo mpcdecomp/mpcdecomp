@@ -1,4 +1,4 @@
-; DMA field writer: far pointer to MPC_STATE struct (es:bx), control word
+; DMA field writer: far pointer to a DSPV block (es:bx), control word
 ; (ax, OR'd with per-field channel-select, written to DMA_CTRL), 15-bit
 ; flags word selects struct fields to output via DMA_ADDR_HI/DATA_HI/DATA_LO.
 ; 418 bytes.  byte-identical in SYS v1.72 (text2 linear 0x1652-0x17F4, file
@@ -6,7 +6,7 @@
 ; except flags/control swap: SYS [bp+6]/[bp+0Ch], XL [bp+0Ch]/[bp+6].
 ; parameters: DMA_FIELD_FLAGS_OFS, DMA_FIELD_CTRL_OFS;
 ; other displacements ([bp+8] struct pointer, [bp+0Ah] segment,
-; MPC_STATE field offsets) identical in both, need no parameter.
+; DSPV field offsets) identical in both, need no parameter.
 ; ends at 'leave'; includer supplies return.
 
         include "dspv.inc"

@@ -20,10 +20,8 @@ T_DSP_CHAN_STRIDE               equ     014h
 ; BSS laid out from image end; image.asm includes bss.inc.
         include "../sys_bss.inc"
 
-; [SND_CURRENT] points to MPC_STATE (94 LES/LDS refs); four structs via
-; DATA-segment far ptrs.
+; MPC_STATE: offset names where a base is not traced to a record.
         include "../state.inc"
-        include "../structures.inc"
 ; pgm_record.inc depends on SIZEOF_FXS/SIZEOF_FXR defined in sys_records.inc.
         include "../../../common/sys_records.inc"
         include "../../../common/pgm_record.inc"

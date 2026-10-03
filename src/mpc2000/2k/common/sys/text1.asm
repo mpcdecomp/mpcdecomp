@@ -6310,7 +6310,7 @@ br_03590:
         leave
         retf    1ah
 
-; calls mpc_query_status, re-links MPC_SECONDARY; installs
+; calls mpc_query_status, sets WIN_FIELD_VAR; installs
 ; shared handlers, then caller's; latches redraw far ptr,
 ; exits.
 far_call_wrapper_1:
@@ -21190,7 +21190,7 @@ br_0A83E:
         leave
         ret     4
         db      00h
-; ? fills 36h descriptor from MPC_STATE start/end/loop halves and
+; fills a sound from the SMEM_REQ header's channel A or B positions and
 ; midi_out_io, then sample_pool_add.
 voice_play_range:
         enter   36h, 0

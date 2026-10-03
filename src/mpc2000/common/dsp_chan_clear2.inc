@@ -1,5 +1,5 @@
 ; continues dsp_chan_clear.inc's sample_verify_range after includer's call;
-; ax:dx = far ptr to MPC_SAMPLE, +47h = not-yet-verified flag; zero clears
+; ax:dx = far ptr to the FXS block, FXS_FIELD_47 = not-yet-verified flag; zero clears
 ; ASIC_REG 0C6h (1fffh sentinel to ASIC_DATA);
 ; L_01D08 = standalone entry;
 ; L_01D18 = +54h,+58h clears, one caller;
@@ -10,7 +10,7 @@
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+47h], 0
+        cmp     byte ptr es:[bx+FXS_FIELD_47], 0
         jne     L_01D08
         mov     al, byte ptr [DSP_CHAN_ADDR]
         sub     ah, ah

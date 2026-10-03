@@ -13,7 +13,7 @@ _bss    set     BSS_BASE
         ifdef   GROWTH_PROOF
         BSS_GAP GROWTH_PROOF
         endif
-        BSS     PTR_SAMPLE_DATA, 4                     ; sample, MPC_SAMPLE
+        BSS     PTR_SAMPLE_DATA, 4                     ; SND, the sound list's head sentinel
         BSS     SMEM_POOL, 2
         BSS     SMEM_POOL_BASE_HI, 2
         BSS     SMEM_POOL_LEN, 2
@@ -202,7 +202,7 @@ _bss    set     BSS_BASE
         BSS     SDS_STEREO_SIDE, 1
         BSS     SDS_REQUEST_NUM, 1
         BSS     B_8CED, 1
-        BSS     PTR_LCD_STATE, 4                       ; LCD state, MPC_LCD
+        BSS     PTR_LCD_STATE, 4                       ; SND far ptr
         BSS     P_8CF2, 14h
         BSS     W_8D06, 2
         BSS     W_8D08, 2
@@ -278,7 +278,7 @@ _bss    set     BSS_BASE
         BSS     P_9A7A, 2
         BSS     P_9A7C, 2
         BSS     P_9A7E, 230h
-        BSS     SND_CURRENT, 4                         ; primary global state, MPC_STATE
+        BSS     SND_CURRENT, 4                         ; SND far ptr, the selected sound
 
 ; programs in compacting paragraph-granular arena at segment 5A00h.
 ; every table pointer has offset 0 with varying segment.
@@ -287,7 +287,7 @@ _bss    set     BSS_BASE
         BSS     PGM_CURRENT, 4                         ; selected program (far ptr).
                                                        ; program_select is only writer;
                                                        ; stores PGM_TABLE[slot] here
-        BSS     PTR_TRACK_DATA, 4                      ; track/sequence, MPC_TRACK
+        BSS     PTR_TRACK_DATA, 4                      ; track/sequence
         BSS     PAD_INPUT_MODE, 2
         BSS     B_9D1C, 1
         BSS_GAP 1

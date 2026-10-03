@@ -5548,7 +5548,7 @@ mpc_ctrl_init:
         mov     word ptr es:[di+20h], dx
         mov     es, word ptr [bp+6]
         mov     ax, word ptr es:[si+SND_FIELD_32]
-        mov     dx, word ptr es:[si+SND_FIELD_34]
+        mov     dx, word ptr es:[si+SND_FIELD_32_HI]
         mov     es, word ptr [bp+0ah]
         mov     word ptr es:[di+22h], ax
         mov     word ptr es:[di+24h], dx
@@ -17006,7 +17006,7 @@ br_08633:
         add     sp, 6
         mov     es, word ptr [bp+0eh]
         mov     word ptr es:[si+SND_FIELD_32], ax
-        mov     word ptr es:[si+SND_FIELD_34], dx
+        mov     word ptr es:[si+SND_FIELD_32_HI], dx
 br_0865A:
         callf   TEXT2_SEG:smem_compact
         mov     ax, 1

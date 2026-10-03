@@ -5278,7 +5278,7 @@ br_02921:
         mov     word ptr [bp-22h], ax
         mov     word ptr [bp-20h], dx
         mov     ax, word ptr es:[si+SND_FIELD_32]
-        mov     dx, word ptr es:[si+SND_FIELD_34]
+        mov     dx, word ptr es:[si+SND_FIELD_32_HI]
         mov     word ptr [bp-1eh], ax
         mov     word ptr [bp-1ch], dx
         mov     word ptr [bp-30h], di

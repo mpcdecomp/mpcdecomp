@@ -34,8 +34,8 @@ SND_NEXT_SEG    equ     SND_HDR+02ah
 SND_PREV        equ     SND_HDR+02ch    ; dd far
 SND_PREV_SEG    equ     SND_HDR+02eh
 SND_POOL_IDX    equ     SND_HDR+030h    ; word, x10 into SMEM_POOL, default 7FFFh
-SND_FIELD_32    equ     SND_HDR+032h    ; word  ?
-SND_FIELD_34    equ     SND_HDR+034h    ; word  ?
+SND_FIELD_32    equ     SND_HDR+032h    ; dd, addr_calc_segment(SND_LOOP, 0) as SND_LOOP is set  ?
+SND_FIELD_32_HI equ     SND_HDR+034h
 
 ; XL stride 048h ?, PREV 03Eh ?, DIR_IDX 042h ?; nothing above 03Ah
 ; referenced, no stride multiply. SIZEOF_SND per-platform

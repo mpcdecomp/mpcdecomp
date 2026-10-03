@@ -15746,21 +15746,19 @@ L_17AA5:
         if      FW_VERSION = 172
         call    locate_swing_adjust_fwd
         jcxz    L_17AD5
-L_17AAA:
         else
         jcxz    L_18252
-L_17AAA:
         endif
+L_17AAA:
         push    cx
         if      FW_VERSION = 172
         mov     es, word ptr [CUR_SEQ_SEG]
         mov     al, byte ptr es:[20h]
         push    ax
         mov     byte ptr es:[20h], 0
-L_17ABA:
         else
-L_17ABA:
         endif
+L_17ABA:
         call    midi_process
 L_17ABD:
         call    seq_gap_seek_forward
@@ -15773,10 +15771,9 @@ L_17ABD:
         mov     ax, word ptr [SEQ_CUR_BAR]
         cmp     ax, word ptr [SEQ_BAR_COUNT]
         je      L_17AD5
+        loop    L_17AAA
         if      FW_VERSION = 172
-        loop    L_17AAA
         else
-        loop    L_17AAA
 L_18252:
         endif
 L_17AD5:
@@ -23583,14 +23580,11 @@ L_1B96D:
         jae     L_1B972
         jmp     bc_int2a_1b82a
 L_1B972:
-        cmp     dx, 140h
-        jb      L_1B97B
-        jmp     bc_int2a_1b82a
         else
+        endif
         cmp     dx, 140h
         jb      L_1B97B
         jmp     bc_int2a_1b82a
-        endif
 L_1B97B:
         mov     word ptr [G_FROM_FILE_ADDR_LO], ax
         mov     word ptr [G_FROM_FILE_ADDR_HI], dx
@@ -25926,10 +25920,9 @@ status_permanently____________bar_____1d963:
         push    cs
 L_1D964:
         call    edit_seq_screen_draw
+L_1D967:
         if      FW_VERSION = 172
-L_1D967:
         else
-L_1D967:
 L_1DE51                         equ     $+8
 L_1DE58                         equ     $+15
 L_1DE5A                         equ     $+17
@@ -26129,10 +26122,9 @@ save_aps_files_dialog:
 L_1E728                         equ     $+14
         endif
         BC_FILE_DIALOG 16, 2, 216, 58, "Save APS files"
+save_1_status:
         if      FW_VERSION = 172
-save_1_status:
         else
-save_1_status:
 L_1E73B                         equ     $+11
         endif
         BC_STATUS 54, 13, "    Save:"

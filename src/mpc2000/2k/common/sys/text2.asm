@@ -22372,10 +22372,9 @@ br_0AB92:
         if      FW_VERSION = 172
         mov     di, word ptr [bp-2]
 
-L_0ABA1:
         else
-L_0ABA1:
         endif
+L_0ABA1:
         push    2
         if      FW_VERSION = 172
         lea     ax, [bp-4]

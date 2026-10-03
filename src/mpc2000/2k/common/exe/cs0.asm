@@ -5644,8 +5644,8 @@ L_02F21:
         jae     L_02F24
         endif
         ret
-        if      FW_VERSION = 172
 L_02F24:
+        if      FW_VERSION = 172
         or      cx, cx
 L_02F26:
         je      calls_state_update_02f29
@@ -5664,7 +5664,6 @@ pressing_1_9_keys_will_status_02F38:
         jb      store_locate_point_dialog
         ret
         else
-L_02F24:
         sub     ah, ah
         shl     ax, 2
         add     ax, LOCATE_PT1
@@ -21108,10 +21107,9 @@ FRAME_RATE_DISPLAY_V150:
         BC_STATUS 4, 22, "Frame rate:"
         if      FW_VERSION = 172
 status_frame_rate_0b5bf:
-L_0B5C4                         equ     $+5
         else
-L_0B5C4                         equ     $+5
         endif
+L_0B5C4                         equ     $+5
         BC_STATUS_A 70, 22, G_FRAME_RATE, D_14F9
         db      80h
         les     cx, ds:[bp+di]
@@ -24223,10 +24221,9 @@ L_0CFCC:
         sub     bh, bh
         if      FW_VERSION = 172
 erase_track_warning             equ     $+1
-        mov     bl, byte ptr es:[bx+TRK_CHANNEL]
         else
-        mov     bl, byte ptr es:[bx+TRK_CHANNEL]
         endif
+        mov     bl, byte ptr es:[bx+TRK_CHANNEL]
         pop     es
         test    bl, 40h
 L_0CFDE:
@@ -25662,14 +25659,12 @@ L_0DC3F:
         db      0c7h, 06h, 50h, 0eh, 0c0h
 L_0DC44:
         push    cs
-        mov     word ptr [W_0DC8], NULL_HANDLER_OFS
-        mov     word ptr [W_0DC4], NULL_HANDLER_OFS
         else
 L_0DC44                         equ     $+5
         mov     word ptr [UI_SLOT_DIGIT], NULL_HANDLER_OFS
+        endif
         mov     word ptr [W_0DC8], NULL_HANDLER_OFS
         mov     word ptr [W_0DC4], NULL_HANDLER_OFS
-        endif
         ret
 L_0DC52:
         call    L_0DE1A
@@ -26691,11 +26686,10 @@ softkey_close_0e42c:
         int     50h
 bc_int6c_0e42e:
         if      FW_VERSION = 172
-        INT_6A file_list_scroll_down, jmp_check_flag_78af_0e513
         else
 L_0ED09                         equ     $+3
-        INT_6A file_list_scroll_down, jmp_check_flag_78af_0e513
         endif
+        INT_6A file_list_scroll_down, jmp_check_flag_78af_0e513
 bc_int6c_0e434:
         if      FW_VERSION = 172
         INT_6C NULL_HANDLER_OFS, NULL_HANDLER_OFS, jmp_check_flag_78af_0e513, file_list_scroll_down
@@ -26842,11 +26836,10 @@ mpc60_all_dialog                equ     $+1
 jmp_init_state_78c1_0e500:
         BC_UI_84
         ret
-        if      FW_VERSION = 172
 file_list_scroll_down:
+        if      FW_VERSION = 172
 jmp_init_state_78c1_0e507       equ     $+3
         else
-file_list_scroll_down:
         endif
         cmp     byte ptr [G_FILE_LIST_ROW], 4
         jne     L_0E50E

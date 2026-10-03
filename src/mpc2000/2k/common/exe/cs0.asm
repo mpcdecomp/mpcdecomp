@@ -5101,7 +5101,7 @@ br_02A54:
         mov     word ptr [G_RANGE_START_CLOCK], ax
         mov     word ptr [G_RANGE_END_BEAT], ax
         mov     word ptr [G_RANGE_END_CLOCK], ax
-        db      0ebh, 00h
+        jmp     change_tsig_cancel
 change_tsig_cancel:
         call    main_screen_enter
         jmp     ui_arith_ext_02535_85c
@@ -7861,7 +7861,7 @@ file_write_block:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_04107:
         int     2ch
-        db      07h
+        pop     es
 L_0410A:
         jae     L_0410F
         jmp     NEAR disk_error_report
@@ -8187,9 +8187,9 @@ save_partition_dec:
         mov     al, byte ptr [G_DISK_PARTITION]
         sub     al, bl
 L_04396:
-        db      73h, 0e5h
+        jae     L_04E27
         mov     al, 0
-        db      0ebh, 0e1h
+        jmp     L_04E27
 L_0439C:
         mov     bx, si
         shr     bx, 4
@@ -9785,7 +9785,7 @@ L_0508A:
 L_0508D:
         call    song_screen_name_display
 L_05090:
-        db      0e8h, 38h, 00h
+        call    L_05B75
 L_05093:
         call    L_0516F
 L_05096:
@@ -10007,7 +10007,7 @@ L_05243:
         cmp     byte ptr [SEQ_RUNNING], 0
 L_0524A:
         je      br_0524E
-        db      0ebh, 14h
+        jmp     L_05D0A
 br_0524E:
         cmp     byte ptr [SEQ_RUNNING], 0
         jne     L_0525D
@@ -12618,10 +12618,10 @@ L_06872:
 L_06874:
         cmp     al, 0c0h
 L_06876:
-        db      74h, 1dh
+        je      calls_init_with_int50_0689c_V150
         cmp     al, 0c1h
 L_0687A:
-        db      74h, 19h
+        je      calls_init_with_int50_0689c_V150
         cmp     ah, 80h
         jb      L_06888
         callf   CS1_SEG:P_723D
@@ -12630,7 +12630,7 @@ L_06888:
         and     al, 3fh
         cmp     ah, al
 L_0688C:
-        db      75h, 07h
+        jne     calls_init_with_int50_0689c_V150
         callf   CS1_SEG:P_723D
         jmp     SHORT seq_delete_track_events
 calls_init_with_int50_0689c_V150:
@@ -12682,7 +12682,7 @@ L_068E3:
         mov     es, word ptr [CUR_SEQ_SEG]
         test    byte ptr es:[bx+TRK_STATUS], 1
 L_068EF:
-        db      75h, 07h
+        jne     L_0738D
 ui_a_068F1:
         BC_UI_A4 106, 16
         db      0ebh, 14h
@@ -22137,11 +22137,11 @@ L_0BF3B:
         mov     ax, word ptr ss:[bx]
         cmp     ax, word ptr ss:[bx+6]
 L_0BF42:
-        db      75h, 0fh
+        jne     L_0C965
         mov     ax, word ptr ss:[bx+2]
         cmp     ax, word ptr ss:[bx+8]
 L_0BF4C:
-        db      75h, 05h
+        jne     L_0C965
         add     bx, 6
         jmp     SHORT L_0BF3B
 L_0C965:
@@ -23767,7 +23767,7 @@ L_0CC50:
         if      FW_VERSION = 172
         sub     al, 2
         else
-        db      0feh, 0c8h
+        dec     al
         endif
 L_0CC52:
         call    status_display_CA60
@@ -28516,7 +28516,12 @@ L_0F024:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_0F033:
         int     2ch
-        db      07h, 59h, 8ch, 0c0h, 05h, 00h, 08h, 8eh, 0c0h, 0ebh, 0e0h
+        pop     es
+        pop     cx
+        mov     ax, es
+        add     ax, 800h
+        mov     es, ax
+        jmp     L_0F8B9
 L_0F040:
         add     cx, 800h
         shl     cx, 4
@@ -28943,7 +28948,8 @@ L_0F35A:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_0F362:
         int     2ch
-        db      0f8h, 0c3h
+        clc
+        ret
 L_0F366:
         mov     di, P_7DDA
         mov     cx, 0cah
@@ -29264,7 +29270,11 @@ L_0F5E4:
         push    ds
 L_0F5EC:
         int     31h
-        db      1fh, 0bh, 0c0h, 50h, 90h, 0eh
+        pop     ds
+        or      ax, ax
+        push    ax
+        nop
+        push    cs
 L_0F5F4:
         call    note_program_lookup
         pop     ax
@@ -29408,7 +29418,11 @@ handler_BC_SOFTKEY:
         push    ds
 L_0F6E5:
         int     31h
-        db      1fh, 0bh, 0c0h, 50h, 90h, 0eh
+        pop     ds
+        or      ax, ax
+        push    ax
+        nop
+        push    cs
 L_0F6ED:
         call    note_program_lookup
         pop     ax
@@ -29480,7 +29494,9 @@ L_0F759:
         push    ds
 L_0F75F:
         int     31h
-        db      1fh, 0bh, 0c0h, 3dh, 01h, 00h
+        pop     ds
+        or      ax, ax
+        cmp     ax, 1
 L_0F767:
         je      bc_int67_68_0f76a
         ret
@@ -29575,7 +29591,7 @@ file_load_entry_name:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_0F819:
         int     2ch
-        db      07h
+        pop     es
 file_read_chunks_to_es:
         push    es
         sub     di, di
@@ -29584,7 +29600,8 @@ file_read_chunks_to_es:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_0F828:
         int     2ch
-        db      07h, 3dh, 00h, 80h
+        pop     es
+        cmp     ax, 8000h
 L_0F82E:
         jne     L_0F83A
         mov     bx, es
@@ -29608,7 +29625,7 @@ L_0F84B:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_0F851:
         int     2ch
-        db      07h
+        pop     es
 L_0F854:
         jae     L_0F857
         ret
@@ -29622,7 +29639,8 @@ L_0F858:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_0F864:
         int     2ch
-        db      07h, 8ch, 0c3h
+        pop     es
+        mov     bx, es
 L_0F869:
         add     bx, 800h
         mov     es, bx
@@ -29941,7 +29959,7 @@ L_10342:
 L_0FAB2:
         add     word ptr es:[di], dx
         add     si, 4
-        db      0e2h, 0efh
+        loop    L_10342
 L_0FABA:
         add     word ptr [MZ_ENTRY_CS], dx
         cli

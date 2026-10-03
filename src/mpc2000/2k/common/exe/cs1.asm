@@ -48,7 +48,7 @@ L_0FEA4:
         push    cs
 timer_tick:
         if      FW_VERSION = 172
-        db      0e8h, 0f9h, 4fh
+        call    L_14EA5
         else
         db      0e8h
         db      15h, 50h
@@ -214,11 +214,11 @@ serial_rx_isr:
 L_0FFE9:
         call    serial_rx_poll_panel
 L_0FFEC:
-        db      0e8h, 22h, 01h
+        call    serial_rx_poll_midi
 L_0FFEF:
         call    serial_rx_poll_panel
 L_0FFF2:
-        db      0e8h, 1ch, 01h
+        call    serial_rx_poll_midi
         pop     es
         pop     ds
         popa
@@ -2468,7 +2468,7 @@ L_112D2:
         add     bx, word ptr [FD_FAT_OFFSET]
         mov     ax, word ptr [bx]
         popf
-        db      73h, 03h
+        jae     L_11B86
         shr     ax, 4
 L_11B86:
         and     ah, 0fh
@@ -3722,7 +3722,7 @@ disk_format_1                   equ     $+4
         mov     cx, 24h
         int     2dh
 L_11CEA:
-        db      73h, 02h
+        jae     L_12594
         jmp     br_11D60
 L_12594:
         db      8ah, 26h, 05h, 0f9h, 80h, 0fch, 00h, 74h, 0ch, 80h, 0fch, 05h
@@ -4529,7 +4529,7 @@ L_12321:
         jne     L_12324
         ret
 L_12324:
-        db      0e8h, 0eah, 03h
+        call    L_12711
         mov     cx, word ptr [HD_CLUSTER_SECTORS]
         mov     di, BUF_DISK_SECTOR
         mov     word ptr [HD_BUF_PTR], di
@@ -6783,7 +6783,7 @@ L_13E0B:
         je      L_13580
         in      al, 8
         test    al, 10h
-        db      74h, 0f3h
+        je      L_13E0B
         mov     dx, 8
         mov     al, 10h
         out     dx, al
@@ -6897,7 +6897,7 @@ L_13ED2:
         jne     br_1363F
         in      al, 8
         test    al, 10h
-        db      74h, 0ebh
+        je      L_13ED2
         mov     dx, 8
         mov     al, 10h
         out     dx, al
@@ -7029,7 +7029,7 @@ L_13FC8:
         in      al, dx
         pop     dx
         test    al, 80h
-        db      75h, 0efh
+        jne     L_13FC8
         push    dx
         mov     dx, 16h
         in      al, dx
@@ -8092,7 +8092,7 @@ L_13E91:
         pop     bp
         mov     ah, 1dh
         mov     es, dx
-        db      0e8h, 17h, 01h
+        call    L_13FB9
 L_13EA2:
         call    bc_op8e_plane_pop
         mov     byte ptr [LCD_MSG_OVERLAY], 1
@@ -8200,7 +8200,7 @@ bc_op16_text_from_table:
         mov     ax, ds
         mov     es, ax
         pop     ax
-        db      0ebh, 05h
+        jmp     L_13FB9
 bc_op14_puts_far:
         mov     es, dx
         call    lcd_validate_coords
@@ -8218,7 +8218,7 @@ calls_font_char_lookup_13fc2:
         pop     es
         pop     ax
         dec     ah
-        db      75h, 0ech
+        jne     L_13FB9
         ret
 bc_op18_puts_counted:
         push    dx
@@ -8227,7 +8227,7 @@ L_13FCF:
         mov     ah, byte ptr es:[bp]
         inc     bp
         pop     es
-        db      0ebh, 0dfh
+        jmp     L_13FB9
 bc_op1a_text_from_ds_ptr:
         call    lcd_read_coords
         mov     si, word ptr es:[bp]
@@ -9954,7 +9954,7 @@ L_14DE4:
         mov     si, D_174F
         mov     ax, ds
         mov     es, ax
-        db      0e8h, 0c8h, 0f1h
+        call    L_13FB9
         ret
 bc_op9c_bar_beat_tick:
         push    dx
@@ -15994,7 +15994,7 @@ L_17C3E:
         mov     al, byte ptr es:[si]
         cmp     al, 0ffh
 L_17C4B:
-        db      74h, 29h
+        je      L_183E4
         cmp     al, 0c0h
         jne     L_17C55
         mov     bx, cx
@@ -16002,10 +16002,10 @@ L_17C4B:
 L_17C55:
         cmp     bx, word ptr [SEQ_CUR_BAR]
 L_17C59:
-        db      75h, 1bh
+        jne     L_183E4
         cmp     cx, word ptr [SEQ_BAR_TICK]
 L_17C5F:
-        db      75h, 15h
+        jne     L_183E4
         push    ax
         cmp     al, 0c0h
         jne     L_17C69
@@ -18663,7 +18663,7 @@ L_191EE:
         mov     al, byte ptr es:[si]
         cmp     al, 0ffh
 L_191F3:
-        db      74h, 3ah
+        je      L_198A9
         cmp     al, 0c0h
 L_191F7:
         jne     calls_sequence_data_read_19228
@@ -18674,7 +18674,7 @@ L_191FF:
         call    event_tsig_bar_ticks
         or      cx, cx
 calls_sequence_data_read_19204:
-        db      74h, 29h
+        je      L_198A9
         push    cx
 calls_sequence_data_read_19207:
         call    sequence_data_read
@@ -18683,15 +18683,15 @@ L_1920B:
         mov     al, byte ptr es:[si]
         cmp     al, 0ffh
 L_19210:
-        db      74h, 1dh
+        je      L_198A9
         cmp     al, 0c0h
 L_19214:
-        db      74h, 19h
+        je      L_198A9
         mov     ax, word ptr es:[si+1]
         and     ah, 7
         cmp     ax, cx
 calls_sequence_data_read_1921f:
-        db      73h, 0eh
+        jae     L_198A9
         push    cx
 calls_sequence_data_read_19222:
         call    sequence_data_read
@@ -18949,7 +18949,7 @@ seq_pos_dec_tick:
         mov     ax, bx
 L_1944C:
         or      ax, cx
-        db      74h, 25h
+        je      L_19AEF
         sub     word ptr [SEQ_ABS_TICK_LO], 1
         sbb     word ptr [SEQ_ABS_TICK_HI], 0
         sub     cx, 1
@@ -18966,7 +18966,7 @@ L_1946D:
 L_19AEF:
         ret
 L_19476:
-        db      0e8h, 20h, 00h
+        call    seq_gap_move_event_back
 L_19479:
         jae     L_1947E
         jmp     NEAR seq_gap_seek_forward
@@ -18979,10 +18979,10 @@ L_19489:
         jae     L_1948E
         jmp     NEAR seq_gap_seek_forward
 L_1948E:
-        db      75h, 0e6h
+        jne     L_19476
         cmp     cx, word ptr [SEQ_BAR_TICK]
 L_19494:
-        db      73h, 0e0h
+        jae     L_19476
         jmp     NEAR seq_gap_seek_forward
 seq_gap_move_event_back:
         mov     bx, ds
@@ -21570,7 +21570,7 @@ mpc3000_seq_import:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_1A8A9:
         int     2ch
-        db      3ch, 0ffh
+        cmp     al, 0ffh
 L_1A8AD:
         jne     L_1A8B2
         jmp     NEAR loop_1AD56
@@ -22273,7 +22273,7 @@ mpc60_seq_import:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_1AEAE:
         int     2ch
-        db      3ch, 0ffh
+        cmp     al, 0ffh
 L_1AEB2:
         jne     L_1AEB7
         jmp     NEAR loop_1AD56
@@ -23119,7 +23119,7 @@ L_1B5E1:
         rcl     cl, 1
         shr     bh, 1
         cmp     cl, 0
-        db      74h, 06h
+        je      L_1BC24
         or      cl, 80h
         or      bh, 80h
 L_1BC24:
@@ -23200,7 +23200,7 @@ midi_file_write_varlen:
         test    bx, 1fc0h
         jne     L_1B6AD
         test    ax, 3f80h
-        db      75h, 1bh
+        jne     L_1BCD5
         db      0ebh, 23h
 L_1B69D:
         shl     bx, 3
@@ -23233,7 +23233,7 @@ midi_file_flush_note_offs:
         mov     ax, word ptr [bx]
         or      ax, ax
 L_1B6D0:
-        db      74h, 3bh
+        je      L_1BD2C
         cmp     word ptr [P_7294], 0
 L_1B6D7:
         jne     br_1B6E3
@@ -23583,9 +23583,13 @@ L_1B96D:
         jae     L_1B972
         jmp     bc_int2a_1b82a
 L_1B972:
-        db      81h, 0fah, 40h, 01h, 72h, 03h, 0e9h, 0afh, 0feh
+        cmp     dx, 140h
+        jb      L_1B97B
+        jmp     bc_int2a_1b82a
         else
-        db      81h, 0fah, 40h, 01h, 72h, 03h, 0e9h, 0f1h, 0feh
+        cmp     dx, 140h
+        jb      L_1B97B
+        jmp     bc_int2a_1b82a
         endif
 L_1B97B:
         mov     word ptr [G_FROM_FILE_ADDR_LO], ax
@@ -24792,7 +24796,7 @@ br_1C334:
         mov     dx, word ptr [G_FROM_ARR_LEFT_HI]
         mov     bx, ax
         or      bx, dx
-        db      75h, 31h
+        jne     L_1C86B
 L_1C341:
         call    from_file_find_next
 tgt_1C344:
@@ -27152,7 +27156,7 @@ L_1F67C:
         add     cl, 0fh
         dec     bl
 L_1F2F8:
-        db      75h, 0f2h
+        jne     L_1F67C
         push    es
         push    si
         push    cx

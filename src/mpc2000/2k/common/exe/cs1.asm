@@ -23152,7 +23152,7 @@ midi_file_write_varlen:
         jne     L_1B6AD
         test    ax, 3f80h
         jne     L_1BCD5
-        db      0ebh, 23h
+        jmp     L_1BCDF
 L_1B69D:
         shl     bx, 3
         or      bh, 80h

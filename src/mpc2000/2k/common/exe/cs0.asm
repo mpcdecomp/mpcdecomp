@@ -21991,7 +21991,14 @@ L_0BF4C:
         add     bx, 6
         jmp     SHORT L_0BF3B
 L_0C965:
-        db      0b0h, 0c1h, 0aah, 36h, 8bh, 47h, 02h, 0abh, 36h, 8bh, 47h, 04h, 0abh, 0b0h, 00h, 0aah
+        mov     al, 0c1h
+        stosb
+        mov     ax, word ptr ss:[bx+2]
+        stosw
+        mov     ax, word ptr ss:[bx+4]
+        stosw
+        mov     al, 0
+        stosb
         db      83h, 0c3h, 06h, 0ebh, 0afh
 L_0BF68:
         call    L_0BFC6

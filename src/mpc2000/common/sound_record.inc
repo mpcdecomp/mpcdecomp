@@ -22,7 +22,7 @@ SND_LENGTH_HI   equ     SND_HDR+01eh
 SND_LOOP        equ     SND_HDR+020h    ; dd  ?
 SND_LOOP_HI     equ     SND_HDR+022h
 
-SND_FIELD_24    equ     SND_HDR+024h    ; word, 400h = 1024  ?
+SND_LOOPON      equ     SND_HDR+024h    ; byte, 0 off, 1 on: TBL_OFF_ON_LABELS
 SND_FIELD_25    equ     SND_HDR+025h    ; byte, init 1  ?
 SND_RATE        equ     SND_HDR+026h    ; word, 0AC44h = 44100
 

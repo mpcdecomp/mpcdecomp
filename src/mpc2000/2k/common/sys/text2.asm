@@ -5168,7 +5168,7 @@ br_02867:
         jmp     L_02881
 
 br_0287A:
-        mov     al, byte ptr es:[si+SND_FIELD_24]
+        mov     al, byte ptr es:[si+SND_LOOPON]
         mov     byte ptr [bp-3ch], al
 
 L_02881:
@@ -16982,7 +16982,7 @@ snd_window_pad_key:
         or      al, al
         jne     br_08000
         les     bx, [SND_CURRENT]
-        cmp     byte ptr es:[bx+SND_FIELD_24], al
+        cmp     byte ptr es:[bx+SND_LOOPON], al
         je      br_0800D
         push    es
         push    bx
@@ -20041,7 +20041,7 @@ br_09967:
         push    0dah
         push    0ch
         les     bx, [SND_CURRENT]
-        mov     al, byte ptr es:[bx+SND_FIELD_24]
+        mov     al, byte ptr es:[bx+SND_LOOPON]
         cbw
         shl     ax, 2
         add     ax, TBL_OFF_ON_LABELS

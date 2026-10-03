@@ -10,7 +10,6 @@
 ; TEXT1/TEXT2 paths are far jumps.
 
 SND_LOOPLEN     equ     SND_LOOP
-SND_LOOPON      equ     SND_FIELD_24
 
         PIN0    ZS_TAIL_CODE
 

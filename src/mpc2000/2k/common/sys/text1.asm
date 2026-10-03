@@ -4347,7 +4347,7 @@ L_02420:
 
 L_02448:
         push    ds
-        push    STR_05B6
+        push    STR_NO_WAVE_RAM
         callf   TEXT2_SEG:string_fill_stosb
         pop     ds
         retf
@@ -7490,7 +7490,6 @@ L_03E2E:
         db      00h
 
 filter4_up:
-L_03EB8:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -7531,7 +7530,6 @@ L_03E6A:
         retf
 
 filter4_down:
-L_03EF2:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -7987,7 +7985,6 @@ L_04173:
         db      00h
 
 fx_rotary_left:
-L_041FC:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -8019,7 +8016,6 @@ L_041A0:
         retf
 
 fx_rotary_right:
-L_04228:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -8250,7 +8246,6 @@ L_04324:
         retf
 
 L_04326:
-L_043AC:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -8500,7 +8495,6 @@ L_044D0:
         retf
 
 fx_pitch_shift_right:
-L_04558:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -9370,7 +9364,6 @@ L_04B3F:
         db      00h
 
 L_04B42:
-L_04BC8:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -10753,7 +10746,6 @@ L_05473:
         retf
 
 pgm_assign_enter:
-L_054F8:
         push    si
         push    ds
         mov     cx, DATA_SEG
@@ -10839,7 +10831,6 @@ L_054DC:
         ret
 
 L_05534:
-L_055B4:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -10859,7 +10850,6 @@ L_05558:
         retf
 
 L_0555A:
-L_055DA:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -10897,7 +10887,6 @@ L_055A0:
         retf
 
 L_055A2:
-L_05622:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -10951,7 +10940,6 @@ timer_poll_wait_2:
         retf
 
 L_0560A:
-L_0568A:
         push    si
         push    ds
         mov     cx, DATA_SEG
@@ -14864,7 +14852,6 @@ L_07524:
         retf
 
 L_0754E:
-L_075CE:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -15964,7 +15951,6 @@ L_07D06:
         retf
 
 zone_start_fine_down:
-L_07D88:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx

@@ -85,45 +85,45 @@ STR_00C6:
         db      53h, 33h, 20h, 00h
 STR_00CA:
         db      53h, 31h, 20h, 00h
-STR_00CE:
+STR_SND:
         db      53h, 4eh, 44h
         db      00h
-STR_00D2:
+STR_WAV:
         db      57h, 41h, 56h, 00h
-STR_00D6:
+STR_PGM:
         db      50h, 47h, 4dh, 00h
-STR_00DA:
+STR_APS:
         db      41h, 50h, 53h, 00h
-STR_00DE:
+STR_RLD:
         db      52h, 4ch, 44h
         db      00h
-STR_00E2:
+STR_EMU:
         db      45h, 4dh, 55h, 00h
-STR_00E6:
+STR_SET:
         db      53h, 45h, 54h, 00h
-STR_00EA:
+STR_ST1:
         db      53h, 54h, 31h, 00h
 TBL_00EE:
         dw      STR_00C6, DATA_SEG
         dw      lcd_area_wrapper_2, TEXT1_SEG
         dw      STR_00CA, DATA_SEG
         dw      lcd_area_wrapper_1, TEXT1_SEG
-        dw      STR_00CE, DATA_SEG
+        dw      STR_SND, DATA_SEG
         dw      sample_ptr_caller, TEXT2_SEG
-        dw      STR_00D2, DATA_SEG
+        dw      STR_WAV, DATA_SEG
         dw      status_read_multi, TEXT1_SEG
-        dw      STR_00D6, DATA_SEG
+        dw      STR_PGM, DATA_SEG
         dw      midi_realtime_stop, TEXT2_SEG
-        dw      STR_00DA, DATA_SEG
+        dw      STR_APS, DATA_SEG
         dw      midi_realtime_stop2, TEXT2_SEG
-        dw      STR_00DE, DATA_SEG
+        dw      STR_RLD, DATA_SEG
         dw      seq_event_handler, TEXT1_SEG
 TBL_NAME_CHARSET:
-        dw      STR_00E2, DATA_SEG
+        dw      STR_EMU, DATA_SEG
         dw      smem_access_handler_1, TEXT1_SEG
-        dw      STR_00E6, DATA_SEG
+        dw      STR_SET, DATA_SEG
         dw      midi_string_handler, TEXT2_SEG
-        dw      STR_00EA
+        dw      STR_ST1
         db      DATA_SEG & 0ffh
 TBL_WINKEYS_00139:                      ; 1 records + WIN_KEY_END
         WIN_KEY   DATA_SEG >> 8, TEXT2_SEG, midi_string_handler
@@ -146,60 +146,60 @@ STR_01A8:
         db      00h
         db      00h
         endif
-STR_01B6:
+STR_NOT_ENOUGH_MEMORY:
         db      "not enou"
         db      "gh memory", 000h
-STR_01C8:
+STR_DISK_READ_ERROR:
         db      "disk r"
         db      "ead error", 000h
-STR_01D8:
+STR_DISK_WRITE_ERROR:
         db      "disk w"
         db      "rite error", 000h, 000h
-STR_01EA:
+STR_FILE_IS_DAMAGED:
         db      "File"
         db      " is damaged", 000h
-STR_01FA:
+STR_INTERNAL_ERROR:
         db      "Inte"
         db      "rnal error", 000h, 000h
-STR_020A:
+STR_DISK_REQUIRES_NEWER_OS:
         db      "Disk"
         db      " requires newer "
         db      04fh, 053h, 021h, 000h
-STR_0222:
+STR_UNKNOWN_FILE_TYPE:
         db      "Unknown file"
         db      " type", 000h
-STR_0234:
+STR_NAME_ALREADY_USED:
         db      "Name alrea"
         db      "dy used", 000h
-STR_0246:
+STR_SOUND_DIRECTORY_FULL:
         db      "Sound di"
         db      "rectory full(128"
         db      "max)", 000h, 000h
-STR_0264:
+STR_PROG_DIRECTORY_FULL_24:
         db      "Prog. dire"
         db      "ctory full(24 ma"
         db      078h, 029h, 000h, 000h
-STR_0282:
+STR_NO_DIGITAL_SIGNAL:
         db      "No digital s"
         db      "ignal carrier", 000h
-STR_029C:
+STR_CAN_T_OPEN_FILE:
         db      043h, 061h
         db      "n't open file", 000h
-STR_02AC:
+STR_FILE_ALREADY_EXISTS:
         db      046h, 069h
         db      "le already exist"
         db      073h, 000h
-STR_02C0:
+STR_CAN_T_REMOVE_FILE:
         db      "Can't remove f"
         db      069h, 06ch, 065h, 000h
-STR_02D2:
+STR_DISK_IS_WRITE_PROTECTED:
         db      "Disk is writ"
         db      "e protected", 000h
-STR_02EA:
+STR_INSUFFICIENT_DISK_SPACE:
         db      "Insu"
         db      "fficient disk sp"
         db      061h, 063h, 065h, 000h
-STR_0302:
+STR_WRONG_DISK_FORMAT:
         db      "Wrong disk f"
         db      "ormat", 000h
 STR_0314:
@@ -224,23 +224,23 @@ STR_0340:
         endif
 ERR_MSG_TABLE:
         dw      STR_01A8, DATA_SEG
-        dw      STR_01B6, DATA_SEG
-        dw      STR_01C8, DATA_SEG
-        dw      STR_01D8, DATA_SEG
-        dw      STR_01EA, DATA_SEG
-        dw      STR_01FA, DATA_SEG
-        dw      STR_020A, DATA_SEG
-        dw      STR_0222, DATA_SEG
-        dw      STR_0234, DATA_SEG
-        dw      STR_0246, DATA_SEG
-        dw      STR_0264, DATA_SEG
-        dw      STR_0282, DATA_SEG
-        dw      STR_029C, DATA_SEG
-        dw      STR_02AC, DATA_SEG
-        dw      STR_02C0, DATA_SEG
-        dw      STR_02D2, DATA_SEG
-        dw      STR_02EA, DATA_SEG
-        dw      STR_0302, DATA_SEG
+        dw      STR_NOT_ENOUGH_MEMORY, DATA_SEG
+        dw      STR_DISK_READ_ERROR, DATA_SEG
+        dw      STR_DISK_WRITE_ERROR, DATA_SEG
+        dw      STR_FILE_IS_DAMAGED, DATA_SEG
+        dw      STR_INTERNAL_ERROR, DATA_SEG
+        dw      STR_DISK_REQUIRES_NEWER_OS, DATA_SEG
+        dw      STR_UNKNOWN_FILE_TYPE, DATA_SEG
+        dw      STR_NAME_ALREADY_USED, DATA_SEG
+        dw      STR_SOUND_DIRECTORY_FULL, DATA_SEG
+        dw      STR_PROG_DIRECTORY_FULL_24, DATA_SEG
+        dw      STR_NO_DIGITAL_SIGNAL, DATA_SEG
+        dw      STR_CAN_T_OPEN_FILE, DATA_SEG
+        dw      STR_FILE_ALREADY_EXISTS, DATA_SEG
+        dw      STR_CAN_T_REMOVE_FILE, DATA_SEG
+        dw      STR_DISK_IS_WRITE_PROTECTED, DATA_SEG
+        dw      STR_INSUFFICIENT_DISK_SPACE, DATA_SEG
+        dw      STR_WRONG_DISK_FORMAT, DATA_SEG
         dw      STR_0314, DATA_SEG
         dw      STR_0340, DATA_SEG
 G_ERRNO:
@@ -347,7 +347,7 @@ P_0572:
         WIN_LABEL 07h, 0ah, "Detecting Wave Memory..."
         WIN_SOFTKEY 6, 1, "GO"
         WIN_END
-STR_05B6:
+STR_NO_WAVE_RAM:
         db      6eh, 6fh, 20h, 77h, 61h, 76h
         db      65h, 20h, 72h, 61h, 6dh, 21h, 00h, 00h
         endif
@@ -491,11 +491,11 @@ W_0C44:
         db      000h, 000h
 G_VOICE_ALLOC_NEXT:
         db      000h, 000h
-STR_0C48:
+STR_PRESS_ENTER_TO_COMMIT:
         db      "(Press ENT"
         db      "ER to commit.)", 000h, 000h
 PTR_STR_PRESS_ENTER:
-        dw      STR_0C48
+        dw      STR_PRESS_ENTER_TO_COMMIT
 PTR_STR_PRESS_ENTER_SEG:
         dw      DATA_SEG
 TBL_WINKEYS_00C66:                      ; 2 records + WIN_KEY_END
@@ -586,39 +586,39 @@ TBL_0DB0:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h
 STR_CREDITS_BLANK:
         db      00h
-STR_0E31:
+STR_MPC2000_DEVELOPMENT_TEAM:
         db      "        MPC2000 development Team!", 00h
-STR_0E53:
+STR_PRODUCT_PLANNING:
         db      "Product planning", 00h
-STR_0E64:
+STR_YUJI_KAGEI:
         db      "                Yuji Kagei", 00h
-STR_0E7F:
+STR_COSMETIC_DESIGN:
         db      "Cosmetic design", 00h
-STR_0E8F:
+STR_KAZUSATO_KAWANOGUCHI:
         db      "            Kazusato Kawanoguchi", 00h
-STR_0EB0:
+STR_ELECTRIC_DESIGN:
         db      "Electric design", 00h
-STR_0EC0:
+STR_YASUYUKI_HAYASHI:
         db      "            Yasuyuki Hayashi", 00h
-STR_0EDD:
+STR_HIDEYUKI_OIMATSU:
         db      "            Hideyuki Oimatsu", 00h
-STR_0EFA:
+STR_MECHANICAL_DESIGN:
         db      "Mechanical design", 00h
-STR_0F0C:
+STR_TAKESHI_SUGIYAMA:
         db      "             Takeshi Sugiyama", 00h
-STR_0F2A:
+STR_SOFTWARE_DESIGN:
         db      "Software design", 00h
-STR_0F3A:
+STR_AKIHIRO_HAYASHI:
         db      "             Akihiro Hayashi", 00h
-STR_0F57:
+STR_YOSHIHIRO_ISHIKAWA:
         db      "           Yoshihiro Ishikawa", 00h
-STR_0F75:
+STR_SOUND_DESIGN:
         db      "Sound design", 00h
-STR_0F82:
+STR_MASAYUKI_HOSHI:
         db      "            Masayuki Hoshi", 00h
-STR_0F9D:
+STR_AND_STUDIO_MIX_335_STUFF:
         db      "         and studio Mix 335 stuff", 00h
-STR_0FBF:
+STR_THANKS_TO_ALL_AKAI_EMI:
         db      "Thanks to        all AKAI EMI stuff.", 00h
 CREDITS_TABLE:
         dw      STR_CREDITS_BLANK, DATA_SEG
@@ -626,31 +626,31 @@ CREDITS_TABLE:
         dw      STR_CREDITS_BLANK, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0E31, DATA_SEG
+        dw      STR_MPC2000_DEVELOPMENT_TEAM, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0E53, DATA_SEG
-        dw      STR_0E64, DATA_SEG
+        dw      STR_PRODUCT_PLANNING, DATA_SEG
+        dw      STR_YUJI_KAGEI, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0E7F, DATA_SEG
-        dw      STR_0E8F, DATA_SEG
+        dw      STR_COSMETIC_DESIGN, DATA_SEG
+        dw      STR_KAZUSATO_KAWANOGUCHI, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0EB0, DATA_SEG
-        dw      STR_0EC0, DATA_SEG
-        dw      STR_0EDD, DATA_SEG
+        dw      STR_ELECTRIC_DESIGN, DATA_SEG
+        dw      STR_YASUYUKI_HAYASHI, DATA_SEG
+        dw      STR_HIDEYUKI_OIMATSU, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0EFA, DATA_SEG
-        dw      STR_0F0C, DATA_SEG
+        dw      STR_MECHANICAL_DESIGN, DATA_SEG
+        dw      STR_TAKESHI_SUGIYAMA, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0F2A, DATA_SEG
-        dw      STR_0F3A, DATA_SEG
-        dw      STR_0F57, DATA_SEG
+        dw      STR_SOFTWARE_DESIGN, DATA_SEG
+        dw      STR_AKIHIRO_HAYASHI, DATA_SEG
+        dw      STR_YOSHIHIRO_ISHIKAWA, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0F75, DATA_SEG
-        dw      STR_0F82, DATA_SEG
-        dw      STR_0F9D, DATA_SEG
+        dw      STR_SOUND_DESIGN, DATA_SEG
+        dw      STR_MASAYUKI_HOSHI, DATA_SEG
+        dw      STR_AND_STUDIO_MIX_335_STUFF, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
-        dw      STR_0FBF, DATA_SEG
+        dw      STR_THANKS_TO_ALL_AKAI_EMI, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
         dw      STR_CREDITS_BLANK, DATA_SEG
@@ -737,9 +737,9 @@ P_10CC:
         WIN_RULE  0eh, 0f3h, 00h, 32h
         WIN_END
         if      FW_VERSION = 172
-STR_11B3:
+STR_ALL_CH:
         db      41h, 4ch, 4ch, 20h, 43h, 48h, 00h
-STR_11BA:
+STR_CLEAR:
         db      43h, 4ch, 45h, 41h
         db      052h, 000h
         else
@@ -793,30 +793,30 @@ TBL_WINKEYS_01264:                      ; 10 records + WIN_KEY_END
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, X_036DC
         WIN_KEY_END
         db      00h
-STR_129C:
+STR_MULTI_FX1:
         db      4dh, 55h, 4ch, 54h, 49h, 20h, 46h, 58h, 31h, 00h
-STR_12A6:
+STR_MULTI_FX2:
         db      "MULTI FX2", 000h
-STR_12B0:
+STR_REVERB_1:
         db      "REVERB"
         db      020h, 031h, 000h
-STR_12B9:
+STR_REVERB_2:
         db      "REVERB 2", 000h
 FX_TYPE_LABELS:
-        dw      STR_129C, DATA_SEG
-        dw      STR_12A6, DATA_SEG
-        dw      STR_12B0, DATA_SEG
-        dw      STR_12B9, DATA_SEG
+        dw      STR_MULTI_FX1, DATA_SEG
+        dw      STR_MULTI_FX2, DATA_SEG
+        dw      STR_REVERB_1, DATA_SEG
+        dw      STR_REVERB_2, DATA_SEG
 STR_12D2:
         db      052h, 031h, 000h
 STR_12D5:
         db      04dh, 031h, 000h
-STR_12D8:
+STR_FX1_DIST_FLT:
         db      "FX1 DIST/F"
         db      04ch, 054h, 000h
-STR_12E5:
+STR_FX1_MOD_ECHO:
         db      "FX1 MOD/ECHO", 000h
-STR_12F2:
+STR_FX1_REVERB:
         db      "FX1 REVERB", 000h
 STR_12FD:
         db      052h, 032h, 000h
@@ -824,25 +824,25 @@ P_1300:
         db      04dh, 032h
 P_1302:
         db      000h
-STR_1303:
+STR_FX2_DIST_FLT:
         db      "FX2 DIST/FLT", 000h
-STR_1310:
+STR_FX2_MOD_ECHO:
         db      046h, 058h
         db      "2 MOD/ECHO", 000h
-STR_131D:
+STR_FX2_REVERB:
         db      046h, 058h, 032h, 020h, 052h
         db      "EVERB", 000h
 FX_SECTION_LABELS:
         dw      STR_12D2, DATA_SEG
         dw      STR_12D5, DATA_SEG
-        dw      STR_12D8, DATA_SEG
-        dw      STR_12E5, DATA_SEG
-        dw      STR_12F2, DATA_SEG
+        dw      STR_FX1_DIST_FLT, DATA_SEG
+        dw      STR_FX1_MOD_ECHO, DATA_SEG
+        dw      STR_FX1_REVERB, DATA_SEG
         dw      STR_12FD, DATA_SEG
         dw      P_1300, DATA_SEG
-        dw      STR_1303, DATA_SEG
-        dw      STR_1310, DATA_SEG
-        dw      STR_131D, DATA_SEG
+        dw      STR_FX2_DIST_FLT, DATA_SEG
+        dw      STR_FX2_MOD_ECHO, DATA_SEG
+        dw      STR_FX2_REVERB, DATA_SEG
 STR_1350:
         db      4dh, 31h, 00h
 STR_1353:
@@ -1093,33 +1093,33 @@ DL_4BAND_FILTER:
         WIN_END
 ; plain NUL-separated string table (<F-MOD> selector's 7 options), indexed from
 ; elsewhere; not part of the display list.  raw.
-STR_1701:
+STR_PHASE_SHIFT:
         db      "PHASE SHIFT", 000h
-STR_170D:
+STR_FLANGE:
         db      046h, 04ch
         db      "ANGE", 000h
-STR_1714:
+STR_CHORUS:
         db      "CHORUS", 000h
-STR_171B:
+STR_ROTARY_SPEAKERS:
         db      "ROTA"
         db      "RY SPEAKERS", 000h
-STR_172B:
+STR_FMOD_AUTOPAN:
         db      "FMOD"
         db      "/AUTOPAN", 000h
-STR_1738:
+STR_PITCH_SHIFT:
         db      "PITCH S"
         db      "HIFT", 000h
-STR_1744:
+STR_PITCH_FEEDBACK:
         db      "PITCH+FEEDB"
         db      41h, 43h, 4bh, 00h, 00h
 FX_MOD_TYPE_LABELS:
-        dw      STR_1701, DATA_SEG
-        dw      STR_170D, DATA_SEG
-        dw      STR_1714, DATA_SEG
-        dw      STR_171B, DATA_SEG
-        dw      STR_172B, DATA_SEG
-        dw      STR_1738, DATA_SEG
-        dw      STR_1744, DATA_SEG
+        dw      STR_PHASE_SHIFT, DATA_SEG
+        dw      STR_FLANGE, DATA_SEG
+        dw      STR_CHORUS, DATA_SEG
+        dw      STR_ROTARY_SPEAKERS, DATA_SEG
+        dw      STR_FMOD_AUTOPAN, DATA_SEG
+        dw      STR_PITCH_SHIFT, DATA_SEG
+        dw      STR_PITCH_FEEDBACK, DATA_SEG
 DL_FX_MODULATION:
         WIN_DIALOG "MODULATION"
 ; 02h WIN_RESET_PEN (0 operands), then opcode. Tail past label raw.
@@ -1170,20 +1170,20 @@ TBL_WINKEYS_0185C:                      ; 7 records + WIN_KEY_END
         WIN_KEY   WIN_K_LEFT, TEXT1_SEG, X_04306
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, L_04326
         WIN_KEY_END
-STR_1884:
+STR_PAN:
         db      50h, 41h, 4eh, 00h
-STR_1888:
+STR_L_R:
         db      4ch, 3eh, 52h, 00h
-STR_188C:
+STR_R_L:
         db      52h, 3eh, 4ch
         db      000h
-STR_1890:
+STR_TERM:
         db      "TERM", 000h, 000h
 FX_PAN_LABELS:
-        dw      STR_1884, DATA_SEG
-        dw      STR_1888, DATA_SEG
-        dw      STR_188C, DATA_SEG
-        dw      STR_1890, DATA_SEG
+        dw      STR_PAN, DATA_SEG
+        dw      STR_L_R, DATA_SEG
+        dw      STR_R_L, DATA_SEG
+        dw      STR_TERM, DATA_SEG
 P_18A6:
         db      007h, 019h, 015h, "<F-MOD> Speed"
         db      03ah, 020h, 020h, 020h, 048h, 07ah, 000h, 007h, 049h, 01fh, "Depth:"
@@ -1229,21 +1229,21 @@ TBL_WINKEYS_01990:
         WIN_KEY   WIN_K_LEFT, TEXT1_SEG, X_04820
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, X_0484C
         WIN_KEY_END
-STR_19B8:
+STR_MONO_LEFT:
         db      4dh, 4fh, 4eh, 4fh, 20h, 4ch, 45h, 46h, 54h, 00h
-STR_19C2:
+STR_MONO_L_R:
         db      4dh
         db      "ONO L+R", 000h
-STR_19CB:
+STR_XOVER_L_R:
         db      "XOVER L&"
         db      052h, 000h
-STR_19D5:
+STR_STEREO:
         db      "STEREO", 000h
 FX_OUT_MODE_LABELS:
-        dw      STR_19B8, DATA_SEG
-        dw      STR_19C2, DATA_SEG
-        dw      STR_19CB, DATA_SEG
-        dw      STR_19D5, DATA_SEG
+        dw      STR_MONO_LEFT, DATA_SEG
+        dw      STR_MONO_L_R, DATA_SEG
+        dw      STR_XOVER_L_R, DATA_SEG
+        dw      STR_STEREO, DATA_SEG
 DL_FX_DELAY_ECHO:
         WIN_DIALOG "DELAY/ECHO"
         db      02h
@@ -1272,31 +1272,31 @@ TBL_WINKEYS_01AC2:                      ; 7 records + WIN_KEY_END
         WIN_KEY   WIN_K_LEFT, TEXT1_SEG, L_04B2A
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, L_04B42
         WIN_KEY_END
-STR_1AEA:
+STR_LARGE_HALL:
         db      4ch, 41h, 52h, 47h, 45h, 20h, 48h, 41h, 4ch, 4ch, 00h
-STR_1AF5:
+STR_SMALL_HALL:
         db      "SMALL HALL", 000h
-STR_1B00:
+STR_LARGE_ROOM:
         db      "LARGE"
         db      " ROOM", 000h
-STR_1B0B:
+STR_SMALL_ROOM:
         db      "SMALL ROOM"
         db      000h
-STR_1B16:
+STR_GATED_1:
         db      "GATED 1", 000h
-STR_1B1E:
+STR_GATED_2:
         db      "GATED 2"
         db      000h
-STR_1B26:
+STR_REVERSE:
         db      "REVERSE", 000h
 FX_REVERB_LABELS:
-        dw      STR_1AEA, DATA_SEG
-        dw      STR_1AF5, DATA_SEG
-        dw      STR_1B00, DATA_SEG
-        dw      STR_1B0B, DATA_SEG
-        dw      STR_1B16, DATA_SEG
-        dw      STR_1B1E, DATA_SEG
-        dw      STR_1B26, DATA_SEG
+        dw      STR_LARGE_HALL, DATA_SEG
+        dw      STR_SMALL_HALL, DATA_SEG
+        dw      STR_LARGE_ROOM, DATA_SEG
+        dw      STR_SMALL_ROOM, DATA_SEG
+        dw      STR_GATED_1, DATA_SEG
+        dw      STR_GATED_2, DATA_SEG
+        dw      STR_REVERSE, DATA_SEG
 DL_FX_REVERB:
         WIN_DIALOG "REVERB"
         db      02h
@@ -1318,36 +1318,36 @@ TBL_WINKEYS_FX_MIXER:                      ; 5 records + WIN_KEY_END
         WIN_KEY   WIN_K_LEFT, TEXT1_SEG, fx_mixer_left
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, fx_mixer_right
         WIN_KEY_END
-STR_1BCE:
+STR_MOD_ECHO_REV:
         db      4dh, 4fh, 44h, 2fh, 45h, 43h, 48h, 4fh, 3eh, 52h, 45h
         db      056h, 000h
-STR_1BDB:
+STR_REV_MOD_ECHO:
         db      "REV>MOD/ECHO", 000h
-STR_1BE8:
+STR_MOD_ECHO_REV_2:
         db      04dh
         db      "OD/ECHO+REV", 000h, 000h
 FX_ROUTE_LABELS:
-        dw      STR_1BCE, DATA_SEG
-        dw      STR_1BDB, DATA_SEG
-        dw      STR_1BE8, DATA_SEG
+        dw      STR_MOD_ECHO_REV, DATA_SEG
+        dw      STR_REV_MOD_ECHO, DATA_SEG
+        dw      STR_MOD_ECHO_REV_2, DATA_SEG
         if      FW_VERSION = 172
-STR_1C02:
+STR_MASTER:
         db      "MASTER", 000h
-STR_1C09:
+STR_1_2:
         db      031h, 02fh, 032h, 020h, 020h, 000h
-STR_1C0F:
+STR_3_4:
         db      033h, 02fh, 034h
         db      20h, 20h, 00h
-STR_1C15:
+STR_5_6:
         db      35h, 2fh, 36h, 20h, 20h, 00h
-STR_1C1B:
+STR_7_8:
         db      37h, 2fh, 38h, 20h, 20h, 00h, 00h
 FX_OUT_PAIR_LABELS:
-        dw      STR_1C02, DATA_SEG
-        dw      STR_1C09, DATA_SEG
-        dw      STR_1C0F, DATA_SEG
-        dw      STR_1C15, DATA_SEG
-        dw      STR_1C1B, DATA_SEG
+        dw      STR_MASTER, DATA_SEG
+        dw      STR_1_2, DATA_SEG
+        dw      STR_3_4, DATA_SEG
+        dw      STR_5_6, DATA_SEG
+        dw      STR_7_8, DATA_SEG
         endif
 P_1C36:
         WIN_DIALOG "Effect Mixer"
@@ -2080,7 +2080,7 @@ X_02A7A:
         db      00h
 STR_2A8A:
         db      5eh, 4eh, 4fh, 00h
-STR_2A8E:
+STR_YES:
         db      59h
 
 L_02A8F:
@@ -2089,7 +2089,7 @@ P_2A92:
         dw      STR_2A8A
 P_2A94:
         dw      DATA_SEG
-        dw      STR_2A8E, DATA_SEG
+        dw      STR_YES, DATA_SEG
 P_2A9A:
         db      20h, 2dh, 20h, 00h, 20h, 31h, 20h, 00h, 20h, 32h, 20h, 00h, 20h, 33h
         db      20h, 00h, 20h, 34h, 20h, 00h, 20h, 35h, 20h, 00h, 20h, 36h, 20h, 00h, 20h, 37h

@@ -12,13 +12,11 @@ D_0020:
         SEQ_TRACK_NAMES
 
 ; 0x1fad0-0x1fb10, 64 x c0h -- per-track default, track flags (+430h)
-FREE_1FAD0:
 D_0430:
         db      040h dup (0c0h)
 
 
 ; 0x1fb10-0x1fb50, 64 x 00h -- per-track default, Pgm OFF (+470h)
-FREE_1FB10:
 D_0470:
         db      040h dup (000h)
 

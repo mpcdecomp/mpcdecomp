@@ -957,7 +957,6 @@ calls_init_state_007f6:
 calls_init_state_007f9:
         call    init_state
         ret
-FN_007FD_V150:
 panel_held_key_repeat:
         sub     ax, ax
         cmp     al, byte ptr [G_REPEAT_KEYS_HELD]
@@ -1030,7 +1029,6 @@ br_00874:
         push    cs
         call    note_program_lookup
         ret
-L_0084B_V150:
 ui_dispatch_pending_dec:
         sub     ax, ax
         xchg    word ptr [G_WHEEL_DEC_PENDING], ax
@@ -1486,7 +1484,6 @@ br_00C23:
         cmp     ax, word ptr [FIELD_MIN_W]
         jae     jmp_word_00c2c
         mov     ax, word ptr [FIELD_MIN_W]
-L_01846:
 jmp_word_00c2c:
         mov     word ptr es:[si], ax
         jmp     word ptr [FIELD_CHANGE_CB]
@@ -2035,7 +2032,6 @@ handler_BC_SERIAL_ALLOC:
         mov     byte ptr [B_1A2A], al
         mov     byte ptr [B_63C8], al
         retf
-L_01CBC:
 system_call:
         BC_PLANE_A
 L_010C3:
@@ -2247,14 +2243,12 @@ L_01259:
 status_b_01264:
         BC_STATUS_B 42, 26, 16
         db      07h, 0c3h
-L_01E68:
 calls_check_flags_1d8a_1d8b_0126c:
         call    check_flags_1d8a_1d8b
 L_0126F:
         je      auto_punch_function_is_ac_status_01274
         jmp     L_01326
         if      FW_VERSION = 150
-L_01E70:
         endif
 auto_punch_function_is_ac_status_01274:
         cmp     byte ptr [P_70F9], 0
@@ -2276,7 +2270,6 @@ calls_check_status_flag_596c_012bd:
         je      L_012C5
 L_012C2:
         call    L_014D3
-L_01EC1:
 L_012C5:
         cmp     byte ptr [G_NEXT_SEQ], 0ffh
 jmp_softkey_tronof_012ca:
@@ -2285,7 +2278,6 @@ jmp_softkey_tronof_012ca:
 soft_key_012D1:
         jne     softkey_tr__01313
         jmp     SHORT softkey_tronof
-L_01ED1:
 step_record_mode:
         if      FW_VERSION = 150
 L_01EF8                         equ     $+39
@@ -2325,7 +2317,6 @@ bc_int69_01333:
         INT_69 NULL_HANDLER_OFS
 L_01337:
         ret
-L_01F34:
 punch_in_out_display:
         cmp     byte ptr [G_PUNCH_MODE], 0
 L_0133D:
@@ -2338,7 +2329,6 @@ L_01346:
 status_01349:
         call    out_display
         ret
-L_01F49:
 punch_in_point:
         BC_STATUS 32, 52, "IN:"
 status_in_01356:
@@ -2349,7 +2339,6 @@ range_01361:
         BC_RANGE 50, 52
 out_status:
         ret
-L_01F63:
 out_display:
         BC_STATUS 138, 52, "OUT:"
 status_out_01371:
@@ -2364,13 +2353,11 @@ calls_check_flags_1d8a_1d8b_01382:
         INT_5C main_screen_idle
 calls_check_flags_1d8a_1d8b_01386:
         jmp     NEAR calls_check_flags_1d8a_1d8b_0126c
-L_01F85:
 calls_check_flags_1d8a_1d8b_01389:
         call    check_flags_1d8a_1d8b
 calls_check_status_flag_596c_0138c:
         jne     calls_check_status_flag_596c_0138f
         ret
-L_01F8B:
 calls_check_status_flag_596c_0138f:
         call    seq_edit_allowed
 L_01392:
@@ -2407,7 +2394,6 @@ L_013C6:
         cmp     cx, word ptr [PUNCH_OUT_TICK]
         ja      calls_pad_handler_01434_013e4
         jmp     SHORT calls_pad_handler_01434_013da
-CALLS_PAD_HANDLER_01434_013E4_V150:
 calls_ui__01461_013d0:
         call    ui__01461
 calls_pad_handler_01443_013d3:
@@ -2568,8 +2554,6 @@ close_handler_015A0:
         BC_PLANE_A
 L_015A3:
         ret
-L_021A0:
-L_015A4:
         mov     byte ptr [G_POS_REDRAW_REQ], 1
         ret
 L_015AA:
@@ -2625,7 +2609,6 @@ calls_check_status_flag_596c_015fe:
 calls_check_flags_1d8a_1d8b_01601:
         jne     calls_check_flags_1d8a_1d8b_01606
         jmp     L_0D32C
-L_021BD:
 calls_check_flags_1d8a_1d8b_01606:
         call    check_flags_1d8a_1d8b
 L_01609:
@@ -2646,7 +2629,6 @@ main_screen_idle:
 L_01620:
         je      L_01625
         jmp     NEAR L_01755
-L_021DC:
 L_01625:
         call    main_screen_redraw_if_dirty
 L_01628:
@@ -2655,7 +2637,6 @@ L_0162B:
         call    main_screen_time_update_if_pending
 L_021E5:
         ret
-L_021E6:
 main_screen_redraw_if_dirty:
         sub     ax, ax
         xchg    byte ptr [G_POS_REDRAW_REQ], al
@@ -2698,7 +2679,6 @@ L_0165E:
 L_0166B:
         call    main_screen_track_field
         mov     byte ptr [G_REC_EVENTS_ADDED], 2
-L_0222A:
 L_01673:
         cmp     byte ptr [SEQ_LOOP_JUMP_STATE], 0
 L_01678:
@@ -2707,13 +2687,11 @@ lcd_coord_0167A:
         BC_FLUSH
 L_0167D:
         ret
-L_02235:
 main_screen_note_repeat_hint:
         cmp     byte ptr [B_1D84], 0
 L_01683:
         jne     L_01686
         ret
-L_0223D:
 L_01686:
         cmp     byte ptr [G_TC_NOTE_VALUE], 0
 L_0168B:
@@ -2721,8 +2699,6 @@ L_0168B:
         cmp     byte ptr [B_14CF], 0
 L_01692:
         je      L_016BC
-seq_nav_0224B:
-seq_nav_01694:
         BC_SEQ_NAV "      (Hold pads or Keys to repeat)"
 L_016BB:
         ret
@@ -2733,7 +2709,6 @@ L_016C1:
         ret
 seq_nav_016C4:
         if      FW_VERSION = 150
-seq_nav_0227B:
 L_0227F                         equ     $+4
         endif
         BC_SEQ_NAV "      (Hold pads or Keys to erase) "
@@ -2841,22 +2816,17 @@ L_01797:
 L_01797:
         endif
         ret
-L_02351:
 L_0179A:
         cmp     byte ptr [G_SONG_MODE], 0
         jne     L_017A4
 L_017A1:
         call    main_screen_bars_field
-L_0235B:
 L_017A4:
         ret
 status_017A5:
         cmp     byte ptr [B_0B28], 0
 status_017AA_status:
         jne     time_display_bars
-L_02363:
-status_display_02363:
-status_display_17AC:
         BC_STATUS 192, 1, "   .  .  "
 range_017BB:
         mov     ax, word ptr [SEQ_CUR_BAR]
@@ -2866,7 +2836,6 @@ h_m_s_status_017C6:
         BC_RANGE 192, 1
 h_m_s_status:
         ret
-L_02383:
 time_display_bars:
         BC_STATUS 192, 1, "  H  M  S"
 status_h__m__s_017db:
@@ -2899,20 +2868,15 @@ ui_menu_0180B:
 L_01811:
         mov.l   bx, 1e8h
         add.d0  bl, cl
-L_023CE:
-status_01817:
         cmp     byte ptr [B_0B28], 0
 status_0181C_status:
         jne     status_display_1831
-status_display_023D5:
-status_display_181E:
         BC_STATUS 192, 1, "---.--.--"
 lcd_coord_0182D:
         BC_FLUSH
 h_m_s_1_status_01830:
         ret
 status_display_1831:
-status_display_023E8:
         BC_STATUS 192, 1, "--H--M--S"
 lcd_coord_01840:
         BC_FLUSH
@@ -3561,7 +3525,6 @@ L_01CF6:
 status_b_01CFD:
         BC_STATUS_B 116, 16, 16
         db      0c3h
-L_0287F:
 bc_int6a_01d04:
         INT_6A calls_call_with_check_01d27, calls_call_with_check_01d27
 bc_int61_01d0a:
@@ -3818,7 +3781,6 @@ ui_ctrl_01efd:
         je      ui_stat_b_1e48_f02
 ui_ctrl_01eff:
         jmp     NEAR ui_calc_bar_beat_031
-L_02A7D:
 ui_stat_b_1e48_f02:
         BC_UI_CTRL 191, 0, 19, 9
 bc_int6c_01f09:
@@ -3946,7 +3908,6 @@ L_0201C:
 ui_ctrl_0202c:
         mov     word ptr [SEQ_BAR_TICK], ax
         jmp     SHORT L_01FBF
-L_02BAC:
 ui_calc_bar_beat_031:
         BC_UI_CTRL 191, 0, 55, 9
 bc_int6c_02038:
@@ -4443,8 +4404,6 @@ calls_init_with_int50_0244f:
         jmp     NEAR ui_event_3ce
 status_a_02455:
         BC_STATUS_A 92, 12, G_TC_NOTE_VALUE, TBL_NOTE_VALUE_NAMES
-status_display_02FD9:
-status_display_245E:
         BC_STATUS 170, 12, "         "
 L_0246D:
         cmp     byte ptr [G_TC_NOTE_VALUE], 1
@@ -4844,7 +4803,6 @@ L_02848:
         callf   CS1_SEG:seq_position_set_far
         mov     byte ptr [TC_IN_PROGRESS], 0
         jmp     calls_init_with_int50_0244f
-L_033AE:
 ui_arith_ext_02535_85c:
         BC_UI_CTRL 215, 12, 31, 9
 bc_int6c_02863:
@@ -5105,7 +5063,6 @@ br_02A54:
 change_tsig_cancel:
         call    main_screen_enter
         jmp     ui_arith_ext_02535_85c
-L_035F3:
 ui_ctrl_215_aa6:
         BC_UI_CTRL 215, 21, 19, 9
 bc_int6c_02aad:
@@ -5125,7 +5082,6 @@ calls_check_status_flag_596c_02ad3:
 L_02AD6:
         je      L_02AD9
         ret
-L_03626:
 L_02AD9:
         callf   CS1_SEG:CHANGE_BARS_DIALOG_OFS
         if      FW_VERSION = 172
@@ -5582,7 +5538,6 @@ calls_check_es_flag_13_02e8f:
 calls_check_and_call_02e92:
         jne     calls_check_and_call_02e95
         ret
-L_039D8:
 
 
 calls_check_and_call_02e95:
@@ -5608,7 +5563,6 @@ locate_key_bar_fwd:
         callf   CS1_SEG:locate_bar_fwd_to_end_far
         else
         callf   CS1_SEG:L_17869_V150
-L_03A14:
         endif
 L_02ED1:
         mov     word ptr [W_0EE4], main_screen_install_transport_handlers
@@ -5731,7 +5685,6 @@ L_02FE6:
 L_02FED:
         mov     word ptr [UI_REL_SLOT_ODUB], P_3242
         retf
-L_03B12:
 main_screen_install_transport_handlers:
         if      FW_VERSION = 150
 L_03B18                         equ     $+6
@@ -5749,7 +5702,6 @@ L_0301F:
 L_03024:
         je      L_03027
         ret
-L_03B45:
 L_03027:
         if      FW_VERSION = 150
 L_03B47                         equ     $+2
@@ -5976,7 +5928,6 @@ calls_call_with_check_03198:
         pop     ax
         callf   CS1_SEG:SEQ_POSITION_SET_FAR_OFS
         ret
-L_03CD3:
 main_screen_install_play_handlers:
         INT_6D NULL_HANDLER_OFS, NULL_HANDLER_OFS, NULL_HANDLER_OFS, NULL_HANDLER_OFS, NULL_HANDLER_OFS
 L_031C6:
@@ -6144,14 +6095,12 @@ jmp_ferr_wrong_disk:
         jmpf    CS1_SEG:ferr_wrong_disk
 jmp_ferr_no_f_rom:
         jmpf    CS1_SEG:ferr_no_f_rom
-L_03DE9:
 L_032D7:
         cmp     byte ptr [G_DISK_DEVICE], 9
 saving_msg:
         jne     error_disk_full_032FB
 error_from_full:
         INT_2A "       F-ROM full  !!     "
-L_03E0D:
 error_disk_full_032FB:
         INT_2A "        Disk full  !!     "
 saving_screen_display:
@@ -7658,7 +7607,6 @@ status_display_3F63:
         BC_STATUS 130, 36, "              "
 L_03F77:
         ret
-L_04A25:
 seq_init_03F78:
         BC_SEQ_INIT
 bc_int67_68_03f7b:
@@ -7958,7 +7906,6 @@ L_041A9:
         jmp     NEAR jmp_ferr_format_invalid
 L_041AE:
         ret
-L_04C59:
 save_device_field:
         INT_5F save_device_inc
 bc_int6c_041b3:
@@ -8297,7 +8244,6 @@ save_device_window:
 bc_int5b_04436:
         jae     bc_int5b_04439
         ret
-L_04EE3:
 bc_int5b_04439:
         INT_5B arrange_window_close
 bc_int67_68_0443d:
@@ -8350,7 +8296,6 @@ int2c_device_is_9:
         cmp     byte ptr [G_DISK_DEVICE], 9
         jne     L_044C5
         mov     ah, 1
-L_04F6F:
 L_044C5:
         ret
 close_handler_044C6:
@@ -8361,7 +8306,6 @@ L_044C9:
 L_044D1:
         call    L_0454C
         ret
-L_04F7F:
 error_scsi_not_ready_044D5:
         if      FW_VERSION = 150
 L_04F89                         equ     $+10
@@ -8445,7 +8389,6 @@ L_0454C:
         cmp     al, 0
         jne     L_04555
         jmp     SHORT L_045A1
-L_04FF3:
 L_04555:
         cmp     al, 9
 L_04557:
@@ -8569,7 +8512,6 @@ bc_int61_0465e:
         jne     bc_int61_04661
 L_05112:
         ret
-L_05192:
 bc_int61_04661:
         if      FW_VERSION = 150
 L_04665                         equ     $+2
@@ -8702,7 +8644,6 @@ format_disk_dialog_04744:
 this_will_erase_status:
         je      this_will_erase_1_status
         if      FW_VERSION = 150
-format_disk_dialog_051FD:
 L_0521E                         equ     $+33
         endif
 format_disk_dialog_0474B:
@@ -8754,19 +8695,15 @@ L_04801:
 L_04803:
         mov     bl, 11h
         mov     bh, byte ptr [G_DISK_DEVICE]
-L_052BB:
-L_04809:
         int     2ch
 L_0480B:
         jae     L_04810
         jmp     NEAR jmp_ferr_no_disk
-L_052C2:
 L_04810:
         cmp     bl, 0
 formating_0_status_04813:
         je      formating_0_status
         jmp     jmp_ferr_write_protect
-L_052CA:
 formating_0_status:
         mov     byte ptr [G_DIR_CACHED_DEVICE], 0ffh
 formating_display:
@@ -8779,7 +8716,6 @@ L_04848:
         mov     bh, byte ptr [G_DISK_DEVICE]
 L_04851:
         int     2ch
-L_05305:
 L_04853:
         mov     bl, 0ch
         mov     bh, byte ptr [G_DISK_DEVICE]
@@ -8887,7 +8823,6 @@ L_0493C:
 L_0493F:
         stc
         ret
-L_053F3:
 L_04941:
         mov     bl, 1
         mov     bh, byte ptr [G_DISK_DEVICE]
@@ -8960,7 +8895,6 @@ no_f_rom_msg:
         db      5bh
         endif
         ret
-L_0547B:
 print_no_from:
         if      FW_VERSION = 150
 L_05481                         equ     $+6
@@ -9507,7 +9441,6 @@ L_04E22:
 song_advance_step_far:
         call    song_advance_step
         retf
-L_058DE:
 seq_init_04E2E:
         BC_SEQ_INIT
         db      90h, 0eh
@@ -9590,10 +9523,8 @@ L_04EC0:
 L_04EC5:
         jne     bc_int6b_04eca
         jmp     song_screen_install_transport_handlers
-L_05974:
 bc_int6b_04eca:
         jmp     L_05E72
-L_05977:
 bc_int6b_04ecd:
         INT_6B NULL_HANDLER_OFS, NULL_HANDLER_OFS, NULL_HANDLER_OFS, file_dialog_06481, calls_check_status_flag_596c_05d1a, calls_check_status_flag_596c_05d3f
         db      0ebh, 0dbh
@@ -9870,8 +9801,6 @@ L_0511C:
         inc     al
 arith_ext_05120:
         BC_ARITH_EXT 01769h
-status_display_05BCF:
-status_display_5125:
         BC_STATUS 117, 23, "-"
 L_0512C:
         mov     al, ch
@@ -9889,8 +9818,6 @@ end_of_song_status:
 end_song_display:
 END_SONG_DISPLAY_V150:
         BC_STATUS 105, 23, "   (end of song)"
-status_display_05C0C:
-status_display_5162:
         BC_STATUS 228, 23, "  "
 close_handler_0516A:
         BC_PLANE_A
@@ -9970,7 +9897,6 @@ loop_051E5:
         mov     bx, word ptr [si]
         mul     bx
         add     ax, cx
-L_05CAE:
 L_05204:
         add     ax, word ptr [SEQ_CUR_BAR]
 range_05208:
@@ -10109,7 +10035,6 @@ softkey_copy_05342:
 L_05344:
         call    song_window_name_field
         ret
-L_05DF0:
 bc_int67_68_05348:
         int     50h
 bc_int67_68_0534a:
@@ -10167,7 +10092,6 @@ L_05393:
 status_b_0539A:
         BC_STATUS_B 116, 15, 16
         db      0c3h
-L_05E49:
 bc_int6a_053a1:
         INT_6A bc_int62_053c4, bc_int62_053c4
 bc_int61_053a7:
@@ -10243,7 +10167,6 @@ song_status:
         mov     word ptr es:[di], ax
         ret
         if      FW_VERSION = 150
-delete_song_dialog_05EC8:
 L_05EEE                         equ     $+38
         endif
 delete_song_dialog_05420:
@@ -11243,8 +11166,6 @@ calls_get_table_entry_05d1d:
         ret
 calls_get_table_entry_05d20:
         call    get_table_entry
-CALLS_GET_TABLE_ENTRY_05D1D_V150:
-L_05D23:
         jne     L_05D26
 L_05BCD:
         ret
@@ -11267,8 +11188,6 @@ calls_check_status_flag_596c_05d3b:
         ret
 calls_check_status_flag_596c_05d3f:
         call    seq_edit_allowed
-calls_check_status_flag_596c_05d3f_V150:
-L_05D42:
         je      calls_get_table_entry_05d45
         ret
 calls_get_table_entry_05d45:
@@ -11486,14 +11405,12 @@ br_05EB8:
         else
 L_06967:
         db      80h, 3eh, 0h, 4ch, 00h, 75h, 01h, 0c3h
-L_0696F:
         endif
 L_05EC7:
         cmp     byte ptr [G_SYNC_IN_MODE], 2
 L_05ECC:
         jae     L_05ECF
         ret
-L_06977:
 L_05ECF:
         callf   CS1_SEG:sequencer_start_keep_position_far
         jmp     SHORT loop_05E68
@@ -11527,8 +11444,6 @@ close_handler_05EE8             equ     $+1
 status_05EF3:
         sub     ah, byte ptr [G_SONG_STEP_REPEAT]
         mov     al, ah
-status_display_069A1:
-status_display_5EF9:
         BC_STATUS 228, 31, "  "
         db      2ah, 0e4h
 jump__05F03:
@@ -11592,7 +11507,6 @@ L_05F60:
         pop     ax
         callf   CS1_SEG:P_9343
         ret
-L_06A2C:
 song_screen_install_transport_handlers:
         INT_6D calls_check_status_flag_596c_060f8, calls_check_status_flag_596c_060c3, NULL_HANDLER_OFS, calls_check_status_flag_596c_0601f, calls_check_status_flag_596c_05fa3
 L_05F90:
@@ -11916,7 +11830,6 @@ fn_0620F:
         mov     word ptr [W_4C18], ax
         mov     word ptr [G_SONG_STEP_START_LO], ax
         mov     word ptr [G_SONG_STEP_START_HI], ax
-L_06CAE:
 calls_get_table_entry_0622e:
         call    get_table_entry
 L_06231:
@@ -11981,7 +11894,6 @@ br_062B2:
         cmp     bl, 0
         jne     cond_exec_062B9
         mov     bl, 4
-L_06D39:
 cond_exec_062B9:
         if      FW_VERSION = 172
 handler_BC_COND_EXEC            equ     $+1
@@ -12175,7 +12087,6 @@ from_song_status_06484:
         je      convert_song_to_seq_dialog_06487
         ret
 convert_song_to_seq_dialog_06487:
-convert_song_to_seq_dialog_06F07:
         DLG_CONVERT_SONG_TO_SEQ
 status_convert_064fa:
         int     50h
@@ -12357,7 +12268,6 @@ calls_dispatch_int6d_6e_06675:
 calls_dispatch_int6d_6e_06678:
         call    dispatch_int6d_6e
         ret
-L_070F8:
 bc_int67_68_0667c:
         int     50h
 bc_int67_68_0667e:
@@ -12939,7 +12849,6 @@ ui_ctrl_06ae7:
         callf   CS1_SEG:P_65A2
         or      al, ah
         mov     byte ptr es:[bx], al
-L_07586:
 ui_stat_b_6938_af1:
         BC_UI_CTRL 35, 35, 13, 9
         db      0f6h, 0c4h, 20h
@@ -12982,7 +12891,6 @@ jmp_ui_713b_06b3c:
         jne     close_handler_06B41
 ui_ctrl_06b3e:
         jmp     NEAR ui_yield_07107_13b
-L_075D6:
 close_handler_06B41:
         BC_PLANE_A
 ui_stat_b_6938_b44:
@@ -13153,8 +13061,6 @@ ui_ctrl_06cb9:
         ret
 ui_stat_a_6c59_cba:
         BC_UI_CTRL 103, 33, 19, 9
-L_06B6C:
-calls_setup_callback_vectors_06cc1:
         mov     al, 1
         mov     si, G_MIDI_FILTER_ON
         mov     bx, NULL_HANDLER_OFS
@@ -13509,8 +13415,6 @@ calls_solo_status_018_06fc9:
         call    time_convert
 soft_key_06FD4:
         call    calls_ui_a_011_07020
-softkey_close_07A6C:
-softkey_close_6FD7:
         BC_SOFTKEY 6, BC_SK_FILL,  "CLOSE"
 softkey_close_06fe2:
         INT_69 calls_init_with_int50_0710e
@@ -13598,7 +13502,6 @@ PRESS_PADS_TRACK_DISPLAY_V150:
         BC_STATUS 0, 52, "  Press pads to Track ON/OFF"
 status_press_pads_to_track_onoff_070a3:
         ret
-L_07B39_V150:
 L_070A4:
         mov     es, word ptr [CUR_SEQ_SEG]
         test    byte ptr es:[bx+TRK_STATUS], 1
@@ -13663,7 +13566,6 @@ L_070EF:
 L_070F9:
         jne     reset_070FC
         ret
-L_07B91:
 reset_070FC:
         BC_PLANE_C
         if      FW_VERSION = 172
@@ -14102,7 +14004,6 @@ br_074ED:
         pop     ax
         callf   CS1_SEG:SEQ_POSITION_SET_FAR_OFS
         jmp     NEAR calls_init_with_int50_071ed
-L_07F8C:
 struct_access_074F7:
         mov     al, byte ptr es:[si+5]
         test    al, 80h
@@ -14125,7 +14026,6 @@ handler_BC_CTRL_FIELD:
         cmp     al, 0
         jne     L_07525
         mov     al, 1
-L_07FBA:
 L_07525:
         mov     byte ptr es:[si+5], al
 br_07529:
@@ -14468,7 +14368,6 @@ br_07792:
         jb      L_0779B
         mov     ax, cx
         dec     ax
-L_08230:
 L_0779B:
         mov     word ptr es:[1eh], ax
         ret
@@ -14535,7 +14434,6 @@ calls_check_status_flag_596c_07809:
 L_0780C:
         je      bc_int5d_0780f
         ret
-L_082A4:
 bc_int5d_0780f:
         callf   CS1_SEG:countmetronome_dialog
 bc_int5d_07814:
@@ -14843,8 +14741,6 @@ L_07B11:
         test    byte ptr [G_STEP_TRK_CHANNEL], 40h
 L_07B18:
         jne     status_display_7B43
-status_display_085AC:
-status_display_7B1A:
         BC_STATUS 60, 1, "        -        "
 L_07B31:
         mov     al, byte ptr [G_STEP_VIEW_NOTE_LO]
@@ -14894,7 +14790,6 @@ ui_ctrl_07ba6:
         je      ui_ctrl_07bab
 ui_ctrl_07ba8:
         jmp     NEAR ui_ctrl_07fb8
-L_0863D:
 ui_ctrl_07bab:
         BC_UI_CTRL 58, 0, 98, 9
 calls_setup_callback_vectors_07bb2:
@@ -15010,7 +14905,6 @@ L_07C85:
         mov     byte ptr [G_STEP_VIEW_NOTE_LO], al
 ui_ctrl_07c91:
         ret
-L_08724:
 ui_ctrl_07c92:
         BC_UI_CTRL 65, 0, 37, 9
 bc_int6c_07c99:
@@ -15551,7 +15445,6 @@ auto_step_increment_status:
         cmp     byte ptr [G_STEP_NOTES_HELD], 0
         je      step_edit_options_dialog_080BA
         ret
-step_edit_options_dialog_08B4C:
 step_edit_options_dialog_080BA:
         BC_FILE_DIALOG 29, 2, 190, 58, "Step Edit Options"
 auto_step_increment_display:
@@ -15709,7 +15602,6 @@ softkey_tc:
         if      FW_VERSION = 172
         BC_SOFTKEY 1, BC_SK_BOX,   "TC"
         else
-softkey_copy_08C8E:
         endif
 softkey_copy_8204:
         BC_SOFTKEY 2, BC_SK_BOX,   "COPY"
@@ -15909,7 +15801,6 @@ pressing_do_it_will_paste_status:
         jne     paste_event_dialog_083DD
         ret
 paste_event_dialog_083DD:
-paste_event_dialog_08E27:
         DLG_PASTE_EVENT
 softkey_do_it_08442:
         int     50h
@@ -15957,7 +15848,6 @@ tgt_0845D:
         jne     L_08459
         else
         jne     L_08453_V150+2
-L_08EC6:
         endif
 L_0847C:
         mov     al, byte ptr [si]
@@ -16062,7 +15952,6 @@ calls_get_table_status_0854a:
         je      L_08554
         mov     word ptr [G_STEP_SEL_END], si
         ret
-L_08FB7:
 L_08554:
         if      FW_VERSION = 172
 locate_dialog_init              equ     $+2
@@ -16073,7 +15962,6 @@ calls_get_table_status_08559:
         call    get_table_status
         jne     calls_get_table_status_0855f
         ret
-L_08FA9:
 calls_get_table_status_0855f:
         inc     byte ptr [G_STEP_LIST_TOP]
 calls_get_table_status_08563:
@@ -16241,8 +16129,6 @@ L_08681:
 edit_multiple_dialog_08684:
         pusha
         push    es
-edit_multiple_dialog_090D0:
-edit_multiple_dialog_08686:
         BC_FILE_DIALOG 16, 2, 216, 58, "Edit Multiple"
 softkey_cancel_869B:
         BC_SOFTKEY 4, BC_SK_FILL,  "CANCEL"
@@ -16550,7 +16436,6 @@ bc_target_0894d:
 L_08950:
         jne     status_display_8953
         ret
-status_display_0939D:
 status_display_8953:
         BC_STATUS 150, 26, "+"
 L_0895A:
@@ -16801,8 +16686,6 @@ L_08B48:
         jb      L_08B5A
 L_08B4D:
         BC_ARITH 01e7eh
-status_display_0959C:
-status_display_8B52:
         BC_STATUS 120, 30, "+"
 L_08B59:
         ret
@@ -16813,8 +16696,6 @@ L_08B5A:
         neg     ax
 L_08B5C:
         BC_ARITH 01e7eh
-status_display_095AB:
-status_display_8B61:
         BC_STATUS 120, 30, "-"
 ui_ctrl_08b68:
         ret
@@ -16888,7 +16769,6 @@ L_08BBE:
 L_08BC4:
         jae     L_08BC7
         ret
-L_09611:
 L_08BC7:
         mov     word ptr [G_EDIT_MULT_AMOUNT], 3fffh
         ret
@@ -17887,7 +17767,6 @@ bc_target_0939f:
 L_093A2:
         jne     status_display_93A5
         ret
-status_display_09DE5:
 status_display_93A5:
         BC_STATUS 90, 11, "+"
 L_093AC:
@@ -18063,8 +17942,6 @@ bc_int6a_0951f:
         INT_60 L_094AE
 bc_int6a_09526:
         INT_61 calls_get_screen_position_095b0
-L_09F6A:
-bc_int6a_0952a:
         INT_6A step_edit_duration_inc, step_edit_duration_dec
 L_09530:
         mov     byte ptr [STEP_FIELD], 2
@@ -18500,8 +18377,6 @@ status_bend________________0______0992e:
         je      L_09952
         jb      br_09953
         push    ax
-status_display_0A385:
-status_display_9945:
         BC_STATUS 108, 11, "+"
 L_0994C:
         pop     ax
@@ -18512,8 +18387,6 @@ L_09952:
 br_09953:
         neg     ax
         push    ax
-status_display_0A396:
-status_display_9956:
         BC_STATUS 108, 11, "-"
 L_0995D:
         pop     ax
@@ -18762,7 +18635,6 @@ bc_int61_09b30:
         BC_YIELD
 bc_int61_09b33:
         ret
-L_0A574:
 bc_int61_09b34:
         INT_61 L_09BF0
         if      FW_VERSION = 150
@@ -18905,7 +18777,6 @@ L_09BFD:
         cmp     byte ptr [B_5970], 0
         jne     calls_get_screen_position_09c05
         ret
-L_0A645:
 calls_get_screen_position_09c05:
         dec     byte ptr [B_5970]
         ret
@@ -19062,11 +18933,8 @@ insert_event_dialog:
 type_status:
         je      insert_event_dialog_09D64
         ret
-L_0A7A4:
-insert_event_dialog_0A7A4:
 insert_event_dialog_09D64:
         BC_FILE_DIALOG 29, 2, 190, 58, "Insert Event"
-L_0A7B8:
 insert_event_type:
         BC_STATUS 37, 28, "Type:"
         if      FW_VERSION = 150
@@ -19103,9 +18971,6 @@ insert_event_refresh:
 byte_status_09DD0               equ     $+5
         endif
         BC_STATUS_A 67, 28, G_STEP_EVENT_TYPE, TBL_STEP_EVENT_LABELS
-L_0A814:
-status_display_0A814:
-status_display_9DD4:
         BC_STATUS 157, 28, "       "
 byte_status:
         if      FW_VERSION = 150
@@ -19193,7 +19058,6 @@ insert_event_type_dec:
         cmp     al, 0
         jne     L_09E4C
         ret
-L_0A88C:
 L_09E4C:
         dec     al
         test    byte ptr [B_5979], 40h
@@ -19587,7 +19451,6 @@ step_edit_step_fwd:
 L_0A171:
         je      L_0A174
         ret
-L_0A1CD_V150:
 L_0A174:
         call    seq_chase_note_state
         cmp     byte ptr [B_0B15], 0
@@ -19596,7 +19459,6 @@ calls_screen_handler_0a17c:
         callf   CS1_SEG:locate_step_fwd_far
         call    screen_handler
         ret
-L_0A1E0_V150:
 L_0A187:
         callf   CS1_SEG:locate_next_event_far
 L_0A18C:
@@ -19672,7 +19534,6 @@ calls_screen_handler_0a217:
 calls_screen_handler_0a21e:
         call    screen_handler
         ret
-L_0AC87:
 calls_screen_handler_0a222:
         callf   CS1_SEG:P_7205
 calls_screen_handler_0a227:
@@ -19684,7 +19545,6 @@ step_edit_bar_back:
 L_0A236:
         je      L_0A239
         ret
-L_0AC74:
 L_0A239:
         call    seq_chase_note_state
         cmp     byte ptr [B_0B15], 0
@@ -20383,7 +20243,6 @@ param_status:
         je      assign_16_levels_dialog_0A86D
         ret
 assign_16_levels_dialog_0A86D:
-assign_16_levels_dialog_0B2A7:
         BC_FILE_DIALOG 16, 2, 216, 58, "Assign 16 levels"
 param_display:
 PARAM_DISPLAY_V150:
@@ -20697,7 +20556,6 @@ L_0AB6A:
 bc_int6c_0ab73:
         callf   CS1_SEG:auto_punch_graphic_draw
         ret
-L_0B5B3:
 bc_int6c_0ab79:
         INT_6C NULL_HANDLER_OFS, auto_punch_mode_right, NULL_HANDLER_OFS, auto_punch_mode_down
 calls_setup_callback_vectors_0ab83:
@@ -20859,7 +20717,6 @@ calls_dispatch_int6d_6e_0ad45:
         call    calls_setup_callback_vectors_0ad80
         call    dispatch_int6d_6e
         ret
-L_0B75C:
 bc_int6b_0ad4c:
         BC_WAIT_LOAD
         if      FW_VERSION = 150
@@ -20900,8 +20757,6 @@ L_0AE03:
         int     50h
 bc_int69_0ae05:
         call    bc_int6b_0ad4c
-softkey_do_it_0B818:
-softkey_do_it_AE08:
         BC_SOFTKEY 6, BC_SK_BOX,   "DO IT"
 softkey_do_it_0ae13:
         INT_69 other_init_do_it
@@ -20992,7 +20847,6 @@ other_ver_f6:
         mov     word ptr [D_0E80], L_0B40C
         ret
 L_0B40C:
-L_0B411:
         BC_CLEAR_RECT 60, 39, 150, 7
 L_0B413:
         ret
@@ -21049,7 +20903,6 @@ L_0B51F:
         jmp     ui_ctrl_0b626
 L_0B524:
         ret
-status_display_0BF35:
 status_display_B525:
         BC_STATUS 76, 2, "      "
 L_0B531:
@@ -21643,7 +21496,6 @@ tempo_change_play_start:
         call    calls_init_state_0bbae
 calls_init_state_0bbab:
         jmp     transport_handler_play_start
-L_0C5C0:
 calls_init_state_0bbae:
         call    tempo_change_exit
         call    init_state
@@ -21669,7 +21521,6 @@ L_0BBD5:
         call    tempo_change_entry_ptr
         jne     L_0BBDD
         ret
-L_0C5EF:
 L_0BBDD:
         if      FW_VERSION = 172
 error_working_memory_full       equ     $+1
@@ -21697,7 +21548,6 @@ tempo_change_close:
 bc_int6c_0bbfe:
         mov     word ptr [UI_SLOT_EXIT], NULL_HANDLER_OFS
         ret
-L_0C617:
 bc_int6c_0bc05:
         INT_6C NULL_HANDLER_OFS, NULL_HANDLER_OFS, NULL_HANDLER_OFS, tempo_change_enter_list
 bc_int67_68_0bc0f:
@@ -21732,7 +21582,6 @@ bc_int6c_0bc4a:
         je      bc_int6c_0bc4f
 bc_int6c_0bc4c:
         jmp     NEAR bc_int6c_0bdd5
-L_0C661:
 bc_int6c_0bc4f:
         INT_6C bc_int6c_0bc05, bc_int6c_0bc05, tempo_change_list_up, NULL_HANDLER_OFS
 bc_int6a_0bc59:
@@ -21941,7 +21790,6 @@ br_0BDBB:
 bc_int6c_0bdd1:
         mov     word ptr [si+2], bx
         ret
-L_0C7E7:
 bc_int6c_0bdd5:
         INT_6C bc_int6c_0bd66, bc_int6c_0be4c, tempo_change_list_up, tempo_change_list_down
 bc_int6a_0bddf:
@@ -22236,7 +22084,6 @@ br_0C018:
         mov     cx, es
         inc     cx
         mov     es, cx
-L_0CA37:
 bc_int2a_0c025:
         ret
         if      FW_VERSION = 172
@@ -22295,8 +22142,6 @@ bc_int5d_0c0aa:
         int     50h
 bc_int5d_0c0ac:
         call    error_error_0c05c
-L_0CAC1:
-bc_int5d_0c0af:
         INT_5D edit_events_refresh
 bc_int5b_0c0b3:
         INT_69 edit_events_f6
@@ -22522,7 +22367,6 @@ calls_setup_callback_vectors_0c258:
 calls_set_mode_flag_1_0c275:
         call    set_mode_flag_1
         ret
-L_0CC8B:
 L_0C279:
         callf   CS1_SEG:SCSI_LIST_OP_FAR_OFS
         mov     word ptr [EDIT_TO_SEQ_SEG], es
@@ -23627,8 +23471,6 @@ status_display_CB57:
 status_tr____0cb66:
         BC_UI_MENU 28, 26
         db      0feh
-L_0CA76_V150:
-L_0CB6C:
         db      0c8h
 L_0CB6D:
         BC_UI_A4 52, 26
@@ -24154,7 +23996,6 @@ br_0CF58:
         callf   CS1_SEG:undo_seq_flag_latch_far
         sub     si, si
         mov     es, word ptr [SEQ_EVENTS_SEG]
-L_0D8A7:
 L_0CF68:
         mov     al, byte ptr es:[si]
         cmp     al, 0ffh
@@ -24356,7 +24197,6 @@ ui_ctrl_0d0be:
         BC_JUMP 01fd8h
 bc_target_0d0c3:
         ret
-L_0D9D0:
 ui_ctrl_0d0c4:
         BC_UI_CTRL 23, 12, 31, 9
 bc_int6c_0d0cb:
@@ -25809,7 +25649,6 @@ br_0DD8A:
         cmp     ax, word ptr [G_RANGE_END_CLOCK]
         jae     L_0DD96
         mov     word ptr [G_RANGE_END_CLOCK], 0
-L_0E672:
 L_0DD96:
         if      FW_VERSION = 172
 rename_file_dialog_b            equ     $+1
@@ -26199,8 +26038,6 @@ L_0E087:
         jae     L_0E093
         mov     bx, 64h
         cmp     cx, bx
-L_0E087_V150:
-L_0E08E:
         jae     L_0E093
         mov     bx, 0ah
 L_0E093:
@@ -26321,8 +26158,6 @@ ui_ctrl_0e18b:
         BC_UI_CTRL 28, 8, 122, 9
 bc_int6a_0e192:
         mov     byte ptr [G_FILE_LIST_ROW], 0
-L_0EA6F_V150:
-bc_int6c_0e197:
         int     50h
 bc_int6c_0e199:
         if      FW_VERSION = 150
@@ -26335,11 +26170,8 @@ bc_int5d_0e1a9:
         INT_5D load_page_refresh
 bc_int5b_0e1ad:
         INT_5B file_list_open
-L_0EA89:
-bc_int6b_0e1b1:
         call    load_page_softkeys
         ret
-L_0EA8D:
 load_page_softkeys:
         INT_6B load_screen_enter, calls_mode_handler_03332, close_handler_044C6, delete_screen_enter, NULL_HANDLER_OFS, load_do_it
         if      FW_VERSION = 172
@@ -26347,7 +26179,6 @@ load_page_softkeys:
         else
         call    dispatch_int6d_6e
         ret
-L_0EA9F:
         endif
 load_page_refresh:
         BC_PLANE_A
@@ -26374,7 +26205,6 @@ L_0E1EB                         equ     $+6
         BC_STATUS_A 30, 1, G_FILE_TYPE, TBL_FILE_TYPE_LABELS
         db      0c3h
 status_display_E1EF:
-status_display_0EAC7:
         BC_STATUS 30, 1, "           "
 L_0E200:
         ret
@@ -26817,7 +26647,6 @@ calls_check_flag_78af_0e4e9:
         call    file_list_prev
 calls_check_flag_78af_0e4ec:
         call    file_list_prev
-L_0EDC7:
 L_0E4EF:
         mov     al, byte ptr [G_FILE_LIST_ROW]
         mov     ah, 8
@@ -27042,7 +26871,6 @@ L_0E364:
 bc_int6a_0e69f:
         je      bc_int6c_0e6a2
         ret
-L_0EF7A:
 bc_int6c_0e6a2:
         INT_6A load_view_arg_inc, load_view_arg_dec
 bc_int6c_0e6a8:
@@ -27099,8 +26927,6 @@ ui_ctrl_0e6ff:
         INT_6C NULL_HANDLER_OFS, load_view_right, load_page_draw, load_device_down
 ui_ctrl_0e709:
         INT_5D load_device_refresh
-L_0EFE5:
-ui_ctrl_0e70d:
         BC_UI_CTRL 40, 20, 39, 9
 bc_int5b_0e714:
         if      FW_VERSION = 150
@@ -27235,7 +27061,6 @@ L_0E7D9:
         cmp     al, 1
         jne     disk_verify_1
         ret
-L_0F0C0:
 disk_verify_1:
         if      FW_VERSION = 172
         cmp     al, 2
@@ -27359,7 +27184,6 @@ calls_clear_flag_78c1_0e8a1:
         call    file_list_first
         int     52h
         ret
-L_0F14C:
 L_0E8A7:
         cmp     byte ptr [G_SCSI_DEV_TYPE], 0
 L_0E8AC:
@@ -27435,7 +27259,6 @@ load_device_down:
 ui_ctrl_0e917:
         jne     L_0E91A
         ret
-L_0F1BF:
 L_0E91A:
         BC_UI_CTRL 41, 29, 7, 9
 L_0E921:
@@ -28032,7 +27855,6 @@ mem_status_from_146_35:
         BC_MEM_STATUS 146, 35
 ui_ctrl_0ecd7:
         ret
-L_0F571:
 ui_ctrl_0ecd8:
         BC_UI_CTRL 127, 14, 91, 9
 bc_int6c_0ecdf:
@@ -28290,7 +28112,6 @@ L_0EE98:
 L_0EE9B:
         call    load_seq_into_draw
         ret
-CALLS_SETUP_CALLBACK_VECTORS_0EF03_V150:
 calls_setup_callback_vectors_0ee9f:
         if      FW_VERSION = 172
 calls_setup_callback_vectors_0eea0 equ     $+1
@@ -29493,7 +29314,6 @@ L_0F75F:
 L_0F767:
         je      bc_int67_68_0f76a
         ret
-L_10003:
 bc_int67_68_0f76a:
         BC_SEQ_INIT
 bc_int67_68_0f76d:
@@ -29996,7 +29816,6 @@ free_display_3:
         endif
 status_free_0fb48:
         ret
-L_103E6:
 delete_page_refresh:
         call    load_page_refresh
 L_0FB4C:
@@ -30019,7 +29838,6 @@ L_0FB66:
 L_0FB6D:
         call    delete_free_space_draw
         ret
-L_1040E:
 L_0FB71:
         mov     bl, 11h
         mov     bh, byte ptr [G_DISK_DEVICE]
@@ -30364,7 +30182,6 @@ calls_check_flag_78af_0fe0d:
 calls_check_flag_78af_0fe10:
         jae     calls_check_flag_78af_0fe15
         jmp     file_list_first
-L_106A0:
 calls_check_flag_78af_0fe15:
         if      FW_VERSION = 172
         call    file_list_prev

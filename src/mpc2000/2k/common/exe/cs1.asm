@@ -1121,7 +1121,6 @@ loop_10749:
         mov     si, dx
         stc
         jmp     bp
-L_10FFD:
 jmp_bp_10757:
         mov     si, dx
         clc
@@ -3093,7 +3092,6 @@ L_11742:
 bc_int2a_11747:
         jne     bc_int2a_1174a
         ret
-L_11FF0:
 
 
 bc_int2a_1174a:
@@ -3241,7 +3239,6 @@ L_1185C:
         cmp     byte ptr [FDC_CMD_N], 3
         jne     L_11871
         shl     ax, 1
-L_1207E:
 L_11871:
         dec     ax
         mov     dx, 0c032h
@@ -3606,10 +3603,8 @@ L_11B6C:
         ret
 br_11B6F:
         INT_2A "     Disk read error  !!  "
-L_12432:
 error_disk_read_error_11b8c:
         INT_2A "    Disk write error  !!  "
-L_1244F:
 error_disk_write_error_11ba9:
         INT_2A "Floppy disk format error!!"
 error_floppy_disk_format_11bc6:
@@ -3621,7 +3616,6 @@ L_12478_V150                         equ     $+11
         BC_PRINT "Floppy disk format error!!"
 L_1248B:
         db      0cfh
-L_1248C:
 print_floppy_disk_format_11be6:
         cmp     al, 4
 bc_int2a_11be8:
@@ -3634,7 +3628,6 @@ L_124A7                         equ     $+23
 L_124A9                         equ     $+25
         endif
         INT_2A "     Write protect !!     "
-L_124AD:
 error_write_protect_11c07:
         call    error_scsi_read_error_11c8b
 L_11C0A:
@@ -3658,7 +3651,6 @@ L_124E7                         equ     $+19
 L_124ED                         equ     $+25
         endif
         INT_2A "      SCSI Not ready  !!  "
-L_124F1:
 error_scsi_not_ready_11c4b:
         cmp     al, 3
         jne     error_scsi_disk_change_11c6c
@@ -3669,7 +3661,6 @@ L_12505                         equ     $+16
 L_1250B                         equ     $+22
         endif
         INT_2A "     SCSI Disk change !!  "
-L_12512:
 error_scsi_disk_change_11c6c:
         cmp     al, 2
 L_11C6E:
@@ -3739,7 +3730,6 @@ disk_verify_2:
 L_11D0B:
         jae     L_11D10
         jmp     L_11F31
-L_125B6:
 L_11D10:
         mov     word ptr [HD_CAPACITY_LO], di
         mov     word ptr [HD_CAPACITY_HI], dx
@@ -3807,7 +3797,6 @@ br_11D6E:
         sub     di, di
         stc
         ret
-L_1261A:
 
 
 hd_read_boot_sector:
@@ -4764,7 +4753,6 @@ br_124D1:
         mov     word ptr [HD_WBUF_OFS], di
         sub     ax, ax
         ret
-error_disk_full_124f5:
 L_124D8:
         INT_2A "        Disk full  !!     "
 int2c_hd_dos_f09:
@@ -5302,7 +5290,6 @@ L_128CD:
 L_128D4:
         call    disk_seek
         ret
-L_13176:
 L_128D8:
         jmp     SHORT L_128D8
         db      090h, "MPC2000 ", 000h, 002h, 020h, 001h, 000h, 002h, 000h
@@ -7249,7 +7236,6 @@ calls_io_out_port_102_138a8:
 calls_io_out_port_100_138ad:
         call    lcd_write_cmd_right
         mov     cx, 14h
-L_14161:
 calls_io_wait_port_100_138b3:
         mov     al, 0
 calls_io_wait_port_100_138b5:
@@ -7977,7 +7963,6 @@ L_13DB7:
 L_13DBA:
         jne     L_13DBF
         jmp     NEAR lcd_fill_rect_checked
-L_1466D:
 L_13DBF:
         ret
 softkey_x_table:
@@ -8024,7 +8009,6 @@ L_13DFE:
 L_13E0F:
         je      L_13E14
         add     si, 4
-L_146C2:
 L_13E14:
         jmp     NEAR bc_op14_puts_far
 str_off_on:
@@ -8329,7 +8313,6 @@ L_14082:
         jb      L_14088
         sub     cl, 8
         inc     di
-L_14936:
 L_14088:
         ret
 p_4209:
@@ -10539,7 +10522,6 @@ L_1529F:
 L_152A4:
         je      L_152A7
         ret
-L_15B47:
 L_152A7:
         ret
         lodsb
@@ -10694,7 +10676,6 @@ L_153E9:
 jmp_word_153ee:
         je      midi_in2_sys_dispatch
         ret
-L_15C91:
 midi_in2_sys_dispatch:
         jmp     word ptr cs:[bx+midi_in2_sys_table]
 midi_in2_sys_table:
@@ -10737,7 +10718,6 @@ midi_in2_mtc_qf:
 L_15453:
         je      L_15458
         jmp     NEAR midi_in2_parser_reset
-L_15CF8:
 L_15458:
         cmp     byte ptr [G_SYNC_IN_PORT], 1
 L_1545D:
@@ -11278,7 +11258,6 @@ calls_field_normal_1586d:
 midisw_rec_punch:
         jae     L_15874
         ret
-L_1610C:
 L_15874:
         cmp     byte ptr [SEQ_RUNNING], 0
 L_15879:
@@ -11298,7 +11277,6 @@ calls_field_normal_15887:
 midisw_odub_punch:
         jae     L_1588E
         ret
-L_16126:
 L_1588E:
         cmp     byte ptr [SEQ_RUNNING], 0
 L_15893:
@@ -11317,7 +11295,6 @@ midisw_tap:
 jmp_field_normal_158a7:
         jae     jmp_field_highlight_158ab
         jmp     SHORT field_normal
-L_15860:
 jmp_field_highlight_158ab:
         jmp     SHORT field_highlight
 midisw_pad_bank:
@@ -11622,7 +11599,6 @@ L_15AC3:
 L_15AC6:
         call    sync_out_send_realtime
         retf
-L_16324:
 sync_out_send_realtime:
         cmp     byte ptr [G_SYNC_OUT_MODE], 1
 L_15ACF:
@@ -12311,11 +12287,9 @@ L_15FE3:
         cmp     byte ptr [MTC_TX_QF_PIECE], 8
         jne     L_15FF6
         mov     byte ptr [MTC_TX_QF_PIECE], 0
-L_1682D:
 L_15FF6:
         call    sync_out_mtc_qf_interval_set
         ret
-L_16831:
 sync_out_send_mtc_qf:
         mov     ah, 0f1h
         if      FW_VERSION = 172
@@ -13540,7 +13514,6 @@ br_169D9:
         mov     word ptr [bx+2], dx
         endif
         jmp     L_16FF4
-L_171F0:
 L_169E8:
         mov     bx, cx
         if      FW_VERSION = 150
@@ -14171,7 +14144,6 @@ L_16F0C:
         shl     ah, 4
         or      al, ah
         ret
-L_17704:
 parse_hex_digit:
         mov     al, byte ptr es:[si]
         inc     si
@@ -14309,11 +14281,9 @@ L_16FFA:
 L_17006:
         jb      bc_int2a_1700b
         jmp     loop_167C9
-L_177EF:
 bc_int2a_1700b:
         ret
 bc_int2a_1700c:
-bc_int2a_1700c_V150:
         INT_2A "  Insufficient Memory !!  "
 error_insufficient_memory_17029:
         call    seq_tick_state_dispatch
@@ -14434,7 +14404,6 @@ transport_far_thunk_table:
 over_dub_arm_toggle_far:
         call    over_dub_arm_toggle
         retf
-far_7181:
 timing_swing_offset_calc_far:
         call    timing_swing_offset_calc
         retf
@@ -14461,7 +14430,6 @@ seq_pos_recalc_and_send_spp_far:
         call    seq_pos_recalc_and_send_spp
         retf
 L_170CD:
-L_17831_V150:
         call    seq_tsig_apply
         retf
 L_170D1:
@@ -14487,7 +14455,6 @@ L_170F1:
         call    seq_position_reset
         mov     word ptr [PTR_SEQ_TICK_STATE], P_728F
         retf
-L_178DF:
 seq_tick_state_dispatch:
         call    fn_17217
 L_170FE:
@@ -15113,7 +15080,6 @@ L_1759B:
         push    cs
 L_175A4:
         call    sync_out_mtc_restart
-L_17D80:
 L_175A7:
         cmp     byte ptr [G_SYNC_OUT_MODE], 3
         jne     L_175B1
@@ -15545,7 +15511,6 @@ L_178EA:
         sub     ax, ax
         mov     word ptr [SEQ_BAR_TICK], ax
         mov     word ptr [W_63E2], ax
-L_180CE:
 L_17908:
         call    note_off_queue_tick
         callf   CS0_SEG:smpte_test_stop_far
@@ -15853,7 +15818,6 @@ fn_17B4E:
 L_17B5E:
         ret
 locate_step_back:
-L_17B5F:
         cmp     byte ptr [G_SHIFT_HELD], 0
 L_17B64:
         jne     locate_step_back_event
@@ -16014,7 +15978,6 @@ L_17C69:
         jne     calls_sequence_data_read_17c71
 calls_sequence_data_read_17c6e:
         call    seq_apply_tempo_change_event
-L_183DF:
 calls_sequence_data_read_17c71:
         call    sequence_data_read
         jmp     SHORT L_17C3E
@@ -16716,7 +16679,6 @@ L_181B8:
         je      L_181CF
 L_181CC:
         call    sequencer_stop
-L_188D1:
 L_181CF:
         pop     ax
         mov     dx, 18h
@@ -16895,7 +16857,6 @@ br_182F2:
 br_182F6:
         call    locate_to_end
         ret
-L_189DA:
 L_182FA:
         push    cs
 L_182FB:
@@ -17146,7 +17107,6 @@ pressing_1_9_key_will_loc_status_18545:
         sbb     ax, word ptr [G_DIV64_DIVISOR_W3]
         ret
 locate_dialog_18556:
-locate_dialog_18C2C:
         DLG_LOCATE
 status_3_185d5:
         mov     ax, word ptr [LOCATE_PT7]
@@ -18939,7 +18899,6 @@ seq_apply_tempo_change_event:
 L_1943E:
         call    seq_tempo_rate_update
         ret
-L_19ABC:
 seq_pos_dec_tick:
         mov     bx, word ptr [SEQ_CUR_BAR]
         mov     cx, word ptr [SEQ_BAR_TICK]
@@ -19207,7 +19166,6 @@ L_19633:
 br_19635:
         mov     word ptr [NOTE_OFF_Q_RD], si
         mov     word ptr [NOTE_OFF_Q_WR], di
-L_19CB7:
 L_1963D:
         ret
         if      FW_VERSION = 172
@@ -19323,7 +19281,6 @@ arena_seek_after_programs:
 L_196EB:
         call    arena_record_seek
         ret
-L_19D4D:
 seq_find_free_slot:
         mov     al, 0
 loop_196F1:
@@ -19531,7 +19488,6 @@ br_19860:
         pop     ds
         pop     di
         ret
-L_19EC2:
 
 seq_edit_begin:
         mov     es, word ptr [CUR_SEQ_SEG]
@@ -19703,7 +19659,6 @@ br_19985:
         pop     ax
         callf   CS0_SEG:calls_process_input_00fea
         ret
-L_1A00B:
 undo_seq_save:
         mov     word ptr [G_SEQ_MEM_RESERVE], 0f78h
 L_199B3:
@@ -20371,7 +20326,6 @@ br_19E82:
         inc     dx
         mov     es, dx
         jmp     SHORT L_19E7C
-L_1A4D2:
 bc_int2a_19e8a:
         INT_2A "  Insufficient Memory !!  "
 error_insufficient_memory_19ea7:
@@ -23310,14 +23264,12 @@ br_1B75A:
 br_1B75F:
         mov     word ptr [G_MIDI_NEXT_NOTEOFF], dx
         ret
-L_1BD83:
 bc_int2a_1b764:
         cmp     al, 3
 bc_int2a_1b766:
         je      error_write_error_1b785
 bc_int2a_1b768:
         INT_2A "       Write error !!     "
-L_1BDA4:
 error_write_error_1b785:
         cmp     byte ptr [G_DISK_DEVICE], 9
 L_1B78A:
@@ -23489,7 +23441,6 @@ L_1B8DF:
         call    from_file_advance_header
 L_1B8E2:
         jb      br_1B90D
-L_1BEC2:
 L_1B8E4:
         mov     si, P_76C4
         cmp     byte ptr [si], 0ffh
@@ -23801,7 +23752,6 @@ L_1BAEF:
         sub     ax, ax
         clc
         ret
-L_1C006:
 L_1BB09:
         mov     ax, 0ffffh
         stc
@@ -24964,7 +24914,6 @@ loop_1C4CE:
         test    al, 4
 L_1C4D7:
         jne     error_f_rom_buffer_1c4fc
-L_1C9D2:
 bc_int2a_1c4d9:
         cmp     word ptr [G_TIMEOUT_TICKS], 0
         jne     loop_1C4CE
@@ -24995,7 +24944,6 @@ loop_1C521:
         test    al, 4
 L_1C52A:
         jne     error_f_rom_buffer_1c54f
-L_1CA25:
 bc_int2a_1c52c:
         cmp     word ptr [G_TIMEOUT_TICKS], 0
         jne     loop_1C521
@@ -25250,11 +25198,8 @@ L_1C70B:
         mov     ch, 0bh
         mov     dl, 1
         mov     dh, 18h
-L_1CC0E:
 L_1C715:
         BC_SEQ_OP
-L_1CC11:
-L_1C718:
         add     cl, 9
         cmp     cl, 0cdh
 L_1C71E:
@@ -25570,7 +25515,6 @@ main_screen_draw_frame:
         PANE_MAIN_SEQUENCE_FRAME
 L_1CA77:
         retf
-sequence_dialog_1CF72:
 sequence_dialog_1CA78:
         BC_FILE_DIALOG 16, 2, 216, 58, "Sequence"
 sequence_name_status_1CA88:
@@ -25599,7 +25543,6 @@ softkey_close_1cae0:
 sq_1_status_1CAEC:
         retf
         if      FW_VERSION = 150
-delete_sequence_dialog_1CFE7:
 L_1CFF2                         equ     $+11
 L_1D003                         equ     $+28
 L_1D059                         equ     $+114
@@ -25610,7 +25553,6 @@ delete_sequence_dialog_1CAED:
 softkey_do_it_1cb6e:
         retf
         if      FW_VERSION = 150
-delete_all_sequences_dialog_1D069:
 L_1D06E                         equ     $+5
         endif
 delete_all_sequences_dialog_1CB6F:
@@ -25618,7 +25560,6 @@ delete_all_sequences_dialog_1CB6F:
 sq_2_status_1CBE4:
         retf
         if      FW_VERSION = 150
-copy_sequence_dialog_1D0DF:
 L_1D110                         equ     $+49
         endif
 copy_sequence_dialog_1CBE5:
@@ -25626,7 +25567,6 @@ copy_sequence_dialog_1CBE5:
 display_style_status_1CC45:
         retf
         if      FW_VERSION = 150
-time_display_dialog_1D140:
 L_1D142                         equ     $+2
         endif
 time_display_dialog_1CC46:
@@ -25676,7 +25616,6 @@ L_1D259                         equ     $+13
 current_eq_new_bars_status:
         retf
         if      FW_VERSION = 150
-change_bars_dialog_1D2D0:
 L_1D2D2                         equ     $+2
 L_1D2E4                         equ     $+20
 L_1D2F4                         equ     $+36
@@ -25829,7 +25768,6 @@ L_1D631:
 copy_3_status_1D632:
         call    edit_seq_screen_draw
         retf
-L_1DB31:
 copy_events_dialog_1D636:
         if      FW_VERSION = 150
 L_1DB45                         equ     $+20
@@ -26046,7 +25984,6 @@ softkey_do_it_1d391:
 status_programs__samples_1df58:
         retf
         if      FW_VERSION = 150
-delete_file_dialog_1E43B:
 L_1E450                         equ     $+21
 L_1E473                         equ     $+56
         endif
@@ -26054,7 +25991,6 @@ delete_file_dialog_1DF59:
         DLG_DELETE_FILE
 softkey_do_it_1dfc0:
         retf
-L_1E4A3:
 delete_f_rom_sound_dialog:
         if      FW_VERSION = 150
 L_1E4C2                         equ     $+31
@@ -26169,15 +26105,11 @@ L_1E80C                         equ     $+37
         BC_STATUS 30, 1, "Save a Sound                        "
 status_save_a_sound_1e32f:
         BC_UI_CTRL 28, 0, 160, 9
-L_1D53B:
-L_1E336:
         retf
-wipe_disk_dialog_1E819:
 wipe_disk_dialog_1E337:
         DLG_WIPE_DISK
 softkey_wipe_1e390:
         retf
-file_exists_dialog_1E873:
 file_exists_dialog_1E391:
         DLG_FILE_EXISTS
 softkey_rename_1e3da:
@@ -26185,7 +26117,6 @@ softkey_rename_1e3da:
 L_1E3DF:
         jne     replace_or_rename_status
         retf
-L_1E8C4:
 replace_or_rename_status:
         if      FW_VERSION = 150
 L_1E8CA                         equ     $+6
@@ -26221,7 +26152,6 @@ ui_ctrl_1e44c:
 status_insert_os_disk_and_press_do_it_1e4dd:
         retf
         if      FW_VERSION = 150
-select_destination_dialog_1E9C0:
 L_1E9C4                         equ     $+4
 L_1E9CE                         equ     $+14
 L_1E9EE                         equ     $+46
@@ -26232,7 +26162,6 @@ select_destination_dialog_1E4DE:
 status_size000k_1e52d:
         retf
         if      FW_VERSION = 150
-not_enough_memory_dialog_1EA10:
 L_1EA18                         equ     $+8
 L_1EA19                         equ     $+9
 L_1EA26                         equ     $+22
@@ -26244,8 +26173,6 @@ not_enough_memory_dialog_1E52E:
         DLG_NOT_ENOUGH_MEMORY
 softkey_ok_1e5a4:
         retf
-STATUS_INSERT_OS_DISK_AND_PRESS_DO_IT_1E4DD_V150:
-change_disk_dialog_1EA87:
 change_disk_dialog_1E5A5:
         BC_FILE_DIALOG 29, 2, 190, 58, "Change Disk"
 L_1E5B8:
@@ -26253,7 +26180,6 @@ L_1E5B8:
 L_1E5BB                         equ     $+3
         endif
         BC_WAIT 38, 20, BMP_FLOPPY
-L_1EAA1:
 insert_destination_disk_status:
         if      FW_VERSION = 150
 L_1EAA8                         equ     $+7
@@ -26363,7 +26289,6 @@ ferr_too_many_files:
         if      FW_VERSION = 172
         INT_2A "     Too many files  !!     "
         else
-error_relocation_error_1e8f0:
         INT_2A "     To match files  !!     "
         endif
 ferr_write_protect:
@@ -26658,7 +26583,6 @@ L_1EE2F:
         je      L_1EE39
         mov     word ptr [DBG_DUMP_SEG], bx
         mov     word ptr [DBG_DUMP_OFS], si
-L_1F1C9:
 L_1EE39:
         BC_PLANE_PUSH_VIS
 L_1EE3C:
@@ -27043,7 +26967,6 @@ debug_put_hex_byte:
 L_1F1C5:
         BC_PUT_HEX
         db      07h, 61h, 0c3h
-L_1F55B:
 memory_block_op:
         pusha
         push    es

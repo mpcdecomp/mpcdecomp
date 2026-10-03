@@ -7109,7 +7109,6 @@ L_037C1:
         retf
 
 timer_dma_ch2:
-L_03742:
         push    bp
         mov     bp, sp
         push    word ptr [bp+1ah]
@@ -8264,11 +8263,11 @@ L_03F45:
         call    L_03C6C
         cmp     ax, 1
         jle     L_03F58
-        mov     ax, STR_11BA
+        mov     ax, STR_CLEAR
         jmp     L_03F5B
 
 L_03F58:
-        mov     ax, STR_11B3
+        mov     ax, STR_ALL_CH
 
 L_03F5B:
         push    ds
@@ -9191,7 +9190,6 @@ L_045AA:
         retf
         db      00h
 
-L_045BA:
 ; render loop unrolled x6, bit-testing G_STATE_9D8B
 track_flags_render_6rows:
         enter   2, 0
@@ -10222,7 +10220,6 @@ L_126AE:
         retf
         db      00h
 
-L_04D0A:
 L_04BBA:
         push    ds
         mov     cx, DATA_SEG
@@ -10256,7 +10253,6 @@ filter4_f2:
         db      00h
 
 filter4_f3:
-L_04BE6:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -12639,7 +12635,6 @@ L_05F2D:
         db      00h
 
 pgm_midi_refresh:
-L_05DC4:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -15628,7 +15623,6 @@ L_074B7:
         db      00h
 
 channel_settings_close:
-L_070DE:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -18175,7 +18169,6 @@ L_0891F:
         db      00h
 
 
-L_0893A:
 L_0855C:
         push    ds
         mov     cx, DATA_SEG
@@ -18245,7 +18238,6 @@ delete_all_sounds_paint:
         db      00h
 
 delete_sound_all:
-L_085DE:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -18341,7 +18333,6 @@ L_0865E:
         retf
         db      00h
 
-L_08A68:
 L_0868A:
         push    ds
         mov     cx, DATA_SEG
@@ -18586,7 +18577,6 @@ SAMPLE_STR_SCAN_1               equ     $+00h
         retf
 
 sample_active_check_1:
-L_0889E:
         enter   10h, 0
         push    word ptr [SND_CURRENT+2]
         push    word ptr [SND_CURRENT]
@@ -18858,7 +18848,6 @@ sample_str_scan_2:
         retf
 
 sample_active_check_2:
-L_08B92:
         enter   10h, 0
         push    word ptr [SND_CURRENT+2]
         push    word ptr [SND_CURRENT]
@@ -19938,7 +19927,6 @@ L_09900:
         call    voice_release_all_if
         retf
 
-L_0990E:
 L_09522:
         push    ds
         mov     cx, DATA_SEG
@@ -20485,7 +20473,6 @@ zone_start_fine_key_33:
         db      00h
 
 zone_start_fine_paint:
-L_099B6:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
@@ -20869,7 +20856,6 @@ L_0A064:
         pop     ds
         retf
 
-L_0A07A:
 zone_edit_down:
         push    ds
         mov     cx, DATA_SEG
@@ -25738,7 +25724,6 @@ L_0C5C2:
         retf    8
 
 ctrl_port_caller:
-L_0C192:
         enter   4, 0
         mov     byte ptr [bp-4], 7
         mov     byte ptr [bp-3], 4

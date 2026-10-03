@@ -287,7 +287,7 @@ _bss    set     BSS_BASE
         BSS     PGM_CURRENT, 4                         ; selected program (far ptr).
                                                        ; program_select is only writer;
                                                        ; stores PGM_TABLE[slot] here
-        BSS     PTR_TRACK_DATA, 4                      ; track/sequence
+        BSS     PTR_TRACK_DATA, 4                      ; pad -> note map: PGM_CURRENT+PGM_PADMAP, or P_8F78
         BSS     PAD_INPUT_MODE, 2
         BSS     B_9D1C, 1
         BSS_GAP 1

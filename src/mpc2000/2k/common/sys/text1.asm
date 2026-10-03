@@ -6461,6 +6461,7 @@ X_036A9:
         pop     ds
         retf
 
+; MIXER's fields are two columns of two: one step down a column, two across.
 X_036AE:
         push    ds
         mov     cx, DATA_SEG
@@ -6662,6 +6663,7 @@ br_037FC:
         pop     ds
         retf
 
+; the key table's PAINT handler is TBL_14B8's, by the channel's effect type.
 X_037FE:
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -6670,7 +6672,7 @@ X_037FE:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+46h]
+        mov     al, byte ptr es:[bx+FXS_FIELD_46]
         cbw
         mov     bx, ax
         shl     bx, 2
@@ -7054,6 +7056,7 @@ X_03AE8:
         pop     si
         ret
 
+; FX DISTORTION's fields are a 2x2 grid: bit 0 the column, bit 1 the row.
 X_03AEA:
         push    ds
         mov     cx, DATA_SEG
@@ -7108,6 +7111,7 @@ X_03B43:
         retf
         db      00h
 
+; enters the 4-BAND FILTER screen.
 X_03B46:
         push    ds
         mov     cx, DATA_SEG
@@ -7811,6 +7815,8 @@ X_04055:
         retf
         db      00h
 
+; FX ROTARY: its keys, fx_type_load_select as the poll hook, itself to come
+; back to.
 X_04058:
         push    ds
         mov     cx, DATA_SEG
@@ -14758,6 +14764,7 @@ L_07482:
         callf   TEXT2_SEG:voice_trigger_full
         ret
 
+; RECORD's fields are two rows of three.
 X_07488:
         push    ds
         mov     cx, DATA_SEG

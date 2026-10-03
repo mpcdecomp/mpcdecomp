@@ -56,7 +56,7 @@ FXS_FIELD_42            equ     042h
 FXS_FIELD_43            equ     043h
 FXS_FIELD_44            equ     044h
 FXS_FIELD_45            equ     045h    ; byte, read straight off the block at five
-FXS_FIELD_46            equ     046h    ; byte, `cmp ...,1` twice  ?
+FXS_FIELD_46            equ     046h    ; byte, the effect type; picks the edit screen's PAINT handler  ?
 FXS_FIELD_47            equ     047h    ; byte, `cmp ...,0`  ?
 SIZEOF_FXS              equ     048h    ; channel_validate's `imul ax,bx,48h`
 FXR_TYPE                equ     000h    ; byte, index into FX_REVERB_LABELS

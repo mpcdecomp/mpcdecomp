@@ -293,7 +293,7 @@ cmd_far_stub:
         retf
         db      00h
 
-; ?
+; a value right-aligned in n digits at pixel (x, y).
 draw_unsigned_value:
         enter   0ah, 0
         mov     byte ptr [bp-0ah], 17h
@@ -343,6 +343,7 @@ br_00230:
         call    draw_unsigned_value
         leave
         retf    0ah
+; v tenths as n-1 digits, a point and one digit.
 ratio_calc_divide:
         enter   6, 0
         push    di
@@ -1567,6 +1568,7 @@ X_00B3E:
         pop     ds
         retf
 
+; each of the four flash banks' two result words, a row apiece.
 cmd_dispatch_handler_1:
         enter   2, 0
         push    di
@@ -3434,6 +3436,8 @@ pending_ops_set:
         retf    2
 ; code, not data: misc_d231 @0x0d231
         db      00h
+; the pending-operation interrupt: each set bit of G_PENDING_DMA_MASK is a
+; channel's DMA.
 L_01A70:
         pusha
         push    ds
@@ -15583,7 +15587,8 @@ br_0746B:
         retf
         db      00h
 
-; ? as pad_note_select, indexed through two scratch bytes.
+; as pad_note_select, from a key word: the pad number in the low byte, its
+; index in the bank in the high.
 pad_note_select_5:
         enter   2, 0
 
@@ -18261,7 +18266,7 @@ br_089DC:
         pop     ds
         retf
 
-; ?
+; COPY SOUND's DO IT: the copy becomes SND_CURRENT.
 voice_init_caller:
         enter   4, 0
 
@@ -19581,6 +19586,7 @@ discard_paint:
         pop     ds
         retf
         db      00h
+; DISCARD only while the sound is not playing.
 L_09544:
         push    ds
         mov     cx, DATA_SEG
@@ -27439,6 +27445,8 @@ L_0D245:
         retf
         db      00h
 
+; closes the window, then calls the far pointer L_0ACFE stored at W_5138
+; (W_513C for L_0CDFE).
 L_0D24E:
 L_0CDEC:
         push    ds

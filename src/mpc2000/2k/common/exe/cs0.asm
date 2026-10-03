@@ -5641,7 +5641,7 @@ L_02F21:
         je      L_02F24
         else
         sub     al, 1
-        jae     L_03A4C
+        jae     L_02F24
         endif
         ret
         if      FW_VERSION = 172
@@ -5664,7 +5664,7 @@ pressing_1_9_keys_will_status_02F38:
         jb      store_locate_point_dialog
         ret
         else
-L_03A4C:
+L_02F24:
         sub     ah, ah
         shl     ax, 2
         add     ax, LOCATE_PT1
@@ -21110,7 +21110,7 @@ FRAME_RATE_DISPLAY_V150:
 status_frame_rate_0b5bf:
 L_0B5C4                         equ     $+5
         else
-L_0BFD4                         equ     $+5
+L_0B5C4                         equ     $+5
         endif
         BC_STATUS_A 70, 22, G_FRAME_RATE, D_14F9
         db      80h
@@ -24223,7 +24223,7 @@ L_0CFCC:
         sub     bh, bh
         if      FW_VERSION = 172
 erase_track_warning             equ     $+1
-        mov     bl, byte ptr es:[bx+430h]
+        mov     bl, byte ptr es:[bx+TRK_CHANNEL]
         else
         mov     bl, byte ptr es:[bx+TRK_CHANNEL]
         endif
@@ -24949,7 +24949,7 @@ bc_int6c_0d65c:
 L_0D666:
         pop     ax
         else
-        INT_6C  erase_type_field, 0edah, ui_ctrl_0d56d, 0edah
+        INT_6C  erase_type_field, NULL_HANDLER_OFS, ui_ctrl_0d56d, NULL_HANDLER_OFS
         endif
         cmp     al, 0
 bc_int63_0d669:
@@ -25667,8 +25667,8 @@ L_0DC44:
         else
 L_0DC44                         equ     $+5
         mov     word ptr [UI_SLOT_DIGIT], NULL_HANDLER_OFS
-        mov     word ptr [W_0DC8], 0edah
-        mov     word ptr [W_0DC4], 0edah
+        mov     word ptr [W_0DC8], NULL_HANDLER_OFS
+        mov     word ptr [W_0DC4], NULL_HANDLER_OFS
         endif
         ret
 L_0DC52:
@@ -26694,7 +26694,7 @@ bc_int6c_0e42e:
         INT_6A file_list_scroll_down, jmp_check_flag_78af_0e513
         else
 L_0ED09                         equ     $+3
-        INT_6A L_0E1DC_V150, jmp_check_flag_78af_0e513
+        INT_6A file_list_scroll_down, jmp_check_flag_78af_0e513
         endif
 bc_int6c_0e434:
         if      FW_VERSION = 172
@@ -26846,7 +26846,7 @@ jmp_init_state_78c1_0e500:
 file_list_scroll_down:
 jmp_init_state_78c1_0e507       equ     $+3
         else
-L_0E1DC_V150:
+file_list_scroll_down:
         endif
         cmp     byte ptr [G_FILE_LIST_ROW], 4
         jne     L_0E50E

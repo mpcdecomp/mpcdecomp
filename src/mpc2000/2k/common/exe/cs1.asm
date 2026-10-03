@@ -15749,7 +15749,7 @@ L_17AA5:
 L_17AAA:
         else
         jcxz    L_18252
-L_1823F:
+L_17AAA:
         endif
         push    cx
         if      FW_VERSION = 172
@@ -15759,7 +15759,7 @@ L_1823F:
         mov     byte ptr es:[20h], 0
 L_17ABA:
         else
-L_1823D:
+L_17ABA:
         endif
         call    midi_process
 L_17ABD:
@@ -15776,7 +15776,7 @@ L_17ABD:
         if      FW_VERSION = 172
         loop    L_17AAA
         else
-        loop    L_1823F
+        loop    L_17AAA
 L_18252:
         endif
 L_17AD5:
@@ -25929,7 +25929,7 @@ L_1D964:
         if      FW_VERSION = 172
 L_1D967:
         else
-L_1DE49:
+L_1D967:
 L_1DE51                         equ     $+8
 L_1DE58                         equ     $+15
 L_1DE5A                         equ     $+17
@@ -26132,7 +26132,7 @@ L_1E728                         equ     $+14
         if      FW_VERSION = 172
 save_1_status:
         else
-L_1E730:
+save_1_status:
 L_1E73B                         equ     $+11
         endif
         BC_STATUS 54, 13, "    Save:"

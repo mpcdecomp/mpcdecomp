@@ -22374,7 +22374,7 @@ br_0AB92:
 
 L_0ABA1:
         else
-L_18287:
+L_0ABA1:
         endif
         push    2
         if      FW_VERSION = 172
@@ -22446,7 +22446,7 @@ L_0ABEF:
 
         else
         cmp     word ptr [bp-4], si
-        jg      L_18287
+        jg      L_0ABA1
         endif
 L_0ABF8:
         if      FW_VERSION = 172

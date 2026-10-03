@@ -5313,7 +5313,7 @@ br_02C22:
         push    ax
         les     bx, [bp-6]
 
-        mov     al, byte ptr es:[bx+MPC_STATE_flag_12]
+        mov     al, byte ptr es:[bx+SND_TUNE]
         cbw
         push    ax
         mov     es, word ptr [bp+10h]
@@ -5355,7 +5355,7 @@ br_02C9F:
         push    ax
         les     bx, [bp-6]
         sub     ah, ah
-        mov     al, byte ptr es:[bx+MPC_STATE_flag_11]
+        mov     al, byte ptr es:[bx+SND_LEVEL]
         push    ax
         mov     es, word ptr [bp+10h]
         mov     al, byte ptr es:[si+17h]
@@ -5440,7 +5440,7 @@ br_02D46:
         push    word ptr [bp+6]
         call    midi_parse_channel
         les     bx, [bp-6]
-        cmp     byte ptr es:[bx+MPC_STATE_flag_13], 0
+        cmp     byte ptr es:[bx+SND_STEREO], 0
         jne     br_02D7F
         jmp     br_02E0D
 
@@ -5481,8 +5481,8 @@ br_02D9E:
         mov     byte ptr [bp-40h], 0
         les     bx, [bp-6]
 
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         add     ax, 0fh
         adc     dx, 0
         and     al, 0f0h
@@ -16375,15 +16375,15 @@ zone_action_insert_start:
 L_08026:
         push    cx
         les     bx, [bp+4]
-        mov     cx, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     si, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     cx, word ptr es:[bx+SND_LENGTH]
+        mov     si, word ptr es:[bx+SND_LENGTH_HI]
         mov     bx, ax
         mov     es, dx
-        add     cx, word ptr es:[bx+MPC_STATE_range_lo]
-        adc     si, word ptr es:[bx+MPC_STATE_range_hi]
+        add     cx, word ptr es:[bx+SND_LENGTH]
+        adc     si, word ptr es:[bx+SND_LENGTH_HI]
         push    si
         push    cx
-        mov     al, byte ptr es:[bx+MPC_STATE_flag_13]
+        mov     al, byte ptr es:[bx+SND_STEREO]
         cbw
         push    ax
         callf   TEXT2_SEG:mem_io_handler
@@ -16394,7 +16394,7 @@ L_08026:
 br_08052:
         mov     si, word ptr [bp+4]
         les     bx, [bp+0ch]
-        mov     di, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     di, word ptr es:[bx+SND_POOL_IDX]
         mov     ax, di
         shl     di, 2
         add     di, ax
@@ -16434,7 +16434,7 @@ br_08052:
         push    word ptr es:[si+SND_LENGTH]
         callf   TEXT2_SEG:smem_copy_buffered
         les     bx, [bp+0ch]
-        mov     di, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     di, word ptr es:[bx+SND_POOL_IDX]
         mov     ax, di
         shl     di, 2
         add     di, ax
@@ -16460,8 +16460,8 @@ br_08052:
         push    dx
         push    ax
         mov     es, word ptr [bp+0eh]
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         sub     ax, word ptr [bp+8]
         sbb     dx, word ptr [bp+0ah]
         push    dx
@@ -16470,7 +16470,7 @@ br_08052:
         callf   TEXT2_SEG:smem_copy_buffered
         les     bx, [bp+0ch]
 ; ? ext_dispatch_tail @0x08130 is mid-instruction
-        cmp     byte ptr es:[bx+MPC_STATE_flag_13], 0
+        cmp     byte ptr es:[bx+SND_STEREO], 0
         jne     br_08139
         jmp     br_082C6
 
@@ -16493,7 +16493,7 @@ br_08139:
         push    0
         push    2
         les     bx, [bp+0ch]
-        mov     bx, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     bx, word ptr es:[bx+SND_POOL_IDX]
         mov     cx, bx
         shl     bx, 2
         add     bx, cx
@@ -16585,7 +16585,7 @@ tgt_08243:
         push    0
         push    2
         les     bx, [bp+0ch]
-        mov     di, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     di, word ptr es:[bx+SND_POOL_IDX]
         mov     ax, di
         shl     di, 2
         add     di, ax
@@ -16618,8 +16618,8 @@ tgt_08243:
         push    dx
         push    ax
         les     bx, [bp+0ch]
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         sub     ax, word ptr [bp+8]
         sbb     dx, word ptr [bp+0ah]
         push    dx
@@ -16628,13 +16628,13 @@ tgt_08243:
 
 br_082C6:
         les     bx, [bp+0ch]
-        push    word ptr es:[bx+MPC_STATE_cache_lo]
+        push    word ptr es:[bx+SND_POOL_IDX]
         nop
         push    cs
         call    smem_free
         les     bx, [bp+0ch]
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         mov     es, word ptr [bp+6]
         add     ax, word ptr es:[si+SND_LENGTH]
         adc     dx, word ptr es:[si+SND_LENGTH_HI]
@@ -19096,7 +19096,7 @@ br_096BF:
         mov     si, ax
         mov     ax, word ptr [bp-0ah]
         mov     es, dx
-        mov     word ptr es:[si+30h], ax
+        mov     word ptr es:[si+SND_POOL_IDX], ax
         nop
         push    cs
         call    int2F_dispatch_10
@@ -20381,9 +20381,9 @@ seq_init_navigation:
 seq_next_track:
         enter   4, 0
         les     bx, [PTR_SEQ_LIST_HEAD]
-        les     bx, es:[bx+MPC_STATE_reserved_2c]
-        mov     ax, word ptr es:[bx+MPC_SECONDARY_ptr2_hi]
-        or      ax, word ptr es:[bx+MPC_STATE_reserved_2c]
+        les     bx, es:[bx+SND_PREV]
+        mov     ax, word ptr es:[bx+SND_PREV_SEG]
+        or      ax, word ptr es:[bx+SND_PREV]
         je      X_0A16A
         mov     word ptr [PTR_SEQ_LIST_HEAD], bx
         mov     word ptr [PTR_SEQ_LIST_HEAD+2], es
@@ -20399,9 +20399,9 @@ X_0A16A:
 seq_prev_track:
         enter   4, 0
         les     bx, [PTR_SEQ_LIST_HEAD]
-        les     bx, es:[bx+MPC_STATE_ref_lo]
-        mov     ax, word ptr es:[bx+MPC_STATE_ref_hi]
-        or      ax, word ptr es:[bx+MPC_STATE_ref_lo]
+        les     bx, es:[bx+SND_NEXT]
+        mov     ax, word ptr es:[bx+SND_NEXT_SEG]
+        or      ax, word ptr es:[bx+SND_NEXT]
         je      br_0A196
         mov     word ptr [PTR_SEQ_LIST_HEAD], bx
         mov     word ptr [PTR_SEQ_LIST_HEAD+2], es
@@ -20461,7 +20461,7 @@ br_0A1E9:
         mov     si, ax
         mov     ax, word ptr [bp-6]
         mov     es, dx
-        mov     word ptr es:[si+30h], ax
+        mov     word ptr es:[si+SND_POOL_IDX], ax
         nop
         push    cs
         call    int2F_dispatch_10
@@ -20762,7 +20762,7 @@ br_0A48D:
         mov     si, ax
         mov     ax, word ptr [bp-6]
         mov     es, dx
-        mov     word ptr es:[si+30h], ax
+        mov     word ptr es:[si+SND_POOL_IDX], ax
         nop
         push    cs
         call    int2F_dispatch_10
@@ -21994,7 +21994,7 @@ br_0AF12:
         or      ax, word ptr [PTR_LCD_STATE]
         je      X_0AF2E
         les     bx, [PTR_LCD_STATE]
-        cmp     byte ptr es:[bx+MPC_STATE_flag_13], 0
+        cmp     byte ptr es:[bx+SND_STEREO], 0
         je      X_0AF2E
         mov     byte ptr [G_ASSIGN_VIEW_FIELD], 5
 
@@ -22090,7 +22090,7 @@ br_0AFB2:
 
 br_0AFC8:
         les     bx, [PTR_LCD_STATE]
-        cmp     word ptr es:[bx+MPC_STATE_range_hi], 1fh
+        cmp     word ptr es:[bx+SND_LENGTH_HI], 1fh
         jle     br_0AFD6
         jmp     br_0B06D
 
@@ -22127,8 +22127,8 @@ br_0B026:
         push    0
         push    28h
         les     bx, [PTR_LCD_STATE]
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         add     ax, 27h
         adc     dx, 0
         push    dx
@@ -22176,8 +22176,8 @@ br_0B087:
         push    0
         push    28h
         les     bx, [PTR_LCD_STATE]
-        push    word ptr es:[bx+MPC_STATE_range_hi]
-        push    word ptr es:[bx+MPC_STATE_range_lo]
+        push    word ptr es:[bx+SND_LENGTH_HI]
+        push    word ptr es:[bx+SND_LENGTH]
         nop
         push    cs
         call    __aFlrem

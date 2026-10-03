@@ -11896,14 +11896,14 @@ far_446A4:
         push    cs
         call    handler_set_install
         add     sp, 4
-        cmp     word ptr [C1_W_08B0C], 0
+        cmp     word ptr [C1_W_SAVE_PGM_CURSOR], 0
         jl      br_446BE
-        cmp     word ptr [C1_W_08B0C], 2
+        cmp     word ptr [C1_W_SAVE_PGM_CURSOR], 2
         jb      br_446C4
 br_446BE:
-        mov     word ptr [C1_W_08B0C], 0
+        mov     word ptr [C1_W_SAVE_PGM_CURSOR], 0
 br_446C4:
-        imul    bx, word ptr [C1_W_08B0C], 2ah
+        imul    bx, word ptr [C1_W_SAVE_PGM_CURSOR], 2ah
         callf   [bx+C1_TBL_00A90]
         retf
 save_a_program_wipe:
@@ -12213,7 +12213,7 @@ L_44909:
         retf
         db      00h
 save_pgm_field0_thunk:                  ; descriptor DS:0a82h
-        mov     word ptr [C1_W_08B0C], 0
+        mov     word ptr [C1_W_SAVE_PGM_CURSOR], 0
         push    ds
         push    C1_B_0D7C8
         push    ds
@@ -12223,7 +12223,7 @@ save_pgm_field0_thunk:                  ; descriptor DS:0a82h
         retf
         db      00h
 save_pgm_field1_thunk:                  ; descriptor DS:0aach
-        mov     word ptr [C1_W_08B0C], 1
+        mov     word ptr [C1_W_SAVE_PGM_CURSOR], 1
         push    ds
         push    C1_B_0D7CA
         push    ds
@@ -12861,14 +12861,14 @@ far_44E40:
         push    cs
         call    handler_set_install
         add     sp, 4
-        cmp     word ptr [C1_W_08B12], 0
+        cmp     word ptr [C1_W_SAVE_APS_CURSOR], 0
         jl      br_44E5A
-        cmp     word ptr [C1_W_08B12], 3
+        cmp     word ptr [C1_W_SAVE_APS_CURSOR], 3
         jb      br_44E60
 br_44E5A:
-        mov     word ptr [C1_W_08B12], 0
+        mov     word ptr [C1_W_SAVE_APS_CURSOR], 0
 br_44E60:
-        imul    bx, word ptr [C1_W_08B12], 2ah
+        imul    bx, word ptr [C1_W_SAVE_APS_CURSOR], 2ah
         callf   [bx+C1_TBL_00BE6]
         retf
 save_aps_f3:
@@ -13158,7 +13158,7 @@ L_4472D:
         retf
         db      00h
 save_aps_field0_thunk:                  ; descriptor DS:0bd8h
-        mov     word ptr [C1_W_08B12], 0
+        mov     word ptr [C1_W_SAVE_APS_CURSOR], 0
         push    ds
         push    C1_B_0D7C8
         push    ds
@@ -13168,7 +13168,7 @@ save_aps_field0_thunk:                  ; descriptor DS:0bd8h
         retf
         db      00h
 save_aps_field1_thunk:                  ; descriptor DS:0c02h
-        mov     word ptr [C1_W_08B12], 1
+        mov     word ptr [C1_W_SAVE_APS_CURSOR], 1
         push    ds
         push    C1_B_0D7CA
         push    ds
@@ -13178,7 +13178,7 @@ save_aps_field1_thunk:                  ; descriptor DS:0c02h
         retf
         db      00h
 save_aps_field2_thunk:                  ; descriptor DS:0c2ch
-        mov     word ptr [C1_W_08B12], 2
+        mov     word ptr [C1_W_SAVE_APS_CURSOR], 2
         push    ds
         push    C1_TBL_APS_NAME
         push    ds
@@ -15653,14 +15653,14 @@ br_4669B:
         push    cs
         call    handler_set_install
         add     sp, 4
-        cmp     word ptr [C1_W_08B14], 0
+        cmp     word ptr [C1_W_SAVE_SND_CURSOR], 0
         jl      save_a_sound_f3
-        cmp     word ptr [C1_W_08B14], 2
+        cmp     word ptr [C1_W_SAVE_SND_CURSOR], 2
         jb      br_466BB
 save_a_sound_f3:
-        mov     word ptr [C1_W_08B14], 0
+        mov     word ptr [C1_W_SAVE_SND_CURSOR], 0
 br_466BB:
-        imul    bx, word ptr [C1_W_08B14], 2ah
+        imul    bx, word ptr [C1_W_SAVE_SND_CURSOR], 2ah
         callf   [bx+C1_TBL_00E46]
 br_466C4:
         retf
@@ -15920,7 +15920,7 @@ L_45F4B:
         pop     ds
         retf
 save_snd_field0_thunk:                  ; descriptor DS:0e38h
-        mov     word ptr [C1_W_08B14], 0
+        mov     word ptr [C1_W_SAVE_SND_CURSOR], 0
         push    ds
         push    C0_W_0D7C2
         push    ds
@@ -15930,7 +15930,7 @@ save_snd_field0_thunk:                  ; descriptor DS:0e38h
         retf
         db      00h
 save_snd_field1_thunk:                  ; descriptor DS:0e62h
-        mov     word ptr [C1_W_08B14], 1
+        mov     word ptr [C1_W_SAVE_SND_CURSOR], 1
         push    ds
         push    C1_B_0D7CB
         push    ds

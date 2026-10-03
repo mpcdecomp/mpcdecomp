@@ -292,9 +292,9 @@ C0_W_02BFA                      equ C0_W_02B40+0bah
 C0_W_02BFC                      equ C0_W_02B40+0bch
 C0_W_CVT_TO_SEQ                      equ C0_W_02B40+0c0h
 C0_W_02C10                      equ C0_W_02B40+0d0h
-C1_W_08B0C                      equ C1_B_08B02+0ah
-C1_W_08B12                      equ C1_B_08B02+10h
-C1_W_08B14                      equ C1_B_08B02+12h
+C1_W_SAVE_PGM_CURSOR            equ C1_B_08B02+0ah
+C1_W_SAVE_APS_CURSOR            equ C1_B_08B02+10h
+C1_W_SAVE_SND_CURSOR            equ C1_B_08B02+12h
 C2_TBL_MIXER_FIELD_ENTER_SEG                    equ C2_TBL_MIXER_FIELD_ENTER+2h
 C2_TBL_FX_MOD_TYPE_NAMES                    equ C2_TBL_FILTER4_FIELD_THUNK+266h
 C2_TBL_FX_MOD_TYPE_NAMES_SEG                    equ C2_TBL_FILTER4_FIELD_THUNK+268h

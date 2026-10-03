@@ -16672,14 +16672,14 @@ velo_mod_enter:
         push    1
         callf   EP_PAD_ROUTE_MODE_SET_SEG:EP_PAD_ROUTE_MODE_SET_OFF
         add     sp, 2
-        cmp     word ptr [C2_W_08D7A], 0
+        cmp     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 0
         jl      br_50028
-        cmp     word ptr [C2_W_08D7A], 6
+        cmp     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 6
         jb      br_5002E
 br_50028:
-        mov     word ptr [C2_W_08D7A], 0
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 0
 br_5002E:
-        imul    bx, word ptr [C2_W_08D7A], 2ah
+        imul    bx, word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 2ah
         callf   [bx+C2_TBL_03A86]
         retf
 velo_env_filter_pad:
@@ -16721,7 +16721,7 @@ br_50080:
 br_50087:
         mov     al, byte ptr [bp-2]
         mov     byte ptr [C2_B_PAD_VELOCITY], al
-        imul    bx, word ptr [C2_W_08D7A], 2ah
+        imul    bx, word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 2ah
         callf   [bx+C2_TBL_03A86]
 br_50096:
         pop     ds
@@ -16883,13 +16883,13 @@ velo_env_filter_refresh:
         pop     ds
         retf
 L_4F8A8:
-        imul    bx, word ptr [C2_W_08D7A], 2ah
+        imul    bx, word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 2ah
         callf   [bx+C2_TBL_03A86]
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
         retf
         db      00h
 velo_env_filter_field0_thunk:
-        mov     word ptr [C2_W_08D7A], 0
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 0
         push    ds
         push    C2_B_PAD_NOTE
         push    ds
@@ -16912,7 +16912,7 @@ velo_env_filter_field1_thunk:
         add     cx, ax
         sub     cx, 32ah
         mov     si, cx
-        mov     word ptr [C2_W_08D7A], 1
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 1
         lea     ax, [si+0fh]
         push    dx
         push    ax
@@ -16937,7 +16937,7 @@ velo_env_filter_field2_thunk:
         add     cx, ax
         sub     cx, 32ah
         mov     si, cx
-        mov     word ptr [C2_W_08D7A], 2
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 2
         lea     ax, [si+10h]
         push    dx
         push    ax
@@ -16962,7 +16962,7 @@ velo_env_filter_field3_thunk:
         add     cx, ax
         sub     cx, 32ah
         mov     si, cx
-        mov     word ptr [C2_W_08D7A], 3
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 3
         lea     ax, [si+11h]
         push    dx
         push    ax
@@ -16987,7 +16987,7 @@ velo_env_filter_field4_thunk:
         add     cx, ax
         sub     cx, 32ah
         mov     si, cx
-        mov     word ptr [C2_W_08D7A], 4
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 4
         lea     ax, [si+15h]
         push    dx
         push    ax
@@ -16999,7 +16999,7 @@ velo_env_filter_field4_thunk:
         retf
         db      00h
 velo_env_filter_field5_thunk:
-        mov     word ptr [C2_W_08D7A], 5
+        mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 5
         push    ds
         push    C1_B_0D7C6
         push    ds

@@ -10084,7 +10084,7 @@ d_c2_w_08d72:
         db      2 dup (0)
 d_c2_w_08d74:
         db      6 dup (0)
-d_c2_w_08d7a:
+d_c2_w_velo_env_filter_cursor:
         db      4 dup (0)
 d_c2_w_mute_assign_cursor:
         db      6 dup (0)
@@ -10386,7 +10386,7 @@ d_c2_w_08d72:
         db      2 dup (0)
 d_c2_w_08d74:
         db      6 dup (0)
-d_c2_w_08d7a:
+d_c2_w_velo_env_filter_cursor:
         db      4 dup (0)
 d_c2_w_mute_assign_cursor:
         db      6 dup (0)

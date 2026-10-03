@@ -34,6 +34,7 @@ FREE_1FB90:
 
         db      000h, 000h, "Sequence      " ; ..Sequence      
         db      20h, 20h, 00h, 00h, 0b0h, 04h, 01h, 00h
+B_0548:
         db      02h, 00h, 04h, 04h, 00h, 00h, 0ffh, 0ffh, 01h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
         SEQ_TRACK_NAMES

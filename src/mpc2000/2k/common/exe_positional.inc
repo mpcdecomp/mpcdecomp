@@ -20,7 +20,6 @@ SONG_LOOP_ON                    equ 00209h
 TRK_CHANNEL                     equ 00430h
 TRK_VELOCITY                    equ 004B0h
 TRK_STATUS                      equ 004F0h
-B_0548                          equ 00548h
 TBL_0600                        equ 00600h
 
 COPYOS_EXE_SIZE_HI              equ COPYOS_EXE_SIZE_LO+2h

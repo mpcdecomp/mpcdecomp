@@ -19074,7 +19074,7 @@ br_096BF:
         lea     ax, [bp-1ch]
         push    ss
         push    ax
-        push    6174h
+        push    6174h                     ; "data", the WAV chunk to find
         push    6164h
         call    status_poll_handler
         mov     word ptr [bp-8], ax
@@ -19670,7 +19670,7 @@ L_09B1A:
         call    __aFlmul
         mov     word ptr [bp-26h], ax
         mov     word ptr [bp-24h], dx
-        mov     word ptr [bp-0ch], 6164h
+        mov     word ptr [bp-0ch], 6164h  ; "data"
         mov     word ptr [bp-0ah], 6174h
         mov     es, word ptr [bp+0ch]
         push    word ptr es:[si+SND_LENGTH_HI]
@@ -20593,6 +20593,10 @@ lcd_clear_line_A326:
         leave
         ret     4
         db      00h
+; makes a sound from a sample file's header at [bp+8]: start +11h, end
+; +1Bh:+19h plus 1, loop length that end less +15h, loop on when the byte
+; at +24h is below 2, rate 48000/44100/24000/22050 and its tune by the
+; index at +2Ch.
 lcd_clear_line:
         enter   46h, 0
         push    di
@@ -20630,7 +20634,7 @@ lcd_clear_line:
         rep movsb
         pop     ds
         les     bx, [bp+8]
-        mov     ax, word ptr es:[bx+MPC_STATE_flag_11]
+        mov     ax, word ptr es:[bx+11h]
         mov     word ptr [bp-2eh], ax
         mov     word ptr [bp-2ch], 0
         push    0
@@ -20651,7 +20655,7 @@ lcd_clear_line:
         adc     dx, 0
         mov     word ptr [bp-2ah], cx
         mov     word ptr [bp-28h], dx
-        cmp     byte ptr es:[bx+MPC_STATE_mode], 2
+        cmp     byte ptr es:[bx+24h], 2
         jb      br_0A3D2
         xor     al, al
         jmp     br_0A3D4

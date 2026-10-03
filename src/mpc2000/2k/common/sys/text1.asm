@@ -5203,7 +5203,7 @@ br_02B22:
         add     bx, bx
         add     bx, ax
         mov     word ptr [bp-0ah], bx
-        inc     byte ptr [bx+P_87F2]
+        inc     byte ptr [bx+NOTE_HELD]
         mov     es, word ptr [bp-4]
         cmp     byte ptr es:[di+PGM_PAD_MODE], 1
         je      br_02B6D
@@ -5238,7 +5238,7 @@ br_02B6D:
 br_02BAA:
         mov     bx, word ptr [bp-0ah]
         mov     ax, si
-        mov     byte ptr [bx+P_87F3], al
+        mov     byte ptr [bx+NOTE_HELD_ALT1], al
         mov     es, word ptr [bp-4]
         mov     al, byte ptr es:[di+PGM_PAD_ALT2]
         sub     ah, ah
@@ -5269,7 +5269,7 @@ br_02BAA:
 br_02BF3:
         mov     bx, word ptr [bp-0ah]
         mov     ax, si
-        mov     byte ptr [bx+P_87F4], al
+        mov     byte ptr [bx+NOTE_HELD_ALT2], al
 
 br_02BFC:
         pop     si

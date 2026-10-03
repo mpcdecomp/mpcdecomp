@@ -116,9 +116,12 @@ _bss    set     BSS_BASE
         BSS     G_ZONE_START_HI, 2
         BSS     PTR_DMA_STATE, 4                       ; DMA state
         BSS     G_PGM_RETURN_PARAMS, 2
-        BSS     P_87F2, 1
-        BSS     P_87F3, 1
-        BSS     P_87F4, 17eh
+; per MIDI note, stride 3: a count pad_note_trigger bumps as the note sounds,
+; then the ALT1/ALT2 notes a SIMULT pad adds; pad_note_release, if the count is
+; set, clears it and cuts all three.
+        BSS     NOTE_HELD, 1
+        BSS     NOTE_HELD_ALT1, 1
+        BSS     NOTE_HELD_ALT2, 17eh
         BSS     B_8972, 1
         BSS_GAP 1
         BSS     BUF_SYSEX_RX, 80h
@@ -271,7 +274,7 @@ _bss    set     BSS_BASE
         endif
         BSS     P_9A4E, 10h
         BSS     P_9A5E, 10h
-        BSS     VOICE_TABLE, 0ch
+        BSS     VOICE_TABLE, 0ch                       ; 32 x 12h; +0 the note sounding, 0FFh none
         BSS     P_9A7A, 2
         BSS     P_9A7C, 2
         BSS     P_9A7E, 230h

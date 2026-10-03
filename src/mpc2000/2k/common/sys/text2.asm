@@ -3740,7 +3740,7 @@ far_01D98:
         push    di
         xor     ax, ax
         mov     cx, 0c0h
-        mov     di, P_87F2
+        mov     di, NOTE_HELD
         push    ds
         pop     es
         rep stosw
@@ -4011,16 +4011,16 @@ misc_d706:
 string_format_data:
         add     bx, si
         mov     word ptr [bp-2], bx
-        cmp     byte ptr [bx+P_87F2], 0
+        cmp     byte ptr [bx+NOTE_HELD], 0
         je      br_01F7D
-        mov     byte ptr [bx+P_87F2], 0
+        mov     byte ptr [bx+NOTE_HELD], 0
         push    si
         nop
         push    cs
         call    note_off_voices
         mov     bx, word ptr [bp-2]
         sub     ah, ah
-        mov     al, byte ptr [bx+P_87F3]
+        mov     al, byte ptr [bx+NOTE_HELD_ALT1]
         push    ax
         nop
         push    cs
@@ -4029,7 +4029,7 @@ string_format_data:
 stack_frame_fn_d72e:
         mov     bx, word ptr [bp-2]
         sub     ah, ah
-        mov     al, byte ptr [bx+P_87F4]
+        mov     al, byte ptr [bx+NOTE_HELD_ALT2]
         push    ax
         nop
         push    cs

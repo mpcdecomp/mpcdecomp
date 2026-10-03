@@ -5091,7 +5091,7 @@ pad_note_trigger:
         retf    4
 br_02A56:
         mov     es, word ptr [bp-4]
-        mov     al, byte ptr es:[di+6]
+        mov     al, byte ptr es:[di+PGM_PAD_SW1]
         cbw
         les     bx, [bp+6]
         sub     ch, ch
@@ -5099,7 +5099,7 @@ br_02A56:
         cmp     cx, ax
         jle     br_02A82
         mov     es, word ptr [bp-4]
-        mov     al, byte ptr es:[di+7]
+        mov     al, byte ptr es:[di+PGM_PAD_ALT1]
         sub     ah, ah
         mov     word ptr [bp-8], ax
         sub     ax, 23h
@@ -5151,11 +5151,11 @@ br_02AC2:
         retf    4
         db      90h
 tgt_02AE6:
-        mov     al, byte ptr es:[di+6]
+        mov     al, byte ptr es:[di+PGM_PAD_SW1]
         cbw
         cmp     ax, cx
         jge     br_02B03
-        mov     al, byte ptr es:[di+7]
+        mov     al, byte ptr es:[di+PGM_PAD_ALT1]
         sub     ah, ah
         mov     word ptr [bp-8], ax
         sub     ax, 23h
@@ -5284,7 +5284,7 @@ note_voice_prepare:
         mov     si, word ptr [bp+0eh]
         mov     es, word ptr [bp+10h]
         mov     ax, word ptr es:[si]
-        mov     dx, word ptr es:[si+2]
+        mov     dx, word ptr es:[si+PGM_PAD_SND_SEG]
         mov     word ptr [bp-6], ax
         mov     word ptr [bp-4], dx
         or      dx, ax
@@ -5306,7 +5306,7 @@ br_02C22:
         push    word ptr [bp-6]
         call    mpc_ctrl_init
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+0ah]
+        mov     al, byte ptr es:[si+PGM_PAD_VOICE]
         mov     byte ptr [bp-43h], al
         lea     ax, [bp-48h]
         push    ss
@@ -5317,8 +5317,8 @@ br_02C22:
         cbw
         push    ax
         mov     es, word ptr [bp+10h]
-        push    word ptr es:[si+0dh]
-        mov     al, byte ptr es:[si+1ch]
+        push    word ptr es:[si+PGM_PAD_TUNE]
+        mov     al, byte ptr es:[si+PGM_PAD_V_PITCH]
         cbw
         push    ax
         call    voice_pitch_ratio
@@ -5328,7 +5328,7 @@ br_02C22:
         push    word ptr [bp-4]
         push    word ptr [bp-6]
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+19h]
+        mov     al, byte ptr es:[si+PGM_PAD_V_START]
         push    ax
         call    mpc_status_read
         mov     word ptr [bp-0ch], ax
@@ -5358,7 +5358,7 @@ br_02C9F:
         mov     al, byte ptr es:[bx+SND_LEVEL]
         push    ax
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+17h]
+        mov     al, byte ptr es:[si+PGM_PAD_V_LEVEL]
         cbw
         push    ax
         call    mpc_status_wait
@@ -5377,13 +5377,13 @@ br_02CCD:
 
 br_02CE0:
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+0fh]
+        mov     al, byte ptr es:[si+PGM_PAD_ATTACK]
         cbw
 
 X_02CE8:
         mov     word ptr [bp-2], ax
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+18h]
+        mov     al, byte ptr es:[si+PGM_PAD_V_ATTACK]
         cbw
         if      FW_VERSION = 172
 L_02CF4                         equ     $+1
@@ -5415,7 +5415,7 @@ L_02CF4                         equ     $+1
         db      90h
 br_02D36:
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+10h]
+        mov     al, byte ptr es:[si+PGM_PAD_DECAY]
         cbw
         mov     di, ax
         mov     al, byte ptr [bp+4]
@@ -5468,10 +5468,10 @@ br_02D9E:
         push    ax
         push    word ptr [bp+16h]
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+0bh]
+        mov     al, byte ptr es:[si+PGM_PAD_MUTE1]
         sub     ah, ah
         push    ax
-        mov     al, byte ptr es:[si+0ch]
+        mov     al, byte ptr es:[si+PGM_PAD_MUTE2]
         push    ax
         callf   TEXT2_SEG:voice_start
         mov     al, byte ptr [bp-1]
@@ -5504,10 +5504,10 @@ br_02E0D:
         push    ax
         push    word ptr [bp+16h]
         mov     es, word ptr [bp+10h]
-        mov     al, byte ptr es:[si+0bh]
+        mov     al, byte ptr es:[si+PGM_PAD_MUTE1]
         sub     ah, ah
         push    ax
-        mov     al, byte ptr es:[si+0ch]
+        mov     al, byte ptr es:[si+PGM_PAD_MUTE2]
         push    ax
         callf   TEXT2_SEG:voice_start
         callf   TEXT2_SEG:dma_status_rearm

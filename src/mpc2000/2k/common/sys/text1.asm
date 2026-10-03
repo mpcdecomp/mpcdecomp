@@ -6215,7 +6215,7 @@ mpc_query_status:
         mov     ax, word ptr [bp+0ah]
         or      ax, si
         jne     br_034C4
-        mov     word ptr [WIN_FIELD_DRAW_FN], FIELD_DRAW_DEFAULT
+        mov     word ptr [WIN_FIELD_DRAW_FN], field_draw_default
         mov     word ptr [WIN_FIELD_DRAW_FN_SEG], TEXT2_SEG
         jmp     br_034CE
         db      90h
@@ -14229,7 +14229,7 @@ fn_0704C:
         call    dma_06CFC
         call    dma_06E9A
         push    word TEXT1_SEG
-        push    TGT_07326
+        push    tgt_07326
         nop
         push    cs
         call    callback_set_main
@@ -14557,12 +14557,8 @@ L_0731E:
 L_07324_1:
         retf
         db      00h
-        if      FW_VERSION = 172
 
 tgt_07326:
-        else
-TGT_07326                       equ     $+00h
-        endif
         call    dma_pos_reached
         or      ax, ax
         je      X_07330
@@ -14618,13 +14614,9 @@ L_07383:
         pop     ds
         retf
         db      00h
-        if      FW_VERSION = 172
 
 
 L_07386:
-        else
-L_07386                         equ     $+00h
-        endif
         callf   TEXT2_SEG:L_00116
         or      ax, ax
         jne     br_07394

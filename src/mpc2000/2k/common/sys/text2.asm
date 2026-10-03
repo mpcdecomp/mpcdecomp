@@ -5817,11 +5817,9 @@ field_redraw:
         db      00h
         if      FW_VERSION = 172
 ; far_dispatch_e587 @0x0e587 is code
+        endif
 
 field_draw_default:
-        else
-FIELD_DRAW_DEFAULT                         equ     $+00h
-        endif
         xor     cx, cx
         cmp     word ptr [NUM_ENTRY_MIN_HI], cx
         jge     br_02E01
@@ -18696,12 +18694,8 @@ L_08D6E:
         call    ui_field_edit
         leave
         retf    8
-        if      FW_VERSION = 172
 
 sample_data_far_3:
-        else
-SAMPLE_DATA_FAR_3               equ     $+00h
-        endif
         enter   8, 0
         push    si
         les     bx, [SND_CURRENT]
@@ -18779,12 +18773,8 @@ L_08E69:
         mov     word ptr es:[bx+SND_END_HI], dx
         retf
         db      00h
-        if      FW_VERSION = 172
 
 sample_data_far_4:
-        else
-SAMPLE_DATA_FAR_4               equ     $+00h
-        endif
         enter   8, 0
         push    si
         les     bx, [SND_CURRENT]
@@ -18840,12 +18830,8 @@ L_08EB1:
         pop     si
         leave
         retf
-        if      FW_VERSION = 172
 
 sample_str_scan_2:
-        else
-SAMPLE_STR_SCAN_2               equ     $+00h
-        endif
         enter   4, 0
         push    si
         mov     ax, word ptr [SND_CURRENT]
@@ -18896,7 +18882,7 @@ br_08F92:
         sub     ax, ax
         mov     word ptr [bp-0ah], ax
         mov     word ptr [bp-0ch], ax
-        mov     word ptr [bp-10h], SAMPLE_DATA_FAR_3
+        mov     word ptr [bp-10h], sample_data_far_3
         mov     word ptr [bp-0eh], TEXT2_SEG
         jmp     X_09054
         db      90h
@@ -18919,7 +18905,7 @@ br_08FE2:
         jne     br_0900C
         mov     word ptr [bp-0ch], ax
         mov     word ptr [bp-0ah], dx
-        mov     word ptr [bp-10h], SAMPLE_DATA_FAR_4
+        mov     word ptr [bp-10h], sample_data_far_4
         mov     word ptr [bp-0eh], TEXT2_SEG
         jmp     X_09054
         db      90h
@@ -18938,7 +18924,7 @@ L_0901A:
 br_09022:
         mov     word ptr [bp-0ch], ax
         mov     word ptr [bp-0ah], dx
-        mov     word ptr [bp-10h], SAMPLE_STR_SCAN_2
+        mov     word ptr [bp-10h], sample_str_scan_2
         mov     word ptr [bp-0eh], TEXT2_SEG
         jmp     X_09054
 
@@ -19609,12 +19595,8 @@ L_0956D:
         pop     ds
         retf
         db      90h
-        if      FW_VERSION = 172
 
 sample_str_scan_3:
-        else
-SAMPLE_STR_SCAN_3               equ     $+00h
-        endif
         enter   4, 0
         push    si
         mov     ax, word ptr [SND_CURRENT]
@@ -19645,12 +19627,8 @@ SAMPLE_STR_SCAN_3               equ     $+00h
         pop     si
         leave
         retf
-        if      FW_VERSION = 172
 
 sample_str_scan_4:
-        else
-SAMPLE_STR_SCAN_4               equ     $+00h
-        endif
         enter   4, 0
         les     bx, [SND_CURRENT]
         mov     ax, word ptr es:[bx+SND_LOOP]
@@ -19677,12 +19655,8 @@ L_09604:
         mov     word ptr es:[bx+SND_END_HI], dx
         leave
         retf
-        if      FW_VERSION = 172
 
 sample_str_scan_5:
-        else
-SAMPLE_STR_SCAN_5               equ     $+00h
-        endif
         enter   8, 0
         push    si
         les     bx, [SND_CURRENT]
@@ -19754,7 +19728,7 @@ br_096B4:
         mov     word ptr [bp-2], dx
         cmp     byte ptr [TRIM_LEN_FIX], 0
         jne     br_096F0
-        mov     word ptr [bp-8], SAMPLE_STR_SCAN_4
+        mov     word ptr [bp-8], sample_str_scan_4
         mov     word ptr [bp-6], TEXT2_SEG
         jmp     L_0973C
         db      90h
@@ -19775,7 +19749,7 @@ br_09705:
         mov     word ptr [bp-0ah], dx
 
 br_09713:
-        mov     word ptr [bp-8], SAMPLE_STR_SCAN_5
+        mov     word ptr [bp-8], sample_str_scan_5
         mov     word ptr [bp-6], TEXT2_SEG
         jmp     L_0973C
         db      90h
@@ -19786,7 +19760,7 @@ br_09720:
         mov     dx, word ptr es:[bx+SND_END_HI]
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        mov     word ptr [bp-8], SAMPLE_STR_SCAN_3
+        mov     word ptr [bp-8], sample_str_scan_3
         mov     word ptr [bp-6], TEXT2_SEG
 
 L_0973C:
@@ -19808,12 +19782,8 @@ L_0973C:
         leave
         retf    8
         db      00h
-        if      FW_VERSION = 172
 
 sample_data_far_5:
-        else
-SAMPLE_DATA_FAR_5               equ     $+00h
-        endif
         enter   4, 0
         push    si
         les     bx, [SND_CURRENT]
@@ -19913,7 +19883,7 @@ sample_active_check_3:
         add     ax, word ptr es:[bx+SND_LOOP]
         adc     dx, word ptr es:[bx+SND_LOOP_HI]
         mov     word ptr [bp-4], ax
-        mov     word ptr [bp-0ch], SAMPLE_DATA_FAR_5
+        mov     word ptr [bp-0ch], sample_data_far_5
         mov     word ptr [bp-0ah], TEXT2_SEG
         jmp     X_098D6
 
@@ -20360,12 +20330,8 @@ L_09C2A:
         mov     word ptr [G_ZONE_LEN_HI], dx
         retf
         db      00h
-        if      FW_VERSION = 172
 
 tgt_09C42:
-        else
-TGT_09C42                       equ     $+00h
-        endif
         cmp     byte ptr [ZONE_LEN_FIX], 0
         je      br_09C60
         mov     ax, word ptr [G_ZONE_START]
@@ -20427,7 +20393,7 @@ br_09CC2:
         push    dx
         push    ax
         push    TEXT2_SEG
-        push    TGT_09C42
+        push    tgt_09C42
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         nop

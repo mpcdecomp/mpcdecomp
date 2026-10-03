@@ -7972,7 +7972,7 @@ d_c0_b_044c9:
 d_c0_b_044ca:
         db      72h, 02h, 01h, 20h, 00h, 00h, 00h
         db      00h, 17h, 00h, 00h, 00h
-d_c2_w_044d6:
+d_c2_tbl_mixer_field_thunk:
         dw      EP_MIXER_FIELD0_THUNK_OFF, EP_MIXER_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_MIXER_FIELD8_THUNK_OFF, EP_MIXER_FIELD8_THUNK_SEG
@@ -8640,7 +8640,7 @@ d_c2_w_0521a:
         WIN_END
         db      00h, 31h
         db      0bh, 36h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 03h, 00h, 00h, 00h
-d_c0_w_052de:
+d_c0_tbl_fx_delay_field_thunk:
         dw      EP_FX_DELAY_FIELD0_THUNK_OFF, EP_FX_DELAY_FIELD0_THUNK_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         dw      EP_L_540DC_OFF, EP_L_540DC_SEG

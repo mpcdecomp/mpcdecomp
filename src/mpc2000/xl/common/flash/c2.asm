@@ -20206,7 +20206,7 @@ loop_51F8C:
         mov     word ptr [C2_W_MIXER_CURSOR], 0
 loop_51F92:
         imul    bx, word ptr [C2_W_MIXER_CURSOR], 2ah
-        callf   [bx+C2_W_044D6]
+        callf   [bx+C2_TBL_MIXER_FIELD_THUNK]
         retf
 br_51F9C:
         cmp     word ptr [C2_W_MIXER_CURSOR], 3
@@ -20361,7 +20361,7 @@ mixer_refresh:
         retf
 L_520B8:
         imul    bx, word ptr [C2_W_MIXER_CURSOR], 2ah
-        callf   [bx+C2_W_044D6]
+        callf   [bx+C2_TBL_MIXER_FIELD_THUNK]
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
         retf
         db      00h

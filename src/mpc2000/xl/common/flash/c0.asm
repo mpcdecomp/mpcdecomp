@@ -21121,7 +21121,7 @@ br_3D213:
         call    fn_3D256
         add     sp, 2
         imul    bx, ax, 2ah
-        callf   [bx+C0_W_052DE]
+        callf   [bx+C0_TBL_FX_DELAY_FIELD_THUNK]
         retf
         db      00h
 L_3D23E:
@@ -21129,7 +21129,7 @@ L_3D23E:
         call    fn_3D256
         add     sp, 2
         imul    bx, ax, 2ah
-        callf   [bx+C0_W_052DE]
+        callf   [bx+C0_TBL_FX_DELAY_FIELD_THUNK]
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
         retf
         db      00h

@@ -4619,8 +4619,8 @@ voice_regs_program:
         enter   8, 0
         push    si
         les     bx, [bp+6]
-        mov     ax, word ptr es:[bx+MPC_STATE_time_hi]
-        mov     dx, word ptr es:[bx+MPC_STATE_pos_lo]
+        mov     ax, word ptr es:[bx+VREQ_START]
+        mov     dx, word ptr es:[bx+VREQ_START_HI]
         mov     cx, ax
         mov     si, dx
         shr     dx, 4
@@ -4648,14 +4648,14 @@ voice_regs_program:
         mov     ax, word ptr [bp-8]
         or      ah, 1
         out     DMA_CTRL, ax
-        mov     ax, word ptr es:[bx+0eh]
+        mov     ax, word ptr es:[bx+VREQ_RATIO]
         out     DMA_DATA_LO, ax
-        cmp     byte ptr es:[bx+4], 0
+        cmp     byte ptr es:[bx+VREQ_LOOPON], 0
         jne     dma_0240B
         jmp     dma_0248E
 dma_0240B:
-        mov     ax, word ptr es:[bx+MPC_STATE_pos_hi]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_lo]
+        mov     ax, word ptr es:[bx+VREQ_END]
+        mov     dx, word ptr es:[bx+VREQ_END_HI]
         mov     cx, ax
         mov     si, dx
         shr     dx, 4
@@ -4669,16 +4669,16 @@ dma_0240B:
         rcr     cx, 1
         mov     ax, cx
         out     DMA_DATA_HI, ax
-        cmp     word ptr es:[bx+MPC_STATE_param_hi], 0
+        cmp     word ptr es:[bx+VREQ_FIELD_22], 0
         je      L_02450
         mov     ax, dx
         out     DMA_ADDR_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 2
         out     DMA_CTRL, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_param_hi]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_22]
         out     DMA_DATA_HI, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_mode]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_22_HI]
         neg     ax
         jmp     dma_024A4
         db      90h
@@ -4687,8 +4687,8 @@ L_02450:
         mov     ax, dx
         or      ah, 1
         out     DMA_ADDR_HI, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_range_hi]
-        mov     dx, word ptr es:[bx+MPC_STATE_param_lo]
+        mov     ax, word ptr es:[bx+VREQ_LOOP]
+        mov     dx, word ptr es:[bx+VREQ_LOOP_HI]
         mov     cx, ax
         mov     bx, dx
         shr     dx, 4
@@ -4735,33 +4735,33 @@ dma_024A4:
         or      ah, 4
         out     DMA_CTRL, ax
         mov     bx, word ptr [bp+6]
-        mov     ax, word ptr es:[bx+MPC_STATE_flag_12]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_12]
         out     DMA_DATA_LO, ax
-        mov     ax, word ptr es:[bx+10h]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_10]
         or      ah, 80h
         out     DMA_DATA_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 5
         out     DMA_CTRL, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_ptr_lo]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_26]
         out     DMA_DATA_LO, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_ref_lo]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_26_HI]
         out     DMA_DATA_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 6
         out     DMA_CTRL, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_reserved_2c]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_2C]
         out     DMA_DATA_LO, ax
-        mov     ax, word ptr es:[bx+MPC_STATE_ref_hi]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_2A]
         out     DMA_DATA_HI, ax
-        cmp     byte ptr es:[bx+9], 1
+        cmp     byte ptr es:[bx+VREQ_FIELD_09], 1
         jl      dma_0250C
-        cmp     byte ptr es:[bx+9], 8
+        cmp     byte ptr es:[bx+VREQ_FIELD_09], 8
         jg      dma_0250C
         sub     cl, cl
 ; ? inside voice_regs_program, the group 7 write and the tail.
 voice_regs_program_dcc4:
-        mov     ch, byte ptr es:[bx+0ah]
+        mov     ch, byte ptr es:[bx+VREQ_FIELD_0A]
         neg     cx
         jmp     dma_0250E
 
@@ -4771,44 +4771,44 @@ dma_0250E:
         mov     ax, word ptr [bp-8]
         or      ah, 7
         out     DMA_CTRL, ax
-        mov     al, byte ptr es:[bx+9]
+        mov     al, byte ptr es:[bx+VREQ_FIELD_09]
         cbw
         mov     si, ax
         mov     al, byte ptr [si+TBL_0C38]
         cbw
         or      ax, cx
         out     DMA_DATA_HI, ax
-        cmp     byte ptr es:[bx+0bh], 1
+        cmp     byte ptr es:[bx+VREQ_FIELD_0B], 1
         je      dma_02534
-        cmp     byte ptr es:[bx+0bh], 2
+        cmp     byte ptr es:[bx+VREQ_FIELD_0B], 2
         jne     dma_0254F
 dma_02534:
-        mov     al, byte ptr es:[bx+0bh]
+        mov     al, byte ptr es:[bx+VREQ_FIELD_0B]
         cbw
         mov     bx, ax
         cmp     byte ptr [bx+TBL_0611], 0
         jne     dma_0254F
         mov     bx, word ptr [bp+6]
         xor     al, al
-        mov     byte ptr es:[bx+8], al
-        mov     byte ptr es:[bx+7], al
+        mov     byte ptr es:[bx+VREQ_FIELD_08], al
+        mov     byte ptr es:[bx+VREQ_FIELD_07], al
 dma_0254F:
         les     bx, [bp+6]
         sub     al, al
-        mov     ah, byte ptr es:[bx+8]
-        mov     cl, byte ptr es:[bx+7]
+        mov     ah, byte ptr es:[bx+VREQ_FIELD_08]
+        mov     cl, byte ptr es:[bx+VREQ_FIELD_07]
         sub     ch, ch
         or      ax, cx
         out     DMA_DATA_LO, ax
-        cmp     byte ptr es:[bx+0bh], 1
+        cmp     byte ptr es:[bx+VREQ_FIELD_0B], 1
         jl      br_02582
-        cmp     byte ptr es:[bx+0bh], 4
+        cmp     byte ptr es:[bx+VREQ_FIELD_0B], 4
         jg      br_02582
-        mov     ah, byte ptr es:[bx+0bh]
+        mov     ah, byte ptr es:[bx+VREQ_FIELD_0B]
         dec     ah
         sub     al, al
         mov     si, ax
-        mov     ah, byte ptr es:[bx+0ch]
+        mov     ah, byte ptr es:[bx+VREQ_FIELD_0C]
         mov     cx, ax
         jmp     br_02587
 
@@ -4863,30 +4863,30 @@ voice_start:
         push    di
         push    si
         les     bx, [bp+0ch]
-        mov     al, byte ptr es:[bx+4]
+        mov     al, byte ptr es:[bx+VREQ_LOOPON]
         mov     byte ptr [bp-0fh], al
-        mov     ax, word ptr es:[bx+3ah]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_3A]
         mov     cx, 0ah
         sub     dx, dx
         div     cx
         add     ax, 2
         mov     word ptr [bp-8], ax
 
-        mov     ax, word ptr es:[bx+MPC_SECONDARY_ptr2_hi]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_2E]
         mov     word ptr [bp-2], ax
-        mov     ax, word ptr es:[bx+MPC_STATE_cache_lo]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_30]
         mov     word ptr [bp-4], ax
-        mov     ax, word ptr es:[bx+MPC_STATE_time_lo]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_14]
         mov     word ptr [bp-6], ax
-        mov     al, byte ptr es:[bx+MPC_TRACK_flag_05]
+        mov     al, byte ptr es:[bx+VREQ_OVERLAP]
         mov     byte ptr [bp-11h], al
-        mov     al, byte ptr es:[bx+6]
+        mov     al, byte ptr es:[bx+VREQ_DCY_MODE]
         mov     byte ptr [bp-10h], al
 ; ? misc_ddc7 @0x0ddc7 is mid-instruction
         mov     word ptr [bp-0ah], 2
         dec     al
         jne     br_02640
-        mov     ax, word ptr es:[bx+36h]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_36]
         if      FW_VERSION = 172
 L_02614                         equ     $+1
         endif
@@ -4900,7 +4900,7 @@ L_02614                         equ     $+1
         push    0
         push    si
         sub     dx, dx
-        add     cx, word ptr es:[bx+38h]
+        add     cx, word ptr es:[bx+VREQ_FIELD_38]
         adc     dx, dx
         add     cx, 5
         adc     dx, 0
@@ -4910,9 +4910,9 @@ L_02614                         equ     $+1
         callf   TEXT1_SEG:__aFldiv
         jmp     br_026A9
 br_02640:
-        cmp     byte ptr es:[bx+4], 0
+        cmp     byte ptr es:[bx+VREQ_LOOPON], 0
         je      br_0266E
-        mov     ax, word ptr es:[bx+38h]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_38]
         add     ax, 5
         sub     dx, dx
         div     cx
@@ -4933,11 +4933,11 @@ misc_de25:
 br_0266E:
         push    0
         push    cx
-        mov     ax, word ptr es:[bx+MPC_STATE_output_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_output_hi]
+        mov     ax, word ptr es:[bx+VREQ_FIELD_32]
+        mov     dx, word ptr es:[bx+VREQ_FIELD_32_HI]
         mov     cx, ax
         mov     si, dx
-        sub     ax, word ptr es:[bx+38h]
+        sub     ax, word ptr es:[bx+VREQ_FIELD_38]
         sbb     dx, 0
         add     ax, 5
         adc     dx, 0
@@ -5058,7 +5058,7 @@ br_0270A:
         add     bx, bx
         mov     word ptr [bx+VOICE_TIMER], ax
         les     bx, [bp+0ch]
-        cmp     word ptr es:[bx+MPC_STATE_reserved_2c], 0
+        cmp     word ptr es:[bx+VREQ_FIELD_2C], 0
         je      br_027C5
         mov     ax, word ptr [bp-8]
         mov     bl, byte ptr es:[bx]

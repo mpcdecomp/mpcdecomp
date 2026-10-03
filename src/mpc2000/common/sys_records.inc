@@ -57,6 +57,49 @@ DSPC_FIELD_10           equ     010h    ; word  ?
 DSPC_FIELD_12           equ     012h    ; word  ?
 SIZEOF_DSPC             equ     014h    ; = T_DSP_CHAN_STRIDE
 
+; =============================================================================
+; VREQ -- voice_start's request, 3Ch bytes, built on the caller's stack
+; =============================================================================
+; note_voice_prepare fills one from the pad and its sound; voice_start_sample
+; and lcd_set_cursor fill one straight from a sound, on voice 15h (17h for the
+; right half).  voice_start copies parts into VOICE_TABLE, voice_regs_program
+; writes the rest to the voice's register groups.
+
+VREQ_VOICE              equ     000h    ; byte, 0..1Fh; 20h and up: voice_alloc picks
+VREQ_LOOPON             equ     004h    ; byte, SND_LOOPON; 0 when SND_LOOP is 0
+VREQ_OVERLAP            equ     005h    ; byte, PGM_PAD_VOICE; 1 (MONO) cuts the note first
+VREQ_DCY_MODE           equ     006h    ; byte, PGM_PAD_DCY_MODE
+VREQ_FIELD_07           equ     007h    ; byte, 80h; 0 on a stereo sound's left half  ?
+VREQ_FIELD_08           equ     008h    ; byte, 80h; 0 on its right half  ?
+VREQ_FIELD_09           equ     009h    ; byte  ?
+VREQ_FIELD_0A           equ     00ah    ; byte  ?
+VREQ_FIELD_0B           equ     00bh    ; byte  ?
+VREQ_FIELD_0C           equ     00ch    ; byte  ?
+VREQ_RATIO              equ     00eh    ; word, TBL_PITCH_RATIO[SND_TUNE]
+VREQ_FIELD_10           equ     010h    ; word  ?
+VREQ_FIELD_12           equ     012h    ; word  ?
+VREQ_FIELD_14           equ     014h    ; word, 0FF00h from a sound  ?
+VREQ_START              equ     016h    ; dd, SMEM_POOL base + SND_START
+VREQ_START_HI           equ     018h
+VREQ_END                equ     01ah    ; dd, SMEM_POOL base + SND_END
+VREQ_END_HI             equ     01ch
+VREQ_LOOP               equ     01eh    ; dd, VREQ_END - SND_LOOP
+VREQ_LOOP_HI            equ     020h
+VREQ_FIELD_22           equ     022h    ; dd, SND_FIELD_32  ?
+VREQ_FIELD_22_HI        equ     024h
+VREQ_FIELD_26           equ     026h    ; dd, 3FFFFFFFh from a sound  ?
+VREQ_FIELD_26_HI        equ     028h
+VREQ_FIELD_2A           equ     02ah    ; word, 7FF0h from a sound  ?
+VREQ_FIELD_2C           equ     02ch    ; word  ?
+VREQ_FIELD_2E           equ     02eh    ; word, 7FF0h from a sound  ?
+VREQ_FIELD_30           equ     030h    ; word  ?
+VREQ_FIELD_32           equ     032h    ; dd  ?
+VREQ_FIELD_32_HI        equ     034h
+VREQ_FIELD_36           equ     036h    ; word  ?
+VREQ_FIELD_38           equ     038h    ; word  ?
+VREQ_FIELD_3A           equ     03ah    ; word  ?
+SIZEOF_VREQ             equ     03ch
+
 ; ---- the sound record, shared with the XL ----------------------------------
 SND_HDR         equ     0               ; the 2K's record starts at the name
         include "sound_record.inc"

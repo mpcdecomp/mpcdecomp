@@ -20851,36 +20851,36 @@ status_poll_handler2:
         mov     si, word ptr [bp+4]
         push    word ptr [bp+6]
         push    si
-        push    3bh
+        push    SIZEOF_SMEM_REQ
         call    status_poll_delay2
         mov     es, word ptr [bp+6]
-        mov     al, byte ptr es:[si+3ah]
+        mov     al, byte ptr es:[si+SMEM_REQ_FLAGS]
         and     ax, 60h
         sub     ax, 20h
         je      br_0A588
         sub     ax, 20h
         je      br_0A592
-        mov     ax, word ptr es:[si+14h]
-        mov     dx, word ptr es:[si+16h]
-        cmp     dx, word ptr es:[si+1ah]
+        mov     ax, word ptr es:[si+SMEM_REQ_A_START]
+        mov     dx, word ptr es:[si+SMEM_REQ_A_START_HI]
+        cmp     dx, word ptr es:[si+SMEM_REQ_B_START_HI]
         jb      br_0A59D
         ja      br_0A592
-        cmp     ax, word ptr es:[si+18h]
+        cmp     ax, word ptr es:[si+SMEM_REQ_B_START]
         jbe     br_0A59D
         jmp     br_0A592
         db      90h
 br_0A588:
-        mov     ax, word ptr es:[si+14h]
-        mov     dx, word ptr es:[si+16h]
+        mov     ax, word ptr es:[si+SMEM_REQ_A_START]
+        mov     dx, word ptr es:[si+SMEM_REQ_A_START_HI]
         jmp     br_0A59D
 
 br_0A592:
         mov     es, word ptr [bp+6]
-        mov     ax, word ptr es:[si+18h]
-        mov     dx, word ptr es:[si+1ah]
+        mov     ax, word ptr es:[si+SMEM_REQ_B_START]
+        mov     dx, word ptr es:[si+SMEM_REQ_B_START_HI]
 
 br_0A59D:
-        sub     ax, 3bh
+        sub     ax, SIZEOF_SMEM_REQ
         sbb     dx, 0
         push    dx
         push    ax
@@ -20895,7 +20895,7 @@ smem_access_setup:
         push    si
         mov     si, word ptr [bp+4]
         mov     es, word ptr [bp+6]
-        mov     al, byte ptr es:[si+3ah]
+        mov     al, byte ptr es:[si+SMEM_REQ_FLAGS]
         and     ax, 60h
         sub     ax, 20h
         jne     br_0A5C9
@@ -20907,20 +20907,20 @@ br_0A5C9:
         jmp     br_0A750
 
 br_0A5D1:
-        mov     ax, word ptr es:[si+1ch]
-        mov     dx, word ptr es:[si+1eh]
-        sub     ax, word ptr es:[si+14h]
-        sbb     dx, word ptr es:[si+16h]
+        mov     ax, word ptr es:[si+SMEM_REQ_A_END]
+        mov     dx, word ptr es:[si+SMEM_REQ_A_END_HI]
+        sub     ax, word ptr es:[si+SMEM_REQ_A_START]
+        sbb     dx, word ptr es:[si+SMEM_REQ_A_START_HI]
         shr     dx, 1
         rcr     ax, 1
         add     ax, 1
         adc     dx, 0
         mov     word ptr [bp-10h], ax
         mov     word ptr [bp-0eh], dx
-        mov     cx, word ptr es:[si+20h]
-        mov     bx, word ptr es:[si+22h]
-        sub     cx, word ptr es:[si+18h]
-        sbb     bx, word ptr es:[si+1ah]
+        mov     cx, word ptr es:[si+SMEM_REQ_B_END]
+        mov     bx, word ptr es:[si+SMEM_REQ_B_END_HI]
+        sub     cx, word ptr es:[si+SMEM_REQ_B_START]
+        sbb     bx, word ptr es:[si+SMEM_REQ_B_START_HI]
         shr     bx, 1
         rcr     cx, 1
         add     cx, 1
@@ -20975,12 +20975,12 @@ br_0A647:
         push    cs
         call    smem_free
         mov     es, word ptr [bp+6]
-        mov     ax, word ptr es:[si+18h]
-        mov     dx, word ptr es:[si+1ah]
-        cmp     word ptr es:[si+16h], dx
+        mov     ax, word ptr es:[si+SMEM_REQ_B_START]
+        mov     dx, word ptr es:[si+SMEM_REQ_B_START_HI]
+        cmp     word ptr es:[si+SMEM_REQ_A_START_HI], dx
         ja      br_0A6EA
         jb      br_0A690
-        cmp     word ptr es:[si+14h], ax
+        cmp     word ptr es:[si+SMEM_REQ_A_START], ax
         jae     br_0A6EA
 br_0A690:
         push    word ptr [bp-6]
@@ -21067,17 +21067,17 @@ br_0A726:
         jmp     br_0A7C6
 
 br_0A73E:
-        mov     ax, word ptr es:[si+1ch]
-        mov     dx, word ptr es:[si+1eh]
-        sub     ax, word ptr es:[si+14h]
-        sbb     dx, word ptr es:[si+16h]
+        mov     ax, word ptr es:[si+SMEM_REQ_A_END]
+        mov     dx, word ptr es:[si+SMEM_REQ_A_END_HI]
+        sub     ax, word ptr es:[si+SMEM_REQ_A_START]
+        sbb     dx, word ptr es:[si+SMEM_REQ_A_START_HI]
         jmp     br_0A760
 
 br_0A750:
-        mov     ax, word ptr es:[si+20h]
-        mov     dx, word ptr es:[si+22h]
-        sub     ax, word ptr es:[si+18h]
-        sbb     dx, word ptr es:[si+1ah]
+        mov     ax, word ptr es:[si+SMEM_REQ_B_END]
+        mov     dx, word ptr es:[si+SMEM_REQ_B_END_HI]
+        sub     ax, word ptr es:[si+SMEM_REQ_B_START]
+        sbb     dx, word ptr es:[si+SMEM_REQ_B_START_HI]
 
 br_0A760:
         shr     dx, 1
@@ -21219,10 +21219,10 @@ voice_play_range:
         mov     word ptr [bp-20h], ax
         mov     word ptr [bp-22h], ax
         les     bx, [bp+4]
-        mov     al, byte ptr es:[bx+3ah]
+        mov     al, byte ptr es:[bx+SMEM_REQ_FLAGS]
         and     al, 1
         mov     byte ptr [bp-12h], al
-        mov     al, byte ptr es:[bx+3ah]
+        mov     al, byte ptr es:[bx+SMEM_REQ_FLAGS]
         and     ax, 60h
         sub     ax, 20h
         je      br_0A8D1
@@ -21232,14 +21232,14 @@ voice_play_range:
 br_0A8A3:
         mov     byte ptr [bp-23h], 1
 
-        mov     ax, word ptr es:[bx+MPC_STATE_param_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_param_hi]
-        sub     ax, word ptr es:[bx+MPC_STATE_pos_lo]
-        sbb     dx, word ptr es:[bx+MPC_STATE_pos_hi]
-        mov     cx, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     si, word ptr es:[bx+MPC_STATE_range_hi]
-        sub     cx, word ptr es:[bx+MPC_STATE_time_lo]
-        sbb     si, word ptr es:[bx+MPC_STATE_time_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_B_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_B_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_B_START]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_B_START_HI]
+        mov     cx, word ptr es:[bx+SMEM_REQ_A_END]
+        mov     si, word ptr es:[bx+SMEM_REQ_A_END_HI]
+        sub     cx, word ptr es:[bx+SMEM_REQ_A_START]
+        sbb     si, word ptr es:[bx+SMEM_REQ_A_START_HI]
         cmp     si, dx
         ja      br_0A930
         jb      br_0A8D1
@@ -21247,10 +21247,10 @@ br_0A8A3:
         jae     br_0A930
 
 br_0A8D1:
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
-        sub     ax, word ptr es:[bx+MPC_STATE_time_lo]
-        sbb     dx, word ptr es:[bx+MPC_STATE_time_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_A_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_A_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_A_START]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_A_START_HI]
         shr     dx, 1
         rcr     ax, 1
         add     ax, 1
@@ -21259,10 +21259,10 @@ br_0A8D1:
         mov     word ptr [bp-18h], dx
         mov     word ptr [bp-1eh], ax
         mov     word ptr [bp-1ch], dx
-        mov     ax, word ptr es:[bx+MPC_STATE_reserved_2c]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_ptr2_hi]
-        sub     ax, word ptr es:[bx+MPC_STATE_mode]
-        sbb     dx, word ptr es:[bx+MPC_STATE_ptr_lo]
+        mov     ax, word ptr es:[bx+SMEM_REQ_A_LOOP_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_A_LOOP_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_A_LOOP]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_A_LOOP_HI]
         shr     dx, 1
         rcr     ax, 1
         add     ax, 1
@@ -21271,18 +21271,18 @@ br_0A8D1:
         mov     word ptr [bp-14h], dx
         cmp     byte ptr [bp-12h], 0
         je      br_0A99C
-        mov     ax, word ptr es:[bx+MPC_STATE_reserved_2c]
-        mov     dx, word ptr es:[bx+MPC_SECONDARY_ptr2_hi]
-        sub     ax, word ptr es:[bx+MPC_STATE_time_lo]
-        sbb     dx, word ptr es:[bx+MPC_STATE_time_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_A_LOOP_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_A_LOOP_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_A_START]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_A_START_HI]
         jmp     br_0A98C
         db      90h
 
 br_0A930:
-        mov     ax, word ptr es:[bx+MPC_STATE_param_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_param_hi]
-        sub     ax, word ptr es:[bx+MPC_STATE_pos_lo]
-        sbb     dx, word ptr es:[bx+MPC_STATE_pos_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_B_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_B_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_B_START]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_B_START_HI]
         shr     dx, 1
         rcr     ax, 1
         add     ax, 1
@@ -21291,10 +21291,10 @@ br_0A930:
         mov     word ptr [bp-18h], dx
         mov     word ptr [bp-1eh], ax
         mov     word ptr [bp-1ch], dx
-        mov     ax, word ptr es:[bx+MPC_STATE_cache_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_output_lo]
-        sub     ax, word ptr es:[bx+MPC_STATE_ref_lo]
-        sbb     dx, word ptr es:[bx+MPC_STATE_ref_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_B_LOOP_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_B_LOOP_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_B_LOOP]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_B_LOOP_HI]
         shr     dx, 1
         rcr     ax, 1
         add     ax, 1
@@ -21303,10 +21303,10 @@ br_0A930:
         mov     word ptr [bp-14h], dx
         cmp     byte ptr [bp-12h], 0
         je      br_0A99C
-        mov     ax, word ptr es:[bx+MPC_STATE_cache_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_output_lo]
-        sub     ax, word ptr es:[bx+MPC_STATE_pos_lo]
-        sbb     dx, word ptr es:[bx+MPC_STATE_pos_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_B_LOOP_END]
+        mov     dx, word ptr es:[bx+SMEM_REQ_B_LOOP_END_HI]
+        sub     ax, word ptr es:[bx+SMEM_REQ_B_START]
+        sbb     dx, word ptr es:[bx+SMEM_REQ_B_START_HI]
 
 br_0A98C:
         shr     dx, 1
@@ -21327,10 +21327,10 @@ br_0A99C:
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
         les     bx, [bp+4]
-        mov     ax, word ptr es:[bx+MPC_STATE_output_hi]
+        mov     ax, word ptr es:[bx+SMEM_REQ_RATE]
         mov     word ptr [bp-10h], ax
-        push    word ptr es:[bx+36h]
-        push    word ptr es:[bx+MPC_STATE_output_hi]
+        push    word ptr es:[bx+SMEM_REQ_RATE_HI]
+        push    word ptr es:[bx+SMEM_REQ_RATE]
         callf   TEXT2_SEG:midi_out_io
         mov     byte ptr [bp-24h], al
         sub     sp, 36h

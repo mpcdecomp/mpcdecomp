@@ -100,6 +100,35 @@ VREQ_FIELD_38           equ     038h    ; word  ?
 VREQ_FIELD_3A           equ     03ah    ; word  ?
 SIZEOF_VREQ             equ     03ch
 
+; =============================================================================
+; SMEM_REQ -- a two-channel sample file's 3Bh-byte header
+; =============================================================================
+; status_poll_handler2 reads it and seeks to the first channel's data;
+; smem_access_setup loads one channel or both into sample memory and
+; voice_play_range turns it into a sound.  Positions are file offsets of 16-bit
+; samples, ends inclusive: a length is (end - start) / 2 + 1.
+
+SMEM_REQ_A_START        equ     014h    ; dd
+SMEM_REQ_A_START_HI     equ     016h
+SMEM_REQ_B_START        equ     018h    ; dd
+SMEM_REQ_B_START_HI     equ     01ah
+SMEM_REQ_A_END          equ     01ch    ; dd
+SMEM_REQ_A_END_HI       equ     01eh
+SMEM_REQ_B_END          equ     020h    ; dd
+SMEM_REQ_B_END_HI       equ     022h
+SMEM_REQ_A_LOOP         equ     024h    ; dd; SND_LOOP = (A_LOOP_END - A_LOOP) / 2 + 1
+SMEM_REQ_A_LOOP_HI      equ     026h
+SMEM_REQ_B_LOOP         equ     028h    ; dd
+SMEM_REQ_B_LOOP_HI      equ     02ah
+SMEM_REQ_A_LOOP_END     equ     02ch    ; dd; FLAGS bit 0: SND_END is this sample
+SMEM_REQ_A_LOOP_END_HI  equ     02eh
+SMEM_REQ_B_LOOP_END     equ     030h    ; dd
+SMEM_REQ_B_LOOP_END_HI  equ     032h
+SMEM_REQ_RATE           equ     034h    ; dd, Hz: SND_RATE, and SND_TUNE through midi_out_io
+SMEM_REQ_RATE_HI        equ     036h
+SMEM_REQ_FLAGS          equ     03ah    ; bit 0 loop; 60h: 20h A only, 40h B only, 0 both
+SIZEOF_SMEM_REQ         equ     03bh
+
 ; ---- the sound record, shared with the XL ----------------------------------
 SND_HDR         equ     0               ; the 2K's record starts at the name
         include "sound_record.inc"

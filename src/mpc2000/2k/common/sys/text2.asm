@@ -10598,7 +10598,7 @@ tgt_04F45:
 
 tgt_04F45:
         endif
-        mov     al, byte ptr es:[bx+FXS_FIELD_20]
+        mov     al, byte ptr es:[bx+FXS_FMOD_SPEED]
         sub     ah, ah
         push    ax
         push    2
@@ -10833,14 +10833,14 @@ L_05110:
         mov     bx, ax
         mov     si, ax
         mov     word ptr [bp-2], es
-        push    word ptr es:[bx+FXS_FIELD_26]
+        push    word ptr es:[bx+FXS_PITCH_TUNE_L]
         nop
         push    cs
         call    lcd_init_display
         push    0bbh
         push    15h
         mov     es, word ptr [bp-2]
-        push    word ptr es:[si+FXS_FIELD_28]
+        push    word ptr es:[si+FXS_PITCH_TUNE_R]
         nop
         push    cs
         call    lcd_init_display
@@ -10864,7 +10864,7 @@ L_05110:
         push    1fh
         mov     es, word ptr [bp-2]
         push    0
-        push    word ptr es:[si+FXS_FIELD_2A]
+        push    word ptr es:[si+FXS_PITCH_DELAY_L]
         push    3
         nop
         push    cs
@@ -10873,7 +10873,7 @@ L_05110:
         push    1fh
         mov     es, word ptr [bp-2]
         push    0
-        push    word ptr es:[si+FXS_FIELD_2C]
+        push    word ptr es:[si+FXS_PITCH_DELAY_R]
         push    3
         nop
         push    cs
@@ -10881,7 +10881,7 @@ L_05110:
         push    9dh
         push    29h
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+FXS_FIELD_2E]
+        mov     al, byte ptr es:[si+FXS_PITCH_FDBK_L]
         sub     ah, ah
         push    0
         push    ax
@@ -10892,7 +10892,7 @@ L_05110:
         push    0c7h
         push    29h
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+FXS_FIELD_2F]
+        mov     al, byte ptr es:[si+FXS_PITCH_FDBK_R]
         sub     ah, ah
         push    0
         push    ax
@@ -16528,6 +16528,7 @@ tgt_07C8E:
         pop     di
         leave
         retf    4
+; a copy of src under a new name, its sample data in a new pool block.
 sample_ptr_accessor:
         enter   38h, 0
         push    di
@@ -18998,6 +18999,7 @@ L_090E6:
         call    voice_buffer_init
         retf
 
+; arms the View field (SND_EDIT_VIEW), shared by TRIM/LOOP and znEDIT.
 X_090F4:
         push    ds
 ; View: field arm shared by TRIM/LOOP (text1 L_0789C) and znEDIT
@@ -19152,6 +19154,7 @@ X_0920E:
         pop     ds
         retf
 
+; the fine-edit screens: draw the moved point, then the length.
 L_09210:
         push    ds
         mov     cx, DATA_SEG

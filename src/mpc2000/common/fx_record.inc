@@ -26,18 +26,18 @@ FXS_FIELD_1C            equ     01ch
 FXS_FIELD_1D            equ     01dh
 FXS_FIELD_1E            equ     01eh
 FXS_FIELD_1F            equ     01fh
-FXS_FIELD_20            equ     020h    ; +20h..+25h: dsp_0111B's group  ?
-FXS_FIELD_21            equ     021h
-FXS_FIELD_22            equ     022h
-FXS_FIELD_23            equ     023h
-FXS_FIELD_24            equ     024h
-FXS_FIELD_25            equ     025h
-FXS_FIELD_26            equ     026h    ; +26h..+2Fh: dsp_00E08's group  ?
-FXS_FIELD_28            equ     028h
-FXS_FIELD_2A            equ     02ah
-FXS_FIELD_2C            equ     02ch
-FXS_FIELD_2E            equ     02eh
-FXS_FIELD_2F            equ     02fh
+FXS_FMOD_SPEED          equ     020h    ; byte, tenths: <F-MOD> "Speed:   Hz" at (6Dh,15h)
+FXS_FMOD_DEPTH          equ     021h    ; byte, "Depth:" (6Dh,1Fh)
+FXS_FMOD_FEEDBACK       equ     022h    ; byte, "Feedback:" (6Dh,29h)
+FXS_APAN_SPEED          equ     023h    ; byte, tenths: <AUTOPAN> "Speed:" (0C1h,15h)
+FXS_APAN_DEPTH          equ     024h    ; byte, "Depth:" (0C1h,1Fh)
+FXS_APAN_MODE           equ     025h    ; byte, FX_PAN_LABELS: PAN, L>R, R>L, TERM
+FXS_PITCH_TUNE_L        equ     026h    ; word, PITCH SHIFT "Left   Right" / "Tune:"
+FXS_PITCH_TUNE_R        equ     028h    ; word
+FXS_PITCH_DELAY_L       equ     02ah    ; word, ms; PITCH+FEEDBACK only (G_FX_EFFECT_SEL 6)
+FXS_PITCH_DELAY_R       equ     02ch    ; word, ms
+FXS_PITCH_FDBK_L        equ     02eh    ; byte, "Feedback:"
+FXS_PITCH_FDBK_R        equ     02fh    ; byte
 FXS_ECHO_TYPE           equ     030h    ; byte.  fn_0458A picks +34h when it is 2 and
 FXS_ECHO_LR_OFS         equ     031h    ; byte -32h..+32h.  ":DELAY/ECHO" screen
 FXS_ECHO_DELAY          equ     032h    ; word 0..29Eh (670 ms), "Feedback delay:

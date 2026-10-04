@@ -1230,7 +1230,7 @@ far_00DDB:
 br_00E07:
         retf
 dsp_00E08:
-        mov     ax, word ptr es:[di+FXS_FIELD_26]
+        mov     ax, word ptr es:[di+FXS_PITCH_TUNE_L]
         add     ax, 3c00h
         push    di
         push    cs
@@ -1238,7 +1238,7 @@ dsp_00E08:
         pop     di
         sub     ax, 1000h
         push    ax
-        mov     ax, word ptr es:[di+FXS_FIELD_28]
+        mov     ax, word ptr es:[di+FXS_PITCH_TUNE_R]
         add     ax, 3c00h
         push    di
         push    cs
@@ -1265,7 +1265,7 @@ L_00E34:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     ax, word ptr es:[di+FXS_FIELD_2A]
+        mov     ax, word ptr es:[di+FXS_PITCH_DELAY_L]
         mov     dx, 2c1ah
         mul     dx
         mov     dh, dl
@@ -1276,7 +1276,7 @@ L_00E34:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     ax, word ptr es:[di+FXS_FIELD_2C]
+        mov     ax, word ptr es:[di+FXS_PITCH_DELAY_R]
         mov     dx, 2c1ah
         mul     dx
         mov     dh, dl
@@ -1288,7 +1288,7 @@ L_00E34:
         mov     ax, dx
         out     ASIC_DATA, ax
 L_00E90:
-        mov     al, byte ptr es:[di+FXS_FIELD_2E]
+        mov     al, byte ptr es:[di+FXS_PITCH_FDBK_L]
         xlat
         mov     ah, al
         mov     al, 0
@@ -1300,7 +1300,7 @@ L_00E90:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_2F]
+        mov     al, byte ptr es:[di+FXS_PITCH_FDBK_R]
         xlat
         mov     ah, al
         mov     al, 0
@@ -1594,12 +1594,12 @@ dsp_010DF:
         mov     byte ptr [si+2], al
         retf
 dsp_0111B:
-        mov     al, byte ptr es:[di+FXS_FIELD_24]
+        mov     al, byte ptr es:[di+FXS_APAN_DEPTH]
         xlat
         mov     dh, al
         mov     dl, 0
         shr     dx, 1
-        mov     cl, byte ptr es:[di+FXS_FIELD_25]
+        mov     cl, byte ptr es:[di+FXS_APAN_MODE]
         sub     bp, bp
         mov     si, dx
         cmp     cl, 3
@@ -1628,7 +1628,7 @@ dsp_01145:
         out     ASIC_REG, ax
         mov     ax, si
         out     ASIC_DATA, ax
-        mov     ah, byte ptr es:[di+FXS_FIELD_20]
+        mov     ah, byte ptr es:[di+FXS_FMOD_SPEED]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
@@ -1637,7 +1637,7 @@ dsp_01145:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     ah, byte ptr es:[di+FXS_FIELD_23]
+        mov     ah, byte ptr es:[di+FXS_APAN_SPEED]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
@@ -1646,7 +1646,7 @@ dsp_01145:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_21]
+        mov     al, byte ptr es:[di+FXS_FMOD_DEPTH]
         xlat
         mov     dl, al
         mov     dh, 0
@@ -1670,7 +1670,7 @@ dsp_01145:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_22]
+        mov     al, byte ptr es:[di+FXS_FMOD_FEEDBACK]
         xlat
         mov     ah, al
         mov     al, 0
@@ -14466,6 +14466,8 @@ lcd_clear_display_7266:
         leave
         ret
 
+; the SAMPLE screen's new sound: a pool block for REC_LENGTH (twice in
+; stereo), START past the pre-record, END and LENGTH the recording.
 lcd_clear_display:
         enter   8, 0
         push    di

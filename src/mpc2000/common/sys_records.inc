@@ -129,6 +129,11 @@ SMEM_REQ_RATE_HI        equ     036h
 SMEM_REQ_FLAGS          equ     03ah    ; bit 0 loop; 60h: 20h A only, 40h B only, 0 both
 SIZEOF_SMEM_REQ         equ     03bh
 
+; ---- SMEM_POOL, the sample-memory block list (bss.inc) ----------------------
+; 0Ah-byte entries {base, len, next}; a used and a free chain through next.
+SMEM_POOL_COUNT         equ     082h    ; 130 entries; as an index, the end of a chain
+SND_POOL_NONE           equ     07fffh  ; SND_POOL_IDX of a sound with no block
+
 ; ---- the sound record, shared with the XL ----------------------------------
 SND_HDR         equ     0               ; the 2K's record starts at the name
         include "sound_record.inc"

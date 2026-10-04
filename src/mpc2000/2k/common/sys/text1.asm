@@ -4414,7 +4414,7 @@ br_024CC:
         cmp     word ptr [si+SMEM_POOL_NEXT], di
         je      br_02503
 loop_024E1:
-        cmp     bx, 82h
+        cmp     bx, SMEM_POOL_COUNT
         jge     br_0252E
         mov     si, bx
         shl     si, 2
@@ -4486,7 +4486,7 @@ br_02574:
         push    word ptr [bp-0ah]
         push    word ptr [bp-0ch]
         call    smem_pool_insert
-        cmp     ax, 82h
+        cmp     ax, SMEM_POOL_COUNT
         je      loop_0256D
         leave
         retf    4
@@ -4508,7 +4508,7 @@ midi_status_process:
         push    word ptr [bp-0ah]
         push    word ptr [bp-0ch]
         call    smem_pool_insert
-        cmp     ax, 82h
+        cmp     ax, SMEM_POOL_COUNT
         jne     br_025C6
         mov     ax, 0ffffh
 
@@ -5082,8 +5082,8 @@ pad_note_trigger:
         mov     al, byte ptr es:[di+PGM_PAD_ALT2]
         sub     ah, ah
         mov     word ptr [bp-8], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         jbe     br_02A82
         pop     si
         pop     di
@@ -5102,8 +5102,8 @@ br_02A56:
         mov     al, byte ptr es:[di+PGM_PAD_ALT1]
         sub     ah, ah
         mov     word ptr [bp-8], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         jbe     br_02A82
         jmp     br_02BFC
 
@@ -5142,8 +5142,8 @@ br_02AC2:
         mov     al, byte ptr es:[di+PGM_PAD_ALT2]
         sub     ah, ah
         mov     word ptr [bp-8], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         jbe     br_02B03
         pop     si
         pop     di
@@ -5158,8 +5158,8 @@ tgt_02AE6:
         mov     al, byte ptr es:[di+PGM_PAD_ALT1]
         sub     ah, ah
         mov     word ptr [bp-8], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         jbe     br_02B03
         jmp     br_02BFC
 br_02B03:
@@ -5213,7 +5213,7 @@ br_02B6D:
         sub     ah, ah
         mov     si, ax
         lea     ax, [si-23h]
-        cmp     ax, 3fh
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_02BAA
         push    si
         push    word ptr [bp+8]
@@ -5244,7 +5244,7 @@ br_02BAA:
         sub     ah, ah
         mov     si, ax
         lea     ax, [si-23h]
-        cmp     ax, 3fh
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_02BF3
         push    si
         push    word ptr [bp+8]
@@ -10755,10 +10755,10 @@ pgm_assign_enter:
         or      byte ptr [B_9D1C], 1
         mov     al, byte ptr [G_PAD_NOTE_BASE]
         sub     ah, ah
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         jbe     br_054A0
-        mov     byte ptr [G_PAD_NOTE_BASE], 23h
+        mov     byte ptr [G_PAD_NOTE_BASE], PGM_NOTE_BASE
 br_054A0:
         mov     byte ptr [G_VELOCITY_IN], 7fh
         mov     al, byte ptr [G_PAD_NOTE_BASE]
@@ -11053,7 +11053,7 @@ loop_056E2:
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
         lea     ax, [si-23h]
-        cmp     ax, 3fh
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_0574E
         les     bx, [bp-4]
         mov     ax, word ptr es:[bx]
@@ -11422,8 +11422,8 @@ L_059B5:
         mov     al, byte ptr es:[bx+di]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_059F1
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -11709,8 +11709,8 @@ L_05C27:
         mov     al, byte ptr es:[bx+di]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_05C68
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -12024,8 +12024,8 @@ L_05E8B:
         mov     al, byte ptr es:[bx+di]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_05ECC
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -12294,8 +12294,8 @@ L_060E3:
         mov     al, byte ptr es:[bx+di]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06124
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -12529,8 +12529,8 @@ L_062B7:
         mov     al, byte ptr es:[bx+di]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_062F3
         mov     al, byte ptr [bp-1]
 ; ? state_update_handler @0x062ef is mid-instruction
@@ -12583,7 +12583,7 @@ disk_sector_read:
         push    1eh
         callf   TEXT2_SEG:timer_value_read_3
         mov     es, word ptr [bp-6]
-        cmp     byte ptr es:[si+0bh], 23h
+        cmp     byte ptr es:[si+PGM_PAD_MUTE1], PGM_NOTE_BASE
         jae     br_0635A
         xor     ax, ax
         cwd
@@ -12612,7 +12612,7 @@ br_0636F:
         push    27h
         callf   TEXT2_SEG:timer_value_read_3
         mov     es, word ptr [bp-6]
-        cmp     byte ptr es:[si+0ch], 23h
+        cmp     byte ptr es:[si+PGM_PAD_MUTE2], PGM_NOTE_BASE
         jae     br_0639A
         xor     ax, ax
         cwd
@@ -17746,8 +17746,8 @@ fn_08C4C:
 br_08C6E:
         mov     al, byte ptr [G_PAD_NOTE_BASE]
         sub     ah, ah
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_08C99
         mov     ax, word ptr [FP_LOADED_SND]
         mov     dx, word ptr [FP_LOADED_SND_SEG]
@@ -22907,8 +22907,8 @@ br_0B6CA:
         mov     si, ax
         mov     al, byte ptr [G_PAD_NOTE_BASE]
         sub     ah, ah
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_0B6F2
         mov     al, byte ptr [G_PAD_NOTE_BASE]
         sub     ah, ah

@@ -1933,7 +1933,7 @@ X_00DF6:
         pop     es
         rep stosw
         stosb
-        mov     byte ptr [G_PAD_NOTE_BASE], 23h
+        mov     byte ptr [G_PAD_NOTE_BASE], PGM_NOTE_BASE
         mov     byte ptr [G_PAD_INDEX], al
         pop     di
         retf
@@ -1942,7 +1942,7 @@ X_00DF6:
 string_copy_cmd:
         enter   2, 0
         push    di
-        mov     word ptr [SMEM_POOL_USED], 82h
+        mov     word ptr [SMEM_POOL_USED], SMEM_POOL_COUNT
         xor     ax, ax
         mov     cx, 28fh
         mov     di, SMEM_POOL
@@ -1961,9 +1961,9 @@ loop_00E5D:
         mov     word ptr [di], ax
         add     di, 0ah
         mov     bx, ax
-        cmp     bx, 82h
+        cmp     bx, SMEM_POOL_COUNT
         jl      loop_00E5D
-        mov     word ptr [SMEM_POOL_TAIL_NEXT], 82h
+        mov     word ptr [SMEM_POOL_TAIL_NEXT], SMEM_POOL_COUNT
         pop     di
         leave
         retf
@@ -1989,7 +1989,7 @@ smem_alloc_top:
         mov     word ptr [bp-2], ax
         mov     word ptr [bp-4], ax
         mov     bx, word ptr [SMEM_POOL_USED]
-        cmp     bx, 82h
+        cmp     bx, SMEM_POOL_COUNT
         je      br_00EF2
 
 L_00EA3:
@@ -2024,7 +2024,7 @@ L_00EE0:
 br_00EE6:
         mov     bx, si
         mov     bx, word ptr [bx+SMEM_POOL_NEXT]
-        cmp     bx, 82h
+        cmp     bx, SMEM_POOL_COUNT
         jne     L_00EA3
 
 br_00EF2:
@@ -2047,7 +2047,7 @@ L_00F69:                                ; wrapped near-call target
         push    si
         mov     bx, word ptr [SMEM_POOL_USED]
         xor     di, di
-        cmp     bx, 82h
+        cmp     bx, SMEM_POOL_COUNT
         je      br_00F3A
 
 loop_00F0E:
@@ -2066,10 +2066,10 @@ loop_00F0E:
 br_00F2C:
         mov     bx, word ptr [bp-88h]
         mov     bx, word ptr [bx+SMEM_POOL_NEXT]
-        cmp     bx, 82h
+        cmp     bx, SMEM_POOL_COUNT
         jne     loop_00F0E
 br_00F3A:
-        mov     si, 82h
+        mov     si, SMEM_POOL_COUNT
         sub     si, di
         mov     bl, byte ptr [bp+si-86h]
         sub     bh, bh
@@ -2084,7 +2084,7 @@ br_00F3A:
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
         inc     si
-        cmp     si, 82h
+        cmp     si, SMEM_POOL_COUNT
         if      FW_VERSION = 172
 L_00F69:
         endif
@@ -2126,7 +2126,7 @@ br_00FB9:
         add     word ptr [bp-4], ax
         adc     word ptr [bp-2], dx
         inc     si
-        cmp     si, 82h
+        cmp     si, SMEM_POOL_COUNT
         jl      loop_00F6B
 
 br_00FD2:
@@ -4053,9 +4053,9 @@ note_off_voices:
         push    di
         push    si
         mov     ax, word ptr [bp+6]
-        sub     ax, 23h
+        sub     ax, PGM_NOTE_BASE
 ; ? sample_ptr_validate @0x0d750 is mid-instruction
-        cmp     ax, 3fh
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_01FE5
         mov     word ptr [bp-2], 0
         mov     si, VOICE_TABLE
@@ -4157,8 +4157,8 @@ pad_event_dispatch:
         mov     es, word ptr [bp+8]
         mov     al, byte ptr es:[si+1]
         sub     ah, ah
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      T2_br_020A9
         cmp     byte ptr es:[si+3], 0
         jne     br_02094
@@ -4984,8 +4984,8 @@ br_026BF:
 
 br_026CD:
         mov     ax, word ptr [bp+8]
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_026E0
         push    word ptr [bp+8]
         nop
@@ -7274,8 +7274,8 @@ timer_value_read_2:
         mov     bp, sp
         mov     al, byte ptr [bp+0ah]
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      L_0391E
         push    word ptr [bp+8]
         push    word ptr [bp+6]
@@ -8370,8 +8370,8 @@ br_03FE0:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     word ptr [bp-2], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_04066
         mov     ax, word ptr [bp+0ah]
         dec     ax
@@ -12070,7 +12070,7 @@ far_memop_handler_1:
         mov     byte ptr es:[bx+PGM_HDR_1B], 32h
         mov     al, byte ptr [bp+6]
         mov     byte ptr es:[bx+PGM_MIDI_PGM], al
-        mov     byte ptr es:[bx+PGM_HDR_1D], 23h
+        mov     byte ptr es:[bx+PGM_HDR_1D], PGM_NOTE_BASE
         lea     di, [bx+PGM_PADMAP]
         mov     si, P_8F78
         mov     cx, 20h
@@ -12215,8 +12215,8 @@ timer_io_setup:
         push    si
         mov     cx, word ptr [bp+6]
         mov     ax, cx
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_05C30
         xor     si, si
 loop_05C13:
@@ -12382,8 +12382,8 @@ loop_seq_handler:
         mov     al, byte ptr es:[bx+si]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_05D4E
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -12403,8 +12403,8 @@ smem_loop_proc:
         mov     al, byte ptr es:[bx+si]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      L_05D76
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -13110,8 +13110,8 @@ note_release_latched:
         mov     ds, cx
         mov     al, byte ptr [G_LATCHED_PLAY_NOTE]
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_062E5
         mov     al, byte ptr [G_LATCHED_PLAY_NOTE]
         cbw
@@ -13962,8 +13962,8 @@ note_pitch_calc_1:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_068D0
         push    si
         nop
@@ -14007,8 +14007,8 @@ note_pitch_calc_2:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      tgt_0693B
         push    si
         nop
@@ -14060,8 +14060,8 @@ note_pitch_calc_3:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     di, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      tgt_0699D
         push    di
         nop
@@ -14111,8 +14111,8 @@ note_str_handler:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     di, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      tgt_069FF
         push    di
         nop
@@ -14164,8 +14164,8 @@ note_pitch_calc_cmd:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     word ptr [bp-6], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06A7D
         mov     di, word ptr [bp+8]
         push    word ptr [bp-6]
@@ -14266,8 +14266,8 @@ note_range_calc_1:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06B1B
         push    si
         nop
@@ -14313,8 +14313,8 @@ note_range_calc_2:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      tgt_06B84
         push    si
         nop
@@ -14366,8 +14366,8 @@ bcd_arithmetic_2:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     word ptr [bp-6], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06BD1
         push    word ptr [bp-6]
         nop
@@ -14403,8 +14403,8 @@ bcd_arithmetic_3:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     word ptr [bp-6], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06C1E
         push    word ptr [bp-6]
         nop
@@ -14439,8 +14439,8 @@ note_cmd_helper:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     di, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         jbe     X_06C42
         jmp     br_06CD6
 
@@ -14559,8 +14559,8 @@ note_range_calc_3:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06D6D
         push    si
         nop
@@ -14610,8 +14610,8 @@ note_range_calc_4:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06DD6
         push    si
         nop
@@ -14666,8 +14666,8 @@ timer_dma_setup:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06E15
         push    si
         nop
@@ -14706,8 +14706,8 @@ timer_dma_setup2:
         mov     al, byte ptr es:[bx+di]
         cbw
         mov     si, ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06E55
         push    si
         nop
@@ -14741,8 +14741,8 @@ note_range_calc_cmd:
         mov     al, byte ptr es:[bx+si]
         cbw
         mov     word ptr [bp-6], ax
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06ECC
         mov     di, word ptr [bp+8]
         push    word ptr [bp-6]
@@ -14866,8 +14866,8 @@ L_06F52:
 
 br_06F57:
         mov     ax, cx
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      br_06F73
         mov     byte ptr [G_PAD_NOTE_BASE], cl
         push    ds
@@ -15601,8 +15601,8 @@ L_07472:
         mov     al, byte ptr es:[bx+si]
         mov     byte ptr [bp-1], al
         cbw
-        sub     ax, 23h
-        cmp     ax, 3fh
+        sub     ax, PGM_NOTE_BASE
+        cmp     ax, PGM_NOTE_COUNT-1
         ja      L_074B7
         mov     al, byte ptr [bp-1]
         mov     byte ptr [G_PAD_NOTE_BASE], al
@@ -15784,7 +15784,7 @@ sample_validate_ptr:
         or      ax, ax
         je      br_07699
         mov     es, word ptr [bp+8]
-        cmp     word ptr es:[si+SND_POOL_IDX], 82h
+        cmp     word ptr es:[si+SND_POOL_IDX], SMEM_POOL_COUNT
         jae     br_0764C
         push    word ptr es:[si+SND_POOL_IDX]
 
@@ -15835,7 +15835,7 @@ sample_data_load_1:
 
 loop_076C0:
         mov     es, dx
-        cmp     word ptr es:[si+SND_POOL_IDX], 82h
+        cmp     word ptr es:[si+SND_POOL_IDX], SMEM_POOL_COUNT
         jae     br_076D3
         push    word ptr es:[si+SND_POOL_IDX]
         callf   TEXT1_SEG:smem_free
@@ -15897,7 +15897,7 @@ loop_07720:
         push    cs
         call    smem_proc_wrapper
         mov     es, word ptr [bp-2]
-        cmp     word ptr es:[si+SND_POOL_IDX], 82h
+        cmp     word ptr es:[si+SND_POOL_IDX], SMEM_POOL_COUNT
         jae     br_07757
         push    word ptr es:[si+SND_POOL_IDX]
         callf   TEXT1_SEG:smem_free
@@ -16078,7 +16078,7 @@ sample_desc_init:
         rep stosw
 
         mov     byte ptr es:[si+SND_LEVEL], 64h
-        mov     word ptr es:[si+SND_POOL_IDX], 7fffh
+        mov     word ptr es:[si+SND_POOL_IDX], SND_POOL_NONE
         mov     byte ptr es:[si+SND_FIELD_25], 1
         mov     word ptr es:[si+SND_RATE], 0ac44h
         pop     si

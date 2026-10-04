@@ -2770,7 +2770,7 @@ far_48782:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
 resume_4878D:
         push    0
         push    0
@@ -5492,7 +5492,7 @@ L_49D5C:
         jne     br_49D76
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         pop     si
         pop     di
@@ -5607,7 +5607,7 @@ keep_or_retry_paint:
 L_49E60:
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         mov     word ptr [C2_W_KEEP_OR_RETRY_CURSOR], 0
         mov     ax, word ptr [C0_W_0D7C2]
         mov     dx, word ptr [C0_W_0D7C4]
@@ -5783,7 +5783,7 @@ trim_screen_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -7335,7 +7335,7 @@ start_fine_open:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    trim_screen_draw
@@ -7347,7 +7347,7 @@ start_fine_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -7815,7 +7815,7 @@ end_fine_open:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    trim_screen_draw
@@ -7827,7 +7827,7 @@ end_fine_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -8057,7 +8057,7 @@ loop_fine_close:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    loop_screen_draw
@@ -8069,7 +8069,7 @@ loop_fine_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -8319,7 +8319,7 @@ loop_end_fine_open:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    loop_screen_draw
@@ -8331,7 +8331,7 @@ loop_end_fine_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -8563,7 +8563,7 @@ loop_screen_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -8936,7 +8936,7 @@ snd_params_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -10740,7 +10740,7 @@ br_4CD28:
         mov     sp, bp
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    far_4CD4C
@@ -11608,7 +11608,7 @@ zone_screen_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -12030,7 +12030,7 @@ zone_start_fine_open:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    far_4D36C
@@ -12042,7 +12042,7 @@ zone_start_fine_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -12243,7 +12243,7 @@ zone_end_fine_open:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         nop
         push    cs
         call    far_4D36C
@@ -12255,7 +12255,7 @@ zone_end_fine_refresh:
         mov     ds, cx
         nop
         push    cs
-        call    EP_VOICES_RELEASE_ALL_OFF+C1_CSBASE
+        call    EP_VOICE_RELEASE_ALL_OFF+C1_CSBASE
         pop     ds
         retf
         db      00h
@@ -26142,7 +26142,7 @@ L_5541A:
 far_5444A:
         db      "Re-ID "
         db      00h, 00h
-fx_asic_reg1_write:
+asic_reg1_write:
         push    bp
         mov     bp, sp
         cmp     byte ptr [C2_B_06474], 0

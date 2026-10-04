@@ -1295,7 +1295,7 @@ far_3E978:
         leave
         retf
         db      00h
-int4d_sample_wrapper:
+int4D_sample_wrapper:
         push    bp
         mov     bp, sp
         push    si
@@ -6639,7 +6639,7 @@ br_41A39:
         mov     al, byte ptr es:[bx]
         or      ax, si
         push    ax
-        callf   EP_FX_ASIC_REG1_WRITE_SEG:EP_FX_ASIC_REG1_WRITE_OFF
+        callf   EP_ASIC_REG1_WRITE_SEG:EP_ASIC_REG1_WRITE_OFF
         add     sp, 4
         pop     si
         leave
@@ -6815,7 +6815,7 @@ br_41B75:
         leave
         retf    2
         db      00h
-voices_release_all:
+voice_release_all:
         push    si
         xor     si, si
 loop_41B81:
@@ -7337,7 +7337,7 @@ br_4206C:
 br_42088:
         nop
         push    cs
-        call    voices_release_all
+        call    voice_release_all
 br_4208D:
         pop     si
         pop     di

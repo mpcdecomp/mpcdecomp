@@ -21284,7 +21284,7 @@ br_3D38A:
 br_3D38E:
         mov     ax, 1
         ret
-int4a_sysex_wrapper:
+int4A_sysex_wrapper:
         push    bp
         mov     bp, sp
         push    si
@@ -21529,7 +21529,7 @@ seq_io_control:
         lea     ax, [bp-1eh]
         push    ss
         push    ax
-        call    int4a_sysex_wrapper
+        call    int4A_sysex_wrapper
         add     sp, 6
         pop     si
         leave
@@ -21554,7 +21554,7 @@ string_scan_sysex:
         lea     ax, [bp-8]
         push    ss
         push    ax
-        call    int4a_sysex_wrapper
+        call    int4A_sysex_wrapper
         leave
         ret
 audio_event_handler:
@@ -21602,7 +21602,7 @@ loop_3D6A4:
         push    7fh
         push    ds
         push    C0_W_08DC8
-        call    int4a_sysex_wrapper
+        call    int4A_sysex_wrapper
         add     sp, 6
         pop     si
         pop     di
@@ -21625,7 +21625,7 @@ fn_3D6F4:
         lea     ax, [bp-6]
         push    ss
         push    ax
-        call    int4a_sysex_wrapper
+        call    int4A_sysex_wrapper
         leave
         ret
 L_3D724:
@@ -21655,7 +21655,7 @@ br_3D754:
         call    sample_dump_cancel
 br_3D759:
         call    fn_3D3DC
-        callf   EP_VOICES_RELEASE_ALL_SEG:EP_VOICES_RELEASE_ALL_OFF
+        callf   EP_VOICE_RELEASE_ALL_SEG:EP_VOICE_RELEASE_ALL_OFF
         pop     ds
         retf
         db      00h
@@ -21827,7 +21827,7 @@ fn_3D8E2:
         mov     si, word ptr [C0_W_08DC4]
         cmp     si, word ptr [C0_W_08DC6]
         je      br_3D91A
-        callf   EP_VOICES_RELEASE_ALL_SEG:EP_VOICES_RELEASE_ALL_OFF
+        callf   EP_VOICE_RELEASE_ALL_SEG:EP_VOICE_RELEASE_ALL_OFF
         mov     ax, si
         mov     word ptr [C0_W_08DC6], si
         dec     ax

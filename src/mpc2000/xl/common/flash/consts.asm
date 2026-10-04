@@ -2716,7 +2716,7 @@ br_57788:
         mov     word ptr [bp-6], ax
         push    0
         push    word ptr [bp+0eh]
-        callf   EP_FAR_46060_SEG:EP_FAR_46060_OFF
+        callf   EP_MIDI_OUT_IO_SEG:EP_MIDI_OUT_IO_OFF
         add     sp, 4
         cbw
         add     ax, word ptr [bp-6]
@@ -2822,7 +2822,7 @@ br_578CC:
         call    far_576C2
         add     sp, 4
         push    10h
-        callf   EP_FAR_41A9E_SEG:EP_FAR_41A9E_OFF
+        callf   EP_VOICE_BUF_HELPER_2_SEG:EP_VOICE_BUF_HELPER_2_OFF
         add     sp, 2
         jmp     br_578EF
 br_578E6:
@@ -7728,7 +7728,7 @@ d_c2_w_040ba:
         dw      (C2_BASE+mixer_setup_field2_thunk-C2_SEG*16), C2_SEG, EP_MIXER_SETUP_FIELD1_THUNK_OFF, EP_MIXER_SETUP_FIELD1_THUNK_SEG
         dw      (C2_BASE+mixer_setup_field3_thunk-C2_SEG*16), C2_SEG, EP_MIXER_SETUP_FIELD1_THUNK_OFF, EP_MIXER_SETUP_FIELD1_THUNK_SEG
         dw      EP_MIXER_SETUP_FIELD3_THUNK_OFF, EP_MIXER_SETUP_FIELD3_THUNK_SEG
-        dw      EP_FAR_5098E_OFF, C2_SEG
+        dw      EP_PENDING_OPS_SET_OFF, C2_SEG
         endif
         db      00h, 00h, 00h, 00h
 d_c2_w_040e4:

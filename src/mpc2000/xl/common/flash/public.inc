@@ -39,7 +39,7 @@ EP_L_1CFEF_OFF                           equ (APP2_BASE+L_1CFEF-APP2_SEG*16)
 EP_L_1CF8D_OFF                           equ (APP2_BASE+L_1CF8D-APP2_SEG*16)
 EP_L_1D006_OFF                           equ (APP2_BASE+L_1D006-APP2_SEG*16)
 EP_L_1C308_OFF                           equ (APP2_BASE+L_1C308-APP2_SEG*16)
-EP_L_3DC18_OFF                           equ (C1_BASE+L_3DC18-C1_SEG*16)
+EP_MEMCPY_FAR_SEG_OFF                    equ (C1_BASE+MEMCPY_FAR_SEG-C1_SEG*16)
 EP_L_3DE94_OFF                           equ (C1_BASE+L_3DE94-C1_SEG*16)
 EP_L_3FED6_OFF                           equ (C1_BASE+L_3FED6-C1_SEG*16)
 EP_L_406C0_OFF                           equ (C1_BASE+L_406C0-C1_SEG*16)
@@ -290,12 +290,12 @@ EP_SMEM_WRITE_BLOCK_SEG                  equ C1_SEG
 EP_SMEM_WRITE_BLOCK_OFF                  equ (C1_BASE+SMEM_WRITE_BLOCK-C1_SEG*16)
 EP_SMEM_BLOCK_COPY_SEG                   equ C1_SEG
 EP_SMEM_BLOCK_COPY_OFF                   equ (C1_BASE+SMEM_BLOCK_COPY-C1_SEG*16)
-EP_L_3E228_SEG                           equ C1_SEG
-EP_L_3E228_OFF                           equ (C1_BASE+L_3E228-C1_SEG*16)
+EP_SYSTEM_INIT_HANDLER_SEG               equ C1_SEG
+EP_SYSTEM_INIT_HANDLER_OFF               equ (C1_BASE+SYSTEM_INIT_HANDLER-C1_SEG*16)
 EP_FAR_3E32A_SEG                         equ C1_SEG
 EP_FAR_3E32A_OFF                         equ (C1_BASE+FAR_3E32A-C1_SEG*16)
-EP_FAR_3E590_SEG                         equ C1_SEG
-EP_FAR_3E590_OFF                         equ (C1_BASE+FAR_3E590-C1_SEG*16)
+EP_DMA_STATUS_REARM_SEG                  equ C1_SEG
+EP_DMA_STATUS_REARM_OFF                  equ (C1_BASE+DMA_STATUS_REARM-C1_SEG*16)
 EP_DMA_0162D_SEG                         equ C1_SEG
 EP_DMA_0162D_OFF                         equ (C1_BASE+DMA_0162D-C1_SEG*16)
 EP_L_3E7EC_SEG                           equ C1_SEG
@@ -454,10 +454,10 @@ EP_L_4144E_SEG                           equ C1_SEG
 EP_L_4144E_OFF                           equ (C1_BASE+L_4144E-C1_SEG*16)
 EP_VOICE_BUF_HELPER_1_SEG                equ C1_SEG
 EP_VOICE_BUF_HELPER_1_OFF                equ (C1_BASE+VOICE_BUF_HELPER_1-C1_SEG*16)
-EP_FAR_41A9E_SEG                         equ C1_SEG
-EP_FAR_41A9E_OFF                         equ (C1_BASE+FAR_41A9E-C1_SEG*16)
-EP_L_41188_SEG                           equ C1_SEG
-EP_L_41188_OFF                           equ (C1_BASE+L_41188-C1_SEG*16)
+EP_VOICE_BUF_HELPER_2_SEG                equ C1_SEG
+EP_VOICE_BUF_HELPER_2_OFF                equ (C1_BASE+VOICE_BUF_HELPER_2-C1_SEG*16)
+EP_SAMPLE_ERROR_HANDLER_SEG              equ C1_SEG
+EP_SAMPLE_ERROR_HANDLER_OFF              equ (C1_BASE+SAMPLE_ERROR_HANDLER-C1_SEG*16)
 EP_VOICES_RELEASE_ALL_SEG                equ C1_SEG
 EP_VOICES_RELEASE_ALL_OFF                equ (C1_BASE+VOICES_RELEASE_ALL-C1_SEG*16)
 EP_VOICE_RELEASE_FULL_SEG                equ C1_SEG
@@ -596,8 +596,8 @@ EP_SAVE_APS_FIELD1_THUNK_SEG             equ C1_SEG
 EP_SAVE_APS_FIELD1_THUNK_OFF             equ (C1_BASE+SAVE_APS_FIELD1_THUNK-C1_SEG*16)
 EP_SAVE_APS_FIELD2_THUNK_SEG             equ C1_SEG
 EP_SAVE_APS_FIELD2_THUNK_OFF             equ (C1_BASE+SAVE_APS_FIELD2_THUNK-C1_SEG*16)
-EP_FAR_46060_SEG                         equ C1_SEG
-EP_FAR_46060_OFF                         equ (C1_BASE+FAR_46060-C1_SEG*16)
+EP_MIDI_OUT_IO_SEG                       equ C1_SEG
+EP_MIDI_OUT_IO_OFF                       equ (C1_BASE+MIDI_OUT_IO-C1_SEG*16)
 EP_FAR_46126_SEG                         equ C1_SEG
 EP_FAR_46126_OFF                         equ (C1_BASE+FAR_46126-C1_SEG*16)
 EP_LOAD_SOUND_DISCARD_SEG                equ C1_SEG
@@ -691,8 +691,8 @@ EP_CHANGE_DISK_PAINT_SEG                 equ C1_SEG
 EP_CHANGE_DISK_PAINT_OFF                 equ (C2_BASE+CHANGE_DISK_PAINT-C1_SEG*16)
 EP_CHANGE_DISK_F5_SEG                    equ C1_SEG
 EP_CHANGE_DISK_F5_OFF                    equ (C2_BASE+CHANGE_DISK_F5-C1_SEG*16)
-EP_L_47B92_SEG                           equ C1_SEG
-EP_L_47B92_OFF                           equ (C2_BASE+L_47B92-C1_SEG*16)
+EP_INSTALL_TEXT2_VECTORS_SEG             equ C1_SEG
+EP_INSTALL_TEXT2_VECTORS_OFF             equ (C2_BASE+INSTALL_TEXT2_VECTORS-C1_SEG*16)
 EP_FAR_47C7A_SEG                         equ C1_SEG
 EP_FAR_47C7A_OFF                         equ (C2_BASE+FAR_47C7A-C1_SEG*16)
 EP_FAR_47CB4_SEG                         equ C1_SEG
@@ -2241,7 +2241,7 @@ EP_L_51AEA_SEG                           equ C2_SEG
 EP_L_51AEA_OFF                           equ (C2_BASE+L_51AEA-C2_SEG*16)
 EP_FN_1BE66_OFF                          equ (APP2_BASE+FN_1BE66-APP2_SEG*16)
 EP_FAR_3ED98_OFF                         equ (C1_BASE+FAR_3ED98-C1_SEG*16)
-EP_FAR_3EE74_OFF                         equ (C1_BASE+FAR_3EE74-C1_SEG*16)
+EP_TIMER_LOOP_IO_OFF                     equ (C1_BASE+TIMER_LOOP_IO-C1_SEG*16)
 EP_FAR_40B9A_OFF                         equ (C1_BASE+FAR_40B9A-C1_SEG*16)
 EP_FAR_42AFE_OFF                         equ (C1_BASE+FAR_42AFE-C1_SEG*16)
 EP_FAR_42B98_OFF                         equ (C1_BASE+FAR_42B98-C1_SEG*16)
@@ -2751,7 +2751,7 @@ EP_FAR_4F0BE_OFF                         equ (C2_BASE+far_4F0BE-C2_SEG*16)
 EP_FAR_4F9B4_OFF                         equ (C2_BASE+FAR_4F9B4-C2_SEG*16)
 EP_FAR_4FC4C_OFF                         equ (C2_BASE+far_4FC4C-C2_SEG*16)
 EP_FAR_4FCA0_OFF                         equ (C2_BASE+FAR_4FCA0-C2_SEG*16)
-EP_FAR_5098E_OFF                         equ (C2_BASE+FAR_5098E-C2_SEG*16)
+EP_PENDING_OPS_SET_OFF                   equ (C2_BASE+PENDING_OPS_SET-C2_SEG*16)
 EP_FAR_5123E_OFF                         equ (C2_BASE+FAR_5123E-C2_SEG*16)
 EP_FAR_51488_OFF                         equ (C2_BASE+FAR_51488-C2_SEG*16)
 EP_FAR_5148C_OFF                         equ (C2_BASE+FAR_5148C-C2_SEG*16)
@@ -2954,7 +2954,7 @@ EP_L_34A34_OFF                           equ (C0_BASE+L_35314-APP3_SEG*16)
 EP_L_34C5C_OFF                           equ (C0_BASE+L_34C5C-APP3_SEG*16)
 EP_L_3579F_OFF                           equ (C0_BASE+L_3579F-APP3_SEG*16)
 EP_L_3B8DA_OFF                           equ (C0_BASE+L_3B8DA-C0_SEG*16)
-EP_L_3DF44_OFF                           equ (C1_BASE+L_3DF44-C1_SEG*16)
+EP_DELAY_TICKS_OFF                       equ (C1_BASE+DELAY_TICKS-C1_SEG*16)
 EP_L_42B12_OFF                           equ (C1_BASE+L_42B12-C1_SEG*16)
 EP_L_44990_OFF                           equ (C1_BASE+L_44990-C1_SEG*16)
 EP_L_46398_OFF                           equ (C1_BASE+L_46398-C1_SEG*16)
@@ -3895,7 +3895,7 @@ C0_B_08E46                               equ (CONSTS_BASE+d_c0_b_08e46-DS_SEG*16
 C0_B_08E70                               equ (CONSTS_BASE+d_c0_b_08e70-DS_SEG*16)
 C0_B_08FC4                               equ (CONSTS_BASE+d_c0_b_08fc4-DS_SEG*16)
 C0_B_09602                               equ (CONSTS_BASE+d_c0_b_09602-DS_SEG*16)
-C0_B_09603                               equ (CONSTS_BASE+d_c0_b_09603-DS_SEG*16)
+C0_B_DSP_CHAN                            equ (CONSTS_BASE+d_c0_b_09603-DS_SEG*16)
 C0_B_09604                               equ (CONSTS_BASE+d_c0_b_09604-DS_SEG*16)
 C0_B_09606                               equ (CONSTS_BASE+d_c0_b_09606-DS_SEG*16)
 C0_B_098B8                               equ (CONSTS_BASE+d_c0_b_098b8-DS_SEG*16)
@@ -4005,7 +4005,7 @@ C0_W_08B24                               equ (CONSTS_BASE+d_c0_w_08b24-DS_SEG*16
 C0_W_08B28                               equ (CONSTS_BASE+d_c0_w_08b28-DS_SEG*16)
 C0_W_08DC8                               equ (CONSTS_BASE+d_c0_w_08dc8-DS_SEG*16)
 C0_W_08DCD                               equ (CONSTS_BASE+d_c0_w_08dcd-DS_SEG*16)
-C0_W_08FC6                               equ (CONSTS_BASE+d_c0_w_08fc6-DS_SEG*16)
+C0_W_SMEM_SIZE                           equ (CONSTS_BASE+d_c0_w_08fc6-DS_SEG*16)
 C0_W_08FE0                               equ (CONSTS_BASE+d_c0_w_08fe0-DS_SEG*16)
 C0_W_095F2                               equ (CONSTS_BASE+d_c0_w_095f2-DS_SEG*16)
 C0_W_09600                               equ (CONSTS_BASE+d_c0_w_09600-DS_SEG*16)
@@ -4696,7 +4696,7 @@ C2_W_08E48                               equ (CONSTS_BASE+d_c2_w_08e48-DS_SEG*16
 C2_W_08E4A                               equ (CONSTS_BASE+d_c2_w_08e4a-DS_SEG*16)
 C2_W_08E4C                               equ (CONSTS_BASE+d_c2_w_08e4c-DS_SEG*16)
 C2_W_08E4E                               equ (CONSTS_BASE+d_c2_w_08e4e-DS_SEG*16)
-C2_W_08FC8                               equ (CONSTS_BASE+d_c0_w_08fc8-DS_SEG*16)
+C2_W_SMEM_SIZE_HI                        equ (CONSTS_BASE+d_c0_w_08fc8-DS_SEG*16)
 C2_W_095F4                               equ (CONSTS_BASE+d_c2_w_095f4-DS_SEG*16)
 C2_W_095F6                               equ (CONSTS_BASE+d_c2_w_095f6-DS_SEG*16)
 C2_W_095F8                               equ (CONSTS_BASE+d_c2_w_095f8-DS_SEG*16)

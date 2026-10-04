@@ -273,18 +273,18 @@ smem_block_copy:                        ; sample-memory block move
         leave
         retf
         db      00h
-L_3E228:
+system_init_handler:
         enter   0ah, 0
         push    di
         push    si
         mov     word ptr [bp-4], 0
         mov     word ptr [bp-2], 1
-        cmp     word ptr [C2_W_08FC8], 1
+        cmp     word ptr [C2_W_SMEM_SIZE_HI], 1
         jge     br_3E242
         jmp     br_3E322
 br_3E242:
         jg      loop_3E24E
-        cmp     word ptr [C0_W_08FC6], 0
+        cmp     word ptr [C0_W_SMEM_SIZE], 0
         jne     loop_3E24E
         jmp     br_3E322
 loop_3E24E:
@@ -361,8 +361,8 @@ loop_3E2C1:
         callf   [bp+8]
         add     sp, 4
 br_3E2F8:
-        mov     ax, word ptr [C0_W_08FC6]
-        mov     dx, word ptr [C2_W_08FC8]
+        mov     ax, word ptr [C0_W_SMEM_SIZE]
+        mov     dx, word ptr [C2_W_SMEM_SIZE_HI]
         add     byte ptr [bp-3], 40h
         adc     word ptr [bp-2], 0
         cmp     word ptr [bp-2], dx
@@ -664,7 +664,7 @@ L_3E524:
         leave
         retf
         db      00h
-L_3DC18:
+memcpy_far_seg:
         enter   6, 0
         push    di
         push    si
@@ -704,7 +704,7 @@ far_3E58A:
         mov     word ptr [C1_W_08174], ax
         out     8ah, ax
         retf
-far_3E590:
+dma_status_rearm:
         in      ax, 88h
         and     al, 7fh
         or      ah, 1
@@ -1881,7 +1881,7 @@ br_3EE3E:
         leave
         retf
         db      00h
-L_3DF44:
+delay_ticks:
         enter   2, 0
         push    di
         push    si
@@ -1902,7 +1902,7 @@ loop_3EE64:
         leave
         retf
         db      00h
-far_3EE74:
+timer_loop_io:
         push    bp
         mov     bp, sp
         mov     cx, 7d0h
@@ -3308,8 +3308,8 @@ br_3FB39:
         db      00h
 smem_free_bytes:
         enter   8, 0
-        mov     ax, word ptr [C0_W_08FC6]
-        mov     dx, word ptr [C2_W_08FC8]
+        mov     ax, word ptr [C0_W_SMEM_SIZE]
+        mov     dx, word ptr [C2_W_SMEM_SIZE_HI]
         sub     ax, 2680h
         sbb     dx, 1
         mov     word ptr [bp-8], ax
@@ -4522,7 +4522,7 @@ br_4062E:
         push    10h
         nop
         push    cs
-        call    far_41A9E
+        call    voice_buf_helper_2
         add     sp, 2
         mov     bx, word ptr [bp-4]
         jmp     br_40651
@@ -4721,7 +4721,7 @@ br_407E7:
         push    10h
         nop
         push    cs
-        call    far_41A9E
+        call    voice_buf_helper_2
         add     sp, 2
         jmp     br_407FD
         db      90h
@@ -4895,7 +4895,7 @@ br_40986:
         push    10h
         nop
         push    cs
-        call    far_41A9E
+        call    voice_buf_helper_2
         add     sp, 2
         mov     bx, word ptr [bp-4]
         jmp     br_4099F
@@ -6143,10 +6143,10 @@ br_4155E:
         mov     dx, word ptr es:[bx+C1_TBL_0000C]
         add     ax, word ptr es:[bx+0eh]
         adc     dx, word ptr es:[bx+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_41584
         jg      br_4157F
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_41584
 br_4157F:
         nop
@@ -6659,7 +6659,7 @@ L_4144E:
         push    10h
         nop
         push    cs
-        call    far_41A9E
+        call    voice_buf_helper_2
         jmp     isr_41A71
         db      90h
 isr_41A6A:
@@ -6696,7 +6696,7 @@ br_41A9A:
         leave
         retf
         db      00h
-far_41A9E:
+voice_buf_helper_2:
         push    bp
         mov     bp, sp
         cmp     word ptr [bp+6], 10h
@@ -6710,7 +6710,7 @@ loop_41AA9:
 br_41AB6:
         leave
         retf
-L_41188:
+sample_error_handler:
         push    bp
         mov     bp, sp
         mov     ax, word ptr [bp+6]
@@ -6726,12 +6726,12 @@ L_41188:
         push    ax
         nop
         push    cs
-        call    far_41AE2
+        call    voice_timer_tick
 br_41ADB:
         callf   EP_L_37847_SEG:EP_L_37847_OFF
         leave
         retf
-far_41AE2:
+voice_timer_tick:
         push    bp
         mov     bp, sp
         push    di
@@ -7127,7 +7127,7 @@ br_41E7E:
         add     sp, 0ah
         nop
         push    cs
-        call    far_3E590
+        call    dma_status_rearm
         pop     si
         pop     di
         leave
@@ -7329,7 +7329,7 @@ br_4206C:
         add     sp, 0ah
         nop
         push    cs
-        call    far_3E590
+        call    dma_status_rearm
         pop     si
         pop     di
         leave
@@ -7414,7 +7414,7 @@ br_42130:
         add     sp, 0ah
         nop
         push    cs
-        call    far_3E590
+        call    dma_status_rearm
 br_42152:
         pop     si
         leave
@@ -13628,10 +13628,10 @@ br_45462:
         mov     dx, word ptr es:[di+C1_TBL_0000C]
         add     ax, word ptr es:[di+0eh]
         adc     dx, word ptr es:[di+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_4548B
         jg      br_45486
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_4548B
 br_45486:
         nop
@@ -13781,10 +13781,10 @@ br_455DA:
         mov     dx, word ptr es:[si+C1_TBL_0000C]
         add     ax, word ptr es:[si+0eh]
         adc     dx, word ptr es:[si+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_45603
         jg      br_455FE
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_45603
 br_455FE:
         nop
@@ -13981,10 +13981,10 @@ br_457CA:
         mov     dx, word ptr es:[di+C1_TBL_0000C]
         add     ax, word ptr es:[di+0eh]
         adc     dx, word ptr es:[di+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_457F3
         jg      br_457EE
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_457F3
 br_457EE:
         nop
@@ -14427,7 +14427,7 @@ tgt_45BAC:
         push    word ptr [bp-5ch]
         nop
         push    cs
-        call    far_46060
+        call    midi_out_io
         add     sp, 4
         mov     es, word ptr [bp-0eh]
         mov     byte ptr es:[si+12h], al
@@ -14504,10 +14504,10 @@ br_45C58:
         mov     dx, word ptr es:[bx+C1_TBL_0000C]
         add     ax, word ptr es:[bx+0eh]
         adc     dx, word ptr es:[bx+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_45C81
         jg      br_45C7C
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_45C81
 br_45C7C:
         nop
@@ -14927,7 +14927,7 @@ br_46051:
         leave
         retf
         db      00h
-far_46060:
+midi_out_io:
         push    bp
         mov     bp, sp
         cmp     word ptr [bp+8], 1
@@ -16196,7 +16196,7 @@ br_46ADD:
         push    word ptr [bp-2ch]
         nop
         push    cs
-        call    far_46060
+        call    midi_out_io
         add     sp, 4
         mov     es, word ptr [bp-2]
         mov     byte ptr es:[si+12h], al
@@ -16382,10 +16382,10 @@ br_46CE2:
         mov     dx, word ptr es:[bx+C1_TBL_0000C]
         add     ax, word ptr es:[bx+0eh]
         adc     dx, word ptr es:[bx+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_46D0E
         jg      br_46D09
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_46D0E
 br_46D09:
         nop
@@ -16591,10 +16591,10 @@ br_46F09:
         mov     dx, word ptr es:[bx+C1_TBL_0000C]
         add     ax, word ptr es:[bx+0eh]
         adc     dx, word ptr es:[bx+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_46F35
         jg      br_46F30
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_46F35
 br_46F30:
         nop

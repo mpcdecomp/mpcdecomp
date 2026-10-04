@@ -825,10 +825,10 @@ br_47704:
         mov     dx, word ptr es:[bx+0ch]
         add     ax, word ptr es:[bx+0eh]
         adc     dx, word ptr es:[bx+10h]
-        cmp     dx, word ptr [C2_W_08FC8]
+        cmp     dx, word ptr [C2_W_SMEM_SIZE_HI]
         jl      br_4772A
         jg      br_47725
-        cmp     ax, word ptr [C0_W_08FC6]
+        cmp     ax, word ptr [C0_W_SMEM_SIZE]
         jbe     br_4772A
 br_47725:
         nop
@@ -1334,7 +1334,7 @@ br_47B7C:
 L_47B84:
         db      "Channge Disk"
         db      00h, 00h
-L_47B92:
+install_text2_vectors:
         push    ds
         push    C2_W_011F0
         nop
@@ -2861,7 +2861,7 @@ br_4882E:
         elseif  FW_VERSION >= 110
         db      0e8h, 35h, 66h
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         nop
@@ -2893,7 +2893,7 @@ L_48860:
         elseif  FW_VERSION >= 110
         db      0e8h, 03h, 66h
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         nop
@@ -2967,7 +2967,7 @@ L_488F2:
         elseif  FW_VERSION >= 110
         db      0e8h, 71h, 65h
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         nop
@@ -3013,7 +3013,7 @@ br_4894D:
         elseif  FW_VERSION >= 110
         db      0e8h, 16h, 65h
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         nop
@@ -3233,7 +3233,7 @@ resume_48AE4:
         elseif  FW_VERSION >= 110
         db      0e8h, 92h, 63h
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         nop
@@ -3255,8 +3255,8 @@ resume_48AFD:
 br_48B16:
         mov     byte ptr [C2_B_06474], 1
         callf   EP_FAR_5545E_SEG:EP_FAR_5545E_OFF
-        push    EP_L_41188_SEG
-        push    EP_L_41188_OFF
+        push    EP_SAMPLE_ERROR_HANDLER_SEG
+        push    EP_SAMPLE_ERROR_HANDLER_OFF
         callf   EP_EVENT_CB_SET_MAIN_SEG:EP_EVENT_CB_SET_MAIN_OFF
         add     sp, 4
         pop     ds
@@ -3658,7 +3658,7 @@ far_48E40:
         elseif  FW_VERSION >= 110
         db      0e8h, 2dh, 60h
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         mov     sp, bp
         nop
@@ -3717,7 +3717,7 @@ L_48E9C:
         elseif  FW_VERSION >= 110
         db      0e8h, 0cch, 5fh
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         mov     sp, bp
         nop
@@ -3772,7 +3772,7 @@ L_48EFC:
         elseif  FW_VERSION >= 110
         db      0e8h, 71h, 5fh
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         mov     sp, bp
         push    0
@@ -3953,7 +3953,7 @@ far_4904A:
         elseif  FW_VERSION >= 110
         db      0e8h, 17h, 5eh
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         pop     si
@@ -3973,7 +3973,7 @@ far_4907E:
         out     dx, al
         nop
         push    cs
-        call    EP_FAR_3EE74_OFF+C1_CSBASE
+        call    EP_TIMER_LOOP_IO_OFF+C1_CSBASE
         mov     ax, 5
         mov     dx, 0c002h
         out     dx, al
@@ -4081,7 +4081,7 @@ br_4915E:
         out     0c0h, al
         nop
         push    cs
-        call    EP_FAR_3EE74_OFF+C1_CSBASE
+        call    EP_TIMER_LOOP_IO_OFF+C1_CSBASE
         or      si, di
         push    14h
         nop
@@ -4091,7 +4091,7 @@ br_4915E:
         elseif  FW_VERSION >= 110
         db      0e8h, 0bh, 5dh
         else
-        call    EP_L_3DF44_OFF+C1_CSBASE
+        call    EP_DELAY_TICKS_OFF+C1_CSBASE
         endif
         add     sp, 2
         nop
@@ -4532,7 +4532,7 @@ br_494DB:
         push    ax
         nop
         push    cs
-        call    EP_L_3DC18_OFF+C1_CSBASE
+        call    EP_MEMCPY_FAR_SEG_OFF+C1_CSBASE
         add     sp, 4
         push    ds
         lea     di, [bp-6]
@@ -4584,7 +4584,7 @@ br_49562:
         push    ax
         nop
         push    cs
-        call    EP_L_3DC18_OFF+C1_CSBASE
+        call    EP_MEMCPY_FAR_SEG_OFF+C1_CSBASE
         add     sp, 4
         push    ds
         lea     di, [bp-6]
@@ -5227,8 +5227,8 @@ sound_memory_paint:
         push    2
         push    8
         push    0
-        push    word ptr [C2_W_08FC8]
-        push    word ptr [C0_W_08FC6]
+        push    word ptr [C2_W_SMEM_SIZE_HI]
+        push    word ptr [C0_W_SMEM_SIZE]
         callf   EP_AFLDIV_SEG:EP_AFLDIV_OFF
         push    dx
         push    ax
@@ -5238,8 +5238,8 @@ sound_memory_paint:
         push    cs
         call    EP_DRAW_UNSIGNED_VALUE_OFF+C1_CSBASE
         add     sp, 0ah
-        mov     ax, word ptr [C0_W_08FC6]
-        mov     dx, word ptr [C2_W_08FC8]
+        mov     ax, word ptr [C0_W_SMEM_SIZE]
+        mov     dx, word ptr [C2_W_SMEM_SIZE_HI]
         sub     ax, 2680h
         sbb     dx, 1
         mov     word ptr [bp-4], ax
@@ -19455,7 +19455,7 @@ mixer_setup_field2_thunk:
         retf
         db      00h
 L_518CE:
-far_5098E:
+pending_ops_set:
         push    bp
         mov     bp, sp
         mov     al, byte ptr [bp+6]
@@ -20239,7 +20239,7 @@ mixer_f6:
         push    ax
         nop
         push    cs
-        call    far_5575E
+        call    smem_dma_channel_23
         add     sp, 2
         pop     ds
         pop     si
@@ -20259,7 +20259,7 @@ br_51FE8:
         push    ax
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
         pop     ds
         pop     si
@@ -20451,7 +20451,7 @@ L_52178:
         push    ax
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
         retf
         db      00h
@@ -21426,7 +21426,7 @@ br_52ACF:
         push    ax
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
         leave
         retf
 far_52ADE:
@@ -21463,7 +21463,7 @@ br_52B2A:
         push    ax
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
         leave
         retf
         db      90h
@@ -21529,7 +21529,7 @@ br_52BC0:
         push    ax
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
 br_52BCC:
         sub     ax, ax
@@ -24506,7 +24506,7 @@ fx_reverb_field_notify:
         push    ax
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
         add     sp, 4
         retf
         db      90h
@@ -24752,7 +24752,7 @@ fx_mixer_refresh:
         push    ax
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
 br_54796:
         sub     ax, ax
@@ -25176,7 +25176,7 @@ effect_mixer_refresh:
         push    ax
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
 br_54B40:
         sub     ax, ax
@@ -25276,7 +25276,7 @@ br_54C05:
         push    ax
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
         leave
         retf
         nop
@@ -25600,7 +25600,7 @@ loop_54EF3:
         push    EP_L_5507E_SEG
         push    EP_L_5507E_OFF
         push    word ptr ss:[di]
-        callf   EP_L_3E228_SEG:EP_L_3E228_OFF
+        callf   EP_SYSTEM_INIT_HANDLER_SEG:EP_SYSTEM_INIT_HANDLER_OFF
         add     sp, 6
         or      ax, ax
         je      br_54F28
@@ -25658,8 +25658,8 @@ wave_mem_paint:
         push    2
         push    10h
         push    0
-        push    word ptr [C2_W_08FC8]
-        push    word ptr [C0_W_08FC6]
+        push    word ptr [C2_W_SMEM_SIZE_HI]
+        push    word ptr [C0_W_SMEM_SIZE]
         callf   EP_AFLDIV_SEG:EP_AFLDIV_OFF
         push    dx
         push    ax
@@ -25935,8 +25935,8 @@ br_5519A:
         callf   EP_L_3ECCC_SEG:EP_L_3ECCC_OFF
         add     sp, 8
         callf   EP_SMEM_HIGH_WATER_SEG:EP_SMEM_HIGH_WATER_OFF
-        mov     cx, word ptr [C0_W_08FC6]
-        mov     bx, word ptr [C2_W_08FC8]
+        mov     cx, word ptr [C0_W_SMEM_SIZE]
+        mov     bx, word ptr [C2_W_SMEM_SIZE_HI]
         sub     cx, ax
         sbb     bx, dx
         push    bx
@@ -26279,7 +26279,7 @@ loop_55514:
 loop_55539:
         mov     al, byte ptr [C2_B_FX_UPDATE_MASK]
         cbw
-        mov     cl, byte ptr [C0_B_09603]
+        mov     cl, byte ptr [C0_B_DSP_CHAN]
         mov     dx, 1
         shl     dx, cl
         test    ax, dx
@@ -26314,11 +26314,11 @@ br_5557F:
         db      00h
 L_55584:
         push    2000h
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         shl     ax, 0dh
         push    ax
-        cmp     byte ptr [C0_B_09603], 1
+        cmp     byte ptr [C0_B_DSP_CHAN], 1
         sbb     ax, ax
         and     al, 0f9h
         add     ax, 8
@@ -26330,7 +26330,7 @@ L_55584:
         retf
 L_555A6:
         push    1000h
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         mov     bx, ax
         add     ax, 4
@@ -26388,7 +26388,7 @@ isr_55603:
         push    0
         nop
         push    cs
-        call    far_5570A
+        call    lcd_clear_region_impl
         add     sp, 4
 isr_55624:
         test    byte ptr [C2_B_FX_UPDATE_MASK], 2
@@ -26398,7 +26398,7 @@ isr_55624:
         push    1
         nop
         push    cs
-        call    far_5570A
+        call    lcd_clear_region_impl
         add     sp, 4
 isr_55639:
         test    byte ptr [C2_B_FX_UPDATE_MASK], 4
@@ -26408,7 +26408,7 @@ isr_55639:
         push    2
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
         add     sp, 4
 isr_5564E:
         test    byte ptr [C2_B_FX_UPDATE_MASK], 8
@@ -26418,7 +26418,7 @@ isr_5564E:
         push    3
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
         add     sp, 4
         jmp     isr_556A7
         db      90h
@@ -26428,7 +26428,7 @@ isr_55666:
         push    0
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
 isr_55677:
         test    byte ptr [C2_B_FX_UPDATE_MASK], 2
@@ -26436,7 +26436,7 @@ isr_55677:
         push    1
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
 isr_55688:
         test    byte ptr [C2_B_FX_UPDATE_MASK], 4
@@ -26444,7 +26444,7 @@ isr_55688:
         push    2
         nop
         push    cs
-        call    far_5575E
+        call    smem_dma_channel_23
         add     sp, 2
 isr_55699:
         test    byte ptr [C2_B_FX_UPDATE_MASK], 8
@@ -26452,7 +26452,7 @@ isr_55699:
         push    3
         nop
         push    cs
-        call    far_5575E
+        call    smem_dma_channel_23
 isr_556A7:
         mov     byte ptr [C2_B_FX_UPDATE_MASK], 0
 isr_556AC:
@@ -26468,25 +26468,25 @@ fx_dsp_reload_all:
         push    0
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
         push    1
         nop
         push    cs
-        call    far_556E0
+        call    smem_dma_channel_01
         add     sp, 2
         push    2
         nop
         push    cs
-        call    far_5575E
+        call    smem_dma_channel_23
         add     sp, 2
         push    3
         nop
         push    cs
-        call    far_5575E
+        call    smem_dma_channel_23
         add     sp, 2
         retf
-far_556E0:
+smem_dma_channel_01:
         push    bp
         mov     bp, sp
         cmp     byte ptr [bp+6], 2
@@ -26504,11 +26504,11 @@ far_556E0:
         push    ax
         nop
         push    cs
-        call    far_5570A
+        call    lcd_clear_region_impl
 br_55708:
         leave
         retf
-far_5570A:
+lcd_clear_region_impl:
         push    bp
         mov     bp, sp
         cmp     byte ptr [bp+6], 2
@@ -26529,7 +26529,7 @@ far_5570A:
         or      ax, ax
         jne     br_55750
         mov     al, byte ptr [bp+6]
-        mov     byte ptr [C0_B_09603], al
+        mov     byte ptr [C0_B_DSP_CHAN], al
         mov     al, byte ptr [bp+8]
         mov     byte ptr [C0_B_0D7E2], al
         test    al, 1
@@ -26554,7 +26554,7 @@ far_55752:
         callf   EP_L_36604_SEG:EP_L_36604_OFF
         retf
         db      00h
-far_5575E:
+smem_dma_channel_23:
         push    bp
         mov     bp, sp
         cmp     byte ptr [bp+6], 4
@@ -26572,11 +26572,11 @@ far_5575E:
         push    ax
         nop
         push    cs
-        call    far_55788
+        call    lcd_clear_rect
 br_55786:
         leave
         retf
-far_55788:
+lcd_clear_rect:
         push    bp
         mov     bp, sp
         cmp     byte ptr [bp+6], 4
@@ -26597,7 +26597,7 @@ far_55788:
         or      ax, ax
         jne     br_557D1
         mov     al, byte ptr [bp+6]
-        mov     byte ptr [C0_B_09603], al
+        mov     byte ptr [C0_B_DSP_CHAN], al
         mov     al, byte ptr [bp+8]
         mov     byte ptr [C0_B_0D7E2], al
         test    al, 2
@@ -26629,7 +26629,7 @@ DSP_CHAN_ADDR equ 09603h
         else
 dsp_chan_reg_clear:
         enter   2, 0
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         mov     word ptr [bp-2], ax
         add     ax, 0cah
@@ -26721,7 +26721,7 @@ dsp_chan_reg_clear:
         out     0a2h, ax
         xor     ax, ax
         out     0a0h, ax
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         push    ax
         endif
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
@@ -26733,7 +26733,7 @@ dsp_chan_reg_clear:
         mov     bx, ax
         cmp     byte ptr es:[bx+47h], 0
         jne     L_552EA
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         add     ax, 0c6h
         out     0a2h, ax
@@ -26743,7 +26743,7 @@ dsp_chan_reg_clear:
         retf
         db      90h
 L_552EA:
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         add     ax, 0c6h
         out     0a2h, ax
@@ -26752,13 +26752,13 @@ L_552EA:
         leave
         retf
 L_01D18:
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         add     ax, 54h
         out     0a2h, ax
         xor     ax, ax
         out     0a0h, ax
-        mov     al, byte ptr [C0_B_09603]
+        mov     al, byte ptr [C0_B_DSP_CHAN]
         add     ax, 58h
         out     0a2h, ax
         xor     ax, ax

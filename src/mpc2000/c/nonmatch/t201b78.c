@@ -1,0 +1,55 @@
+/* differs: 150 size 258, image 282; +0 image `enter 2, 0` CL `mov al, byte ptr [0x8a9e]`; 172 size 258, image 282; +0 image `enter 2, 0` CL `mov al, byte ptr [0x8cde]` */
+#include <conio.h>
+extern unsigned char DSP_CHAN_ADDR;
+char far * __far channel_validate(unsigned char);
+
+int __far dsp_chan_reg_clear(void)
+{
+	int l2;
+
+	l2 = DSP_CHAN_ADDR;
+	outpw(0xa2, l2 + 0xca);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xcc);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xce);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xd4);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xd0);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xd2);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0x54);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0x58);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xb2);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xb6);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xb4);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xb8);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xba);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xc4);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xbc);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xbe);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xc0);
+	outpw(0xa0, 0);
+	outpw(0xa2, l2 + 0xc2);
+	outpw(0xa0, 0);
+	if (!channel_validate(DSP_CHAN_ADDR)[71]) {
+		outpw(0xa2, DSP_CHAN_ADDR + 0xc6);
+		outpw(0xa0, 0x1fff);
+		return 0x1fff;
+	}
+	outpw(0xa2, DSP_CHAN_ADDR + 0xc6);
+	outpw(0xa0, 0);
+	return 0;
+}

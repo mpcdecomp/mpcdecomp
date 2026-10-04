@@ -1,0 +1,9 @@
+#include "mpc2kxl.h"
+
+void __far L_5435E(void)
+{
+	C2_B_09604 &= 0xfc;
+	C2_B_09606 = C0_B_0D7C7 >= 2 ? ((char __far * (__far *)(int))pgm_fx_reverb_ptr)(C0_B_0D7C7)[1] : ((char __far * (__far *)(int))pgm_fx_section_ptr)(C0_B_0D7C7)[69];
+	((int (__far *)(void))*(long *)(((char *)&C2_TBL_0555C) + C2_W_FX_REVERB_CURSOR * 42))();
+	((void (__far *)(void))disp_request_flush)();
+}

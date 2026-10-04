@@ -3507,7 +3507,7 @@ L_01ACD:
         db      00h
 
         endif
-X_01AD4:
+fx_dsp_reload_all:
         nop
         push    cs
         call    dma_018ee

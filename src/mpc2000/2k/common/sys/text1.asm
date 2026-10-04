@@ -99,7 +99,7 @@ L_00404:
         callf   TEXT2_SEG:far_01D98
         push    0
         callf   TEXT2_SEG:program_select
-        callf   TEXT2_SEG:X_01AD4
+        callf   TEXT2_SEG:fx_dsp_reload_all
         callf   TEXT2_SEG:X_00DF6
         push    TEXT2_SEG
         push    sample_error_handler

@@ -3855,9 +3855,9 @@ smem_addr_data_ctrl:
 
 loop_01E49:
         les     bx, [si]
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     L_01E5A
-        mov     al, byte ptr es:[bx+MPC_STATE_range_lo]
+        mov     al, byte ptr es:[bx+PGM_MIDI_PGM]
         cbw
         cmp     ax, di
         je      br_01E6A
@@ -10317,7 +10317,7 @@ L_04D7E:
         if      FW_VERSION = 150
 L_04DB8:
         endif
-        cmp     byte ptr es:[bx+MPC_STATE_time_hi], 0
+        cmp     byte ptr es:[bx+FXS_MOD_TYPE], 0
         jne     br_04DA6
         mov     al, byte ptr es:[si+FXS_FIELD_17]
         jmp     L_04DAC
@@ -10442,7 +10442,7 @@ L_04E3D:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+MPC_STATE_pos_lo]
+        mov     al, byte ptr es:[bx+FXS_MOD_SPEED]
         sub     ah, ah
         push    ax
         push    2
@@ -10598,7 +10598,7 @@ tgt_04F45:
 
 tgt_04F45:
         endif
-        mov     al, byte ptr es:[bx+MPC_STATE_param_lo]
+        mov     al, byte ptr es:[bx+FXS_FIELD_20]
         sub     ah, ah
         push    ax
         push    2
@@ -10833,7 +10833,7 @@ L_05110:
         mov     bx, ax
         mov     si, ax
         mov     word ptr [bp-2], es
-        push    word ptr es:[bx+MPC_STATE_ptr_lo]
+        push    word ptr es:[bx+FXS_FIELD_26]
         nop
         push    cs
         call    lcd_init_display
@@ -18559,8 +18559,8 @@ SAMPLE_STR_SCAN_1               equ     $+00h
         add     ax, word ptr [G_EDIT_FIELD_VAL]
         adc     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         mov     es, word ptr [bp-2]
-        mov     word ptr es:[bx+MPC_STATE_pos_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_pos_hi], dx
+        mov     word ptr es:[bx+SND_END], ax
+        mov     word ptr es:[bx+SND_END_HI], dx
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
@@ -18804,8 +18804,8 @@ L_08EB1:
         add     ax, word ptr [G_EDIT_FIELD_VAL]
         adc     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         mov     es, word ptr [bp-2]
-        mov     word ptr es:[bx+MPC_STATE_time_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_time_hi], dx
+        mov     word ptr es:[bx+SND_START], ax
+        mov     word ptr es:[bx+SND_START_HI], dx
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
@@ -18830,8 +18830,8 @@ sample_str_scan_2:
         add     ax, word ptr [G_EDIT_FIELD_VAL]
         adc     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         mov     es, word ptr [bp-2]
-        mov     word ptr es:[bx+MPC_STATE_time_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_time_hi], dx
+        mov     word ptr es:[bx+SND_START], ax
+        mov     word ptr es:[bx+SND_START_HI], dx
         mov     ax, word ptr [G_EDIT_FIELD_VAL]
         mov     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         les     bx, [SND_CURRENT]
@@ -19482,11 +19482,11 @@ X_09465:
         mov     si, ax
         mov     ax, word ptr [bp-10h]
         mov     dx, word ptr [bp-0eh]
-        mov     word ptr es:[si+1ch], ax
-        mov     word ptr es:[si+1eh], dx
+        mov     word ptr es:[si+SND_LENGTH], ax
+        mov     word ptr es:[si+SND_LENGTH_HI], dx
         mov     es, word ptr [bp-6]
-        mov     ax, word ptr es:[bx+MPC_STATE_range_lo]
-        mov     dx, word ptr es:[bx+MPC_STATE_range_hi]
+        mov     ax, word ptr es:[bx+SND_LENGTH]
+        mov     dx, word ptr es:[bx+SND_LENGTH_HI]
         mov     es, word ptr [bp-2]
         mov     word ptr es:[di+18h], ax
         mov     word ptr es:[di+1ah], dx
@@ -19592,8 +19592,8 @@ sample_str_scan_3:
         sub     ax, word ptr [G_EDIT_FIELD_VAL]
         sbb     dx, word ptr [G_EDIT_FIELD_VAL_HI]
         mov     es, word ptr [bp-2]
-        mov     word ptr es:[bx+MPC_STATE_param_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_param_hi], dx
+        mov     word ptr es:[bx+SND_LOOP], ax
+        mov     word ptr es:[bx+SND_LOOP_HI], dx
         mov     ax, word ptr [SND_CURRENT]
         mov     dx, word ptr [SND_CURRENT+2]
         mov     si, ax
@@ -20154,8 +20154,8 @@ L_09AB8:
         sub     ax, word ptr es:[si+SND_START]
         sbb     dx, word ptr es:[si+SND_START_HI]
         mov     es, word ptr [bp-2]
-        mov     word ptr es:[bx+MPC_STATE_param_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_param_hi], dx
+        mov     word ptr es:[bx+SND_LOOP], ax
+        mov     word ptr es:[bx+SND_LOOP_HI], dx
         mov     ax, word ptr [SND_CURRENT]
         mov     dx, word ptr [SND_CURRENT+2]
         mov     si, ax
@@ -23127,11 +23127,11 @@ sample_data_copy:
         sub     ax, ax
 
 ; ?
-        mov     word ptr es:[bx+MPC_STATE_param_hi], ax
-        mov     word ptr es:[bx+MPC_STATE_param_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_output_hi], ax
-        mov     word ptr es:[bx+MPC_STATE_output_lo], ax
-        mov     byte ptr es:[bx+MPC_STATE_status], 1
+        mov     word ptr es:[bx+SND_LOOP_HI], ax
+        mov     word ptr es:[bx+SND_LOOP], ax
+        mov     word ptr es:[bx+SND_FIELD_32_HI], ax
+        mov     word ptr es:[bx+SND_FIELD_32], ax
+        mov     byte ptr es:[bx+SND_FIELD_25], 1
         pop     si
         pop     di
         leave
@@ -23160,13 +23160,13 @@ _memcpy_5:
         push    0
         mov     es, dx
         mov     bx, ax
-        push    word ptr es:[bx+MPC_STATE_param_hi]
-        push    word ptr es:[bx+MPC_STATE_param_lo]
+        push    word ptr es:[bx+SND_LOOP_HI]
+        push    word ptr es:[bx+SND_LOOP]
         callf   TEXT1_SEG:addr_calc_segment
         add     sp, 6
         les     bx, [bp+0ah]
-        mov     word ptr es:[bx+MPC_STATE_output_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_output_hi], dx
+        mov     word ptr es:[bx+SND_FIELD_32], ax
+        mov     word ptr es:[bx+SND_FIELD_32_HI], dx
         pop     si
         pop     di
         leave

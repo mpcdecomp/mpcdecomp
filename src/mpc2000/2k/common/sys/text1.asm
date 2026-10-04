@@ -14497,7 +14497,7 @@ br_07288:
         callf   TEXT2_SEG:timer_fdc_sync
         les     bx, [bp-8]
 
-        mov     word ptr es:[bx+MPC_STATE_cache_lo], di
+        mov     word ptr es:[bx+SND_POOL_IDX], di
         cmp     byte ptr [G_REC_MODE], 2
         jne     L_072C6
         mov     al, 1
@@ -14509,18 +14509,18 @@ L_072C6:
 
 br_072C8:
         les     bx, [bp-8]
-        mov     byte ptr es:[bx+MPC_STATE_flag_13], al
+        mov     byte ptr es:[bx+SND_STEREO], al
         mov     ax, word ptr [REC_PREREC_LEN]
-        mov     word ptr es:[bx+MPC_STATE_time_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_time_hi], 0
+        mov     word ptr es:[bx+SND_START], ax
+        mov     word ptr es:[bx+SND_START_HI], 0
         mov     ax, word ptr [REC_LENGTH]
         mov     dx, word ptr [REC_LENGTH_HI]
-        mov     word ptr es:[bx+MPC_STATE_pos_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_pos_hi], dx
+        mov     word ptr es:[bx+SND_END], ax
+        mov     word ptr es:[bx+SND_END_HI], dx
         mov     ax, word ptr [REC_LENGTH]
         mov     dx, word ptr [REC_LENGTH_HI]
-        mov     word ptr es:[bx+MPC_STATE_range_lo], ax
-        mov     word ptr es:[bx+MPC_STATE_range_hi], dx
+        mov     word ptr es:[bx+SND_LENGTH], ax
+        mov     word ptr es:[bx+SND_LENGTH_HI], dx
         pop     si
         pop     di
         leave
@@ -20313,9 +20313,9 @@ br_0A0CB:
         mov     word ptr [bp-6], dx
         mov     es, dx
         mov     bx, ax
-        push    word ptr es:[bx+MPC_STATE_range_hi]
-        push    word ptr es:[bx+MPC_STATE_range_lo]
-        cmp     byte ptr es:[bx+MPC_STATE_flag_13], 1
+        push    word ptr es:[bx+SND_LENGTH_HI]
+        push    word ptr es:[bx+SND_LENGTH]
+        cmp     byte ptr es:[bx+SND_STEREO], 1
         sbb     ax, ax
         and     al, 0feh
         add     ax, 4
@@ -20339,7 +20339,7 @@ br_0A103:
         mov     ax, word ptr [bp-2]
         mov     word ptr es:[bx+0eh], ax
         mov     ax, word ptr [bp-4]
-        mov     word ptr es:[bx+MPC_STATE_flag_12], ax
+        mov     word ptr es:[bx+12h], ax
         pop     si
         leave
         ret     4

@@ -15721,7 +15721,6 @@ L_17AAA:
         mov     al, byte ptr es:[20h]
         push    ax
         mov     byte ptr es:[20h], 0
-        else
         endif
 L_17ABA:
         call    midi_process
@@ -23531,7 +23530,6 @@ L_1B96D:
         jae     L_1B972
         jmp     bc_int2a_1b82a
 L_1B972:
-        else
         endif
         cmp     dx, 140h
         jb      L_1B97B

@@ -15599,7 +15599,6 @@ L_081FB:
 softkey_tc:
         if      FW_VERSION = 172
         BC_SOFTKEY 1, BC_SK_BOX,   "TC"
-        else
         endif
 softkey_copy_8204:
         BC_SOFTKEY 2, BC_SK_BOX,   "COPY"
@@ -20958,7 +20957,6 @@ FRAME_RATE_DISPLAY_V150:
         BC_STATUS 4, 22, "Frame rate:"
         if      FW_VERSION = 172
 status_frame_rate_0b5bf:
-        else
         endif
 L_0B5C4                         equ     $+5
         BC_STATUS_A 70, 22, G_FRAME_RATE, D_14F9
@@ -24067,7 +24065,6 @@ L_0CFCC:
         sub     bh, bh
         if      FW_VERSION = 172
 erase_track_warning             equ     $+1
-        else
         endif
         mov     bl, byte ptr es:[bx+TRK_CHANNEL]
         pop     es
@@ -26673,7 +26670,6 @@ jmp_init_state_78c1_0e500:
 file_list_scroll_down:
         if      FW_VERSION = 172
 jmp_init_state_78c1_0e507       equ     $+3
-        else
         endif
         cmp     byte ptr [G_FILE_LIST_ROW], 4
         jne     L_0E50E

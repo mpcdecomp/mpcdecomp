@@ -15031,8 +15031,6 @@ L_1754F:
 L_1755F:
         BC_MODE
         db      0c3h
-        if      FW_VERSION = 150
-        endif
 L_17563:
         cmp     word ptr [MIDI_CLOCK_WATCHDOG], 0
         je      L_1754F
@@ -15703,10 +15701,9 @@ br_17A91:
 L_17AA5:
         if      FW_VERSION = 172
         call    locate_swing_adjust_fwd
-        jcxz    L_17AD5
         else
-        jcxz    L_17AD5
         endif
+        jcxz    L_17AD5
 L_17AAA:
         push    cx
         if      FW_VERSION = 172
@@ -15729,9 +15726,6 @@ L_17ABD:
         cmp     ax, word ptr [SEQ_BAR_COUNT]
         je      L_17AD5
         loop    L_17AAA
-        if      FW_VERSION = 172
-        else
-        endif
 L_17AD5:
         call    seq_pos_recalc_and_send_spp
 L_17AD8:
@@ -16083,9 +16077,6 @@ L_17D3F:
 L_17D42:
         mov     bx, ax
         or      bx, dx
-        if      FW_VERSION = 172
-
-        endif
         jne     L_17D49
         ret
 L_17D49:

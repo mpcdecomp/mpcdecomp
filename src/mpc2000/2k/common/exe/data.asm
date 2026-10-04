@@ -804,8 +804,6 @@ COPYOS_EXE_SIZE_LO:
         db      16 dup(0)
 FMT_PART_SIZE_MB:
         db      8 dup (00h)
-        if      FW_VERSION = 150
-        endif
 TBL_DISK_TYPE_NAMES:
         if      FW_VERSION = 150
 G_DISK_TYPE_SEL                 equ     $+1

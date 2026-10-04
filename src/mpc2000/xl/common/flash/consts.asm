@@ -5025,14 +5025,14 @@ d_c2_tbl_018fa:
         dw      (C2_BASE+L_4AF6E-C1_SEG*16), C1_SEG
         else
 d_c2_tbl_018f8:
-        dw      (C2_BASE+L_4A76A-C1_SEG*16)
+        dw      (C2_BASE+far_4A030-C1_SEG*16)
 d_c2_tbl_018fa:
         dw      C1_SEG, (C2_BASE+L_4A76E-C1_SEG*16), C1_SEG
         endif
         else
         db      45h, 4dh, 4fh, 52h, 59h, 00h, 00h
 d_c2_tbl_018f8:
-        dw      (C2_BASE+L_4A76A-C1_SEG*16)
+        dw      (C2_BASE+far_4A030-C1_SEG*16)
 d_c2_tbl_018fa:
         dw      C1_SEG
         if      FW_VERSION >= 111
@@ -5045,7 +5045,7 @@ d_c2_tbl_018fa:
         else
         db      45h, 4dh, 4fh, 52h, 59h, 00h, 00h
 d_c2_tbl_018f8:
-        dw      (C2_BASE+L_4A76A-C1_SEG*16)
+        dw      (C2_BASE+far_4A030-C1_SEG*16)
 d_c2_tbl_018fa:
         dw      C1_SEG
         db      0b4h, 0cdh, 28h, 3dh, 0bah

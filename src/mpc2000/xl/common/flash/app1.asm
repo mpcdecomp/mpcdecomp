@@ -7229,9 +7229,9 @@ xl_flash_board_detect:
         if      FW_VERSION >= 112
         mov     si, A1_W_0A4F2
         elseif  FW_VERSION >= 110
-        mov     si, 0a4d2h
+        mov     si, A1_W_0A4F2
         else
-        mov     si, 0a4b2h
+        mov     si, A1_W_0A4F2
         endif
         mov     cx, 10h
         push    ds
@@ -9265,7 +9265,7 @@ isr_0F4B6:
         elseif  FW_VERSION >= 110
         mov     cx, word ptr [bx+A1_TBL_0A66E]
         else
-        mov     cx, word ptr [bx+A1_TBL_0A62E]
+        mov     cx, word ptr [bx+A1_TBL_0A66E]
         endif
         mov     bx, A1_W_0318C
         test    al, 80h
@@ -9416,13 +9416,13 @@ isr_0F5C7:
         mov     bx, word ptr [A1_W_04854]
         elseif  FW_VERSION >= 112
         mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [A1_W_04838]
+        mov     bx, word ptr [A1_W_04854]
         elseif  FW_VERSION >= 110
         mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [A1_W_04838]
+        mov     bx, word ptr [A1_W_04854]
         else
         mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [A1_W_04838]
+        mov     bx, word ptr [A1_W_04854]
         endif
         mov     al, byte ptr es:[bx+5c0h]
         mov     ah, 0

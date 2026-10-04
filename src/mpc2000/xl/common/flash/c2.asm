@@ -7249,7 +7249,7 @@ L_4AF74:
         db      20h, 58h, 00h
 FAR_4A026                       equ     $+1
         db      00h, "Sort by ", 00h
-L_4A76A                         equ     $+1
+far_4A030                         equ     $+1
         add     byte ptr [bx+di+4ch], al
         dec     sp
 L_4A76E                         equ     $+1

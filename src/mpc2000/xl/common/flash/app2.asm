@@ -8143,7 +8143,7 @@ fn_1F8F2:
         jmp     fn_1F999
         else
         if      FW_VERSION >= 110
-        mov     word ptr [A2_W_0368C], ax
+        mov     word ptr [A2_W_SAVE_EXEC_FN], ax
         else
 fn_1F8F2:
         mov     word ptr [A2_W_SAVE_EXEC_FN], ax
@@ -8350,9 +8350,9 @@ L_1FAE7:
         retf
         db      "MPC2KXL         .BIN"
         else
-        KEY_DOWN        14h, (APP2_BASE+L_1F2D4-APP2_SEG*16), APP2_SEG
+        KEY_DOWN        14h, (APP2_BASE+L_1F338-APP2_SEG*16), APP2_SEG
         if      FW_VERSION >= 110
-L_1F2D4                         equ     $+1
+L_1F338                         equ     $+1
         db      0c3h, 0b3h, 11h, 0cdh, 91h, 73h
         db      0bh, 0eh, 0e8h, 0d6h, 0f3h, 0b3h, 11h, 0cdh, 91h, 73h, 01h, 0cbh, 80h, 0fbh, 00h, 75h
         db      2dh
@@ -8365,7 +8365,7 @@ L_1F2D4                         equ     $+1
         db      08bh, 0c8h, 007h, "^ZXr", 006h, 081h, 0c6h, 000h, 080h, 0ebh, 0c5h, 08bh, 0c1h
         else
         ret
-L_1F2D4:
+L_1F338:
         db      0b3h, 11h, 0cdh, 91h, 73h, 0bh, 0eh, 0e8h, 0deh, 0f3h, 0b3h, 11h, 0cdh
 tgt_1FA6D:
         xchg    cx, ax
@@ -8956,7 +8956,7 @@ br_200E8:
         if      FW_VERSION >= 110
         jmp     loop_2015D
         else
-        jmp     L_1F69A
+        jmp     loop_20172
         endif
 br_200F0:
         DISP_TEXT       2ah, 24h, " Formating............             "
@@ -8969,14 +8969,14 @@ br_200F0:
         if      FW_VERSION >= 110
         jb      loop_2015D
         else
-        jb      L_1F69A
+        jb      loop_20172
         endif
         mov     bl, 1
         int     91h
         if      FW_VERSION >= 110
         jb      loop_2015D
         else
-        jb      L_1F69A
+        jb      loop_20172
         cmp     ah, 0bh
         jne     loop_2015D
         endif
@@ -8995,15 +8995,15 @@ loop_2015D:
         else
         mov     bl, 6
         int     93h
-        jb      L_1F6AB
+        jb      br_2017F
         mov     bl, 0ch
         int     91h
-        jb      L_1F6AB
+        jb      br_2017F
         mov     bl, 1
         int     91h
-        jb      L_1F6AB
+        jb      br_2017F
         cmp     ah, 0bh
-        jne     L_1F69A
+        jne     loop_20172
         endif
         call    fn_1BE98
         push    cs
@@ -9016,7 +9016,7 @@ loop_2015D:
         if      FW_VERSION >= 110
 loop_20172:
         else
-L_1F69A:
+loop_20172:
         cmp     al, 4
         je      loop_2015D
         endif
@@ -9042,7 +9042,7 @@ br_2017F:
         cmp     ah, 0bh
         jne     loop_2015D
         else
-L_1F6AB:
+br_2017F:
         int     95h
         endif
         call    fn_1BE98

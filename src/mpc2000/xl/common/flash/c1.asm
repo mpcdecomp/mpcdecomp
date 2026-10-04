@@ -6255,7 +6255,7 @@ br_416B1:
         cmp     byte ptr [bx+C1_TBL_0D7FE], 0
         jne     br_41709
         add     bx, ax
-        mov     ax, word ptr [bx+C0_TBL_08F04]
+        mov     ax, word ptr [bx+C0_TBL_VOICE_TIMER]
         mov     word ptr [bx+C1_TBL_081BA], ax
         or      ax, ax
         jne     br_416D2
@@ -6867,8 +6867,8 @@ resume_41BCD:
         mov     bx, si
         add     bx, si
         mov     word ptr [bx+C0_TBL_08F44], ax
-        mov     word ptr [bx+C0_TBL_08F04], ax
-        mov     word ptr [bx+C0_TBL_08EC4], ax
+        mov     word ptr [bx+C0_TBL_VOICE_TIMER], ax
+        mov     word ptr [bx+C0_TBL_VOICE_HOLD], ax
         mov     word ptr [bx+C0_TBL_08F84], 3
         imul    bx, si, 14h
         mov     byte ptr [bx+VOICE_TABLE+1], 0ffh

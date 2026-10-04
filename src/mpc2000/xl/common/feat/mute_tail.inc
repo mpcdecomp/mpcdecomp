@@ -15,7 +15,7 @@ mg_kill_tail:
         push    ax                      ; arg2 = note to kill
         mov     al, es:[bx+2]           ; arg1 = the event's program/track byte
         push    ax
-        call    fn_38326                ; stock voice-scan-and-kill(prog, note)
+        call    voice_release_by_note   ; stock voice-scan-and-kill(prog, note)
         pop     cx
         pop     cx
         pop     es                      ; the ES the hook pushed at 0x38212

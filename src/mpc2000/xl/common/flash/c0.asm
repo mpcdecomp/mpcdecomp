@@ -12089,7 +12089,7 @@ br_381A9:
         push    ax
         mov     al, byte ptr es:[bx+2]
         push    ax
-        call    fn_38326
+        call    voice_release_by_note
         add     sp, 4
 br_381C2:
         ifdef   MUTE_GROUPS
@@ -12118,7 +12118,7 @@ br_381D6:
         push    ax
         mov     al, byte ptr es:[bx+2]
         push    ax
-        call    fn_38326
+        call    voice_release_by_note
         add     sp, 4
 br_381F2:
         cmp     byte ptr [bp+0ch], 23h
@@ -12140,7 +12140,7 @@ br_38206:
         push    ax
         mov     al, byte ptr es:[bx+2]
         push    ax
-        call    fn_38326
+        call    voice_release_by_note
         add     sp, 4
         endif
 br_38222:
@@ -12182,13 +12182,13 @@ br_38243:
         sub     bh, bh
         add     bx, bx
         mov     ax, word ptr [bx+C0_TBL_08F44]
-        mov     word ptr [bx+C0_TBL_08F04], ax
+        mov     word ptr [bx+C0_TBL_VOICE_TIMER], ax
         les     bx, [bp+6]
         mov     bl, byte ptr es:[bx]
         sub     bh, bh
         add     bx, bx
-        mov     ax, word ptr [bx+C0_TBL_08F04]
-        mov     word ptr [bx+C0_TBL_08EC4], ax
+        mov     ax, word ptr [bx+C0_TBL_VOICE_TIMER]
+        mov     word ptr [bx+C0_TBL_VOICE_HOLD], ax
         mov     al, byte ptr [bp+0eh]
         push    ax
         push    word ptr [bp+8]
@@ -12227,13 +12227,13 @@ br_38243:
         mov     bl, byte ptr es:[bx]
         sub     bh, bh
         add     bx, bx
-        mov     word ptr [bx+C0_TBL_08EC4], ax
+        mov     word ptr [bx+C0_TBL_VOICE_HOLD], ax
         mov     ax, word ptr [bp-0eh]
         les     bx, [bp+6]
         mov     bl, byte ptr es:[bx]
         sub     bh, bh
         add     bx, bx
-        mov     word ptr [bx+C0_TBL_08F04], ax
+        mov     word ptr [bx+C0_TBL_VOICE_TIMER], ax
         les     bx, [bp+6]
         cmp     word ptr es:[bx+2eh], 0
         je      br_38322
@@ -12247,7 +12247,7 @@ br_38322:
         pop     di
         leave
         retf
-fn_38326:
+voice_release_by_note:
         push    bp
         mov     bp, sp
         push    di
@@ -21433,7 +21433,7 @@ seq_io_control:
         mov     byte ptr [bp-1eh], 0f0h
         mov     byte ptr [bp-1dh], 7eh
         mov     byte ptr [bp-1bh], 1
-        mov     al, byte ptr [P_647E]
+        mov     al, byte ptr [P_SDS_EXCL_CH]
         mov     byte ptr [bp-1ch], al
         les     bx, [C2_FP_MIDI_IN_BLOCK]
         mov     al, byte ptr es:[bx+R6480_W_02]
@@ -21564,7 +21564,7 @@ audio_event_handler:
         mov     cx, word ptr [bp+4]
         mov     byte ptr [C0_W_08DC8], 0f0h
         mov     byte ptr [C0_B_08DC9], 7eh
-        mov     al, byte ptr [P_647E]
+        mov     al, byte ptr [P_SDS_EXCL_CH]
         mov     byte ptr [C0_W_08DC8+2], al
         mov     byte ptr [C0_W_08DC8+3], 2
         and     cl, 7fh
@@ -21613,7 +21613,7 @@ fn_3D6F4:
         enter   6, 0
         mov     byte ptr [bp-6], 0f0h
         mov     byte ptr [bp-5], 7eh
-        mov     al, byte ptr [P_647E]
+        mov     al, byte ptr [P_SDS_EXCL_CH]
         mov     byte ptr [bp-4], al
         mov     al, byte ptr [bp+4]
         mov     byte ptr [bp-3], al
@@ -21667,7 +21667,7 @@ sample_dump_request:
         jne     br_3D784
         les     bx, [C2_FP_MIDI_IN_BLOCK]
         push    word ptr es:[bx+R6480_W_02]
-        mov     al, byte ptr [P_647E]
+        mov     al, byte ptr [P_SDS_EXCL_CH]
         cbw
         push    ax
         call    string_scan_sysex
@@ -21969,7 +21969,7 @@ fn_3DA40:
         je      br_3DA56
         jmp     br_3DD57
 br_3DA56:
-        mov     al, byte ptr [P_647E]
+        mov     al, byte ptr [P_SDS_EXCL_CH]
         cbw
         mov     cl, byte ptr es:[si+2]
         sub     ch, ch

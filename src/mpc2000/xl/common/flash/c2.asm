@@ -26991,7 +26991,7 @@ br_55B18:
         add     sp, 8
 br_55B20:
         push    3
-        mov     al, byte ptr [P_647E]
+        mov     al, byte ptr [P_SDS_EXCL_CH]
         cbw
         cwd
         push    dx
@@ -27116,7 +27116,7 @@ L_55C24:
 sample_dump_field4_thunk:
         mov     word ptr [C2_W_SAMPLE_DUMP_CURSOR], 4
         push    ds
-        push    P_647E
+        push    P_SDS_EXCL_CH
         push    ds
         push    C2_W_0665C
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF

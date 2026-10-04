@@ -7573,13 +7573,7 @@ L_29484:
         mov     dx, 34f7h
         endif
         mov     di, br_29D00-APP3_CSBASE
-        if      FW_VERSION >= 111
-        mov     si, 3283h
-        elseif  FW_VERSION >= 110
-        mov     si, 3276h
-        else
-        mov     si, 324ch
-        endif
+        mov     si, (APP3_BASE+L_29A33-APP3_SEG*16)
         mov     cl, 3eh
         mov     ch, 20h
         call    fn_2ABF2
@@ -9653,10 +9647,10 @@ L_29D7F:
         mov     al, 5
         mov     byte ptr [A2_B_00F2F], al
         int     0adh
-        if      FW_VERSION < 111
+        if      FW_VERSION < 110
         mov     ax, 3b8ch
         else
-        mov     ax, 3b99h
+        mov     ax, (APP3_BASE+L_2A349-APP3_SEG*16)
         endif
         mov     bx, cs
         if      FW_VERSION < 111
@@ -13480,13 +13474,7 @@ far_2CE59:
         mov     si, ax
         mov     dx, word ptr [A3_W_00F10]
         mov     ah, 8
-        if      FW_VERSION >= 111
-        mov     bx, 18ddh
-        elseif  FW_VERSION >= 110
-        mov     bx, 18d0h
-        else
-        mov     bx, 18c1h
-        endif
+        mov     bx, (APP3_BASE+d_a3_w_018dd-APP3_SEG*16)
         mov     cx, cs
         int     0b7h
         retf

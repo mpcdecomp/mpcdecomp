@@ -3,6 +3,7 @@
 
         include "../../../common/ports.inc"
         include "../../../common/assert_at.inc"
+        include "../../../common/midi.inc"
 
 ; window/field vocabulary: display-item opcodes, handler-table records, key
 ; numbering; macros and equates used by TEXT1, TEXT2, here.

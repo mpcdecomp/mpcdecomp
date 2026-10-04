@@ -3758,15 +3758,15 @@ sound_event_dispatch:
         mov     bp, sp
 ; ? misc_d56d @0x0d56d is mid-instruction
         mov     al, byte ptr [bp+6]
-        and     ax, 0f0h
+        and     ax, MS_STATUS_MASK
         je      L_01DCA
-        sub     ax, 80h
+        sub     ax, MS_NOTE_OFF
         je      br_01E30
-        sub     ax, 10h
+        sub     ax, MS_NOTE_ON-MS_NOTE_OFF
         je      br_01DEC
-        sub     ax, 20h
+        sub     ax, MS_CONTROL-MS_NOTE_ON
         je      br_01DFE
-        sub     ax, 10h
+        sub     ax, MS_PROGRAM-MS_CONTROL
         je      br_01E0E
         leave
         retf
@@ -3843,6 +3843,7 @@ br_01E3A:
         leave
         retf
 
+; MIDI program change: selects the program whose PGM_MIDI_PGM matches.
 smem_addr_data_ctrl:
         push    bp
         mov     bp, sp
@@ -3898,6 +3899,7 @@ br_01E8A:
         pop     di
         leave
         retf    2
+; MIDI control change: ctrl, value.  Only with MIDI_LOCAL_MODE on.
 smem_addr_data_ctrl2:
         push    bp
         mov     bp, sp
@@ -3912,20 +3914,20 @@ smem_addr_data_ctrl2:
         call    dsp_chan_update
         mov     al, byte ptr [bp+8]
         sub     ah, ah
-        cmp     ax, 78h
+        cmp     ax, MCC_ALL_SOUND_OFF
         je      tgt_01EE0
         jg      tgt_01EBC
-        sub     ax, 7
+        sub     ax, MCC_VOLUME
         je      tgt_01ECE
         leave
         retf    4
 tgt_01EBC:
-        sub     ax, 79h
+        sub     ax, MCC_RESET_CTRLS
         je      br_01EEC
         dec     ax
         dec     ax
         jl      br_01EFB
-        sub     ax, 4
+        sub     ax, MCC_POLY_ON-MCC_ALL_NOTES_OFF
         jle     br_01EF6
         leave
         retf    4
@@ -3962,6 +3964,7 @@ br_01EFB:
         retf    4
         db      00h
 
+; all sound off: release every voice, clear NOTE_HELD.
 far_01F00:
         push    di
         push    si
@@ -3988,6 +3991,7 @@ br_01F12:
         pop     di
         retf    2
         db      90h
+; MIDI note off, and note on at velocity 0.
 smem_addr_data_status:
         push    bp
         mov     bp, sp
@@ -27347,9 +27351,9 @@ br_0D1FC:
         nop
         push    cs
         call    field_redraw
-        test    byte ptr [SDS_STATE], 3
+        test    byte ptr [SDS_STATE], SDS_ST_SEND|SDS_ST_TX
         jne     br_0D234
-        test    byte ptr [SDS_STATE], 4
+        test    byte ptr [SDS_STATE], SDS_ST_RX
         je      br_0D22E
         push    1
         push    34h

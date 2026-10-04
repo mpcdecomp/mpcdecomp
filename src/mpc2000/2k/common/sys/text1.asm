@@ -21398,6 +21398,7 @@ fn_0AA44:
         ret
         db      00h
 
+; drain the MIDI in ring into BUF_SYSEX_RX; returns a whole message's length.
 midi_sysex_handler:
         enter   2, 0
         mov     al, byte ptr [G_MIDI_IN_RING_RD]
@@ -21413,7 +21414,7 @@ loop_t1_0AA68:
         inc     byte ptr [G_MIDI_IN_RING_RD]
         test    byte ptr [bp-1], 80h
         je      br_0AA96
-        cmp     al, 0f0h
+        cmp     al, MS_SYSEX
         jne     br_0AAC8
         mov     byte ptr [G_SYSEX_RX_ACTIVE], 1
         mov     byte ptr [G_SYSEX_RX_LEN], bh
@@ -21448,7 +21449,7 @@ br_0AAC8:
         mov     byte ptr [G_SYSEX_RX_ACTIVE], 0
         mov     bl, byte ptr [G_SYSEX_RX_LEN]
         sub     bh, bh
-        mov     byte ptr [bx+BUF_SYSEX_RX], 0f7h
+        mov     byte ptr [bx+BUF_SYSEX_RX], MS_EOX
         inc     byte ptr [G_SYSEX_RX_LEN]
         mov     al, byte ptr [G_SYSEX_RX_LEN]
         sub     ah, ah
@@ -21459,13 +21460,14 @@ br_0AAEA:
         xor     ax, ax
         leave
         ret
+; send an SDS dump header for the sound at es:si.
 seq_io_control:
         enter   1eh, 0
         push    si
         mov     si, word ptr [bp+4]
-        mov     byte ptr [bp-1eh], 0f0h
-        mov     byte ptr [bp-1dh], 7eh
-        mov     byte ptr [bp-1bh], 1
+        mov     byte ptr [bp-1eh], MS_SYSEX
+        mov     byte ptr [bp-1dh], SYSEX_NONRT
+        mov     byte ptr [bp-1bh], SDS_DUMP_HEADER
         mov     al, byte ptr [SDS_EXCL_CH]
         mov     byte ptr [bp-1ch], al
         mov     al, byte ptr [SDS_SAMPLE_NUM]
@@ -21556,21 +21558,22 @@ seq_io_control:
         sbb     al, al
         and     al, 7fh
         mov     byte ptr [bp-0bh], al
-        mov     byte ptr [bp-0ah], 0f7h
+        mov     byte ptr [bp-0ah], MS_EOX
         lea     ax, [bp-1eh]
         push    ss
         push    ax
-        push    15h
+        push    SDS_HEADER_LEN
         call    int4A_sysex_wrapper
         pop     si
         leave
         ret     4
+; send an SDS dump request: device, sample number.
 string_scan_sysex:
         enter   8, 0
         mov     cx, word ptr [bp+4]
-        mov     byte ptr [bp-8], 0f0h
-        mov     byte ptr [bp-7], 7eh
-        mov     byte ptr [bp-5], 3
+        mov     byte ptr [bp-8], MS_SYSEX
+        mov     byte ptr [bp-7], SYSEX_NONRT
+        mov     byte ptr [bp-5], SDS_DUMP_REQUEST
         mov     al, byte ptr [bp+6]
         mov     byte ptr [bp-6], al
         mov     ax, cx
@@ -21579,23 +21582,24 @@ string_scan_sysex:
         add     ax, ax
         mov     al, ah
         mov     byte ptr [bp-3], ah
-        mov     byte ptr [bp-2], 0f7h
+        mov     byte ptr [bp-2], MS_EOX
         lea     ax, [bp-8]
         push    ss
         push    ax
-        push    7
+        push    SDS_REQUEST_LEN
         call    int4A_sysex_wrapper
         leave
         ret     4
+; send one SDS data packet of SDS_WORDS_3BYTE words, with its checksum.
 audio_event_handler:
         enter   4, 0
         push    di
         push    si
-        mov     byte ptr [BUF_SDS_PACKET], 0f0h
-        mov     byte ptr [B_50B9], 7eh
+        mov     byte ptr [BUF_SDS_PACKET], MS_SYSEX
+        mov     byte ptr [B_50B9], SYSEX_NONRT
         mov     al, byte ptr [SDS_EXCL_CH]
         mov     byte ptr [B_50BA], al
-        mov     byte ptr [B_50BB], 2
+        mov     byte ptr [B_50BB], SDS_DATA_PACKET
         mov     cl, byte ptr [SDS_TX_PACKET]
         and     cl, 7fh
         mov     byte ptr [SDS_PKT_NUM], cl
@@ -21604,7 +21608,7 @@ audio_event_handler:
         mov     byte ptr [bp-3], cl
         mov     si, P_50BD
         les     di, [bp+4]
-        mov     word ptr [bp-2], 28h
+        mov     word ptr [bp-2], SDS_WORDS_3BYTE
 loop_0AC7D:
         mov     cx, word ptr es:[di]
         add     ch, 80h
@@ -21628,20 +21632,21 @@ loop_0AC7D:
         jne     loop_0AC7D
         mov     al, byte ptr [bp-3]
         mov     byte ptr [SDS_PKT_CHECKSUM], al
-        mov     byte ptr [B_5136], 0f7h
+        mov     byte ptr [B_5136], MS_EOX
         push    ds
         push    BUF_SDS_PACKET
-        push    7fh
+        push    SDS_PACKET_LEN
         call    int4A_sysex_wrapper
         pop     si
         pop     di
         leave
         ret     4
         db      00h
+; send an SDS handshake: sub-id, the received packet number.
 int4A_proc_caller:
         enter   6, 0
-        mov     byte ptr [bp-6], 0f0h
-        mov     byte ptr [bp-5], 7eh
+        mov     byte ptr [bp-6], MS_SYSEX
+        mov     byte ptr [bp-5], SYSEX_NONRT
         mov     al, byte ptr [SDS_EXCL_CH]
         mov     byte ptr [bp-4], al
         mov     al, byte ptr [bp+4]
@@ -21649,11 +21654,11 @@ int4A_proc_caller:
         mov     al, byte ptr [SDS_RX_PACKET]
         and     al, 7fh
         mov     byte ptr [bp-2], al
-        mov     byte ptr [bp-1], 0f7h
+        mov     byte ptr [bp-1], MS_EOX
         lea     ax, [bp-6]
         push    ss
         push    ax
-        push    6
+        push    SDS_HANDSHAKE_LEN
         call    int4A_sysex_wrapper
         leave
         ret     2
@@ -21716,17 +21721,17 @@ far_0AD74:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         je      br_0AD88
-        and     byte ptr [SDS_STATE], 0fdh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_TX
         jmp     br_0AD94
 br_0AD88:
-        test    byte ptr [SDS_STATE], 4
+        test    byte ptr [SDS_STATE], SDS_ST_RX
         je      br_0AD99
-        and     byte ptr [SDS_STATE], 0fbh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_RX
 
 br_0AD94:
-        push    7dh
+        push    SDS_CANCEL
         call    int4A_proc_caller
 
 br_0AD99:
@@ -21738,7 +21743,7 @@ br_0AD99:
         db      00h
 
 midi_txrx_arm_field:
-        test    byte ptr [SDS_STATE], 7
+        test    byte ptr [SDS_STATE], SDS_ST_BUSY
         je      br_0ADB0
         jmp     L_0AE57
 
@@ -21995,7 +22000,7 @@ X_0AF30:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        test    byte ptr [SDS_STATE], 7
+        test    byte ptr [SDS_STATE], SDS_ST_BUSY
         jne     X_0AF4A
         mov     al, byte ptr [SDS_EXCL_CH]
         sub     ah, ah
@@ -22012,21 +22017,21 @@ X_0AF4C:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         je      br_0AF68
-        and     byte ptr [SDS_STATE], 0fdh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_TX
 
 loop_0AF5E:
-        push    7dh
+        push    SDS_CANCEL
         call    int4A_proc_caller
         call    midi_txrx_arm_field
         pop     ds
         retf
 
 br_0AF68:
-        test    byte ptr [SDS_STATE], 4
+        test    byte ptr [SDS_STATE], SDS_ST_RX
         je      lcd_draw_data_AF80
-        and     byte ptr [SDS_STATE], 0fbh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_RX
         push    word ptr [SDS_RX_SND_SLOT]
         nop
         push    cs
@@ -22035,11 +22040,12 @@ br_0AF68:
         db      90h
 
 lcd_draw_data_AF80:
-        or      byte ptr [SDS_STATE], 1
+        or      byte ptr [SDS_STATE], SDS_ST_SEND
         pop     ds
         retf
         db      00h
 
+; SDS poll: dispatch a received SysEx, start a requested send, pace packets.
 lcd_draw_data:
         enter   2, 0
         push    ax
@@ -22062,13 +22068,13 @@ L_0AF8E:
         call    sysex_sub_dispatch
 
 br_0AFA8:
-        test    byte ptr [SDS_STATE], 1
+        test    byte ptr [SDS_STATE], SDS_ST_SEND
         jne     br_0AFB2
         jmp     br_0B06D
 
 br_0AFB2:
         callf   TEXT2_SEG:field_edit_disable
-        and     byte ptr [SDS_STATE], 0feh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_SEND
         mov     ax, word ptr [PTR_LCD_STATE+2]
         or      ax, word ptr [PTR_LCD_STATE]
         jne     br_0AFC8
@@ -22111,11 +22117,11 @@ br_0AFD6:
 
 br_0B026:
         push    0
-        push    28h
+        push    SDS_WORDS_3BYTE
         les     bx, [PTR_LCD_STATE]
         mov     ax, word ptr es:[bx+SND_LENGTH]
         mov     dx, word ptr es:[bx+SND_LENGTH_HI]
-        add     ax, 27h
+        add     ax, SDS_WORDS_3BYTE-1
         adc     dx, 0
         push    dx
         push    ax
@@ -22127,14 +22133,14 @@ br_0B026:
         push    word ptr [PTR_LCD_STATE]
         call    seq_io_control
         mov     word ptr [SDS_TX_PACKET], 0
-        or      byte ptr [SDS_STATE], 2
+        or      byte ptr [SDS_STATE], SDS_ST_TX
         mov     ax, word ptr [bp-4]
         mov     word ptr [SDS_TX_TIME], ax
         mov     word ptr [SDS_TX_TIMEOUT], 7d0h
         callf   TEXT2_SEG:cmd_far_stub2
 
 br_0B06D:
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         jne     br_0B077
         jmp     br_0B11B
 
@@ -22153,14 +22159,14 @@ br_0B087:
         push    word ptr [SDS_TX_ADDR]
         push    ds
         push    BUF_XFER
-        push    28h
+        push    SDS_WORDS_3BYTE
         callf   TEXT2_SEG:smem_read_words
         mov     ax, word ptr [SDS_TX_PACKET]
         sub     ax, word ptr [SDS_PACKET_COUNT]
         cmp     ax, 0ffffh
         jne     br_0B0E7
         push    0
-        push    28h
+        push    SDS_WORDS_3BYTE
         les     bx, [PTR_LCD_STATE]
         push    word ptr es:[bx+SND_LENGTH_HI]
         push    word ptr es:[bx+SND_LENGTH]
@@ -22173,7 +22179,7 @@ br_0B087:
         xor     ax, ax
         mov     bx, word ptr [bp-2]
         add     bx, bx
-        mov     cx, 28h
+        mov     cx, SDS_WORDS_3BYTE
         sub     cx, word ptr [bp-2]
         add     cx, cx
         lea     di, [bx+BUF_XFER]
@@ -22188,7 +22194,7 @@ br_0B0E7:
         push    ds
         push    BUF_XFER
         call    audio_event_handler
-        add     word ptr [SDS_TX_ADDR], 28h
+        add     word ptr [SDS_TX_ADDR], SDS_WORDS_3BYTE
         adc     word ptr [SDS_TX_ADDR_HI], 0
         inc     word ptr [SDS_TX_PACKET]
         mov     ax, word ptr [bp-4]
@@ -22202,7 +22208,7 @@ br_0B0E7:
         db      90h
 
 br_0B10E:
-        and     byte ptr [SDS_STATE], 0fdh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_TX
         callf   TEXT2_SEG:cmd_far_stub2
         call    midi_txrx_arm_field
 
@@ -22221,22 +22227,22 @@ sysex_sub_dispatch:
         push    si
         mov     si, word ptr [bp+8]
         mov     es, word ptr [bp+0ah]
-        cmp     byte ptr es:[si+1], 7eh
+        cmp     byte ptr es:[si+1], SYSEX_NONRT
         je      br_0B136
         jmp     lcd_clear_buffer_B38D
 
 br_0B136:
         mov     al, byte ptr [SDS_EXCL_CH]
-        cmp     byte ptr es:[si+2], al
+        cmp     byte ptr es:[si+SYSEX_DEVICE], al
         je      br_0B149
-        cmp     byte ptr es:[si+2], 7fh
+        cmp     byte ptr es:[si+SYSEX_DEVICE], SYSEX_ALL_DEVICES
         je      br_0B149
         jmp     lcd_clear_buffer_B38D
 
 br_0B149:
-        mov     al, byte ptr es:[si+3]
+        mov     al, byte ptr es:[si+SYSEX_SUB_ID]
         sub     ah, ah
-        cmp     ax, 7fh
+        cmp     ax, SDS_ACK
         jne     br_0B157
         jmp     br_0B366
 
@@ -22245,7 +22251,7 @@ br_0B157:
         jmp     lcd_clear_buffer_B38D
 
 br_0B15C:
-        cmp     al, 3
+        cmp     al, SDS_DUMP_REQUEST
         jne     br_0B163
         jmp     br_0B2AE
 
@@ -22258,7 +22264,7 @@ br_0B163:
         jmp     lcd_clear_buffer_B38D
 
 br_0B170:
-        sub     al, 7ch
+        sub     al, SDS_WAIT
         jne     br_0B177
         jmp     br_0B2E0
 
@@ -22280,22 +22286,22 @@ br_0B185:
         db      90h
 
 br_0B18C:
-        cmp     word ptr [bp+6], 15h
+        cmp     word ptr [bp+6], SDS_HEADER_LEN
         je      br_0B195
         jmp     lcd_clear_buffer_B38D
 
 br_0B195:
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         je      br_0B19F
         jmp     lcd_clear_buffer_B38D
 
 br_0B19F:
-        cmp     byte ptr es:[si+6], 8
+        cmp     byte ptr es:[si+SDS_HDR_BITS], 8
         jae     br_0B1A9
         jmp     lcd_clear_buffer_B38D
 
 br_0B1A9:
-        cmp     byte ptr es:[si+6], 15h
+        cmp     byte ptr es:[si+SDS_HDR_BITS], 15h
         jbe     br_0B1B3
         jmp     lcd_clear_buffer_B38D
 
@@ -22307,14 +22313,14 @@ br_0B1B3:
         or      ax, ax
         je      br_0B1D4
         callf   TEXT2_SEG:field_edit_disable
-        push    7fh
+        push    SDS_ACK
         call    int4A_proc_caller
-        or      byte ptr [SDS_STATE], 4
+        or      byte ptr [SDS_STATE], SDS_ST_RX
         jmp     loop_0B1D9
         db      90h
 
 br_0B1D4:
-        push    7dh
+        push    SDS_CANCEL
         call    int4A_proc_caller
 
 loop_0B1D9:
@@ -22325,12 +22331,12 @@ loop_0B1D9:
         retf    6
 
 br_0B1E4:
-        cmp     word ptr [bp+6], 7fh
+        cmp     word ptr [bp+6], SDS_PACKET_LEN
         je      br_0B1ED
         jmp     lcd_clear_buffer_B38D
 
 br_0B1ED:
-        test    byte ptr [SDS_STATE], 4
+        test    byte ptr [SDS_STATE], SDS_ST_RX
         jne     br_0B1F7
         jmp     lcd_clear_buffer_B38D
 
@@ -22348,7 +22354,7 @@ br_0B1F7:
         mov     ax, word ptr [SDS_PKT_WORDS]
         mov     word ptr [bp-0ch], ax
 loop_0B218:
-        cmp     word ptr [SDS_PKT_WORDS], 28h
+        cmp     word ptr [SDS_PKT_WORDS], SDS_WORDS_3BYTE
         jne     br_0B23E
         mov     es, word ptr [bp-2]
         mov     al, byte ptr es:[si+1]
@@ -22394,7 +22400,7 @@ br_0B26C:
         sub     dx, dx
         add     word ptr [SDS_RX_ADDR], ax
         adc     word ptr [SDS_RX_ADDR_HI], dx
-        push    7fh
+        push    SDS_ACK
         call    int4A_proc_caller
         mov     ax, word ptr [SDS_PACKET_COUNT]
         inc     word ptr [SDS_RX_PACKET]
@@ -22403,35 +22409,35 @@ br_0B26C:
         jmp     lcd_clear_buffer_B38D
 
 br_0B2A3:
-        and     byte ptr [SDS_STATE], 0fbh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_RX
         call    fn_0B53E
         jmp     loop_0B1D9
 
 br_0B2AE:
-        cmp     word ptr [bp+6], 7
+        cmp     word ptr [bp+6], SDS_REQUEST_LEN
         je      br_0B2B7
         jmp     lcd_clear_buffer_B38D
 
 br_0B2B7:
-        test    byte ptr [SDS_STATE], 5
+        test    byte ptr [SDS_STATE], SDS_ST_SEND|SDS_ST_RX
         je      br_0B2C1
         jmp     lcd_clear_buffer_B38D
 
 br_0B2C1:
-        mov     al, byte ptr es:[si+5]
+        mov     al, byte ptr es:[si+SDS_MSG_SAMPLE+1]
         sub     ah, ah
         shl     ax, 7
-        mov     cl, byte ptr es:[si+4]
+        mov     cl, byte ptr es:[si+SDS_MSG_SAMPLE]
         sub     ch, ch
         or      ax, cx
         mov     word ptr [SDS_SAMPLE_NUM], ax
-        or      byte ptr [SDS_STATE], 1
+        or      byte ptr [SDS_STATE], SDS_ST_SEND
         pop     si
         pop     di
         leave
         retf    6
 br_0B2E0:
-        cmp     word ptr [bp+6], 6
+        cmp     word ptr [bp+6], SDS_HANDSHAKE_LEN
         je      br_0B2E9
         jmp     lcd_clear_buffer_B38D
 
@@ -22444,19 +22450,19 @@ br_0B2E9:
         db      90h
 
 br_0B2F6:
-        cmp     word ptr [bp+6], 6
+        cmp     word ptr [bp+6], SDS_HANDSHAKE_LEN
         je      br_0B2FF
         jmp     lcd_clear_buffer_B38D
 
 br_0B2FF:
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         je      br_0B30B
-        and     byte ptr [SDS_STATE], 0fdh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_TX
 
 br_0B30B:
-        test    byte ptr [SDS_STATE], 4
+        test    byte ptr [SDS_STATE], SDS_ST_RX
         je      br_0B320
-        and     byte ptr [SDS_STATE], 0fbh
+        and     byte ptr [SDS_STATE], 0ffh-SDS_ST_RX
         push    word ptr [SDS_RX_SND_SLOT]
         nop
         push    cs
@@ -22470,11 +22476,11 @@ br_0B320:
         leave
         retf    6
 br_0B32E:
-        cmp     word ptr [bp+6], 6
+        cmp     word ptr [bp+6], SDS_HANDSHAKE_LEN
         jne     lcd_clear_buffer_B38D
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         je      lcd_clear_buffer_B38D
-        cmp     byte ptr es:[si+4], 7fh
+        cmp     byte ptr es:[si+SDS_MSG_PACKET], 7fh
         jne     br_0B348
         mov     ax, 1
         jmp     br_0B34A
@@ -22488,23 +22494,23 @@ br_0B34A:
         dec     cx
         test    cx, ax
         je      lcd_clear_buffer_B38D
-        sub     word ptr [SDS_TX_ADDR], 28h
+        sub     word ptr [SDS_TX_ADDR], SDS_WORDS_3BYTE
         sbb     word ptr [SDS_TX_ADDR_HI], 0
         mov     ax, word ptr [SDS_TX_PACKET]
         dec     ax
         mov     word ptr [SDS_TX_PACKET], ax
         jmp     br_0B387
 br_0B366:
-        cmp     word ptr [bp+6], 6
+        cmp     word ptr [bp+6], SDS_HANDSHAKE_LEN
         jne     lcd_clear_buffer_B38D
-        test    byte ptr [SDS_STATE], 2
+        test    byte ptr [SDS_STATE], SDS_ST_TX
         je      lcd_clear_buffer_B38D
         cmp     word ptr [SDS_TX_PACKET], 0
         je      br_0B387
         mov     al, byte ptr [SDS_TX_PACKET]
         dec     al
         and     al, 7fh
-        cmp     byte ptr es:[si+4], al
+        cmp     byte ptr es:[si+SDS_MSG_PACKET], al
         jne     lcd_clear_buffer_B38D
 
 br_0B387:
@@ -22517,6 +22523,7 @@ lcd_clear_buffer_B38D:
         retf    6
         db      00h
 
+; take an SDS dump header: period, length, loop; allocate the sample.
 lcd_clear_buffer:
         enter   8, 0
         push    si
@@ -22525,7 +22532,7 @@ lcd_clear_buffer:
         push    P_8CF2
         callf   TEXT2_SEG:sample_desc_init
         mov     es, word ptr [bp+6]
-        mov     al, byte ptr es:[si+9]
+        mov     al, byte ptr es:[si+SDS_HDR_PERIOD+2]
         sub     ah, ah
         sub     dx, dx
         shr     dx, 1
@@ -22535,17 +22542,17 @@ lcd_clear_buffer:
         rcr     dx, 1
         xchg    dx, ax
         and     ax, 0c000h
-        mov     cl, byte ptr es:[si+8]
+        mov     cl, byte ptr es:[si+SDS_HDR_PERIOD+1]
         sub     ch, ch
         shl     cx, 7
-        mov     bl, byte ptr es:[si+7]
+        mov     bl, byte ptr es:[si+SDS_HDR_PERIOD]
         sub     bh, bh
         or      cx, bx
         sub     bx, bx
         or      ax, cx
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        mov     al, byte ptr es:[si+0fh]
+        mov     al, byte ptr es:[si+SDS_HDR_LOOP_START+2]
         sub     ah, ah
         sub     dx, dx
         shr     dx, 1
@@ -22555,10 +22562,10 @@ lcd_clear_buffer:
         rcr     dx, 1
         xchg    dx, ax
         and     ax, 0c000h
-        mov     cl, byte ptr es:[si+0eh]
+        mov     cl, byte ptr es:[si+SDS_HDR_LOOP_START+1]
         sub     ch, ch
         shl     cx, 7
-        mov     bl, byte ptr es:[si+0dh]
+        mov     bl, byte ptr es:[si+SDS_HDR_LOOP_START]
         or      cx, bx
         sub     bx, bx
         or      ax, cx
@@ -22567,7 +22574,7 @@ lcd_clear_buffer:
         sub     ax, ax
         mov     word ptr [W_8D08], ax
         mov     word ptr [W_8D06], ax
-        mov     al, byte ptr es:[si+12h]
+        mov     al, byte ptr es:[si+SDS_HDR_LOOP_END+2]
         sub     dx, dx
         shr     dx, 1
         rcr     ax, 1
@@ -22576,16 +22583,16 @@ lcd_clear_buffer:
         rcr     dx, 1
         xchg    dx, ax
         and     ax, 0c000h
-        mov     cl, byte ptr es:[si+11h]
+        mov     cl, byte ptr es:[si+SDS_HDR_LOOP_END+1]
         sub     ch, ch
         shl     cx, 7
-        mov     bl, byte ptr es:[si+10h]
+        mov     bl, byte ptr es:[si+SDS_HDR_LOOP_END]
         or      cx, bx
         sub     bx, bx
         or      ax, cx
         mov     word ptr [SDS_LOOP_END], ax
         mov     word ptr [SDS_LOOP_END_HI], dx
-        mov     al, byte ptr es:[si+0ch]
+        mov     al, byte ptr es:[si+SDS_HDR_LENGTH+2]
         sub     ah, ah
         sub     dx, dx
         shr     dx, 1
@@ -22595,16 +22602,16 @@ lcd_clear_buffer:
         rcr     dx, 1
         xchg    dx, ax
         and     ax, 0c000h
-        mov     cl, byte ptr es:[si+0bh]
+        mov     cl, byte ptr es:[si+SDS_HDR_LENGTH+1]
         sub     ch, ch
         shl     cx, 7
-        mov     bl, byte ptr es:[si+0ah]
+        mov     bl, byte ptr es:[si+SDS_HDR_LENGTH]
         or      cx, bx
         sub     bx, bx
         or      ax, cx
         mov     word ptr [SDS_SAMPLE_LEN], ax
         mov     word ptr [SDS_SAMPLE_LEN_HI], dx
-        cmp     byte ptr es:[si+13h], 7fh
+        cmp     byte ptr es:[si+SDS_HDR_LOOP_TYPE], 7fh
         jne     br_0B47A
         xor     al, al
         jmp     br_0B47C
@@ -22644,14 +22651,14 @@ br_0B4B4:
         call    __aFuldiv
         mov     word ptr [SDS_SAMPLE_RATE], ax
         mov     es, word ptr [bp+6]
-        cmp     byte ptr es:[si+6], 0fh
+        cmp     byte ptr es:[si+SDS_HDR_BITS], 0fh
         jb      br_0B4D8
-        mov     ax, 28h
+        mov     ax, SDS_WORDS_3BYTE
         jmp     br_0B4DB
         db      90h
 
 br_0B4D8:
-        mov     ax, 3ch
+        mov     ax, SDS_WORDS_2BYTE
 br_0B4DB:
         mov     word ptr [SDS_PKT_WORDS], ax
         sub     dx, dx

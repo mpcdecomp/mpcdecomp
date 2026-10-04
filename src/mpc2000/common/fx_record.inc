@@ -55,7 +55,13 @@ FXS_FIELD_41            equ     041h
 FXS_FIELD_42            equ     042h
 FXS_FIELD_43            equ     043h
 FXS_FIELD_44            equ     044h
-FXS_FIELD_45            equ     045h    ; byte, read straight off the block at five
+FXS_SECTIONS            equ     045h    ; byte, the sections that are on, one bit each:
+FXS_SEC_DIST            equ     020h    ;   drawn filled on the FX screens' section row
+FXS_SEC_FILTER          equ     010h
+FXS_SEC_MOD             equ     008h
+FXS_SEC_ECHO            equ     004h
+FXS_SEC_REVERB          equ     002h
+FXS_SEC_MIX             equ     001h
 FXS_FIELD_46            equ     046h    ; byte, the effect type; picks the edit screen's PAINT handler  ?
 FXS_FIELD_47            equ     047h    ; byte, `cmp ...,0`  ?
 SIZEOF_FXS              equ     048h    ; channel_validate's `imul ax,bx,48h`

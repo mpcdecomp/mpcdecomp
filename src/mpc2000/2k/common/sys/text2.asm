@@ -3543,7 +3543,7 @@ smem_dma_channel_01:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         push    ax
         nop
         push    cs
@@ -9208,7 +9208,7 @@ track_flags_render_6rows:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [bp-1], al
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -9221,7 +9221,7 @@ track_flags_render_6rows:
         call    cmd_sequence_handler
         push    2ah
         mov     al, byte ptr [bp-1]
-        and     al, 20h
+        and     al, FXS_SEC_DIST
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9234,7 +9234,7 @@ track_flags_render_6rows:
         call    track_select_setup
         push    4dh
         mov     al, byte ptr [bp-1]
-        and     al, 10h
+        and     al, FXS_SEC_FILTER
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9247,7 +9247,7 @@ track_flags_render_6rows:
         call    track_select_setup
         push    70h
         mov     al, byte ptr [bp-1]
-        and     al, 8
+        and     al, FXS_SEC_MOD
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9260,7 +9260,7 @@ track_flags_render_6rows:
         call    track_select_setup
         push    93h
         mov     al, byte ptr [bp-1]
-        and     al, 4
+        and     al, FXS_SEC_ECHO
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9273,7 +9273,7 @@ track_flags_render_6rows:
         call    track_select_setup
         push    0b6h
         mov     al, byte ptr [bp-1]
-        and     al, 2
+        and     al, FXS_SEC_REVERB
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9286,7 +9286,7 @@ track_flags_render_6rows:
         call    track_select_setup
         push    0d9h
         mov     al, byte ptr [bp-1]
-        and     al, 1
+        and     al, FXS_SEC_MIX
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9321,7 +9321,7 @@ L_0469E:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [bp-1], al
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -9334,7 +9334,7 @@ L_0469E:
         call    cmd_sequence_handler
         push    2ah
         mov     al, byte ptr [bp-1]
-        and     al, 20h
+        and     al, FXS_SEC_DIST
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9347,7 +9347,7 @@ L_0469E:
         call    track_select_setup
         push    4dh
         mov     al, byte ptr [bp-1]
-        and     al, 10h
+        and     al, FXS_SEC_FILTER
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9360,7 +9360,7 @@ L_0469E:
         call    track_select_setup
         push    70h
         mov     al, byte ptr [bp-1]
-        and     al, 2
+        and     al, FXS_SEC_REVERB
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9373,7 +9373,7 @@ L_0469E:
         call    track_select_setup
         push    93h
         mov     al, byte ptr [bp-1]
-        and     al, 8
+        and     al, FXS_SEC_MOD
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9386,7 +9386,7 @@ L_0469E:
         call    track_select_setup
         push    0b6h
         mov     al, byte ptr [bp-1]
-        and     al, 4
+        and     al, FXS_SEC_ECHO
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9401,7 +9401,7 @@ L_04753:
         call    track_select_setup
         push    0d9h
         mov     al, byte ptr [bp-1]
-        and     al, 1
+        and     al, FXS_SEC_MIX
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9433,7 +9433,7 @@ track_process_ext:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [bp-1], al
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -9470,7 +9470,7 @@ track_process_ext:
         call    cmd_build_params
         push    2ah
         mov     al, byte ptr [bp-1]
-        and     al, 20h
+        and     al, FXS_SEC_DIST
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9483,7 +9483,7 @@ track_process_ext:
         call    track_select_setup
         push    4dh
         mov     al, byte ptr [bp-1]
-        and     al, 10h
+        and     al, FXS_SEC_FILTER
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9496,7 +9496,7 @@ track_process_ext:
         call    track_select_setup
         push    70h
         mov     al, byte ptr [bp-1]
-        and     al, 8
+        and     al, FXS_SEC_MOD
         cmp     al, 1
         sbb     ax, ax
         and     al, 0e9h
@@ -9524,7 +9524,7 @@ L_04834:
         call    track_select_setup
         push    0b6h
         mov     al, byte ptr [bp-1]
-        and     al, 2
+        and     al, FXS_SEC_REVERB
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9539,7 +9539,7 @@ L_0485C:
         call    track_select_setup
         push    0d9h
         mov     al, byte ptr [bp-1]
-        and     al, 1
+        and     al, FXS_SEC_MIX
         cmp     al, 1
         sbb     ax, ax
         and     al, 0f4h
@@ -9989,7 +9989,7 @@ tgt_04B6E:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         jmp     L_04BA0
         db      90h
 br_04B8C:
@@ -10043,7 +10043,7 @@ voice_dispatch_table:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         jmp     br_04BFC
 
 L_04BE8:
@@ -10101,7 +10101,7 @@ fx_type_load:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_45]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [B_4FE1], al
         retf
         db      90h

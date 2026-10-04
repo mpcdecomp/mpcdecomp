@@ -2072,8 +2072,13 @@ L_3368B                         equ     $+1
         if      FW_VERSION >= 110
         db      0e8h, 68h, 0fch
         mov     word ptr [C0_W_02B48], cb_32C30-APP3_CSBASE
-        db      8ch, 0d9h, 0beh, 44h, 2bh, 0b3h, 01h
-        db      0b7h, 00h, 0bah, 0e7h, 03h, 0bfh, 0cfh, 18h, 0cdh, 7eh
+        mov     cx, ds
+        mov     si, 2b44h
+        mov     bl, 1
+        mov     bh, 0
+        mov     dx, 3e7h
+        mov     di, 18cfh
+        int     7eh
         KEY_CURSOR      (C0_BASE+far_335C0-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_APP3_CE52_OFF, APP3_SEG, 0000h, 0000h
 L_3368B                         equ     $+1
         db      0cbh, 0e8h, 0b6h, 4bh

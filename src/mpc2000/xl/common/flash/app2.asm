@@ -5059,7 +5059,7 @@ L_1D1DF:
         else
         if      FW_VERSION >= 110
         sbb     bx, word ptr [bp+si+191ch]
-        db      0edh
+        in      ax, dx
         else
         sbb     bx, word ptr [bp+si+190dh]
         pushf
@@ -8509,7 +8509,7 @@ L_1FB92:
         if      FW_VERSION >= 111
         sub     word ptr [bp+si], bx
         else
-        db      28h, 1ah
+        sub     byte ptr [bp+si], bl
         endif
         endif
         else

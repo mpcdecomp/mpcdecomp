@@ -9046,8 +9046,13 @@ L_29EFA:
         else
         db      00h, 0cbh, 0e8h, 8ch, 0fch
         mov     word ptr [A3_W_013A0], cb_29DE3-APP3_CSBASE
-        db      8ch, 0d9h, 0beh, 0b2h, 07h
-        db      0b3h, 00h, 0b7h, 00h, 0bah, 01h, 00h, 0bfh, 0cfh, 18h, 0cdh, 7dh
+        mov     cx, ds
+        mov     si, 7b2h
+        mov     bl, 0
+        mov     bh, 0
+        mov     dx, 1
+        mov     di, 18cfh
+        int     7dh
         endif
         if      FW_VERSION >= 112
         KEY_CURSOR      (APP3_BASE+L_2A012-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29FE5-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29F27-APP3_SEG*16), APP3_SEG, 0000h, 0000h
@@ -11358,7 +11363,7 @@ L_2BC36:
         if      FW_VERSION >= 111
         call    L_28070
         elseif  FW_VERSION >= 110
-        db      0e8h, 0d2h, 0c3h
+        call    L_28070
         else
         db      0e8h, 0edh, 0c3h
         endif
@@ -22607,7 +22612,7 @@ L_31219                         equ     $+7
         else
         db      0d8h, 05h, 14h, 00h, 03h, 0f0h, 26h, 8bh, 04h
         mov     cx, word ptr cs:[bx+L_31313-APP3_CSBASE]
-        db      0c3h
+        ret
 L_31313:
         db      88h
 L_31219                         equ     $+7

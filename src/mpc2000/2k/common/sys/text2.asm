@@ -9,9 +9,9 @@ mpc_config_rate:
         pushf
         cli
         mov     ax, 2
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
-        mov     dx, 0c034h
+        mov     dx, ASIC_DMA_ADDR
         in      ax, dx
         mov     si, ax
         popf
@@ -129,7 +129,7 @@ br_000CA:
         db      00h
 
 port_c0_write:
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [W_005E], ax
         retf
 
@@ -138,7 +138,7 @@ port_c0_read:
         retf
 
 L_000D8:
-        in      al, 0c0h
+        in      al, FLASH_CTL
         sub     ah, ah
         retf
         db      00h
@@ -1835,9 +1835,9 @@ loop_00D42:
         xor     di, di
         mov     si, P_4EFE
 loop_00D75:
-        cmp     word ptr [si], 89h
+        cmp     word ptr [si], FLASH_ID_INTEL
         jne     br_00D8E
-        cmp     word ptr [si+2], 66a0h
+        cmp     word ptr [si+2], FLASH_ID_28F016SA
         jne     br_00D8E
         add     si, 4
         inc     di
@@ -2596,7 +2596,7 @@ flash_read_identifier:
         enter   6, 0
         push    si
         mov     si, word ptr [bp+6]
-        mov     word ptr [bp-2], 90h
+        mov     word ptr [bp-2], FLASH_CMD_READ_ID
         push    word ptr [bp+0ah]
         if      FW_VERSION = 172
 ; far-called from the EXE
@@ -2633,7 +2633,7 @@ mem_op_wrapper_2:
         enter   4, 0
         push    si
         mov     si, word ptr [bp+6]
-        mov     word ptr [bp-2], 70h
+        mov     word ptr [bp-2], FLASH_CMD_READ_STATUS
         push    word ptr [bp+0ah]
         push    word ptr [bp+8]
         lea     ax, [bp-2]
@@ -2666,7 +2666,7 @@ mem_op_wrapper_3:
         push    si
         mov     si, word ptr [bp+6]
         and     word ptr [bp+8], 8000h
-        mov     word ptr [bp-2], 71h
+        mov     word ptr [bp-2], FLASH_CMD_READ_XSTATUS
         mov     ax, word ptr [bp+8]
         mov     dx, word ptr [bp+0ah]
         or      al, 2
@@ -2700,7 +2700,7 @@ mem_op_wrapper_3:
         db      00h
 io_delay_wait:
         enter   2, 0
-        mov     word ptr [bp-2], 0ffh
+        mov     word ptr [bp-2], FLASH_CMD_READ_ARRAY
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         lea     ax, [bp-2]
@@ -2720,7 +2720,7 @@ mem_op_wrapper_4:
         mov     si, word ptr [bp+6]
 ; flash command E0h (Page Buffer Write) then two count cycles.
 flash_page_buffer_write:
-        mov     word ptr [bp-6], 0e0h
+        mov     word ptr [bp-6], FLASH_CMD_PAGE_WRITE
         lea     ax, [si-1]
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], 0
@@ -2751,7 +2751,7 @@ mem_op_wrapper_5:
         enter   6, 0
 ; flash command 0Ch (Page Buffer Write to Flash) then two count cycles.
 flash_page_buffer_commit:
-        mov     word ptr [bp-6], 0ch
+        mov     word ptr [bp-6], FLASH_CMD_PAGE_COMMIT
         mov     ax, word ptr [bp+6]
         dec     ax
         mov     word ptr [bp-4], ax
@@ -2827,7 +2827,7 @@ L_014B2:
         mov     word ptr [bp-2], ax
 ; spins on SR bit 7 (WSMS) set: TEST [bp-2],80h / JE retry.
 flash_wait_wsms:
-        test    byte ptr [bp-2], 80h
+        test    byte ptr [bp-2], FLASH_SR_READY
         je      L_014B2
         push    word ptr [bp+8]
         push    word ptr [bp+6]
@@ -2846,7 +2846,7 @@ flash_vpp_off:
         call    port_c0_write
 ; tests the SR error mask 78h (bits 6..3).  The EXE uses 38h after erase.
 flash_check_errors:
-        test    byte ptr [bp-2], 78h
+        test    byte ptr [bp-2], FLASH_SR_ERRORS
         jne     br_014F6
         mov     ax, 1
         leave
@@ -2854,11 +2854,11 @@ flash_check_errors:
         db      90h
 
 br_014F6:
-        test    byte ptr [bp-2], 20h
+        test    byte ptr [bp-2], FLASH_SR_ERASE_ERR
         je      far_t2_01519
-        test    byte ptr [bp-2], 10h
+        test    byte ptr [bp-2], FLASH_SR_PROGRAM_ERR
         je      far_t2_01519
-        mov     word ptr [bp-6], 50h
+        mov     word ptr [bp-6], FLASH_CMD_CLEAR_STATUS
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         lea     ax, [bp-6]
@@ -2936,8 +2936,8 @@ string_memop_setup:
         call    mem_op_handler
 ; block erase: command 20h (setup) then D0h (confirm).
 flash_block_erase:
-        mov     word ptr [bp-6], 20h
-        mov     word ptr [bp-4], 0d0h
+        mov     word ptr [bp-6], FLASH_CMD_ERASE
+        mov     word ptr [bp-4], FLASH_CMD_CONFIRM
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         lea     ax, [bp-6]
@@ -3087,13 +3087,13 @@ mpc_poll_status:
         shl     si, 4
         add     si, BUF_XFER
         mov     ax, 3
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
         pushf
         cli
 
 loop_0182A:
-        mov     dx, 0c034h
+        mov     dx, ASIC_DMA_ADDR
         in      ax, dx
         mov     cx, si
         sub     al, cl
@@ -3105,7 +3105,7 @@ loop_01836:
         sub     al, cl
         test    al, 2
         jne     loop_01836
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         or      al, 8
         sub     ah, ah
@@ -3149,8 +3149,8 @@ L_0188C:
         out     DMA_CTRL, ax
         xor     ax, ax
         if      FW_VERSION = 172
-        out     84h, ax
-        out     82h, ax
+        out     DMA_DATA_HI, ax
+        out     DMA_DATA_LO, ax
         add     bx, 2
         cmp     bx, 20h
         jb      L_01874
@@ -3159,11 +3159,11 @@ L_0188C:
 L_0188C:
         mov     ax, bx
         or      ah, 0ah
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 8000h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         xor     ax, ax
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         add     bx, 2
         else
         out     DMA_DATA_LO, ax
@@ -3293,14 +3293,14 @@ L_0196A:
         mov     ax, 700h
         out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax                   ; DMA channel select
+        out     DMA_MODE, ax                   ; DMA channel select
         mov     ax, 710h
 ; ? mid-routine: the last DMA_CTRL write of the output-level pass.
 
 dac_out_write_d136:
         out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax                   ; DMA channel select
+        out     DMA_MODE, ax                   ; DMA channel select
 
 ; ?
 lcd_write_data_D13C:
@@ -3699,20 +3699,20 @@ mpc_poll_data:
         enter   2, 0
         pushf
         cli
-        mov     dx, 0c038h
+        mov     dx, ASIC_DMA_C038
         in      ax, dx
 ; called from EXE
 stack_frame_fn_d512:
         mov     word ptr [bp-2], ax
         or      al, 4
         out     dx, ax
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         sub     ah, ah
         or      ax, word ptr [bp+6]
         out     dx, al
         mov     ax, word ptr [bp-2]
-        mov     dx, 0c038h
+        mov     dx, ASIC_DMA_C038
         out     dx, ax
         popf
         leave
@@ -3722,18 +3722,18 @@ mpc_poll_data2:
         not     word ptr [bp+6]
         pushf
         cli
-        mov     dx, 0c038h
+        mov     dx, ASIC_DMA_C038
         in      ax, dx
         mov     word ptr [bp-2], ax
         or      al, 4
         out     dx, ax
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         and     al, byte ptr [bp+6]
         sub     ah, ah
         out     dx, al
         mov     ax, word ptr [bp-2]
-        mov     dx, 0c038h
+        mov     dx, ASIC_DMA_C038
         out     dx, ax
         popf
         leave
@@ -4738,7 +4738,7 @@ dma_024A4:
         or      ah, 3
         out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax                   ; DMA channel select
+        out     DMA_MODE, ax                   ; DMA channel select
         mov     ax, word ptr [bp-8]
         or      ah, 4
         out     DMA_CTRL, ax

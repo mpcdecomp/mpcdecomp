@@ -162,7 +162,7 @@ L_004C8:
 
 X_004CE:
         push    dx
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         or      al, 8
         out     dx, al
@@ -196,7 +196,7 @@ X_004CE:
         mov     ax, 200h
         out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax
+        out     DMA_MODE, ax
         mov     dx, 1eh
 
 X_0051B:
@@ -207,7 +207,7 @@ X_0051B:
         sub     dx, 2
         jne     X_0051B
         mov     ax, 3
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
         mov     ax, ds
         sub     dx, dx
@@ -222,19 +222,19 @@ X_0051B:
         add     ax, si
         adc     dx, 0
         push    dx
-        mov     dx, 0c034h
+        mov     dx, ASIC_DMA_ADDR
         out     dx, ax
         pop     ax
-        mov     dx, 0c036h
+        mov     dx, ASIC_DMA_ADDR_HI
         out     dx, al
         mov     ax, cx
         dec     ax
-        mov     dx, 0c032h
+        mov     dx, ASIC_DMA_COUNT
         out     dx, ax
         mov     al, bh
-        mov     dx, 0c03ah
+        mov     dx, ASIC_DMA_C03A
         out     dx, al
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         and     al, 0f7h
         out     dx, al
@@ -243,7 +243,7 @@ X_0051B:
         out     DMA_STATUS, ax
 
 X_0056D:
-        mov     dx, 0c03bh
+        mov     dx, ASIC_DMA_STATUS
         in      al, dx
         test    al, 8
         je      X_0056D
@@ -13618,7 +13618,7 @@ smem_audio_init:
 
 dma_06B19:
         mov     ax, 3
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
         push    ds
         push    BUF_XFER
@@ -13626,10 +13626,10 @@ dma_06B19:
         push    cs
         call    smem_poll_ready
         mov     ax, 3ffh
-        mov     dx, 0c032h
+        mov     dx, ASIC_DMA_COUNT
         out     dx, ax
         mov     ax, 59h
-        mov     dx, 0c03ah
+        mov     dx, ASIC_DMA_C03A
         out     dx, al
         push    8
         callf   TEXT2_SEG:mpc_poll_data2
@@ -13844,7 +13844,7 @@ dma_06CFC:
         push    1e06h
         callf   TEXT2_SEG:dma_field_write
 dma_06D3A:
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         and     ax, 0f7h
         out     dx, al
@@ -14065,7 +14065,7 @@ br_06F26:
         push    0ch
         callf   TEXT2_SEG:mpc_poll_data
         mov     ax, 2
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
         push    ds
         push    BUF_XFER
@@ -14073,10 +14073,10 @@ br_06F26:
         push    cs
         call    smem_poll_ready
         mov     ax, 3ffh
-        mov     dx, 0c032h
+        mov     dx, ASIC_DMA_COUNT
         out     dx, ax
         mov     ax, 55h
-        mov     dx, 0c03ah
+        mov     dx, ASIC_DMA_C03A
         out     dx, al
         cmp     byte ptr [SAMPLE_INPUT], ah
         je      br_06F84
@@ -14125,15 +14125,15 @@ fn_06FB2:
         cmp     byte ptr [P_9D40], 0
         je      br_06FD1
         mov     ax, 2
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
-        mov     dx, 0c03ah
+        mov     dx, ASIC_DMA_C03A
         in      al, dx
         and     ax, 0e3h
         out     dx, al
 
 loop_06FC9:
-        mov     dx, 0c03bh
+        mov     dx, ASIC_DMA_STATUS
         in      al, dx
         test    al, 4
         je      loop_06FC9
@@ -14151,7 +14151,7 @@ br_06FD1:
         db      00h
 
 dma_06FEC:
-        mov     dx, 0c03fh
+        mov     dx, ASIC_DMA_C03F
         in      al, dx
         test    al, 8
         jne     L_07007
@@ -14168,14 +14168,14 @@ L_07007:
 L_0700B:
         je      br_0702E
         mov     ax, 3
-        mov     dx, 0c031h
+        mov     dx, ASIC_DMA_C031
         out     dx, al
-        mov     dx, 0c03ah
+        mov     dx, ASIC_DMA_C03A
         in      al, dx
         and     ax, 0e3h
         out     dx, al
 dma_0701C:
-        mov     dx, 0c03bh
+        mov     dx, ASIC_DMA_STATUS
         in      al, dx
         test    al, 8
         je      dma_0701C

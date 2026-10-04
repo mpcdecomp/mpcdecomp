@@ -9,6 +9,10 @@ DMA_DATA_HI     equ     084h            ; data high word
 DMA_ADDR_HI     equ     086h            ; device address high
 DMA_STATUS      equ     088h            ; status / GO
 DMA_STATUS2     equ     08Ah            ; status 2
+DMA_MODE        equ     08Ch            ; channel select / mode
+
+; flash board control: bit 0 Vpp, bit 1 board enable
+FLASH_CTL       equ     0C0h
 
 ; ASIC register window, indexed access:
 ; `out ASIC_REG, ax` selects, `out ASIC_DATA, ax` writes.

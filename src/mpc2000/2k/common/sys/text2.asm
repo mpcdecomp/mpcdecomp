@@ -6493,7 +6493,7 @@ status_read_6A:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register          ; -> text1 +0x03582 (no label)
-        mov     byte ptr [WIN_FIELD_MODE], 2
+        mov     byte ptr [WIN_FIELD_MODE], WF_U16
         leave
         retf    16h
         db      00h
@@ -6521,7 +6521,7 @@ status_read_6A_2:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register
-        mov     byte ptr [WIN_FIELD_MODE], 3
+        mov     byte ptr [WIN_FIELD_MODE], WF_S16
         leave
         retf    16h
         db      00h
@@ -6555,7 +6555,7 @@ L_03361:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register
-        mov     byte ptr [WIN_FIELD_MODE], 0
+        mov     byte ptr [WIN_FIELD_MODE], WF_U8
         leave
         retf    16h
         db      00h
@@ -6586,7 +6586,7 @@ field_register_s8:
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         callf   TEXT1_SEG:field_register
-        mov     byte ptr [WIN_FIELD_MODE], 1
+        mov     byte ptr [WIN_FIELD_MODE], WF_S8
         leave
         retf    16h
         db      00h

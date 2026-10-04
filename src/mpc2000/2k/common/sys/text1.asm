@@ -6289,7 +6289,7 @@ field_register:
         add     byte ptr [WIN_FIELD_BOX_R], 6
 
 X_0356A:
-        mov     byte ptr [WIN_FIELD_MODE], 4
+        mov     byte ptr [WIN_FIELD_MODE], WF_S32
         mov     ax, word ptr [bp+1ch]
         if      FW_VERSION = 172
 T1_L_03573                      equ     $+1

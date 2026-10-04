@@ -91,3 +91,12 @@ SAMPLE_ST_DONE          equ     3       ; stopped: KEEP or RETRY
 PADIN_OFF               equ     0
 PADIN_ON                equ     1
 PADIN_LOCAL             equ     2       ; only with MIDI_LOCAL_MODE on
+
+; WIN_FIELD_MODE: the edited value's width and sign, set by the field's
+; registrar after field_register; field_value_store and the wheel and digit
+; handlers switch on it
+WF_U8                   equ     0       ; status_read_6A_3
+WF_S8                   equ     1       ; field_register_s8
+WF_U16                  equ     2       ; status_read_6A
+WF_S16                  equ     3       ; status_read_6A_2
+WF_S32                  equ     4       ; field_register itself, a long

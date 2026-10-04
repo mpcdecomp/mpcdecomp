@@ -5069,7 +5069,7 @@ pad_note_trigger:
 ; V53 on-chip ports: 0FFFCh -> AH, 0FFFBh -> AL, masked 0F0h.
 
 
-        cmp     byte ptr es:[bx+PGM_PAD_MODE], 2
+        cmp     byte ptr es:[bx+PGM_PAD_MODE], PAD_MODE_VEL_SW
         jne     br_02A9E
         mov     al, byte ptr es:[di+PGM_PAD_SW2]
         cbw
@@ -5118,7 +5118,7 @@ br_02A82:
         jmp     br_02B1E
 
 br_02A9E:
-        cmp     byte ptr es:[di+PGM_PAD_MODE], 3
+        cmp     byte ptr es:[di+PGM_PAD_MODE], PAD_MODE_DCY_SW
         jne     L_02B1A
         mov     es, word ptr [bp+8]
         cmp     byte ptr es:[si+4], 1
@@ -5205,7 +5205,7 @@ br_02B22:
         mov     word ptr [bp-0ah], bx
         inc     byte ptr [bx+NOTE_HELD]
         mov     es, word ptr [bp-4]
-        cmp     byte ptr es:[di+PGM_PAD_MODE], 1
+        cmp     byte ptr es:[di+PGM_PAD_MODE], PAD_MODE_SIMULT
         je      br_02B6D
         jmp     br_02BFC
 br_02B6D:
@@ -6510,7 +6510,7 @@ mixer_setup:
         sub     ax, ax
         mov     word ptr [FP_POLL_HOOK_SEG], ax
         mov     word ptr [FP_POLL_HOOK], ax
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         push    cx
         push    TBL_WINKEYS_01264
         nop
@@ -10149,7 +10149,7 @@ timer_poll_wait_1:
 
 ; ? misnomer: timer poll? mode dispatcher? looks up
 ; current track @[8CE0h].
-        cmp     byte ptr es:[bx+PGM_PAD_MODE], 3
+        cmp     byte ptr es:[bx+PGM_PAD_MODE], PAD_MODE_DCY_SW
         jne     X_05071
         cmp     byte ptr es:[si+PGM_PAD_SW1], 63h
         jle     br_05062
@@ -10751,7 +10751,7 @@ pgm_assign_enter:
         mov     cx, DATA_SEG
         mov     ds, cx
         mov     byte ptr [G_NOTE_CAPTURE], 0
-        mov     byte ptr [PAD_INPUT_MODE], 1
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_ON
         or      byte ptr [B_9D1C], 1
         mov     al, byte ptr [G_PAD_NOTE_BASE]
         sub     ah, ah
@@ -12805,7 +12805,7 @@ purge_midi:
         mov     cx, DATA_SEG
         mov     ds, cx
         callf   TEXT2_SEG:note_release_latched
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         push    ds
         push    TBL_WINKEYS_PGM_MIDI
         nop
@@ -13207,7 +13207,7 @@ br_067A3:
         db      00h
 
 far_067A6:
-        mov     byte ptr [SAMPLE_INPUT], 0
+        mov     byte ptr [SAMPLE_INPUT], REC_INPUT_ANALOG
         call    fn_06786
         xor     al, al
         mov     byte ptr [G_SAMPLE_MODE], al
@@ -13217,16 +13217,16 @@ far_067A6:
         retf
 
 fn_067C2:
-        cmp     byte ptr [SAMPLE_INPUT], 0
+        cmp     byte ptr [SAMPLE_INPUT], REC_INPUT_ANALOG
         je      br_067FC
         callf   TEXT2_SEG:L_00106
         or      ax, ax
         je      br_067FC
-        cmp     byte ptr [G_SAMPLE_MODE], 0
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_IDLE
         je      br_067E7
-        cmp     byte ptr [G_SAMPLE_MODE], 2
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_RECORDING
         je      br_067E7
-        cmp     byte ptr [G_SAMPLE_MODE], 1
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_ARMED
         jne     br_067FC
 br_067E7:
         push    0
@@ -13294,7 +13294,7 @@ fn_0683A:
         push    ax
         callf   TEXT2_SEG:samples_to_tenths
         mov     si, ax
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     br_0685C
         mov     cx, 2
         cwd
@@ -13344,7 +13344,7 @@ io_write_caller:
         push    ax
         call    io_ctrl_setup
         mov     si, ax
-        cmp     byte ptr [G_REC_MODE], 1
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_R
         je      br_068C7
         add     ax, ax
         add     ax, si
@@ -13356,7 +13356,7 @@ io_write_caller:
         callf   TEXT2_SEG:cmd_ratio_setup
 
 br_068C7:
-        cmp     byte ptr [G_REC_MODE], 0
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_L
         je      L_068E3
         mov     ax, si
         add     si, si
@@ -13373,7 +13373,7 @@ L_068E3:
         push    word ptr [bp-2]
         push    word ptr [bp-4]
         callf   TEXT2_SEG:string_copy_setup
-        cmp     byte ptr [G_REC_MODE], 1
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_R
         je      br_0690F
         mov     ax, word ptr [G_METER_L_PEAK]
         mov     cx, ax
@@ -13389,7 +13389,7 @@ L_06906:
         callf   TEXT2_SEG:cmd_ratio_setup
 
 br_0690F:
-        cmp     byte ptr [G_REC_MODE], 0
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_L
         je      br_0692E
         mov     ax, word ptr [G_METER_R_PEAK]
         mov     cx, ax
@@ -13406,7 +13406,7 @@ br_0692E:
         push    word ptr [bp-2]
         push    word ptr [bp-4]
         callf   TEXT2_SEG:string_copy_setup
-        cmp     byte ptr [G_REC_MODE], 1
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_R
         je      br_06961
         mov     bx, word ptr [G_METER_L_LEVEL]
         mov     byte ptr [bx+BUF_REC_METER_BAR], 0
@@ -13418,7 +13418,7 @@ br_0692E:
         mov     bx, word ptr [G_METER_L_LEVEL]
         mov     byte ptr [bx+BUF_REC_METER_BAR], 0ah
 br_06961:
-        cmp     byte ptr [G_REC_MODE], 0
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_L
         je      br_06987
         mov     bx, word ptr [G_METER_R_LEVEL]
         mov     byte ptr [bx+BUF_REC_METER_BAR], 0
@@ -13465,7 +13465,7 @@ br_069B1:
         mul     word ptr [G_METER_R_LEVEL]
         shr     ax, 9
         mov     word ptr [G_METER_R_LEVEL], ax
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     L_069FC
         mov     ax, word ptr [REC_PEAK_L]
         callf   TEXT2_SEG:X_03B24
@@ -13487,7 +13487,7 @@ br_069F7:
         jmp     L_06A32
 
 L_069FC:
-        cmp     byte ptr [G_REC_MODE], 0
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_L
         jne     br_06A28
 
 L_06A03:
@@ -13517,7 +13517,7 @@ L_06A1F:
         db      90h
 
 br_06A28:
-        cmp     byte ptr [G_REC_MODE], 1
+        cmp     byte ptr [G_REC_MODE], REC_MODE_MONO_R
         jne     br_06A51
         mov     ax, word ptr [REC_PEAK_MONO]
 
@@ -13574,7 +13574,7 @@ X_06A62:
         callf   TEXT2_SEG:L_00116
         or      ax, ax
         jne     X_06AA3
-        mov     byte ptr [SAMPLE_INPUT], 0
+        mov     byte ptr [SAMPLE_INPUT], REC_INPUT_ANALOG
 
 X_06AA3:
         callf   TEXT2_SEG:voice_release_all
@@ -13604,7 +13604,7 @@ smem_audio_init:
         push    ax
         push    1e06h
         callf   TEXT2_SEG:dma_field_write
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     dma_06B19
         mov     word ptr [bp-2ah], 1114h
         mov     word ptr [bp-24h], 1228h
@@ -13633,7 +13633,7 @@ dma_06B19:
         out     dx, al
         push    8
         callf   TEXT2_SEG:mpc_poll_data2
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     L_06B4A
         mov     ax, 58h
         jmp     L_06B4D
@@ -13678,7 +13678,7 @@ smem_write_sample:
         callf   TEXT2_SEG:X_00E76
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     br_06BAE
         sar     word ptr [bp-2], 1
         rcr     word ptr [bp-4], 1
@@ -13757,7 +13757,7 @@ br_06BCE:
         mov     word ptr [W_5048], dx
         mov     word ptr [W_4FEE], ax
         mov     word ptr [W_4FF0], dx
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         je      dma_06C78
         mov     word ptr [W_5006], 8080h
         pop     si
@@ -13836,7 +13836,7 @@ dma_06CFC:
         push    W_503E
         push    1e06h
         callf   TEXT2_SEG:dma_field_write
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     dma_06D3A
         push    10h
         push    ds
@@ -13879,7 +13879,7 @@ dma_06D60:
         mov     word ptr [bp-2ah], 1000h
         mov     word ptr [bp-24h], 1114h
         mov     word ptr [bp-22h], 10h
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         je      dma_06D88
         jmp     dma_06E3A
 dma_06D88:
@@ -13998,7 +13998,7 @@ dma_06E9A:
         push    W_4FE6
         push    1ffeh
         callf   TEXT2_SEG:dma_field_write
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     dma_06EC4
         push    17h
         push    ds
@@ -14213,7 +14213,7 @@ fn_0704C:
         call    callback_set_main
         add     sp, 4
         call    fn_06ECE
-        mov     byte ptr [G_SAMPLE_MODE], 2
+        mov     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_RECORDING
         call    dma_06CFC
         call    dma_06E9A
         push    word TEXT1_SEG
@@ -14270,7 +14270,7 @@ fn_070B6:
         call    callback_set_main
         add     sp, 4
         call    fn_06EF2
-        mov     byte ptr [G_SAMPLE_MODE], 0
+        mov     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_IDLE
         ret
         db      00h
 fn_070CC:
@@ -14281,7 +14281,7 @@ fn_070CC:
         call    callback_set_main
         add     sp, 4
         call    fn_06EF2
-        mov     byte ptr [G_SAMPLE_MODE], 3
+        mov     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_DONE
         ret
         db      00h
 
@@ -14335,7 +14335,7 @@ br_07110:
         push    bx
         push    si
         callf   TEXT2_SEG:smem_copy_buffered
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         je      br_0715B
         jmp     lcd_compute_coords_71FB
 br_0715B:
@@ -14386,7 +14386,7 @@ L_07178:
 ; ? event_queue_process @0x071b5 is mid-instruction
         callf   TEXT2_SEG:smem_copy_buffered
 ; ? event_mode_main @0x071b9 is mid-instruction
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
 event_mode_edit:
         jne     lcd_compute_coords_71FB
 ; ? event_mode_mixer @0x071c1 is mid-instruction
@@ -14452,7 +14452,7 @@ lcd_compute_coords:
 br_07244:
         mov     word ptr [REC_LENGTH], cx
         mov     word ptr [REC_LENGTH_HI], bx
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     lcd_clear_display_7266
         push    word ptr [bp-0ah]
         push    word ptr [bp-0ch]
@@ -14474,7 +14474,7 @@ lcd_clear_display:
         mov     dx, word ptr [REC_LENGTH_HI]
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     br_07288
         shl     word ptr [bp-4], 1
         rcl     word ptr [bp-2], 1
@@ -14498,7 +14498,7 @@ br_07288:
         les     bx, [bp-8]
 
         mov     word ptr es:[bx+SND_POOL_IDX], di
-        cmp     byte ptr [G_REC_MODE], 2
+        cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     L_072C6
         mov     al, 1
         jmp     br_072C8
@@ -14526,7 +14526,7 @@ br_072C8:
         leave
         ret     4
 L_07300:
-        cmp     byte ptr [G_SAMPLE_MODE], 1
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_ARMED
         jne     L_07324_1
         mov     ax, word ptr [REC_TRIG_PEAK]
         callf   TEXT2_SEG:X_03B24
@@ -14573,7 +14573,7 @@ L_0733E:
         je      br_07372
         cmp     byte ptr [P_9D40], 0
         je      br_0736A
-        mov     byte ptr [G_SAMPLE_MODE], 1
+        mov     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_ARMED
         call    io_near_stub
         cmp     byte ptr [SAMPLE_THRESHOLD], 0c1h
         jge     L_07383
@@ -14608,7 +14608,7 @@ L_07386:
         callf   TEXT2_SEG:L_00116
         or      ax, ax
         jne     br_07394
-        mov     byte ptr [SAMPLE_INPUT], 0
+        mov     byte ptr [SAMPLE_INPUT], REC_INPUT_ANALOG
 
 br_07394:
         call    fn_06786
@@ -14817,7 +14817,7 @@ lcd_port_handler:
 
 
 br_07502:
-        cmp     byte ptr [SAMPLE_INPUT], 0
+        cmp     byte ptr [SAMPLE_INPUT], REC_INPUT_ANALOG
         je      L_07515
         callf   TEXT2_SEG:L_00106
         or      ax, ax
@@ -15038,7 +15038,7 @@ X_076BE:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        cmp     byte ptr [G_SAMPLE_MODE], 2
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_RECORDING
         jne     X_076CE
         call    fn_070B6
 
@@ -15050,7 +15050,7 @@ X_076D0:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        cmp     byte ptr [G_SAMPLE_MODE], 2
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_RECORDING
         jne     br_076E0
         call    fn_070CC
 
@@ -15077,14 +15077,14 @@ fn_076E2:
 lcd_block_copy_7700:
         push    0
         callf   TEXT2_SEG:int44_wrapper
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         push    0
         push    0
         nop
         push    cs
         call    callback_set_main
         add     sp, 4
-        mov     byte ptr [G_SAMPLE_MODE], 0
+        mov     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_IDLE
         call    io_near_stub
         retf
         db      00h
@@ -17871,7 +17871,7 @@ L_08D60:
         push    word ptr [FP_LOADED_SND_SEG]
         push    word ptr [FP_LOADED_SND]
         callf   TEXT2_SEG:voice_release_all_if
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         call    fn_08C4C
         pop     ds
         retf
@@ -17884,7 +17884,7 @@ L_08D7E:
         push    word ptr [FP_LOADED_SND_SEG]
         push    word ptr [FP_LOADED_SND]
         callf   TEXT2_SEG:voice_release_all_if
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         call    fn_08CAA
         pop     ds
         retf
@@ -22777,7 +22777,7 @@ L_0B5A0:
         db      00h
         endif
 L_0B5DC:
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         call    fn_0AD3A
         retf
         db      00h
@@ -22787,7 +22787,7 @@ receive_mode_close:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         call    fn_0AD3A
         pop     ds
         retf
@@ -22824,7 +22824,7 @@ T1_L_0B5FA:
         mov     al, byte ptr [G_NOTE_IN]
         mov     byte ptr [G_PAD_NOTE_BASE], al
         mov     byte ptr [G_NOTE_CAPTURE], 1
-        mov     byte ptr [PAD_INPUT_MODE], 1
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_ON
         mov     al, byte ptr [G_KEEP_RETRY_FOCUS]
         push    ax
         call    ui_sound_dialog_draw
@@ -22954,7 +22954,7 @@ br_0B71E:
         callf   TEXT2_SEG:X_02D4A
         push    1
         callf   TEXT2_SEG:int44_wrapper
-        mov     byte ptr [PAD_INPUT_MODE], 1
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_ON
         leave
         ret     2
 
@@ -22968,7 +22968,7 @@ br_0B748:
         call    far_call_wrapper_1
         push    0
         callf   TEXT2_SEG:int44_wrapper
-        mov     byte ptr [PAD_INPUT_MODE], 0
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_OFF
         leave
         ret     2
 

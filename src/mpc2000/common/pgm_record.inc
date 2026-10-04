@@ -165,3 +165,19 @@ PGM_MIX_FX_BUS          equ     005h    ; db 0-4: DATA:2CA2h, 3 bytes apart:
 ; fields in fx_record.inc; bases & SIZEOF_PGM from
 ; program_record.inc; PGM_ALLOC_PARA leaves 2 bytes
 ; spare at paragraph boundary
+
+; field values, in their label tables' order
+PAD_MODE_NORMAL         equ     0       ; PGM_PAD_MODE, TBL_PAD_MODE_LABELS
+PAD_MODE_SIMULT         equ     1       ;   ALT1/ALT2 play too
+PAD_MODE_VEL_SW         equ     2
+PAD_MODE_DCY_SW         equ     3
+PAD_VOICE_POLY          equ     0       ; PGM_PAD_VOICE, TBL_VOICE_OVERLAP_LABELS
+PAD_VOICE_MONO          equ     1
+PAD_VOICE_NOTE_OFF      equ     2
+DCY_MODE_END            equ     0       ; PGM_PAD_DCY_MODE, TBL_DECAY_MODE_LABELS
+DCY_MODE_START          equ     1
+FX_BUS_NONE             equ     0       ; PGM_MIX_FX_BUS, TBL_FX_BUS_LABELS
+FX_BUS_M1               equ     1
+FX_BUS_M2               equ     2
+FX_BUS_R1               equ     3
+FX_BUS_R2               equ     4

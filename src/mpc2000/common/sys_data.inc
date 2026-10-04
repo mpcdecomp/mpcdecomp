@@ -70,3 +70,24 @@ FX_OUT_PAIR_COUNT    equ    5           ; MASTER, 1/2, 3/4, 5/6, 7/8 -- v1.72 on
 ; entry 5: "        MPC2000 development Team!"
 
 CREDITS_COUNT    equ    35
+
+; =============================================================================
+; =============================================================================
+; values of the SAMPLE screen's state bytes; the labels are its tables
+
+REC_INPUT_ANALOG        equ     0       ; SAMPLE_INPUT, TBL_REC_INPUT_LABELS
+REC_INPUT_DIGITAL       equ     1
+
+REC_MODE_MONO_L         equ     0       ; G_REC_MODE, TBL_REC_MODE_LABELS
+REC_MODE_MONO_R         equ     1
+REC_MODE_STEREO         equ     2       ; twice the length, SND_STEREO set
+
+SAMPLE_ST_IDLE          equ     0       ; G_SAMPLE_MODE
+SAMPLE_ST_ARMED         equ     1       ; waiting for the input to reach SAMPLE_THRESHOLD
+SAMPLE_ST_RECORDING     equ     2
+SAMPLE_ST_DONE          equ     3       ; stopped: KEEP or RETRY
+
+; PAD_INPUT_MODE: whether a MIDI-in note plays its pad (the panel's always do)
+PADIN_OFF               equ     0
+PADIN_ON                equ     1
+PADIN_LOCAL             equ     2       ; only with MIDI_LOCAL_MODE on

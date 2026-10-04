@@ -4169,9 +4169,9 @@ pad_event_dispatch:
         mov     al, byte ptr es:[si+2]
         mov     byte ptr [G_VELOCITY_IN], al
 br_0207C:
-        cmp     byte ptr [PAD_INPUT_MODE], 1
+        cmp     byte ptr [PAD_INPUT_MODE], PADIN_ON
         je      br_020A2
-        cmp     byte ptr [PAD_INPUT_MODE], 2
+        cmp     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         jne     T2_br_020A9
         cmp     byte ptr [MIDI_LOCAL_MODE], 0
         je      T2_br_020A9
@@ -11676,7 +11676,7 @@ L_05760:
         nop
         push    cs
         call    smem_io_helper
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         nop
         push    cs
         call    L_05844
@@ -12425,7 +12425,7 @@ L_05C0E:
         nop
         push    cs
         call    voice_release_all
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         and     byte ptr [B_9D1C], 0feh
         pop     ds
         retf
@@ -12611,7 +12611,7 @@ L_05D8E:
         nop
         push    cs
         call    voice_release_all
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         and     byte ptr [B_9D1C], 0feh
         pop     ds
         retf
@@ -12640,7 +12640,7 @@ pgm_midi_refresh:
         nop
         push    cs
         call    voice_release_all
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         and     byte ptr [B_9D1C], 0feh
         pop     ds
         retf
@@ -12965,7 +12965,7 @@ L_0619E:
         nop
         push    cs
         call    voice_release_all
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         and     byte ptr [B_9D1C], 0feh
         pop     ds
         retf
@@ -13021,7 +13021,7 @@ L_06206:
         nop
         push    cs
         call    note_release_latched
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         push    ds
         push    TBL_WINKEYS_PURGE
         callf   TEXT1_SEG:win_keys_merge
@@ -13319,7 +13319,7 @@ copy_pgm_refresh:
         nop
         push    cs
         call    voice_release_all
-        mov     byte ptr [PAD_INPUT_MODE], 2
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_LOCAL
         and     byte ptr [B_9D1C], 0feh
         push    1
         nop
@@ -14675,7 +14675,7 @@ timer_dma_setup:
         call    note_range_clamp
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+PGM_MIX_FX_BUS], 4
+        cmp     byte ptr es:[bx+PGM_MIX_FX_BUS], FX_BUS_R2
         jge     br_06E15
         push    si
         nop
@@ -14715,7 +14715,7 @@ timer_dma_setup2:
         call    note_range_clamp
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+PGM_MIX_FX_BUS], 0
+        cmp     byte ptr es:[bx+PGM_MIX_FX_BUS], FX_BUS_NONE
         jle     br_06E55
         push    si
         nop
@@ -16655,13 +16655,13 @@ X_07D92:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        cmp     byte ptr [G_SAMPLE_MODE], 1
+        cmp     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_ARMED
         jne     L_07DB0
         push    0
         push    0
         callf   TEXT1_SEG:callback_set_main
         add     sp, 4
-        mov     byte ptr [G_SAMPLE_MODE], 0
+        mov     byte ptr [G_SAMPLE_MODE], SAMPLE_ST_IDLE
 
 L_07DB0:
         pop     ds
@@ -23316,7 +23316,7 @@ ui_enter_pad_assign:
         push    P_3E48
         callf   TEXT1_SEG:disp_list_run
         mov     byte ptr [G_NOTE_CAPTURE], 1
-        mov     byte ptr [PAD_INPUT_MODE], 1
+        mov     byte ptr [PAD_INPUT_MODE], PADIN_ON
         push    ds
         push    P_3E20
         callf   TEXT1_SEG:win_keys_merge
@@ -23944,7 +23944,7 @@ br_0B7A1:
         mov     ax, word ptr [bp-6]
         add     bx, si
         mov     es, ax
-        mov     byte ptr es:[bx+PGM_PADS+PGM_PAD_MODE], 3
+        mov     byte ptr es:[bx+PGM_PADS+PGM_PAD_MODE], PAD_MODE_DCY_SW
         mov     bx, si
         imul    cx, di, PGM_PAD_STRIDE
         add     bx, cx
@@ -23985,7 +23985,7 @@ br_0B7A1:
         else
         mov     byte ptr es:[bx+2ah], al
         endif
-        mov     byte ptr es:[bx+PGM_PADS+PGM_PAD_DCY_MODE], 1
+        mov     byte ptr es:[bx+PGM_PADS+PGM_PAD_DCY_MODE], DCY_MODE_START
         lea     ax, [di+23h]
         mov     es, word ptr [bp-6]
         mov     byte ptr es:[si+PGM_HDR_NOTE], al
@@ -24007,7 +24007,7 @@ loop_0B82E:
         mov     es, word ptr [bp-6]
         mov     word ptr [bp-12h], bx
         mov     word ptr [bp-10h], es
-        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_MODE], 2
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_MODE], PAD_MODE_VEL_SW
         jmp     tgt_0B873
         db      90h
 tgt_0B85E:
@@ -24016,7 +24016,7 @@ tgt_0B85E:
         mov     es, word ptr [bp-6]
         mov     word ptr [bp-12h], bx
         mov     word ptr [bp-10h], es
-        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_MODE], 1
+        mov     byte ptr es:[bx+PGM_PAD_NOTE0+PGM_PAD_MODE], PAD_MODE_SIMULT
 tgt_0B873:
         mov     al, byte ptr [si+TBL_6459]
         cbw

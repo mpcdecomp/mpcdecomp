@@ -15701,7 +15701,6 @@ br_17A91:
 L_17AA5:
         if      FW_VERSION = 172
         call    locate_swing_adjust_fwd
-        else
         endif
         jcxz    L_17AD5
 L_17AAA:

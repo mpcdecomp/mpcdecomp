@@ -13558,7 +13558,7 @@ X_06A62:
         mov     ds, cx
         mov     byte ptr [P_0610], 0
         callf   TEXT2_SEG:dma_018ee
-        callf   TEXT2_SEG:L_018D0
+        callf   TEXT2_SEG:asic_reg1_bank_clear
         push    0
         callf   TEXT2_SEG:int44_wrapper
         push    0

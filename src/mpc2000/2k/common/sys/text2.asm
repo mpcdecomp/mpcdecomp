@@ -3200,7 +3200,7 @@ L_018CC:
         leave
         retf    4
 
-L_018D0:
+asic_reg1_bank_clear:
         xor     bx, bx
 
 L_018D2:

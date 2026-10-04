@@ -143,7 +143,7 @@
         RELOC   CS1_SEG, serial_rx_isr+004h
         RELOC   CS1_SEG, midi_tx_isr_1a0+003h
         RELOC   CS1_SEG, midi_tx_isr_180+003h
-        RELOC   CS1_SEG, L_10ACA+003h
+        RELOC   CS1_SEG, L_10246+003h
         RELOC   CS1_SEG, L_10377+003h
         RELOC   CS1_SEG, isr_int44+003h
         RELOC   CS1_SEG, isr_int2f+002h
@@ -247,7 +247,7 @@
         RELOC   CS0_SEG, calls_check_and_call_0308b+006h
         RELOC   CS0_SEG, calls_check_and_call_030a5+006h
         RELOC   CS0_SEG, L_030C2+003h
-        RELOC   CS0_SEG, L_03C0E+009h
+        RELOC   CS0_SEG, L_030D6+009h
         RELOC   CS0_SEG, calls_check_and_call_030f3+006h
         RELOC   CS0_SEG, L_03119+005h
         RELOC   CS0_SEG, br_0312E+020h

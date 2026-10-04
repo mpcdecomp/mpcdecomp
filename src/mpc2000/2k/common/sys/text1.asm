@@ -7820,7 +7820,7 @@ X_04058:
         mov     cx, DATA_SEG
         mov     ds, cx
         push    cx
-        push    P_17DC
+        push    TBL_WINKEYS_FX_ROTARY
         push    TEXT2_SEG
         push    fx_type_load_select
 
@@ -8703,7 +8703,7 @@ br_04652:
         db      90h
 
 L_04674:
-        callf   TEXT2_SEG:L_0522C
+        callf   TEXT2_SEG:L_050DC
 
 br_04679:
         dec     byte ptr [G_FLAG_1589]
@@ -8894,7 +8894,7 @@ X_047C2:
         jmp     SHORT X_04782
 
 L_047D2:
-        callf   TEXT2_SEG:L_0522C
+        callf   TEXT2_SEG:L_050DC
 
 L_047D7:
         dec     byte ptr [G_FLAG_1589]
@@ -9926,7 +9926,7 @@ L_04E89:
         mov     word ptr [FP_POLL_HOOK_SEG], ax
         mov     word ptr [FP_POLL_HOOK], ax
         push    cx
-        push    P_1CF0
+        push    TBL_WINKEYS_COPY_FX
         nop
         push    cs
         call    win_keys_merge
@@ -12892,7 +12892,7 @@ L_06570:
         mov     ds, cx
         callf   TEXT2_SEG:note_release_latched
         push    ds
-        push    P_2768
+        push    TBL_WINKEYS_PROGRAM
         nop
         push    cs
         call    win_keys_merge
@@ -16673,7 +16673,6 @@ br_08347:
         ret     0ch
         db      00h
 
-main_handler_1:
 ; SILENCE ZONE: per channel memset(pool+stride+G_ZONE_START, 0, zone_len).
 zone_action_silence:
         enter   0eh, 0
@@ -17174,9 +17173,7 @@ L_087EF:
         leave
         ret     0ch
 
-L_087F8:
 ; DO IT dispatcher; only 6-byte tail 882Dh-8832h is patched.
-L_087F8_DO_IT_dispatcher_note:
 zone_edit_do_it:
         push    si
         push    ds
@@ -17250,7 +17247,7 @@ br_0889A:
         push    word ptr [G_ZONE_START]
         push    word ptr [ZONE_END_HI]
         push    word ptr [G_ZONE_END]
-        call    main_handler_1
+        call    zone_action_silence
         jmp     br_088D3
         db      90h
 

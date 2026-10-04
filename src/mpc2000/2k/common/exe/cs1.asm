@@ -537,7 +537,6 @@ L_1023E:
 L_10243:
         je      L_10246
         retf
-L_10ACA:
 L_10246:
         callf   CS0_SEG:calls_call_with_check_01c7c
         mov     es, word ptr [CUR_SEQ_SEG]
@@ -14361,13 +14360,12 @@ locate_prev_event_far:
         if      FW_VERSION = 150
 L_17869_V150:
         db      0e8h, 02h, 0bh, 0cbh
-L_1781D_V150:
         endif
 locate_bar_fwd_to_end_far:
         if      FW_VERSION = 172
         call    locate_bar_fwd_to_end
         else
-        call    L_18407
+        call    locate_to_start
         endif
         retf
         if      FW_VERSION = 172
@@ -14410,7 +14408,6 @@ timing_swing_offset_calc_far:
 seq_tempo_rate_update_far:
         call    seq_tempo_rate_update
         retf
-L_17899_V150:
 L_170B5:
         call    rec_disarm_when_stopped
         retf
@@ -15020,13 +15017,12 @@ L_17556:
         call    display_value
         if      FW_VERSION = 150
 L_17542:
-        call    L_17546
+        call    sequencer_run_by_sync_mode
         ret
 sequencer_run_by_sync_mode:
-L_17546:
         cmp     byte ptr [G_SYNC_IN_MODE], 1
 L_1754B:
-        je      L_17D46
+        je      L_17563
 L_1754D:
         jae     L_1757E
 L_1754F:
@@ -15036,7 +15032,6 @@ L_1755F:
         BC_MODE
         db      0c3h
         if      FW_VERSION = 150
-L_17D46:
         endif
 L_17563:
         cmp     word ptr [MIDI_CLOCK_WATCHDOG], 0
@@ -15064,7 +15059,7 @@ L_17585:
 L_1758D:
         jb      L_175C5
         else
-        jb      L_17D94
+        jb      L_175C5
         mov     byte ptr [B_1D93], 1
         endif
         cmp     byte ptr [G_SYNC_OUT_MODE], 1
@@ -15098,7 +15093,6 @@ L_175B8:
 L_175C1:
         BC_MODE
         db      0c3h
-L_17D94:
 L_175C5:
         BC_MODE
         db      80h
@@ -15142,9 +15136,8 @@ L_17601:
         BC_FLUSH
 L_17604:
         cmp     byte ptr [B_1D88], 0
-        jne     L_17DDB
+        jne     L_1760C
         ret
-L_17DDB:
 L_1760C:
         callf   CS0_SEG:calls_compare_bytes_d20_00468
         callf   CS0_SEG:panel_key_release_clear_held_far
@@ -15712,7 +15705,7 @@ L_17AA5:
         call    locate_swing_adjust_fwd
         jcxz    L_17AD5
         else
-        jcxz    L_18252
+        jcxz    L_17AD5
         endif
 L_17AAA:
         push    cx
@@ -15738,7 +15731,6 @@ L_17ABD:
         loop    L_17AAA
         if      FW_VERSION = 172
         else
-L_18252:
         endif
 L_17AD5:
         call    seq_pos_recalc_and_send_spp
@@ -15984,7 +15976,7 @@ L_183E4:
         ret
 L_183E5:
         cmp     byte ptr [G_SHIFT_HELD], 0
-        jne     L_18407
+        jne     locate_to_start
         mov     ax, word ptr [SEQ_CUR_BAR]
         or      ax, ax
         je      L_17C8D
@@ -16000,7 +15992,6 @@ L_17C90:
 L_17C95:
         call    sync_out_send_song_position
         ret
-L_18407:
 locate_to_start:
         call    seq_rewind_to_start
 L_17C9C:
@@ -16094,7 +16085,6 @@ L_17D42:
         or      bx, dx
         if      FW_VERSION = 172
 
-L_17D46:
         endif
         jne     L_17D49
         ret
@@ -23326,7 +23316,6 @@ bc_int2a_1b827:
         mov     al, 2
         ret
 L_1BE4A:
-bc_int2a_1b82a:
         INT_2A "     F-ROM data error !!  "
 error_f_rom_data_1b847:
         db      0e8h
@@ -23497,7 +23486,7 @@ L_1B931:
         or      bx, dx
 L_1B93C:
         jne     L_1B941
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1B941:
         mov     bx, ax
 L_1B943:
@@ -23505,11 +23494,11 @@ L_1B943:
         inc     bx
 L_1B946:
         jne     L_1B94B
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1B94B:
         cmp     byte ptr [G_FROM_DIRENT_ATTR], 20h
         je      br_1B955
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 br_1B955:
         cmp     al, 0
         je      br_1B95F
@@ -23528,12 +23517,12 @@ br_1B95F:
 L_1B96D:
         if      FW_VERSION = 172
         jae     L_1B972
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1B972:
         endif
         cmp     dx, 140h
         jb      L_1B97B
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1B97B:
         mov     word ptr [G_FROM_FILE_ADDR_LO], ax
         mov     word ptr [G_FROM_FILE_ADDR_HI], dx
@@ -24298,13 +24287,13 @@ L_1BFC4:
         or      cx, si
 L_1BFC6:
         jne     br_1BFCB
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 br_1BFCB:
         cmp     di, -1
         jne     br_1BFD8
         cmp     si, -1
         jne     br_1BFD8
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 br_1BFD8:
         test    di, 0ffh
         je      br_1BFE9
@@ -24324,7 +24313,7 @@ L_1BFF8:
         cmp     si, 140h
 L_1C004:
         jb      L_1C009
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1C009:
         mov     word ptr [G_FROM_SCAN_ADDR_LO], di
         mov     word ptr [G_FROM_SCAN_ADDR_HI], si
@@ -24955,7 +24944,7 @@ calls_sample_buffer_op_1c551:
         call    sample_buffer_op
         mov     al, 0
 L_1C55B:
-        call    L_1C694
+        call    SAMPLE_BUFFER_OP_V150
 L_1C55E:
         call    from_wait_ready
         push    ax
@@ -25129,7 +25118,6 @@ L_1C68F:
         popa
         ret
 SAMPLE_BUFFER_OP_V150:
-L_1C694:
         pusha
         mov     si, P_75BA
         mov     ah, 0
@@ -25261,7 +25249,7 @@ L_1C78D:
         or      ax, si
 L_1C799:
         jne     L_1C79E
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1C79E:
         cmp     di, -1
 L_1C7A1:
@@ -25269,7 +25257,7 @@ L_1C7A1:
         cmp     si, -1
 L_1C7A6:
         jne     br_1C7AB
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 br_1C7AB:
         mov     ax, word ptr [G_FROM_SCAN_ADDR_LO]
         mov     dx, word ptr [G_FROM_SCAN_ADDR_HI]
@@ -25286,7 +25274,7 @@ L_1C7C3:
         cmp     si, 140h
 L_1C7CF:
         jb      L_1C7D4
-        jmp     bc_int2a_1b82a
+        jmp     L_1BE4A
 L_1C7D4:
         mov     word ptr [G_FROM_SCAN_ADDR_LO], di
         mov     word ptr [G_FROM_SCAN_ADDR_HI], si

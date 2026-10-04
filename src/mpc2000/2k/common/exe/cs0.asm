@@ -459,7 +459,7 @@ L_0043F:
         else
         cmp     byte ptr [SEQ_LOOP_JUMP_STATE], 0
         jne     L_00411+4
-        call    L_015D0
+        call    ui_blink_timer_tick
         endif
         call    fn_00463
         if      FW_VERSION = 150
@@ -1191,7 +1191,6 @@ br_009AC:
 panel_leds_update_far:
         call    panel_leds_update
         retf
-L_015D0:
 ui_blink_timer_tick:
         sub     ax, ax
         cmp     ax, word ptr [G_BLINK_TIMER]
@@ -5797,7 +5796,6 @@ transport_handler_rec:
 L_030D3:
         je      L_030D6
         ret
-L_03C0E:
 L_030D6:
         if      FW_VERSION = 172
         db      0e8h
@@ -5996,7 +5994,7 @@ save_as_screen:
         dw      CS1_SEG
         db      0c3h
         else
-        callf   CS1_SEG:L_17899_V150
+        callf   CS1_SEG:L_170B5
         ret
         endif
 mode_03248:
@@ -6523,7 +6521,7 @@ save_a_sequence_save:
         cmp     byte ptr es:[TBL_0013], 0
 midi_fmt_036A0:
         jne     L_036A5
-        jmp     NEAR L_04769
+        jmp     NEAR handler_BC_MIDI_FIELD
 L_036A5:
         callf   CS1_SEG:seq_position_reset_far
         mov     si, STR_DEFAULT_MID_FILENAME
@@ -6703,7 +6701,7 @@ L_03810:
         ret
 midi_fmt_0381E:
         call    lcd_update
-        jmp     NEAR L_04769
+        jmp     NEAR handler_BC_MIDI_FIELD
 status_a_03824:
         if      FW_VERSION = 172
 L_03829                         equ     $+5
@@ -6950,7 +6948,7 @@ L_03A29:
         cmp     ax, 0
 midi_fmt_03A30:
         jne     L_03A35
-        jmp     NEAR L_04769
+        jmp     NEAR handler_BC_MIDI_FIELD
 L_03A35:
         mov     word ptr [D_0D90], handler_BC_MIDI_FIELD
         mov     word ptr [D_0D92], cs
@@ -7276,7 +7274,6 @@ midi_fmt_03CA7:
         call    word ptr [P_1898]
         call    file_list_first
         ret
-L_04769:
 handler_BC_MIDI_FIELD:
         BC_SEQ_INIT
 calls_mode_handler_03cbc:
@@ -8776,12 +8773,11 @@ L_048A6:
 L_048AB:
         cmp     dh, 0
 formating_status_048AE:
-        je      formating_display_2
+        je      FORMATING_DISPLAY_2_V150
         cmp     dh, 7
 formating_status:
-        je      formating_display_2
+        je      FORMATING_DISPLAY_2_V150
         ret
-formating_display_2:
 FORMATING_DISPLAY_2_V150:
         BC_STATUS 42, 36, " Formating............             "
 this_will_erase_the_whole_status:
@@ -8927,7 +8923,7 @@ bc_int6c_04a0f:
         INT_6C error_scsi_not_ready_044f1, NULL_HANDLER_OFS, NULL_HANDLER_OFS, NULL_HANDLER_OFS
 calls_setup_callback_vectors_04a19:
         mov     al, 19h
-        mov     si, P_18BC
+        mov     si, TBL_DISK_TYPE_NAMES
         mov     bx, L_04A34
 calls_setup_callback_vectors_04a21:
         call    setup_callback_vectors
@@ -9389,7 +9385,6 @@ L_04DC5:
         mov     bh, 0
         mov     bl, byte ptr [bx+TBL_SMPTE_FPS]
         cmp     cl, bl
-L_04DD4:
         jae     br_04E15
         mov     byte ptr [di+3], cl
 L_04DD9:
@@ -9823,7 +9818,7 @@ close_handler_0516A:
 L_0516F:
         cmp     byte ptr [B_1D85], 0
 L_05174:
-        jne     ext_display_2
+        jne     EXT_DISPLAY_2_V150
 status_a_05176:
         BC_STATUS_A 42, 13, G_TEMPO_SOURCE_SEQ, D_1506
 ui_a_0517F:
@@ -9832,7 +9827,6 @@ ext_1_status_05182:
         BC_UI_A2 42, 21
 ext_1_status:
         ret
-ext_display_2:
 EXT_DISPLAY_2_V150:
         BC_STATUS 42, 21, "(Ext)"
 status_ext_05193:
@@ -14056,7 +14050,6 @@ L_07556:
 edit_vel_set:
         mov     al, byte ptr [G_EDIT_VEL_VALUE]
         ret
-L_07FF0:
 ui_area_161_55b:
         BC_UI_CTRL 161, 35, 19, 9
 bc_int6c_07562:
@@ -14069,7 +14062,7 @@ bc_int5d_0756c:
 bc_int5b_07570:
         INT_5B calls_check_status_flag_596c_075bb
 L_07574:
-        mov     bp, L_07FF0
+        mov     bp, ui_area_161_55b
         mov     al, byte ptr [SEL_TRACK]
         sub     ah, ah
         add     ax, 470h
@@ -15809,10 +15802,9 @@ bc_int67_68_0844e:
         if      FW_VERSION = 172
         INT_68 paste_event_do_it
         else
-        INT_68 L_08452+1
+        INT_68 paste_event_do_it+1
 paste_event_do_it:
         endif
-L_08452:
         ret
         if      FW_VERSION = 172
 paste_event_do_it:
@@ -18565,7 +18557,7 @@ L_09AB1:
         push    ax
         mov     byte ptr [B_629F], al
 L_09AB9:
-        BC_STATUS_A 6, 11, P_629F, P_62A0
+        BC_STATUS_A 6, 11, B_629F, P_62A0
         if      FW_VERSION = 150
 L_0A505                         equ     $+3
         endif
@@ -27846,7 +27838,7 @@ conversion_table_refresh:
 L_0ECC9                         equ     $+6
 L_0ECCB                         equ     $+8
         endif
-        BC_STATUS_A 128, 15, P_7D3C, TBL_DRUM_NOTE_LABELS
+        BC_STATUS_A 128, 15, CONV_NOTE_SEL, TBL_DRUM_NOTE_LABELS
         db      0e8h
         push    si
         add.d0  al, ch

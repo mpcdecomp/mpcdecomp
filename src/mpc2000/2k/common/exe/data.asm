@@ -805,7 +805,6 @@ COPYOS_EXE_SIZE_LO:
 FMT_PART_SIZE_MB:
         db      8 dup (00h)
         if      FW_VERSION = 150
-P_18BC:
         endif
 TBL_DISK_TYPE_NAMES:
         if      FW_VERSION = 150
@@ -818,7 +817,6 @@ L_20F6B                         equ     $+25
         TBL_DISK_TYPE_NAMES_DATA
         if      FW_VERSION = 172
 G_DISK_TYPE_SEL                 equ     TBL_DISK_TYPE_NAMES+1
-P_18BC                          equ     TBL_DISK_TYPE_NAMES
 TBL_DISK_TYPE_LABELS            equ     TBL_DISK_TYPE_NAMES+2
         db      0c5h, 50h, 0c5h, 50h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 0c3h
         db      54h, 0c3h, 54h, 00h, 00h, 00h, 00h, 7fh, 00h, 00h
@@ -1190,7 +1188,6 @@ TBL_MIDI_CC_NAMES:
 P_5C84                          equ     TBL_MIDI_CC_NAMES
 TBL_TC_VELOCITY_LABELS          equ     TBL_MIDI_CC_NAMES+1536
 B_629F:
-P_629F:
         db      00h
 P_62A0:
         if      FW_VERSION = 172
@@ -1892,7 +1889,6 @@ TBL_DRUM_NOTE_LABELS:
         db      20h, 20h, 20h, 20h, 28h, 42h, 31h, 35h, 29h, 44h, 52h, 31h, 36h, 20h, 20h, 20h
         db      "   (B16)"
 CONV_NOTE_SEL:
-P_7D3C:
         db      00h
 P_7D3D:
         db      "*R.&%$0/-+3517E"

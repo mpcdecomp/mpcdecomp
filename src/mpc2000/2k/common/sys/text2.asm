@@ -8098,7 +8098,6 @@ T2_L_03E62:
         pop     ds
         retf
 
-L_03E64:
 L_03D58:
         push    ds
         mov     cx, DATA_SEG
@@ -8668,7 +8667,7 @@ far_04206:
         mov     cx, DATA_SEG
         mov     ds, cx
         push    cx
-        push    P_1372
+        push    TBL_WINKEYS_MIXER
         callf   TEXT1_SEG:win_keys_merge
         and     byte ptr [G_STATE_9D8B], 3
         cmp     byte ptr [B_87E6], 0
@@ -10355,7 +10354,6 @@ L_04DC4:
         retf
         db      00h
 
-L_04DD4:
 L_04C84:
         push    ds
         mov     cx, DATA_SEG
@@ -10963,7 +10961,6 @@ L_0521A:
         retf
         db      00h
 
-L_0522C:
 L_050DC:
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -11172,7 +11169,6 @@ L_0539A:
         retf
         db      00h
 
-L_053AA:
 L_0525A:
         push    ds
         mov     cx, DATA_SEG
@@ -12601,7 +12597,6 @@ L_05EEE:
         retf
         db      00h
 
-L_05EFA:
 L_05D8E:
         push    ds
         mov     cx, DATA_SEG
@@ -13180,7 +13175,6 @@ L_0633C:
         leave
         retf    6
 
-L_06354:
 L_05F76:
         push    si
         push    ds
@@ -13223,7 +13217,6 @@ L_06395:
         pop     si
         retf
 
-L_06398:
 L_05FBA:
         push    si
         push    ds
@@ -13510,7 +13503,6 @@ X_0655C:
         retf
 
 
-L_06580:
 delete_all_pgms_cancel:
         push    ds
         mov     cx, DATA_SEG
@@ -13928,7 +13920,6 @@ far_06834:
         retf
         db      00h
 
-L_0684A:
 L_0646C:
         push    ds
         mov     cx, DATA_SEG
@@ -18307,7 +18298,6 @@ L_08A29:
         retf
         db      00h
 
-L_08A3C:
 L_0865E:
         push    ds
         mov     cx, DATA_SEG
@@ -22626,7 +22616,6 @@ lcd_line_copy:
         leave
         retf    8
 
-_memcpy_1650C:
 _memcpy_4:
         push    bp
         mov     bp, sp
@@ -22816,7 +22805,7 @@ lcd_line_clear_166BE:
         push    word ptr [bp-4]
         nop
         push    cs
-        call    _memcpy_1650C
+        call    _memcpy_4
         push    word ptr [bp-0eh]
         push    di
         push    word ptr [bp-0ah]
@@ -27396,7 +27385,6 @@ L_0D245:
 
 ; closes the window, then calls the far pointer L_0ACFE stored at W_5138
 ; (W_513C for L_0CDFE).
-L_0D24E:
 L_0CDEC:
         push    ds
         mov     cx, DATA_SEG
@@ -27407,7 +27395,6 @@ L_0CDEC:
         retf
         db      00h
 
-L_0D260:
 L_0CDFE:
         push    ds
         mov     cx, DATA_SEG
@@ -27584,7 +27571,7 @@ string_far_access:
 L_0D37A:
         push    si
         push    ds
-        push    P_4448
+        push    TBL_WINKEYS_MONO_TO_STEREO
         callf   TEXT1_SEG:win_keys_merge
         xor     si, si
 
@@ -27938,7 +27925,7 @@ string_int_access:
 L_0D672:
         push    si
         push    ds
-        push    P_44D0
+        push    TBL_WINKEYS_STEREO_TO_MONO
         callf   TEXT1_SEG:win_keys_merge
         xor     si, si
 

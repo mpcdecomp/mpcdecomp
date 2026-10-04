@@ -272,7 +272,6 @@ P_03C8:
         WIN_SOFTKEY 5, 2, "SMPTE"
         WIN_SOFTKEY 6, 2, "DATE"
         WIN_END
-TBL_WINKEYS_003FC:                      ; 7 records + WIN_KEY_END
 P_03FC:
         WIN_CLEAR
         WIN_END
@@ -356,7 +355,7 @@ TBL_WINKEYS_005C4:                      ; 5 records + WIN_KEY_END
         WIN_KEY   4ch, TEXT1_SEG, X_06A62
         WIN_KEY   4dh, TEXT2_SEG, X_085E6
         WIN_KEY   4eh, TEXT2_SEG, pgm_assign_key
-        WIN_KEY   4fh, TEXT2_SEG, L_0684A
+        WIN_KEY   4fh, TEXT2_SEG, L_0646C
         WIN_KEY_END
 G_PORT_C2_SHADOW:
         db      00h, 00h
@@ -508,7 +507,6 @@ TBL_WINKEYS_00C76:
         WIN_KEY   2ch, TEXT1_SEG, win_key_nop_stub
         WIN_KEY_END
         db      00h
-TBL_WINKEYS_00C86:                      ; 2 records + WIN_KEY_END
 P_0C86:
         WIN_KEY   2eh, TEXT1_SEG, win_key_nop_stub
         WIN_KEY   2dh, TEXT1_SEG, win_key_nop_stub
@@ -533,7 +531,6 @@ TBL_WINKEYS_00CBA:
         WIN_KEY   12h, TEXT2_SEG, field_value_commit
         WIN_KEY   13h, TEXT2_SEG, X_02DA0
         WIN_KEY_END
-TBL_WINKEYS_00CE2:                      ; 12 records + WIN_KEY_END
 P_0CE2:
         WIN_KEY   2eh, TEXT2_SEG, X_0362C
         WIN_KEY   2dh, TEXT2_SEG, T2_X_03656
@@ -672,7 +669,7 @@ TBL_WINKEYS_0100E:
         WIN_KEY   WIN_K_F6, TEXT2_SEG, L_03DFE
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, L_03E24
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, cmd_exec_quad
-        WIN_KEY   28h, TEXT2_SEG, L_03E64
+        WIN_KEY   28h, TEXT2_SEG, L_03D58
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, L_03F68
         if      FW_VERSION = 172
         WIN_KEY   13h, TEXT2_SEG, L_03F84
@@ -868,7 +865,6 @@ B_1365:
         db      1ah, 2ah, 0ch, 4dh, 0ch, 70h, 0ch, 93h, 0ch
         db      0b6h, 0ch, 0d9h, 0ch
 TBL_WINKEYS_MIXER:                      ; 5 records + WIN_KEY_END
-P_1372:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F1, TEXT2_SEG, mixer_stereo_page
         WIN_KEY   WIN_K_F2, TEXT2_SEG, mixer_indiv_page
@@ -1036,7 +1032,6 @@ STR_SK_MIXER:
         db      4dh, 49h, 58h, 45h, 52h, 00h
 G_FX_BLINK_TICK:
         db      00h, 00h
-TBL_WINKEYS_015A6:                      ; 6 records + WIN_KEY_END
 P_15A6:
         WIN_KEY_CLEAR
         WIN_KEY   33h, TEXT2_SEG, tgt_04C68
@@ -1129,7 +1124,7 @@ DL_FX_MODULATION:
         db      00h, 00h
 TBL_WINKEYS_FX_CHORUS:                      ; 7 records + WIN_KEY_END
         WIN_KEY   WIN_K_F2, TEXT2_SEG, L_04DC4
-        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04DD4
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04C84
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, fx_chorus_paint
         WIN_KEY   WIN_K_UP, TEXT1_SEG, fx_chorus_up
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, fx_chorus_down
@@ -1143,9 +1138,8 @@ P_17B4:
         WIN_END
         db      00h
 TBL_WINKEYS_FX_ROTARY:                      ; 7 records + WIN_KEY_END
-P_17DC:
         WIN_KEY   WIN_K_F2, TEXT2_SEG, L_04DC4
-        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04DD4
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04C84
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, fx_rotary_paint
         WIN_KEY   WIN_K_UP, TEXT1_SEG, fx_rotary_up
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, fx_rotary_down
@@ -1163,7 +1157,7 @@ P_1804:
         db      00h
 TBL_WINKEYS_0185C:                      ; 7 records + WIN_KEY_END
         WIN_KEY   WIN_K_F2, TEXT2_SEG, L_04DC4
-        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04DD4
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04C84
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_04F44
         WIN_KEY   WIN_K_UP, TEXT1_SEG, X_042C4
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_042E8
@@ -1194,7 +1188,7 @@ P_18A6:
         db      28h, 00h
 TBL_WINKEYS_FX_PITCH_SHIFT:                      ; 7 records + WIN_KEY_END
         WIN_KEY   WIN_K_F2, TEXT2_SEG, L_04DC4
-        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04DD4
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_04C84
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, status_read_6A_4
         WIN_KEY   WIN_K_UP, TEXT1_SEG, fx_pitch_shift_up
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, fx_pitch_shift_down
@@ -1265,7 +1259,7 @@ P_1A5E:
         db      00h
 TBL_WINKEYS_01AC2:                      ; 7 records + WIN_KEY_END
         WIN_KEY   WIN_K_F2, TEXT2_SEG, L_0539A
-        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_053AA
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_0525A
         WIN_KEY   WIN_K_PAINT, TEXT1_SEG, int2E_read_caller
         WIN_KEY   WIN_K_UP, TEXT1_SEG, X_04AE8
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_04B0C
@@ -1386,7 +1380,6 @@ STR_REVERB_LBL:
         db      52h, 65h, 76h, 65h, 72h, 62h, 3ah, 00h
         db      00h
 TBL_WINKEYS_COPY_FX:                      ; 7 records + WIN_KEY_END
-P_1CF0:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, copy_fx_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, copy_fx_close
@@ -1642,7 +1635,7 @@ P_2208:
         WIN_KEY   WIN_K_LEFT, TEXT1_SEG, L_05980
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, L_05998
         WIN_KEY   WIN_K_PAD, TEXT1_SEG, pad_note_select
-        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05EFA
+        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
         WIN_KEY   WIN_K_F6, TEXT2_SEG, seq_port_io2
         WIN_KEY   87h, TEXT2_SEG, note_release_latched
         WIN_KEY_END
@@ -1682,7 +1675,7 @@ L_1D22F:
         db      37h
         dw      timer_status_handler, TEXT1_SEG
         db      34h
-        dw      L_05EFA, TEXT2_SEG
+        dw      L_05D8E, TEXT2_SEG
         db      06h
         dw      seq_port_io, TEXT2_SEG
         db      86h
@@ -1722,7 +1715,7 @@ P_2380:
         db      37h
         dw      pad_note_select_2, TEXT1_SEG
         db      34h
-        dw      L_05EFA, TEXT2_SEG
+        dw      L_05D8E, TEXT2_SEG
         db      06h
         dw      seq_port_io, TEXT2_SEG
         db      86h
@@ -1760,7 +1753,7 @@ P_243E:
         WIN_KEY   WIN_K_LEFT, TEXT1_SEG, L_060AE
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, L_060C6
         WIN_KEY   WIN_K_PAD, TEXT1_SEG, pad_note_select_3
-        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05EFA
+        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
         WIN_KEY   WIN_K_F5, TEXT2_SEG, seq_port_io
         WIN_KEY   86h, TEXT2_SEG, note_release_latched
         WIN_KEY_END
@@ -1801,7 +1794,7 @@ TBL_WINKEYS_MUTE_ASSIGN:
         db      37h
         dw      pad_note_select_4, TEXT1_SEG
         db      34h
-        dw      L_05EFA, TEXT2_SEG
+        dw      L_05D8E, TEXT2_SEG
         db      06h
         dw      seq_port_io2, TEXT2_SEG
         db      86h
@@ -1816,7 +1809,7 @@ TBL_WINKEYS_MUTE_ASSIGN:
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, L_0629C
         WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, L_0629C
         WIN_KEY   WIN_K_PAD, TEXT1_SEG, pad_note_select_4
-        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05EFA
+        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
         WIN_KEY   WIN_K_F5, TEXT2_SEG, seq_port_io2
         WIN_KEY   86h, TEXT2_SEG, note_release_latched
         endif
@@ -1916,8 +1909,8 @@ STR_NO_PROGRAM:
         db      28h, 6eh, 6fh, 20h, 70h, 72h
         db      6fh, 67h, 72h, 61h, 6dh, 29h, 20h, 20h, 20h, 20h, 00h
 TBL_WINKEYS_026FE:                      ; 2 records + WIN_KEY_END
-        WIN_KEY   2bh, TEXT2_SEG, L_06354
-        WIN_KEY   2ch, TEXT2_SEG, L_06398
+        WIN_KEY   2bh, TEXT2_SEG, L_05F76
+        WIN_KEY   2ch, TEXT2_SEG, L_05FBA
         WIN_KEY_END
         db      00h
 DL_PROGRAM:
@@ -1931,7 +1924,6 @@ DL_PROGRAM:
         WIN_LABEL 31h, 25h, "MIDI program change:"
         WIN_END
 TBL_WINKEYS_PROGRAM:                      ; 10 records + WIN_KEY_END
-P_2768:
         WIN_CLEAR
         WIN_END
         db      00h, 00h, 00h
@@ -1991,8 +1983,8 @@ TBL_WINKEYS_DELETE_ALL_PGMS:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, delete_all_pgms_paint
 L_028C2:
-        WIN_KEY   WIN_K_OPEN, TEXT2_SEG, L_06580
-        WIN_KEY   WIN_K_F4, TEXT2_SEG, L_06580
+        WIN_KEY   WIN_K_OPEN, TEXT2_SEG, delete_all_pgms_cancel
+        WIN_KEY   WIN_K_F4, TEXT2_SEG, delete_all_pgms_cancel
         WIN_KEY   WIN_K_F5, TEXT2_SEG, delete_all_pgms_do_it
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, copy_pgm_refresh
         WIN_KEY_END
@@ -2075,7 +2067,7 @@ TBL_COPY_NOTE_PARAMS_KEYS:
         WIN_KEY   WIN_K_UP, TEXT1_SEG, X_066D6
 X_02A7A:
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_066EC
-        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05EFA
+        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
         WIN_KEY_END
         db      00h
 STR_2A8A:
@@ -2683,7 +2675,7 @@ DL_COPY_TO_RAM:
         db      00h
 TBL_WINKEYS_0338E:                      ; 6 records + WIN_KEY_END
         WIN_KEY_CLEAR
-        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_08A3C
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_0865E
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, snd_edit_page_return
         WIN_KEY   WIN_K_F4, TEXT2_SEG, snd_edit_page_return
         WIN_KEY   WIN_K_F5, TEXT2_SEG, voice_init_caller
@@ -3188,7 +3180,7 @@ TBL_WINKEYS_ZONE_EDIT:
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, zone_edit_paint
         ZS_HOOK_EDIT_KEYS
         WIN_KEY   WIN_K_F4, TEXT2_SEG, zone_edit_cancel
-        WIN_KEY   WIN_K_F5, TEXT1_SEG, L_087F8
+        WIN_KEY   WIN_K_F5, TEXT1_SEG, zone_edit_do_it
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, zone_edit_cancel
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY_END
@@ -3252,7 +3244,6 @@ STR_CHANGE_DISK:
 P_3C0A:
         WIN_OP_19
         WIN_END
-TBL_WINKEYS_03C0C:                      ; 2 records + WIN_KEY_END
 P_3C0C:
         WIN_CLEAR
         WIN_END
@@ -3477,8 +3468,8 @@ P_41CE:
 TBL_WINKEYS_0423A:                      ; 13 records + WIN_KEY_END
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, data_far_write
-        WIN_KEY   WIN_K_F1, TEXT2_SEG, L_0D24E
-        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_0D260
+        WIN_KEY   WIN_K_F1, TEXT2_SEG, L_0CDEC
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, L_0CDFE
         WIN_KEY   WIN_K_F5, TEXT1_SEG, X_0AF30
         WIN_KEY   WIN_K_F6, TEXT1_SEG, X_0AF4C
         WIN_KEY   WIN_K_UP, TEXT1_SEG, X_0AE58
@@ -3586,7 +3577,6 @@ DL_KEEP_OR_RETRY:
         WIN_SOFTKEY 5, 1, "KEEP"
         WIN_END
 TBL_WINKEYS_MONO_TO_STEREO:                      ; 8 records + WIN_KEY_END
-P_4448:
         WIN_CLEAR
         WIN_END
         db      00h, 00h, 00h
@@ -3614,7 +3604,6 @@ P_44CD:
         WIN_END
         db      00h
 TBL_WINKEYS_STEREO_TO_MONO:                      ; 8 records + WIN_KEY_END
-P_44D0:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, stereo_to_mono_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, snd_edit_page_return

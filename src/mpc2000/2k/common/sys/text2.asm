@@ -1337,7 +1337,8 @@ br_009E0:
         leave
         retf    8
 
-; ?
+; a 16-character name: charset-mapped, blank-padded, trailing blanks and
+; stars as '_'
 bcd_arithmetic_1:
         enter   2, 0
         push    di
@@ -1626,7 +1627,8 @@ L_00BB7:
         leave
         retf
 
-; FLASH FILE MEMORY TEST, GO: CMP WORD [4EFCh],0 / JE -> print no-board.
+; the flash TEST, GO: each 32K-word block written with the build date and
+; read back; no board when [4EFCh] is 0
 flash_test_go_handler:
         enter   10h, 0
         push    di
@@ -2256,7 +2258,7 @@ br_01094:
         retf    0ch
         db      00h
 
-; range-overlap check over [bp+0Ch]/[bp+0Eh]/[bp+10h], then clamps.
+; sample memory to flash, an overlapping region copied from its safe end
 input_handler:
         enter   10h, 0
         push    si
@@ -5944,6 +5946,7 @@ br_02ECC:
         leave
         retf    4
 
+; the digit under the cursor up one:
 ; reads the value at that width, scales by 10^G_SEQ_MODE, clamps to the
 ; screen's bounds, then field_value_store.
 field_value_scale:
@@ -6117,6 +6120,7 @@ br_03008:
         leave
         retf
 
+; the digit under the cursor down one;
 ; as field_value_scale, five width cases instead of three.
 field_value_scale_2:
         enter   12h, 0
@@ -6350,6 +6354,7 @@ br_031B6:
         leave
         retf
         db      00h
+; the number typed into the field, signed by the old value:
 ; clamps the pending value to the screen's bounds, clears G_FLAG_8CA8 and
 ; G_SEQ_MODE, then field_value_store.
 field_value_commit:
@@ -11419,6 +11424,7 @@ L_054F9:
         retf
         db      00h
 
+; COPY of an effect section: the source program's section over the target's
 cmd_block_copy:
         enter   12h, 0
         push    di
@@ -12043,6 +12049,8 @@ _memcpy_2:
         pop     di
         leave
         retf    6
+; a new program in slot n: its name, the header defaults, every pad as the
+; first, the mixes and FX
 far_memop_handler_1:
         enter   6, 0
         push    di
@@ -12523,7 +12531,7 @@ L_05E34:
         mov     ds, cx
         pop     ds
         retf
-; divides two params by 5, writes the results into a fixed table.
+; the envelope picture: attack and decay as display-list line ends
 seq_transfer_io:
         push    bp
         mov     bp, sp
@@ -13127,7 +13135,7 @@ br_062E5:
         retf
         db      00h
 
-; as seq_port_io, but a fixed velocity of 7Fh instead of G_VELOCITY_MAX.
+; a program's number and name in the list at (x, y)
 sequence_get_info:
         enter   8, 0
         push    si
@@ -13181,6 +13189,7 @@ L_0633C:
         leave
         retf    6
 
+; the program field's next and previous used program
 L_05F76:
         push    si
         push    ds
@@ -14432,6 +14441,7 @@ br_06C1E:
         leave
         retf    2
 
+; a mixer strip: the level bar and the output glyph
 note_cmd_helper:
         enter   0ah, 0
         push    di
@@ -16352,7 +16362,7 @@ br_07ADC:
         retf    4
         db      00h
 
-; ?
+; the sound list sorted in place by the compare routine, an insertion sort
 sample_data_load_3:
         enter   0ch, 0
         push    di
@@ -17088,6 +17098,7 @@ br_080C6:
         pop     di
         leave
         retf    8
+; the waveform view's peaks: WAVE_COLS columns of the sound's samples
 voice_buffer_init:
         enter   8, 0
         push    di
@@ -17786,6 +17797,7 @@ br_0864E:
         retf    4
         db      00h
 
+; a sound's size as "nnnnK", or "n.nM" from 10000K up
 sample_calc_length:
         enter   4, 0
         push    di
@@ -18379,7 +18391,7 @@ br_08AC8:
         pop     ds
         retf
 
-; ?
+; START changed: END and LOOP follow it
 sample_data_far_1:
         enter   8, 0
         push    si
@@ -18573,6 +18585,8 @@ SAMPLE_STR_SCAN_1               equ     $+00h
         leave
         retf
 
+; the START field's edit; its range and change handler follow TRIM's and
+; LOOP's length fixes
 sample_active_check_1:
         enter   10h, 0
         push    word ptr [SND_CURRENT+2]
@@ -18818,6 +18832,7 @@ L_08EB1:
         leave
         retf
 
+; END changed with TRIM's length fixed: START moves with it
 sample_str_scan_2:
         enter   4, 0
         push    si
@@ -20201,6 +20216,7 @@ br_09B49:
         pop     ds
         retf
         db      90h
+; a name with the character at its first blank, blank-padded to 16
 track_block_copy:
         enter   2, 0
         push    di
@@ -21057,6 +21073,7 @@ X_0A1F5:
         pop     ds
         retf
 
+; a program file: its 2-byte version picks the reader
 midi_realtime_stop:
         enter   4, 0
         push    di
@@ -22142,6 +22159,7 @@ loop_t2_0AA68:
         retf
         db      00h
 
+; an ALL file: sound names, program table, mixer, the programs
 smem_init_handler:
         if      FW_VERSION = 172
         enter   8, 0
@@ -22667,6 +22685,8 @@ lcd_region_helper:
         pop     si
         leave
         retf    8
+; a program record from a file's older layout: the name padded to 16, then
+; as lcd_region_copy
 lcd_buffer_copy:
         enter   12h, 0
         push    di
@@ -22764,6 +22784,8 @@ lcd_region_copy_16619:
         pop     di
         leave
         retf    8
+; a program record from a file's 2K layout: the name, the pad map, 64 pads
+; and mixes
 lcd_region_copy:
         enter   12h, 0
         push    di
@@ -22833,6 +22855,8 @@ lcd_line_clear_166BE:
         leave
         retf    8
         db      00h
+; a program file's second mix layout: three flags as 0/1, three bytes,
+; 64 mixes
 lcd_line_clear:
         enter   0ch, 0
         push    di
@@ -25266,6 +25290,7 @@ X_0C236:
         call    install_handler
         retf
 
+; the CHANGE DISK window
 change_disk_refresh:
         push    ds
         mov     cx, DATA_SEG
@@ -25355,8 +25380,8 @@ br_0C2DC:
         retf
         db      90h
 
-; ? reads a 1Dh-byte request, sample_desc_init, name copy, 28h per unit,
-; smem_block_alloc, then sample_pool_add.
+; a sound from an MPC60 file: the 1Dh-byte header, its trim points in
+; 40-word units, smem_block_alloc, then sample_pool_add
 sample_create:
         enter   72h, 0
         push    di
@@ -26642,6 +26667,7 @@ br_0CCB8:
         retf    4
         db      00h
 
+; a sound to its file: the 2-byte version, the 40-byte header, the data
 far_memop_handler_2:
         enter   32h, 0
         push    di
@@ -26968,6 +26994,8 @@ smem_block_skip:
         adc     dx, word ptr [bp+8]
         leave
         retf    4
+; a sound out of the flash: an 81h 04h block, its 40-byte header, then the
+; samples
 memcpy_far_handler:
         enter   6ah, 0
         push    di
@@ -27927,7 +27955,8 @@ br_0D65B:
         leave
         retf
 
-; ?
+; STEREO TO MONO: the new names from the sound's, blanks as '_', and their
+; -L/-R suffixes
 string_int_access:
         enter   2, 0
 

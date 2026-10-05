@@ -5891,6 +5891,8 @@ mpc_status_wait:
         leave
         ret     8
         db      00h
+; a voice's envelope: attack and release rates from their times, cut to
+; fit the sound
 system_setup:
         enter   4, 0
         push    di
@@ -6083,6 +6085,7 @@ br_03367:
         pop     di
         leave
         ret     0ch
+; a voice's levels from the pad's mixer entry: volume, pan law, effect send
 midi_parse_channel:
         enter   4, 0
         push    di
@@ -10830,6 +10833,7 @@ L_054DC:
         pop     di
         ret
 
+; the pad cursor on a bank's 4x4 grid: row bits 2-3, column bits 0-1
 L_05534:
         push    ds
         mov     cx, DATA_SEG
@@ -11725,7 +11729,7 @@ br_05C68:
         retf
         db      00h
 
-; ? misnomer: LCD field renderer for a track-parameter screen.
+; the VELOCITY MODULATION screen's fields
 timer_status_check_1:
         enter   8, 0
 
@@ -12040,7 +12044,7 @@ br_05ECC:
         retf
         db      00h
 
-; ? as timer_status_check_1, different fields.
+; the VELO/ENV FILTER screen's fields
 timer_status_check_2:
         enter   8, 0
 
@@ -13652,6 +13656,7 @@ dma_06B4F:
         leave
         ret
 
+; the recording's buffer and the DMA descriptors for one or two channels
 smem_write_sample:
         enter   10h, 0
         push    di
@@ -14426,7 +14431,7 @@ lcd_compute_coords_71FB:
         leave
         ret
         db      00h
-; coordinates from the state at [9D32h]
+; the recording cut back to the paragraph after W_9D3C
 lcd_compute_coords:
         enter   0ch, 0
         mov     ax, word ptr [REC_LENGTH]
@@ -15139,7 +15144,7 @@ X_0776E:
         retf
         db      00h
 
-; disp_list_run to read, then near helper L_0683A with 9Dh/0Ch.
+; SOUND MEMORY: the size in MB and the used part as a 200-pixel bar
 math_calc_handler:
         enter   4, 0
 
@@ -16181,6 +16186,7 @@ L_07E7C:
         pop     ds
         retf
         db      00h
+; a new sound of the source's samples start..end, in a pool block of its own
 zone_action_new_sample:
         enter   3ah, 0
         push    di
@@ -18394,6 +18400,7 @@ lcd_clear_screen_9113:
         leave
         ret     2
         db      00h
+; an MPC60 sound header to the SND record: rate, tune, points, loop
 lcd_clear_screen:
         enter   2, 0
         push    di
@@ -20032,7 +20039,7 @@ br_09EAD:
         leave
         retf    4
 
-; far-calls TEXT2 066Ah, then iterates 0..0x80 array of far pointers.
+; saves the sounds from one on, NAME.SND each, kept or replaced
 event_handler:
         enter   22h, 0
         push    di
@@ -20834,6 +20841,7 @@ loop_0A51B:
 br_0A546:
         leave
         ret     4
+; skips to the earlier sound's data, past the request record
 status_poll_handler2:
         enter   4, 0
         push    si

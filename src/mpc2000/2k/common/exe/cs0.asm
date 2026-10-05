@@ -26909,8 +26909,6 @@ L_0E6F0:
 L_0E6F3:
         call    load_file_name_size_draw
         ret
-        if      FW_VERSION = 150
-        endif
 bc_int6c_0e6f7:
         int     50h
 bc_int6c_0e6f9:
@@ -28256,8 +28254,6 @@ L_0EFC4:
         callf   CS1_SEG:arena_free_paras_far
         mov     si, word ptr [W_78B8]
         cmp     ax, word ptr [si]
-        if      FW_VERSION = 172
-        endif
         jae     L_0EFD4
         jmp     NEAR jmp_ferr_insufficient_memory
 L_0EFD4:

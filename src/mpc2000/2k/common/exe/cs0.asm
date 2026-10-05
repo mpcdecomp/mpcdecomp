@@ -26910,7 +26910,6 @@ L_0E6F3:
         call    load_file_name_size_draw
         ret
         if      FW_VERSION = 150
-L_0EFCF:
         endif
 bc_int6c_0e6f7:
         int     50h
@@ -28258,7 +28257,6 @@ L_0EFC4:
         mov     si, word ptr [W_78B8]
         cmp     ax, word ptr [si]
         if      FW_VERSION = 172
-L_0EFCF:
         endif
         jae     L_0EFD4
         jmp     NEAR jmp_ferr_insufficient_memory
@@ -29581,7 +29579,7 @@ calls_memory_copy_0f932:
         endif
 calls_memory_copy_0f935:
         if      FW_VERSION = 150
-        call    L_0EFCF
+        call    bc_int6c_0e6f7
         endif
         call    memory_copy
         ret

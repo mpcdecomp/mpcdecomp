@@ -3637,7 +3637,6 @@ L_124C5                         equ     $+21
         endif
         INT_2A "    SCSI Write error !!   "
         if      FW_VERSION = 150
-L_124CD:
         endif
 error_scsi_write_error_11c27:
         call    error_scsi_read_error_11c8b
@@ -4744,7 +4743,6 @@ L_124C7:
 L_124CA:
         call    L_1262A
         if      FW_VERSION = 172
-L_124CD:
         endif
         jb      L_124D8
         sub     di, di
@@ -5074,7 +5072,7 @@ disk_io_int2d:
         mov     es, ax
         if      FW_VERSION = 150
         jae     L_12FE7
-        jmp     L_124CD
+        jmp     error_scsi_write_error_11c27
 L_12FE7:
         endif
         mov     ah, 1

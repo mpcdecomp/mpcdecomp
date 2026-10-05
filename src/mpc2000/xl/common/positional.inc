@@ -3,23 +3,23 @@
 
 A0_TBL_SEQ_TRK_FLAGS                    equ 0680h
 A0_TBL_05A42                    equ 05a42h
-A1_W_0A09E                      equ 0a09eh
-A1_W_0A0A0                      equ 0a0a0h
-A1_W_0A0A2                      equ 0a0a2h
-A1_W_0A0A6                      equ 0a0a6h
-A1_W_0A0A8                      equ 0a0a8h
-A1_W_0A0AE                      equ 0a0aeh
-A1_W_0A0B0                      equ 0a0b0h
+A1_W_0A09E                      equ (RAM_BASE+d_a1_w_0a09e-RAM_SEG*16)
+A1_W_0A0A0                      equ (RAM_BASE+d_a1_w_0a0a0-RAM_SEG*16)
+A1_W_0A0A2                      equ (RAM_BASE+d_a1_w_0a0a2-RAM_SEG*16)
+A1_W_0A0A6                      equ (RAM_BASE+d_a1_w_0a0a6-RAM_SEG*16)
+A1_W_0A0A8                      equ (RAM_BASE+d_a1_w_0a0a8-RAM_SEG*16)
+A1_W_0A0AE                      equ (RAM_BASE+d_a1_w_0a0ae-RAM_SEG*16)
+A1_W_0A0B0                      equ (RAM_BASE+d_a1_w_0a0b0-RAM_SEG*16)
 A2_W_CUR_SEQ                      equ 0710h
 A2_W_SEQ_SEG                      equ 0f10h
 A2_B_00F2F                      equ 0f2fh
 A3_W_0001A                      equ 01ah
 A3_TBL_01072                    equ 01072h
 A3_TBL_015D4                    equ 015d4h
-A3_B_01917                      equ 01917h
-A3_W_01918                      equ 01918h
-A3_FP_STEP_EVENT                     equ 01920h
-A3_W_STEP_CURSOR_FN                      equ 01924h
+A3_B_01917                      equ (APP3_BASE+d_a3_b_01917-APPDATA_SEG*16)
+A3_W_01918                      equ (APP3_BASE+d_a3_w_01918-APPDATA_SEG*16)
+A3_FP_STEP_EVENT                     equ (APP3_BASE+d_a3_fp_step_event-APPDATA_SEG*16)
+A3_W_STEP_CURSOR_FN                      equ (APP3_BASE+d_a3_w_step_cursor_fn-APPDATA_SEG*16)
 A3_TBL_02136                    equ 02136h      ; 3-byte rows, step edit
 C0_B_00F2F                      equ 0f2fh
 C1_TBL_0000C                    equ 0ch

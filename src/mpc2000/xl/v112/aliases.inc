@@ -93,7 +93,7 @@ A1_TBL_0C000                    equ 0c000h
 A1_W_0ECF6                      equ     0ecf6h
 A1_W_0ECF8                      equ     0ecf8h
 A1_W_0ECFA                      equ     0ecfah
-C0_W_02AE2                      equ     02ad2h
+C0_W_02AE2                      equ     (APP3_BASE+d_c0_w_02ae2-APPDATA_SEG*16)
 HANDLERS_NUMERIC                equ     01224h
 HANDLERS_POST                   equ     0120ah
 HANDLERS_RDONLY                 equ     0124ch
@@ -111,12 +111,12 @@ A2_W_0321F                      equ 0320fh
 A2_W_SAVE_EXEC_FN                      equ 0368ch
 A2_W_0369E                      equ 0368eh
 A2_W_036A0                      equ 03690h
-C0_W_02AE6                      equ 02ad6h
+C0_W_02AE6                      equ (APP3_BASE+d_c0_w_02ae6-APPDATA_SEG*16)
 C0_B_02C1D                      equ 02c0dh
 C0_FP_02C02                     equ 02bf2h
 C0_FP_02C1E                     equ 02c0eh
-C0_W_02AE0                      equ 02ad0h
-C0_W_02AE4                      equ 02ad4h
+C0_W_02AE0                      equ (APP3_BASE+d_c0_w_02ae0-APPDATA_SEG*16)
+C0_W_02AE4                      equ (APP3_BASE+d_c0_w_02ae4-APPDATA_SEG*16)
 C0_W_02B40                      equ 02b30h
 C0_W_02B48                      equ 02b38h
 C0_W_02BE8                      equ 02bd8h
@@ -143,7 +143,7 @@ P_E8A6                      equ 0e8a6h
 P_ECC4                      equ 0ecc4h
 P_ECC6                      equ 0ecc6h
 P_ECC8                      equ 0ecc8h
-C0_W_051E8                      equ 51e8h
+C0_W_051E8                      equ (CONSTS_BASE+TBL_WINKEYS_FX_DELAY-DS_SEG*16)
 FE_SCALE                      equ 8b26h
 STR_DISK_NEEDS_NEWER_OS         equ (C1_BASE+L_43A80-C1_SEG*16)
 A1_W_0E157                      equ 0df25h
@@ -181,7 +181,7 @@ P_E5FF                          equ (C0_BASE+L_34DAF-APP3_SEG*16)
 A2_W_076E8                      equ 76e8h
 A2_W_06E22                      equ 6e06h
 C1_W_05908                      equ 5908h
-C2_W_04772                      equ 4772h
+C2_W_04772                      equ (CONSTS_BASE+TBL_WINKEYS_FX_DIST_RINGMOD-DS_SEG*16)
 C2_W_0A5D4                      equ (C2_BASE+L_4782A-C1_SEG*16)
 STR_C1_ROM                      equ (C2_BASE+L_4AF3A-C1_SEG*16)
 C2_W_0DBDC                      equ (C2_BASE+L_4BD6C-C1_SEG*16)
@@ -198,29 +198,29 @@ STR_C2_SOLO                     equ (C2_BASE+L_52BEA-C2_SEG*16)
 
 ; ---- DATA addresses named from an older version's text.
 C0_W_04462                               equ 04462h
-C0_W_044A0                               equ 044a0h
+C0_W_044A0                               equ (CONSTS_BASE+d_c0_w_044a0-DS_SEG*16)
 C1_W_07F3A                               equ (C1_BASE+L_460CA-C1_SEG*16)
 C1_W_07F4C                               equ (C1_BASE+L_460DC-C1_SEG*16)
 C1_W_07F60                               equ (C1_BASE+L_460F0-C1_SEG*16)
 C1_W_0874E                               equ (C1_BASE+L_468DE-C1_SEG*16)
 C1_W_08752                               equ (C1_BASE+L_468E2-C1_SEG*16)
-C2_W_047A4                               equ 047a4h
-C2_W_048A0                               equ 048a0h
-C2_W_048D2                               equ 048d2h
-C2_W_04BCC                               equ 04bcch
-C2_W_04D08                               equ 04d08h
-C2_W_04EA6                               equ 04ea6h
-C2_W_05270                               equ 05270h
-C2_W_054BA                               equ 054bah
-C2_W_0551C                               equ 0551ch
-C2_W_056B2                               equ 056b2h
-C2_W_058DA                               equ 058dah
+C2_W_047A4                               equ (CONSTS_BASE+d_c2_w_047a4-DS_SEG*16)
+C2_W_048A0                               equ (CONSTS_BASE+TBL_WINKEYS_4BAND_FILTER-DS_SEG*16)
+C2_W_048D2                               equ (CONSTS_BASE+d_c2_w_048d2-DS_SEG*16)
+C2_W_04BCC                               equ (CONSTS_BASE+TBL_WINKEYS_FX_CHORUS-DS_SEG*16)
+C2_W_04D08                               equ (CONSTS_BASE+d_c2_w_04d08-DS_SEG*16)
+C2_W_04EA6                               equ (CONSTS_BASE+d_c2_w_04ea6-DS_SEG*16)
+C2_W_05270                               equ (CONSTS_BASE+d_c2_w_05270-DS_SEG*16)
+C2_W_054BA                               equ (CONSTS_BASE+TBL_WINKEYS_FX_REVERB-DS_SEG*16)
+C2_W_0551C                               equ (CONSTS_BASE+d_c2_w_0551c-DS_SEG*16)
+C2_W_056B2                               equ (CONSTS_BASE+d_c2_w_056b2-DS_SEG*16)
+C2_W_058DA                               equ (CONSTS_BASE+d_c2_w_058da-DS_SEG*16)
 C2_W_0594E                               equ 0594eh
 C2_W_05962                               equ 05962h
 C2_W_062B0                               equ 062b0h
 C2_W_062E8                               equ 062e8h
 C2_W_064F8                               equ 064f8h
-C2_W_065A8                               equ 065a8h
+C2_W_065A8                               equ (CONSTS_BASE+d_c2_w_065a8-DS_SEG*16)
 C2_W_0A5D8                               equ 0a5d8h
 C2_W_0C2B2                               equ (C2_BASE+L_4A442-C1_SEG*16)
 C2_W_0C31E                               equ (C2_BASE+L_4A4AE-C1_SEG*16)
@@ -292,18 +292,18 @@ A1_W_0ECF4                               equ 0ecf4h
 A1_W_0ECFC                               equ 0ecfch
 A1_W_0ED10                               equ 0ed10h
 C0_B_044AD                               equ 44adh
-C0_W_0508E                               equ 508eh
-C0_W_06484                               equ 6484h
-C2_W_0466C                               equ 466ch
-C2_W_05694                               equ 5694h
-C2_W_058BC                               equ 58bch
-C2_W_062C4                               equ 62c4h
-C2_W_06366                               equ 6366h
+C0_W_0508E                               equ (CONSTS_BASE+d_c0_w_0508e-DS_SEG*16)
+C0_W_06484                               equ (CONSTS_BASE+TBL_WINKEYS_SAMPLE_DUMP-DS_SEG*16)
+C2_W_0466C                               equ (CONSTS_BASE+TBL_WINKEYS_COPY_FX-DS_SEG*16)
+C2_W_05694                               equ (CONSTS_BASE+TBL_WINKEYS_FX_MIXER-DS_SEG*16)
+C2_W_058BC                               equ (CONSTS_BASE+TBL_WINKEYS_EFFECT_MIXER-DS_SEG*16)
+C2_W_062C4                               equ (CONSTS_BASE+TBL_WINKEYS_WAVE_MEM-DS_SEG*16)
+C2_W_06366                               equ (CONSTS_BASE+TBL_WINKEYS_SND_DEBUG-DS_SEG*16)
 C2_W_06398                               equ 6398h
 A1_W_0C000                               equ 0c000h
 A1_W_0ECBA                               equ 0ecbah
 C2_W_05BC4                               equ 5bc4h
-C2_W_06582                               equ 6582h
+C2_W_06582                               equ (CONSTS_BASE+d_c2_w_06582-DS_SEG*16)
 
 ; ---- addresses this version shares an object at with v1.20, named for v1.20's value.
 
@@ -313,12 +313,12 @@ P_57F6                                   equ (C2_BASE+L_53956-C2_SEG*16)
 
 ; ---- CS offsets the app3 tail names.
 TBL_NOTE_VAR_PARAM_LABELS                equ 02a8dh
-C0_B_02AB8                               equ 02aa8h
+C0_B_02AB8                               equ (APP3_BASE+d_c0_b_02ab8-APPDATA_SEG*16)
 C0_B_02A9A                               equ 02a8ah
-C0_B_02A9B                               equ 02a8bh
-C0_B_02A9C                               equ 02a8ch
-C0_W_02A94                               equ 02a84h
-C0_W_02AD0                               equ 02ac0h
+C0_B_02A9B                               equ (APP3_BASE+d_c0_b_02a9b-APPDATA_SEG*16)
+C0_B_02A9C                               equ (APP3_BASE+d_c0_b_02a9c-APPDATA_SEG*16)
+C0_W_02A94                               equ (APP3_BASE+d_c0_w_02a94-APPDATA_SEG*16)
+C0_W_02AD0                               equ (APP3_BASE+d_c0_w_02ad0-APPDATA_SEG*16)
 
 C2_W_04614                      equ C2_W_04616-2
 C0_B_02C0E                               equ 02bfeh

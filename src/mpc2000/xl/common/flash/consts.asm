@@ -7956,6 +7956,7 @@ TBL_WINKEYS_MIXER:
         WIN_SOFTKEY 5, 2, "SETUP"
         WIN_SOFTKEY 6, 1, "ON/OFF"
         WIN_END
+d_c0_w_044a0:
         WIN_OP4   12h, 6ch, 11h, 7ch, 03h
         WIN_OP4   12h, 6ch, 14h, 03h, 08h
         WIN_OP4   12h, 0e5h, 14h, 03h, 08h
@@ -8099,6 +8100,7 @@ TBL_WINKEYS_FX_DIST_RINGMOD:
         WIN_KEY   WIN_K_REFRESH, EP_FX_EDIT_REFRESH_SEG, EP_FX_EDIT_REFRESH_OFF
         WIN_KEY   33h, EP_FX_EDIT_KEY_33_SEG, EP_FX_EDIT_KEY_33_OFF
         WIN_KEY_END
+d_c2_w_047a4:
         WIN_RULE  0fh, 79h, 0eh, 1eh
         WIN_LABEL 25h, 0eh, "<DISTORTION>"
         WIN_LABEL 31h, 19h, "Gain:"
@@ -8153,6 +8155,7 @@ TBL_WINKEYS_4BAND_FILTER:
         WIN_KEY   WIN_K_REFRESH, EP_FX_EDIT_REFRESH_SEG, EP_FX_EDIT_REFRESH_OFF
         WIN_KEY   33h, EP_FX_EDIT_KEY_33_SEG, EP_FX_EDIT_KEY_33_OFF
         WIN_KEY_END
+d_c2_w_048d2:
         WIN_RULE  0ch, 13h, 13h, 0d2h
         WIN_RULE  0ch, 13h, 1dh, 0d2h
         WIN_RULE  0ch, 13h, 27h, 0d2h
@@ -8388,6 +8391,7 @@ TBL_WINKEYS_FX_ROTARY:
         WIN_KEY   WIN_K_REFRESH, EP_FX_EDIT_REFRESH_SEG, EP_FX_EDIT_REFRESH_OFF
         WIN_KEY   33h, EP_FX_EDIT_KEY_33_SEG, EP_FX_EDIT_KEY_33_OFF
         WIN_KEY_END
+d_c2_w_04d08:
         WIN_LABEL 13h, 0bh, "Type:"
         WIN_LABEL 19h, 19h, "Speed1:___Hz"
         WIN_LABEL 1fh, 24h, "Depth:"
@@ -8467,6 +8471,7 @@ TBL_WINKEYS_FX_FMOD_AUTOPAN:
         WIN_KEY   WIN_K_REFRESH, EP_FX_EDIT_REFRESH_SEG, EP_FX_EDIT_REFRESH_OFF
         WIN_KEY   33h, EP_FX_EDIT_KEY_33_SEG, EP_FX_EDIT_KEY_33_OFF
         WIN_KEY_END
+d_c2_w_04ea6:
         WIN_LABEL 13h, 0bh, "Type:"
         WIN_LABEL 19h, 15h, "<F-MOD> Speed:___Hz"
         WIN_LABEL 49h, 1fh, "Depth:"
@@ -8553,6 +8558,7 @@ d_c0_w_0506a:
         WIN_LABEL 73h, 15h, "Tune:"
         WIN_END
         db      00h
+d_c0_w_0508e:
         WIN_LABEL 6dh, 1fh, "Delay:"
         WIN_LABEL 0a9h, 1fh, "ms"
         WIN_LABEL 0d3h, 1fh, "ms"
@@ -8630,6 +8636,7 @@ d_c2_w_0521a:
         WIN_LABEL 7fh, 1fh, "HF damping:___Hz"
         WIN_LABEL 5bh, 29h, "L/R delay offset:___%"
         WIN_END
+d_c2_w_05270:
         WIN_LABEL 97h, 0bh, "Left   Right"
         WIN_LABEL 61h, 15h, "Feedback: __%"
         WIN_LABEL 0d3h, 15h, "%"
@@ -8787,6 +8794,7 @@ d_c2_w_054ec:
         WIN_LABEL 43h, 1fh, "Time:"
         WIN_LABEL 31h, 29h, "Diffuse:"
         WIN_END
+d_c2_w_0551c:
         WIN_LABEL 0a9h, 15h, "Near:"
         WIN_LABEL 85h, 1fh, "LF damping:   Hz"
         WIN_LABEL 85h, 29h, "HF damping:   Hz"
@@ -8867,6 +8875,7 @@ TBL_WINKEYS_FX_MIXER:
         WIN_KEY   WIN_K_OPEN, EP_FX_MIXER_CLOSE_SEG, EP_FX_MIXER_CLOSE_OFF
         WIN_KEY   WIN_K_REFRESH, EP_FX_MIXER_REFRESH_SEG, EP_FX_MIXER_REFRESH_OFF
         WIN_KEY_END
+d_c2_w_056b2:
         WIN_SOFTKEY 4, 2, "CLOSE"
         WIN_LABEL 13h, 0bh, "Direct sig:"
         WIN_LABEL 13h, 15h, "Patch:"
@@ -8994,6 +9003,7 @@ TBL_WINKEYS_EFFECT_MIXER:
         WIN_KEY   WIN_K_OPEN, EP_EFFECT_MIXER_CLOSE_SEG, EP_EFFECT_MIXER_CLOSE_OFF
         WIN_KEY   WIN_K_REFRESH, EP_EFFECT_MIXER_REFRESH_SEG, EP_EFFECT_MIXER_REFRESH_OFF
         WIN_KEY_END
+d_c2_w_058da:
         WIN_SOFTKEY 4, 2, "CLOSE"
         WIN_LABEL 0a7h, 0bh, "Lev^Pan"
         WIN_LABEL 7fh, 1fh, "Reverb:"
@@ -9300,12 +9310,14 @@ TBL_WINKEYS_5E78A:
         WIN_LABEL 80h, 25h, "device ID:"
         WIN_END
         db      00h
+d_c2_w_06582:
         WIN_SOFTKEY 1, 2, "SYNC"
         WIN_SOFTKEY 2, 0, "DUMP"
         WIN_SOFTKEY 3, 2, "MIDIsw"
         WIN_SOFTKEY 5, 1, "REQUES"
         WIN_END
         db      00h
+d_c2_w_065a8:
         WIN_SOFTKEY 6, 1, "CANCEL"
         WIN_END
         db      00h

@@ -17,6 +17,8 @@ APP2_CSBASE_A2 set  APP2_SEG*16-APP2_BASE
 ; month, day, major, minor -- and the name of the system file it loads from.
 ram_stamp:
         if      FW_VERSION >= 120
+d_a1_b_00010 equ     $+10h
+d_a1_w_0001a equ     $+1ah
         db      "1.14c        -74Jul. 15,2004"
 d_a0_w_0001c:
         dw      2004
@@ -29,6 +31,8 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      20
         elseif  FW_VERSION >= 114
+d_a1_b_00010 equ     $+10h
+d_a1_w_0001a equ     $+1ah
         db      "1.14         -72May. 15,2001"
 d_a0_w_0001c:
         dw      2001
@@ -41,6 +45,8 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      14
         elseif  FW_VERSION >= 112
+d_a1_b_00010 equ     $+10h
+d_a1_w_0001a equ     $+1ah
         db      "1.12         -65Dec. 04,2000"
 d_a0_w_0001c:
         dw      2000
@@ -53,6 +59,8 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      12
         elseif  FW_VERSION >= 111
+d_a1_b_00010 equ     $+10h
+d_a1_w_0001a equ     $+1ah
         db      "1.11         -63Mar. 06,2000"
 d_a0_w_0001c:
         dw      2000
@@ -65,6 +73,8 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      11
         elseif  FW_VERSION >= 110
+d_a1_b_00010 equ     $+10h
+d_a1_w_0001a equ     $+1ah
         db      "1.10         -61Feb. 23,2000"
 d_a0_w_0001c:
         dw      2000
@@ -77,6 +87,8 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      10
         else
+d_a1_b_00010 equ     $+10h
+d_a1_w_0001a equ     $+1ah
         db      "1.07         -54Oct. 27,1999"
 d_a0_w_0001c:
         dw      1999
@@ -89,6 +101,7 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      7
         endif
+d_a1_w_0003a equ     $+18h
         db      "-------------------------", 00h
 xl_ata_system_filename:
         db      "MPC2KXL         .BIN"
@@ -3608,6 +3621,16 @@ FREE_17D63:
 ; 0x17e5f-0x1a4b5, 9814 bytes of 00h: BSS
         if      FW_VERSION >= 120
 FREE_17E5F:
+d_a1_b_08000 equ     $+11h
+d_a1_w_0800b equ     $+1ch
+d_a1_b_0800d equ     $+1eh
+d_a1_w_0800e equ     $+1fh
+d_a1_b_08010 equ     $+21h
+d_a1_w_08011 equ     $+22h
+d_a1_w_08013 equ     $+24h
+d_a1_w_08016 equ     $+27h
+d_a1_w_08020 equ     $+31h
+d_a1_w_08022 equ     $+33h
         db      103 dup (0)
 d_a0_w_0803a:
         db      2 dup (0)
@@ -3647,10 +3670,20 @@ d_a1_w_08082:
 d_a1_w_08096:
         db      2 dup (0)
 d_a1_b_08098:
+d_a1_w_0809e equ     $+6
+d_a1_w_080a0 equ     $+8
+d_a1_w_080a6 equ     $+0eh
+d_a1_w_080a8 equ     $+10h
         db      18 dup (0)
 d_a1_w_scsi_blocks_left:
         db      2 dup (0)
 d_a1_w_080ac:
+d_a1_b_081c2 equ     $+116h
+d_a1_w_081c6 equ     $+11ah
+d_a1_w_081ca equ     $+11eh
+d_a1_w_081cc equ     $+120h
+d_a1_w_081fe equ     $+152h
+d_a1_w_083fe equ     $+352h
         db      2048 dup (0)
 d_a1_w_088ac:
         db      2 dup (0)
@@ -3671,6 +3704,55 @@ d_a1_w_088ba:
 d_a1_w_088bc:
         db      1742 dup (0)
 d_a0_b_08f8a:
+d_a1_b_0a092 equ     $+1108h
+d_a1_b_0a093 equ     $+1109h
+d_a1_b_0a095 equ     $+110bh
+d_a1_b_0a096 equ     $+110ch
+d_a1_w_0a098 equ     $+110eh
+d_a1_w_0a09a equ     $+1110h
+d_a1_w_0a09c equ     $+1112h
+d_a1_w_0a09e equ     $+1114h
+d_a1_w_0a0a0 equ     $+1116h
+d_a1_w_0a0a2 equ     $+1118h
+d_a1_w_0a0a4 equ     $+111ah
+d_a1_w_0a0a6 equ     $+111ch
+d_a1_w_0a0a8 equ     $+111eh
+d_a1_w_0a0aa equ     $+1120h
+d_a1_w_0a0ac equ     $+1122h
+d_a1_w_0a0ae equ     $+1124h
+d_a1_w_0a0b0 equ     $+1126h
+d_a1_w_0a0b2 equ     $+1128h
+d_a1_w_0a0b4 equ     $+112ah
+d_a1_w_0a0b6 equ     $+112ch
+d_a1_w_0a0b8 equ     $+112eh
+d_a1_w_0a0ba equ     $+1130h
+d_a1_w_0a0bc equ     $+1132h
+d_a1_w_0a0be equ     $+1134h
+d_a1_w_0a0c0 equ     $+1136h
+d_a1_w_0a0c2 equ     $+1138h
+d_a1_w_0a0c4 equ     $+113ah
+d_a1_w_0a0c6 equ     $+113ch
+d_a1_w_0a0cc equ     $+1142h
+d_a1_w_0a0ce equ     $+1144h
+d_a1_b_0a10d equ     $+1183h
+d_a1_b_0a10e equ     $+1184h
+d_a1_b_0a10f equ     $+1185h
+d_a1_b_0a110 equ     $+1186h
+d_a1_b_0a111 equ     $+1187h
+d_a1_b_0a112 equ     $+1188h
+d_a1_b_0a113 equ     $+1189h
+d_a1_b_0a114 equ     $+118ah
+d_a1_b_0a115 equ     $+118bh
+d_a1_b_0a116 equ     $+118ch
+d_a1_b_0a117 equ     $+118dh
+d_a1_b_0a118 equ     $+118eh
+d_a1_b_0a119 equ     $+118fh
+d_a1_b_0a11a equ     $+1190h
+d_a1_b_0a11b equ     $+1191h
+d_a1_b_0a11c equ     $+1192h
+d_a1_b_0a11d equ     $+1193h
+d_a1_b_0a11e equ     $+1194h
+d_a1_b_0a11f equ     $+1195h
         db      5458 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
@@ -3759,6 +3841,16 @@ d_a1_w_0a6ee:
         else
 FREE_17B6F:
         if      FW_VERSION >= 114
+d_a1_b_08000 equ     $+11h
+d_a1_w_0800b equ     $+1ch
+d_a1_b_0800d equ     $+1eh
+d_a1_w_0800e equ     $+1fh
+d_a1_b_08010 equ     $+21h
+d_a1_w_08011 equ     $+22h
+d_a1_w_08013 equ     $+24h
+d_a1_w_08016 equ     $+27h
+d_a1_w_08020 equ     $+31h
+d_a1_w_08022 equ     $+33h
         db      103 dup (0)
 d_a0_w_0803a:
         db      2 dup (0)
@@ -3798,10 +3890,20 @@ d_a1_w_08082:
 d_a1_w_08096:
         db      2 dup (0)
 d_a1_b_08098:
+d_a1_w_0809e equ     $+6
+d_a1_w_080a0 equ     $+8
+d_a1_w_080a6 equ     $+0eh
+d_a1_w_080a8 equ     $+10h
         db      18 dup (0)
 d_a1_w_scsi_blocks_left:
         db      2 dup (0)
 d_a1_w_080ac:
+d_a1_b_081c2 equ     $+116h
+d_a1_w_081c6 equ     $+11ah
+d_a1_w_081ca equ     $+11eh
+d_a1_w_081cc equ     $+120h
+d_a1_w_081fe equ     $+152h
+d_a1_w_083fe equ     $+352h
         db      2048 dup (0)
 d_a1_w_088ac:
         db      2 dup (0)
@@ -3822,6 +3924,55 @@ d_a1_w_088ba:
 d_a1_w_088bc:
         db      1742 dup (0)
 d_a0_b_08f8a:
+d_a1_b_0a092 equ     $+1108h
+d_a1_b_0a093 equ     $+1109h
+d_a1_b_0a095 equ     $+110bh
+d_a1_b_0a096 equ     $+110ch
+d_a1_w_0a098 equ     $+110eh
+d_a1_w_0a09a equ     $+1110h
+d_a1_w_0a09c equ     $+1112h
+d_a1_w_0a09e equ     $+1114h
+d_a1_w_0a0a0 equ     $+1116h
+d_a1_w_0a0a2 equ     $+1118h
+d_a1_w_0a0a4 equ     $+111ah
+d_a1_w_0a0a6 equ     $+111ch
+d_a1_w_0a0a8 equ     $+111eh
+d_a1_w_0a0aa equ     $+1120h
+d_a1_w_0a0ac equ     $+1122h
+d_a1_w_0a0ae equ     $+1124h
+d_a1_w_0a0b0 equ     $+1126h
+d_a1_w_0a0b2 equ     $+1128h
+d_a1_w_0a0b4 equ     $+112ah
+d_a1_w_0a0b6 equ     $+112ch
+d_a1_w_0a0b8 equ     $+112eh
+d_a1_w_0a0ba equ     $+1130h
+d_a1_w_0a0bc equ     $+1132h
+d_a1_w_0a0be equ     $+1134h
+d_a1_w_0a0c0 equ     $+1136h
+d_a1_w_0a0c2 equ     $+1138h
+d_a1_w_0a0c4 equ     $+113ah
+d_a1_w_0a0c6 equ     $+113ch
+d_a1_w_0a0cc equ     $+1142h
+d_a1_w_0a0ce equ     $+1144h
+d_a1_b_0a10d equ     $+1183h
+d_a1_b_0a10e equ     $+1184h
+d_a1_b_0a10f equ     $+1185h
+d_a1_b_0a110 equ     $+1186h
+d_a1_b_0a111 equ     $+1187h
+d_a1_b_0a112 equ     $+1188h
+d_a1_b_0a113 equ     $+1189h
+d_a1_b_0a114 equ     $+118ah
+d_a1_b_0a115 equ     $+118bh
+d_a1_b_0a116 equ     $+118ch
+d_a1_b_0a117 equ     $+118dh
+d_a1_b_0a118 equ     $+118eh
+d_a1_b_0a119 equ     $+118fh
+d_a1_b_0a11a equ     $+1190h
+d_a1_b_0a11b equ     $+1191h
+d_a1_b_0a11c equ     $+1192h
+d_a1_b_0a11d equ     $+1193h
+d_a1_b_0a11e equ     $+1194h
+d_a1_b_0a11f equ     $+1195h
         db      5458 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
@@ -3854,6 +4005,16 @@ d_a1_w_0a4f4:
         PAD_TO  0A503h, 000h
         elseif  FW_VERSION >= 112
 FREE_17E5F:
+d_a1_b_08000 equ     $+2dh
+d_a1_w_0800b equ     $+38h
+d_a1_b_0800d equ     $+3ah
+d_a1_w_0800e equ     $+3bh
+d_a1_b_08010 equ     $+3dh
+d_a1_w_08011 equ     $+3eh
+d_a1_w_08013 equ     $+40h
+d_a1_w_08016 equ     $+43h
+d_a1_w_08020 equ     $+4dh
+d_a1_w_08022 equ     $+4fh
         db      103 dup (0)
 d_a0_w_0803a:
         db      2 dup (0)
@@ -3897,6 +4058,16 @@ d_a1_b_08098:
 d_a1_w_scsi_blocks_left:
         db      2 dup (0)
 d_a1_w_080ac:
+d_a1_w_0809e equ     $+0eh
+d_a1_w_080a0 equ     $+10h
+d_a1_w_080a6 equ     $+16h
+d_a1_w_080a8 equ     $+18h
+d_a1_b_081c2 equ     $+132h
+d_a1_w_081c6 equ     $+136h
+d_a1_w_081ca equ     $+13ah
+d_a1_w_081cc equ     $+13ch
+d_a1_w_081fe equ     $+16eh
+d_a1_w_083fe equ     $+36eh
         db      2048 dup (0)
 d_a1_w_088ac:
         db      2 dup (0)
@@ -3917,6 +4088,55 @@ d_a1_w_088ba:
 d_a1_w_088bc:
         db      1770 dup (0)
 d_a0_b_08f8a:
+d_a1_b_0a092 equ     $+1108h
+d_a1_b_0a093 equ     $+1109h
+d_a1_b_0a095 equ     $+110bh
+d_a1_b_0a096 equ     $+110ch
+d_a1_w_0a098 equ     $+110eh
+d_a1_w_0a09a equ     $+1110h
+d_a1_w_0a09c equ     $+1112h
+d_a1_w_0a09e equ     $+1114h
+d_a1_w_0a0a0 equ     $+1116h
+d_a1_w_0a0a2 equ     $+1118h
+d_a1_w_0a0a4 equ     $+111ah
+d_a1_w_0a0a6 equ     $+111ch
+d_a1_w_0a0a8 equ     $+111eh
+d_a1_w_0a0aa equ     $+1120h
+d_a1_w_0a0ac equ     $+1122h
+d_a1_w_0a0ae equ     $+1124h
+d_a1_w_0a0b0 equ     $+1126h
+d_a1_w_0a0b2 equ     $+1128h
+d_a1_w_0a0b4 equ     $+112ah
+d_a1_w_0a0b6 equ     $+112ch
+d_a1_w_0a0b8 equ     $+112eh
+d_a1_w_0a0ba equ     $+1130h
+d_a1_w_0a0bc equ     $+1132h
+d_a1_w_0a0be equ     $+1134h
+d_a1_w_0a0c0 equ     $+1136h
+d_a1_w_0a0c2 equ     $+1138h
+d_a1_w_0a0c4 equ     $+113ah
+d_a1_w_0a0c6 equ     $+113ch
+d_a1_w_0a0cc equ     $+1142h
+d_a1_w_0a0ce equ     $+1144h
+d_a1_b_0a10d equ     $+1183h
+d_a1_b_0a10e equ     $+1184h
+d_a1_b_0a10f equ     $+1185h
+d_a1_b_0a110 equ     $+1186h
+d_a1_b_0a111 equ     $+1187h
+d_a1_b_0a112 equ     $+1188h
+d_a1_b_0a113 equ     $+1189h
+d_a1_b_0a114 equ     $+118ah
+d_a1_b_0a115 equ     $+118bh
+d_a1_b_0a116 equ     $+118ch
+d_a1_b_0a117 equ     $+118dh
+d_a1_b_0a118 equ     $+118eh
+d_a1_b_0a119 equ     $+118fh
+d_a1_b_0a11a equ     $+1190h
+d_a1_b_0a11b equ     $+1191h
+d_a1_b_0a11c equ     $+1192h
+d_a1_b_0a11d equ     $+1193h
+d_a1_b_0a11e equ     $+1194h
+d_a1_b_0a11f equ     $+1195h
         db      5430 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
@@ -3949,6 +4169,16 @@ d_a1_w_0a4f4:
         PAD_TO  0A565h, 000h
         else
 FREE_17E5F:
+d_a1_b_08000 equ     $+31h
+d_a1_w_0800b equ     $+3ch
+d_a1_b_0800d equ     $+3eh
+d_a1_w_0800e equ     $+3fh
+d_a1_b_08010 equ     $+41h
+d_a1_w_08011 equ     $+42h
+d_a1_w_08013 equ     $+44h
+d_a1_w_08016 equ     $+47h
+d_a1_w_08020 equ     $+51h
+d_a1_w_08022 equ     $+53h
         db      103 dup (0)
 d_a0_w_0803a:
         db      2 dup (0)
@@ -3992,6 +4222,16 @@ d_a1_b_08098:
 d_a1_w_scsi_blocks_left:
         db      2 dup (0)
 d_a1_w_080ac:
+d_a1_w_0809e equ     $+12h
+d_a1_w_080a0 equ     $+14h
+d_a1_w_080a6 equ     $+1ah
+d_a1_w_080a8 equ     $+1ch
+d_a1_b_081c2 equ     $+136h
+d_a1_w_081c6 equ     $+13ah
+d_a1_w_081ca equ     $+13eh
+d_a1_w_081cc equ     $+140h
+d_a1_w_081fe equ     $+172h
+d_a1_w_083fe equ     $+372h
         db      2048 dup (0)
 d_a1_w_088ac:
         db      2 dup (0)
@@ -4012,6 +4252,55 @@ d_a1_w_088ba:
 d_a1_w_088bc:
         db      1774 dup (0)
 d_a0_b_08f8a:
+d_a1_b_0a092 equ     $+1108h
+d_a1_b_0a093 equ     $+1109h
+d_a1_b_0a095 equ     $+110bh
+d_a1_b_0a096 equ     $+110ch
+d_a1_w_0a098 equ     $+110eh
+d_a1_w_0a09a equ     $+1110h
+d_a1_w_0a09c equ     $+1112h
+d_a1_w_0a09e equ     $+1114h
+d_a1_w_0a0a0 equ     $+1116h
+d_a1_w_0a0a2 equ     $+1118h
+d_a1_w_0a0a4 equ     $+111ah
+d_a1_w_0a0a6 equ     $+111ch
+d_a1_w_0a0a8 equ     $+111eh
+d_a1_w_0a0aa equ     $+1120h
+d_a1_w_0a0ac equ     $+1122h
+d_a1_w_0a0ae equ     $+1124h
+d_a1_w_0a0b0 equ     $+1126h
+d_a1_w_0a0b2 equ     $+1128h
+d_a1_w_0a0b4 equ     $+112ah
+d_a1_w_0a0b6 equ     $+112ch
+d_a1_w_0a0b8 equ     $+112eh
+d_a1_w_0a0ba equ     $+1130h
+d_a1_w_0a0bc equ     $+1132h
+d_a1_w_0a0be equ     $+1134h
+d_a1_w_0a0c0 equ     $+1136h
+d_a1_w_0a0c2 equ     $+1138h
+d_a1_w_0a0c4 equ     $+113ah
+d_a1_w_0a0c6 equ     $+113ch
+d_a1_w_0a0cc equ     $+1142h
+d_a1_w_0a0ce equ     $+1144h
+d_a1_b_0a10d equ     $+1183h
+d_a1_b_0a10e equ     $+1184h
+d_a1_b_0a10f equ     $+1185h
+d_a1_b_0a110 equ     $+1186h
+d_a1_b_0a111 equ     $+1187h
+d_a1_b_0a112 equ     $+1188h
+d_a1_b_0a113 equ     $+1189h
+d_a1_b_0a114 equ     $+118ah
+d_a1_b_0a115 equ     $+118bh
+d_a1_b_0a116 equ     $+118ch
+d_a1_b_0a117 equ     $+118dh
+d_a1_b_0a118 equ     $+118eh
+d_a1_b_0a119 equ     $+118fh
+d_a1_b_0a11a equ     $+1190h
+d_a1_b_0a11b equ     $+1191h
+d_a1_b_0a11c equ     $+1192h
+d_a1_b_0a11d equ     $+1193h
+d_a1_b_0a11e equ     $+1194h
+d_a1_b_0a11f equ     $+1195h
         db      5426 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)
@@ -4193,6 +4482,14 @@ d_a1_w_0a6ee:
 ; 0x176d1-0x19d25, 9812 bytes of 00h: BSS
 FREE_17B6F:
 FREE_17E5F:
+d_a1_b_08000 equ     $+4fh
+d_a1_w_0800b equ     $+5ah
+d_a1_b_0800d equ     $+5ch
+d_a1_w_0800e equ     $+5dh
+d_a1_b_08010 equ     $+5fh
+d_a1_w_08011 equ     $+60h
+d_a1_w_08013 equ     $+62h
+d_a1_w_08016 equ     $+65h
         db      103 dup (0)
 d_a0_w_0803a:
         db      2 dup (0)
@@ -4204,6 +4501,8 @@ d_a0_b_scsi_cdb:
 d_a1_w_scsi_cdb:
         db      2 dup (0)
 d_a1_w_0805e:
+d_a1_w_08022 equ     $+2
+d_a1_w_08020:
         db      10 dup (0)
 d_a0_fp_scsi_data_ptr:
         db      2 dup (0)
@@ -4234,6 +4533,16 @@ d_a1_b_08098:
 d_a1_w_scsi_blocks_left:
         db      2 dup (0)
 d_a1_w_080ac:
+d_a1_w_0809e equ     $+32h
+d_a1_w_080a0 equ     $+34h
+d_a1_w_080a6 equ     $+3ah
+d_a1_w_080a8 equ     $+3ch
+d_a1_b_081c2 equ     $+156h
+d_a1_w_081c6 equ     $+15ah
+d_a1_w_081ca equ     $+15eh
+d_a1_w_081cc equ     $+160h
+d_a1_w_081fe equ     $+192h
+d_a1_w_083fe equ     $+392h
         db      2048 dup (0)
 d_a1_w_088ac:
         db      2 dup (0)
@@ -4254,6 +4563,55 @@ d_a1_w_088ba:
 d_a1_w_088bc:
         db      1806 dup (0)
 d_a0_b_08f8a:
+d_a1_b_0a092 equ     $+1108h
+d_a1_b_0a093 equ     $+1109h
+d_a1_b_0a095 equ     $+110bh
+d_a1_b_0a096 equ     $+110ch
+d_a1_w_0a098 equ     $+110eh
+d_a1_w_0a09a equ     $+1110h
+d_a1_w_0a09c equ     $+1112h
+d_a1_w_0a09e equ     $+1114h
+d_a1_w_0a0a0 equ     $+1116h
+d_a1_w_0a0a2 equ     $+1118h
+d_a1_w_0a0a4 equ     $+111ah
+d_a1_w_0a0a6 equ     $+111ch
+d_a1_w_0a0a8 equ     $+111eh
+d_a1_w_0a0aa equ     $+1120h
+d_a1_w_0a0ac equ     $+1122h
+d_a1_w_0a0ae equ     $+1124h
+d_a1_w_0a0b0 equ     $+1126h
+d_a1_w_0a0b2 equ     $+1128h
+d_a1_w_0a0b4 equ     $+112ah
+d_a1_w_0a0b6 equ     $+112ch
+d_a1_w_0a0b8 equ     $+112eh
+d_a1_w_0a0ba equ     $+1130h
+d_a1_w_0a0bc equ     $+1132h
+d_a1_w_0a0be equ     $+1134h
+d_a1_w_0a0c0 equ     $+1136h
+d_a1_w_0a0c2 equ     $+1138h
+d_a1_w_0a0c4 equ     $+113ah
+d_a1_w_0a0c6 equ     $+113ch
+d_a1_w_0a0cc equ     $+1142h
+d_a1_w_0a0ce equ     $+1144h
+d_a1_b_0a10d equ     $+1183h
+d_a1_b_0a10e equ     $+1184h
+d_a1_b_0a10f equ     $+1185h
+d_a1_b_0a110 equ     $+1186h
+d_a1_b_0a111 equ     $+1187h
+d_a1_b_0a112 equ     $+1188h
+d_a1_b_0a113 equ     $+1189h
+d_a1_b_0a114 equ     $+118ah
+d_a1_b_0a115 equ     $+118bh
+d_a1_b_0a116 equ     $+118ch
+d_a1_b_0a117 equ     $+118dh
+d_a1_b_0a118 equ     $+118eh
+d_a1_b_0a119 equ     $+118fh
+d_a1_b_0a11a equ     $+1190h
+d_a1_b_0a11b equ     $+1191h
+d_a1_b_0a11c equ     $+1192h
+d_a1_b_0a11d equ     $+1193h
+d_a1_b_0a11e equ     $+1194h
+d_a1_b_0a11f equ     $+1195h
         db      5394 dup (0)
 d_a1_w_flashfs_dir_entry:
         db      2 dup (0)

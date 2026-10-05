@@ -1969,22 +1969,22 @@ far_3EEE6:
         push    di
         push    si
         mov     byte ptr [C0_B_0D776], 1
-        mov     byte ptr [C1_B_0D777], 0
+        mov     byte ptr [C2_B_PAD_ASSIGN_MASTER], 0
         push    ds
         push    C0_W_0D778
         nop
         push    cs
         call    far_3F46E
         add     sp, 4
-        mov     byte ptr [C1_B_0D7C6], 7fh
+        mov     byte ptr [C2_B_PAD_VELOCITY], 7fh
         mov     byte ptr [C0_B_0D7B8], 0
         mov     byte ptr [C0_B_0D7B9], 0
         mov     byte ptr [C1_B_0D7BA], 1
-        mov     byte ptr [C0_B_0D7BB], 0
+        mov     byte ptr [C2_B_RECORD_MIX_CHANGES], 0
         mov     byte ptr [C2_B_PAD_DRUM], 0
-        mov     byte ptr [C1_B_0D7BF], 0
+        mov     byte ptr [C0_B_0D7BF], 0
         mov     byte ptr [C2_B_PAD_NOTE], 3ch
-        mov     byte ptr [C0_B_0D7C1], 0
+        mov     byte ptr [C2_B_CUR_PAD], 0
         push    0
         nop
         push    cs
@@ -1993,7 +1993,7 @@ far_3EEE6:
         mov     byte ptr [C0_B_0D7C7], 0
         mov     byte ptr [C1_B_0D7BD], 0
         xor     di, di
-        mov     byte ptr [C0_B_0D7BC], 0
+        mov     byte ptr [C2_B_MIXER_DRUM], 0
         mov     si, 8fe0h
         jmp     br_3EF6A
         db      90h
@@ -2024,7 +2024,7 @@ br_3EF6A:
         mov     byte ptr [C1_B_0D7CA], 0
         mov     byte ptr [C1_B_0D7CB], 0
         mov     byte ptr [C2_B_0D7CC], 0
-        mov     byte ptr [C1_B_0D7CD], 2
+        mov     byte ptr [C2_B_REC_MODE], 2
         mov     byte ptr [C2_B_0D7CE], 1
         mov     word ptr [C1_W_0D7D0], 0ffech
         mov     word ptr [C1_W_0D7D2], 64h
@@ -2077,14 +2077,14 @@ pgm_memory_init:
         and     ax, 0f000h
         add     ax, 10h
         adc     dx, 0
-        mov     word ptr [C0_W_0989A], ax
-        mov     word ptr [C0_W_0989C], dx
+        mov     word ptr [C2_FP_PGM_ARRAY], ax
+        mov     word ptr [C2_W_PGM_ARRAY_SEG], dx
         xor     si, si
         mov     di, si
         jmp     br_3F04E
         db      90h
 loop_3F040:
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         mov     byte ptr es:[bx+si+2], 0
         add     si, 99eh
         inc     di
@@ -2108,8 +2108,8 @@ loop_3F05F:
         cmp     si, 3
         jle     loop_3F05F
         sub     ax, ax
-        mov     word ptr [C0_W_098C0], ax
-        mov     word ptr [C0_W_098BE], ax
+        mov     word ptr [C2_W_PARAM_HOOK_SEG], ax
+        mov     word ptr [C2_W_PARAM_HOOK_OFF], ax
         push    ax
         nop
         push    cs
@@ -2148,8 +2148,8 @@ pgm_init_default:
         push    di
         push    si
         imul    bx, word ptr [bp+6], 99eh
-        mov     es, word ptr [C0_W_0989C]
-        add     bx, word ptr [C0_W_0989A]
+        mov     es, word ptr [C2_W_PGM_ARRAY_SEG]
+        add     bx, word ptr [C2_FP_PGM_ARRAY]
         mov     word ptr [bp-0ah], bx
         mov     word ptr [bp-8], es
         mov     word ptr es:[bx], 1eh
@@ -2293,14 +2293,14 @@ pgm_delete_slot:
         enter   2, 0
         push    si
         imul    si, word ptr [bp+6], 99eh
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         mov     byte ptr es:[bx+si+2], 0
         mov     byte ptr [bp-2], 0
 loop_3F25D:
         mov     al, byte ptr [bp-2]
         sub     ah, ah
         imul    si, ax, 99eh
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         cmp     byte ptr es:[bx+si+2], ah
         jne     br_3F279
         inc     byte ptr [bp-2]
@@ -2323,7 +2323,7 @@ loop_3F291:
         imul    bx, ax, 184h
         mov     al, byte ptr [bx+C0_TBL_09160]
         imul    si, ax, 99eh
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         cmp     byte ptr es:[bx+si+2], ah
         jne     br_3F2BC
         mov     al, byte ptr [bp-2]
@@ -2344,12 +2344,12 @@ br_3F2BC:
 pgm_delete_all:
         push    si
         mov     bx, 17h
-        mov     es, word ptr [C0_W_0989C]
+        mov     es, word ptr [C2_W_PGM_ARRAY_SEG]
 loop_3F2D0:
         mov     ax, bx
         cbw
         imul    si, ax, 99eh
-        add     si, word ptr [C0_W_0989A]
+        add     si, word ptr [C2_FP_PGM_ARRAY]
         mov     byte ptr es:[si+2], 0
         dec     bx
         jns     loop_3F2D0
@@ -2374,8 +2374,8 @@ pgm_alloc_slot:
         push    di
         push    si
         xor     di, di
-        mov     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        mov     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 2
         mov     si, ax
         mov     es, dx
@@ -2398,7 +2398,7 @@ br_3F324:
         pop     di
         retf
 br_3F332:
-        push    EP_L_40370_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_40370_OFF
         callf   EP_DISP_ALERT_WAIT_KEY_SEG:EP_DISP_ALERT_WAIT_KEY_OFF
         add     sp, 4
@@ -2412,7 +2412,7 @@ far_3F346:
         push    di
         push    si
         imul    bx, word ptr [bp+6], 99eh
-        les     si, [C0_W_0989A]
+        les     si, [C2_FP_PGM_ARRAY]
         imul    ax, word ptr [bp+8], 99eh
         mov     dx, es
         add     ax, si
@@ -2430,8 +2430,8 @@ far_3F346:
 far_3F36E:
         push    si
         xor     cx, cx
-        mov     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        mov     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 2
         mov     si, ax
         mov     es, dx
@@ -2457,8 +2457,8 @@ far_3F39A:
         push    di
         mov     di, word ptr [bp+6]
         imul    ax, di, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 2
         mov     es, dx
         mov     bx, ax
@@ -2485,8 +2485,8 @@ L_3F3D0:
         push    si
         mov     bx, word ptr [bp+6]
         imul    si, bx, 99eh
-        mov     es, word ptr [C0_W_0989C]
-        add     si, word ptr [C0_W_0989A]
+        mov     es, word ptr [C2_W_PGM_ARRAY_SEG]
+        add     si, word ptr [C2_FP_PGM_ARRAY]
         cmp     byte ptr es:[si+2], 0
         je      br_3F3F4
         mov     di, bx
@@ -2545,8 +2545,8 @@ far_3F43A:
         push    di
         mov     di, word ptr [bp+6]
         imul    ax, di, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 2
         mov     es, dx
         mov     bx, ax
@@ -2601,8 +2601,8 @@ br_3F49E:
         imul    cx, word ptr [bp+6], 99eh
         mov     word ptr [bp-6], cx
         add     ax, cx
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 1eh
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
@@ -2610,7 +2610,7 @@ br_3F49E:
         imul    cx, word ptr [bp+0ah], 99eh
         mov     word ptr [bp-8], cx
         add     ax, cx
-        add     ax, word ptr [C0_W_0989A]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
         add     ax, 1eh
         push    ds
         mov     si, ax
@@ -2625,7 +2625,7 @@ br_3F49E:
         add     ax, cx
         add     ax, ax
         add     ax, word ptr [bp-6]
-        add     ax, word ptr [C0_W_0989A]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
         add     ax, 61eh
         mov     word ptr [bp-4], ax
         mov     ax, word ptr [bp+0ch]
@@ -2634,7 +2634,7 @@ br_3F49E:
         add     ax, cx
         add     ax, ax
         add     ax, word ptr [bp-8]
-        add     ax, word ptr [C0_W_0989A]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
         add     ax, 61eh
         push    ds
         mov     si, ax
@@ -2645,7 +2645,7 @@ br_3F49E:
         movsw
         pop     ds
         mov     bx, word ptr [bp-8]
-        add     bx, word ptr [C0_W_0989A]
+        add     bx, word ptr [C2_FP_PGM_ARRAY]
         add     bx, 7deh
         mov     si, cx
         shl     si, 2
@@ -2653,7 +2653,7 @@ br_3F49E:
         mov     dx, word ptr es:[bx+si+2]
         mov     si, word ptr [bp+8]
         shl     si, 2
-        mov     bx, word ptr [C0_W_0989A]
+        mov     bx, word ptr [C2_FP_PGM_ARRAY]
         add     si, word ptr [bp-6]
         mov     word ptr es:[bx+si+7deh], ax
         mov     word ptr es:[bx+si+7e0h], dx
@@ -2834,7 +2834,7 @@ pgm_fx_section_ptr:
         jl      br_3F6CE
         xor     si, si
 br_3F6CE:
-        mov     al, byte ptr [C0_B_0D7BC]
+        mov     al, byte ptr [C2_B_MIXER_DRUM]
         cbw
         add     ax, 5ch
         push    ax
@@ -2856,7 +2856,7 @@ pgm_fx_reverb_ptr:
         jl      br_3F6F8
         xor     si, si
 br_3F6F8:
-        mov     al, byte ptr [C0_B_0D7BC]
+        mov     al, byte ptr [C2_B_MIXER_DRUM]
         cbw
         add     ax, 5ch
         push    ax
@@ -2880,12 +2880,12 @@ pad_route_mode_set:
         mov     byte ptr [C1_B_095F0], al
         dec     al
         jne     br_3F780
-        push    EP_L_42156_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_42156_OFF
         callf   EP_EVENT_CB_SET_AUX_SEG:EP_EVENT_CB_SET_AUX_OFF
         add     sp, 4
         xor     si, si
-        cmp     byte ptr [C1_B_0D777], 0
+        cmp     byte ptr [C2_B_PAD_ASSIGN_MASTER], 0
         je      br_3F74C
         mov     ax, 0d778h
         mov     di, ax
@@ -2924,7 +2924,7 @@ br_3F780:
         add     sp, 4
         xor     si, si
 loop_3F790:
-        cmp     byte ptr [C1_B_0D777], 0
+        cmp     byte ptr [C2_B_PAD_ASSIGN_MASTER], 0
         je      br_3F7A2
         mov     ax, 0d778h
         mov     di, ax
@@ -2958,7 +2958,7 @@ pad_assign_master_set:
         push    si
         xor     si, si
         mov     al, byte ptr [bp+6]
-        mov     byte ptr [C1_B_0D777], al
+        mov     byte ptr [C2_B_PAD_ASSIGN_MASTER], al
 loop_3F7DD:
         cmp     word ptr [bp+6], 0
         je      br_3F7EE
@@ -2993,7 +2993,7 @@ br_3F815:
         inc     si
         cmp     si, 3
         jle     loop_3F7DD
-        mov     al, byte ptr [C1_B_0D777]
+        mov     al, byte ptr [C2_B_PAD_ASSIGN_MASTER]
         pop     si
         leave
         retf
@@ -3009,8 +3009,8 @@ drum_program_select:
         mov     word ptr [bp-0ch], bx
         mov     byte ptr [bx+180h], al
         imul    ax, si, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
         cmp     byte ptr [C1_B_0D7BA], 0
@@ -3036,7 +3036,7 @@ br_3F884:
         push    ax
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        cmp     byte ptr [C1_B_0D777], 0
+        cmp     byte ptr [C2_B_PAD_ASSIGN_MASTER], 0
         je      br_3F8AA
         mov     ax, 0d778h
         mov     di, ax
@@ -3072,7 +3072,7 @@ loop_3F8D6:
         cmp     si, 3
         jle     loop_3F8D6
 br_3F8EC:
-        mov     al, byte ptr [C0_B_0D7BC]
+        mov     al, byte ptr [C2_B_MIXER_DRUM]
         cbw
         cmp     word ptr [bp+6], ax
         jne     br_3F901
@@ -3350,7 +3350,7 @@ br_3FB9F:
 smem_compact:
         enter   8, 0
         push    si
-        push    EP_FAR_4029A_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4029A_OFF
         nop
         push    cs
@@ -3708,7 +3708,7 @@ loop_3FEBE:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -3780,7 +3780,7 @@ br_3FF44:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -3824,7 +3824,7 @@ pgm_replace_sound_ref:
         mov     word ptr [bp-0ah], 0
         mov     word ptr [bp-0ch], 18h
 loop_3FFB3:
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         add     bx, word ptr [bp-0ah]
         cmp     byte ptr es:[bx+2], 0
         je      br_3FFFA
@@ -3886,7 +3886,7 @@ br_40043:
         xor     si, si
         mov     word ptr [bp-10h], 18h
 loop_4004A:
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         add     bx, si
         cmp     byte ptr es:[bx+2], 0
         je      br_4008F
@@ -4108,7 +4108,7 @@ sound_cmp_name:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         leave
         retf
@@ -4199,7 +4199,7 @@ sound_list_renumber:
         enter   4, 0
         push    di
         push    si
-        push    EP_C1_20A8_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_C1_20A8_OFF
         nop
         push    cs
@@ -5859,8 +5859,8 @@ L_40958:
         or      ax, ax
         jl      br_4133F
         imul    ax, ax, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     word ptr [bp-0ah], ax
         mov     word ptr [bp-8], dx
         add     ax, 2
@@ -6199,7 +6199,7 @@ voice_engine_init:
         push    35h
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        push    EP_L_4144E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4144E_OFF
         push    4eh
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
@@ -6220,7 +6220,7 @@ loop_41650:
         mov     cx, 10h
         mov     di, 0d7feh
         rep stosw
-        cmp     byte ptr [C0_B_0D760], al
+        cmp     byte ptr [C2_B_FX_BOARD_PRESENT], al
         je      br_4167D
         or      byte ptr [C1_B_0D7FE], 1
         or      byte ptr [C1_B_0D80E], 1
@@ -6252,7 +6252,7 @@ br_416B1:
         cbw
         mov     bx, ax
         mov     word ptr [bp-8], ax
-        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
+        cmp     byte ptr [bx+C1_B_0D7FE], 0
         jne     br_41709
         add     bx, ax
         mov     ax, word ptr [bx+C0_TBL_VOICE_TIMER]
@@ -6289,7 +6289,7 @@ loop_41712:
         mov     al, byte ptr [C1_B_004D6]
         cbw
         mov     bx, ax
-        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
+        cmp     byte ptr [bx+C1_B_0D7FE], 0
         je      br_41734
         inc     byte ptr [C1_B_004D6]
         cmp     byte ptr [C1_B_004D6], 20h
@@ -6313,7 +6313,7 @@ loop_4174E:
         cbw
         mov     bx, ax
         mov     word ptr [bp-0ch], ax
-        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
+        cmp     byte ptr [bx+C1_B_0D7FE], 0
         jne     br_41790
         mov     al, byte ptr [bp+6]
         cbw
@@ -6360,7 +6360,7 @@ loop_417B6:
         cbw
         mov     bx, ax
         mov     word ptr [bp-0ch], ax
-        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
+        cmp     byte ptr [bx+C1_B_0D7FE], 0
         jne     br_417F8
         mov     al, byte ptr [bp+6]
         cbw
@@ -6397,7 +6397,7 @@ loop_4180C:
         cbw
         mov     bx, ax
         mov     word ptr [bp-0ch], ax
-        cmp     byte ptr [bx+C1_TBL_0D7FE], 0
+        cmp     byte ptr [bx+C1_B_0D7FE], 0
         jne     br_4182E
         add     bx, ax
         mov     ax, word ptr [bx+C1_TBL_081BA]
@@ -6683,7 +6683,7 @@ loop_41A84:
         push    cs
         call    voice_release_full
         add     sp, 2
-        or      byte ptr [si+C1_TBL_0D7FE], 2
+        or      byte ptr [si+C1_B_0D7FE], 2
         add     si, 2
         cmp     si, 20h
         jl      loop_41A84
@@ -6699,7 +6699,7 @@ voice_buf_helper_2:
         jne     br_41AB6
         xor     bx, bx
 loop_41AA9:
-        and     byte ptr [bx+C1_TBL_0D7FE], 0fdh
+        and     byte ptr [bx+C1_B_0D7FE], 0fdh
         add     bx, 2
         cmp     bx, 20h
         jl      loop_41AA9
@@ -6835,7 +6835,7 @@ voice_release_full:
         push    cs
         call    voice_release
         add     sp, 2
-        cmp     byte ptr [si+C1_TBL_0D7FE], 0
+        cmp     byte ptr [si+C1_B_0D7FE], 0
         jne     br_41BC2
         mov     bx, si
         mov     word ptr [bx+si+C0_TBL_08F84], 0
@@ -6857,7 +6857,7 @@ voice_release:
         push    si
         mov     si, word ptr [bp+6]
 resume_41BCD:
-        cmp     byte ptr [si+C1_TBL_0D7FE], 0
+        cmp     byte ptr [si+C1_B_0D7FE], 0
         jne     br_41C04
         xor     ax, ax
         mov     bx, si
@@ -7473,22 +7473,22 @@ far_42192:
 X_421A4:
         push    di
         push    si
-        push    EP_L_41C0C_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_41C0C_OFF
         push    31h
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        push    EP_L_41DE4_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_41DE4_OFF
         push    3bh
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        push    EP_L_41DC0_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_41DC0_OFF
         push    39h
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        push    EP_L_41FC2_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_41FC2_OFF
         push    47h
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
@@ -7578,7 +7578,7 @@ L_41C0C:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7589,7 +7589,7 @@ L_41C0C:
         jmp     isr_423B9
         db      90h
 isr_42290:
-        push    EP_L_43118_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_43118_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7597,7 +7597,7 @@ isr_42290:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7606,7 +7606,7 @@ isr_42290:
         jmp     NEAR isr_423B9
         db      90h
 isr_422B0:
-        push    EP_L_4311E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4311E_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7614,7 +7614,7 @@ isr_422B0:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7625,7 +7625,7 @@ isr_422B0:
         jmp     isr_423B9
         db      90h
 isr_422D0:
-        push    EP_L_43124_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_43124_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7633,14 +7633,14 @@ isr_422D0:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
         jne     isr_422EA
         jmp     NEAR isr_423B4
 isr_422EA:
-        push    EP_L_4312A_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4312A_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7648,14 +7648,14 @@ isr_422EA:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
         jne     isr_42304
         jmp     NEAR isr_423B4
 isr_42304:
-        push    EP_L_43130_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_43130_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7663,7 +7663,7 @@ isr_42304:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7674,7 +7674,7 @@ isr_42304:
         jmp     isr_423B9
         db      90h
 isr_42324:
-        push    EP_L_43136_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_43136_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7682,7 +7682,7 @@ isr_42324:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7690,7 +7690,7 @@ isr_42324:
         callf   EP_L_3A904_SEG:EP_L_3A904_OFF
         jmp     SHORT isr_423B9
 isr_42342:
-        push    EP_L_4313C_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4313C_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7698,7 +7698,7 @@ isr_42342:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7706,7 +7706,7 @@ isr_42342:
         callf   EP_L_3A8FA_SEG:EP_L_3A8FA_OFF
         jmp     SHORT isr_423B9
 isr_42360:
-        push    EP_L_43142_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_43142_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7714,7 +7714,7 @@ isr_42360:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7724,7 +7724,7 @@ isr_42360:
         call    far_46A0E
         jmp     isr_423B9
 isr_4237E:
-        push    EP_L_43148_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_43148_OFF
         lea     ax, [bp-0ah]
         push    ss
@@ -7732,7 +7732,7 @@ isr_4237E:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -7976,7 +7976,7 @@ L_42560:
         call    far_3F36E
         jmp     br_4258F
 br_42576:
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         push    ax
         nop
@@ -7984,7 +7984,7 @@ br_42576:
         call    far_3F39A
         jmp     br_4258C
 br_42582:
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         push    ax
         nop
@@ -7993,13 +7993,13 @@ br_42582:
 br_4258C:
         add     sp, 2
 br_4258F:
-        mov     byte ptr [C1_B_0D7BF], al
+        mov     byte ptr [C0_B_0D7BF], al
         cbw
         mov     di, ax
         cbw
         imul    ax, ax, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 2
         les     bx, [bp+8]
         mov     word ptr es:[bx], ax
@@ -9272,7 +9272,7 @@ name_to_filename:
         if      FW_VERSION <> 112
         callf   C0_SEG:EP_FSTRICMP_OFF
         else
-        callf   C0_SEG:(C0_BASE+L_35884-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__fstricmp-C0_SEG*16)
         endif
         add     sp, 8
         or      ax, ax
@@ -9382,7 +9382,6 @@ ALL_PGMS_NAME:
         db      "ALL_PGMS        "
         db      00h, 00h
 L_42B12:
-far_42202:
         db      ".SND"
         db      00h, 00h
 L_43118:
@@ -9413,7 +9412,6 @@ L_43148:
         db      ".RLD"
         db      00h, 00h
 msg_disk_errors:
-far_4223E:
         db      "Unknown file type"
         db      00h
 L_43160:
@@ -9864,8 +9862,8 @@ loop_43534:
         else
         mov     ax, word ptr [bp-36h]
         endif
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     word ptr [bp-6], ax
         mov     word ptr [bp-4], dx
         mov     es, word ptr [bp-8]
@@ -9901,7 +9899,7 @@ br_43582:
         mov     word ptr [bp+6], 18h
         endif
 loop_43597:
-        les     bx, [C0_W_0989A]
+        les     bx, [C2_FP_PGM_ARRAY]
         add     bx, si
         if      FW_VERSION >= 110
         mov     word ptr [bp-3ch], bx
@@ -9989,8 +9987,8 @@ L_43644:
         push    di
         push    si
         imul    ax, word ptr [bp+6], 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     word ptr [bp-12h], ax
         mov     word ptr [bp-10h], dx
         push    80h
@@ -10131,8 +10129,8 @@ pgm_file_read:
         mov     si, ax
         mov     word ptr [bp-10h], dx
         imul    ax, word ptr [bp+6], 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     word ptr [bp-16h], ax
         mov     word ptr [bp-14h], dx
         cmp     word ptr [bp+0ch], si
@@ -10640,7 +10638,7 @@ br_43BD8:
         callf   EP_FAR_37E82_SEG:EP_FAR_37E82_OFF
         or      ax, ax
         jne     br_43BFD
-        push    EP_FAR_43C44_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_43C44_OFF
         push    6
         nop
@@ -10713,7 +10711,7 @@ cant_find_file_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_FAR_4343E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4343E_OFF
         nop
         push    cs
@@ -10883,7 +10881,7 @@ far_43DCC:
         xor     al, cl
         and     ax, 1
         xor     cx, ax
-        mov     ah, byte ptr [C1_B_0D777]
+        mov     ah, byte ptr [C2_B_PAD_ASSIGN_MASTER]
         xor     ah, ch
         and     ax, 100h
         xor     cx, ax
@@ -10903,14 +10901,14 @@ far_43DCC:
         xor     ah, ch
         and     ax, 100h
         xor     cx, ax
-        mov     al, byte ptr [C0_B_0D7BB]
+        mov     al, byte ptr [C2_B_RECORD_MIX_CHANGES]
         cbw
         shl     ax, 0ch
         xor     ah, ch
         and     ax, 1000h
         xor     cx, ax
         mov     word ptr es:[bx+13h], cx
-        mov     al, byte ptr [C0_B_0D7BC]
+        mov     al, byte ptr [C2_B_MIXER_DRUM]
         les     bx, [bp+6]
         mov     byte ptr es:[bx+15h], al
         mov     al, byte ptr [C1_B_0D7BD]
@@ -10971,9 +10969,9 @@ L_43E70:
         mov     ax, word ptr es:[bx+13h]
         shr     ax, 0ch
         and     al, 1
-        mov     byte ptr [C0_B_0D7BB], al
+        mov     byte ptr [C2_B_RECORD_MIX_CHANGES], al
         mov     al, byte ptr es:[bx+15h]
-        mov     byte ptr [C0_B_0D7BC], al
+        mov     byte ptr [C2_B_MIXER_DRUM], al
         mov     al, byte ptr es:[bx+16h]
         mov     byte ptr [C1_B_0D7BD], al
         mov     al, byte ptr es:[bx+17h]
@@ -11130,8 +11128,8 @@ far_4400A:
         mov     al, byte ptr [bp+6]
         cbw
         imul    ax, ax, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     word ptr [bp-14h], ax
         mov     word ptr [bp-12h], dx
         mov     byte ptr [bp-1ch], 7
@@ -11569,8 +11567,8 @@ loop_443C2:
         mov     bx, cx
 br_443D0:
         imul    ax, bx, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 7deh
         mov     word ptr [bp-0ah], ax
         mov     word ptr [bp-8], dx
@@ -11911,11 +11909,11 @@ save_a_program_wipe:
         callf   EP_FAR_37E82_SEG:EP_FAR_37E82_OFF
         or      ax, ax
         jne     br_44749
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         imul    bx, ax, 99eh
-        add     bx, word ptr [C0_W_0989A]
-        mov     cx, word ptr [C0_W_0989C]
+        add     bx, word ptr [C2_FP_PGM_ARRAY]
+        mov     cx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     bx, 2
         mov     di, bx
         mov     si, 0d7e8h
@@ -11987,11 +11985,11 @@ save_a_program_save:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         imul    bx, ax, 99eh
-        add     bx, word ptr [C0_W_0989A]
-        mov     cx, word ptr [C0_W_0989C]
+        add     bx, word ptr [C2_FP_PGM_ARRAY]
+        mov     cx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     bx, 2
         mov     di, bx
         mov     si, 0d7e8h
@@ -12056,7 +12054,7 @@ save_a_program_save:
 br_447E2:
         push    ds
         push    C0_W_0D7E8
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         push    ax
         nop
         push    cs
@@ -12073,12 +12071,12 @@ save_a_program_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         mov     word ptr [bp-2], ax
         imul    bx, ax, 99eh
-        add     bx, word ptr [C0_W_0989A]
-        mov     cx, word ptr [C0_W_0989C]
+        add     bx, word ptr [C2_FP_PGM_ARRAY]
+        mov     cx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     bx, 2
         push    ds
         mov     di, bx
@@ -12306,7 +12304,6 @@ br_449DF:
         retf
         db      00h
 disk_full_save:
-X_449E2:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
@@ -12347,7 +12344,7 @@ disk_full_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_44132_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_44132_OFF
         nop
         push    cs
@@ -12661,8 +12658,8 @@ br_44C88:
         mov     di, word ptr [bp+0ah]
 loop_44C97:
         imul    bx, word ptr [bp-2], 99eh
-        mov     es, word ptr [C0_W_0989C]
-        add     bx, word ptr [C0_W_0989A]
+        mov     es, word ptr [C2_W_PGM_ARRAY_SEG]
+        add     bx, word ptr [C2_FP_PGM_ARRAY]
         cmp     byte ptr es:[bx+2], 0
         je      br_44CE2
         push    1
@@ -14149,7 +14146,7 @@ br_45944:
         mov     al, byte ptr [bp-1eh]
         cbw
         mov     bx, ax
-        test    byte ptr [bx+C1_TBL_076CB], 57h
+        test    byte ptr [bx+C2_B_076CB], 57h
         je      br_45986
         mov     ax, word ptr [bp-1eh]
         mov     dx, word ptr [bp-1ch]
@@ -14158,17 +14155,17 @@ br_45944:
         sub     dh, dh
         cbw
         mov     bx, ax
-        test    byte ptr [bx+C1_TBL_076CB], 57h
+        test    byte ptr [bx+C2_B_076CB], 57h
         je      br_45986
         mov     al, byte ptr [bp-1ch]
         cbw
         mov     bx, ax
-        test    byte ptr [bx+C1_TBL_076CB], 57h
+        test    byte ptr [bx+C2_B_076CB], 57h
         je      br_45986
         mov     al, byte ptr [bp-1bh]
         cbw
         mov     bx, ax
-        test    byte ptr [bx+C1_TBL_076CB], 57h
+        test    byte ptr [bx+C2_B_076CB], 57h
         je      br_45986
         mov     dx, 1
         jmp     br_45988
@@ -14455,11 +14452,11 @@ br_45BEE:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+L_3521A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+L_3511A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         endif
         mov     es, word ptr [bp-0eh]
         mov     word ptr es:[di+1ch], ax
@@ -14959,11 +14956,11 @@ br_46088:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+L_3521A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+L_3511A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         endif
         mov     bx, ax
         mov     al, byte ptr [bx+C1_TBL_00C24]
@@ -14982,7 +14979,7 @@ L_460F0:
         db      "Unknown .WAV file"
         db      " format", 000h, 000h
 far_4610A:
-        mov     word ptr [C1_W_0D762], 7fffh
+        mov     word ptr [C0_W_0D762], 7fffh
         sub     ax, ax
         mov     word ptr [C0_W_098DA], ax
         mov     word ptr [C0_W_098D8], ax
@@ -15209,14 +15206,14 @@ load_sound_pad:
         mov     di, word ptr [C2_B_PAD_DRUM]
         and     di, 0ffh
         mov     al, ch
-        mov     byte ptr [C0_B_0D7C1], ch
+        mov     byte ptr [C2_B_CUR_PAD], ch
         lea     ax, [di+C1_TBL_00060]
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        mov     si, word ptr [C0_B_0D7C1]
+        mov     si, word ptr [C2_B_CUR_PAD]
         and     si, 0ffh
         mov     al, byte ptr es:[bx+si]
         cbw
@@ -16011,7 +16008,7 @@ file_exists_f5:
         mov     cx, DS_SEG
         mov     ds, cx
         mov     byte ptr [C0_B_0D7F8], 0
-        push    EP_L_3A7C4_SEG
+        push    EP_DIV_SEG
         push    EP_L_3A7C4_OFF
         push    32h
         nop
@@ -16033,7 +16030,6 @@ L_46984:
         db      "File already exists"
         db      00h
 msg_internal_error:
-L_46398:
         db      "Internal er"
         db      72h, 6fh, 72h, 00h, 00h
 far_469A8:
@@ -16059,7 +16055,7 @@ L_469C4:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_469F0_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_469F0_OFF
         push    3ah
         push    0b6h

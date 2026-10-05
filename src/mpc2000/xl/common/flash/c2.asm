@@ -214,7 +214,6 @@ conv_table_focus_field1:
         retf
         db      00h
 far_467C6:
-far_46B1C:
         enter   4, 0
         push    si
         nop
@@ -379,7 +378,6 @@ L_472BC:
         db      "DR09      (B09)"
         db      00h
 L_46996:
-L_472EC:
         if      FW_VERSION < 112
 L_472CC:
         endif
@@ -392,11 +390,9 @@ L_472FC:
         db      "DR11      (B11)"
         db      00h
         if      FW_VERSION >= 110
-far_469B6:
         endif
 L_46D0C:
         if      FW_VERSION < 110
-FAR_469B6:
         endif
         db      "DR12      (B12)"
         db      00h
@@ -1187,7 +1183,7 @@ load_mpc60_sound_paint:
         push    cs
         call    EP_DRAW_STRING_AT_OFF+C1_CSBASE
         add     sp, 8
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -1195,7 +1191,7 @@ load_mpc60_sound_paint:
         jmp     br_47A93
         db      90h
 br_47A84:
-        push    EP_L_47AB2_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_47AB2_OFF
         push    24h
         push    7dh
@@ -1337,12 +1333,12 @@ install_text2_vectors:
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
         add     sp, 4
-        push    EP_L_3E59E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_3E59E_OFF
         push    41h
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
         add     sp, 6
-        push    EP_L_5596A_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_5596A_OFF
         push    4ch
         callf   EP_IVT_SET_VECTOR_SEG:EP_IVT_SET_VECTOR_OFF
@@ -1475,7 +1471,7 @@ far_47C7A:
         leave
         retf
 br_47CA0:
-        push    EP_FAR_48768_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_48768_OFF
         push    word ptr [bp+8]
         push    word ptr [bp+6]
@@ -1582,8 +1578,8 @@ far_47D5E:
         mov     ax, word ptr [bp+0ch]
         or      ax, si
         jne     br_47D74
-        push    EP_L_4782A_SEG
-        push    EP_L_4782A_OFF
+        push    EP_FS_OPEN_SEG
+        push    C2_W_0A5D4
         jmp     br_47D89
 br_47D74:
         mov     ax, word ptr [bp+0ch]
@@ -1592,7 +1588,7 @@ br_47D74:
         jne     br_47D92
         cmp     ax, cx
         jne     br_47D92
-        push    EP_L_47832_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_47832_OFF
 br_47D89:
         push    word ptr [bp+8]
@@ -1614,7 +1610,7 @@ br_47D92:
         mov     es, word ptr [bp+0ch]
         cmp     byte ptr es:[si+25h], 0
         je      br_47DCC
-        push    EP_L_4783E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4783E_OFF
         push    word ptr [bp+8]
         mov     ax, word ptr [bp+6]
@@ -1664,7 +1660,7 @@ br_47DF2:
         call    EP_DRAW_SIGNED_VALUE_OFF+C1_CSBASE
 br_47E0A:
         mov     sp, bp
-        push    EP_FAR_4877E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4877E_OFF
         push    word ptr [bp+8]
         mov     ax, word ptr [bp+6]
@@ -1961,17 +1957,17 @@ br_48093:
         jmp     br_480E5
         db      90h
 br_480B0:
-        cmp     byte ptr [C2_B_08B2E], 0
+        cmp     byte ptr [FE_DIGIT], 0
         je      br_480D6
         mov     si, ax
-        mov     al, byte ptr [C2_B_08B2E]
+        mov     al, byte ptr [FE_DIGIT]
         sub     ah, ah
         sub     si, ax
         or      cx, cx
         jge     br_480C5
         inc     si
 br_480C5:
-        mov     al, byte ptr [C2_B_08B2E]
+        mov     al, byte ptr [FE_DIGIT]
         sub     ah, ah
         cmp     ax, di
         jge     br_480CF
@@ -2071,12 +2067,12 @@ field_digit_cursor_inc:
         les     bx, [C2_W_FE_DESC_OFF]
         sub     ah, ah
         mov     al, byte ptr es:[bx+3]
-        mov     cl, byte ptr [C2_B_08B2E]
+        mov     cl, byte ptr [FE_DIGIT]
         sub     ch, ch
         inc     cx
         cmp     ax, cx
         jle     br_481A9
-        inc     byte ptr [C2_B_08B2E]
+        inc     byte ptr [FE_DIGIT]
 br_481A9:
         pop     ds
         retf
@@ -2085,9 +2081,9 @@ field_digit_cursor_dec:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        cmp     byte ptr [C2_B_08B2E], 0
+        cmp     byte ptr [FE_DIGIT], 0
         je      br_481BD
-        dec     byte ptr [C2_B_08B2E]
+        dec     byte ptr [FE_DIGIT]
 br_481BD:
         pop     ds
         retf
@@ -2319,7 +2315,7 @@ L_47A80:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_FAR_483FC_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_483FC_OFF
         push    word ptr [C2_W_08B20]
         push    word ptr [FE_VALUE]
@@ -2832,7 +2828,7 @@ L_487FC:
         push    0
         callf   EP_EVENT_CB_SET_MAIN_SEG:EP_EVENT_CB_SET_MAIN_OFF
         add     sp, 4
-        push    EP_L_48860_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_48860_OFF
         callf   EP_EVENT_CB_SET_MAIN_SEG:EP_EVENT_CB_SET_MAIN_OFF
         add     sp, 4
@@ -3432,7 +3428,7 @@ br_48C40:
         call    far_49070
         or      ax, ax
         je      br_48C90
-        push    EP_L_49AB8_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_49AB8_OFF
         push    34h
         push    1
@@ -3462,7 +3458,7 @@ br_48CA0:
         add     sp, 4
         cmp     word ptr [C1_W_0D7D2], 0
         je      br_48CD6
-        push    EP_L_49AD2_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_49AD2_OFF
         push    1
         push    6
@@ -5194,7 +5190,7 @@ sound_memory_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_49C1E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_49C1E_OFF
         nop
         push    cs
@@ -5900,7 +5896,7 @@ br_4A0F0:
         cmp     cx, word ptr [C0_W_0D7C4]
         je      br_4A159
 br_4A110:
-        push    EP_FAR_4A018_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4A018_OFF
         push    1
         push    5
@@ -5910,7 +5906,7 @@ br_4A110:
         if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
         else
-        push    EP_L_4A958_OFF
+        push    EP_L_4A01E_OFF
         endif
         push    1
         push    6
@@ -5951,7 +5947,6 @@ far_4A176:
         retf
         db      00h
 far_49824:
-far_4A182:
         push    EP_TRIM_SCREEN_DRAW_SEG
         push    EP_TRIM_SCREEN_DRAW_OFF
         nop
@@ -7181,7 +7176,7 @@ br_4AEDB:
         push    ax
         push    C1_SEG
         if      FW_VERSION >= 112
-        push    EP_FAR_4A026_OFF
+        push    EP_L_4A602_OFF
         else
         push    EP_L_4A602_OFF
         endif
@@ -8238,11 +8233,9 @@ L_4B7D6:
 L_4B7EE:
         db      "Loop To fine", 00h, 00h
         if      FW_VERSION >= 110
-far_4A8C2:
         endif
 L_4B7FC:
         if      FW_VERSION < 110
-far_4A8C2:
         endif
         push    ds
         push    C2_W_01C50
@@ -8743,7 +8736,7 @@ br_4BC1A:
         cmp     cx, word ptr [C0_W_0D7C4]
         je      br_4BC81
 br_4BC3A:
-        push    EP_FAR_4A018_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4A018_OFF
         push    1
         push    5
@@ -8753,7 +8746,7 @@ br_4BC3A:
         if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
         else
-        push    EP_L_4A958_OFF
+        push    EP_L_4A01E_OFF
         endif
         push    1
         push    6
@@ -8946,7 +8939,7 @@ L_4BDCC:
         nop
         push    cs
         call    snd_params_refresh
-        push    EP_FAR_4BD70_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4BD70_OFF
         callf   EP_FAR_55112_SEG:EP_FAR_55112_OFF
         add     sp, 4
@@ -9085,7 +9078,7 @@ br_4BEF5:
         call    far_486D8
         add     sp, 8
         mov     si, ax
-        push    EP_L_4B73E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4B73E_OFF
         push    1ah
         push    85h
@@ -9124,7 +9117,7 @@ br_4BF43:
         call    far_486D8
         add     sp, 8
         mov     si, ax
-        push    EP_L_4B176_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4B176_OFF
         push    23h
         push    97h
@@ -9160,7 +9153,7 @@ br_4BFA9:
         if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
         elseif  FW_VERSION >= 110
-        push    EP_L_4A958_OFF
+        push    EP_L_4A01E_OFF
         else
         push    C2_W_0CD9A
         endif
@@ -9196,7 +9189,7 @@ L_4BFDE:
         retf
         db      00h
 far_4BFEA:
-        push    EP_FAR_4BD70_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4BD70_OFF
         nop
         push    cs
@@ -9934,7 +9927,7 @@ far_4C5DA:
         if      FW_VERSION >= 114
         push    EP_C1_E4BC_OFF
         elseif  FW_VERSION >= 112
-        push    EP_L_4BE4C_OFF
+        push    EP_C1_E4BC_OFF
         else
         push    C2_W_0E48E
         endif
@@ -10062,7 +10055,7 @@ mono_to_stereo_f5:
         jne     br_4C76F
         push    cx
         push    8fcbh
-        push    EP_L_4C84E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4C84E_OFF
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
@@ -10106,8 +10099,8 @@ mono_to_stereo_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_4BD16_SEG
-        push    EP_L_4BD16_OFF
+        push    EP_FS_OPEN_SEG
+        push    C2_W_0E4E4
         nop
         push    cs
         call    EP_DRAW_CONFIRM_WINDOW_OFF+C1_CSBASE
@@ -10154,7 +10147,7 @@ mono_to_stereo_paint:
         les     bx, [C0_B_098B8]
         cmp     byte ptr es:[bx+25h], 0
         jne     br_4C7FF
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -10368,7 +10361,7 @@ stereo_to_mono_paint:
         les     bx, [C0_W_0D7C2]
         cmp     byte ptr es:[bx+SND_STEREO], 0
         je      br_4C9CE
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -10402,7 +10395,6 @@ st_to_mono_focus_l_name:
         retf
         db      00h
 st_to_mono_focus_r_name:
-far_4BACC:
         mov     word ptr [C2_W_STEREO_TO_MONO_CURSOR], 2
         push    ds
         push    C2_W_08D38
@@ -10412,7 +10404,6 @@ far_4BACC:
         add     sp, 8
         retf
         nop
-L_4C41E:
 L_4CA1E:
         db      "Separating ", 00h
 far_4CA2A:
@@ -10555,7 +10546,7 @@ resample_paint:
         push    cs
         call    EP_DRAW_STRING_AT_OFF+C1_CSBASE
         add     sp, 8
-        push    EP_FAR_4CC72_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4CC72_OFF
         push    1ah
         push    37h
@@ -10577,7 +10568,7 @@ resample_paint:
         push    cs
         call    EP_DRAW_UNSIGNED_VALUE_OFF+C1_CSBASE
         add     sp, 0ah
-        push    EP_L_4CC82_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4CC82_OFF
         push    25h
         push    37h
@@ -10603,7 +10594,7 @@ resample_paint:
         push    4
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -10673,7 +10664,6 @@ L_4CC82:
         db      "New name:"
         db      00h
 far_4C32E:
-far_4CC8C:
         db      "CANCEL", 00h, 00h
 far_4CC94:
         db      "U"
@@ -10696,12 +10686,12 @@ far_4CC94:
         mov     word ptr [C2_W_098A8], dx
         mov     word ptr [C2_W_08D4E], ax
         mov     word ptr [C2_W_08D50], dx
-        cmp     word ptr [C2_W_08D52], C2_W_0BD7A
+        cmp     word ptr [C2_W_08D52], EP_TRIM_SCREEN_DRAW_OFF
         jne     br_4CCE3
         cmp     word ptr [C2_W_08D54], C1_SEG
         je      br_4CD22
 br_4CCE3:
-        cmp     word ptr [C2_W_08D52], C2_W_0D876
+        cmp     word ptr [C2_W_08D52], EP_LOOP_SCREEN_DRAW_OFF
         jne     br_4CCFC
         cmp     word ptr [C2_W_08D54], C1_SEG
         jne     br_4CCFC
@@ -10775,7 +10765,6 @@ br_4CD84:
         pop     ds
         retf
 edit_sound_do_it:
-X_4CD86:
         enter   6, 0
         push    si
         push    ds
@@ -10783,7 +10772,7 @@ X_4CD86:
         mov     ds, cx
         push    C1_SEG
         push    word 12h
-        push    EP_L_4BD9A_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4BD9A_OFF
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
@@ -10964,9 +10953,9 @@ edit_sound_paint:
         mov     ds, cx
         push    C1_SEG
         if      FW_VERSION >= 114
-        push    EP_L_4D2BA_OFF
+        push    EP_L_4C95C_OFF
         elseif  FW_VERSION >= 112
-        push    EP_L_4CABA_OFF
+        push    EP_L_4C95C_OFF
         else
         push    EP_L_4C95C_OFF
         endif
@@ -10974,7 +10963,7 @@ edit_sound_paint:
         push    cs
         call    EP_SMEM_PROC_WRAPPER_OFF+C1_CSBASE
         add     sp, 4
-        push    EP_FAR_4D2C0_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4D2C0_OFF
         push    0bh
         push    13h
@@ -11006,11 +10995,11 @@ TBL_4CF3E:
 br_4CF50:
         push    C1_SEG
         if      FW_VERSION >= 120
-        push    EP_FAR_4D33C_OFF
+        push    EP_C1_F1AC_OFF
         elseif  FW_VERSION >= 114
         push    EP_C1_F1AC_OFF
         else
-        push    EP_FAR_4CB3C_OFF
+        push    EP_C1_F1AC_OFF
         endif
         push    17h
         push    2bh
@@ -11023,7 +11012,7 @@ br_4CF50:
         if      FW_VERSION >= 114
         push    EP_L_4D358_OFF
         else
-        push    EP_L_4CB58_OFF
+        push    EP_L_4C9FA_OFF
         endif
         jmp     br_4CF92
         else
@@ -11077,7 +11066,7 @@ tgt_4CF9A:
         call    far_47D5E
         jmp     NEAR L_4D0D9
 tgt_4CFC0:
-        push    EP_L_4CCF4_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4CCF4_OFF
         push    1
         push    2
@@ -11108,9 +11097,9 @@ tgt_4CFC0:
         add     sp, 6
         push    C1_SEG
         if      FW_VERSION >= 114
-        push    EP_L_4D300_OFF
+        push    EP_C1_F170_OFF
         elseif  FW_VERSION >= 112
-        push    EP_L_4CB00_OFF
+        push    EP_C1_F170_OFF
         else
         push    EP_C1_F170_OFF
         endif
@@ -11135,9 +11124,9 @@ tgt_4CFC0:
         add     sp, 8
         push    C1_SEG
         if      FW_VERSION >= 114
-        push    EP_L_4D308_OFF
+        push    EP_L_4C9AA_OFF
         elseif  FW_VERSION >= 112
-        push    EP_L_4CB08_OFF
+        push    EP_L_4C9AA_OFF
         else
         push    EP_L_4C9AA_OFF
         endif
@@ -11209,7 +11198,7 @@ br_4D0B0:
         jmp     br_4D0D4
         db      90h
 br_4D0BA:
-        push    EP_L_4CC82_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4CC82_OFF
         push    15h
         push    13h
@@ -11238,7 +11227,7 @@ br_4D0DC:
         push    4
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -11569,7 +11558,7 @@ br_4D3CF:
         cmp     ax, word ptr [C0_W_0D7C2]
         jne     br_4D3CF
         endif
-        cmp     cx, word ptr [C2_W_0D7C4]
+        cmp     cx, word ptr [C0_W_0D7C4]
         je      br_4D3FB
         if      FW_VERSION < 114
 br_4D3CF:
@@ -11589,7 +11578,7 @@ br_4D3CF:
         push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    C1_SEG
-        push    EP_FAR_4D36C_OFF
+        push    C2_W_0F1DC
         nop
         push    cs
         call    far_4CC94
@@ -11615,8 +11604,8 @@ L_4D40C:
         nop
         push    cs
         call    zone_screen_refresh
-        push    EP_FAR_4D36C_SEG
-        push    EP_FAR_4D36C_OFF
+        push    EP_FS_OPEN_SEG
+        push    C2_W_0F1DC
         callf   EP_FAR_55112_SEG:EP_FAR_55112_OFF
         add     sp, 4
         pop     ds
@@ -11743,7 +11732,7 @@ br_4D4B0:
         cmp     cx, word ptr [C0_W_0D7C4]
         je      br_4D582
 br_4D533:
-        push    EP_FAR_4A018_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4A018_OFF
         push    1
         push    5
@@ -11753,7 +11742,7 @@ br_4D533:
         if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
         else
-        push    EP_L_4A958_OFF
+        push    EP_L_4A01E_OFF
         endif
         push    1
         push    6
@@ -11794,8 +11783,8 @@ L_4D59C:
         retf
         db      00h
 L_4D5A8:
-        push    EP_FAR_4D36C_SEG
-        push    EP_FAR_4D36C_OFF
+        push    EP_FS_OPEN_SEG
+        push    C2_W_0F1DC
         nop
         push    cs
         call    far_4C0D8
@@ -11820,7 +11809,7 @@ L_4D5D0:
         mov     bx, ax
         shl     bx, 2
         mov     ax, word ptr [bx+C2_TBL_08E6E]
-        mov     dx, word ptr [bx+C0_B_08E70]
+        mov     dx, word ptr [bx+C2_B_FX_MOD_TYPE]
         mov     word ptr [C2_W_028D2], ax
         mov     word ptr [C2_W_028D4], dx
         mov     ax, word ptr [bx+C0_TBL_08E76]
@@ -12118,7 +12107,7 @@ L_4D28A:
         mov     bx, ax
         shl     bx, 2
         mov     ax, word ptr [bx+C2_TBL_08E6E]
-        mov     dx, word ptr [bx+C0_B_08E70]
+        mov     dx, word ptr [bx+C2_B_FX_MOD_TYPE]
         mov     word ptr [C2_W_029CE], ax
         mov     word ptr [C2_W_029D0], dx
         mov     ax, word ptr [bx+C0_TBL_08E76]
@@ -12394,7 +12383,7 @@ zone_count_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_4D23C_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4D23C_OFF
         nop
         push    cs
@@ -12615,7 +12604,7 @@ br_4DC9D:
         push    5
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
-        push    EP_L_4DD78_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4DD78_OFF
         push    2
         push    6
@@ -12666,7 +12655,7 @@ X_4DD18:
         jg      br_4DD32
         mov     byte ptr [C2_B_PAD_DRUM], al
 br_4DD32:
-        push    EP_FAR_50EE2_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_50EE2_OFF
         nop
         push    cs
@@ -12939,7 +12928,7 @@ br_4DFB2:
         jle     br_4DFDE
         jmp     br_4E072
 br_4DFB8:
-        push    EP_FAR_4E698_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_4E698_OFF
         push    1fh
         push    6dh
@@ -12947,7 +12936,7 @@ br_4DFB8:
         push    cs
         call    EP_DRAW_STRING_AT_OFF+C1_CSBASE
         add     sp, 8
-        push    EP_FAR_4E698_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_4E698_OFF
         push    28h
         push    6dh
@@ -12957,7 +12946,7 @@ br_4DFB8:
         add     sp, 8
         jmp     br_4E038
 br_4DFDE:
-        push    EP_L_4E0A8_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4E0A8_OFF
         push    1fh
         push    61h
@@ -12965,7 +12954,7 @@ br_4DFDE:
         push    cs
         call    EP_DRAW_STRING_AT_OFF+C1_CSBASE
         add     sp, 8
-        push    EP_L_4E0A8_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4E0A8_OFF
         push    28h
         push    61h
@@ -13189,7 +13178,7 @@ PGM_ASSIGN_FOCUS_PGM:
         endif
         mov     word ptr [C2_W_PGM_ASSIGN_CURSOR], 1
         push    ds
-        push    C0_B_0D7C1
+        push    C2_B_CUR_PAD
         push    ds
         push    C2_W_02CB8
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -13334,7 +13323,7 @@ pgm_assign_focus_note:
         db      00h
 L_4E2DA:
         push    C1_SEG
-        push    C2_W_0FBC2
+        push    EP_PGM_ASSIGN_SCREEN_DRAW_OFF
         nop
         push    cs
         call    far_4FA52
@@ -13599,7 +13588,7 @@ pgm_assign_focus_alt_note1:
         je      br_4E55E
         dec     ax
         je      br_4E564
-        mov     word ptr [C2_W_02E22], P_02C8
+        mov     word ptr [C2_W_02E22], EP_PGM_ASSIGN_MODE_FIELD_OFF
         mov     word ptr [C2_W_02E24], C2_SEG
         jmp     SHORT br_4E570
         db      90h
@@ -13640,7 +13629,7 @@ pgm_assign_focus_alt_note2:
         je      br_4E5C4
         dec     ax
         je      br_4E5CA
-        mov     word ptr [C2_W_02E4C], P_035C
+        mov     word ptr [C2_W_02E4C], EP_PGM_ASSIGN_FOCUS_THRESHOLD2_OFF
         mov     word ptr [C2_W_02E4E], C2_SEG
         jmp     SHORT br_4E5D6
         db      90h
@@ -14130,7 +14119,6 @@ L_4E9EA:
         retf
         db      00h
 L_4E09A:
-far_4E9FA:
         mov     word ptr [C2_W_PARAMS_CURSOR], 0
         mov     al, byte ptr [C2_B_PAD_DRUM]
         sub     ah, ah
@@ -14159,7 +14147,6 @@ L_4EA1C:
         retf
         db      00h
 L_4EA3A:
-far_4E0DA:
         mov     word ptr [C2_W_PARAMS_CURSOR], 1
         push    ds
         push    C2_B_PAD_NOTE
@@ -14373,7 +14360,6 @@ far_4EB84:
         if      FW_VERSION >= 112
 L_4EBBE:
         db      0c7h, 06h, 66h, 8dh, 08h, 00h, 0a0h, 0beh, 0d7h, 2ah
-far_4EBC8:
         in      al, 5
         pop     sp
         add     byte ptr [bx+si-66h], dl
@@ -14435,12 +14421,10 @@ L_4EBBE:
         add     sp, 8
         retf
         if      FW_VERSION < 111
-far_4EBC8:
         endif
 L_4EBF8:
         db      "POLY", 00h, 00h
 L_4E29E:
-far_4EBFE:
         db      "NOTE OFF", 00h, 00h
 L_4EC08:
         db      "START", 00h
@@ -14627,7 +14611,7 @@ pgm_midi_f3:
         nop
         push    cs
         call    pgm_midi_refresh
-        push    EP_FAR_4EC12_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_4EC12_OFF
         callf   EP_FAR_4DBAA_SEG:EP_FAR_4DBAA_OFF
         add     sp, 4
@@ -14749,7 +14733,7 @@ L_4EE8C:
         imul    bx, ax, 184h
         mov     al, byte ptr [bx+C0_TBL_09160]
         push    ax
-        push    EP_FAR_4EC12_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_4EC12_OFF
         nop
         push    cs
@@ -14817,7 +14801,7 @@ far_4EF20:
         mov     word ptr [C0_B_098B8], ax
         or      ax, ax
         je      br_4EF4E
-        push    EP_L_4EF66_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4EF66_OFF
         push    7
         callf   EP_HANDLER_INSTALL_ONE_SEG:EP_HANDLER_INSTALL_ONE_OFF
@@ -14829,7 +14813,7 @@ purge_f4:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_FAR_4EF20_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_4EF20_OFF
         callf   EP_FAR_4DBAA_SEG:EP_FAR_4DBAA_OFF
         add     sp, 4
@@ -14841,7 +14825,7 @@ L_4EF66:
         mov     ds, cx
         push    C1_SEG
         push    word 12h
-        push    EP_L_4BD9A_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4BD9A_OFF
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
@@ -14878,7 +14862,7 @@ purge_paint:
         add     sp, 0ah
         cmp     word ptr [C0_B_098B8], 0
         je      br_4EFE2
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    6
@@ -14888,7 +14872,7 @@ br_4EFE2:
         pop     ds
         retf
 far_4EFE4:
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         push    ax
         push    word ptr [C2_W_08D6C]
         push    word ptr [C2_W_08D6A]
@@ -14919,7 +14903,7 @@ far_4EFFA:
         db      90h
 br_4F02A:
         mov     al, byte ptr [bp+0ah]
-        mov     byte ptr [C1_B_0D7BF], al
+        mov     byte ptr [C0_B_0D7BF], al
         mov     si, word ptr [C2_B_PAD_DRUM]
         and     si, 0ffh
         if      FW_VERSION >= 112
@@ -14966,14 +14950,14 @@ program_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         imul    ax, ax, 99eh
         add     ax, word ptr [C2_FP_PGM_ARRAY]
         mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         mov     si, ax
         mov     word ptr [bp-2], dx
-        push    EP_L_4F178_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4F178_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -15018,7 +15002,7 @@ program_close:
         retf
 L_4F118:
         mov     word ptr [C2_W_PROGRAM_CURSOR], 0
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         imul    ax, ax, 99eh
         add     ax, word ptr [C2_FP_PGM_ARRAY]
@@ -15033,7 +15017,7 @@ L_4F118:
         retf
 L_4F140:
         mov     word ptr [C2_W_PROGRAM_CURSOR], 1
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cbw
         imul    ax, ax, 99eh
         add     ax, word ptr [C2_FP_PGM_ARRAY]
@@ -15061,7 +15045,7 @@ L_4F180:
         push    3426h
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         mov     byte ptr [C0_B_098B8], al
         callf   [C2_FP_034B4]
         pop     ds
@@ -15083,7 +15067,7 @@ far_4F1AC:
         db      8eh, 0d9h, 0a0h, 0b8h, 98h, 98h, 50h, 9ah
         dw      EP_PGM_DELETE_SLOT_OFF, EP_PGM_DELETE_SLOT_SEG
         add     sp, 2
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         cmp     byte ptr [C0_B_098B8], al
         jne     L_4F1F8
         mov     al, byte ptr [C0_B_098B8]
@@ -15098,7 +15082,7 @@ far_4F1AC:
         callf   EP_FAR_3F39A_SEG:EP_FAR_3F39A_OFF
         add     sp, 2
 br_4F1F5:
-        mov     byte ptr [C1_B_0D7BF], al
+        mov     byte ptr [C0_B_0D7BF], al
 L_4F1F8:
         nop
         push    cs
@@ -15112,7 +15096,7 @@ delete_pgm_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_4E912_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4E912_OFF
         callf   EP_DRAW_CONFIRM_WINDOW_SEG:EP_DRAW_CONFIRM_WINDOW_OFF
         add     sp, 4
@@ -15192,7 +15176,7 @@ loop_4F2AD:
         inc     si
         cmp     si, 17h
         jle     loop_4F2AD
-        mov     byte ptr [C1_B_0D7BF], 0
+        mov     byte ptr [C0_B_0D7BF], 0
         nop
         push    cs
         call    far_4F296
@@ -15347,7 +15331,7 @@ new_pgm_do_it:
         les     bx, [bp-6]
         mov     byte ptr es:[bx+1ch], al
         mov     al, byte ptr [bp-2]
-        mov     byte ptr [C1_B_0D7BF], al
+        mov     byte ptr [C0_B_0D7BF], al
         nop
         push    cs
         call    new_pgm_cancel
@@ -15362,7 +15346,7 @@ new_pgm_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_4EB2C_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4EB2C_OFF
         callf   EP_DRAW_CONFIRM_WINDOW_SEG:EP_DRAW_CONFIRM_WINDOW_OFF
         add     sp, 4
@@ -15420,7 +15404,7 @@ program_copy:
         push    35e6h
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
-        mov     al, byte ptr [C1_B_0D7BF]
+        mov     al, byte ptr [C0_B_0D7BF]
         mov     byte ptr [C0_B_098B8], al
         mov     byte ptr [C2_B_098B9], al
         callf   [C2_FP_0366A]
@@ -15459,7 +15443,7 @@ copy_pgm_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_4F5F4_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4F5F4_OFF
         callf   EP_DRAW_CONFIRM_WINDOW_SEG:EP_DRAW_CONFIRM_WINDOW_OFF
         add     sp, 4
@@ -16129,7 +16113,7 @@ copy_note_paint:
         mov     dx, word ptr es:[bx+di+754h]
         mov     si, ax
         mov     word ptr [bp-0ah], dx
-        push    EP_L_4FD00_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4FD00_OFF
         mov     word ptr [bp-10h], di
         mov     word ptr [bp-0eh], es
@@ -16268,7 +16252,7 @@ br_4FC5E:
         cmp     ax, cx
         je      br_4FC95
 br_4FC83:
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -16433,7 +16417,7 @@ velocity_mod_paint:
         mov     dx, word ptr es:[bx+di+754h]
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
-        push    EP_L_4F684_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4F684_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -16639,7 +16623,7 @@ velocity_mod_field3_thunk:
 velocity_mod_field4_thunk:
         mov     word ptr [C2_W_VELOCITY_MOD_CURSOR], 4
         push    ds
-        push    C1_B_0D7C6
+        push    C2_B_PAD_VELOCITY
         push    ds
         push    C2_W_039C6
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -16744,7 +16728,7 @@ velo_env_filter_paint:
         mov     dx, word ptr es:[bx+di+754h]
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
-        push    EP_L_4F9D8_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_4F9D8_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -16987,7 +16971,7 @@ velo_env_filter_field4_thunk:
 velo_env_filter_field5_thunk:
         mov     word ptr [C2_W_VELO_ENV_FILTER_CURSOR], 5
         push    ds
-        push    C1_B_0D7C6
+        push    C2_B_PAD_VELOCITY
         push    ds
         push    C2_W_03B4A
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -17096,7 +17080,7 @@ velo_pitch_paint:
         add     ax, 12h
         mov     si, ax
         mov     word ptr [bp-0ah], dx
-        push    EP_L_50654_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_50654_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -17163,7 +17147,7 @@ br_504DE:
         callf   EP_FAR_486D8_SEG:EP_FAR_486D8_OFF
         add     sp, 8
         mov     word ptr [bp-2], ax
-        push    EP_FAR_50662_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_50662_OFF
         push    28h
         push    1fh
@@ -17249,7 +17233,6 @@ L_4FC3C:
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
         retf
         db      00h
-far_4FC4C:
 velo_pitch_field0_thunk:
         mov     word ptr [C2_W_VELO_PITCH_CURSOR], 0
         push    ds
@@ -17330,7 +17313,7 @@ L_4FCBF:
 velo_pitch_field3_thunk:
         mov     word ptr [C2_W_VELO_PITCH_CURSOR], 3
         push    ds
-        push    C1_B_0D7C6
+        push    C2_B_PAD_VELOCITY
         push    ds
         push    C2_W_03C64
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -17514,7 +17497,7 @@ params_voice_window_draw:
         add     sp, 2
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        push    EP_L_50966_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_50966_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -17918,7 +17901,7 @@ auto_chromatic_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_5052A_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_5052A_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -17926,7 +17909,7 @@ auto_chromatic_paint:
         push    C2_W_03D94
         callf   EP_DISP_LIST_RUN_SEG:EP_DISP_LIST_RUN_OFF
         add     sp, 4
-        push    EP_BR_50EA4_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_BR_50EA4_OFF
         push    0bh
         push    15h
@@ -17953,7 +17936,7 @@ auto_chromatic_paint:
         push    69h
         callf   EP_FAR_47D5E_SEG:EP_FAR_47D5E_OFF
         add     sp, 8
-        push    EP_L_50554_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_50554_OFF
         push    15h
         push    1bh
@@ -18017,7 +18000,7 @@ auto_chromatic_paint:
         push    87h
         callf   EP_DRAW_CHAR_AT_SEG:EP_DRAW_CHAR_AT_OFF
         add     sp, 6
-        push    EP_L_50566_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_50566_OFF
         push    1fh
         push    1bh
@@ -18032,7 +18015,7 @@ auto_chromatic_paint:
         push    69h
         callf   EP_DRAW_SIGNED_VALUE_SEG:EP_DRAW_SIGNED_VALUE_OFF
         add     sp, 0ah
-        push    EP_L_50574_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_50574_OFF
         push    29h
         push    1bh
@@ -18237,7 +18220,7 @@ far_50EE2:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        mov     al, byte ptr [C2_B_03EDC]
+        mov     al, byte ptr [C0_B_03EDC]
         sub     ah, ah
         push    ax
         nop
@@ -18271,8 +18254,8 @@ far_50EF8:
         mov     byte ptr [C2_B_CUR_PAD], al
         mov     ax, di
 br_50F3B:
-        mov     byte ptr [C2_B_03EDC], al
-        push    EP_L_50FBA_SEG
+        mov     byte ptr [C0_B_03EDC], al
+        push    EP_MIXER_F1_SEG
         push    EP_L_50FBA_OFF
         sub     ah, ah
 br_50F46:
@@ -18345,7 +18328,7 @@ L_50FBA:
         nop
         push    cs
         call    far_51016
-        push    EP_FAR_50EE2_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_50EE2_OFF
         callf   EP_FAR_4DBAA_SEG:EP_FAR_4DBAA_OFF
         add     sp, 4
@@ -18370,7 +18353,7 @@ FAR_50FD6:
         nop
         push    cs
         call    far_51016
-        push    EP_FAR_50EE2_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_50EE2_OFF
         nop
         push    cs
@@ -19440,7 +19423,6 @@ mixer_setup_field2_thunk:
         add     sp, 8
         retf
         db      00h
-L_518CE:
 pending_ops_set:
         push    bp
         mov     bp, sp
@@ -19452,7 +19434,7 @@ pending_ops_set:
 mixer_setup_field3_thunk:
         mov     word ptr [C2_W_MIXER_SETUP_CURSOR], 3
         push    ds
-        push    C0_B_0D7BB
+        push    C2_B_RECORD_MIX_CHANGES
         push    ds
         push    C2_W_040E4
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -20361,7 +20343,7 @@ mixer_field0_thunk:
         push    ds
         push    ax
         push    ds
-        push    C2_W_044C8
+        push    C0_B_044C8
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
         add     sp, 8
         retf
@@ -20606,7 +20588,7 @@ L_52340:
         enter   4, 0
         push    0
         push    0
-        push    EP_FAR_51F38_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_51F38_OFF
         cmp     byte ptr [C0_B_0D7C7], 2
         jl      br_5235E
@@ -20656,32 +20638,18 @@ L_51A5A:
         db      "REVERB 2", 00h, 00h
 far_523C4:
         db      "R1", 00h, 00h
-far_523C8:
-far_51A68:
 far_51488:
         db      "M1", 00h, 00h
-far_523CC:
-far_51A6C:
 far_5148C:
         db      "FX1 DIST/FLT", 00h, 00h
-far_523DA:
-far_51A7A:
 far_5149A:
         db      "FX1 MOD/ECHO", 00h, 00h
-far_523E8:
-far_51A88:
 far_514A8:
         db      "FX1 REVERB", 00h, 00h
-far_523F4:
-far_51A94:
 far_514B4:
         db      "R2", 00h, 00h
-far_523F8:
-far_51A98:
 far_514B8:
         db      "M2", 00h, 00h
-far_523FC:
-far_51A9C:
 far_514BC:
         db      "FX2 DIST/FLT", 00h, 00h
 far_5240A:
@@ -20693,7 +20661,6 @@ L_52424:
 far_51ACC:
         db      "DIST", 00h, 00h
 L_51E32:
-far_514F2:
         db      "FILT", 00h, 00h
 L_51AD8:
         db      "^MOD", 00h, 00h
@@ -20865,7 +20832,7 @@ copy_fx_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_51DE2_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_51DE2_OFF
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
@@ -20901,8 +20868,8 @@ copy_fx_paint:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx+C2_TBL_043F4]
-        push    word ptr [bx+C2_TBL_043F2]
+        push    word ptr [bx+C0_TBL_043F4]
+        push    word ptr [bx+C0_TBL_043F2]
         push    14h
         push    55h
         callf   EP_DRAW_STRING_AT_SEG:EP_DRAW_STRING_AT_OFF
@@ -20934,8 +20901,8 @@ copy_fx_paint:
         cbw
         mov     bx, ax
         shl     bx, 2
-        push    word ptr [bx+C2_TBL_043F4]
-        push    word ptr [bx+C2_TBL_043F2]
+        push    word ptr [bx+C0_TBL_043F4]
+        push    word ptr [bx+C0_TBL_043F2]
         push    29h
         push    55h
         callf   EP_DRAW_STRING_AT_SEG:EP_DRAW_STRING_AT_OFF
@@ -20947,7 +20914,7 @@ copy_fx_paint:
         cmp     byte ptr [C2_W_098BA], al
         je      br_526CB
 br_526B9:
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -21002,7 +20969,7 @@ copy_fx_field2_thunk:
 copy_fx_field3_thunk:
         mov     word ptr [C2_W_COPY_FX_CURSOR], 3
         push    ds
-        push    C2_W_098BB
+        push    C2_B_COPY_FX_DST_SET
         push    ds
         push    C2_W_04748
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -21013,7 +20980,7 @@ L_51DE2:
         db      "Copy Effect Settings", 00h
         db      00h
 fx_dist_ringmod_enter:
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
         push    ax
@@ -21022,19 +20989,19 @@ fx_dist_ringmod_enter:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         nop
         push    cs
         call    far_5277C
         retf
         db      00h
 far_5277C:
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_5278A
-        test    byte ptr [C2_B_09604], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_5279F
 br_5278A:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -21098,7 +21065,7 @@ fx_dist_ringmod_paint:
         add     sp, 2
         mov     si, ax
         mov     word ptr [bp-2], dx
-        push    EP_L_52276_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_52276_OFF
         nop
         push    cs
@@ -21163,7 +21130,7 @@ fx_dist_ringmod_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_5277C_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_5277C_OFF
         nop
         push    cs
@@ -21185,7 +21152,7 @@ fx_dist_ringmod_open:
         pop     ds
         retf
 L_528D4:
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
         push    ax
@@ -21194,7 +21161,7 @@ L_528D4:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         imul    bx, word ptr [C2_W_DIST_RINGMOD_CURSOR], 2ah
         callf   [bx+C2_W_04804]
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
@@ -21291,9 +21258,9 @@ far_529AC:
         push    word ptr [bp+6]
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
-        test    byte ptr [C2_B_09604], 4
+        test    byte ptr [C0_B_09604], 4
         je      br_529D4
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         je      br_529D4
         mov     ax, (C1_BASE+L_3EECC-C1_SEG*16)
         mov     dx, C1_SEG
@@ -21308,9 +21275,9 @@ br_529DA:
         push    2
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
-        test    byte ptr [C2_B_09604], 4
+        test    byte ptr [C0_B_09604], 4
         je      br_529FE
-        test    byte ptr [C2_B_09604], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_529FE
         mov     ax, (C1_BASE+L_3EECC-C1_SEG*16)
         mov     dx, C1_SEG
@@ -21325,13 +21292,13 @@ br_52A04:
         push    3
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
-        push    EP_L_52298_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_52298_OFF
         push    2
         push    4
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
-        push    EP_FAR_52BFE_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_52BFE_OFF
         push    1
         push    5
@@ -21340,7 +21307,7 @@ br_52A04:
         retf
         db      00h
 fx_section_field_notify:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -21357,19 +21324,19 @@ far_52A4C:
         mov     al, byte ptr [bp+6]
         not     al
         and     al, 0feh
-        mov     byte ptr [C2_B_09606], al
-        and     byte ptr [C2_B_09604], 0fdh
-        mov     al, byte ptr [C2_B_09604]
+        mov     byte ptr [C0_B_09606], al
+        and     byte ptr [C0_B_09604], 0fdh
+        mov     al, byte ptr [C0_B_09604]
         and     ax, 1
         cmp     ax, 1
         sbb     ax, ax
         neg     ax
-        xor     al, byte ptr [C2_B_09604]
+        xor     al, byte ptr [C0_B_09604]
         and     ax, 1
-        xor     word ptr [C2_B_09604], ax
+        xor     word ptr [C0_B_09604], ax
         cmp     byte ptr [C0_B_0D7C7], 2
         jge     br_52AB0
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_52A9B
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -21379,9 +21346,9 @@ far_52A4C:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
 br_52A9B:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -21394,7 +21361,7 @@ br_52A9B:
         retf
         db      90h
 br_52AB0:
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_52ACF
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -21404,9 +21371,9 @@ br_52AB0:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+1]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
 br_52ACF:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     al, byte ptr [C0_B_0D7C7]
         push    ax
@@ -21418,16 +21385,16 @@ br_52ACF:
 far_52ADE:
         push    bp
         mov     bp, sp
-        and     byte ptr [C2_B_09604], 0feh
-        mov     al, byte ptr [C2_B_09604]
+        and     byte ptr [C0_B_09604], 0feh
+        mov     al, byte ptr [C0_B_09604]
         and     ax, 2
         cmp     ax, 1
         sbb     ax, ax
         neg     ax
         add     al, al
-        xor     al, byte ptr [C2_B_09604]
+        xor     al, byte ptr [C0_B_09604]
         and     ax, 2
-        xor     word ptr [C2_B_09604], ax
+        xor     word ptr [C0_B_09604], ax
         cmp     byte ptr [C0_B_0D7C7], 2
         jl      br_52B3A
         mov     al, byte ptr [C0_B_0D7C7]
@@ -21438,12 +21405,12 @@ far_52ADE:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+1]
-        mov     byte ptr [C2_B_09606], al
-        test    byte ptr [C2_B_09604], 2
+        mov     byte ptr [C0_B_09606], al
+        test    byte ptr [C0_B_09604], 2
         je      br_52B2A
-        or      byte ptr [C2_B_09606], 2
+        or      byte ptr [C0_B_09606], 2
 br_52B2A:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     al, byte ptr [C0_B_0D7C7]
         push    ax
@@ -21462,13 +21429,13 @@ br_52B3A:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
-        test    byte ptr [C2_B_09604], 2
+        mov     byte ptr [C0_B_09606], al
+        test    byte ptr [C0_B_09604], 2
         je      br_52B60
         mov     al, byte ptr [bp+6]
-        or      byte ptr [C2_B_09606], al
+        or      byte ptr [C0_B_09606], al
 br_52B60:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -21488,15 +21455,15 @@ fx_edit_key_33:
         cmp     ax, 1f4h
         jbe     br_52BA9
         mov     word ptr [C2_W_0489E], cx
-        mov     al, byte ptr [C2_B_09604]
+        mov     al, byte ptr [C0_B_09604]
         and     ax, 4
         cmp     ax, 1
         sbb     ax, ax
         neg     ax
         shl     al, 2
-        xor     al, byte ptr [C2_B_09604]
+        xor     al, byte ptr [C0_B_09604]
         and     ax, 4
-        xor     word ptr [C2_B_09604], ax
+        xor     word ptr [C0_B_09604], ax
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
 br_52BA9:
         pop     ds
@@ -21506,9 +21473,9 @@ fx_edit_refresh:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_52BC0
-        test    byte ptr [C2_B_09604], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_52BCC
 br_52BC0:
         mov     al, byte ptr [C0_B_0D7C7]
@@ -21543,19 +21510,19 @@ far_52C04:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         nop
         push    cs
         call    far_52C28
         retf
         db      00h
 far_52C28:
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_52C36
-        test    byte ptr [C2_B_09604], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_52C4B
 br_52C36:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -21619,7 +21586,7 @@ filter4_paint:
         add     sp, 2
         mov     si, ax
         mov     word ptr [bp-2], dx
-        push    EP_L_52872_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_52872_OFF
         nop
         push    cs
@@ -21780,7 +21747,7 @@ filter4_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_52C28_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_52C28_OFF
         nop
         push    cs
@@ -21802,7 +21769,7 @@ filter4_open:
         pop     ds
         retf
 L_52E54:
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
         push    ax
@@ -21811,7 +21778,7 @@ L_52E54:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         imul    bx, word ptr [C2_W_FILTER4_CURSOR], 2ah
         callf   [bx+C2_TBL_FILTER4_FIELD_THUNK]
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
@@ -21949,7 +21916,6 @@ filter4_field5_thunk:
         retf
         db      00h
 filter4_field6_thunk:
-far_52048:
         mov     word ptr [C2_W_FILTER4_CURSOR], 6
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -22220,7 +22186,7 @@ br_531A4:
         callf   EP_DRAW_BITMAP_PTR_SEG:EP_DRAW_BITMAP_PTR_OFF
         add     sp, 8
 br_531BB:
-        push    EP_FAR_4877E_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_4877E_OFF
         push    di
         lea     ax, [si+12h]
@@ -22244,7 +22210,7 @@ far_531E0:
         add     sp, 2
         mov     si, ax
         mov     word ptr [bp-2], dx
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
         push    ax
@@ -22253,7 +22219,7 @@ far_531E0:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         mov     es, word ptr [bp-2]
         cmp     byte ptr es:[si+16h], 0
         jne     br_53224
@@ -22272,12 +22238,12 @@ br_5322A:
         retf
         db      00h
 far_53236:
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_53244
-        test    byte ptr [C2_B_09604], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_53259
 br_53244:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -22437,7 +22403,7 @@ fx_chorus_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_53236_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_53236_OFF
         nop
         push    cs
@@ -22534,7 +22500,7 @@ fx_chorus_field3_thunk:
 fx_chorus_field0_thunk:
         mov     word ptr [C2_W_FX_MOD_CURSOR], 0
         push    ds
-        push    C0_B_08E70
+        push    C2_B_FX_MOD_TYPE
         push    ds
         push    C2_W_04C2E
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -22594,7 +22560,6 @@ far_534F4:
         db      "PITCH+FEEDBACK"
         db      00h, 00h
 far_52BA4:
-far_53504:
         db      "MODULATIO"
         db      4eh, 00h, 00h
 far_53510:
@@ -22743,7 +22708,7 @@ fx_rotary_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_53236_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_53236_OFF
         nop
         push    cs
@@ -22884,7 +22849,7 @@ fx_rotary_field5_thunk:
 fx_rotary_field0_thunk:
         mov     word ptr [C2_W_FX_MOD_CURSOR], 0
         push    ds
-        push    C0_B_08E70
+        push    C2_B_FX_MOD_TYPE
         push    ds
         push    C2_W_04D68
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -23070,7 +23035,6 @@ fx_fmod_autopan_paint:
         leave
         retf
 fx_fmod_autopan_f5:
-X_53924:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
@@ -23079,7 +23043,7 @@ X_53924:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_53236_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_53236_OFF
         nop
         push    cs
@@ -23242,7 +23206,7 @@ fx_fmod_autopan_field6_thunk:
 fx_fmod_autopan_field0_thunk:
         mov     word ptr [C2_W_FX_MOD_CURSOR], 0
         push    ds
-        push    C0_B_08E70
+        push    C2_B_FX_MOD_TYPE
         push    ds
         push    C2_W_04F12
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -23337,7 +23301,7 @@ fx_pitch_shift_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_53236_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_53236_OFF
         nop
         push    cs
@@ -23480,7 +23444,7 @@ br_53C46:
 fx_pitch_shift_field0_thunk:
         mov     word ptr [C2_W_FX_MOD_CURSOR], 0
         push    ds
-        push    C0_B_08E70
+        push    C2_B_FX_MOD_TYPE
         push    ds
         push    C2_W_050B2
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -23524,7 +23488,7 @@ L_53CA4:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
         push    ax
@@ -23533,7 +23497,7 @@ L_53CA4:
         mov     bx, ax
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         callf   EP_L_3D1F0_SEG:EP_L_3D1F0_OFF
         retf
 fx_delay_f2:
@@ -23571,13 +23535,13 @@ fx_delay_paint:
         add     sp, 2
         mov     si, ax
         mov     word ptr [bp-2], dx
-        push    EP_FAR_5411E_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_5411E_OFF
         nop
         push    cs
         call    far_529AC
         add     sp, 4
-        push    EP_L_537CA_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_537CA_OFF
         push    0bh
         push    13h
@@ -23725,7 +23689,7 @@ fx_delay_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_L_3D1F0_SEG
+        push    EP_DIV_SEG
         push    EP_L_3D1F0_OFF
         nop
         push    cs
@@ -23901,7 +23865,6 @@ fx_delay_field7_thunk:
         retf
         db      00h
 fx_delay_field8_thunk:
-far_530B0:
         mov     word ptr [C2_W_FX_DELAY_CURSOR], 8
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -23924,7 +23887,6 @@ far_530B0:
         retf
         db      00h
 fx_delay_field9_thunk:
-far_530DC:
         mov     word ptr [C2_W_FX_DELAY_CURSOR], 9
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -23947,7 +23909,6 @@ far_530DC:
         retf
         db      00h
 fx_delay_field10_thunk:
-far_53108:
         mov     word ptr [C2_W_FX_DELAY_CURSOR], 0ah
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -23970,7 +23931,6 @@ far_53108:
         retf
         db      00h
 fx_delay_field2_thunk:
-far_53134:
         mov     word ptr [C2_W_FX_DELAY_CURSOR], 2
         mov     al, byte ptr [C0_B_0D7C7]
         cbw
@@ -24038,7 +23998,7 @@ far_5411E:
 L_537CA:
         db      "Type:", 00h
 L_54130:
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         cmp     byte ptr [C0_B_0D7C7], 2
         jl      br_54154
         mov     al, byte ptr [C0_B_0D7C7]
@@ -24061,18 +24021,18 @@ br_54154:
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
 br_54169:
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         nop
         push    cs
         call    far_54172
         retf
 far_54172:
-        test    byte ptr [C2_B_09604], 1
+        test    byte ptr [C0_B_09604], 1
         jne     br_54180
-        test    byte ptr [C2_B_09604], 2
+        test    byte ptr [C0_B_09604], 2
         je      br_54195
 br_54180:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
         mov     al, 1
@@ -24250,7 +24210,7 @@ fx_reverb_f5:
         call    fx_edit_refresh
         push    ds
         push    C0_B_09604
-        push    EP_FAR_54172_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_54172_OFF
         cmp     byte ptr [C0_B_0D7C7], 2
         jl      br_54336
@@ -24282,7 +24242,7 @@ fx_reverb_open:
         pop     ds
         retf
 L_5435E:
-        and     byte ptr [C2_B_09604], 0fch
+        and     byte ptr [C0_B_09604], 0fch
         cmp     byte ptr [C0_B_0D7C7], 2
         jl      br_54382
         mov     al, byte ptr [C0_B_0D7C7]
@@ -24305,7 +24265,7 @@ br_54382:
         mov     es, dx
         mov     al, byte ptr es:[bx+45h]
 br_54397:
-        mov     byte ptr [C2_B_09606], al
+        mov     byte ptr [C0_B_09606], al
         imul    bx, word ptr [C2_W_FX_REVERB_CURSOR], 2ah
         callf   [bx+C2_TBL_0555C]
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
@@ -24478,7 +24438,7 @@ br_544FE:
         call    fx_reverb_field3_thunk
         retf
 fx_reverb_field_notify:
-        mov     al, byte ptr [C2_B_09606]
+        mov     al, byte ptr [C0_B_09606]
         push    ax
         mov     al, byte ptr [C0_B_0D7C7]
         push    ax
@@ -24510,7 +24470,6 @@ L_53BF6:
         db      "REVERSE"
         db      00h
 L_5455E:
-far_5361E:
         db      "REVERB"
         db      00h
         db      00h
@@ -25271,7 +25230,7 @@ build_info_paint:
         push    0
         callf   EP_DRAW_SHADOW_BOX_SEG:EP_DRAW_SHADOW_BOX_OFF
         add     sp, 8
-        push    EP_FAR_54E32_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_54E32_OFF
         push    2
         push    3
@@ -25515,10 +25474,8 @@ far_54E32:
         endif
         db      00h
 far_54852:
-far_54E52:
         db      "END:", 00h, 00h
 L_54858:
-far_54E58:
         db      "MPC2000XL Development Team", 00h, 00h
 X_54E74:
         push    bp
@@ -25567,7 +25524,7 @@ wave_mem_check:
         xor     si, si
         lea     di, [bp-6]
 loop_54EF3:
-        push    EP_L_5507E_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_5507E_OFF
         push    word ptr ss:[di]
         callf   EP_SYSTEM_INIT_HANDLER_SEG:EP_SYSTEM_INIT_HANDLER_OFF
@@ -25639,7 +25596,7 @@ wave_mem_paint:
         add     sp, 0ah
         test    byte ptr [C2_B_WAVE_MEM_ERR_MASK], 1
         je      br_54FAE
-        push    EP_L_54AC6_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_54AC6_OFF
         push    0ch
         push    99h
@@ -25648,7 +25605,7 @@ wave_mem_paint:
 br_54FAE:
         test    byte ptr [C2_B_WAVE_MEM_ERR_MASK], 2
         je      br_54FC8
-        push    EP_L_54AC6_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_54AC6_OFF
         push    15h
         push    99h
@@ -25657,7 +25614,7 @@ br_54FAE:
 br_54FC8:
         test    byte ptr [C2_B_WAVE_MEM_ERR_MASK], 4
         je      br_54FE2
-        push    EP_L_54AC6_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_54AC6_OFF
         push    1eh
         push    99h
@@ -25668,7 +25625,7 @@ br_54FE2:
         je      br_54FFB
         push    C2_SEG
         if      FW_VERSION >= 114
-        push    EP_L_550CC_OFF
+        push    EP_C2_6F6C_OFF
         elseif  FW_VERSION >= 112
         push    EP_C2_6F6C_OFF
         else
@@ -25778,7 +25735,6 @@ wave_mem_return:
 L_54AC6:
         db      "Okay", 00h, 00h
 L_550CC:
-far_546E6:
         db      "Failure!", 00h, 00h
         if      FW_VERSION >= 112
         db      "00000000", 00h, 00h
@@ -26024,17 +25980,17 @@ snd_debug_id_sort:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_FAR_55416_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_FAR_55416_OFF
         push    C1_SEG
         if      FW_VERSION >= 112
-        push    EP_FAR_4A026_OFF
+        push    EP_L_4A602_OFF
         else
         push    C2_W_0CDA2
         endif
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
-        push    EP_L_3F9AC_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_3F9AC_OFF
         callf   EP_FAR_40138_SEG:EP_FAR_40138_OFF
         add     sp, 4
@@ -26046,7 +26002,7 @@ snd_debug_re_id:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        push    EP_L_4BD9A_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4BD9A_OFF
         push    C2_SEG
         if      FW_VERSION >= 112
@@ -26109,7 +26065,6 @@ far_55406:
 far_55416:
         db      49h, 44h, 00h, 00h
 L_5541A:
-far_5444A:
         db      "Re-ID "
         db      00h, 00h
 asic_reg1_write:
@@ -26493,7 +26448,7 @@ lcd_clear_region_impl:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_35530-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
         endif
         mov     sp, bp
         or      ax, ax
@@ -26561,7 +26516,7 @@ lcd_clear_rect:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_35530-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
         endif
         mov     sp, bp
         or      ax, ax
@@ -26790,7 +26745,7 @@ L_5596A:
         xor     ax, ax
         mov     cx, 2
         mov     bx, word ptr [C2_FP_MIDI_IN_BLOCK]
-        mov     dx, word ptr [C2_W_06482]
+        mov     dx, word ptr [C0_W_06482]
         mov     di, bx
         mov     es, dx
         rep stosw
@@ -26802,7 +26757,7 @@ L_5596A:
         mov     cx, word ptr [bp+10h]
         mov     word ptr [C2_W_08E4C], cx
         mov     word ptr [C2_W_08E4E], ax
-        push    EP_L_5529C_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_5529C_OFF
         callf   EP_NAME_SPLIT_NUMBER_SUFFIX_SEG:EP_NAME_SPLIT_NUMBER_SUFFIX_OFF
         add     sp, 4
@@ -26910,7 +26865,7 @@ sample_dump_paint:
         push    4bh
         callf   EP_DRAW_UNSIGNED_VALUE_SEG:EP_DRAW_UNSIGNED_VALUE_OFF
         add     sp, 0ah
-        mov     al, byte ptr [C2_B_0647D]
+        mov     al, byte ptr [C0_B_0647D]
         add     al, 41h
         cbw
         push    ax
@@ -26924,7 +26879,7 @@ sample_dump_paint:
         add     sp, 4
         or      ax, ax
         jne     br_55AD0
-        push    EP_L_47832_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_47832_OFF
         push    17h
         push    80h
@@ -27004,11 +26959,11 @@ br_55B49:
         leave
         retf
 br_55B7E:
-        push    EP_L_55C9E_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_55C9E_OFF
         jmp     br_55B8C
 br_55B86:
-        push    EP_L_552BC_SEG
+        push    EP_MIXER_F1_SEG
         push    EP_L_552BC_OFF
 br_55B8C:
         push    34h
@@ -27025,7 +26980,6 @@ br_55BA4:
         retf
         db      00h
 sample_dump_field0_thunk:
-far_54BD8:
         mov     word ptr [C2_W_SAMPLE_DUMP_CURSOR], 0
         push    ds
         push    C2_W_0647C
@@ -27038,7 +26992,7 @@ far_54BD8:
 sample_dump_field1_thunk:
         mov     word ptr [C2_W_SAMPLE_DUMP_CURSOR], 1
         mov     ax, word ptr [C2_FP_MIDI_IN_BLOCK]
-        mov     dx, word ptr [C2_W_06482]
+        mov     dx, word ptr [C0_W_06482]
         add     ax, 2
         push    dx
         push    ax
@@ -27051,7 +27005,7 @@ sample_dump_field1_thunk:
 sample_dump_field2_thunk:
         mov     word ptr [C2_W_SAMPLE_DUMP_CURSOR], 2
         push    ds
-        push    C2_B_0647D
+        push    C0_B_0647D
         push    ds
         push    C2_W_06608
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
@@ -27077,7 +27031,7 @@ L_55C10:
         retf
         db      00h
 L_55C24:
-        push    EP_L_3D724_SEG
+        push    EP_DIV_SEG
         push    EP_L_3D724_OFF
         callf   EP_FAR_4C0D8_SEG:EP_FAR_4C0D8_OFF
         add     sp, 4
@@ -27104,7 +27058,7 @@ sample_dump_field5_thunk:
         cmp     byte ptr es:[bx+SND_STEREO], 0
         je      br_55C86
         mov     word ptr [C2_W_SAMPLE_DUMP_CURSOR], 5
-        push    word ptr [C2_W_06482]
+        push    word ptr [C0_W_06482]
         push    word ptr [C2_FP_MIDI_IN_BLOCK]
         push    ds
         push    C2_W_06686
@@ -27126,7 +27080,6 @@ L_552BC:
         db      "Receiving....."
         db      00h, 00h
 L_55CBC:
-far_54CEC:
         db      "SEND"
         db      00h, 00h
 L_55CC2:

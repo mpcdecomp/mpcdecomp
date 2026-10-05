@@ -183,7 +183,7 @@ loop_1AB20:
         call    xl_io_wait_port_100_site1
         call    xl_io_out_port_102_site1
         call    fn_1ABD3
-        call    fn_1AD2C
+        call    disp_svc_clear
         ret
         ifdef   GROWTH_PROOF
         db      GROWTH_PROOF dup (90h)
@@ -240,7 +240,6 @@ loop_1ABD7:
         jne     loop_1ABD7
         pop     cx
         ret
-fn_1ABDC:
 disp_svc_flush:
 disp_svc8f_flush:
         cmp     word ptr [A2_W_LCD_DRAW_PLANE], A2_W_06E22
@@ -409,7 +408,6 @@ br_1AD1E:
         pop     cx
         pop     bx
         ret
-fn_1AD2C:
 disp_svc_clear:
 disp_svc8f_clear:
         mov     di, P_57A2
@@ -448,10 +446,9 @@ br_1AD75:
         mov     dx, es
         add     bp, 2
         mov     si, bp
-        call    fn_1AD86
+        call    disp_svc_softkey
         mov     bp, si
         ret
-fn_1AD86:
 disp_svc_softkey:
         sub     al, 1
         jae     br_1AD8B
@@ -488,7 +485,7 @@ loop_1ADA7:
         push    word ptr [A2_W_LCD_FONT_FN]
         mov     word ptr [A2_W_LCD_FONT_FN], fn_1B18A-APP2_CSBASE
         mov     ah, 28h
-        call    fn_1B171
+        call    disp_svc_text
         pop     ax
         mov     word ptr [A2_W_LCD_FONT_FN], ax
         pop     ax
@@ -512,7 +509,7 @@ fn_1ADDE:
         mov     ah, 9
         cmp     dl, 1
         jne     br_1ADF7
-        jmp     fn_1B52F
+        jmp     disp_svc_box
 br_1ADF7:
         cmp     dl, 2
         jne     L_1ADFF
@@ -520,7 +517,7 @@ br_1ADF7:
 L_1ADFF:
         cmp     dl, 3
         jne     br_1AE07
-        jmp     fn_1B637
+        jmp     disp_svc_erase
 br_1AE07:
         ret
 TBL_SOFTKEY_X:                                  ; F1-F6 label x
@@ -557,10 +554,9 @@ loop_1AE2D:
 disp_svc8f_msg:
         mov     dx, es
         mov     si, bp
-        call    fn_1AE48
+        call    disp_svc_msg
         mov     bp, si
         ret
-fn_1AE48:
 disp_svc_msg:
         push    dx
         push    si
@@ -586,7 +582,7 @@ tgt_1AE5B:
         mov     ch, 12h
         mov     al, 0a8h
         mov     ah, 11h
-        call    fn_1B637
+        call    disp_svc_erase
         mov     cl, 0d0h
         mov     ch, 12h
         mov     si, (APP2_BASE+tbl_1AF19-APP2_SEG*16)
@@ -621,7 +617,7 @@ loop_1AEB3:
         mov     cl, 2ah
         mov     ch, 17h
         mov     ah, 28h
-        call    fn_1B171
+        call    disp_svc_text
         push    si
         mov     cl, 20h
         mov     ch, 12h
@@ -637,7 +633,7 @@ loop_1AEB3:
         mov     ch, 12h
         mov     si, (APP2_BASE+tbl_1AF19-APP2_SEG*16)
         call    fn_1B945
-        call    fn_1ABDC
+        call    disp_svc_flush
         pop     si
         pop     ax
         mov     word ptr [A2_W_LCD_FONT_FN], ax
@@ -699,7 +695,6 @@ disp_svc8f_num:
         mov     bh, byte ptr es:[bp+2]
         mov     byte ptr [A2_B_LCD_NUM_WIDTH], bh
         add     bp, 3
-fn_1AFCB:
 disp_svc_num:
         mov     byte ptr [P_75B6], 0
         call    fn_1AFD4
@@ -890,10 +885,9 @@ disp_svc8f_text:
         mov     dx, es
         add     bp, 2
         mov     si, bp
-        call    fn_1B171
+        call    disp_svc_text
         mov     bp, si
         ret
-fn_1B171:
 disp_svc_text:
         call    fn_1BAC7
         mov     es, dx
@@ -1105,7 +1099,6 @@ disp_svc8f_hline:
         mov     ch, byte ptr es:[bp+1]
         mov     al, byte ptr es:[bp+2]
         add     bp, 3
-fn_1B333:
 disp_svc_hline:
         call    fn_1BAC7
         mov     bl, al
@@ -1150,7 +1143,6 @@ disp_svc8f_hdots:
         mov     ch, byte ptr es:[bp+1]
         mov     al, byte ptr es:[bp+2]
         add     bp, 3
-fn_1B392:
 disp_svc_hdots:
         call    fn_1BAC7
         mov     bl, al
@@ -1192,7 +1184,6 @@ disp_svc8f_vline:
         mov     ch, byte ptr es:[bp+1]
         mov     al, byte ptr es:[bp+2]
         add     bp, 3
-fn_1B3E9:
 disp_svc_vline:
         call    fn_1BAC7
         mov     bl, al
@@ -1211,7 +1202,6 @@ disp_svc8f_vdots:
         mov     ch, byte ptr es:[bp+1]
         mov     al, byte ptr es:[bp+2]
         add     bp, 3
-fn_1B40D:
 disp_svc_vdots:
         call    fn_1BAC7
         mov     bl, al
@@ -1234,10 +1224,9 @@ disp_svc8f_clip:
         mov     ah, byte ptr es:[bp+3]
         add     bp, 4
         push    bp
-        call    fn_1B43F
+        call    disp_svc_clip
         pop     bp
         ret
-fn_1B43F:
 disp_svc_clip:
         mov     bh, 0
         mov     bl, cl
@@ -1361,30 +1350,29 @@ disp_svc8f_box:
         mov     al, byte ptr es:[bp+2]
         mov     ah, byte ptr es:[bp+3]
         add     bp, 4
-fn_1B52F:
 disp_svc_box:
         mov     byte ptr [A2_B_LCD_RECT_X], cl
         mov     byte ptr [A2_B_LCD_RECT_Y], ch
         mov     byte ptr [A2_B_LCD_RECT_W], al
         mov     byte ptr [A2_B_0758D], ah
-        call    fn_1B333
+        call    disp_svc_hline
         mov     cl, byte ptr [A2_B_LCD_RECT_X]
         mov     ch, byte ptr [A2_B_LCD_RECT_Y]
         add     ch, byte ptr [A2_B_0758D]
         dec     ch
         and     ch, 3fh
         mov     al, byte ptr [A2_B_LCD_RECT_W]
-        call    fn_1B333
+        call    disp_svc_hline
         mov     cl, byte ptr [A2_B_LCD_RECT_X]
         mov     ch, byte ptr [A2_B_LCD_RECT_Y]
         mov     al, byte ptr [A2_B_0758D]
-        call    fn_1B3E9
+        call    disp_svc_vline
         mov     cl, byte ptr [A2_B_LCD_RECT_X]
         mov     ch, byte ptr [A2_B_LCD_RECT_Y]
         add     cl, byte ptr [A2_B_LCD_RECT_W]
         dec     cl
         mov     al, byte ptr [A2_B_0758D]
-        call    fn_1B3E9
+        call    disp_svc_vline
         ret
 disp_svc8f_fill:
         mov     cl, byte ptr es:[bp]
@@ -1392,7 +1380,6 @@ disp_svc8f_fill:
         mov     al, byte ptr es:[bp+2]
         mov     ah, byte ptr es:[bp+3]
         add     bp, 4
-fn_1B58E:
 disp_svc_fill:
         cmp     al, 0
         jne     br_1B593
@@ -1485,7 +1472,6 @@ disp_svc8f_erase:
         mov     al, byte ptr es:[bp+2]
         mov     ah, byte ptr es:[bp+3]
         add     bp, 4
-fn_1B637:
 disp_svc_erase:
         call    fn_1BAC7
         mov     bx, ax
@@ -1559,10 +1545,9 @@ br_1B6B0:
         mov     al, byte ptr es:[bp+2]
         mov     ah, byte ptr es:[bp+3]
         add     bp, 4
-        call    fn_1B6C9
+        call    disp_svc_win
         mov     bp, si
         ret
-fn_1B6C9:
 disp_svc_win:
         mov     byte ptr [A2_B_LCD_RECT_X], cl
         mov     byte ptr [A2_B_LCD_RECT_Y], ch
@@ -1570,27 +1555,27 @@ disp_svc_win:
         mov     byte ptr [A2_B_0758D], ah
         push    dx
         pusha
-        call    fn_1B637
+        call    disp_svc_erase
         popa
         pusha
         add     cl, 1
         add     ch, 1
         sub     al, 2
         sub     ah, 2
-        call    fn_1B52F
+        call    disp_svc_box
         popa
         pusha
         add     cl, 3
         add     ch, 3
         sub     al, 6
         sub     ah, 6
-        call    fn_1B52F
+        call    disp_svc_box
         popa
         pusha
         add     cl, 3
         add     ch, 0dh
         sub     al, 6
-        call    fn_1B333
+        call    disp_svc_hline
         popa
         mov     dx, ax
         pop     es
@@ -1614,7 +1599,7 @@ br_1B722:
         push    word ptr [A2_W_LCD_FONT_FN]
         mov     word ptr [A2_W_LCD_FONT_FN], fn_1B18A-APP2_CSBASE
         mov     dx, es
-        call    fn_1B171
+        call    disp_svc_text
         pop     ax
         mov     word ptr [A2_W_LCD_FONT_FN], ax
         mov     cl, byte ptr [A2_B_LCD_RECT_X]
@@ -1627,15 +1612,15 @@ br_1B722:
         sub     al, byte ptr [A2_B_LCD_NUM_WIDTH]
         push    cx
         pusha
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         add     ch, 2
         pusha
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         add     ch, 2
         pusha
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         pop     cx
         mov     ah, byte ptr [A2_B_LCD_RECT_W]
@@ -1644,14 +1629,14 @@ br_1B722:
         add     cl, byte ptr [A2_B_LCD_NUM_WIDTH]
         sub     cl, 1
         pusha
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         add     ch, 2
         pusha
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         add     ch, 2
-        call    fn_1B392
+        call    disp_svc_hdots
         ret
 fn_1B794:
         mov     cl, byte ptr es:[bp]
@@ -1681,25 +1666,25 @@ br_1B7BB:
 fn_1B7C9:
         push    es
         pusha
-        call    fn_1B637
+        call    disp_svc_erase
         popa
         pusha
         add     cl, 2
         sub     al, 4
-        call    fn_1B333
+        call    disp_svc_hline
         popa
         pusha
         add     cl, 2
         add     ch, ah
         sub     ch, 1
         sub     al, 4
-        call    fn_1B333
+        call    disp_svc_hline
         popa
         pusha
         add     ch, 2
         mov     al, ah
         sub     al, 4
-        call    fn_1B3E9
+        call    disp_svc_vline
         popa
         pusha
         add     ch, 2
@@ -1707,7 +1692,7 @@ fn_1B7C9:
         sub     cl, 1
         mov     al, ah
         sub     al, 4
-        call    fn_1B3E9
+        call    disp_svc_vline
         popa
         pusha
         add     cl, 1
@@ -1750,27 +1735,27 @@ fn_1B7C9:
         add     ch, 4
         sub     al, 8
         sub     ah, 8
-        call    fn_1B52F
+        call    disp_svc_box
         popa
         pusha
         add     cl, 4
         add     ch, 3
         sub     al, 8
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         pusha
         add     cl, 3
         add     ch, ah
         sub     ch, 2
         sub     al, 5
-        call    fn_1B392
+        call    disp_svc_hdots
         popa
         pusha
         add     cl, 3
         add     ch, 4
         mov     al, ah
         sub     al, 7
-        call    fn_1B40D
+        call    disp_svc_vdots
         popa
         pusha
         add     cl, al
@@ -1778,7 +1763,7 @@ fn_1B7C9:
         add     ch, 3
         mov     al, ah
         sub     al, 5
-        call    fn_1B40D
+        call    disp_svc_vdots
         popa
         pop     es
         mov     si, bp
@@ -1799,9 +1784,9 @@ loop_1B8A3:
         sub     al, 39h
         mov     ah, 9
         pusha
-        call    fn_1B637
+        call    disp_svc_erase
         popa
-        call    fn_1B52F
+        call    disp_svc_box
         pop     es
         popa
         shr     al, 1
@@ -2011,7 +1996,7 @@ disp_svc_note_form:
         push    bx
         push    cx
         mov     ah, 5
-        call    fn_1B171
+        call    disp_svc_text
         pop     cx
         pop     bx
         sub     bh, bh
@@ -2072,7 +2057,7 @@ br_1BABC:
         mov     si, A2_W_07607
         mov     dx, ds
         mov     ah, 3
-        call    fn_1B171
+        call    disp_svc_text
         ret
 fn_1BAC7:
         mov     di, ax
@@ -2134,7 +2119,7 @@ TBL_INT2E_RESOURCE_CMD:
 tgt_1BB63:
         ret
 tgt_1BB64:
-        call    fn_1AD2C
+        call    disp_svc_clear
         ret
 fn_1BB68:
         mov     word ptr [A2_W_LCD_DRAW_PLANE], P_57A2
@@ -2146,7 +2131,7 @@ fn_1BB76:
         mov     word ptr [A2_W_LCD_DRAW_PLANE], A2_W_066A2
         ret
 tgt_1BB7D:
-        call    fn_1ABDC
+        call    disp_svc_flush
         ret
 tgt_1BB81:
         mov     cl, byte ptr es:[bp]
@@ -2156,11 +2141,11 @@ tgt_1BB81:
         add     bp, 6
         push    bp
         mov     ah, 28h
-        call    fn_1B171
+        call    disp_svc_text
         pop     bp
         ret
 tgt_1BB9C:
-        mov     byte ptr [A2_B_00063], 1
+        mov     byte ptr [A0_B_REDRAW_REQ], 1
         ret
 tgt_1BBA2:
         push    word ptr [A2_W_LCD_DRAW_PLANE]
@@ -2178,7 +2163,7 @@ tgt_1BBA2:
         mov     al, byte ptr es:[bp+2]
         mov     ah, byte ptr es:[bp+3]
         add     bp, 4
-        call    fn_1B58E
+        call    disp_svc_fill
         pop     ax
         mov     word ptr [A2_W_LCD_DRAW_PLANE], ax
         ret
@@ -2212,12 +2197,12 @@ tgt_1BBFD:
         add     bp, 2
 br_1BC24:
         add     bp, 3
-        call    fn_1AFCB
+        call    disp_svc_num
         ret
 fn_1BC2B:
         mov     dx, es
         mov     si, bp
-        call    fn_1AE48
+        call    disp_svc_msg
         mov     bp, si
         ret
 tgt_1BC35:
@@ -2329,14 +2314,14 @@ L_1B642:
         ret
 fn_1BD06:
         pusha
-        call    fn_1B637
+        call    disp_svc_erase
         popa
         pusha
         add     cl, 1ch
         sub     ch, 2
         sub     al, 39h
         mov     ah, 9
-        call    fn_1B637
+        call    disp_svc_erase
         popa
         ret
 fn_1BD1B:
@@ -2883,7 +2868,6 @@ fn_1C2EF:
         pop     bx
         ret
 L_1BC48:
-L_1C308:
         cmp     byte ptr [A2_B_DISK_FORMAT], 8
         jne     br_1C311
         if      FW_VERSION >= 110
@@ -2922,7 +2906,7 @@ br_1C359:
         mov     word ptr [A2_W_DISK_CURSOR_FN], cb_1C2B9-APP2_CSBASE
         KEY_WHEEL2      EP_L_1C39F_OFF, APP2_SEG, EP_FAR_1C387_OFF, EP_FAR_1C387_SEG
         if      FW_VERSION >= 114
-        KEY_CURSOR      EP_L_1D335_OFF, APP2_SEG, EP_L_1D335_OFF, APP2_SEG, (APP2_BASE+L_1BC48-APP2_SEG*16), APP2_SEG, (APP2_BASE+L_1D078-APP2_SEG*16), APP2_SEG
+        KEY_CURSOR      EP_L_1D335_OFF, APP2_SEG, EP_L_1D335_OFF, APP2_SEG, (APP2_BASE+L_1BC48-APP2_SEG*16), APP2_SEG, (APP2_BASE+L_1C9B8-APP2_SEG*16), APP2_SEG
         else
         KEY_CURSOR      EP_L_1D335_OFF, APP2_SEG, EP_L_1D335_OFF, APP2_SEG, EP_L_1BC48_OFF, APP2_SEG, (APP2_BASE+L_1C9B8-APP2_SEG*16), APP2_SEG
         endif
@@ -4219,7 +4203,6 @@ fn_1D03F:
         pop     es
         popa
         ret
-L_1D078:
 L_1C9B8:
         call    fn_1BDD0
         mov     word ptr [A2_W_DISK_CURSOR_FN], cb_1C2C2-APP2_CSBASE
@@ -4404,7 +4387,7 @@ br_1D2CD:
         mov     word ptr [A2_W_DISK_CURSOR_FN], cb_1C2CB-APP2_CSBASE
         if      FW_VERSION >= 110
         FIELD_WHEEL     ds, A2_W_DISK_PARTITION, 0, 0, word ptr [A2_W_DISK_PARTITION_COUNT], intcb_1D2FB-APP2_CSBASE
-        KEY_CURSOR      0000h, 0000h, EP_L_1D335_OFF, APP2_SEG, (APP2_BASE+L_1D078-APP2_SEG*16), APP2_SEG, 0000h, 0000h
+        KEY_CURSOR      0000h, 0000h, EP_L_1D335_OFF, APP2_SEG, (APP2_BASE+L_1C9B8-APP2_SEG*16), APP2_SEG, 0000h, 0000h
         db      0cbh
         else
         mov     cx, ds
@@ -4414,7 +4397,7 @@ br_1D2CD:
         mov     dx, word ptr [A2_W_DISK_PARTITION_COUNT]
         mov     di, A2_W_0294B
         int     7dh
-        KEY_CURSOR      0000h, 0000h, EP_L_1D335_OFF, APP2_SEG, (APP2_BASE+L_1D078-APP2_SEG*16), APP2_SEG, 0000h, 0000h
+        KEY_CURSOR      0000h, 0000h, EP_L_1D335_OFF, APP2_SEG, (APP2_BASE+L_1C9B8-APP2_SEG*16), APP2_SEG, 0000h, 0000h
         retf
         endif
 intcb_1D2FB:
@@ -4462,7 +4445,7 @@ L_1CE3D:
         call    L_1B715
         mov     word ptr [A2_W_DISK_CURSOR_FN], cb_1C2D4-APP2_CSBASE
         KEY_WHEEL2      (APP2_BASE+L_1CCD8-APP2_SEG*16), APP2_SEG, (APP2_BASE+L_1CCC3-APP2_SEG*16), APP2_SEG
-        KEY_CURSOR      EP_L_1C308_OFF, APP2_SEG, EP_BR_1C359_OFF, EP_BR_1C359_SEG, 0000h, 0000h, 0000h, 0000h
+        KEY_CURSOR      EP_L_1BC48_OFF, APP2_SEG, EP_BR_1C359_OFF, EP_BR_1C359_SEG, 0000h, 0000h, 0000h, 0000h
         KEY_DOWN        16h, EP_L_1C40C_OFF, APP2_SEG
         call    fn_1BE3D
         je      L_1CE87
@@ -7046,7 +7029,7 @@ fn_1EE9F:
         elseif  FW_VERSION >= 112
         KEY_SOFT        (APP2_BASE+disk_screen_enter-APP2_SEG*16), APP2_SEG, (APP2_BASE+L_1E6ED-APP2_SEG*16), APP2_SEG, EP_FAR_1FB3E_OFF, EP_FAR_1FB3E_SEG, (APP2_BASE+L_1CD1C-APP2_SEG*16), APP2_SEG, 0000h, 0000h, (APP2_BASE+L_1F562-APP2_SEG*16), APP2_SEG
         elseif  FW_VERSION >= 111
-        KEY_SOFT        EP_L_1B659_OFF, APP2_SEG, (APP2_BASE+L_1E6ED-APP2_SEG*16), APP2_SEG, EP_FAR_1FB3E_OFF, EP_FAR_1FB3E_SEG, (APP2_BASE+L_1CD1C-APP2_SEG*16), APP2_SEG, 0000h, 0000h, (APP2_BASE+L_1F562-APP2_SEG*16), APP2_SEG
+        KEY_SOFT        EP_DISK_SCREEN_ENTER_OFF, APP2_SEG, (APP2_BASE+L_1E6ED-APP2_SEG*16), APP2_SEG, EP_FAR_1FB3E_OFF, EP_FAR_1FB3E_SEG, (APP2_BASE+L_1CD1C-APP2_SEG*16), APP2_SEG, 0000h, 0000h, (APP2_BASE+L_1F562-APP2_SEG*16), APP2_SEG
         else
         KEY_SOFT        EP_DISK_SCREEN_ENTER_OFF, APP2_SEG, EP_L_1E6ED_OFF, APP2_SEG, EP_FAR_1FB3E_OFF, EP_FAR_1FB3E_SEG, EP_L_1CD1C_OFF, APP2_SEG, 0000h, 0000h, EP_L_1F562_OFF, APP2_SEG
         endif
@@ -7373,20 +7356,20 @@ TBL_1F345:
         dw      tgt_1F3D0-APP2_CSBASE, tgt_1F3FD-APP2_CSBASE
 tgt_1F351:
         if      FW_VERSION >= 114
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         elseif  FW_VERSION >= 112
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         else
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         endif
         db      0c3h
 tgt_1F364:
         if      FW_VERSION >= 114
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         elseif  FW_VERSION >= 112
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         else
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         endif
         mov     cx, ds
         mov     si, 710h
@@ -7403,25 +7386,25 @@ far_1F388:
         retf
 tgt_1F390:
         if      FW_VERSION >= 114
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         elseif  FW_VERSION >= 112
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         else
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         endif
         db      0c3h
 tgt_1F3A3:
         if      FW_VERSION >= 112
         if      FW_VERSION >= 114
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         KEY_WHEEL2      EP_PGM_FILENAME_FETCH_OFF, APP2_SEG, L_1F3C8-APP2_CSBASE, APP2_SEG
         else
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         KEY_WHEEL2      EP_PGM_FILENAME_FETCH_OFF, APP2_SEG, (APP2_BASE+L_1F3C8-APP2_SEG*16), APP2_SEG
         endif
         db      0c3h
         else
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         KEY_WHEEL2      EP_PGM_FILENAME_FETCH_OFF, APP2_SEG, EP_L_1F3C8_OFF, APP2_SEG
         ret
         endif
@@ -7437,15 +7420,15 @@ L_1F3C8:
         retf
 tgt_1F3D0:
         if      FW_VERSION >= 114
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, L_1F402-APP2_CSBASE, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         KEY_WHEEL2      EP_SND_FILENAME_FETCH_OFF, APP2_SEG, L_1F3F5-APP2_CSBASE, APP2_SEG
         ret
         elseif  FW_VERSION >= 112
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, (APP2_BASE+L_1F402-APP2_SEG*16), APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         KEY_WHEEL2      EP_SND_FILENAME_FETCH_OFF, APP2_SEG, (APP2_BASE+L_1F3F5-APP2_SEG*16), APP2_SEG
         db      0c3h
         else
-        KEY_CURSOR      EP_FAR_1F4A4_OFF, EP_FAR_1F4A4_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
+        KEY_CURSOR      P_4AF4, EP_DISK_SCREEN_ENTER_SEG, EP_L_1F402_OFF, APP2_SEG, EP_FAR_1F303_OFF, EP_FAR_1F303_SEG, EP_FAR_1F4E1_OFF, EP_FAR_1F4E1_SEG
         KEY_WHEEL2      EP_SND_FILENAME_FETCH_OFF, APP2_SEG, EP_L_1F3F5_OFF, APP2_SEG
         ret
         endif
@@ -7568,7 +7551,7 @@ far_1F4E1:
         KEY_CURSOR      EP_FAR_1F507_OFF, EP_FAR_1F507_SEG, 0000h, 0000h, (APP2_BASE+L_1F518-APP2_SEG*16), APP2_SEG, (APP2_BASE+L_1F529-APP2_SEG*16), APP2_SEG
         endif
         else
-        KEY_CURSOR      EP_FAR_1F507_OFF, EP_FAR_1F507_SEG, 0000h, 0000h, EP_L_1F518_OFF, APP2_SEG, EP_L_1F529_OFF, APP2_SEG
+        KEY_CURSOR      EP_FAR_1F507_OFF, EP_FAR_1F507_SEG, 0000h, 0000h, EP_L_1F518_OFF, APP2_SEG, P_4B79, APP2_SEG
         endif
         db      0cbh
 far_1F507:
@@ -12994,7 +12977,6 @@ d_c0_w_0001e:
         db      00h, 00h, 0ffh, 0ffh, 01h
 
         if      FW_VERSION < 114
-FREE_21FD5:
         endif
 FREE_22795:
         PAD_TO  APPDATA_SEG*16+00088h-SEGBASE, 000h
@@ -13007,7 +12989,6 @@ d_a3_tbl_00580:
         if      FW_VERSION < 110
 
 ; 0x221f0-0x22230, 64 x 00h -- per-track default, 1 byte/track
-FREE_221F0:
 FREE_22CE0:
         PAD_TO  (APPDATA_SEG*16+005D0h-SEGBASE)-010h, 000h
 d_a3_tbl_005c0:
@@ -13028,7 +13009,6 @@ FREE_22CE0:
 d_a3_tbl_005c0:
         PAD_TO  APPDATA_SEG*16+005D0h-SEGBASE, 000h
         else
-FREE_22750:
         endif
 
 
@@ -13041,7 +13021,6 @@ d_a3_tbl_00600:
 
 ; 0x22d60-0x22da0, 64 x 00h -- per-track default, 1 byte/track
         if      FW_VERSION < 114
-FREE_22790:
         endif
 FREE_22D60:
         PAD_TO  (APPDATA_SEG*16+00650h-SEGBASE)-010h, 000h
@@ -13051,7 +13030,6 @@ d_a3_tbl_00640:
 
 ; 0x22da0-0x22de0, 64 x 64h -- per-track default, Velo% 100
         if      FW_VERSION < 114
-FREE_227D0:
         endif
 FREE_22DA0:
         PAD_TO  (APPDATA_SEG*16+00690h-SEGBASE)-010h, 064h
@@ -13061,7 +13039,6 @@ d_a3_tbl_00680:
 
 ; 0x22de0-0x22e20, 64 x 06h -- per-track default, 1 byte/track
         if      FW_VERSION < 114
-FREE_22810:
         endif
 FREE_22DE0:
         PAD_TO  APPDATA_SEG*16+006D0h-SEGBASE, 006h
@@ -13069,7 +13046,6 @@ FREE_22DE0:
 
 ; 0x22e20-0x22e64, 68 bytes of 00h -- unverified, do not assume free
         if      FW_VERSION < 114
-FREE_22850:
 ; 0x22751-0x2292c, 475 bytes of 00h -- unverified, do not assume free
         endif
 FREE_22E20:
@@ -13177,7 +13153,6 @@ d_a3_b_007bf:
         db      00h
 d_a3_b_007c0:
         db      64h
-d_a3_b_007c1:
         if      FW_VERSION >= 110
         if      FW_VERSION < 114
 FREE_22941:

@@ -424,11 +424,11 @@ ts_engine_block:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+L_3521A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+L_3511A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         endif
         mov     word ptr [bp-2eh], ax
         mov     word ptr [bp-2ch], dx
@@ -1018,7 +1018,7 @@ loop_56643:
 br_56670:
         push    C1_SEG
         if      FW_VERSION >= 114
-        push    (C1_BASE+L_46398-C1_SEG*16)
+        push    (C1_BASE+msg_internal_error-C1_SEG*16)
         elseif  FW_VERSION >= 112
         push    EP_L_46398_OFF
         else
@@ -1170,11 +1170,11 @@ br_567A6:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+L_3521A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+L_3511A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         endif
         les     bx, [bp-1ch]
         mov     word ptr es:[bx+8], ax
@@ -1202,11 +1202,11 @@ br_567A6:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+L_3521A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+L_3511A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         endif
         les     bx, [bp-1ch]
         mov     word ptr es:[bx+18h], ax
@@ -1226,11 +1226,11 @@ br_567A6:
         if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+L_3521A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+L_3511A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         else
-        callf   C0_SEG:(C0_BASE+L_34C1A-C0_SEG*16)
+        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
         endif
         les     bx, [bp-1ch]
         mov     word ptr es:[bx+20h], ax
@@ -2003,7 +2003,7 @@ L_57078:
         mov     word ptr [bp-6], dx
         push    C1_SEG
         push    word 12h
-        push    EP_L_4BD9A_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_L_4BD9A_OFF
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
@@ -2172,7 +2172,7 @@ br_57218:
         jne     L_57237
         cmp     word ptr [bp-4], 4e20h
         ja      L_57237
-        push    EP_FAR_47ABE_SEG
+        push    EP_FS_OPEN_SEG
         push    EP_FAR_47ABE_OFF
         push    1
         push    5
@@ -2311,8 +2311,8 @@ br_57382:
         cbw
         mov     di, ax
         imul    ax, di, 99eh
-        add     ax, word ptr [C0_W_0989A]
-        mov     dx, word ptr [C0_W_0989C]
+        add     ax, word ptr [C2_FP_PGM_ARRAY]
+        mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
         add     ax, 1eh
         mov     word ptr es:[si+0ah], ax
         mov     word ptr es:[si+0ch], dx
@@ -4016,7 +4016,7 @@ d_c0_b_00716:
 d_c0_w_00738:
         dw      EP_FAR_42192_OFF
 d_c0_w_0073a:
-        dw      EP_FAR_42192_SEG
+        dw      EP_FS_OPEN_SEG
 d_c1_tbl_0073c:
         db      00h, 00h
 d_c1_tbl_0073e:
@@ -4327,9 +4327,9 @@ d_c1_w_00ed8:
         db      00h
 d_c1_w_00efa:
         WIN_KEY_CLEAR
-        WIN_KEY   WIN_K_F4, EP_L_469B6_SEG, EP_L_469B6_OFF
-        WIN_KEY   WIN_K_F5, EP_X_3A862_SEG, EP_X_3A862_OFF
-        WIN_KEY   WIN_K_PAINT, EP_L_469C4_SEG, EP_L_469C4_OFF
+        WIN_KEY   WIN_K_F4, EP_FS_OPEN_SEG, EP_L_469B6_OFF
+        WIN_KEY   WIN_K_F5, EP_DIV_SEG, EP_X_3A862_OFF
+        WIN_KEY   WIN_K_PAINT, EP_FS_OPEN_SEG, EP_L_469C4_OFF
         WIN_KEY_END
         db      00h
 d_c1_w_00f14:
@@ -4350,10 +4350,10 @@ d_c0_tbl_00f52:
         db      00h
 TBL_WINKEYS_5825C:
         WIN_KEY_CLEAR
-        WIN_KEY   WIN_K_F3, EP_X_46FB8_SEG, EP_X_46FB8_OFF
-        WIN_KEY   WIN_K_F4, EP_L_46FC6_SEG, EP_L_46FC6_OFF
-        WIN_KEY   WIN_K_F5, EP_L_46FD4_SEG, EP_L_46FD4_OFF
-        WIN_KEY   WIN_K_PAINT, EP_L_460B0_SEG, EP_L_460B0_OFF
+        WIN_KEY   WIN_K_F3, EP_FS_OPEN_SEG, EP_X_46FB8_OFF
+        WIN_KEY   WIN_K_F4, EP_FS_OPEN_SEG, EP_L_46FC6_OFF
+        WIN_KEY   WIN_K_F5, EP_FS_OPEN_SEG, EP_L_46FD4_OFF
+        WIN_KEY   WIN_K_PAINT, EP_FS_OPEN_SEG, EP_L_460B0_OFF
         WIN_KEY_END
 d_c2_w_00f9a:
         db      1ah, 03h, 01h, 53h, 4fh, 55h, 4eh
@@ -4540,7 +4540,7 @@ TBL_FIELDS_10DC:
         if      FW_VERSION >= 114
         dw      EP_L_468E8_OFF, EP_L_468E8_SEG
         elseif  FW_VERSION >= 112
-        dw      EP_FAR_46B1C_OFF, EP_L_468E8_SEG
+        dw      EP_FAR_46B1C_OFF, EP_FAR_46B1C_SEG
         else
         dw      EP_FAR_467C6_OFF, C1_SEG
         endif
@@ -4591,10 +4591,10 @@ d_c2_w_011b4:
         WIN_LABEL 6eh, 20h, "and press DO IT."
         WIN_END
 TBL_WINKEYS_594A0:
-        WIN_KEY   4eh, EP_L_4DCEC_SEG, EP_L_4DCEC_OFF
-        WIN_KEY   4fh, EP_X_4DD18_SEG, EP_X_4DD18_OFF
-        WIN_KEY   4ch, EP_FAR_48782_SEG, EP_FAR_48782_OFF
-        WIN_KEY   4dh, EP_X_49EBA_SEG, EP_X_49EBA_OFF
+        WIN_KEY   4eh, EP_FS_OPEN_SEG, EP_L_4DCEC_OFF
+        WIN_KEY   4fh, EP_FS_OPEN_SEG, EP_X_4DD18_OFF
+        WIN_KEY   4ch, EP_FS_OPEN_SEG, EP_FAR_48782_OFF
+        WIN_KEY   4dh, EP_FS_OPEN_SEG, EP_X_49EBA_OFF
         WIN_KEY_END
         db      00h
 handler_ids_post:                       ; HANDLERS_POST: 18/19/16/17 -> 0x480F2/118/13E/164
@@ -4631,12 +4631,12 @@ TBL_WINKEYS_FIELD_READONLY:
 TBL_WINKEYS_59524:
         WIN_KEY   WIN_K_UP, EP_FIELD_NAV_UP_SEG, EP_FIELD_NAV_UP_OFF
         WIN_KEY   WIN_K_DOWN, EP_FIELD_NAV_DOWN_SEG, EP_FIELD_NAV_DOWN_OFF
-        WIN_KEY   2bh, EP_L_47A80_SEG, EP_L_47A80_OFF
-        WIN_KEY   2ch, EP_L_47A80_SEG, EP_L_47A80_OFF
-        WIN_KEY   35h, EP_L_47A80_SEG, EP_L_47A80_OFF
-        WIN_KEY   WIN_K_PAD, EP_L_47A80_SEG, EP_L_47A80_OFF
-        WIN_KEY   WIN_K_RIGHT, EP_L_47A80_SEG, EP_L_47A80_OFF
-        WIN_KEY   WIN_K_LEFT, EP_L_47A80_SEG, EP_L_47A80_OFF
+        WIN_KEY   2bh, EP_FS_OPEN_SEG, EP_L_47A80_OFF
+        WIN_KEY   2ch, EP_FS_OPEN_SEG, EP_L_47A80_OFF
+        WIN_KEY   35h, EP_FS_OPEN_SEG, EP_L_47A80_OFF
+        WIN_KEY   WIN_K_PAD, EP_FS_OPEN_SEG, EP_L_47A80_OFF
+        WIN_KEY   WIN_K_RIGHT, EP_FS_OPEN_SEG, EP_L_47A80_OFF
+        WIN_KEY   WIN_K_LEFT, EP_FS_OPEN_SEG, EP_L_47A80_OFF
         WIN_KEY_END
         db      00h
 d_c2_tbl_012a2:
@@ -4646,7 +4646,7 @@ d_c2_tbl_012a2:
 d_c2_tbl_012c6:
         dw      EP_FAR_4947C_OFF
 d_c2_tbl_012c8:
-        dw      EP_FAR_4947C_SEG
+        dw      EP_FS_OPEN_SEG
         dw      EP_FAR_49A84_OFF, EP_FAR_49A84_SEG
         dw      EP_FAR_49A8C_OFF, EP_FAR_49A8C_SEG
 d_c2_tbl_012d2:
@@ -4914,7 +4914,7 @@ TBL_FIELDS_1712:                        ; 2 x FIELD_SIZE; the part of the array 
         db      03h
         dw      EP_LOOP_SCREEN_DRAW_OFF, EP_LOOP_SCREEN_DRAW_SEG
         db      04h
-        dw      EP_FAR_4D36C_OFF, EP_FAR_4D36C_SEG
+        dw      C2_W_0F1DC, EP_FS_OPEN_SEG
         db      05h
         dw      (C2_BASE+far_4BD70-C1_SEG*16), C1_SEG
         db      32h
@@ -5325,7 +5325,7 @@ d_c2_w_01d58:
         else
         db      43h, 0eeh, 0d8h, 28h, 3dh, 04h
         endif
-        dw      EP_FAR_4D36C_OFF, EP_FAR_4D36C_SEG
+        dw      C2_W_0F1DC, EP_FS_OPEN_SEG
         db      05h
         dw      EP_FAR_4BD70_OFF, EP_FAR_4BD70_SEG
         db      32h
@@ -5372,7 +5372,7 @@ d_c2_tbl_01e24:
 d_c2_tbl_01e3c:
         dw      EP_FAR_4BCAA_OFF
 d_c2_tbl_01e3e:
-        dw      EP_FAR_4BCAA_SEG
+        dw      EP_FS_OPEN_SEG
 TBL_FIELDS_1E40:                        ; 5 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_PLAY_X_OFF, EP_LOOP_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5420,7 +5420,7 @@ d_c2_w_01ee8:
         db      03h
         dw      EP_LOOP_SCREEN_DRAW_OFF, EP_LOOP_SCREEN_DRAW_SEG
         db      04h
-        dw      EP_FAR_4D36C_OFF, EP_FAR_4D36C_SEG
+        dw      C2_W_0F1DC, EP_FS_OPEN_SEG
         db      05h
         dw      EP_L_4A56A_OFF, EP_L_4A56A_SEG
         if      FW_VERSION >= 111
@@ -5445,7 +5445,7 @@ d_c2_w_01ee8:
         if      FW_VERSION >= 112
         dw      EP_FAR_3C214_OFF, C0_SEG
         else
-        dw      EP_L_3B8DA_OFF, C0_SEG
+        dw      EP_C0_66DA_OFF, C0_SEG
         endif
         db      87h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
@@ -5483,7 +5483,7 @@ d_c2_tbl_01fd2:
 d_c2_tbl_01fea:
         dw      EP_FAR_4BFEA_OFF
 d_c2_tbl_01fec:
-        dw      EP_FAR_4BFEA_SEG
+        dw      EP_FS_OPEN_SEG
 TBL_FIELDS_1FEE:                        ; 4 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_SND_PARAMS_FOCUS_PLAY_X_OFF, EP_SND_PARAMS_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5774,7 +5774,7 @@ d_c2_w_025b2:
 d_c2_tbl_025dc:
         dw      EP_L_4C8C4_OFF
 d_c2_tbl_025de:
-        dw      EP_L_4C8C4_SEG
+        dw      EP_FS_OPEN_SEG
         if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4D22A_120-C1_SEG*16), C1_SEG
@@ -5797,7 +5797,7 @@ d_c2_tbl_025de:
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4D280-C1_SEG*16), C1_SEG
         if      FW_VERSION >= 114
-        dw      EP_L_4D290_OFF, C1_SEG
+        dw      EP_L_4CA90_OFF, C1_SEG
         dw      (C2_BASE+L_4D2A0-C1_SEG*16), C1_SEG
         else
         dw      EP_L_4CA90_OFF, C1_SEG
@@ -5805,7 +5805,7 @@ d_c2_tbl_025de:
         endif
         else
         db      0c2h, 0f0h, 86h, 3dh
-        dw      EP_L_4D290_OFF, C1_SEG
+        dw      EP_L_4CA90_OFF, C1_SEG
         dw      (C2_BASE+L_4CAA0-C1_SEG*16), C1_SEG
         endif
         dw      EP_FAR_4D2AE_OFF, EP_FAR_4D2AE_SEG
@@ -5819,7 +5819,7 @@ d_c2_tbl_025de:
         db      28h, 3dh, 0c6h
         db      0f0h
         db      28h, 3dh
-        dw      EP_L_4D290_OFF, C1_SEG
+        dw      EP_L_4CA90_OFF, C1_SEG
         endif
         dw      (C2_BASE+L_4CAA0-C1_SEG*16), C1_SEG
         if      FW_VERSION >= 110
@@ -5959,7 +5959,7 @@ ts_field_desc_adjust:                   ; x=0D3h y=29h, FIELD_STORE 8001h, MIN -
         if      FW_VERSION >= 112
         dw      EP_FAR_3C214_OFF, C0_SEG
         else
-        dw      EP_L_3B8DA_OFF, C0_SEG
+        dw      EP_C0_66DA_OFF, C0_SEG
         endif
         db      87h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
@@ -5995,7 +5995,7 @@ d_c2_tbl_02886:
 d_c2_tbl_0289e:
         dw      EP_L_4D5A8_OFF
 d_c2_tbl_028a0:
-        dw      EP_L_4D5A8_SEG
+        dw      EP_FS_OPEN_SEG
 TBL_FIELDS_28A2:                        ; 4 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_ZONE_FOCUS_PLAY_X_OFF, EP_ZONE_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -6056,7 +6056,7 @@ d_c2_w_02902:
         endif
         endif
         if      FW_VERSION >= 114
-        dw      EP_L_4D916_OFF, C1_SEG
+        dw      EP_L_4D116_OFF, C1_SEG
         else
         dw      EP_L_4D116_OFF, C1_SEG
         endif
@@ -6283,7 +6283,7 @@ TBL_WINKEYS_PGM_ASSIGN:
 d_c2_tbl_02bfe:
         dw      EP_L_4E668_OFF
 d_c2_tbl_02c00:
-        dw      EP_L_4E668_SEG
+        dw      EP_MIXER_F1_SEG
         dw      (C2_BASE+L_4DD10-C2_SEG*16), C2_SEG
         dw      EP_L_4DD18_OFF, EP_L_4DD18_SEG
         dw      EP_L_4DD20_OFF, EP_L_4DD20_SEG
@@ -6348,7 +6348,7 @@ TBL_FIELDS_2C8E:                        ; 11 x FIELD_SIZE, DS:2C8Eh = PGM_ASSIGN
         dw      EP_PGM_ASSIGN_FOCUS_PAD_OFF, EP_PGM_ASSIGN_FOCUS_PAD_SEG, 0000h, C2_SEG, EP_PGM_ASSIGN_FOCUS_SOUND_OFF, EP_PGM_ASSIGN_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         dw      EP_PGM_ASSIGN_FOCUS_PGM_OFF, EP_PGM_ASSIGN_FOCUS_PGM_SEG, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_OFF, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_SEG, EP_L_4E234_OFF, EP_L_4E234_SEG, EP_L_4F6E2_OFF, EP_L_4F6E2_SEG ; +1Ah..+21h  NOTIFY  ENTER
         else
-        dw      (C2_BASE+pgm_assign_focus_pad-C2_SEG*16), C2_SEG, (C2_BASE+L_4D7F6-C1_SEG*16), C1_SEG, EP_L_4D98A_OFF, C2_SEG
+        dw      (C2_BASE+pgm_assign_focus_pad-C2_SEG*16), C2_SEG, (C2_BASE+L_4D7F6-C1_SEG*16), C1_SEG, EP_PGM_ASSIGN_FOCUS_SOUND_OFF, C2_SEG
         dw      0000h, C2_SEG
         dw      EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_OFF, EP_PGM_ASSIGN_FOCUS_PAD_ASSIGN_SEG
         dw      EP_L_4E234_OFF, EP_L_4E234_SEG
@@ -6454,16 +6454,16 @@ d_c2_tbl_02ea0:
 d_c2_tbl_02ea2:
         dw      C2_SEG
         if      FW_VERSION >= 114
-        dw      EP_L_4C168_OFF, C1_SEG
+        dw      EP_L_4B968_OFF, C1_SEG
         else
         dw      EP_L_4B968_OFF, C1_SEG
         endif
         dw      EP_FAR_4EBFE_OFF, C2_SEG
         else
-        dw      (C2_BASE+far_4EBC8-C2_SEG*16)
+        dw      (C2_BASE+L_4EBF8-C2_SEG*16)
 d_c2_tbl_02ea2:
         dw      C2_SEG
-        dw      EP_FAR_4B80A_OFF, C1_SEG
+        dw      EP_L_4B968_OFF, C1_SEG
         if      FW_VERSION >= 110
         dw      EP_L_4E29E_OFF, C2_SEG
         else
@@ -6534,7 +6534,7 @@ d_c2_w_02f94:
         db      03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         if      FW_VERSION >= 114
-        dw      EP_L_4EA62_OFF, C2_SEG
+        dw      EP_C2_0902_OFF, C2_SEG
         else
         dw      EP_C2_0902_OFF, C2_SEG
         endif
@@ -6543,10 +6543,10 @@ d_c2_w_02f94:
         dw      EP_L_4EA3A_OFF, C2_SEG
         else
         if      FW_VERSION >= 110
-        dw      EP_FAR_4E102_OFF, C2_SEG, EP_L_4E09A_OFF, C2_SEG, EP_L_4EAD6_OFF, C2_SEG
-        dw      EP_FAR_4E0DA_OFF, C2_SEG
+        dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, C2_SEG, EP_C2_0976_OFF, C2_SEG
+        dw      EP_FAR_4DAFA_OFF, C2_SEG
         else
-        dw      EP_FAR_4E102_OFF, C2_SEG, EP_FAR_4E9FA_OFF, EP_FAR_4E9FA_SEG, EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
+        dw      EP_C2_0902_OFF, C2_SEG, EP_FAR_4E9FA_OFF, EP_FAR_4E9FA_SEG, EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
         dw      EP_FAR_4DAFA_OFF, C2_SEG
         endif
         endif
@@ -6554,9 +6554,9 @@ d_c2_w_02f94:
         db      00h
         db      00h, 00h, 00h
         if      FW_VERSION >= 111
-        dw      EP_L_4FD16_OFF, C2_SEG
+        dw      EP_L_4EDD6_OFF, C2_SEG
         elseif  FW_VERSION >= 110
-        dw      EP_L_4F2B6_OFF, C2_SEG
+        dw      EP_L_4EDD6_OFF, C2_SEG
         else
         dw      EP_L_4EDD6_OFF, C2_SEG
         endif
@@ -6565,14 +6565,14 @@ d_c2_w_02f94:
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4EA9C-C2_SEG*16), C2_SEG
         if      FW_VERSION >= 114
-        dw      EP_L_4EA62_OFF, C2_SEG
+        dw      EP_C2_0902_OFF, C2_SEG
         else
         dw      EP_C2_0902_OFF, C2_SEG
         endif
-        dw      EP_L_4EAD6_OFF, C2_SEG
+        dw      EP_C2_0976_OFF, C2_SEG
         else
         dw      EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
-        dw      EP_FAR_4E102_OFF, C2_SEG
+        dw      EP_C2_0902_OFF, C2_SEG
         if      FW_VERSION >= 111
         db      36h
         db      09h, 84h, 4dh
@@ -6584,9 +6584,9 @@ d_c2_w_02f94:
         dw      EP_FAR_4E1EA_OFF, EP_FAR_4E1EA_SEG
         db      00h, 00h, 00h, 00h
         if      FW_VERSION >= 111
-        dw      EP_L_4FD16_OFF, C2_SEG
+        dw      EP_L_4EDD6_OFF, C2_SEG
         elseif  FW_VERSION >= 110
-        dw      EP_L_4F2B6_OFF, C2_SEG
+        dw      EP_L_4EDD6_OFF, C2_SEG
         else
         dw      EP_L_4EDD6_OFF, C2_SEG
         endif
@@ -6602,9 +6602,9 @@ d_c2_w_02f94:
         dw      EP_FAR_4E1EA_OFF, EP_FAR_4E1EA_SEG
         db      00h, 00h, 00h, 00h
         if      FW_VERSION >= 111
-        dw      EP_L_4FD16_OFF, C2_SEG
+        dw      EP_L_4EDD6_OFF, C2_SEG
         elseif  FW_VERSION >= 110
-        dw      EP_L_4F2B6_OFF, C2_SEG
+        dw      EP_L_4EDD6_OFF, C2_SEG
         else
         dw      EP_L_4EDD6_OFF, C2_SEG
         endif
@@ -6615,18 +6615,18 @@ d_c2_w_02f94:
         dw      EP_L_4EA3A_OFF, C2_SEG
         dw      EP_FAR_4E1EA_OFF, EP_FAR_4E1EA_SEG
         if      FW_VERSION >= 114
-        dw      EP_L_4EA62_OFF, C2_SEG
+        dw      EP_C2_0902_OFF, C2_SEG
         else
         dw      EP_C2_0902_OFF, C2_SEG
         endif
         else
         dw      (C2_BASE+L_4EB10-C2_SEG*16), C2_SEG
         if      FW_VERSION >= 110
-        dw      EP_FAR_4E0DA_OFF, C2_SEG
+        dw      EP_FAR_4DAFA_OFF, C2_SEG
         else
         dw      EP_FAR_4DAFA_OFF, C2_SEG
         endif
-        dw      (C2_BASE+far_4E1EA-C2_SEG*16), C2_SEG, EP_FAR_4E102_OFF, C2_SEG
+        dw      (C2_BASE+far_4E1EA-C2_SEG*16), C2_SEG, EP_C2_0902_OFF, C2_SEG
         endif
         dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG
         db      00h, 00h, 00h
@@ -6641,7 +6641,7 @@ d_c2_w_02f94:
         dw      (C2_BASE+L_4EA9C-C2_SEG*16), C2_SEG
         dw      EP_L_4EBBE_OFF, EP_L_4EBBE_SEG
         elseif  FW_VERSION >= 110
-        dw      EP_L_4EAD6_OFF, C2_SEG
+        dw      EP_C2_0976_OFF, C2_SEG
         dw      (C2_BASE+L_4E25E-C2_SEG*16), C2_SEG
         else
         dw      EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
@@ -6658,7 +6658,7 @@ d_c2_w_02f94:
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
         else
         if      FW_VERSION >= 110
-        dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG, EP_FAR_4E0DA_OFF, C2_SEG
+        dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG, EP_FAR_4DAFA_OFF, C2_SEG
         else
         dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG, EP_FAR_4DAFA_OFF, C2_SEG
         endif
@@ -7487,7 +7487,7 @@ d_c0_tbl_03ede:
         if      FW_VERSION >= 112
         dw      EP_L_51062_OFF
 d_c0_tbl_03ee0:
-        dw      EP_L_51062_SEG
+        dw      EP_MIXER_F1_SEG
 d_c0_tbl_03ee2:
         dw      EP_L_510E6_OFF
 d_c0_tbl_03ee4:
@@ -7498,7 +7498,7 @@ d_c2_w_03f0e:
         else
         dw      EP_L_51062_OFF
 d_c0_tbl_03ee0:
-        dw      EP_L_51062_SEG
+        dw      EP_MIXER_F1_SEG
 d_c0_tbl_03ee2:
         db      46h
         db      2fh
@@ -7643,9 +7643,9 @@ d_c2_w_03f0e:
         endif
         dw      EP_L_50FAC_OFF, EP_L_50FAC_SEG
 TBL_WINKEYS_5C222:
-        WIN_KEY   2bh, EP_L_3C678_SEG, EP_L_3C678_OFF
-        WIN_KEY   2ch, EP_X_3C6A2_SEG, EP_X_3C6A2_OFF
-        WIN_KEY   WIN_K_REFRESH, EP_FAR_51016_SEG, EP_FAR_51016_OFF
+        WIN_KEY   2bh, EP_DIV_SEG, EP_L_3C678_OFF
+        WIN_KEY   2ch, EP_DIV_SEG, EP_X_3C6A2_OFF
+        WIN_KEY   WIN_K_REFRESH, EP_MIXER_F1_SEG, EP_FAR_51016_OFF
         WIN_KEY_END
 TBL_WINKEYS_MIXER_SETUP:
         WIN_CLEAR
@@ -7699,7 +7699,7 @@ TBL_FIELDS_4066:                        ; 6 x FIELD_SIZE; the part of the array 
         else
         dw      EP_MIXER_SETUP_FIELD1_THUNK_OFF, EP_MIXER_SETUP_FIELD1_THUNK_SEG, EP_MIXER_SETUP_FIELD0_THUNK_OFF, EP_MIXER_SETUP_FIELD0_THUNK_SEG
         dw      (C2_BASE+mixer_setup_field2_thunk-C2_SEG*16), C2_SEG, EP_MIXER_SETUP_FIELD4_THUNK_OFF, EP_MIXER_SETUP_FIELD4_THUNK_SEG
-        dw      EP_C2_3710_OFF, C2_SEG
+        dw      EP_MIXER_SETUP_FIELD2_THUNK_OFF, C2_SEG
         endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 d_c2_w_040ba:
@@ -7743,7 +7743,7 @@ d_c2_w_04138:
 d_c2_tbl_04162:
         dw      EP_FAR_514DC_OFF
 d_c2_tbl_04164:
-        dw      EP_FAR_514DC_SEG
+        dw      EP_MIXER_F1_SEG
         dw      EP_FAR_514E0_OFF, EP_FAR_514E0_SEG
         dw      EP_FAR_514E4_OFF, EP_FAR_514E4_SEG
         if      FW_VERSION >= 112
@@ -7786,10 +7786,10 @@ d_c2_w_041b2:
         db      00h
         db      00h, 00h, 00h, 00h
         else
-        dw      EP_FAR_5123E_OFF, C2_SEG
+        dw      EP_L_51B9E_OFF, C2_SEG
 TBL_WINKEYS_5BA86:
-        WIN_KEY   WIN_K_OPEN, EP_L_51BFE_SEG, EP_L_51BFE_OFF
-        WIN_KEY   WIN_K_REFRESH, EP_L_51C10_SEG, EP_L_51C10_OFF
+        WIN_KEY   WIN_K_OPEN, EP_MIXER_F1_SEG, EP_L_51BFE_OFF
+        WIN_KEY   WIN_K_REFRESH, EP_MIXER_F1_SEG, EP_L_51C10_OFF
         WIN_KEY_END
         endif
         db      00h
@@ -7876,7 +7876,7 @@ TBL_WINKEYS_FX_NOT_INSTALLED:
 d_c0_tbl_043f2:
         dw      EP_L_51A3C_OFF
 d_c0_tbl_043f4:
-        dw      EP_L_51A3C_SEG
+        dw      EP_MIXER_F1_SEG
         if      FW_VERSION >= 112
         dw      EP_FAR_523A6_OFF, C2_SEG
         dw      EP_L_51A50_OFF, EP_L_51A50_SEG
@@ -8435,7 +8435,7 @@ TBL_FIELDS_4D68:                        ; 6 x FIELD_SIZE; the part of the array 
 d_c2_w_04e64:
         dw      EP_FAR_53AC2_OFF
 d_c2_tbl_04e66:
-        dw      EP_FAR_53AC2_SEG
+        dw      EP_MIXER_F1_SEG
         dw      EP_FAR_53AC6_OFF, EP_FAR_53AC6_SEG
         dw      EP_FAR_53ACA_OFF, EP_FAR_53ACA_SEG
         dw      (C2_BASE+L_53ACE-C2_SEG*16), C2_SEG
@@ -8597,7 +8597,7 @@ d_c0_w_05106:
 d_c2_w_051d8:
         dw      EP_FAR_54100_OFF
 d_c2_tbl_051da:
-        dw      EP_FAR_54100_SEG
+        dw      EP_MIXER_F1_SEG
         dw      EP_FAR_5410A_OFF, EP_FAR_5410A_SEG
         dw      (C2_BASE+L_54114-C2_SEG*16), C2_SEG
         dw      EP_FAR_49A8C_OFF, EP_FAR_49A8C_SEG
@@ -8840,13 +8840,13 @@ d_c2_w_0564a:
 d_c2_w_05674:
         dw      EP_L_54058_OFF
 d_c2_tbl_05676:
-        dw      EP_L_54058_SEG
+        dw      EP_MIXER_F1_SEG
         dw      EP_FAR_549C6_OFF, EP_FAR_549C6_SEG
         dw      EP_FAR_549D4_OFF, EP_FAR_549D4_SEG
 d_c2_w_05680:
         dw      EP_FAR_49A94_OFF
 d_c2_tbl_05682:
-        dw      EP_FAR_49A94_SEG
+        dw      EP_FS_OPEN_SEG
         dw      EP_FAR_49A98_OFF, EP_FAR_49A98_SEG
         dw      EP_L_49A9C_OFF, EP_L_49A9C_SEG
         dw      EP_L_49AA0_OFF, EP_L_49AA0_SEG
@@ -9036,13 +9036,11 @@ d_c1_w_059e4:
 d_c1_w_059f4:
         db      12 dup (0)
 d_c1_w_05a00:
-d_c2_w_05a00:
         db      4 dup (0)
 d_c1_w_05a04:
         PAD_TO  DS_SEG*16+05A0Fh-SEGBASE, 000h
 
         else
-FREE_5D624:
 FREE_5DC24:
         db      122 dup (0)
 d_c1_w_059e4:
@@ -9050,7 +9048,6 @@ d_c1_w_059e4:
 d_c1_w_059f4:
         db      12 dup (0)
 d_c1_w_05a00:
-d_c2_w_05a00:
         db      4 dup (0)
 d_c1_w_05a04:
         PAD_TO  DS_SEG*16+05A09h-SEGBASE, 000h
@@ -9119,7 +9116,6 @@ FREE_5E2B6:
 d_c2_b_060b8:
         PAD_TO  DS_SEG*16+060BAh-SEGBASE, 000h
         else
-FREE_5DCB6:
 FREE_5E2B6:
         db      178 dup (0)
 d_c2_b_060b8:
@@ -9598,7 +9594,6 @@ d_k0_w_06b86:
 ; COPY_NOTE_PARAMS' window descriptor sit here: DS-reachable (DS=582Bh), clear
 ; of the OS's BSS fill and of the program-record array (0x65AE0-0x741B0) that
 ; real programs overwrite.
-FREE_5F236:
         if      FW_VERSION >= 112
         include "../feat/ds_slot.inc"
         else
@@ -9628,7 +9623,6 @@ d_c0_w_077d0:
 d_c0_w_077d2:
         PAD_TO  DS_SEG*16+077D4h-SEGBASE, 000h
         else
-FREE_5F3FB:
 FREE_5F9FB:
         db      129 dup (0)
 d_c0_w_077cc:
@@ -9688,7 +9682,6 @@ far_5F62E:
 far_5FC39:
         db      01h, 09h, 00h, 00h, 0eh, 11h, 11h, 0eh, 11h, 11h, 0eh
 L_5FC44:
-far_5F644:
         db      01h, 09h, 00h, 00h, 00h, 00h, 00h, 1fh, 00h, 00h, 00h, 01h, 09h, 00h, 00h, 1fh
         db      10h, 10h, 1eh, 10h, 10h, 1fh
 far_5FC5A:
@@ -9859,7 +9852,6 @@ d_c0_w_08126:
 ; added to this range (features use 0x5F236, the unreferenced copy of the
 ; credits drawing further down).
 FREE_603D8:
-d_c0_w_08128:
         db      2 dup (0)
 d_c0_w_0812a:
         db      24 dup (0)
@@ -9883,12 +9875,10 @@ d_c1_w_08176:
         db      2 dup (0)
 d_c1_w_08178:
         db      2 dup (0)
-d_c1_tbl_0817a:
 d_c1_w_0817a:
         db      64 dup (0)
 d_c1_tbl_081ba:
         db      64 dup (0)
-d_c0_tbl_081fa:
 d_c1_w_081fa:
         db      1 dup (0)
 d_c0_tbl_081fb:
@@ -9906,7 +9896,6 @@ d_c1_w_08afe:
 d_c1_w_08b00:
         db      2 dup (0)
 d_c0_b_08b02:
-d_c1_b_08b02:
         db      2 dup (0)
 d_c1_w_08b04:
         db      2 dup (0)
@@ -9927,12 +9916,10 @@ d_c2_w_conv_table_cursor:
 d_c2_w_fe_desc_off:
         db      2 dup (0)
 d_c0_w_08b1c:
-d_c2_w_08b1c:
         db      2 dup (0)
 d_c2_w_fe_value_off:
         db      2 dup (0)
 d_c0_w_08b20:
-d_c2_w_08b20:
         db      2 dup (0)
 d_fe_committed:
         db      2 dup (0)
@@ -9948,7 +9935,6 @@ d_c2_b_08b2e:
         db      2 dup (0)
 d_c2_b_fe_flags:
         db      2 dup (0)
-d_c2_tbl_08b32:
 d_c2_w_08b32:
         db      16 dup (0)
 d_c2_b_08b42:
@@ -10136,13 +10122,10 @@ d_c2_w_08e4e:
 d_c2_w_sample_dump_cursor:
         db      2 dup (0)
 d_bpm_match_cursor:
-d_k0_w_08e52:
         db      2 dup (0)
 d_bpm_match_value1:
-d_k0_w_08e54:
         db      2 dup (0)
 d_bpm_match_value2:
-d_k0_w_08e56:
         db      2 dup (0)
 d_k0_w_08e58:
         db      2 dup (0)
@@ -10165,9 +10148,7 @@ d_k0_b_08e67:
 d_k0_w_08e68:
         PAD_TO  DS_SEG*16+08E6Ah-SEGBASE, 000h
         else
-FREE_5FDD8:
 FREE_603D8:
-d_c0_w_08128:
         db      2 dup (0)
 d_c0_w_0812a:
         db      24 dup (0)
@@ -10191,12 +10172,10 @@ d_c1_w_08176:
         db      2 dup (0)
 d_c1_w_08178:
         db      2 dup (0)
-d_c1_tbl_0817a:
 d_c1_w_0817a:
         db      64 dup (0)
 d_c1_tbl_081ba:
         db      64 dup (0)
-d_c0_tbl_081fa:
 d_c1_w_081fa:
         db      1 dup (0)
 d_c0_tbl_081fb:
@@ -10214,7 +10193,6 @@ d_c1_w_08afe:
 d_c1_w_08b00:
         db      2 dup (0)
 d_c0_b_08b02:
-d_c1_b_08b02:
         db      2 dup (0)
 d_c1_w_08b04:
         db      2 dup (0)
@@ -10235,12 +10213,10 @@ d_c2_w_conv_table_cursor:
 d_c2_w_fe_desc_off:
         db      2 dup (0)
 d_c0_w_08b1c:
-d_c2_w_08b1c:
         db      2 dup (0)
 d_c2_w_fe_value_off:
         db      2 dup (0)
 d_c0_w_08b20:
-d_c2_w_08b20:
         db      2 dup (0)
 d_fe_committed:
         db      2 dup (0)
@@ -10256,7 +10232,6 @@ d_c2_b_08b2e:
         db      2 dup (0)
 d_c2_b_fe_flags:
         db      2 dup (0)
-d_c2_tbl_08b32:
 d_c2_w_08b32:
         db      16 dup (0)
 d_c2_b_08b42:
@@ -10438,13 +10413,10 @@ d_c2_w_08e4e:
 d_c2_w_sample_dump_cursor:
         db      2 dup (0)
 d_bpm_match_cursor:
-d_k0_w_08e52:
         db      2 dup (0)
 d_bpm_match_value1:
-d_k0_w_08e54:
         db      2 dup (0)
 d_bpm_match_value2:
-d_k0_w_08e56:
         db      2 dup (0)
 d_k0_w_08e58:
         db      2 dup (0)

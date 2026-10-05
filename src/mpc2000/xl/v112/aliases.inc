@@ -15,9 +15,9 @@ SEG_ATA                                  equ -0f45ah                 ; segment 0
 
 EP_L_468E8_OFF        equ (C2_BASE+L_468E8-C1_SEG*16)
 STR_C1_SEPARATING        equ (C2_BASE+L_4CA1E-C1_SEG*16)
-EP_MUTE_ASSIGN_FIELD0_THUNK_OFF        equ EP_L_502D6_OFF
+EP_MUTE_ASSIGN_FIELD0_THUNK_OFF        equ EP_L_4FF76_OFF
 EP_L_2C6D1_OFF                           equ (APP3_BASE+L_2C6D1-APP3_SEG*16)
-EP_FAR_4E9FA_OFF                         equ (C2_BASE+FAR_4E9FA-C2_SEG*16)
+EP_FAR_4E9FA_OFF                         equ (C2_BASE+L_4E09A-C2_SEG*16)
 EP_L_4EA9C_OFF                           equ (C2_BASE+L_4EA9C-C2_SEG*16)
 EP_L_4EBBE_OFF                           equ (C2_BASE+L_4EBBE-C2_SEG*16)
 EP_VELO_PITCH_FIELD2_THUNK_OFF           equ (C2_BASE+far_4FCA0-C2_SEG*16)
@@ -150,8 +150,6 @@ A1_W_0E157                      equ 0df25h
 EP_APP3_C5C1_OFF                equ (C0_BASE+L_327B0-APP3_SEG*16)
 EP_L_27930_OFF                  equ (APP3_BASE+L_27160-APP3_SEG*16)
 EP_L_308B2_OFF                  equ (APP3_BASE+L_306C2_112-APP3_SEG*16)
-P_02C8                          equ (C2_BASE+pgm_assign_mode_field-C2_SEG*16)
-P_035C                          equ (C2_BASE+pgm_assign_focus_threshold2-C2_SEG*16)
 P_2BC7                          equ 2a8ah
 P_2C08                          equ 2bf8h
 P_2C76                          equ 2c66h
@@ -185,7 +183,7 @@ C2_W_04772                      equ (CONSTS_BASE+TBL_WINKEYS_FX_DIST_RINGMOD-DS_
 C2_W_0A5D4                      equ (C2_BASE+L_4782A-C1_SEG*16)
 STR_C1_ROM                      equ (C2_BASE+L_4AF3A-C1_SEG*16)
 C2_W_0DBDC                      equ (C2_BASE+L_4BD6C-C1_SEG*16)
-EP_MIDI_SW_SCREEN_PAINT_OFF     equ (APP3_BASE+L_2A835-APP3_SEG*16)
+EP_MIDI_SW_SCREEN_PAINT_OFF     equ (APP3_BASE+midi_sw_screen_paint-APP3_SEG*16)
 P_4CD6                          equ 4cd6h
 P_4E74                          equ 4e74h
 P_5038                          equ 5038h
@@ -232,7 +230,6 @@ C2_W_0CDBC                               equ (C2_BASE+L_4AF4C-C1_SEG*16)
 C2_W_0D20A                               equ (C2_BASE+L_4B39A-C1_SEG*16)
 C2_W_0D216                               equ (C2_BASE+L_4B3A6-C1_SEG*16)
 C2_W_0D21C                               equ (C2_BASE+L_4B3AC-C1_SEG*16)
-C2_W_0D876                               equ (C2_BASE+loop_screen_draw-C1_SEG*16)
 C2_W_0DBCC                               equ (C2_BASE+L_4BD5C-C1_SEG*16)
 C2_W_0DBD4                               equ (C2_BASE+L_4BD64-C1_SEG*16)
 C2_W_0E3D8                               equ (C2_BASE+L_4C568-C1_SEG*16)
@@ -247,11 +244,9 @@ C2_W_0F1DC                               equ (C2_BASE+far_4D36C-C1_SEG*16)
 C2_W_067E4                               equ 67e8h
 C1_W_07F0C                               equ 7f22h
 C1_W_067E4                               equ 67e8h
-C2_W_0BD7A                               equ (C2_BASE+trim_screen_draw-C1_SEG*16)
 C2_W_0C6F8                               equ (C2_BASE+L_4A8B6-C1_SEG*16)
 C2_W_0CD82                               equ (C2_BASE+L_4AF40-C1_SEG*16)
 C2_W_0FB86                               equ (C2_BASE+L_4DD44-C1_SEG*16)
-C2_W_0FBC2                               equ (C2_BASE+pgm_assign_screen_draw-C1_SEG*16)
 A1_B_0E8A8                               equ 0e8a8h
 A1_B_0E8A9                               equ 0e8a9h
 A1_W_0E88E                               equ 0e88eh
@@ -351,8 +346,8 @@ A3_B_0173D                               equ (APP3_BASE+d_a3_b_0173d-APPDATA_SEG
 A3_B_02A87                               equ (APP3_BASE+d_a3_b_02a87-APPDATA_SEG*16)
 A3_B_02ACA                               equ (APP3_BASE+d_a3_b_02aca-APPDATA_SEG*16)
 A3_B_02ACB                               equ (APP3_BASE+d_a3_b_02acb-APPDATA_SEG*16)
-A3_FP_00F1A                              equ (APP3_BASE+d_a3_fp_00f1a-APPDATA_SEG*16)
-A3_W_00F1E_2                             equ (APP3_BASE+d_a3_w_00f1e_2-APPDATA_SEG*16)
+A3_FP_00F1A                              equ (APP3_BASE+d_a3_w_00f1a-APPDATA_SEG*16)
+A3_W_00F1E_2                             equ (APP3_BASE+d_a3_w_00f1e-APPDATA_SEG*16)
 A3_W_012C4                               equ (APP3_BASE+d_a3_w_012c4-APPDATA_SEG*16)
 A3_W_012C6                               equ (APP3_BASE+d_a3_w_012c6-APPDATA_SEG*16)
 A3_W_012C8                               equ (APP3_BASE+d_a3_w_012c8-APPDATA_SEG*16)
@@ -360,10 +355,10 @@ A3_W_012ED                               equ (APP3_BASE+d_a3_w_012ed-APPDATA_SEG
 A3_W_012F3                               equ (APP3_BASE+d_a3_w_012f3-APPDATA_SEG*16)
 A3_W_01398                               equ (APP3_BASE+d_a3_fp_01398-APPDATA_SEG*16)
 A3_W_0139C                               equ (APP3_BASE+d_a3_fp_0139c-APPDATA_SEG*16)
-A3_W_013A0_2                             equ (APP3_BASE+d_a3_w_013a0_2-APPDATA_SEG*16)
-A3_W_013A6_2                             equ (APP3_BASE+d_a3_w_013a6_2-APPDATA_SEG*16)
+A3_W_013A0_2                             equ (APP3_BASE+d_a3_w_013a0-APPDATA_SEG*16)
+A3_W_013A6_2                             equ (APP3_BASE+d_a3_w_013a6-APPDATA_SEG*16)
 A3_W_013A8                               equ (APP3_BASE+d_a3_w_013a8-APPDATA_SEG*16)
-A3_W_01596_2                             equ (APP3_BASE+d_a3_w_01596_2-APPDATA_SEG*16)
+A3_W_01596_2                             equ (APP3_BASE+d_a3_w_01596-APPDATA_SEG*16)
 A3_W_0184C                               equ (APP3_BASE+d_a3_w_0184c-APPDATA_SEG*16)
 A3_W_02AD8                               equ (APP3_BASE+d_a3_w_02ad8-APPDATA_SEG*16)
 A3_W_02ADC                               equ (APP3_BASE+d_a3_w_02adc-APPDATA_SEG*16)

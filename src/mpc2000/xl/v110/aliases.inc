@@ -28,8 +28,6 @@ EP_SAMPLE_DUMP_FIELD0_THUNK_OFF          equ (C2_BASE+SAMPLE_DUMP_FIELD0_THUNK-C
 ; ---- addresses this version shares an object at with v1.14, named for v1.14's value.
 
 P_01E8                    equ 001eeh
-P_02C8                    equ (C2_BASE+pgm_assign_mode_field-C2_SEG*16)
-P_035C                    equ (C2_BASE+pgm_assign_focus_threshold2-C2_SEG*16)
 STR_C2_MASTER             equ (C2_BASE+L_4E688-C2_SEG*16)
 STR_C2_PROGRAM            equ (C2_BASE+L_4E690-C2_SEG*16)
 STR_C2_START              equ (C2_BASE+L_4EC08-C2_SEG*16)
@@ -159,7 +157,6 @@ C2_W_0E4D4                      equ (C2_BASE+L_4BD06-C1_SEG*16)
 C2_W_0E4E4                      equ (C2_BASE+L_4BD16-C1_SEG*16)
 C2_W_0FB86                      equ (C2_BASE+L_4DD44-C1_SEG*16)
 C2_W_0FBB4                      equ 0fbb4h
-C2_W_0FBC2                      equ (C2_BASE+pgm_assign_screen_draw-C1_SEG*16)
 C2_W_047A4                      equ (CONSTS_BASE+d_c2_w_047a4-DS_SEG*16)
 C2_W_048D2                      equ (CONSTS_BASE+d_c2_w_048d2-DS_SEG*16)
 C2_W_0A734                      equ 0a734h
@@ -194,8 +191,6 @@ C2_W_0CCC8                      equ (C2_BASE+L_4AE58-C1_SEG*16)
 A1_TBL_0C000                    equ 0c000h
 C2_W_067E4                      equ 67e4h
 C1_W_067E4                      equ 67e4h
-C2_W_0BD7A                      equ (C2_BASE+trim_screen_draw-C1_SEG*16)
-C2_W_0D876                      equ (C2_BASE+loop_screen_draw-C1_SEG*16)
 C2_W_0F1DC                      equ (C2_BASE+far_4D36C-C1_SEG*16)
 C0_W_02B48                      equ 2b38h
 P_2B53                          equ 2b43h
@@ -235,7 +230,7 @@ C0_FP_02C1E                     equ 2c0eh
 C0_W_02C0A                      equ 2bfah
 EP_FAR_4E9FA_OFF                equ (C2_BASE+L_4E09A-C2_SEG*16)
 EP_L_4EA9C_OFF                  equ (C2_BASE+L_4EAD6-C2_SEG*16)
-EP_FSTRICMP_OFF                 equ (C0_BASE+L_35884-C0_SEG*16)
+EP_FSTRICMP_OFF                 equ (C0_BASE+__fstricmp-C0_SEG*16)
 P_3071                          equ 2f32h
 P_E5FF                          equ (C0_BASE+L_34DAF-APP3_SEG*16)
 
@@ -339,7 +334,7 @@ A3_B_012CA                               equ (APP3_BASE+d_a3_b_012ca-APPDATA_SEG
 A3_B_02A87                               equ (APP3_BASE+d_a3_b_02a87-APPDATA_SEG*16)
 A3_B_02ACA                               equ (APP3_BASE+d_a3_b_02aca-APPDATA_SEG*16)
 A3_B_02ACB                               equ (APP3_BASE+d_a3_b_02acb-APPDATA_SEG*16)
-A3_W_00F1E_2                             equ (APP3_BASE+d_a3_w_00f1e_2-APPDATA_SEG*16)
+A3_W_00F1E_2                             equ (APP3_BASE+d_a3_w_00f1e-APPDATA_SEG*16)
 A3_W_012C4                               equ (APP3_BASE+d_a3_w_012c4-APPDATA_SEG*16)
 A3_W_012C6                               equ (APP3_BASE+d_a3_w_012c6-APPDATA_SEG*16)
 A3_W_012C8                               equ (APP3_BASE+d_a3_w_012c8-APPDATA_SEG*16)
@@ -347,10 +342,10 @@ A3_W_012ED                               equ (APP3_BASE+d_a3_w_012ed-APPDATA_SEG
 A3_W_012F3                               equ (APP3_BASE+d_a3_w_012f3-APPDATA_SEG*16)
 A3_W_01398                               equ (APP3_BASE+d_a3_fp_01398-APPDATA_SEG*16)
 A3_W_0139C                               equ (APP3_BASE+d_a3_fp_0139c-APPDATA_SEG*16)
-A3_W_013A0_2                             equ (APP3_BASE+d_a3_w_013a0_2-APPDATA_SEG*16)
-A3_W_013A6_2                             equ (APP3_BASE+d_a3_w_013a6_2-APPDATA_SEG*16)
+A3_W_013A0_2                             equ (APP3_BASE+d_a3_w_013a0-APPDATA_SEG*16)
+A3_W_013A6_2                             equ (APP3_BASE+d_a3_w_013a6-APPDATA_SEG*16)
 A3_W_013A8                               equ (APP3_BASE+d_a3_w_013a8-APPDATA_SEG*16)
-A3_W_01596_2                             equ (APP3_BASE+d_a3_w_01596_2-APPDATA_SEG*16)
+A3_W_01596_2                             equ (APP3_BASE+d_a3_w_01596-APPDATA_SEG*16)
 AT_B_0A88B                               equ (RAM_BASE+d_at_b_0a88b-RAM_SEG*16)
 C0_B_02B42                               equ (APP3_BASE+d_c0_b_02b42-APPDATA_SEG*16)
 C0_B_02B49                               equ (APP3_BASE+d_c0_b_02b49-APPDATA_SEG*16)

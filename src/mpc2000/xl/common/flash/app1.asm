@@ -7647,7 +7647,7 @@ tgt_0E733:
 br_0E739:
         push    es
         pusha
-        mov     di, A1_W_0A4D6
+        mov     di, P_A4F2
         mov     ax, ds
         mov     es, ax
         mov     cx, 20h
@@ -7659,7 +7659,7 @@ br_0E739:
         jae     br_0E752
         ret
 br_0E752:
-        mov     di, A1_W_0A4D6
+        mov     di, P_A4F2
         mov     word ptr [di+16h], cx
         mov     word ptr [di+18h], dx
         call    fn_0F19B
@@ -7696,7 +7696,7 @@ loop_0E7B4:
         sub     cx, word ptr [A1_W_0A4D2]
         push    cx
         mov     cx, word ptr [A1_W_0A4D2]
-        mov     di, A1_W_0A4D6
+        mov     di, P_A4F2
         add     di, word ptr [A1_W_0A4D4]
         mov     word ptr [A1_W_0A4D2], 100h
         mov     word ptr [A1_W_0A4D4], 0
@@ -7717,7 +7717,7 @@ loop_0E7B4:
         jmp     br_0E815
 br_0E7F5:
         sub     word ptr [A1_W_0A4D2], cx
-        mov     di, A1_W_0A4D6
+        mov     di, P_A4F2
         add     di, word ptr [A1_W_0A4D4]
         add     word ptr [A1_W_0A4D4], cx
         mov     ax, ds
@@ -7782,7 +7782,7 @@ tgt_0E888:
 br_0E893:
         cmp     word ptr [A1_W_0A4D2], 100h
         je      br_0E8B1
-        mov     di, A1_W_0A4D6
+        mov     di, P_A4F2
         add     di, word ptr [A1_W_0A4D4]
         mov     cx, word ptr [A1_W_0A4D2]
         mov     ax, ds
@@ -8288,7 +8288,7 @@ br_0ED3A:
         ret
 fn_0ED46:
         sub     ax, ax
-        mov     word ptr [A1_W_0A61E], ax
+        mov     word ptr [P_A63A], ax
         mov     word ptr [A1_W_0A61A], ax
         mov     word ptr [A1_W_0A61C], ax
         call    fn_0EEF8
@@ -8316,7 +8316,7 @@ br_0ED72:
         jne     br_0ED8B
         ret
 br_0ED8B:
-        mov     word ptr [A1_W_0A61E], cx
+        mov     word ptr [P_A63A], cx
         sub     si, si
         mov     di, ax
         mov     es, dx
@@ -8348,7 +8348,7 @@ br_0EDC2:
         mov     ax, word ptr [A1_W_FLASHFS_ADDR_LO]
         mov     dx, word ptr [A1_W_FLASHFS_ADDR_HI]
         mov     word ptr [P_A62E], ax
-        mov     word ptr [A1_W_0A614], dx
+        mov     word ptr [P_A630], dx
         mov     si, word ptr [A1_W_FLASHFS_DIR_ENTRY]
         mov     ax, word ptr [si+1ch]
         mov     dx, word ptr [si+1eh]
@@ -8370,7 +8370,7 @@ br_0EDF8:
         mov     word ptr [A1_W_0A61C], dx
 br_0EE03:
         mov     cx, 8000h
-        mov     si, word ptr [A1_W_0A61E]
+        mov     si, word ptr [P_A63A]
         sub     cx, si
         sub     ax, cx
         sbb     dx, 0
@@ -8383,7 +8383,7 @@ br_0EE19:
         sbb     word ptr [A1_W_0A61C], 0
         shl     si, 1
         mov     di, word ptr [P_A62E]
-        mov     es, word ptr [A1_W_0A614]
+        mov     es, word ptr [P_A630]
         push    ds
         mov     ax, 0f000h
         mov     ds, ax
@@ -8410,14 +8410,14 @@ br_0EE65:
         shr     dx, 1
         rcr     ax, 1
         add     ax, word ptr [P_A62E]
-        adc     dx, word ptr [A1_W_0A614]
+        adc     dx, word ptr [P_A630]
         shl     ax, 1
         rcl     dx, 1
         mov     byte ptr [A1_B_0A621], dl
         mov     byte ptr [A1_B_0A620], 1
         ret
 fn_0EE7F:
-        cmp     word ptr [A1_W_0A61E], 0
+        cmp     word ptr [P_A63A], 0
         jne     br_0EE87
         ret
 br_0EE87:
@@ -8445,7 +8445,7 @@ br_0EE87:
         call    fn_0EEF8
         add     word ptr [A1_W_0A616], 8000h
         adc     word ptr [A1_W_0A618], 0
-        mov     word ptr [A1_W_0A61E], 0
+        mov     word ptr [P_A63A], 0
         ret
 fn_0EEDF:
         mov     ax, word ptr [A1_W_0A616]
@@ -9045,7 +9045,7 @@ fn_0F339:
         mov     si, A1_W_0318C
         test    al, 80h
         jne     br_0F363
-        mov     si, A1_W_032EE
+        mov     si, P_330A
         test    al, 40h
         jne     br_0F363
         mov     si, A1_W_0302A
@@ -9065,7 +9065,7 @@ br_0F36E:
         pop     ax
         mov     word ptr [A1_W_03116], ax
         pop     ax
-        mov     word ptr [A1_W_03114], ax
+        mov     word ptr [P_3130], ax
         ret
 L_0F389:
         int     0a5h
@@ -9352,7 +9352,7 @@ isr_0F58E:
         mov     ax, RAM_SEG
         mov     ds, ax
         sub     ah, ah
-        mov     al, byte ptr [A0_B_004D5]
+        mov     al, byte ptr [A0_B_PAD_BANK]
         shr     al, 4
         pop     ds
         iret
@@ -9362,7 +9362,7 @@ isr_0F59E:
         mov     ds, bx
         sub     ah, ah
         shl     al, 4
-        mov     byte ptr [A0_B_004D5], al
+        mov     byte ptr [A0_B_PAD_BANK], al
         pop     ds
         iret
 isr_0F5AE:

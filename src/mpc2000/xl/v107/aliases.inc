@@ -13,7 +13,7 @@ SEG_DS                                     equ L_57CAF+01h
 ; module and takes its offset from its label.  a target with no label yet keeps
 ; its stock offset.
 
-EP_FAR_4E9FA_OFF        equ (C2_BASE+far_4E9FA-C2_SEG*16)
+EP_FAR_4E9FA_OFF        equ (C2_BASE+L_4E09A-C2_SEG*16)
 EP_L_4EA9C_OFF        equ (C2_BASE+L_4EA9C-C2_SEG*16)
 EP_MUTE_ASSIGN_FIELD0_THUNK_OFF        equ EP_L_4FF76_OFF
 EP_VELO_PITCH_FIELD2_THUNK_OFF        equ (C2_BASE+mute_assign_field2_thunk-C2_SEG*16)
@@ -28,8 +28,6 @@ EP_L_468E8_OFF                           equ (C2_BASE+L_468E8-C1_SEG*16)
 
 ; ---- addresses this version shares an object at with v1.14, named for v1.14's value.
 
-P_02C8                    equ (C2_BASE+pgm_assign_mode_field-C2_SEG*16)
-P_035C                    equ (C2_BASE+pgm_assign_focus_threshold2-C2_SEG*16)
 STR_C2_MASTER             equ (C2_BASE+L_4E688-C2_SEG*16)
 STR_C2_PROGRAM            equ (C2_BASE+L_4E690-C2_SEG*16)
 STR_C2_START              equ (C2_BASE+L_4EC08-C2_SEG*16)
@@ -195,7 +193,6 @@ C2_W_0E4D4                      equ (C2_BASE+L_4BD06-C1_SEG*16)
 C2_W_0E4E4                      equ (C2_BASE+L_4BD16-C1_SEG*16)
 C2_W_0FB86                      equ (C2_BASE+L_4DD44-C1_SEG*16)
 C2_W_0FBB4                      equ 0fbb8h
-C2_W_0FBC2                      equ (C2_BASE+pgm_assign_screen_draw-C1_SEG*16)
 C2_W_047A4                      equ (CONSTS_BASE+d_c2_w_047a4-DS_SEG*16)
 C2_W_048D2                      equ (CONSTS_BASE+d_c2_w_048d2-DS_SEG*16)
 C2_W_0A734                      equ 0a738h
@@ -283,8 +280,6 @@ A1_W_0ECBA                      equ 0eeb4h
 C2_W_067E4                      equ 67e8h
 C2_W_05BC4                      equ 5bc8h
 C1_W_067E4                      equ 67e8h
-C2_W_0BD7A                      equ (C2_BASE+trim_screen_draw-C1_SEG*16)
-C2_W_0D876                      equ (C2_BASE+loop_screen_draw-C1_SEG*16)
 C2_W_0F1DC                      equ (C2_BASE+far_4D36C-C1_SEG*16)
 A2_B_075AB                      equ 756dh
 A2_B_075B7                      equ 7579h
@@ -304,7 +299,7 @@ P_F62E                          equ L_0F62E-APP1_CSBASE
 STR_MPC2KXL_SYS_A0              equ 1385h
 A2_W_06E22                      equ 6de4h
 C0_B_02C0E                      equ 02bfeh
-EP_SAMPLE_DUMP_FIELD0_THUNK_OFF                  equ (C2_BASE+far_54BD8-C2_SEG*16)
+EP_SAMPLE_DUMP_FIELD0_THUNK_OFF                  equ (C2_BASE+sample_dump_field0_thunk-C2_SEG*16)
 A2_W_076E8                      equ 76aeh
 EP_APP3_C5C1_OFF                equ (C0_BASE+L_327B0-APP3_SEG*16)
 P_4490                          equ 43e4h
@@ -312,7 +307,7 @@ P_C73B                          equ L_0C73B-APP1_CSBASE
 P_C746                          equ L_0C746-APP1_CSBASE
 P_D903                          equ 0d8b5h
 A1_W_0E157                      equ 0dc65h
-EP_FSTRICMP_OFF                 equ (C0_BASE+L_35884-C0_SEG*16)
+EP_FSTRICMP_OFF                 equ (C0_BASE+__fstricmp-C0_SEG*16)
 P_E5FF                          equ (C0_BASE+L_34DAF-APP3_SEG*16)
 
 ; ---- CS offsets the app3 tail names.

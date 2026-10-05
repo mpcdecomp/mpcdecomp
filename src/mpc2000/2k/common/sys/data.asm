@@ -81,10 +81,10 @@ TBL_WINKEYS_00080:                      ; 13 records + WIN_KEY_END
         WIN_KEY   51h, TEXT1_SEG, win_key_nop_stub
         WIN_KEY   5ah, TEXT1_SEG, win_key_nop_stub
         WIN_KEY_END
-STR_00C6:
-        db      53h, 33h, 20h, 00h
-STR_00CA:
-        db      53h, 31h, 20h, 00h
+STR_S3:
+        db      "S3 ", 000h
+STR_S1:
+        db      "S1 ", 000h
 STR_SND:
         db      53h, 4eh, 44h
         db      00h
@@ -106,9 +106,9 @@ STR_ST1:
 ; the file types by extension, each a far name and the far routine that
 ; loads it; a null record ends the table
 TBL_00EE:
-        dw      STR_00C6, DATA_SEG
+        dw      STR_S3, DATA_SEG
         dw      lcd_area_wrapper_2, TEXT1_SEG
-        dw      STR_00CA, DATA_SEG
+        dw      STR_S1, DATA_SEG
         dw      lcd_area_wrapper_1, TEXT1_SEG
         dw      STR_SND, DATA_SEG
         dw      sample_ptr_caller, TEXT2_SEG
@@ -138,15 +138,11 @@ TBL_NAME_CHARS:
         db      "hijklmnopqrstuvw"
         db      "xyz{*}**", 000h, 000h
 TBL_NAME_CHARSET equ    TBL_NAME_CHARS-20h
-STR_01A8:
+STR_UNKNOWN_ERROR:
         if      FW_VERSION = 172
-        db      "Unknow"
-        db      "n error", 000h
+        db      "Unknown error", 000h
         else
-        db      55h, 6eh, 6bh
-        db      6fh, 77h
-        db      6eh, 20h, 65h, 72h, 72h, 6fh, 72h
-        db      00h
+        db      "Unkown error", 000h
         db      00h
         endif
 STR_NOT_ENOUGH_MEMORY:
@@ -205,28 +201,25 @@ STR_INSUFFICIENT_DISK_SPACE:
 STR_WRONG_DISK_FORMAT:
         db      "Wrong disk f"
         db      "ormat", 000h
-STR_0314:
+STR_UNKNOWN_FILE_FORMAT:
         if      FW_VERSION = 172
-        db      "Unknown fi"
-        db      "le format", 000h, "Unexpe"
-        db      "cted end-of-file"
-        db      000h, 000h
+        db      "Unknown file format", 000h
+STR_UNEXPECTED_EOF:                     ; no reference
+        db      "Unexpected end-of-file", 000h
+        db      000h
         else
-        db      55h, 6eh, 6bh
-        db      6fh, 77h, 6eh, 20h, 66h, 69h
-        db      6ch, 65h, 20h, 66h, 6fh, 72h, 6dh, 61h, 74h, 00h
+        db      "Unkown file format", 000h
         db      00h
         endif
-STR_0340:
+STR_UNKNOWN_ERROR_2:
         if      FW_VERSION = 172
         db      "Unknown error", 000h
         else
-        db      55h, 6eh, 6bh
-        db      6fh, 77h, 6eh, 20h, 65h, 72h, 72h, 6fh, 72h, 00h
+        db      "Unkown error", 000h
         db      00h
         endif
 ERR_MSG_TABLE:
-        dw      STR_01A8, DATA_SEG
+        dw      STR_UNKNOWN_ERROR, DATA_SEG
         dw      STR_NOT_ENOUGH_MEMORY, DATA_SEG
         dw      STR_DISK_READ_ERROR, DATA_SEG
         dw      STR_DISK_WRITE_ERROR, DATA_SEG
@@ -244,8 +237,8 @@ ERR_MSG_TABLE:
         dw      STR_DISK_IS_WRITE_PROTECTED, DATA_SEG
         dw      STR_INSUFFICIENT_DISK_SPACE, DATA_SEG
         dw      STR_WRONG_DISK_FORMAT, DATA_SEG
-        dw      STR_0314, DATA_SEG
-        dw      STR_0340, DATA_SEG
+        dw      STR_UNKNOWN_FILE_FORMAT, DATA_SEG
+        dw      STR_UNKNOWN_ERROR_2, DATA_SEG
 G_ERRNO:
         db      00h, 00h
 SYS_BUILD_DATE:
@@ -805,10 +798,10 @@ FX_TYPE_LABELS:
         dw      STR_MULTI_FX2, DATA_SEG
         dw      STR_REVERB_1, DATA_SEG
         dw      STR_REVERB_2, DATA_SEG
-STR_12D2:
-        db      052h, 031h, 000h
-STR_12D5:
-        db      04dh, 031h, 000h
+STR_R1:
+        db      "R1", 000h
+STR_M1:
+        db      "M1", 000h
 STR_FX1_DIST_FLT:
         db      "FX1 DIST/F"
         db      04ch, 054h, 000h
@@ -816,8 +809,8 @@ STR_FX1_MOD_ECHO:
         db      "FX1 MOD/ECHO", 000h
 STR_FX1_REVERB:
         db      "FX1 REVERB", 000h
-STR_12FD:
-        db      052h, 032h, 000h
+STR_R2:
+        db      "R2", 000h
 P_1300:
         db      04dh, 032h
 P_1302:
@@ -831,25 +824,25 @@ STR_FX2_REVERB:
         db      046h, 058h, 032h, 020h, 052h
         db      "EVERB", 000h
 FX_SECTION_LABELS:
-        dw      STR_12D2, DATA_SEG
-        dw      STR_12D5, DATA_SEG
+        dw      STR_R1, DATA_SEG
+        dw      STR_M1, DATA_SEG
         dw      STR_FX1_DIST_FLT, DATA_SEG
         dw      STR_FX1_MOD_ECHO, DATA_SEG
         dw      STR_FX1_REVERB, DATA_SEG
-        dw      STR_12FD, DATA_SEG
+        dw      STR_R2, DATA_SEG
         dw      P_1300, DATA_SEG
         dw      STR_FX2_DIST_FLT, DATA_SEG
         dw      STR_FX2_MOD_ECHO, DATA_SEG
         dw      STR_FX2_REVERB, DATA_SEG
-STR_1350:
-        db      4dh, 31h, 00h
-STR_1353:
-        db      4dh, 32h, 00h
+STR_M1_2:
+        db      "M1", 000h
+STR_M2:
+        db      "M2", 000h
 P_1356:
-        dw      STR_1350
+        dw      STR_M1_2
 P_1358:
         dw      DATA_SEG
-        dw      STR_1353, DATA_SEG
+        dw      STR_M2, DATA_SEG
 FXEDIT_CURSOR:
         db      01h, 00h
 TBL_1360:
@@ -2006,15 +1999,15 @@ X_02A7A:
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
         WIN_KEY_END
         db      00h
-STR_2A8A:
-        db      5eh, 4eh, 4fh, 00h
+STR_NO:
+        db      "^NO", 000h
 STR_YES:
         db      59h
 
 L_02A8F:
         db      45h, 53h, 00h
 P_2A92:
-        dw      STR_2A8A
+        dw      STR_NO
 P_2A94:
         dw      DATA_SEG
         dw      STR_YES, DATA_SEG

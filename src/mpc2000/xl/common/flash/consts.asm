@@ -4914,7 +4914,7 @@ TBL_FIELDS_1712:                        ; 2 x FIELD_SIZE; the part of the array 
         db      03h
         dw      EP_LOOP_SCREEN_DRAW_OFF, EP_LOOP_SCREEN_DRAW_SEG
         db      04h
-        dw      C2_W_0F1DC, EP_FS_OPEN_SEG
+        dw      EP_FAR_4D36C_OFF, EP_FAR_4D36C_SEG
         db      05h
         dw      (C2_BASE+far_4BD70-C1_SEG*16), C1_SEG
         db      32h
@@ -5325,7 +5325,7 @@ d_c2_w_01d58:
         else
         db      43h, 0eeh, 0d8h, 28h, 3dh, 04h
         endif
-        dw      C2_W_0F1DC, EP_FS_OPEN_SEG
+        dw      EP_FAR_4D36C_OFF, EP_FAR_4D36C_SEG
         db      05h
         dw      EP_FAR_4BD70_OFF, EP_FAR_4BD70_SEG
         db      32h
@@ -5420,7 +5420,7 @@ d_c2_w_01ee8:
         db      03h
         dw      EP_LOOP_SCREEN_DRAW_OFF, EP_LOOP_SCREEN_DRAW_SEG
         db      04h
-        dw      C2_W_0F1DC, EP_FS_OPEN_SEG
+        dw      EP_FAR_4D36C_OFF, EP_FAR_4D36C_SEG
         db      05h
         dw      EP_L_4A56A_OFF, EP_L_4A56A_SEG
         if      FW_VERSION >= 111

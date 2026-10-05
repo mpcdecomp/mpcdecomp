@@ -1579,7 +1579,7 @@ far_47D5E:
         or      ax, si
         jne     br_47D74
         push    EP_FS_OPEN_SEG
-        push    C2_W_0A5D4
+        push    EP_L_4782A_OFF
         jmp     br_47D89
 br_47D74:
         mov     ax, word ptr [bp+0ch]
@@ -10100,7 +10100,7 @@ mono_to_stereo_paint:
         mov     cx, DS_SEG
         mov     ds, cx
         push    EP_FS_OPEN_SEG
-        push    C2_W_0E4E4
+        push    EP_L_4BD16_OFF
         nop
         push    cs
         call    EP_DRAW_CONFIRM_WINDOW_OFF+C1_CSBASE
@@ -11578,7 +11578,7 @@ br_4D3CF:
         push    word ptr [bx+C0_TBL_08E74]
         push    word ptr [bx+C0_TBL_08E72]
         push    C1_SEG
-        push    C2_W_0F1DC
+        push    EP_FAR_4D36C_OFF
         nop
         push    cs
         call    far_4CC94
@@ -11605,7 +11605,7 @@ L_4D40C:
         push    cs
         call    zone_screen_refresh
         push    EP_FS_OPEN_SEG
-        push    C2_W_0F1DC
+        push    EP_FAR_4D36C_OFF
         callf   EP_FAR_55112_SEG:EP_FAR_55112_OFF
         add     sp, 4
         pop     ds
@@ -11784,7 +11784,7 @@ L_4D59C:
         db      00h
 L_4D5A8:
         push    EP_FS_OPEN_SEG
-        push    C2_W_0F1DC
+        push    EP_FAR_4D36C_OFF
         nop
         push    cs
         call    far_4C0D8

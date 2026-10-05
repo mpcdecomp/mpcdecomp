@@ -172,4 +172,6 @@ WIN_K_PAD       equ     037h            ; pad pressed; re-arm current field
                                         ; (2K TEXT1 62B2h)
 WIN_K_PAINT     equ     032h            ; window enter / repaint pseudo-key
 WIN_K_REFRESH   equ     034h            ; display flush pseudo-key
+WIN_K_FLUSH     equ     0ffh            ; INT 30h drops queued panel events and
+                                        ; wheel/repeat state; no handler
         endif

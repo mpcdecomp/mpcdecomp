@@ -731,7 +731,7 @@ cmd_caller_setup:
 ; builds a one-entry {db id, dd far32} set, zero-terminated, for INT 30h.
         if      FW_VERSION = 172
 L_005B4:
-        push    0ffh
+        push    WIN_K_FLUSH
         push    0
         push    0
         nop
@@ -770,7 +770,7 @@ install_handler_15:
         mov     dx, TEXT1_SEG
         mov     word ptr [bp+8], dx
 br_00600:
-        push    15h
+        push    WIN_K_OPEN
         push    word ptr [bp+8]
         push    cx
         nop
@@ -1544,7 +1544,7 @@ X_00B3E:
         push    cx
         push    P_03FC
         callf   TEXT1_SEG:win_keys_merge
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_00B1A
         nop
@@ -19219,7 +19219,7 @@ L_09292:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_09210
         nop
@@ -19233,7 +19233,7 @@ X_092A8:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_09292
         nop
@@ -19306,7 +19306,7 @@ L_09344:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_092C2
         nop
@@ -19320,7 +19320,7 @@ X_0935A:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_09344
         nop
@@ -20104,7 +20104,7 @@ L_09A72:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    DISPLAY_DRAW_PAIR
         nop
@@ -20118,7 +20118,7 @@ X_09A88:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_09A72
         nop
@@ -20612,7 +20612,7 @@ L_09EBA:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_09E4E
         nop
@@ -20626,7 +20626,7 @@ X_09ED0:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    L_09EBA
         nop
@@ -20693,7 +20693,7 @@ X_09F56:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    X_09EEA
         nop
@@ -20707,7 +20707,7 @@ X_09F6C:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    32h
+        push    WIN_K_PAINT
         push    TEXT2_SEG
         push    X_09F56
         nop
@@ -23082,7 +23082,7 @@ sample_proc_helper:
         push    ds
         push    P_3C5E
         callf   TEXT1_SEG:disp_list_run
-        push    6
+        push    WIN_K_F5
         push    TEXT2_SEG
         push    L_0B0BE
         nop
@@ -24508,7 +24508,7 @@ far_0BC30:
         push    ds
         push    TBL_WINKEYS_LOAD_SOUND
         callf   TEXT1_SEG:win_keys_merge
-        push    5
+        push    WIN_K_F4
         push    word ptr [W_56A8]
         push    word ptr [W_56A6]
         nop
@@ -24665,7 +24665,7 @@ L_0BD0A:
         nop
         push    cs
         call    ui_enter_pad_assign
-        push    5
+        push    WIN_K_F4
         push    word ptr [W_56A8]
         push    word ptr [W_56A6]
         nop
@@ -25258,7 +25258,7 @@ X_0C236:
         push    ds
         push    TBL_WINKEYS_CHANGE_DISK
         callf   TEXT1_SEG:win_keys_merge
-        push    5
+        push    WIN_K_F4
         push    word ptr [W_56A8]
         push    word ptr [W_56A6]
         nop
@@ -25325,7 +25325,7 @@ br_0C2A4:
         nop
         push    cs
         call    ui_enter_pad_assign
-        push    5
+        push    WIN_K_F4
         push    word ptr [W_56A8]
         push    word ptr [W_56A6]
         nop
@@ -25339,7 +25339,7 @@ br_0C2CA:
         nop
         push    cs
         call    midi_prog_change
-        push    34h
+        push    WIN_K_REFRESH
         push    word TEXT1_SEG
         push    win_key_nop_stub
         nop

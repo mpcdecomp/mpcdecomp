@@ -6409,7 +6409,7 @@ br_0364E:
         jmp     L_0368C
 
 br_0365A:
-        push    15h
+        push    WIN_K_OPEN
         push    TEXT2_SEG
         push    L_03C56
         callf   TEXT2_SEG:install_handler
@@ -6872,7 +6872,7 @@ ui_screen_enter:
         mov     word ptr [FP_UI_RETURN_SCREEN_SEG], dx
         or      dx, ax
         je      L_03997
-        push    6
+        push    WIN_K_F5
         push    TEXT2_SEG
         push    X_04CC2
         callf   TEXT2_SEG:install_handler
@@ -9408,11 +9408,11 @@ audio_dispatch_table:
         mov     ax, word ptr [bp+8]
         or      ax, si
         je      br_04BB3
-        push    5
+        push    WIN_K_F4
         push    word ptr [bp+8]
         push    si
         callf   TEXT2_SEG:install_handler
-        push    15h
+        push    WIN_K_OPEN
         push    word ptr [bp+8]
         push    si
         callf   TEXT2_SEG:install_handler
@@ -9814,11 +9814,11 @@ ui_screen_enter_edit:
         mov     ax, word ptr [bp+8]
         or      ax, si
         je      br_04DD9
-        push    5
+        push    WIN_K_F4
         push    word ptr [bp+8]
         push    si
         callf   TEXT2_SEG:install_handler
-        push    15h
+        push    WIN_K_OPEN
         push    word ptr [bp+8]
         push    si
         callf   TEXT2_SEG:install_handler
@@ -22729,7 +22729,7 @@ fn_0B53E:
         push    P_8CF2
         callf   TEXT2_SEG:timer_fdc_sync
         callf   TEXT2_SEG:X_00610
-        push    34h
+        push    WIN_K_REFRESH
         push    TEXT2_SEG
         push    L_0D272
         callf   TEXT2_SEG:install_handler

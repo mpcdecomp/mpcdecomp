@@ -2153,7 +2153,7 @@ dsp_0158E:
         xlat
         shr     al, 1
         mov     ah, al
-        mov     al, byte ptr es:[di+FXS_FIELD_46]
+        mov     al, byte ptr es:[di+FXS_ROUTE]
         cmp     al, 0
         jne     dsp_01630
         mov     dh, ah
@@ -6672,7 +6672,7 @@ X_037FE:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_46]
+        mov     al, byte ptr es:[bx+FXS_ROUTE]
         cbw
         mov     bx, ax
         shl     bx, 2
@@ -8306,7 +8306,7 @@ br_0437B:
         callf   TEXT2_SEG:channel_validate
         add     sp, 2
         mov     si, ax
-        cmp     byte ptr [G_FX_EFFECT_SEL], 6
+        cmp     byte ptr [G_FX_EFFECT_SEL], FX_MOD_PITCH_FDBK
         je      br_043A1
         cmp     byte ptr [G_UI_MODE], 2
         jbe     br_043A1
@@ -8452,7 +8452,7 @@ fx_pitch_shift_down:
         jmp     L_044A3
 
 T1_br_04490:
-        cmp     byte ptr [G_FX_EFFECT_SEL], 6
+        cmp     byte ptr [G_FX_EFFECT_SEL], FX_MOD_PITCH_FDBK
         jne     X_044A6
         cmp     byte ptr [G_UI_MODE], 5
         jae     X_044A6
@@ -8645,7 +8645,7 @@ br_045EE:
         push    dx
         push    ax
         push    0
-        push    14fh
+        push    FXS_ECHO_DELAY2_MAX
 
 loop_04601:
         push    3
@@ -8664,7 +8664,7 @@ br_0461A:
         push    dx
         push    ax
         push    0
-        push    29eh
+        push    FXS_ECHO_DELAY_MAX
         jmp     loop_04601
 
 br_04626:

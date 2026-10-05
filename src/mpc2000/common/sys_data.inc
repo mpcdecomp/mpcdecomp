@@ -52,6 +52,8 @@ SYS_PRODUCT_NAME_LEN equ 16             ; "MPC2000         "
 ; here; dd[count], DATA_SEG-relative
 
 FX_TYPE_COUNT        equ    4           ; MULTI FX1, MULTI FX2, REVERB 1, REVERB 2
+FX_MULTI_COUNT       equ    2           ; G_STATE_9D8B below it an FXS, from it an FXR
+FX_MOD_PITCH_FDBK    equ    6           ; G_FX_EFFECT_SEL: PITCH+FEEDBACK
 FX_SECTION_COUNT     equ   10           ; R1, M1, FX1 DIST/FLT ... FX2 REVERB
 FX_MOD_TYPE_COUNT    equ    7           ; PHASE SHIFT ... PITCH+FEEDBACK
 FX_PAN_COUNT         equ    4           ; PAN, L>R, R>L, TERM

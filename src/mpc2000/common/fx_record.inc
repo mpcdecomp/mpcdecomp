@@ -62,8 +62,11 @@ FXS_SEC_MOD             equ     008h
 FXS_SEC_ECHO            equ     004h
 FXS_SEC_REVERB          equ     002h
 FXS_SEC_MIX             equ     001h
-FXS_FIELD_46            equ     046h    ; byte, the effect type; picks the edit screen's PAINT handler  ?
+FXS_ROUTE               equ     046h    ; byte, FX_ROUTE_LABELS; picks the FX screen's PAINT
+                                        ;   handler and section order
 FXS_FIELD_47            equ     047h    ; byte, `cmp ...,0`  ?
+FXS_ECHO_DELAY_MAX      equ     29eh    ; 670 ms
+FXS_ECHO_DELAY2_MAX     equ     14fh    ; 335 ms, ECHO_TYPE 2
 SIZEOF_FXS              equ     048h    ; channel_validate's `imul ax,bx,48h`
 FXR_TYPE                equ     000h    ; byte, index into FX_REVERB_LABELS
 FXR_FIELD_01            equ     001h    ; byte, bit 0 tested  ?

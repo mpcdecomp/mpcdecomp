@@ -8733,7 +8733,7 @@ L_04270:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     br_04288
         push    0
         push    0
@@ -8945,7 +8945,7 @@ L_043EE:
         push    ax
         push    TEXT2_SEG
         push    L_043E2
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jl      disk_error_report
         mov     ax, L_04588
         mov     dx, TEXT2_SEG
@@ -8988,7 +8988,7 @@ X_04428:
 voice_process_setup:
         enter   4, 0
         push    si
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     br_04462
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -9014,7 +9014,7 @@ L_04470:
         mov     al, byte ptr [bp+6]
         mov     es, dx
         xor     byte ptr es:[si], al
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jl      T2_br_04490
         mov     al, byte ptr [G_STATE_9D8B]
         push    ax
@@ -9187,7 +9187,7 @@ L_045AA:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    1
+        push    FXS_SEC_MIX
         nop
         push    cs
         call    voice_process_setup
@@ -9578,7 +9578,7 @@ X_04888:
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+FXS_FIELD_46], 1
+        cmp     byte ptr es:[bx+FXS_ROUTE], 1
         jne     X_048B9
         mov     al, byte ptr [si+TBL_1526]
         cbw
@@ -9617,7 +9617,7 @@ L_048C8:
         mov     bx, ax
 
 L_048EE:
-        cmp     byte ptr es:[bx+FXS_FIELD_46], 1
+        cmp     byte ptr es:[bx+FXS_ROUTE], 1
         je      L_048FA
         mov     bx, P_154A
         jmp     br_048FD
@@ -9633,7 +9633,7 @@ br_048FD:
         db      90h
 
 br_04908:
-        push    1
+        push    FXS_SEC_MIX
 
 br_0490A:
         nop
@@ -9980,7 +9980,7 @@ L_04B5C                         equ     $+4
         db      90h
 
 tgt_04B6E:
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     br_04B8C
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -10008,7 +10008,7 @@ br_04B8C:
 
 L_04BA0:
         mov     byte ptr [B_4FE1], al
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     br_04BB4
         nop
 
@@ -10034,7 +10034,7 @@ voice_dispatch_table:
         mov     bp, sp
         and     byte ptr [B_4FE2], 0feh
         xor     byte ptr [B_4FE2], 2
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     L_04BE8
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -10073,7 +10073,7 @@ L_04C0A                         equ     $+1
         or      byte ptr [B_4FE1], al
 
 br_04C0D:
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     br_04C1E
         nop
         push    cs
@@ -10092,7 +10092,7 @@ br_04C1E:
 
 fx_type_load:
         mov     byte ptr [B_4FE2], 0
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     X_04C4E
         mov     al, byte ptr [G_STATE_9D8B]
         cbw
@@ -10188,7 +10188,7 @@ X_04CC2:
         if      FW_VERSION = 150
 L_1267C                         equ     $+4
         endif
-        cmp     byte ptr [G_STATE_9D8B], 2
+        cmp     byte ptr [G_STATE_9D8B], FX_MULTI_COUNT
         jge     L_04CDE
         push    word ptr [FP_UI_RETURN_SCREEN_SEG]
         push    word ptr [FP_UI_RETURN_SCREEN]
@@ -10217,7 +10217,7 @@ L_04CFA:
         mov     cx, DATA_SEG
 L_126AE:
         mov     ds, cx
-        push    20h
+        push    FXS_SEC_DIST
         nop
         push    cs
         call    voice_process_triple
@@ -10229,7 +10229,7 @@ L_04BBA:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    20h
+        push    FXS_SEC_DIST
         nop
         push    cs
         call    voice_dispatch_table
@@ -10249,7 +10249,7 @@ filter4_f2:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    10h
+        push    FXS_SEC_FILTER
         nop
         push    cs
         call    voice_process_triple
@@ -10261,7 +10261,7 @@ filter4_f3:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    10h
+        push    FXS_SEC_FILTER
         nop
         push    cs
         call    voice_dispatch_table
@@ -10352,7 +10352,7 @@ L_04DC4:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    8
+        push    FXS_SEC_MOD
         nop
         push    cs
         call    voice_process_triple
@@ -10364,7 +10364,7 @@ L_04C84:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    8
+        push    FXS_SEC_MOD
         nop
         push    cs
         call    voice_dispatch_table
@@ -10846,7 +10846,7 @@ L_05110:
         nop
         push    cs
         call    lcd_init_display
-        cmp     byte ptr [G_FX_EFFECT_SEL], 6
+        cmp     byte ptr [G_FX_EFFECT_SEL], FX_MOD_PITCH_FDBK
         jne     br_051D0
         push    6dh
         push    1fh
@@ -10937,7 +10937,7 @@ L_051FA:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    4
+        push    FXS_SEC_ECHO
         nop
         push    cs
         call    voice_process_triple
@@ -10949,7 +10949,7 @@ L_0520A:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    4
+        push    FXS_SEC_ECHO
         nop
         push    cs
         call    voice_dispatch_table
@@ -11167,7 +11167,7 @@ L_0539A:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    2
+        push    FXS_SEC_REVERB
         nop
         push    cs
         call    voice_process_triple
@@ -11179,7 +11179,7 @@ L_0525A:
         push    ds
         mov     cx, DATA_SEG
         mov     ds, cx
-        push    2
+        push    FXS_SEC_REVERB
         nop
         push    cs
         call    voice_dispatch_table
@@ -11242,7 +11242,7 @@ L_053D3:
         push    24h
         endif
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_46]
+        mov     al, byte ptr es:[si+FXS_ROUTE]
         cbw
         mov     bx, ax
         shl     bx, 2

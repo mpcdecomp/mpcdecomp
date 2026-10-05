@@ -7,12 +7,18 @@ DMA_CTRL        equ     080h            ; control
 DMA_DATA_LO     equ     082h            ; data low word
 DMA_DATA_HI     equ     084h            ; data high word
 DMA_ADDR_HI     equ     086h            ; device address high
-DMA_STATUS      equ     088h            ; status / GO
+DMA_STATUS      equ     088h            ; status / GO: DMA_ST_*
 DMA_STATUS2     equ     08Ah            ; status 2
 DMA_MODE        equ     08Ch            ; channel select / mode
+DMA_ST_BUSY     equ     080h            ; DMA_STATUS: set while a transfer runs
+DMA_ST_GO       equ     100h            ; DMA_STATUS: written to start one
 
-; flash board control: bit 0 Vpp, bit 1 board enable
+; flash board control
 FLASH_CTL       equ     0C0h
+FLASH_CTL_VPP   equ     001h
+FLASH_CTL_ENABLE equ    002h            ; board enable
+
+PORT_C2         equ     0C2h            ; written through G_PORT_C2_SHADOW
 
 ; ASIC register window, indexed access:
 ; `out ASIC_REG, ax` selects, `out ASIC_DATA, ax` writes.

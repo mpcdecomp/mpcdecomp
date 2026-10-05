@@ -2138,7 +2138,7 @@ br_00FD2:
         retf
 
 port_c2_write:
-        out     0c2h, al
+        out     PORT_C2, al
         mov     word ptr [G_PORT_C2_SHADOW], ax
         retf
 
@@ -2556,7 +2556,7 @@ flash_board_idle:
         nop
         push    cs
         call    port_c0_read
-        and     al, 0fch
+        and     al, 0ffh-(FLASH_CTL_VPP|FLASH_CTL_ENABLE)
         nop
         push    cs
         call    port_c0_write
@@ -2566,7 +2566,7 @@ flash_vpp_on:
         nop
         push    cs
         call    port_c0_read
-        or      al, 3
+        or      al, FLASH_CTL_VPP|FLASH_CTL_ENABLE
         nop
         push    cs
         call    port_c0_write
@@ -2576,7 +2576,7 @@ far_012E2:
         nop
         push    cs
         call    port_c0_read
-        or      al, 2
+        or      al, FLASH_CTL_ENABLE
         nop
         push    cs
         call    port_c0_write
@@ -2841,8 +2841,8 @@ flash_wait_wsms:
         call    port_c0_read
 ; Vpp off: AND AL,0FEh / OR AL,2 on the port-0C0h shadow.
 flash_vpp_off:
-        and     al, 0feh
-        or      al, 2
+        and     al, 0ffh-FLASH_CTL_VPP
+        or      al, FLASH_CTL_ENABLE
         nop
         push    cs
         call    port_c0_write
@@ -3002,8 +3002,8 @@ dma_01600:
 ; ? DMA_STATUS: clear bit 7, set bit 8, write the word back.
 dma_status_rearm:
         in      ax, DMA_STATUS
-        and     al, 7fh
-        or      ah, 1
+        and     al, 0ffh-DMA_ST_BUSY
+        or      ah, DMA_ST_GO >> 8
         out     DMA_STATUS, ax
         retf
 
@@ -3032,7 +3032,7 @@ dma_0162D:
         push    si
         push    ds
         push    P_05E4
-        push    7fffh
+        push    DSPV_ALL_FIELDS
         nop
         push    cs
         call    dma_field_write
@@ -3044,7 +3044,7 @@ dma_0162D:
 
 lcd_write_cmd_CE04:
         in      al, DMA_STATUS
-        test    al, 80h
+        test    al, DMA_ST_BUSY
         jne     lcd_write_cmd_CE04
         nop
         push    cs
@@ -3063,7 +3063,7 @@ DMA_FIELD_CTRL_OFS              equ 0ch
         push    ax
         push    ds
         push    P_05E4
-        push    1e7eh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G3-DSPV_F_G5-DSPV_F_G8-DSPV_F_G9
         nop
         push    cs
         call    dma_field_write
@@ -3073,7 +3073,7 @@ X_01806:
         push    ax
         push    ds
         push    P_05E4
-        push    18h
+        push    DSPV_F_G4_LO|DSPV_F_G4_HI
         nop
         push    cs
         call    dma_field_write
@@ -5333,7 +5333,7 @@ br_02921:
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], ax
         mov     word ptr [bp-2ch], 0ff00h
-        mov     byte ptr [bp-40h], 15h
+        mov     byte ptr [bp-40h], VOICE_MON_L
         mov     es, word ptr [bp+8]
         cmp     byte ptr es:[si+SND_STEREO], al
         je      br_02A62
@@ -5363,7 +5363,7 @@ br_02921:
         adc     word ptr [bp-24h], dx
         add     word ptr [bp-22h], ax
         adc     word ptr [bp-20h], dx
-        mov     byte ptr [bp-40h], 17h
+        mov     byte ptr [bp-40h], VOICE_MON_R
 br_02A62:
         lea     ax, [bp-40h]
         push    ss
@@ -5484,7 +5484,7 @@ br_02B19:
         mov     di, 7fffh
 
 L_02B31:
-        mov     byte ptr [bp-40h], 15h
+        mov     byte ptr [bp-40h], VOICE_MON_L
         mov     es, word ptr [bp+10h]
         mov     bx, word ptr es:[si+SND_POOL_IDX]
         mov     ax, bx

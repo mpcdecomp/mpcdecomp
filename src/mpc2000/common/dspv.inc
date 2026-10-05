@@ -50,3 +50,18 @@ SIZEOF_DSPV      equ    02ch
 
 DSPV_VOICES      equ    32              ; `inc si / cmp si,20h / jl` in the init
 DSPV_ALL_FIELDS  equ    07fffh          ; the flags word the init loop pushes
+DSPV_F_ADDR      equ    00001h          ; dma_field_write flags, one a field group
+DSPV_F_G0        equ    00002h
+DSPV_F_G1_LO     equ    00004h
+DSPV_F_G4_LO     equ    00008h
+DSPV_F_G4_HI     equ    00010h
+DSPV_F_G6_LO     equ    00020h
+DSPV_F_G6_HI     equ    00040h
+DSPV_F_G5        equ    00080h
+DSPV_F_G3        equ    00100h
+DSPV_F_G7_LO     equ    00200h
+DSPV_F_G7_HI     equ    00400h
+DSPV_F_G2        equ    00800h
+DSPV_F_G1_HI     equ    01000h
+DSPV_F_G8        equ    02000h
+DSPV_F_G9        equ    04000h

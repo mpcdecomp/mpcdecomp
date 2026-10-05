@@ -65,6 +65,9 @@ SIZEOF_DSPC             equ     014h    ; = T_DSP_CHAN_STRIDE
 ; right half).  voice_start copies parts into VOICE_TABLE, voice_regs_program
 ; writes the rest to the voice's register groups.
 
+VOICE_MON_L             equ     015h    ; the sample screen's monitor and the sound
+VOICE_MON_R             equ     017h    ;   preview: a stereo pair
+
 VREQ_VOICE              equ     000h    ; byte, 0..1Fh; 20h and up: voice_alloc picks
 VREQ_LOOPON             equ     004h    ; byte, SND_LOOPON; 0 when SND_LOOP is 0
 VREQ_OVERLAP            equ     005h    ; byte, PGM_PAD_VOICE; 1 (MONO) cuts the note first

@@ -271,7 +271,7 @@ X_0058E:
 
 L_0059A:
         in      al, DMA_STATUS
-        test    al, 80h
+        test    al, DMA_ST_BUSY
         jne     L_0059A
         retf
         db      00h
@@ -13602,7 +13602,7 @@ smem_audio_init:
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1e06h
+        push    DSPV_F_G0|DSPV_F_G1_LO|DSPV_F_G1_HI|DSPV_F_G2|DSPV_F_G7_LO|DSPV_F_G7_HI
         callf   TEXT2_SEG:dma_field_write
         cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     dma_06B19
@@ -13613,7 +13613,7 @@ smem_audio_init:
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1e06h
+        push    DSPV_F_G0|DSPV_F_G1_LO|DSPV_F_G1_HI|DSPV_F_G2|DSPV_F_G7_LO|DSPV_F_G7_HI
         callf   TEXT2_SEG:dma_field_write
 
 dma_06B19:
@@ -13646,7 +13646,7 @@ L_06B4D:
 
 dma_06B4F:
         in      al, DMA_STATUS
-        test    al, 80h
+        test    al, DMA_ST_BUSY
         jne     dma_06B4F
         pop     di
         leave
@@ -13834,14 +13834,14 @@ dma_06CFC:
         push    0
         push    ds
         push    W_503E
-        push    1e06h
+        push    DSPV_F_G0|DSPV_F_G1_LO|DSPV_F_G1_HI|DSPV_F_G2|DSPV_F_G7_LO|DSPV_F_G7_HI
         callf   TEXT2_SEG:dma_field_write
         cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     dma_06D3A
         push    10h
         push    ds
         push    W_506A
-        push    1e06h
+        push    DSPV_F_G0|DSPV_F_G1_LO|DSPV_F_G1_HI|DSPV_F_G2|DSPV_F_G7_LO|DSPV_F_G7_HI
         callf   TEXT2_SEG:dma_field_write
 dma_06D3A:
         mov     dx, ASIC_DMA_C03F
@@ -13849,12 +13849,12 @@ dma_06D3A:
         and     ax, 0f7h
         out     dx, al
         in      al, DMA_STATUS
-        mov     ah, 1
+        mov     ah, DMA_ST_GO >> 8
         out     DMA_STATUS, ax
 
 dma_06D48:
         in      al, DMA_STATUS
-        test    al, 80h
+        test    al, DMA_ST_BUSY
         jne     dma_06D48
         ret
         db      00h
@@ -13885,11 +13885,11 @@ dma_06D60:
 dma_06D88:
         mov     word ptr [bp-0ah], 0
         mov     word ptr [bp-0ch], 8000h
-        push    15h
+        push    VOICE_MON_L
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         cmp     byte ptr [P_03C7], 0
         je      dma_06DD7
@@ -13905,7 +13905,7 @@ dma_06DB0:
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         add     si, 2
         cmp     si, 7
@@ -13916,11 +13916,11 @@ dma_06DD7:
         mov     word ptr [bp-22h], 10h
         mov     word ptr [bp-0ah], 0
         mov     word ptr [bp-0ch], 80h
-        push    17h
+        push    VOICE_MON_R
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         cmp     byte ptr [P_03C7], 0
         jne     dma_06E09
@@ -13940,7 +13940,7 @@ dma_06E16:
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         add     si, 2
         cmp     si, 8
@@ -13949,11 +13949,11 @@ dma_06E16:
 dma_06E3A:
         mov     word ptr [bp-0ah], 0
         mov     word ptr [bp-0ch], 8080h
-        push    15h
+        push    VOICE_MON_L
         lea     ax, [bp-2ch]
         push    ss
         push    ax
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         cmp     byte ptr [P_03C7], 0
         je      smem_dma_clear_go
@@ -13970,7 +13970,7 @@ dma_06E66:
         lea     cx, [bp-2ch]
         push    ss
         push    cx
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         lea     ax, [si+1]
         mov     si, ax
@@ -13979,8 +13979,8 @@ dma_06E66:
 
 smem_dma_clear_go:
         in      al, DMA_STATUS
-        and     al, 7fh
-        mov     ah, 1
+        and     al, 0ffh-DMA_ST_BUSY
+        mov     ah, DMA_ST_GO >> 8
         out     DMA_STATUS, ax
 
 br_06E95:
@@ -13993,23 +13993,23 @@ br_06E95:
 dma_06E9A:
         cmp     byte ptr [SAMPLE_MONITOR], 0
         je      X_06ECC
-        push    15h
+        push    VOICE_MON_L
         push    ds
         push    W_4FE6
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
         cmp     byte ptr [G_REC_MODE], REC_MODE_STEREO
         jne     dma_06EC4
-        push    17h
+        push    VOICE_MON_R
         push    ds
         push    W_5012
-        push    1ffeh
+        push    DSPV_ALL_FIELDS-DSPV_F_ADDR-DSPV_F_G8-DSPV_F_G9
         callf   TEXT2_SEG:dma_field_write
 
 dma_06EC4:
         in      al, DMA_STATUS
-        and     al, 7fh
-        mov     ah, 1
+        and     al, 0ffh-DMA_ST_BUSY
+        mov     ah, DMA_ST_GO >> 8
         out     DMA_STATUS, ax
 
 X_06ECC:
@@ -14184,7 +14184,7 @@ dma_0701C:
 
 dma_07028:
         in      al, DMA_STATUS
-        test    al, 80h
+        test    al, DMA_ST_BUSY
         jne     dma_07028
 
 br_0702E:

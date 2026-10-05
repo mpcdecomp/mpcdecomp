@@ -1285,11 +1285,7 @@ change_disk_paint:
         call    EP_DISP_LIST_RUN_OFF+C1_CSBASE
         add     sp, 4
         push    ds
-        if      FW_VERSION >= 110
         push    C2_W_07B98
-        else
-        push    C2_W_07B98
-        endif
         push    14h
         push    48h
         nop
@@ -13239,11 +13235,7 @@ br_4E1F3:
         db      GROWTH_PROOF dup (90h)
         endif
 pgm_assign_focus_pad:
-        if      FW_VERSION >= 110
         mov     word ptr [C2_W_PGM_ASSIGN_CURSOR], 2
-        else
-        mov     word ptr [C2_W_PGM_ASSIGN_CURSOR], 2
-        endif
         mov     al, byte ptr [C2_B_PAD_DRUM]
         sub     ah, ah
         add     ax, 60h
@@ -14168,11 +14160,7 @@ L_4EA1C:
         db      00h
 L_4EA3A:
 far_4E0DA:
-        if      FW_VERSION >= 110
         mov     word ptr [C2_W_PARAMS_CURSOR], 1
-        else
-        mov     word ptr [C2_W_PARAMS_CURSOR], 1
-        endif
         push    ds
         push    C2_B_PAD_NOTE
         push    ds
@@ -14400,7 +14388,6 @@ far_4EBC8:
         sub     cx, 325h
         push    dx
         push    cx
-        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         elseif  FW_VERSION >= 114
         push    ax
         xor     ax, 0c483h
@@ -14408,7 +14395,6 @@ far_4EBC8:
         db      18h, 0f6h, 26h, 0c0h, 0d7h, 03h
         enter   -167fh, 25h
         add     dx, word ptr [bp+si+51h]
-        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         else
         xor     byte ptr [di], dh
         add     sp, 2
@@ -14419,8 +14405,8 @@ far_4EBC8:
         sub     cx, 325h
         push    dx
         push    cx
-        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         endif
+        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         else
 L_4E25E:
         if      FW_VERSION < 110
@@ -23318,11 +23304,7 @@ L_5319A:
         mov     word ptr [C2_W_FX_MOD_CURSOR], 0
 br_53B00:
         imul    bx, word ptr [C2_W_FX_MOD_CURSOR], 2ah
-        if      FW_VERSION >= 110
         callf   [bx+C2_TBL_050C0]
-        else
-        callf   [bx+C2_TBL_050C0]
-        endif
         retf
 fx_pitch_shift_f2:
         push    ds
@@ -23500,11 +23482,7 @@ fx_pitch_shift_field0_thunk:
         push    ds
         push    C0_B_08E70
         push    ds
-        if      FW_VERSION >= 110
         push    C2_W_050B2
-        else
-        push    C2_W_050B2
-        endif
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
         add     sp, 8
         retf
@@ -25088,11 +25066,7 @@ L_54119:
         if      FW_VERSION < 112
 far_54A39:
         endif
-        if      FW_VERSION >= 110
         callf   [bx+C2_TBL_05908]
-        else
-        callf   [bx+C2_TBL_05908]
-        endif
         leave
         retf
         db      00h
@@ -25200,11 +25174,7 @@ L_54B4A:
         mov     byte ptr es:[bx+2], al
 br_54B70:
         imul    bx, word ptr [C2_W_MIXER_CURSOR], 2ah
-        if      FW_VERSION >= 110
         callf   [bx+C2_TBL_05908]
-        else
-        callf   [bx+C2_TBL_05908]
-        endif
         callf   EP_DISP_REQUEST_FLUSH_SEG:EP_DISP_REQUEST_FLUSH_OFF
         retf
         db      00h

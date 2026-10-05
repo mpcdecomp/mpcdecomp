@@ -6601,11 +6601,7 @@ br_419E6:
         mov     al, byte ptr es:[bx+0eh]
         cbw
         mov     bx, ax
-        if      FW_VERSION >= 110
         cmp     byte ptr [bx+C1_TBL_06475], 0
-        else
-        cmp     byte ptr [bx+C1_TBL_06475], 0
-        endif
         jne     br_41A01
         mov     bx, word ptr [bp+6]
         xor     al, al

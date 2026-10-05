@@ -2401,11 +2401,7 @@ L_0BF6E:
         sub     ax, ax
         rep stosw
         mov     byte ptr [A1_B_0E803], 0
-        if      FW_VERSION >= 120
         mov     word ptr [A1_W_0E88C], 0
-        else
-        mov     word ptr [A1_W_0E88C], 0
-        endif
         mov     byte ptr [A1_B_0E87D], 0
         mov     dx, ds
         mov     di, 0e806h
@@ -7226,13 +7222,7 @@ xl_flash_board_detect:
         mov     ax, 100h
         mov     es, ax
         mov     di, 0
-        if      FW_VERSION >= 112
         mov     si, A1_W_0A4F2
-        elseif  FW_VERSION >= 110
-        mov     si, A1_W_0A4F2
-        else
-        mov     si, A1_W_0A4F2
-        endif
         mov     cx, 10h
         push    ds
         pusha
@@ -9258,15 +9248,7 @@ isr_0F4B6:
         and     bl, 3fh
         mov     bh, 0
         shl     bx, 1
-        if      FW_VERSION >= 114
         mov     cx, word ptr [bx+A1_TBL_0A66E]
-        elseif  FW_VERSION >= 112
-        mov     cx, word ptr [bx+A1_TBL_0A66E]
-        elseif  FW_VERSION >= 110
-        mov     cx, word ptr [bx+A1_TBL_0A66E]
-        else
-        mov     cx, word ptr [bx+A1_TBL_0A66E]
-        endif
         mov     bx, A1_W_0318C
         test    al, 80h
         jne     isr_0F4E3
@@ -9387,19 +9369,8 @@ isr_0F5AE:
         push    ds
         mov     bp, RAM_SEG
         mov     ds, bp
-        if      FW_VERSION >= 114
         mov     word ptr [A0_W_0376E], ax
         mov     word ptr [A0_W_03770], dx
-        elseif  FW_VERSION >= 112
-        mov     word ptr [A0_W_0376E], ax
-        mov     word ptr [A0_W_03770], dx
-        elseif  FW_VERSION >= 110
-        mov     word ptr [A0_W_0376E], ax
-        mov     word ptr [A0_W_03770], dx
-        else
-        mov     word ptr [A0_W_0376E], ax
-        mov     word ptr [A0_W_03770], dx
-        endif
         mov     bx, ax
         mov     cx, dx
         mov     ah, 10h
@@ -9411,19 +9382,8 @@ isr_0F5C7:
         push    ds
         mov     ax, RAM_SEG
         mov     ds, ax
-        if      FW_VERSION >= 114
         mov     es, word ptr [A0_W_SEQ_SEGMENT]
         mov     bx, word ptr [A1_W_04854]
-        elseif  FW_VERSION >= 112
-        mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [A1_W_04854]
-        elseif  FW_VERSION >= 110
-        mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [A1_W_04854]
-        else
-        mov     es, word ptr [A0_W_SEQ_SEGMENT]
-        mov     bx, word ptr [A1_W_04854]
-        endif
         mov     al, byte ptr es:[bx+5c0h]
         mov     ah, 0
         dec     ax

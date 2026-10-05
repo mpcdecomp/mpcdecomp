@@ -16,9 +16,9 @@ APP2_CSBASE_A2 set  APP2_SEG*16-APP2_BASE
 ; RAM_SEG:0000: the version stamp -- version, build and date as text, then year,
 ; month, day, major, minor -- and the name of the system file it loads from.
 ram_stamp:
-        if      FW_VERSION >= 120
 d_a1_b_00010 equ     $+10h
 d_a1_w_0001a equ     $+1ah
+        if      FW_VERSION >= 120
         db      "1.14c        -74Jul. 15,2004"
 d_a0_w_0001c:
         dw      2004
@@ -31,8 +31,6 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      20
         elseif  FW_VERSION >= 114
-d_a1_b_00010 equ     $+10h
-d_a1_w_0001a equ     $+1ah
         db      "1.14         -72May. 15,2001"
 d_a0_w_0001c:
         dw      2001
@@ -45,8 +43,6 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      14
         elseif  FW_VERSION >= 112
-d_a1_b_00010 equ     $+10h
-d_a1_w_0001a equ     $+1ah
         db      "1.12         -65Dec. 04,2000"
 d_a0_w_0001c:
         dw      2000
@@ -59,8 +55,6 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      12
         elseif  FW_VERSION >= 111
-d_a1_b_00010 equ     $+10h
-d_a1_w_0001a equ     $+1ah
         db      "1.11         -63Mar. 06,2000"
 d_a0_w_0001c:
         dw      2000
@@ -73,8 +67,6 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      11
         elseif  FW_VERSION >= 110
-d_a1_b_00010 equ     $+10h
-d_a1_w_0001a equ     $+1ah
         db      "1.10         -61Feb. 23,2000"
 d_a0_w_0001c:
         dw      2000
@@ -87,8 +79,6 @@ d_a0_b_00020:
 d_a0_b_00021:
         db      10
         else
-d_a1_b_00010 equ     $+10h
-d_a1_w_0001a equ     $+1ah
         db      "1.07         -54Oct. 27,1999"
 d_a0_w_0001c:
         dw      1999
@@ -1621,8 +1611,6 @@ d_a0_tbl_0346c:
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  03566h-0e2h, 000h
 d_a2_w_03494:
-        endif
-        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  03566h-0e0h, 000h
 d_a2_w_03496:
         endif
@@ -1647,8 +1635,6 @@ d_a2_w_03496:
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  03566h-0cdh, 000h
 d_a2_b_034a9:
-        endif
-        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  03566h-0c7h, 000h
 d_a2_w_034af:
         endif
@@ -1659,16 +1645,12 @@ d_a2_w_034b2:
         if      FW_VERSION >= 120
         PAD_TO  03566h-0c3h, 000h
 d_a2_b_034a3:
-        endif
-        if      FW_VERSION >= 120
         PAD_TO  03566h-0c0h, 000h
 d_a2_b_034a6:
         endif
         if      FW_VERSION >= 120
         PAD_TO  03566h-0bdh, 000h
 d_a2_b_034a9:
-        endif
-        if      FW_VERSION >= 120
         PAD_TO  03566h-0b7h, 000h
 d_a2_w_034af:
         endif
@@ -3456,22 +3438,20 @@ d_a2_tbl_05f22:
         PAD_TO  07586h-0f00h, 000h
 d_a2_tbl_066a2:
         PAD_TO  07586h, 000h
-d_a2_w_075a2:
         elseif  FW_VERSION >= 110
         PAD_TO  07582h-01680h, 000h
 d_a2_tbl_05f22:
         PAD_TO  07582h-0f00h, 000h
 d_a2_tbl_066a2:
         PAD_TO  07582h, 000h
-d_a2_w_075a2:
         else
         PAD_TO  07564h-01680h, 000h
 d_a2_tbl_05f22:
         PAD_TO  07564h-0f00h, 000h
 d_a2_tbl_066a2:
         PAD_TO  07564h, 000h
-d_a2_w_075a2:
         endif
+d_a2_w_075a2:
         dw      A0_W_057A2
 d_a2_w_075a4:
         db      0dah, 07h
@@ -4702,8 +4682,8 @@ d_a1_w_0a6ee:
         db      27h
 
 ; 0x1a65b-0x1a9b0, 853 bytes of 00h: BSS
-        if      FW_VERSION >= 110
 FREE_1A65B:
+        if      FW_VERSION >= 110
         if      FW_VERSION >= 120
 RAM_TAIL        equ     0AB40h
 RAM_TAIL_LEN    equ     355h
@@ -4720,7 +4700,6 @@ RAM_TAIL_LEN    equ     145h
         endif
 
         else
-FREE_1A65B:
 RAM_TAIL        equ     0A8F0h
 RAM_TAIL_LEN    equ     145h
 

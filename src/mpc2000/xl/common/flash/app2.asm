@@ -8143,11 +8143,10 @@ fn_1F8F2:
         jmp     fn_1F999
         else
         if      FW_VERSION >= 110
-        mov     word ptr [A2_W_SAVE_EXEC_FN], ax
         else
 fn_1F8F2:
-        mov     word ptr [A2_W_SAVE_EXEC_FN], ax
         endif
+        mov     word ptr [A2_W_SAVE_EXEC_FN], ax
         db      89h, 1eh, 8eh, 36h, 89h, 36h, 90h, 36h, 1eh, 07h, 0b3h, 04h, 0cdh, 91h, 73h, 03h
         db      0e9h, 91h, 00h
         endif
@@ -8276,8 +8275,8 @@ far_1F9DA:
         KEY_DOWN        20h, 0000h, 0000h
         KEY_DOWN        12h, 0000h, 0000h
         KEY_DOWN        13h, EP_ISR_1EE40_OFF, EP_ISR_1EE40_SEG
-        if      FW_VERSION >= 112
         KEY_DOWN        14h, (APP2_BASE+L_1F338-APP2_SEG*16), APP2_SEG
+        if      FW_VERSION >= 112
         db      0c3h
 L_1F338:
         db      0b3h, 11h, 0cdh, 91h
@@ -8350,7 +8349,6 @@ L_1FAE7:
         retf
         db      "MPC2KXL         .BIN"
         else
-        KEY_DOWN        14h, (APP2_BASE+L_1F338-APP2_SEG*16), APP2_SEG
         if      FW_VERSION >= 110
 L_1F338                         equ     $+1
         db      0c3h, 0b3h, 11h, 0cdh, 91h, 73h
@@ -9013,10 +9011,9 @@ loop_2015D:
         stc
         endif
         ret
+loop_20172:
         if      FW_VERSION >= 110
-loop_20172:
         else
-loop_20172:
         cmp     al, 4
         je      loop_2015D
         endif
@@ -9027,8 +9024,8 @@ loop_20172:
         int     0a5h
         stc
         ret
-        if      FW_VERSION >= 110
 br_2017F:
+        if      FW_VERSION >= 110
         jmp     loop_20172
         mov     bl, 6
         int     93h
@@ -9042,7 +9039,6 @@ br_2017F:
         cmp     ah, 0bh
         jne     loop_2015D
         else
-br_2017F:
         int     95h
         endif
         call    fn_1BE98

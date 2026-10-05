@@ -4375,13 +4375,11 @@ d_c2_tbl_01002:
         db      00h
 d_c2_tbl_01000:
         db      86h
-        if      FW_VERSION >= 111
         db      8fh
 d_c2_tbl_01002:
+        if      FW_VERSION >= 111
         db      86h, 3dh
         else
-        db      8fh
-d_c2_tbl_01002:
         db      76h, 3dh
         endif
         endif
@@ -4961,13 +4959,11 @@ d_c2_tbl_01810:
 d_c2_tbl_01828:
         if      FW_VERSION >= 112
         dw      EP_FAR_4A182_OFF
-d_c2_tbl_0182a:
-        dw      C1_SEG
         else
         dw      EP_FAR_49824_OFF
+        endif
 d_c2_tbl_0182a:
         dw      C1_SEG
-        endif
 TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
         db      0c7h, 01h, 30h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 04h, 00h, 00h, 00h ; [0] x,y,class,digits  STORE  MIN  MAX
         dw      EP_TRIM_FOCUS_PLAY_X_OFF, EP_TRIM_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5017,16 +5013,13 @@ d_c2_tbl_018d8:
         if      FW_VERSION >= 112
         db      "EMORY"
         db      00h, 00h
-        if      FW_VERSION >= 114
 d_c2_tbl_018f8:
         dw      (C2_BASE+far_4A030-C1_SEG*16)
 d_c2_tbl_018fa:
+        if      FW_VERSION >= 114
         dw      C1_SEG
         dw      (C2_BASE+L_4AF6E-C1_SEG*16), C1_SEG
         else
-d_c2_tbl_018f8:
-        dw      (C2_BASE+far_4A030-C1_SEG*16)
-d_c2_tbl_018fa:
         dw      C1_SEG, (C2_BASE+L_4A76E-C1_SEG*16), C1_SEG
         endif
         else
@@ -5054,13 +5047,11 @@ d_c2_tbl_018fa:
         dw      EP_FAR_4AF7E_OFF, EP_FAR_4AF7E_SEG
         if      FW_VERSION >= 110
         dw      EP_FAR_4AF88_OFF, EP_FAR_4AF88_SEG
-d_c2_w_0190c:
-        db      01h, 00h, 00h, 00h, 00h
         else
         db      0ceh, 0cdh, 28h, 3dh
+        endif
 d_c2_w_0190c:
         db      01h, 00h, 00h, 00h, 00h
-        endif
         db      03h
         dw      EP_FAR_4AFFC_OFF, EP_FAR_4AFFC_SEG
         db      04h
@@ -7510,17 +7501,13 @@ d_c0_tbl_03ee0:
         dw      EP_L_51062_SEG
 d_c0_tbl_03ee2:
         db      46h
-        if      FW_VERSION >= 111
         db      2fh
 d_c0_tbl_03ee4:
+        if      FW_VERSION >= 111
         db      84h
         elseif  FW_VERSION >= 110
-        db      2fh
-d_c0_tbl_03ee4:
         db      74h
         else
-        db      2fh
-d_c0_tbl_03ee4:
         db      26h
         endif
         db      4dh
@@ -7545,17 +7532,13 @@ d_c0_tbl_03ee4:
         dw      EP_L_51536_OFF, EP_L_51536_SEG
         if      FW_VERSION >= 111
         db      28h, 34h, 84h, 4dh, 84h, 34h, 84h, 4dh
-d_c2_w_03f0e:
-        db      01h, 00h, 00h
         elseif  FW_VERSION >= 110
         db      28h, 34h, 74h, 4dh, 84h, 34h, 74h, 4dh
-d_c2_w_03f0e:
-        db      01h, 00h, 00h
         else
         db      28h, 34h, 26h, 4dh, 84h, 34h, 26h, 4dh
+        endif
 d_c2_w_03f0e:
         db      01h, 00h, 00h
-        endif
         endif
         db      00h, 00h, 02h
         dw      EP_L_51050_OFF, EP_L_51050_SEG
@@ -10578,8 +10561,6 @@ BSS_6112A:
         if      FW_VERSION < 110
         PAD_TO  DS_SEG*16+08e76h-SEGBASE, 0
 d_c0_tbl_08e76:
-        endif
-        if      FW_VERSION < 110
         PAD_TO  DS_SEG*16+08e78h-SEGBASE, 0
 d_c0_tbl_08e78:
         endif

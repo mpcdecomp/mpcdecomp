@@ -97,8 +97,8 @@ L_0F6F6:
         in      ax, dx
         pop     dx
         mov     cx, ax
-        if      FW_VERSION >= 114
         push    dx
+        if      FW_VERSION >= 114
         if      FW_VERSION >= 120
 ; XL_FOR_2K 0x0F701 (58 bytes): wheel_isr.  PINNED: app0's near JMP here.  span
 ; straddles both ends: 0x0F701 = byte 3 of `mov dx,1eah` at 0x0F6FF, 0x0F73A =
@@ -294,7 +294,6 @@ L_0F7CA:
         clc
         ret
         else
-        push    dx
 last_ticks:
 wi_ccw:
 wi_ck:
@@ -589,17 +588,14 @@ tgt_0F913:
         endif
         if      FW_VERSION >= 114
         call    fn_0FBE9
-        mov     word ptr [A1_W_0A84C], 0
         elseif  FW_VERSION >= 112
         db      0e8h, 75h, 01h
-        mov     word ptr [A1_W_0A84C], 0
         elseif  FW_VERSION >= 110
         call    fn_0FBE9
-        mov     word ptr [A1_W_0A84C], 0
         else
         db      0e8h, 75h, 01h
-        mov     word ptr [A1_W_0A84C], 0
         endif
+        mov     word ptr [A1_W_0A84C], 0
         mov     byte ptr ds:[bp], 4
         if      FW_VERSION >= 114
         call    fn_0FAB6

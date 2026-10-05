@@ -9,6 +9,38 @@
         ifndef  WINDOW_MACROS_INC
 WINDOW_MACROS_INC equ    1
 
+; opcodes, for the code that builds a list on its stack
+WOP_END         equ     000h
+WOP_CLEAR       equ     001h
+WOP_PLANE_A     equ     002h            ; WIN_RESET_PEN
+WOP_PLANE_B     equ     003h
+WOP_PLANE_C     equ     004h
+WOP_FLUSH       equ     005h
+WOP_SET_FLAG    equ     006h
+WOP_LABEL       equ     007h
+WOP_LABEL_FC    equ     008h
+WOP_RULE_0B     equ     00bh            ; 0Bh-10h WIN_RULE
+WOP_RULE_0E     equ     00eh
+WOP_OP4_11      equ     011h            ; 11h-14h WIN_OP4
+WOP_OP4_12      equ     012h
+WOP_OP4_13      equ     013h
+WOP_OP4_14      equ     014h
+WOP_HEX8        equ     015h
+WOP_HEX16       equ     016h
+WOP_NUMBER      equ     017h
+WOP_PRINT       equ     018h
+WOP_SOFTKEY     equ     01ah
+WOP_PIXEL1      equ     01bh
+WOP_TEXT_FAR    equ     01eh
+WOP_TEXT_FAR_FC equ     01fh
+WOP_SOFTKEYS_REDRAW equ 020h
+WOP_SOFTKEY_STYLES equ  021h
+WOP_FRAME       equ     022h
+WOP_MESSAGE     equ     023h
+WOP_LINE        equ     024h
+WOP_BITMAP      equ     025h
+WOP_SUBLIST     equ     026h
+
 WIN_END         macro                   ; 00h  end of display list, 0 operands
         db      000h
         endm

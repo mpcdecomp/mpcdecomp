@@ -249,7 +249,7 @@ T2_L_0015E:
         retf    2
 cmd_dispatch_1E:
         enter   8, 0
-        mov     byte ptr [bp-8], 1eh
+        mov     byte ptr [bp-8], WOP_TEXT_FAR
         mov     al, byte ptr [bp+0ch]
         mov     byte ptr [bp-7], al
         mov     al, byte ptr [bp+0ah]
@@ -267,7 +267,7 @@ cmd_dispatch_1E:
         retf    8
 cmd_ratio_setup:
         enter   6, 0
-        mov     byte ptr [bp-6], 7
+        mov     byte ptr [bp-6], WOP_LABEL
         mov     al, byte ptr [bp+0ah]
         mov     byte ptr [bp-5], al
         mov     al, byte ptr [bp+8]
@@ -284,7 +284,7 @@ cmd_ratio_setup:
         db      00h
 cmd_far_stub:
         enter   2, 0
-        mov     word ptr [bp-2], 5
+        mov     word ptr [bp-2], WOP_FLUSH
         lea     ax, [bp-2]
         push    ss
         push    ax
@@ -296,7 +296,7 @@ cmd_far_stub:
 ; a value right-aligned in n digits at pixel (x, y).
 draw_unsigned_value:
         enter   0ah, 0
-        mov     byte ptr [bp-0ah], 17h
+        mov     byte ptr [bp-0ah], WOP_NUMBER
         mov     al, byte ptr [bp+0eh]
         mov     byte ptr [bp-9], al
         mov     al, byte ptr [bp+0ch]
@@ -406,7 +406,7 @@ L_0029D:
         retf    8
 cmd_dispatch_setup:
         enter   6, 0
-        mov     byte ptr [bp-6], 16h
+        mov     byte ptr [bp-6], WOP_HEX16
         mov     al, byte ptr [bp+0ah]
         mov     byte ptr [bp-5], al
         mov     al, byte ptr [bp+8]
@@ -422,7 +422,7 @@ cmd_dispatch_setup:
         retf    6
 cmd_param_setup:
         enter   6, 0
-        mov     byte ptr [bp-6], 14h
+        mov     byte ptr [bp-6], WOP_OP4_14
         mov     al, byte ptr [bp+0ch]
         dec     al
         mov     byte ptr [bp-5], al
@@ -446,7 +446,7 @@ string_copy_scan:
         enter   0ch, 0
         push    di
         push    si
-        mov     byte ptr [bp-0ch], 1ah
+        mov     byte ptr [bp-0ch], WOP_SOFTKEY
         mov     al, byte ptr [bp+0ch]
         mov     byte ptr [bp-0bh], al
         mov     al, byte ptr [bp+0ah]
@@ -508,7 +508,7 @@ cmd_build_params:
         retf    0ah
 display_coord_setup:
         enter   4, 0
-        mov     byte ptr [bp-4], 1bh
+        mov     byte ptr [bp-4], WOP_PIXEL1
         mov     ax, word ptr [bp+6]
         mov     word ptr [bp-3], ax
         mov     byte ptr [bp-1], 0
@@ -522,7 +522,7 @@ display_coord_setup:
 ; ?
 cmd_far_stub2:
         enter   2, 0
-        mov     word ptr [bp-2], 6
+        mov     word ptr [bp-2], WOP_SET_FLAG
         lea     ax, [bp-2]
         push    ss
         push    ax
@@ -535,7 +535,7 @@ string_copy_setup:
         mov     al, byte ptr [bp+0ah]
         add     al, 2
         mov     byte ptr [bp-8], al
-        mov     byte ptr [bp-7], 13h
+        mov     byte ptr [bp-7], WOP_OP4_13
         mov     ax, word ptr [bp+6]
         mov     dx, word ptr [bp+8]
         mov     word ptr [bp-6], ax
@@ -587,7 +587,7 @@ cmd_exec_0E_wrapper:
         db      00h
 cmd_track_setup:
         enter   6, 0
-        mov     byte ptr [bp-6], 0bh
+        mov     byte ptr [bp-6], WOP_RULE_0B
         mov     al, byte ptr [bp+0ah]
         mov     byte ptr [bp-5], al
         mov     al, byte ptr [bp+8]
@@ -603,7 +603,7 @@ cmd_track_setup:
         retf    6
 cmd_dispatch_0E:
         enter   6, 0
-        mov     byte ptr [bp-6], 0eh
+        mov     byte ptr [bp-6], WOP_RULE_0E
         mov     al, byte ptr [bp+0ah]
         mov     byte ptr [bp-5], al
         mov     al, byte ptr [bp+8]
@@ -636,7 +636,7 @@ string_fill_stosb:
         push    ax
         callf   TEXT1_SEG:__fstrncpy
         add     sp, 0ah
-        mov     byte ptr [bp-20h], 23h
+        mov     byte ptr [bp-20h], WOP_MESSAGE
         lea     ax, [bp-20h]
         push    ss
         push    ax
@@ -652,7 +652,7 @@ cmd_build_dispatch:
         push    si
         mov     di, word ptr [bp+0ah]
         mov     si, word ptr [bp+0ch]
-        push    11h
+        push    WOP_OP4_11
         push    si
         push    di
         push    word ptr [bp+8]
@@ -712,7 +712,7 @@ ui_row_request:
         retf    2
 cmd_caller_setup:
         enter   8, 0
-        mov     byte ptr [bp-8], 26h
+        mov     byte ptr [bp-8], WOP_SUBLIST
         mov     al, byte ptr [bp+0ch]
         mov     byte ptr [bp-7], al
         mov     al, byte ptr [bp+0ah]
@@ -7709,7 +7709,7 @@ br_03C01:
         cmp     ax, di
         jg      loop_03BCF
 br_03C06:
-        push    13h
+        push    WOP_OP4_13
         push    0
         push    0
         push    0f8h
@@ -7717,7 +7717,7 @@ br_03C06:
         nop
         push    cs
         call    cmd_build_params
-        push    13h
+        push    WOP_OP4_13
         push    0
         push    34h
         push    0f8h
@@ -8134,7 +8134,7 @@ L_03E87:
         nop
         push    cs
         call    cmd_exec_0E_wrapper
-        push    13h
+        push    WOP_OP4_13
         push    0
         push    0
         push    0f8h
@@ -8164,7 +8164,7 @@ L_03EBA:
 L_03ECD:
         test    word ptr [W_9A4A], si
         je      L_03EE3
-        push    12h
+        push    WOP_OP4_12
         push    di
         push    word ptr [bp-8]
         push    0eh
@@ -8231,7 +8231,7 @@ loop_03EFF:
         nop
         push    cs
         call    cmd_ratio_setup
-        push    13h
+        push    WOP_OP4_13
         push    si
         push    1
         push    0eh
@@ -8239,7 +8239,7 @@ loop_03EFF:
         nop
         push    cs
         call    cmd_build_params
-        push    13h
+        push    WOP_OP4_13
         lea     ax, [si+7]
         push    ax
         push    0fh
@@ -8754,7 +8754,7 @@ track_select_setup:
         push    si
         mov     di, word ptr [bp+0ah]
         mov     si, word ptr [bp+0ch]
-        push    13h
+        push    WOP_OP4_13
         push    si
         push    di
         push    1eh
@@ -8890,7 +8890,7 @@ L_04322:
         nop
         push    cs
         call    cmd_caller_setup
-        push    12h
+        push    WOP_OP4_12
         lea     ax, [si+9]
         push    ax
         push    1ch
@@ -9446,7 +9446,7 @@ track_process_ext:
         nop
         push    cs
         call    cmd_sequence_handler
-        push    12h
+        push    WOP_OP4_12
         push    6ch
         push    11h
         push    7ch
@@ -9454,7 +9454,7 @@ track_process_ext:
         nop
         push    cs
         call    cmd_build_params
-        push    12h
+        push    WOP_OP4_12
         push    6ch
         push    14h
         push    3
@@ -9462,7 +9462,7 @@ track_process_ext:
         nop
         push    cs
         call    cmd_build_params
-        push    12h
+        push    WOP_OP4_12
         push    0e5h
         push    14h
         push    3
@@ -14176,7 +14176,7 @@ note_pitch_calc_cmd:
         call    note_clamp_flag
         mov     si, ax
         mov     word ptr [bp-2], dx
-        push    12h
+        push    WOP_OP4_12
         lea     ax, [di+7]
         push    ax
         mov     es, dx
@@ -14459,7 +14459,7 @@ X_06C42:
         mov     dx, word ptr es:[bx+di+PGM_PAD_NOTE0+PGM_PAD_SND_SEG]
         mov     si, ax
         mov     word ptr [bp-8], dx
-        push    12h
+        push    WOP_OP4_12
         mov     ax, word ptr [bp+8]
         add     ax, 7
         push    ax
@@ -14752,7 +14752,7 @@ note_range_calc_cmd:
         push    cs
         call    note_range_clamp
         mov     si, ax
-        push    12h
+        push    WOP_OP4_12
         lea     ax, [di+7]
         push    ax
         mov     es, dx
@@ -17061,7 +17061,7 @@ br_08098:
         nop
         push    cs
         call    cmd_exec_0E_wrapper
-        push    13h
+        push    WOP_OP4_13
         push    1
         push    15h
         push    0f5h
@@ -17069,7 +17069,7 @@ br_08098:
         nop
         push    cs
         call    cmd_build_params
-        push    12h
+        push    WOP_OP4_12
         lea     ax, [di+1]
         push    ax
         push    15h
@@ -17232,7 +17232,7 @@ cmd_ratio_calc:
         nop
         push    cs
         call    cmd_exec_0E_wrapper
-        push    13h
+        push    WOP_OP4_13
         push    1
         push    15h
         push    0f5h

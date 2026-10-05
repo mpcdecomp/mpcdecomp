@@ -6529,7 +6529,7 @@ L_29305:
         push    cs
         call    L_28CF3
         KEY_DOWN        20h, (APP3_BASE+L_28D7F-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        11h, (APP3_BASE+L_28DEC-APP3_SEG*16), APP3_SEG
+        KEY_DOWN        11h, (APP3_BASE+FAR_295BC-APP3_SEG*16), APP3_SEG
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        14h, (APP3_BASE+FAR_296F1-APP3_SEG*16), APP3_SEG
         endif
@@ -6835,7 +6835,7 @@ L_28DDC:
         mov     word ptr [A3_W_012B2], ax
 L_28DEB:
         retf
-L_28DEC:
+FAR_295BC:
         cmp     word ptr [A3_W_012B6], 0
         jne     L_28DF6
         jmp     L_28F19
@@ -6925,7 +6925,7 @@ L_28760:
         db      0cbh, 3bh, 06h, 0ach, 12h, 72h, 03h, 0a1h, 0ach
         db      12h, 0a3h, 0b4h, 12h, 26h, 89h, 05h, 3bh, 06h, 0b2h, 12h, 73h, 03h, 0a3h, 0b2h, 12h
         db      0cbh
-L_28DEC:
+FAR_295BC:
         db      83h, 3eh, 0b6h, 12h, 00h, 75h, 03h, 0e9h, 1eh, 01h, 8eh, 06h, 10h, 0fh, 26h
         db      8ah, 1eh, 18h, 00h, 26h, 8ah, 3eh, 19h, 00h, 0b8h, 80h, 01h, 0f6h, 0f7h, 0a2h, 0cah
         db      12h, 0f6h, 0e3h, 0a3h, 0bch, 12h, 8bh, 1eh, 0b6h, 12h, 0f7h, 0e3h, 0a3h, 0b8h, 12h, 89h

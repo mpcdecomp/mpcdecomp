@@ -2269,8 +2269,8 @@ far_33954:
 far_33961:
         db      0a1h, 0ech, 2bh, 0a3h, 0eeh, 2bh, 0ffh, 06h, 0ech
         db      2bh, 0cdh, 0a4h
-        KEY_WHEEL2      (C0_BASE+far_33A31-APP3_SEG*16), APP3_SEG, (C0_BASE+FAR_33A54-APP3_SEG*16), APP3_SEG
-        KEY_CURSOR      0000h, 0000h, 0000h, 0000h, (C0_BASE+far_33A31-APP3_SEG*16), APP3_SEG, (C0_BASE+FAR_33A54-APP3_SEG*16), APP3_SEG
+        KEY_WHEEL2      (C0_BASE+L_33133-APP3_SEG*16), APP3_SEG, (C0_BASE+FAR_33A54-APP3_SEG*16), APP3_SEG
+        KEY_CURSOR      0000h, 0000h, 0000h, 0000h, (C0_BASE+L_33133-APP3_SEG*16), APP3_SEG, (C0_BASE+FAR_33A54-APP3_SEG*16), APP3_SEG
         KEY_DOWN        14h, (C0_BASE+L_339A2-APP3_SEG*16), APP3_SEG
         KEY_DOWN        15h, (C0_BASE+L_33A72-APP3_SEG*16), APP3_SEG
         KEY_DOWN        20h, (C0_BASE+L_339B2-APP3_SEG*16), APP3_SEG
@@ -2398,10 +2398,10 @@ far_32B16:
 L_33063:
         db      0a1h, 0dch, 2bh, 0a3h, 0deh, 2bh, 0ffh, 06h, 0dch
         db      2bh, 0cdh, 0a4h
-        KEY_WHEEL2      (C0_BASE+far_33A31-APP3_SEG*16), APP3_SEG, (C0_BASE+L_32C16-APP3_SEG*16), APP3_SEG
-        KEY_CURSOR      0000h, 0000h, 0000h, 0000h, (C0_BASE+far_33A31-APP3_SEG*16), APP3_SEG, (C0_BASE+L_32C16-APP3_SEG*16), APP3_SEG
+        KEY_WHEEL2      (C0_BASE+L_33133-APP3_SEG*16), APP3_SEG, (C0_BASE+L_33156-APP3_SEG*16), APP3_SEG
+        KEY_CURSOR      0000h, 0000h, 0000h, 0000h, (C0_BASE+L_33133-APP3_SEG*16), APP3_SEG, (C0_BASE+L_33156-APP3_SEG*16), APP3_SEG
         KEY_DOWN        14h, (C0_BASE+L_330A4-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        15h, (C0_BASE+FAR_32C34-APP3_SEG*16), APP3_SEG
+        KEY_DOWN        15h, (C0_BASE+L_33174-APP3_SEG*16), APP3_SEG
         KEY_DOWN        20h, (C0_BASE+L_32B74-APP3_SEG*16), APP3_SEG
         endif
         db      0cbh
@@ -2446,7 +2446,7 @@ L_330B4:
         db      0b5h, 24h, 0e8h, 0a8h, 0feh, 0c3h, 0feh, 0c8h, 83h, 3eh, 0deh, 2bh, 3fh, 75h, 02h, 0feh
         endif
         db      0c8h, 0b5h, 10h, 0e8h, 97h, 0feh, 0c3h
-far_33A31:
+L_33133:
 far_33443:
         if      FW_VERSION >= 120
         db      0a1h, 0ech, 2bh, 3dh, 00h, 00h, 75h, 01h, 0cbh, 48h, 74h, 0fh, 0a3h, 0ech, 2bh, 3bh
@@ -2624,14 +2624,14 @@ far_33C18:
         db      0feh, 0c8h, 0b5h, 10h, 0e8h, 0b6h, 0feh, 0a1h, 0dch, 2bh, 0b5h, 24h, 0e8h, 0aeh, 0feh, 0c3h
         db      0b5h, 24h, 0e8h, 0a8h, 0feh, 0c3h, 0feh, 0c8h, 83h, 3eh, 0deh, 2bh, 3fh, 75h, 02h, 0feh
         db      0c8h, 0b5h, 10h, 0e8h, 97h, 0feh, 0c3h
-far_33A31:
+L_33133:
         db      0a1h, 0dch, 2bh, 3dh, 00h, 00h, 75h, 01h, 0cbh
         db      48h, 74h, 0fh, 0a3h, 0dch, 2bh, 3bh, 06h, 0deh, 2bh, 74h, 01h, 0cbh, 0ffh, 0eh, 0dch
-L_32C16                         equ     $+10
+L_33156                         equ     $+10
         db      2bh, 0cbh, 83h, 3eh, 0deh, 2bh, 00h, 75h, 0eah, 0cbh, 0a1h, 0dch, 2bh, 3ch, 40h, 75h ; +..>.+.u....+<@u
         db      01h, 0cbh, 0feh, 0c0h, 0a3h, 0dch, 2bh, 3ch, 3fh, 75h, 01h, 0cbh, 3bh, 06h, 0deh, 2bh
         db      74h, 01h, 0cbh, 0ffh, 06h, 0dch, 2bh, 0cbh
-far_32C34:
+L_33174:
         db      8eh, 06h, 10h, 0fh, 26h, 80h, 3eh, 12h
         db      00h, 00h, 74h, 2ch, 0a1h, 0dch, 2bh, 2dh, 01h, 00h, 73h, 03h, 0b8h, 00h, 00h, 3bh
         db      06h, 0deh, 2bh, 74h, 1bh, 0ffh, 36h, 0dch, 2bh, 0e8h, 19h, 00h, 0cdh, 0d6h, 0cdh, 0e6h

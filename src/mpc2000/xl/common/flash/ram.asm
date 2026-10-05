@@ -2933,7 +2933,7 @@ d_a0_w_04312:
         db      2 dup (0)
 d_a0_w_04310:
         db      6 dup (0)
-d_a0_w_0431a:
+d_a0_w_04336:
         db      4 dup (0)
 d_p_433a:
         db      6 dup (0)
@@ -3100,7 +3100,7 @@ FREE_146C0:
         db      2 dup (0)
 d_a0_w_04852:
         db      2 dup (0)
-d_a1_w_04838:
+d_a1_w_04854:
         db      4 dup (0)
 d_a0_w_04858:
         db      4 dup (0)
@@ -3343,7 +3343,7 @@ d_a0_w_0575f:
         db      2 dup (0)
 d_a0_w_05761:
         db      2 dup (0)
-d_a0_w_05763:
+d_a0_w_0577f:
         db      2 dup (0)
 d_a0_w_05781:
         db      2 dup (0)

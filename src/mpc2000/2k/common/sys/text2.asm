@@ -3869,7 +3869,7 @@ L_01E5A:
 ; called from EXE
 misc_d61d:
         inc     cx
-        cmp     cx, 18h
+        cmp     cx, PGM_COUNT
         jl      loop_01E49
         pop     si
         pop     di
@@ -11846,7 +11846,7 @@ program_select:
         mov     bx, si
         shl     bx, 2
         les     bx, [bx+PGM_TABLE]
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     br_0591A
         mov     ax, si
         mov     byte ptr [PGM_SLOT], al
@@ -11951,7 +11951,7 @@ loop_05975:
         push    cs
         call    smem_dma_init
         inc     si
-        cmp     si, 18h
+        cmp     si, PGM_COUNT
         jl      loop_05975
         push    0
         nop
@@ -11993,11 +11993,11 @@ far_059BC:
 
 loop_059C2:
         les     si, [bx]
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jbe     br_059D6
         add     bx, 4
         inc     cx
-        cmp     cx, 18h
+        cmp     cx, PGM_COUNT
         jl      loop_059C2
         jmp     br_059DA
         db      90h
@@ -12250,10 +12250,10 @@ rep_memcpy_handler:
         push    di
         push    si
         mov     di, PGM_TABLE
-        mov     word ptr [bp-8], 18h
+        mov     word ptr [bp-8], PGM_COUNT
 loop_05C46:
         les     bx, [di]
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     br_05C96
         xor     bx, bx
         mov     word ptr [bp-4], 40h
@@ -12318,11 +12318,11 @@ smem_transfer_io:
         push    di
         push    si
         mov     di, PGM_TABLE
-        mov     word ptr [bp-6], 18h
+        mov     word ptr [bp-6], PGM_COUNT
 
 loop_05CC6:
         les     bx, [di]
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     br_05CEA
         xor     bx, bx
         mov     word ptr [bp-2], 40h
@@ -12799,13 +12799,13 @@ sample_gc:
         push    di
         push    si
         mov     bx, PGM_TABLE
-        mov     word ptr [bp-0ch], 18h
+        mov     word ptr [bp-0ch], PGM_COUNT
 
 T2_L_0607E:
         les     si, [bx]
         mov     di, si
         mov     word ptr [bp-0eh], es
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jbe     L_060C8
         mov     word ptr [bp-0ah], bx
         lea     ax, [di+1eh]
@@ -12885,12 +12885,12 @@ sample_unused_count:
         push    si
         mov     word ptr [bp-0eh], 0
         mov     bx, PGM_TABLE
-        mov     word ptr [bp-0ch], 18h
+        mov     word ptr [bp-0ch], PGM_COUNT
 
 L_0611A:
         les     si, [bx]
         mov     word ptr [bp-10h], es
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jbe     L_06162
         mov     word ptr [bp-0ah], bx
         lea     ax, [si+1eh]
@@ -13044,7 +13044,7 @@ pgm_assign_key:
         mov     bx, ax
         shl     bx, 2
         les     bx, [bx+PGM_TABLE]
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     X_0624C
         callf   TEXT1_SEG:pgm_assign_enter
         pop     ds
@@ -13156,7 +13156,7 @@ sequence_get_info:
         push    cs
         call    cmd_ratio_setup
         mov     es, word ptr [bp-6]
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         je      br_06336
         lea     ax, [si+PGM_NAME]
         mov     cx, ax
@@ -13194,7 +13194,7 @@ L_05F76:
 L_06366                         equ     $+1
         endif
         mov     cx, ax
-        cmp     ax, 18h
+        cmp     ax, PGM_COUNT
         jge     L_06395
         mov     bx, ax
         shl     bx, 2
@@ -13202,11 +13202,11 @@ L_06366                         equ     $+1
 
 loop_06375:
         les     si, [bx]
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jne     br_0638A
         add     bx, 4
         inc     cx
-        cmp     cx, 18h
+        cmp     cx, PGM_COUNT
         jl      loop_06375
         pop     ds
         pop     si
@@ -13240,7 +13240,7 @@ L_05FBA:
         add     bx, PGM_TABLE
 loop_063B8:
         les     si, [bx]
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jne     br_063CA
         sub     bx, 4
         dec     cx
@@ -13420,11 +13420,11 @@ L_064D9:
 
 loop_064EF:
         les     bx, [si]
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jne     br_06502
         add     si, 4
         inc     di
-        cmp     di, 18h
+        cmp     di, PGM_COUNT
         jl      loop_064EF
         jmp     br_06506
 
@@ -22375,17 +22375,17 @@ L_0ABA1:
         jmp     br_0AC3E
 
 L_0ABB8:
-        cmp     word ptr [bp-4], 18h
+        cmp     word ptr [bp-4], PGM_COUNT
         else
         jne     br_0AC3E
-        cmp     word ptr [bp-2], 18h
+        cmp     word ptr [bp-2], PGM_COUNT
         endif
         jl      br_0ABC3
         if      FW_VERSION = 172
-        mov     word ptr [bp-4], 17h
+        mov     word ptr [bp-4], PGM_COUNT-1
 
         else
-        mov     word ptr [bp-2], 17h
+        mov     word ptr [bp-2], PGM_COUNT-1
         endif
 br_0ABC3:
         if      FW_VERSION = 172
@@ -22525,12 +22525,12 @@ loop_0AC5F:
         or      dx, ax
         je      br_0ACF4
         mov     bx, PGM_TABLE
-        mov     word ptr [bp-0eh], 18h
+        mov     word ptr [bp-0eh], PGM_COUNT
 loop_0AC8C:
         les     si, [bx]
         mov     word ptr [PTR_MIDI_STATE], si
         mov     word ptr [PTR_MIDI_STATE+2], es
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jbe     br_0ACD9
         mov     word ptr [bp-8], bx
         xor     cx, cx
@@ -26096,12 +26096,12 @@ loop_0C85A:
 br_0C8C7:
         mov     byte ptr [B_9D5A], 0
         mov     bx, PGM_TABLE
-        mov     word ptr [bp-0ah], 18h
+        mov     word ptr [bp-0ah], PGM_COUNT
 
 loop_0C8D4:
         les     si, [bx]
         mov     di, si
-        cmp     word ptr es:[si], 2
+        cmp     word ptr es:[si], PGM_BLK_FREE
         jbe     br_0C94D
         mov     word ptr [bp-8], bx
         inc     byte ptr [B_9D5A]
@@ -26200,7 +26200,7 @@ loop_0C987:
         les     bx, [bx+PGM_TABLE]
         mov     si, bx
         mov     word ptr [bp-2], es
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     br_0C9B9
         lea     ax, [bp-6]
         push    ss
@@ -26220,7 +26220,7 @@ loop_0C987:
         je      loop_0C97C
 br_0C9B9:
         inc     word ptr [bp-6]
-        cmp     word ptr [bp-6], 18h
+        cmp     word ptr [bp-6], PGM_COUNT
         jl      loop_0C987
         mov     ax, 1
         pop     si

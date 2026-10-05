@@ -19941,7 +19941,7 @@ midi_realtime_start:
         mov     word ptr [bp-0ah], dx
         mov     es, dx
         mov     bx, ax
-        cmp     word ptr es:[bx], 2
+        cmp     word ptr es:[bx], PGM_BLK_FREE
         jbe     br_09E34
         push    cx
         push    word ptr [bp-4]

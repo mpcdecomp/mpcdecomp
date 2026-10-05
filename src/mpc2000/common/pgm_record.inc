@@ -13,9 +13,10 @@
 PGM_BLK_PARA            equ     000h    ; dw: arena block size PARAGRAPHS;
                                         ;   smem_io_helper chains 24 slots:
                                         ;   [bp-2]+=es:[bx] per segment
-PGM_BLK_FREE            equ     2       ; dw < threshold marks unused; 4x cmp checks;
+PGM_BLK_FREE            equ     2       ; dw, this or below marks the slot unused;
                                         ; sequence_get_info shows DATA:26EDh
                                         ; "(no program)    " instead of name
+PGM_COUNT               equ     24      ; PGM_TABLE's slots, "Prog. directory full(24 max)"
 PGM_ALLOC_PARA          equ     09eh    ; int38_call_9e: 9Eh*10h=09E0h
                                         ; = SIZEOF_PGM rounded up
 PGM_NAME                equ     002h    ; 16 chars + NUL; default DATA:1DC0h

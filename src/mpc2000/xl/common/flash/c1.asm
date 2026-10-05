@@ -14449,15 +14449,7 @@ br_45BEE:
         push    word ptr [bp-54h]
         push    word ptr [bp-18h]
         push    word ptr [bp-1ah]
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        endif
         mov     es, word ptr [bp-0eh]
         mov     word ptr es:[di+1ch], ax
         mov     word ptr es:[di+1eh], dx
@@ -14953,15 +14945,7 @@ br_46088:
         adc     dx, 0
         push    dx
         push    ax
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        endif
         mov     bx, ax
         mov     al, byte ptr [bx+C1_TBL_00C24]
         leave

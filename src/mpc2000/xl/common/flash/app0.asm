@@ -629,14 +629,12 @@ boot_set_segs:
         out     dx, al
         mov     al, 2
         out     0c0h, al
-        if      FW_VERSION >= 114
         mov     word ptr [A0_W_0269A], midi_rx_idle
+        if      FW_VERSION >= 114
         mov     word ptr [A0_W_02E26], midi2_rx_idle
         elseif  FW_VERSION >= 110
-        mov     word ptr [A0_W_0269A], midi_rx_idle
         mov     word ptr [A0_W_02E0A], midi2_rx_idle
         else
-        mov     word ptr [A0_W_0269A], midi_rx_idle
         mov     word ptr [A0_W_02E26], midi2_rx_idle
         endif
         sti
@@ -6639,11 +6637,7 @@ fn_038EA:
         jne     br_038F3
         jmp     br_03962
 br_038F3:
-        if      FW_VERSION >= 112
         mov     byte ptr [A0_B_02FF3], 0
-        else
-        mov     byte ptr [A0_B_02FF3], 0
-        endif
         mov     di, 3e8h
         sub     si, si
         call    X_014EE

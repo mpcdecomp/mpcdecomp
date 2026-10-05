@@ -421,15 +421,7 @@ ts_engine_block:
         push    word ptr [bp+1ah]
         push    8000h
         push    0
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        endif
         mov     word ptr [bp-2eh], ax
         mov     word ptr [bp-2ch], dx
         mov     es, word ptr [bp+8]
@@ -1167,15 +1159,7 @@ br_567A6:
         push    0
         mov     word ptr [bp-1ch], di
         mov     word ptr [bp-1ah], es
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        endif
         les     bx, [bp-1ch]
         mov     word ptr es:[bx+8], ax
         mov     word ptr es:[bx+0ah], dx
@@ -1199,15 +1183,7 @@ br_567A6:
         sbb     dx, word ptr [bp-6]
         push    dx
         push    ax
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        endif
         les     bx, [bp-1ch]
         mov     word ptr es:[bx+18h], ax
         mov     word ptr es:[bx+1ah], dx
@@ -1223,15 +1199,7 @@ br_567A6:
         push    ax
         push    7fh
         push    -1
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 111
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        elseif  FW_VERSION >= 110
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__aFuldiv-C0_SEG*16)
-        endif
         les     bx, [bp-1ch]
         mov     word ptr es:[bx+20h], ax
         mov     word ptr es:[bx+22h], dx
@@ -4365,15 +4333,13 @@ d_c2_w_00f9a:
         WIN_LABEL 53h, 25h, "the SET file"
         WIN_END
         if      FW_VERSION >= 110
-        if      FW_VERSION >= 112
         db      00h
 d_c2_tbl_01000:
+        if      FW_VERSION >= 112
         dw      (C2_BASE+L_4713C-C1_SEG*16)
 d_c2_tbl_01002:
         dw      C1_SEG
         else
-        db      00h
-d_c2_tbl_01000:
         db      86h
         db      8fh
 d_c2_tbl_01002:
@@ -5796,11 +5762,10 @@ d_c2_tbl_025de:
         dw      EP_FAR_4D270_OFF, C1_SEG
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4D280-C1_SEG*16), C1_SEG
-        if      FW_VERSION >= 114
         dw      EP_L_4CA90_OFF, C1_SEG
+        if      FW_VERSION >= 114
         dw      (C2_BASE+L_4D2A0-C1_SEG*16), C1_SEG
         else
-        dw      EP_L_4CA90_OFF, C1_SEG
         dw      (C2_BASE+L_4CAA0-C1_SEG*16), C1_SEG
         endif
         else
@@ -6055,11 +6020,7 @@ d_c2_w_02902:
         db      9ah, 0f4h, 28h, 3dh, 00h, 00h, 00h, 00h
         endif
         endif
-        if      FW_VERSION >= 114
         dw      EP_L_4D116_OFF, C1_SEG
-        else
-        dw      EP_L_4D116_OFF, C1_SEG
-        endif
 d_c2_w_02920:
         db      0d4h, 0ch, 0ch, 02h, 01h, 00h, 01h, 00h, 00h, 00h
 d_c2_w_0292a:
@@ -6453,11 +6414,7 @@ d_c2_tbl_02ea0:
         dw      (C2_BASE+L_4EBF8-C2_SEG*16)
 d_c2_tbl_02ea2:
         dw      C2_SEG
-        if      FW_VERSION >= 114
         dw      EP_L_4B968_OFF, C1_SEG
-        else
-        dw      EP_L_4B968_OFF, C1_SEG
-        endif
         dw      EP_FAR_4EBFE_OFF, C2_SEG
         else
         dw      (C2_BASE+L_4EBF8-C2_SEG*16)
@@ -6533,42 +6490,27 @@ d_c2_w_02f94:
         db      2dh, 16h, 12h
         db      03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h
         if      FW_VERSION >= 112
-        if      FW_VERSION >= 114
         dw      EP_C2_0902_OFF, C2_SEG
-        else
-        dw      EP_C2_0902_OFF, C2_SEG
-        endif
         dw      EP_FAR_4E9FA_OFF, EP_FAR_4E9FA_SEG
         dw      (C2_BASE+L_4EA9C-C2_SEG*16), C2_SEG
         dw      EP_L_4EA3A_OFF, C2_SEG
         else
         if      FW_VERSION >= 110
         dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, C2_SEG, EP_C2_0976_OFF, C2_SEG
-        dw      EP_FAR_4DAFA_OFF, C2_SEG
         else
         dw      EP_C2_0902_OFF, C2_SEG, EP_FAR_4E9FA_OFF, EP_FAR_4E9FA_SEG, EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
-        dw      EP_FAR_4DAFA_OFF, C2_SEG
         endif
+        dw      EP_FAR_4DAFA_OFF, C2_SEG
         endif
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
         db      00h
         db      00h, 00h, 00h
-        if      FW_VERSION >= 111
         dw      EP_L_4EDD6_OFF, C2_SEG
-        elseif  FW_VERSION >= 110
-        dw      EP_L_4EDD6_OFF, C2_SEG
-        else
-        dw      EP_L_4EDD6_OFF, C2_SEG
-        endif
         db      2dh, 1fh, 12h, 03h, 01h, 00h, 00h, 00h, 00h
         db      00h, 64h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4EA9C-C2_SEG*16), C2_SEG
-        if      FW_VERSION >= 114
         dw      EP_C2_0902_OFF, C2_SEG
-        else
-        dw      EP_C2_0902_OFF, C2_SEG
-        endif
         dw      EP_C2_0976_OFF, C2_SEG
         else
         dw      EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
@@ -6583,13 +6525,7 @@ d_c2_w_02f94:
         dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG
         dw      EP_FAR_4E1EA_OFF, EP_FAR_4E1EA_SEG
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 111
         dw      EP_L_4EDD6_OFF, C2_SEG
-        elseif  FW_VERSION >= 110
-        dw      EP_L_4EDD6_OFF, C2_SEG
-        else
-        dw      EP_L_4EDD6_OFF, C2_SEG
-        endif
         db      2dh, 28h, 1eh, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         dw      EP_C2_0976_OFF, C2_SEG
@@ -6601,31 +6537,17 @@ d_c2_w_02f94:
         dw      EP_L_4EBBE_OFF, EP_L_4EBBE_SEG
         dw      EP_FAR_4E1EA_OFF, EP_FAR_4E1EA_SEG
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 111
         dw      EP_L_4EDD6_OFF, C2_SEG
-        elseif  FW_VERSION >= 110
-        dw      EP_L_4EDD6_OFF, C2_SEG
-        else
-        dw      EP_L_4EDD6_OFF, C2_SEG
-        endif
         db      0a4h, 19h, 12h, 03h, 01h
         db      00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
         dw      EP_L_4EA3A_OFF, C2_SEG
         dw      EP_FAR_4E1EA_OFF, EP_FAR_4E1EA_SEG
-        if      FW_VERSION >= 114
         dw      EP_C2_0902_OFF, C2_SEG
-        else
-        dw      EP_C2_0902_OFF, C2_SEG
-        endif
         else
         dw      (C2_BASE+L_4EB10-C2_SEG*16), C2_SEG
-        if      FW_VERSION >= 110
         dw      EP_FAR_4DAFA_OFF, C2_SEG
-        else
-        dw      EP_FAR_4DAFA_OFF, C2_SEG
-        endif
         dw      (C2_BASE+far_4E1EA-C2_SEG*16), C2_SEG, EP_C2_0902_OFF, C2_SEG
         endif
         dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG
@@ -6657,11 +6579,7 @@ d_c2_w_02f94:
         dw      EP_L_4EBBE_OFF, EP_L_4EBBE_SEG
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
         else
-        if      FW_VERSION >= 110
         dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG, EP_FAR_4DAFA_OFF, C2_SEG
-        else
-        dw      EP_FAR_4EB84_OFF, EP_FAR_4EB84_SEG, EP_FAR_4DAFA_OFF, C2_SEG
-        endif
         dw      (C2_BASE+L_4E25E-C2_SEG*16), C2_SEG
         dw      (C2_BASE+L_4EB10-C2_SEG*16), C2_SEG
         endif
@@ -7484,22 +7402,16 @@ d_c0_w_03eda:
 d_c2_b_03edc:
         db      00h, 00h
 d_c0_tbl_03ede:
-        if      FW_VERSION >= 112
         dw      EP_L_51062_OFF
 d_c0_tbl_03ee0:
         dw      EP_MIXER_F1_SEG
 d_c0_tbl_03ee2:
+        if      FW_VERSION >= 112
         dw      EP_L_510E6_OFF
 d_c0_tbl_03ee4:
         dw      C2_SEG, EP_L_5117C_OFF, EP_L_5117C_SEG, EP_L_51208_OFF, C2_SEG, EP_L_512A6_OFF, EP_L_512A6_SEG, EP_L_5132E_OFF, C2_SEG, EP_L_513C0_OFF, C2_SEG, EP_L_5142E_OFF, C2_SEG
         dw      EP_L_514AE_OFF, C2_SEG, EP_L_51536_OFF, EP_L_51536_SEG, EP_L_515C8_OFF, C2_SEG, EP_L_51624_OFF, C2_SEG
-d_c2_w_03f0e:
-        db      01h, 00h, 00h
         else
-        dw      EP_L_51062_OFF
-d_c0_tbl_03ee0:
-        dw      EP_MIXER_F1_SEG
-d_c0_tbl_03ee2:
         db      46h
         db      2fh
 d_c0_tbl_03ee4:
@@ -7537,9 +7449,9 @@ d_c0_tbl_03ee4:
         else
         db      28h, 34h, 26h, 4dh, 84h, 34h, 26h, 4dh
         endif
+        endif
 d_c2_w_03f0e:
         db      01h, 00h, 00h
-        endif
         db      00h, 00h, 02h
         dw      EP_L_51050_OFF, EP_L_51050_SEG
         if      FW_VERSION >= 110
@@ -7777,8 +7689,8 @@ d_c2_w_041b2:
         db      32h
         dw      EP_FAR_519EE_OFF, EP_FAR_519EE_SEG
         db      37h ; 7>:.N..:.N4.:.N.
-        if      FW_VERSION >= 112
         dw      EP_L_51B9E_OFF, C2_SEG
+        if      FW_VERSION >= 112
         db      15h
         dw      EP_L_51BFE_OFF, EP_L_51BFE_SEG
         db      34h
@@ -7786,7 +7698,6 @@ d_c2_w_041b2:
         db      00h
         db      00h, 00h, 00h, 00h
         else
-        dw      EP_L_51B9E_OFF, C2_SEG
 TBL_WINKEYS_5BA86:
         WIN_KEY   WIN_K_OPEN, EP_MIXER_F1_SEG, EP_L_51BFE_OFF
         WIN_KEY   WIN_K_REFRESH, EP_MIXER_F1_SEG, EP_L_51C10_OFF

@@ -270,8 +270,6 @@ d_a0_tbl_00b65:
         db      7fh, 00h, 07h, 0eh, 14h, 1bh
         db      "\"(/6<MJPW^d"
 
-        if      FW_VERSION < 114
-        endif
 FREE_109F5:
         PAD_TO  011B1h-062bh, 000h
 d_a0_w_00b86:
@@ -596,7 +594,6 @@ d_a0_b_02069:
         db      5ah
 
 ; 0x11ef6-0x12062, 364 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_11EF6:
         db      4 dup (0)
 d_a0_w_0208a:
@@ -606,17 +603,9 @@ d_a0_w_02070:
 d_a0_b_020e8:
         db      1 dup (0)
 d_a0_w_020e9:
+        if      FW_VERSION >= 114
         PAD_TO  021F2h, 000h
         else
-FREE_11EF6:
-        db      4 dup (0)
-d_a0_w_0208a:
-        db      2 dup (0)
-d_a0_w_02070:
-        db      92 dup (0)
-d_a0_b_020e8:
-        db      1 dup (0)
-d_a0_w_020e9:
         if      FW_VERSION >= 110
         PAD_TO  021D6h, 000h
         else
@@ -628,12 +617,12 @@ d_a0_w_021f2:
         db      06h
 
 ; 0x12063-0x1250a, 1191 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_12063:
         db      1 dup (0)
 d_a0_w_021f4:
         db      2 dup (0)
 d_a0_w_021f6:
+        if      FW_VERSION >= 114
         db      3 dup (0)
 d_a0_b_021f9:
         db      1 dup (0)
@@ -684,11 +673,6 @@ d_a0_b_0267c:
 d_a0_b_0267d:
         PAD_TO  0269Ah, 000h
         else
-FREE_12063:
-        db      1 dup (0)
-d_a0_w_021f4:
-        db      2 dup (0)
-d_a0_w_021f6:
         db      4 dup (0)
 d_a0_b_021fa:
         db      256 dup (0)
@@ -776,7 +760,6 @@ d_a0_b_026b8:
         db      04h, 08h, 10h, 20h, 40h, 80h
 
 ; 0x12530-0x1274d, 541 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_12530:
         db      2 dup (0)
 d_a0_w_026c2:
@@ -810,41 +793,9 @@ d_a0_b_028d6:
 d_a0_b_028d7:
         db      1 dup (0)
 d_a0_w_028bc:
+        if      FW_VERSION >= 114
         PAD_TO  028DDh, 000h
         else
-FREE_12530:
-        db      2 dup (0)
-d_a0_w_026c2:
-        db      254 dup (0)
-d_a0_w_027c0:
-        db      2 dup (0)
-d_a0_w_027c2:
-        db      2 dup (0)
-d_a0_b_027c4:
-        db      256 dup (0)
-d_a0_w_028c4:
-        db      2 dup (0)
-d_a0_w_028c6:
-        db      4 dup (0)
-d_p_28ca:
-        db      2 dup (0)
-d_p_28cc:
-        db      2 dup (0)
-d_a0_w_028ce:
-        db      4 dup (0)
-d_a0_w_028b6:
-        db      1 dup (0)
-d_a0_b_028d3:
-        db      1 dup (0)
-d_a0_b_028d4:
-        db      1 dup (0)
-d_a0_b_028d5:
-        db      1 dup (0)
-d_a0_b_028d6:
-        db      1 dup (0)
-d_a0_b_028d7:
-        db      1 dup (0)
-d_a0_w_028bc:
         if      FW_VERSION >= 110
         PAD_TO  028C1h, 000h
         else
@@ -860,7 +811,6 @@ d_a0_w_028e5:
         db      49h, 00h, 47h, 00h, 3bh, 00h, 3bh ; ....)(!!I.G.;.;
 
 ; 0x1275c-0x12c96, 1338 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_1275C:
         db      1 dup (0)
 d_a0_w_028ed:
@@ -904,51 +854,9 @@ d_a0_w_02de0:
 d_p_2de4:
         db      64 dup (0)
 d_a0_w_midi2_sysex_ptr:
+        if      FW_VERSION >= 114
         PAD_TO  02E26h, 000h
         else
-FREE_1275C:
-        db      1 dup (0)
-d_a0_w_028ed:
-        db      16 dup (0)
-d_a0_w_028fd:
-        db      16 dup (0)
-d_a0_w_0290d:
-        db      16 dup (0)
-d_a0_w_0291d:
-        db      16 dup (0)
-d_a0_w_0292d:
-        db      32 dup (0)
-d_a0_b_0294d:
-        db      1 dup (0)
-d_a0_w_02932:
-        db      128 dup (0)
-d_a0_b_029ce:
-        db      256 dup (0)
-d_a0_w_02ace:
-        db      2 dup (0)
-d_a0_w_02ad0:
-        db      2 dup (0)
-d_a0_w_02ad2:
-        db      2 dup (0)
-d_a0_w_02ad4:
-        db      254 dup (0)
-d_a0_w_02bd2:
-        db      2 dup (0)
-d_a0_w_02bd4:
-        db      260 dup (0)
-d_a0_w_02cd8:
-        db      2 dup (0)
-d_a0_w_02cda:
-        db      4 dup (0)
-d_a0_w_02cde:
-        db      256 dup (0)
-d_a0_w_02dde:
-        db      2 dup (0)
-d_a0_w_02de0:
-        db      4 dup (0)
-d_p_2de4:
-        db      64 dup (0)
-d_a0_w_midi2_sysex_ptr:
         if      FW_VERSION >= 110
         PAD_TO  02E0Ah, 000h
         else
@@ -989,8 +897,8 @@ d_a0_w_02e34:
         db      0bh, 0bh
 
 ; 0x12d18-0x12d80, 104 x 0ah -- tail of the preceding 0ah/0bh table
-        if      FW_VERSION >= 114
 FREE_12D18:
+        if      FW_VERSION >= 114
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  02F10h-03eh, 00ah
 d_a2_b_02ee2:
@@ -1005,7 +913,6 @@ d_a2_b_02ee2:
 d_a2_b_02ee5:
         PAD_TO  02F10h, 00ah
         else
-FREE_12D18:
         if      FW_VERSION >= 110
         PAD_TO  02EF4h-022h, 00ah
 d_a2_b_02ee2:
@@ -1104,9 +1011,9 @@ d_a0_b_03017:
         endif
 
 ; 0x12ea5-0x12fb0, 267 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_12EA5:
         db      3 dup (0)
+        if      FW_VERSION >= 114
 d_a0_w_03038:
         db      10 dup (0)
 d_a0_w_03042:
@@ -1184,8 +1091,6 @@ d_p_313c:
 d_p_313e:
         PAD_TO  03140h, 000h
         else
-FREE_12EA5:
-        db      3 dup (0)
         if      FW_VERSION >= 112
 d_a0_w_03038:
         db      10 dup (0)
@@ -1425,7 +1330,6 @@ d_p_313e:
         db      27h
 
 ; 0x12fb1-0x13112, 353 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_12FB1:
         db      37 dup (0)
 d_a0_w_0314a:
@@ -1437,6 +1341,7 @@ d_a0_w_03190:
 d_a0_w_031a2:
         db      6 dup (0)
 d_a1_w_0318c:
+        if      FW_VERSION >= 114
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  032A2h-080h, 000h
 d_a2_w_03232:
@@ -1447,17 +1352,6 @@ d_a2_w_03232:
         endif
         PAD_TO  032A2h, 000h
         else
-FREE_12FB1:
-        db      37 dup (0)
-d_a0_w_0314a:
-        db      30 dup (0)
-d_a0_w_03168:
-        db      12 dup (0)
-d_a0_w_03190:
-        db      18 dup (0)
-d_a0_w_031a2:
-        db      6 dup (0)
-d_a1_w_0318c:
         if      FW_VERSION >= 112
         PAD_TO  03286h-064h, 000h
 d_a2_w_03232:
@@ -1476,7 +1370,6 @@ d_a2_w_03232:
         db      27h
 
 ; 0x13113-0x13274, 353 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_13113:
         db      37 dup (0)
 d_a0_w_032c8:
@@ -1489,6 +1382,7 @@ d_a1_w_03308:
         db      2 dup (0)
 d_a1_w_0330a:
         db      8 dup (0)
+        if      FW_VERSION >= 114
 d_a1_w_0332e:
         db      2 dup (0)
 d_a1_w_03330:
@@ -1506,18 +1400,6 @@ d_a0_w_03364:
 d_a0_w_033e2:
         PAD_TO  03404h, 000h
         else
-FREE_13113:
-        db      37 dup (0)
-d_a0_w_032c8:
-        db      66 dup (0)
-d_a1_w_032ee:
-        db      24 dup (0)
-d_a1_w_03306:
-        db      2 dup (0)
-d_a1_w_03308:
-        db      2 dup (0)
-d_a1_w_0330a:
-        db      8 dup (0)
 d_a1_w_03312:
         db      2 dup (0)
 d_a1_w_03314:
@@ -1566,10 +1448,10 @@ d_a0_w_033e2:
         db      27h
 
 ; 0x13275-0x133d6, 353 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_13275:
         db      37 dup (0)
 d_a0_w_0342a:
+        if      FW_VERSION >= 114
         db      27 dup (0)
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
 d_a2_b_03455:
@@ -1632,9 +1514,6 @@ d_a2_w_034b2:
         endif
         PAD_TO  03566h, 000h
         else
-FREE_13275:
-        db      37 dup (0)
-d_a0_w_0342a:
         db      55 dup (0)
         if      (FW_VERSION >= 112) && (FW_VERSION < 114)
 d_a2_b_03455:
@@ -1695,15 +1574,12 @@ d_a2_w_034b2:
         db      27h
 
 ; 0x133d7-0x13538, 353 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_133D7:
         db      37 dup (0)
 d_a0_w_0358c:
+        if      FW_VERSION >= 114
         PAD_TO  036C8h, 000h
         else
-FREE_133D7:
-        db      37 dup (0)
-d_a0_w_0358c:
         if      FW_VERSION >= 112
         PAD_TO  036ACh, 000h
         elseif  FW_VERSION >= 110
@@ -1718,7 +1594,6 @@ d_a2_w_0368c:
         db      27h
 
 ; 0x13539-0x13619, 224 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_13539:
         db      103 dup (0)
 d_a0_w_03714:
@@ -1744,6 +1619,7 @@ d_a0_w_03748:
 d_a0_w_0374e:
         db      6 dup (0)
 d_a0_w_03754:
+        if      FW_VERSION >= 114
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
 d_a2_w_03764:
         endif
@@ -1822,31 +1698,6 @@ d_a0_b_0378b:
 d_p_37a8:
         PAD_TO  037A9h, 000h
         else
-FREE_13539:
-        db      103 dup (0)
-d_a0_w_03714:
-        db      2 dup (0)
-d_a0_w_03716:
-        db      2 dup (0)
-d_a0_w_03718:
-        db      2 dup (0)
-d_a0_w_0371a:
-        db      2 dup (0)
-d_a0_w_0371c:
-        db      2 dup (0)
-d_a0_w_0371e:
-        db      2 dup (0)
-d_a0_w_03720:
-        db      4 dup (0)
-d_a0_w_03740:
-        db      2 dup (0)
-d_a0_w_03742:
-        db      6 dup (0)
-d_a0_w_03748:
-        db      6 dup (0)
-d_a0_w_0374e:
-        db      6 dup (0)
-d_a0_w_03754:
         db      6 dup (0)
 d_a0_w_0375a:
         db      22 dup (0)
@@ -1992,15 +1843,12 @@ d_a2_w_03800:
         db      "fghijklmnopqrstuvwxyz{}"
 
 ; 0x136b5-0x137b0, 251 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_136B5:
         db      1 dup (0)
 d_a0_w_03846:
+        if      FW_VERSION >= 114
         PAD_TO  03940h, 000h
         else
-FREE_136B5:
-        db      1 dup (0)
-d_a0_w_03846:
         if      FW_VERSION >= 112
         PAD_TO  03924h, 000h
         elseif  FW_VERSION >= 110
@@ -2019,11 +1867,10 @@ d_a2_tbl_03b72:
         db      27h
 
 ; 0x137b1-0x13912, 353 bytes of 00h -- unverified, do not assume free
-        if      FW_VERSION >= 114
 FREE_137B1:
+        if      FW_VERSION >= 114
         PAD_TO  03AA2h, 000h
         else
-FREE_137B1:
         if      FW_VERSION >= 112
         PAD_TO  03A86h, 000h
         elseif  FW_VERSION >= 110
@@ -2036,7 +1883,6 @@ FREE_137B1:
         db      27h
 
 ; 0x13913-0x1417b, 2152 bytes of 00h: BSS
-        if      FW_VERSION >= 114
 FREE_13913:
         db      93 dup (0)
 d_a0_w_03ae4:
@@ -2044,6 +1890,7 @@ d_a0_w_03ae4:
 d_a0_w_03b0a:
         db      8 dup (0)
 d_a0_w_03af6:
+        if      FW_VERSION >= 114
         db      60 dup (0)
         if      (FW_VERSION >= 114) && (FW_VERSION < 120)
 d_a2_w_03b5e:
@@ -2342,13 +2189,6 @@ d_a2_b_03f7b:
 d_a0_w_seq_segment:
         PAD_TO  0430Bh, 000h
         else
-FREE_13913:
-        db      93 dup (0)
-d_a0_w_03ae4:
-        db      10 dup (0)
-d_a0_w_03b0a:
-        db      8 dup (0)
-d_a0_w_03af6:
         db      88 dup (0)
         if      (FW_VERSION >= 112) && (FW_VERSION < 114)
 d_a2_w_03b5e:
@@ -3306,16 +3146,6 @@ d_a2_tbl_066a2:
 
 d_a2_w_075a2:
         db      0a2h, 57h
-d_a2_w_075a4:
-        db      0dah, 07h
-d_a2_b_075a6:
-        db      00h
-d_a2_b_075a7:
-        db      00h
-d_a2_b_075a8:
-        db      00h
-d_a2_b_075a9:
-        db      00h
         else
 FREE_155AE:
         db      41 dup (0)
@@ -3401,6 +3231,7 @@ d_a2_tbl_066a2:
         endif
 d_a2_w_075a2:
         dw      P_57A2
+        endif
 d_a2_w_075a4:
         db      0dah, 07h
 d_a2_b_075a6:
@@ -3411,7 +3242,6 @@ d_a2_b_075a8:
         db      00h
 d_a2_b_075a9:
         db      00h
-        endif
 d_a2_b_075aa:
         TBL_BITS_NOTE_NAMES_DATA
 d_a2_b_0760e:
@@ -3526,11 +3356,10 @@ d_a0_b_07ef1:
 d_a0_b_07ef2:
         db      08h
 ; 0x17d63-0x17e5e, 251 bytes of 00h -- unverified, do not assume free
-        if      FW_VERSION >= 114
 FREE_17D63:
+        if      FW_VERSION >= 114
         PAD_TO  07FEEh, 000h
         else
-FREE_17D63:
         if      FW_VERSION >= 112
 ; 0x179b3-0x19f45, 9618 bytes of 00h -- unverified, do not assume free
         PAD_TO  07FD2h, 000h

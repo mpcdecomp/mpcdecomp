@@ -30,11 +30,7 @@ d_a3_w_00f18:
         db      5bh, 10h
         endif
 d_a3_w_00f1a:
-        if      FW_VERSION >= 112
         dw      EP_L_27B78_OFF, APP3_SEG
-        else
-        dw      EP_L_27B78_OFF, APP3_SEG
-        endif
 d_a3_w_00f1e:
         if      FW_VERSION >= 111
         db      0b6h, 13h
@@ -400,17 +396,12 @@ d_a3_w_01594:
         else
         db      0e6h, 54h
         endif
-        if      FW_VERSION >= 112
 d_a3_w_01596:
+        if      FW_VERSION >= 112
         dw      (APP3_BASE+L_2C12B-APP3_SEG*16), APP3_SEG
 d_a3_w_0159a:
         db      69h, 59h
-d_a3_w_0159c:
-        db      00h, 00h
-d_a3_b_0159e:
-        db      00h
         else
-d_a3_w_01596:
         dw      EP_L_2B859_OFF, APP3_SEG
 d_a3_w_0159a:
         if      FW_VERSION >= 111
@@ -418,11 +409,11 @@ d_a3_w_0159a:
         else
         db      59h, 59h
         endif
+        endif
 d_a3_w_0159c:
         db      00h, 00h
 d_a3_b_0159e:
         db      00h
-        endif
         else
         db      0bch, 54h
 d_a3_w_01596:
@@ -542,13 +533,12 @@ d_a3_b_0184f:
         db      01h
         TBL_EDIT_OP_NAMES_DATA
         db      00h, 00h, 00h, 00h, 00h, 00h
-        if      FW_VERSION >= 112
 d_a3_fp_01880:
+        if      FW_VERSION >= 112
         dw      (APP3_BASE+L_2CB76-APP3_SEG*16), APP3_SEG
 d_a3_w_01884:
         db      57h, 6ch
         else
-d_a3_fp_01880:
         dw      EP_L_2CB76_OFF, APP3_SEG
 d_a3_w_01884:
         if      FW_VERSION >= 111
@@ -1785,8 +1775,8 @@ FREE_25497:
         db      "TRACK-"
 
 ; 0x262ad-0x2661c, 879 bytes of 00h -- unverified, do not assume free
-        if      FW_VERSION >= 114
 FREE_262AD:
+        if      FW_VERSION >= 114
         if      FW_VERSION >= 120
         PAD_TO  (APPDATA_SEG*16+03ECCh-SEGBASE)-02cch, 000h
 d_a3_tbl_03c00:
@@ -1796,7 +1786,6 @@ d_a3_tbl_03c00:
         endif
 
         else
-FREE_262AD:
         if      FW_VERSION >= 110
 ; 0x25f0b-0x25f68, 93 bytes of 00h -- unverified, do not assume free
         PAD_TO  APPDATA_SEG*16+03EBCh-SEGBASE, 000h
@@ -3576,7 +3565,6 @@ L_27930                         equ     $+3
         KEY_DOWN        20h, EP_L_270A9_OFF, APP3_SEG
         endif
         KEY_DOWN        12h, EP_L_27A10_OFF, APP3_SEG
-        KEY_DOWN        13h, EP_L_26EAC_OFF, APP3_SEG
         else
         KEY_DOWN        20h, EP_L_26EC8_OFF, APP3_SEG
         KEY_DOWN        1ah, EP_APP3_10FE_OFF, APP3_SEG
@@ -3645,8 +3633,8 @@ L_27930:
         int     7eh
         KEY_DOWN        20h, EP_L_270A9_OFF, APP3_SEG
         KEY_DOWN        12h, (APP3_BASE+L_27A10-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        13h, EP_L_26EAC_OFF, APP3_SEG
         endif
+        KEY_DOWN        13h, EP_L_26EAC_OFF, APP3_SEG
         KEY_DOWN        14h, (APP3_BASE+L_272DD-APP3_SEG*16), APP3_SEG
         KEY_DOWN        16h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         db      0cbh
@@ -3729,11 +3717,7 @@ L_271F0:
         callf   [A3_FP_00F1A]
         retf
         else
-        if      FW_VERSION >= 112
         KEY_DOWN        14h, EP_APP3_1424_OFF, APP3_SEG
-        else
-        KEY_DOWN        14h, EP_APP3_1424_OFF, APP3_SEG
-        endif
         db      0ffh, 1eh, 1ah, 0fh, 0cbh
 L_27203:
         endif
@@ -3809,11 +3793,7 @@ L_273D6:
         endif
         db      18h, 0cdh, 7eh
         endif
-        if      FW_VERSION >= 112
         KEY_DOWN        19h, EP_L_27B78_OFF, APP3_SEG
-        else
-        KEY_DOWN        19h, EP_L_27B78_OFF, APP3_SEG
-        endif
         KEY_DOWN        1ah, 0000h, 0000h
         if      FW_VERSION < 114
         db      0cbh
@@ -5101,8 +5081,8 @@ far_287C1:
         mov     dx, 10h
         mov     di, intcb_28817-APP3_CSBASE
         int     7fh
-        if      FW_VERSION >= 110
         KEY_CURSOR      EP_FAR_286AC_OFF, EP_FAR_286AC_SEG, EP_ISR_288A2_OFF, APP3_SEG, (APP3_BASE+L_2888C-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_28897-APP3_SEG*16), APP3_SEG
+        if      FW_VERSION >= 110
         retf
 intcb_28817:
         call    fn_28792
@@ -5619,7 +5599,6 @@ L_2843F:
         KEY_DOWN        20h, EP_L_28466_OFF, APP3_SEG
         endif
         else
-        KEY_CURSOR      EP_FAR_286AC_OFF, EP_FAR_286AC_SEG, EP_ISR_288A2_OFF, APP3_SEG, (APP3_BASE+L_2888C-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_28897-APP3_SEG*16), APP3_SEG
         db      0cbh
 intcb_28817:
         db      0e8h, 78h, 0ffh, 83h, 0fbh, 00h, 75h, 01h, 0cbh, 26h, 3bh, 1eh, 14h, 00h, 75h
@@ -6187,7 +6166,6 @@ L_288AC:
         int     0a4h
         endif
         KEY_DOWN        20h, EP_FAR_290D9_OFF, APP3_SEG
-        KEY_DOWN        12h, (APP3_BASE+L_29305-APP3_SEG*16), APP3_SEG
         else
         mov     word ptr [A3_W_01206], 252ah
         FIELD_WHEEL     ds, 11ech, 0, 0, 50h, field_cb_none-APP3_CSBASE
@@ -6291,8 +6269,8 @@ L_28783                         equ     $+0ah
         db      80h, 0fch, 00h, 74h, 01h, 0cbh, 8eh, 06h, 10h, 0fh, 26h, 0a1h, 1ah, 00h, 48h, 0a3h
         db      0ach, 12h, 0a3h, 0aeh, 12h, 0cdh, 0a4h
         KEY_DOWN        20h, (APP3_BASE+far_290D9-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        12h, (APP3_BASE+L_29305-APP3_SEG*16), APP3_SEG
         endif
+        KEY_DOWN        12h, (APP3_BASE+L_29305-APP3_SEG*16), APP3_SEG
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         if      FW_VERSION >= 111
         KEY_DOWN        14h, (APP3_BASE+L_291EC-APP3_SEG*16), APP3_SEG
@@ -6370,9 +6348,6 @@ L_29305:
         db      0eh
         call    far_294C3
         KEY_DOWN        20h, EP_L_28D7F_OFF, APP3_SEG
-        KEY_DOWN        11h, (APP3_BASE+FAR_295BC-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
-        KEY_DOWN        14h, (APP3_BASE+FAR_296F1-APP3_SEG*16), APP3_SEG
         else
         if      FW_VERSION >= 110
         db      0cbh
@@ -6529,10 +6504,10 @@ L_29305:
         push    cs
         call    L_28CF3
         KEY_DOWN        20h, (APP3_BASE+L_28D7F-APP3_SEG*16), APP3_SEG
+        endif
         KEY_DOWN        11h, (APP3_BASE+FAR_295BC-APP3_SEG*16), APP3_SEG
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        14h, (APP3_BASE+FAR_296F1-APP3_SEG*16), APP3_SEG
-        endif
         KEY_DOWN        16h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        27h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         db      0cbh
@@ -8280,8 +8255,6 @@ cb_2A210:
         DISP_CURSOR     0a0h, 22h, 13h
         ret
 L_29A49:
-        if      FW_VERSION >= 111
-        endif
         mov     word ptr [A3_W_012EF], L_29A49-APP3_CSBASE
         mov     word ptr [A3_W_012F3], cb_2A1F5-APP3_CSBASE
         call    fn_2A0F6
@@ -8433,8 +8406,6 @@ L_29B59:
 L_2A32F:
         if      FW_VERSION >= 120
         elseif  FW_VERSION >= 114
-        elseif  FW_VERSION >= 112
-L_29A42:
         elseif  FW_VERSION >= 111
 L_29A42:
         else
@@ -8454,8 +8425,6 @@ L_29A42:
 L_2A349:
         if      FW_VERSION >= 120
         elseif  FW_VERSION >= 114
-        elseif  FW_VERSION >= 112
-L_29A79:
         elseif  FW_VERSION >= 111
 L_29A79:
         else
@@ -8780,7 +8749,6 @@ L_2A742:
 L_2A167:
         if      FW_VERSION >= 120
 L_29FAF:
-        else
         endif
         call    L_2A359
         mov     word ptr [A3_W_013A0], cb_2A5C5-APP3_CSBASE
@@ -8916,8 +8884,6 @@ L_2A618:
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_29EE9-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG
         endif
         db      0cbh
-        if      FW_VERSION < 112
-        endif
 L_29EE9:
         db      80h, 3eh, 71h, 07h, 03h, 74h, 05h, 0eh, 0e8h, 45h, 00h, 0cbh, 0eh, 0e8h, 7eh
 L_29DFA                         equ     $+2
@@ -8991,8 +8957,6 @@ L_29F77:
         KEY_CURSOR      (APP3_BASE+L_297E7-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2A618-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29FA5-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_29FAF-APP3_SEG*16), APP3_SEG
         endif
         db      0cbh
-        if      FW_VERSION < 112
-        endif
 L_29FA5:
         db      80h, 3eh, 71h
 far_29EAF                       equ     $+7
@@ -9282,8 +9246,6 @@ far_2A116:
         if      FW_VERSION >= 110
         if      FW_VERSION >= 114
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2A286-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+far_2A14E-APP3_SEG*16), APP3_SEG
-        elseif  FW_VERSION >= 112
-        KEY_CURSOR      0000h, 0000h, EP_APP3_42A6_OFF, APP3_SEG, 0000h, 0000h, (APP3_BASE+FAR_2A14E-APP3_SEG*16), APP3_SEG
         else
         KEY_CURSOR      0000h, 0000h, EP_APP3_42A6_OFF, APP3_SEG, 0000h, 0000h, (APP3_BASE+FAR_2A14E-APP3_SEG*16), APP3_SEG
         endif
@@ -10487,15 +10449,12 @@ L_2B467:
 br_2B46D:
         int     0a4h
         KEY_DOWN        20h, (APP3_BASE+L_2B494-APP3_SEG*16), APP3_SEG
-        if      FW_VERSION >= 114
         KEY_DOWN        13h, EP_APP3_4F0A_OFF, APP3_SEG
         KEY_DOWN        16h, EP_APP3_4F0A_OFF, APP3_SEG
         KEY_DOWN        27h, EP_APP3_4F0A_OFF, APP3_SEG
+        if      FW_VERSION >= 114
         db      0ffh, 1eh, 7ch, 15h
         else
-        KEY_DOWN        13h, EP_APP3_4F0A_OFF, APP3_SEG
-        KEY_DOWN        16h, EP_APP3_4F0A_OFF, APP3_SEG
-        KEY_DOWN        27h, EP_APP3_4F0A_OFF, APP3_SEG
         db      0ffh, 1eh
         jl      br_2B49D
         endif
@@ -10557,8 +10516,8 @@ far_2B5B9:
         db      4dh, 8eh, 06h, 10h, 0fh, 26h, 0a1h, 30h, 00h, 0b3h, 01h, 0b7h, 00h, 0bah, 0e6h, 03h
         if      FW_VERSION >= 114
         db      0bfh, 36h, 4eh, 0cdh, 7fh
-        if      FW_VERSION >= 120
         KEY_CURSOR      0000h, 0000h, 0000h, 0000h, 0000h, 0000h, EP_APP3_4E5A_OFF, APP3_SEG
+        if      FW_VERSION >= 120
         db      0cbh, 8eh, 06h, 10h, 0fh, 26h, 3bh, 06h, 1ah
         db      00h, 72h, 05h, 26h, 0a1h, 1ah, 00h, 48h, 26h, 0a3h, 30h, 00h, 26h, 3bh, 06h, 32h ; .r.&...H&.0.&;.2
         db      00h, 72h, 04h, 26h, 0a3h, 32h, 00h, 0eh
@@ -10587,7 +10546,6 @@ L_2B67A:
         call    far_2AE92
         db      0cbh
         else
-        KEY_CURSOR      0000h, 0000h, 0000h, 0000h, 0000h, 0000h, EP_APP3_4E5A_OFF, APP3_SEG
         db      0cbh, 8eh, 06h, 10h, 0fh, 26h, 3bh, 06h, 1ah, 00h, 72h, 05h, 26h, 0a1h, 1ah
         db      00h, 48h, 26h, 0a3h, 30h, 00h, 26h, 3bh, 06h, 32h, 00h, 72h, 04h, 26h, 0a3h, 32h ; .H&.0.&;.2.r.&.2
         db      00h, 0eh, 0e8h, 0b0h, 0ffh, 0cbh
@@ -11459,11 +11417,7 @@ br_2BFD4:
         KEY_DOWN        14h, EP_FAR_2B23C_OFF, APP3_SEG
         endif
         retf
-        if      FW_VERSION < 110
-        endif
 far_2B23C:
-        if      FW_VERSION >= 110
-        endif
         mov     word ptr [A3_W_01886], 0ffh
         call    fn_2BF52
         mov     es, word ptr [A3_W_00F10]
@@ -12308,8 +12262,8 @@ L_2C6D1:
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        16h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        27h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
-        if      FW_VERSION >= 110
         KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2C71C-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2C6A3-APP3_SEG*16), APP3_SEG, EP_FAR_2C688_OFF, APP3_SEG
+        if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         KEY_DOWN        20h, (APP3_BASE+L_2C54C-APP3_SEG*16), APP3_SEG
         KEY_WHEEL2      (APP3_BASE+L_2C6A3-APP3_SEG*16), APP3_SEG, EP_FAR_2C688_OFF, APP3_SEG
@@ -12331,7 +12285,6 @@ L_2BE2C:
         endif
         endif
         else
-        KEY_CURSOR      0000h, 0000h, (APP3_BASE+L_2C71C-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2C6A3-APP3_SEG*16), APP3_SEG, EP_FAR_2C688_OFF, APP3_SEG
         KEY_DOWN        20h, (APP3_BASE+L_2C54C-APP3_SEG*16), APP3_SEG
         KEY_WHEEL2      (APP3_BASE+L_2C6A3-APP3_SEG*16), APP3_SEG, EP_FAR_2C688_OFF, APP3_SEG
         db      0cbh
@@ -12496,7 +12449,6 @@ L_2C803                         equ     $+8
         db      0c6h, 17h, 0cbh, 5eh, 56h, 83h, 0eeh, 03h, 89h, 36h, 0c6h, 17h, 0cdh, 0a4h
         KEY_DOWN        20h, EP_L_2BF70_OFF, APP3_SEG
         endif
-        KEY_DOWN        11h, (APP3_BASE+L_2CB11-APP3_SEG*16), APP3_SEG
         else
         KEY_CURSOR      (APP3_BASE+L_2C71C-APP3_SEG*16), APP3_SEG, 0000h, 0000h, (APP3_BASE+L_2C6A3-APP3_SEG*16), APP3_SEG, EP_FAR_2C688_OFF, APP3_SEG
         KEY_DOWN        20h, (APP3_BASE+L_2C54C-APP3_SEG*16), APP3_SEG
@@ -12539,8 +12491,8 @@ br_2C7F9:
         mov     word ptr [A3_FP_017C6], si
         int     0a4h
         KEY_DOWN        20h, (APP3_BASE+L_2C842-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        11h, (APP3_BASE+L_2CB11-APP3_SEG*16), APP3_SEG
         endif
+        KEY_DOWN        11h, (APP3_BASE+L_2CB11-APP3_SEG*16), APP3_SEG
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        16h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        27h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
@@ -13547,11 +13499,10 @@ fn_2CF9D:
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        14h, EP_L_2C9D9_OFF, EP_L_2C9D9_SEG
         KEY_DOWN        27h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
-        if      FW_VERSION >= 110
         KEY_DOWN        21h, EP_L_2AAD1_OFF, APP3_SEG
+        if      FW_VERSION >= 110
         ret
         else
-        KEY_DOWN        21h, EP_L_2AAD1_OFF, APP3_SEG
         db      0c3h
         endif
 L_2CFD9:
@@ -14249,7 +14200,6 @@ L_2CF6A:
         KEY_CURSOR      (APP3_BASE+L_2CBC4-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2D55D-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2CBA1-APP3_SEG*16), APP3_SEG, 0000h, 0000h
         retf
 L_2D55D:
-        else
         endif
         call    fn_2D295
         mov     word ptr [A3_W_01884], cb_2D422-APP3_CSBASE
@@ -14773,11 +14723,10 @@ L_2DAAB:
         mov     di, field_cb_none-APP3_CSBASE
         int     7eh
         KEY_DOWN        18h, 0000h, 0000h
-        if      FW_VERSION >= 114
         KEY_DOWN        17h, EP_L_2D186_OFF, APP3_SEG
+        if      FW_VERSION >= 114
         retf
         else
-        KEY_DOWN        17h, EP_L_2D186_OFF, APP3_SEG
         db      0cbh
         endif
 L_2DAD9:
@@ -16512,10 +16461,10 @@ L_2EA80:
         endif
         KEY_DOWN        20h, (APP3_BASE+L_2EAEC-APP3_SEG*16), APP3_SEG
         KEY_DOWN        19h, EP_L_2DD1F_OFF, APP3_SEG
-        if      FW_VERSION >= 110
         KEY_DOWN        1ah, EP_L_2E5FA_OFF, APP3_SEG
         KEY_DOWN        0eh, (APP3_BASE+L_2EB29_120-APP3_SEG*16), APP3_SEG
         KEY_DOWN        0fh, EP_ISR_2D74F_OFF, EP_ISR_2D74F_SEG
+        if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         if      FW_VERSION >= 120
         KEY_CURSOR      (APP3_BASE+L_2E0B3-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2E0BC-APP3_SEG*16), APP3_SEG, EP_L_2DD1F_OFF, APP3_SEG, (APP3_BASE+L_2E5FA-APP3_SEG*16), APP3_SEG
@@ -16581,9 +16530,6 @@ tgt_2EB3B:
         and     byte ptr ds:[bx+di], bl
         endif
         else
-        KEY_DOWN        1ah, EP_L_2E5FA_OFF, APP3_SEG
-        KEY_DOWN        0eh, (APP3_BASE+L_2EB29_120-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_ISR_2D74F_OFF, EP_ISR_2D74F_SEG
         KEY_CURSOR      (APP3_BASE+L_2E0B3-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2E0BC-APP3_SEG*16), APP3_SEG, EP_L_2DD1F_OFF, APP3_SEG, EP_L_2E5FA_OFF, APP3_SEG
         db      0cbh
 L_2EAEC:
@@ -22945,7 +22891,6 @@ far_3185D:
         db      0ceh, 2ah, 8ah, 3eh, 0cfh, 2ah, 0a3h, 51h, 15h, 88h, 1eh, 53h, 15h, 88h, 3eh, 54h
         db      15h, 0eh, 0e8h, 0ebh, 01h, 0cbh, 0cdh, 0a4h, 0cdh, 0a4h
         endif
-        KEY_DOWN        11h, EP_BR_321C7_OFF, APP3_SEG
         else
 L_314FD                         equ     $+9
 L_314F4:
@@ -23028,8 +22973,8 @@ far_3185D:
         db      0a3h, 4dh, 15h, 88h, 1eh, 4fh, 15h, 88h, 3eh, 50h, 15h, 0a1h, 0cch, 2ah, 8ah, 1eh
         db      0ceh, 2ah, 8ah, 3eh, 0cfh, 2ah, 0a3h, 51h, 15h, 88h, 1eh, 53h, 15h, 88h, 3eh, 54h
         db      15h, 0eh, 0e8h, 0ebh, 01h, 0cbh, 0cdh, 0a4h, 0cdh, 0a4h
-        KEY_DOWN        11h, EP_BR_321C7_OFF, APP3_SEG
         endif
+        KEY_DOWN        11h, EP_BR_321C7_OFF, APP3_SEG
         KEY_DOWN        12h, EP_L_31E07_OFF, APP3_SEG
         if      FW_VERSION >= 114
         KEY_DOWN        15h, L_32115-APP3_CSBASE, APP3_SEG
@@ -23803,11 +23748,7 @@ far_31BD9:
         KEY_DOWN        10h, EP_L_3100F_OFF, APP3_SEG
         KEY_DOWN        12h, EP_L_31E07_OFF, APP3_SEG
         KEY_DOWN        15h, (APP3_BASE+far_31EC6-APP3_SEG*16), APP3_SEG
-        if      FW_VERSION >= 111
         KEY_DOWN        20h, EP_L_3221B_OFF, APP3_SEG
-        else
-        KEY_DOWN        20h, EP_L_3221B_OFF, APP3_SEG
-        endif
         KEY_TRANSPORT   EP_L_2FB81_OFF, APP3_SEG, EP_FAR_3021E_OFF, EP_FAR_3021E_SEG, EP_SEQ_PLAY_STOP_OFF, APP3_SEG, EP_SEQ_PLAY_START_OFF, EP_SEQ_PLAY_START_SEG, EP_L_2F8E1_OFF, EP_L_2F8E1_SEG
         endif
         db      0ffh
@@ -24156,7 +24097,6 @@ L_325E5                         equ     $+1
         db      0c7h, 06h, 0c0h, 2ah, 27h, 0beh, 0cdh, 0a4h, 8ch, 0d9h
         endif
         db      0beh, 1ah, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 62h, 00h, 0bfh, 0dch, 18h, 0cdh, 7eh
-        KEY_DOWN        20h, EP_L_32632_OFF, APP3_SEG
         else
         db      0cbh, 0e8h, 0e3h
         db      5ah, 74h, 01h, 0cbh, 9ah
@@ -24166,15 +24106,15 @@ L_325E5                         equ     $+1
         db      0cdh, 0a4h, 8ch, 0d9h, 0beh, 1ah, 07h, 0b3h, 00h, 0b7h, 00h, 0bah, 62h, 00h, 0bfh, 0dch
         db      18h
         db      0cdh, 7eh
-        KEY_DOWN        20h, EP_L_32632_OFF, APP3_SEG
         endif
+        KEY_DOWN        20h, EP_L_32632_OFF, APP3_SEG
         KEY_DOWN        10h, (APP3_BASE+far_3185D-APP3_SEG*16), APP3_SEG
         KEY_DOWN        11h, (APP3_BASE+far_31BD9-APP3_SEG*16), APP3_SEG
         KEY_DOWN        15h, (APP3_BASE+L_32110-APP3_SEG*16), APP3_SEG
         else
-        if      FW_VERSION >= 110
         KEY_DOWN        13h, EP_BR_321C7_OFF, APP3_SEG
         KEY_DOWN        14h, (APP3_BASE+far_31D5B-APP3_SEG*16), APP3_SEG
+        if      FW_VERSION >= 110
 far_31D5B                         equ     $+1
         db      0cbh, 0a1h, 1eh, 07h, 3bh, 06h, 20h, 07h, 75h, 03h, 0e9h, 9ah, 00h, 0cdh, 85h
         db      50h, 52h, 0a1h, 1eh, 07h, 2bh, 0d2h, 2bh, 0c9h, 0b3h, 0bh, 0cdh, 87h, 8eh, 06h, 10h
@@ -24192,8 +24132,6 @@ far_31D5B                         equ     $+1
         endif
         db      0cdh, 0d6h, 5ah, 58h, 0b3h, 0ah, 0cdh, 87h, 9ah
         else
-        KEY_DOWN        13h, EP_BR_321C7_OFF, APP3_SEG
-        KEY_DOWN        14h, (APP3_BASE+far_31D5B-APP3_SEG*16), APP3_SEG
         db      0cbh
 far_31D5B:
         db      0a1h

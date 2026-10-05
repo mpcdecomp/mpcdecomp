@@ -389,11 +389,7 @@ L_472DC:
 L_472FC:
         db      "DR11      (B11)"
         db      00h
-        if      FW_VERSION >= 110
-        endif
 L_46D0C:
-        if      FW_VERSION < 110
-        endif
         db      "DR12      (B12)"
         db      00h
 L_46D1C:
@@ -5903,11 +5899,7 @@ br_4A110:
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
         push    C1_SEG
-        if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
-        else
-        push    EP_L_4A01E_OFF
-        endif
         push    1
         push    6
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
@@ -7175,11 +7167,7 @@ br_4AEDB:
         push    ds
         push    ax
         push    C1_SEG
-        if      FW_VERSION >= 112
         push    EP_L_4A602_OFF
-        else
-        push    EP_L_4A602_OFF
-        endif
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
         mov     bx, word ptr [C2_W_018D4]
@@ -8232,11 +8220,7 @@ L_4B7D6:
         nop
 L_4B7EE:
         db      "Loop To fine", 00h, 00h
-        if      FW_VERSION >= 110
-        endif
 L_4B7FC:
-        if      FW_VERSION < 110
-        endif
         push    ds
         push    C2_W_01C50
         nop
@@ -8743,11 +8727,7 @@ br_4BC3A:
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
         push    C1_SEG
-        if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
-        else
-        push    EP_L_4A01E_OFF
-        endif
         push    1
         push    6
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
@@ -9150,9 +9130,7 @@ br_4BF98:
         je      br_4BFC0
 br_4BFA9:
         push    C1_SEG
-        if      FW_VERSION >= 120
-        push    EP_L_4A01E_OFF
-        elseif  FW_VERSION >= 110
+        if      FW_VERSION >= 110
         push    EP_L_4A01E_OFF
         else
         push    C2_W_0CD9A
@@ -9924,9 +9902,7 @@ far_4C5DA:
         mov     cx, DS_SEG
         mov     ds, cx
         push    C1_SEG
-        if      FW_VERSION >= 114
-        push    EP_C1_E4BC_OFF
-        elseif  FW_VERSION >= 112
+        if      FW_VERSION >= 112
         push    EP_C1_E4BC_OFF
         else
         push    C2_W_0E48E
@@ -10952,13 +10928,7 @@ edit_sound_paint:
         mov     cx, DS_SEG
         mov     ds, cx
         push    C1_SEG
-        if      FW_VERSION >= 114
         push    EP_L_4C95C_OFF
-        elseif  FW_VERSION >= 112
-        push    EP_L_4C95C_OFF
-        else
-        push    EP_L_4C95C_OFF
-        endif
         nop
         push    cs
         call    EP_SMEM_PROC_WRAPPER_OFF+C1_CSBASE
@@ -10994,13 +10964,7 @@ TBL_4CF3E:
         dw      tgt_4D062-C1_CSBASE
 br_4CF50:
         push    C1_SEG
-        if      FW_VERSION >= 120
         push    EP_C1_F1AC_OFF
-        elseif  FW_VERSION >= 114
-        push    EP_C1_F1AC_OFF
-        else
-        push    EP_C1_F1AC_OFF
-        endif
         push    17h
         push    2bh
         nop
@@ -11096,13 +11060,7 @@ tgt_4CFC0:
         callf   EP_DRAW_CHAR_AT_SEG:EP_DRAW_CHAR_AT_OFF
         add     sp, 6
         push    C1_SEG
-        if      FW_VERSION >= 114
         push    EP_C1_F170_OFF
-        elseif  FW_VERSION >= 112
-        push    EP_C1_F170_OFF
-        else
-        push    EP_C1_F170_OFF
-        endif
         push    29h
         push    1fh
         nop
@@ -11123,13 +11081,7 @@ tgt_4CFC0:
         call    EP_DRAW_STRING_AT_OFF+C1_CSBASE
         add     sp, 8
         push    C1_SEG
-        if      FW_VERSION >= 114
         push    EP_L_4C9AA_OFF
-        elseif  FW_VERSION >= 112
-        push    EP_L_4C9AA_OFF
-        else
-        push    EP_L_4C9AA_OFF
-        endif
         push    29h
         push    0a9h
         nop
@@ -11739,11 +11691,7 @@ br_4D533:
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
         add     sp, 8
         push    C1_SEG
-        if      FW_VERSION >= 120
         push    EP_L_4A01E_OFF
-        else
-        push    EP_L_4A01E_OFF
-        endif
         push    1
         push    6
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
@@ -14392,7 +14340,6 @@ L_4EBBE:
         push    dx
         push    cx
         endif
-        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         else
 L_4E25E:
         if      FW_VERSION < 110
@@ -14412,16 +14359,14 @@ L_4EBBE:
         sub     cx, 325h
         push    dx
         push    cx
-        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         endif
+        imul    ax, word ptr [C2_W_PARAMS_CURSOR], 2ah
         add     ax, 2f6ah
         push    ds
         push    ax
         callf   EP_UI_FIELD_ENGINE_SEG:EP_UI_FIELD_ENGINE_OFF
         add     sp, 8
         retf
-        if      FW_VERSION < 111
-        endif
 L_4EBF8:
         db      "POLY", 00h, 00h
 L_4E29E:
@@ -25624,9 +25569,7 @@ br_54FE2:
         test    byte ptr [C2_B_WAVE_MEM_ERR_MASK], 8
         je      br_54FFB
         push    C2_SEG
-        if      FW_VERSION >= 114
-        push    EP_C2_6F6C_OFF
-        elseif  FW_VERSION >= 112
+        if      FW_VERSION >= 112
         push    EP_C2_6F6C_OFF
         else
         push    EP_FAR_546E6_OFF
@@ -26445,11 +26388,7 @@ lcd_clear_region_impl:
         and     byte ptr [C2_B_FX_UPDATE_MASK], al
         push    ds
         push    C2_W_09888
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
-        endif
         mov     sp, bp
         or      ax, ax
         jne     br_55750
@@ -26513,11 +26452,7 @@ lcd_clear_rect:
         and     byte ptr [C2_B_FX_UPDATE_MASK], al
         push    ds
         push    C2_W_09888
-        if      FW_VERSION >= 112
         callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
-        else
-        callf   C0_SEG:(C0_BASE+__setjmp-C0_SEG*16)
-        endif
         mov     sp, bp
         or      ax, ax
         jne     br_557D1

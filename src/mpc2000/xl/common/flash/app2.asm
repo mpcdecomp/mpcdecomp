@@ -12976,8 +12976,6 @@ d_c0_w_0001e:
         db      80h, 84h, 1eh, 00h, 80h, 84h, 1eh, 00h, 80h, 84h, 1eh, 00h, 80h, 84h, 1eh, 00h
         db      00h, 00h, 0ffh, 0ffh, 01h
 
-        if      FW_VERSION < 114
-        endif
 FREE_22795:
         PAD_TO  APPDATA_SEG*16+00088h-SEGBASE, 000h
 
@@ -13008,7 +13006,6 @@ FREE_22CE0:
         PAD_TO  (APPDATA_SEG*16+005D0h-SEGBASE)-010h, 000h
 d_a3_tbl_005c0:
         PAD_TO  APPDATA_SEG*16+005D0h-SEGBASE, 000h
-        else
         endif
 
 
@@ -13020,8 +13017,6 @@ d_a3_tbl_00600:
 
 
 ; 0x22d60-0x22da0, 64 x 00h -- per-track default, 1 byte/track
-        if      FW_VERSION < 114
-        endif
 FREE_22D60:
         PAD_TO  (APPDATA_SEG*16+00650h-SEGBASE)-010h, 000h
 d_a3_tbl_00640:
@@ -13029,8 +13024,6 @@ d_a3_tbl_00640:
 
 
 ; 0x22da0-0x22de0, 64 x 64h -- per-track default, Velo% 100
-        if      FW_VERSION < 114
-        endif
 FREE_22DA0:
         PAD_TO  (APPDATA_SEG*16+00690h-SEGBASE)-010h, 064h
 d_a3_tbl_00680:
@@ -13038,8 +13031,6 @@ d_a3_tbl_00680:
 
 
 ; 0x22de0-0x22e20, 64 x 06h -- per-track default, 1 byte/track
-        if      FW_VERSION < 114
-        endif
 FREE_22DE0:
         PAD_TO  APPDATA_SEG*16+006D0h-SEGBASE, 006h
 

@@ -6,6 +6,13 @@
 ; meaning unknown.  a name applies only where the base register points at that
 ; record: `[si+1ch]` is SND_LENGTH only when SI is a sound node.
 
+; NAMED_FN -- a far name and the far routine it selects, 8 bytes (TBL_00EE)
+NAMED_FN_NAME           equ     000h
+NAMED_FN_NAME_SEG       equ     002h
+NAMED_FN_FN             equ     004h
+NAMED_FN_FN_SEG         equ     006h
+SIZEOF_NAMED_FN         equ     008h
+
 ; =============================================================================
 ; SND -- the sound-directory node, 36h bytes.  "the sound", 128 max.
 ; =============================================================================

@@ -1142,7 +1142,7 @@ L_00848:
         rep movsb
         pop     ds
         mov     word ptr [bp-2], ax
-        mov     ax, word ptr [TBL_00EE+2]
+        mov     ax, word ptr [TBL_00EE+NAMED_FN_NAME_SEG]
         or      ax, word ptr [TBL_00EE]
         jne     X_008A8
         jmp     NEAR X_00934
@@ -1155,15 +1155,15 @@ X_008AE:
         lea     ax, [bp-0eh]
         push    ss
         push    ax
-        push    word ptr [si+2]
+        push    word ptr [si+NAMED_FN_NAME_SEG]
         push    word ptr [si]
         callf   TEXT1_SEG:__fstricmp
         add     sp, 8
         or      ax, ax
         je      X_008D2
         inc     di
-        add     si, 8
-        mov     ax, word ptr [si+2]
+        add     si, SIZEOF_NAMED_FN
+        mov     ax, word ptr [si+NAMED_FN_NAME_SEG]
         or      ax, word ptr [si]
         jne     X_008AE
         jmp     SHORT X_00934
@@ -1214,7 +1214,7 @@ X_00905:
         push    ax
         mov     bx, di
         shl     bx, 3
-        callf   [bx+TBL_00EE+4]
+        callf   [bx+TBL_00EE+NAMED_FN_FN]
         add     sp, 14h
         mov     word ptr [bp+12h], ax
         jmp     SHORT L_0093F

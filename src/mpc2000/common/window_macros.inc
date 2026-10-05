@@ -174,6 +174,10 @@ WIN_FRAME       macro   x,y,w,h,title   ; 22h at any other rectangle
 ; XL: same two-object model, record shape, key numbering; src/mpc2000/xl/common/
 ; feat/copy_window.inc relocated COPY: 5 header bytes + records.
 
+WIN_KEY_FN      equ     1               ; a record: db key, dd handler
+WIN_KEY_FN_SEG  equ     3
+SIZEOF_WIN_KEY  equ     5
+
 WIN_KEY         macro   key,seg,off
         db      key
         dw      off

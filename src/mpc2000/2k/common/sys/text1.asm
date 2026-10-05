@@ -6678,8 +6678,8 @@ X_037FE:
         shl     bx, 2
         mov     ax, word ptr [bx+TBL_14B8]
         mov     dx, word ptr [bx+TBL_14B8+2]
-        mov     word ptr [P_148A+1], ax
-        mov     word ptr [P_148A+3], dx
+        mov     word ptr [P_148A+WIN_KEY_FN], ax
+        mov     word ptr [P_148A+WIN_KEY_FN_SEG], dx
         push    ds
         push    P_148A
         nop

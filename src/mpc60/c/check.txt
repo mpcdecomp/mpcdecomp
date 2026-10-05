@@ -1,0 +1,1643 @@
+# fn V NAME FILEOFF LEN FILE GROUP [PLACED] / call V GROUP NAME SEG:OFF (see toolchain/check.sh)
+fn 214 L_c182b 0182B 222 L_c182b.c 0
+fn 214 L_c1909 01909 266 L_c1909.c 0
+fn 214 L_d7e33 17E33 65 L_d7e33.c 0
+fn 214 L_d7e74 17E74 68 L_d7e74.c 0
+fn 214 L_d8360 18360 49 L_d8360.c 0
+fn 214 far_c10ae 010AE 38 far_c10ae.c 0
+fn 214 far_c10d4 010D4 293 far_c10d4.c 0
+fn 214 far_c11f9 011F9 284 far_c11f9.c 0
+fn 214 far_c1315 01315 292 far_c1315.c 0
+fn 214 far_c1439 01439 294 far_c1439.c 0
+fn 214 far_c155f 0155F 250 far_c155f.c 0
+fn 214 far_c1f4e 01F4E 28 far_c1f4e.c 1
+fn 214 far_c1f6a 01F6A 25 far_c1f6a.c 0
+fn 214 far_c20ed 020ED 134 far_c20ed.c 1
+fn 214 far_c3056 03056 96 far_c3056.c 0
+fn 214 far_c30b6 030B6 60 far_c30b6.c 0
+fn 214 far_c30f2 030F2 123 far_c30f2.c 0
+fn 214 far_c321a 0321A 141 far_c321a.c 0
+fn 214 far_c32a7 032A7 27 far_c32a7.c 0
+fn 214 far_c32c2 032C2 23 far_c32c2.c 0
+fn 214 far_c3308 03308 58 far_c3308.c 1
+fn 214 far_c3342 03342 56 far_c3342.c 0
+fn 214 far_c337a 0337A 56 far_c337a.c 0
+fn 214 far_c33b2 033B2 82 far_c33b2.c 0
+fn 214 far_c3404 03404 108 far_c3404.c 1
+fn 214 far_c34be 034BE 85 far_c34be.c 0
+fn 214 far_c3513 03513 78 far_c3513.c 1
+fn 214 far_c3561 03561 121 far_c3561.c 2
+fn 214 far_c35da 035DA 30 far_c35da.c 2
+fn 214 far_c37fc 037FC 55 far_c37fc.c 0
+fn 214 far_c3833 03833 249 far_c3833.c 0
+fn 214 far_c3c2a 03C2A 99 far_c3c2a.c 0
+fn 214 far_c4891 04891 220 far_c4891.c 0
+fn 214 far_c496d 0496D 63 far_c496d.c 0
+fn 214 far_c49ac 049AC 49 far_c49ac.c 0
+fn 214 far_c5001 05001 70 far_c5001.c 0
+fn 214 far_c5047 05047 91 far_c5047.c 0
+fn 214 far_c50a2 050A2 162 far_c50a2.c 0
+fn 214 far_c56ef 056EF 75 far_c56ef.c 1
+fn 214 far_c57be 057BE 80 far_c57be.c 0
+fn 214 far_c580e 0580E 56 far_c580e.c 1
+fn 214 far_c5846 05846 53 far_c5846.c 0
+fn 214 far_c587b 0587B 85 far_c587b.c 2
+fn 214 far_c5aa2 05AA2 471 far_c5aa2.c 0
+fn 214 far_c5e13 05E13 87 far_c5e13.c 0
+fn 214 far_c5e6a 05E6A 225 far_c5e6a.c 1
+fn 214 far_c5f4b 05F4B 166 far_c5f4b.c 0
+fn 214 far_c609e 0609E 459 far_c609e.c 0
+fn 214 far_c6269 06269 117 far_c6269.c 2
+fn 214 far_c62de 062DE 119 far_c62de.c 0
+fn 214 far_c675e 0675E 214 far_c675e.c 0
+fn 214 far_c6ac2 06AC2 129 far_c6ac2.c 0
+fn 214 far_c6b43 06B43 182 far_c6b43.c 0
+fn 214 far_c6bf9 06BF9 365 far_c6bf9.c 0
+fn 214 far_c72be 072BE 65 far_c72be.c 0
+fn 214 far_c72ff 072FF 62 far_c72ff.c 1
+fn 214 far_c7387 07387 78 far_c7387.c 0
+fn 214 far_c7c3e 07C3E 154 far_c7c3e.c 0
+fn 214 far_c7cd8 07CD8 194 far_c7cd8.c 0
+fn 214 far_c7d9a 07D9A 83 far_c7d9a.c 0
+fn 214 far_c7ded 07DED 161 far_c7ded.c 0
+fn 214 far_c7e8e 07E8E 166 far_c7e8e.c 0
+fn 214 far_c80c7 080C7 122 far_c80c7.c 0
+fn 214 far_c8720 08720 1085 far_c8720.c 2
+fn 214 far_c93ae 093AE 69 far_c93ae.c 0
+fn 214 far_c93f3 093F3 107 far_c93f3.c 0
+fn 214 far_c949c 0949C 190 far_c949c.c 0
+fn 214 far_c9682 09682 547 far_c9682.c 0
+fn 214 far_c98a5 098A5 53 far_c98a5.c 1
+fn 214 far_c98da 098DA 49 far_c98da.c 0
+fn 214 far_c9e06 09E06 49 far_c9e06.c 0
+fn 214 far_cb22f 0B22F 41 far_cb22f.c 0
+fn 214 far_cbdf5 0BDF5 33 far_cbdf5.c 0
+fn 214 far_cbe16 0BE16 18 far_cbe16.c 0
+fn 214 far_d391a 1391A 35 far_d391a.c 0
+fn 214 far_d4273 14273 284 far_d4273.c 1 3
+fn 214 far_d438f 1438F 32 far_d438f.c 0
+fn 214 far_d4855 14855 414 far_d4855.c 0
+fn 214 far_d49f3 149F3 168 far_d49f3.c 0
+fn 214 far_d4a9b 14A9B 24 far_d4a9b.c 0
+fn 214 far_d4c91 14C91 71 far_d4c91.c 0
+fn 214 far_d614d 1614D 50 far_d614d.c 0
+fn 214 far_d6533 16533 56 far_d6533.c 0
+fn 214 far_d65f7 165F7 22 far_d65f7.c 1
+fn 214 far_d679a 1679A 78 far_d679a.c 0
+fn 214 far_d67e8 167E8 78 far_d67e8.c 0
+fn 214 far_d6d6c 16D6C 183 far_d6d6c.c 0
+fn 214 far_d6e23 16E23 193 far_d6e23.c 0
+fn 214 far_d7156 17156 47 far_d7156.c 0
+fn 214 far_d71e9 171E9 17 far_d71e9.c 0
+fn 214 far_d71fa 171FA 71 far_d71fa.c 0
+fn 214 far_d777b 1777B 73 far_d777b.c 0
+fn 214 far_d77c4 177C4 19 far_d77c4.c 0
+fn 214 far_d7820 17820 130 far_d7820.c 0
+fn 214 far_d7913 17913 38 far_d7913.c 0
+fn 214 far_d7939 17939 74 far_d7939.c 0
+fn 214 far_d7983 17983 17 far_d7983.c 1
+fn 214 far_d7a0d 17A0D 47 far_d7a0d.c 1
+fn 214 far_d7cba 17CBA 23 far_d7cba.c 1
+fn 214 far_d87e1 187E1 41 far_d87e1.c 0
+fn 214 far_d88b2 188B2 52 far_d88b2.c 1
+fn 214 far_d8907 18907 56 far_d8907.c 0
+fn 214 far_d96fe 196FE 78 far_d96fe.c 0
+fn 214 far_d9b92 19B92 263 far_d9b92.c 0
+fn 214 far_d9c99 19C99 103 far_d9c99.c 1
+fn 214 far_d9dcf 19DCF 29 far_d9dcf.c 0
+fn 214 far_d9dec 19DEC 50 far_d9dec.c 0
+fn 214 far_d9e1e 19E1E 97 far_d9e1e.c 0
+fn 214 far_da007 1A007 40 far_da007.c 1
+fn 214 far_da2e1 1A2E1 134 far_da2e1.c 0
+fn 214 far_da3ad 1A3AD 57 far_da3ad.c 1
+fn 214 far_da3e6 1A3E6 215 far_da3e6.c 0
+fn 214 far_da4bd 1A4BD 118 far_da4bd.c 1
+fn 214 far_da610 1A610 71 far_da610.c 1
+fn 214 far_da730 1A730 106 far_da730.c 3
+fn 214 far_dab2d 1AB2D 134 far_dab2d.c 1
+fn 214 far_dac40 1AC40 151 far_dac40.c 1
+fn 214 far_daf9b 1AF9B 135 far_daf9b.c 1
+fn 214 far_db626 1B626 151 far_db626.c 1
+fn 214 far_db6bd 1B6BD 132 far_db6bd.c 0
+fn 214 far_db8ab 1B8AB 106 far_db8ab.c 0
+fn 214 far_db97e 1B97E 159 far_db97e.c 1
+fn 214 far_dbe0d 1BE0D 158 far_dbe0d.c 1
+fn 214 far_dbeab 1BEAB 359 far_dbeab.c 2
+fn 214 far_dc104 1C104 159 far_dc104.c 1
+fn 214 far_dc213 1C213 155 far_dc213.c 1
+fn 214 far_dc46c 1C46C 164 far_dc46c.c 1
+fn 214 far_dc7b2 1C7B2 157 far_dc7b2.c 1
+fn 214 far_dc84f 1C84F 108 far_dc84f.c 1
+fn 214 far_dd187 1D187 155 far_dd187.c 1
+fn 214 far_dd222 1D222 221 far_dd222.c 2
+fn 214 far_ddef2 1DEF2 41 far_ddef2.c 2
+fn 214 far_ddf1b 1DF1B 41 far_ddf1b.c 2
+fn 214 far_ddf44 1DF44 41 far_ddf44.c 2
+fn 214 far_ddf6d 1DF6D 45 far_ddf6d.c 1
+fn 214 far_ddf9a 1DF9A 60 far_ddf9a.c 1
+fn 214 far_ddfd6 1DFD6 58 far_ddfd6.c 2
+fn 214 far_de385 1E385 48 far_de385.c 1
+fn 214 far_de639 1E639 68 far_de639.c 1
+fn 214 far_de67d 1E67D 166 far_de67d.c 3
+fn 214 far_de723 1E723 53 far_de723.c 1
+fn 214 far_dea25 1EA25 42 far_dea25.c 2
+fn 214 far_dea4f 1EA4F 56 far_dea4f.c 1
+fn 214 far_dea87 1EA87 109 far_dea87.c 1
+fn 214 far_df05c 1F05C 76 far_df05c.c 2
+fn 214 far_df0a8 1F0A8 76 far_df0a8.c 1
+fn 214 far_df868 1F868 76 far_df868.c 2
+fn 214 far_dfaf7 1FAF7 239 far_dfaf7.c 1
+fn 214 far_dfbe6 1FBE6 687 far_dfbe6.c 2
+fn 214 far_dfec3 1FEC3 41 far_dfec3.c 1
+fn 214 far_dff9c 1FF9C 224 far_dff9c.c 1
+fn 214 far_e01e1 201E1 56 far_e01e1.c 1
+fn 214 far_e05a3 205A3 55 far_e05a3.c 1
+fn 214 far_e0910 20910 228 far_e0910.c 1
+fn 214 far_e09f4 209F4 29 far_e09f4.c 1
+fn 214 far_e0a11 20A11 83 far_e0a11.c 2
+fn 214 far_e0bad 20BAD 59 far_e0bad.c 2
+fn 214 far_e0be8 20BE8 34 far_e0be8.c 2
+fn 214 far_e0c0a 20C0A 87 far_e0c0a.c 1
+fn 214 far_e0cd1 20CD1 67 far_e0cd1.c 2
+fn 214 far_e0d14 20D14 48 far_e0d14.c 3
+fn 214 far_e0d44 20D44 93 far_e0d44.c 1
+fn 214 far_e0da1 20DA1 357 far_e0da1.c 1
+fn 214 far_e0f06 20F06 53 far_e0f06.c 1
+fn 214 far_e127e 2127E 50 far_e127e.c 3
+fn 214 far_e1594 21594 91 far_e1594.c 2
+fn 214 far_e15ef 215EF 40 far_e15ef.c 3
+fn 214 far_e1768 21768 685 far_e1768.c 2
+fn 214 far_e2197 22197 580 far_e2197.c 2
+fn 214 far_e23db 223DB 438 far_e23db.c 2
+fn 214 far_e2c93 22C93 338 far_e2c93.c 2
+fn 214 far_e2de5 22DE5 499 far_e2de5.c 2
+fn 214 far_e3014 23014 511 far_e3014.c 2
+fn 214 far_e3213 23213 91 far_e3213.c 3
+fn 214 far_e38ec 238EC 105 far_e38ec.c 2
+fn 214 far_e3955 23955 169 far_e3955.c 3
+fn 214 far_e39fe 239FE 23 far_e39fe.c 1
+fn 214 far_e3bba 23BBA 39 far_e3bba.c 2
+fn 214 far_e3be1 23BE1 89 far_e3be1.c 2
+fn 214 far_e4b91 24B91 48 far_e4b91.c 3
+fn 214 far_e4bc1 24BC1 55 far_e4bc1.c 2
+fn 214 far_e4cd2 24CD2 70 far_e4cd2.c 2
+fn 214 far_e5516 25516 59 far_e5516.c 2
+fn 214 far_e65ab 265AB 569 far_e65ab.c 2
+fn 214 far_e67e4 267E4 150 far_e67e4.c 2
+fn 214 far_e687a 2687A 172 far_e687a.c 3
+fn 214 far_e6926 26926 150 far_e6926.c 2
+fn 214 far_e6b11 26B11 224 far_e6b11.c 2
+fn 214 far_e76e2 276E2 153 far_e76e2.c 3
+fn 214 far_e777b 2777B 207 far_e777b.c 2
+fn 214 far_e784a 2784A 148 far_e784a.c 2
+fn 214 far_e7918 27918 65 far_e7918.c 2
+fn 214 far_e7959 27959 82 far_e7959.c 2
+fn 214 far_e79ab 279AB 324 far_e79ab.c 3
+fn 214 far_e7aef 27AEF 76 far_e7aef.c 3
+fn 214 far_e7d22 27D22 72 far_e7d22.c 3
+fn 214 far_e7d6a 27D6A 69 far_e7d6a.c 2
+fn 214 far_e7de1 27DE1 72 far_e7de1.c 2
+fn 214 far_e8420 28420 190 far_e8420.c 2
+fn 214 far_e84de 284DE 204 far_e84de.c 2
+fn 214 far_e9cab 29CAB 211 far_e9cab.c 3
+fn 214 far_ead5e 2AD5E 208 far_ead5e.c 3
+fn 214 far_eb134 2B134 148 far_eb134.c 2
+fn 214 far_eb40a 2B40A 292 far_eb40a.c 4
+fn 214 far_eb613 2B613 386 far_eb613.c 2
+fn 214 far_eb795 2B795 38 far_eb795.c 3
+fn 214 far_eb7bb 2B7BB 65 far_eb7bb.c 5
+fn 214 far_eb8a8 2B8A8 196 far_eb8a8.c 4
+fn 214 far_eb96c 2B96C 55 far_eb96c.c 2
+fn 214 far_eb9a3 2B9A3 49 far_eb9a3.c 3
+fn 214 far_ebc44 2BC44 282 far_ebc44.c 4
+fn 214 far_ebfb5 2BFB5 146 far_ebfb5.c 2
+fn 214 far_ec19a 2C19A 184 far_ec19a.c 2
+fn 214 far_ec448 2C448 102 far_ec448.c 3
+fn 214 far_ec4ae 2C4AE 30 far_ec4ae.c 3
+fn 214 far_ec8a6 2C8A6 125 far_ec8a6.c 2
+fn 214 far_ec923 2C923 52 far_ec923.c 2
+fn 214 far_eccd5 2CCD5 149 far_eccd5.c 2
+fn 214 far_ecd6a 2CD6A 132 far_ecd6a.c 2
+fn 214 far_ecdee 2CDEE 55 far_ecdee.c 2
+fn 214 far_ece25 2CE25 92 far_ece25.c 4
+fn 214 far_ecec4 2CEC4 94 far_ecec4.c 4
+fn 214 far_ed6c2 2D6C2 41 far_ed6c2.c 2
+fn 214 far_ed6eb 2D6EB 139 far_ed6eb.c 4
+fn 214 far_ee201 2E201 47 far_ee201.c 6
+fn 214 far_ee39e 2E39E 241 far_ee39e.c 4
+fn 214 far_ee48f 2E48F 54 far_ee48f.c 2
+fn 214 far_eec91 2EC91 229 far_eec91.c 4
+fn 214 far_ef0d4 2F0D4 47 far_ef0d4.c 2
+fn 214 far_ef103 2F103 104 far_ef103.c 4
+fn 214 far_ef6b0 2F6B0 119 far_ef6b0.c 4
+fn 214 far_ef913 2F913 49 far_ef913.c 4
+fn 214 far_efdf0 2FDF0 60 far_efdf0.c 4
+fn 214 far_f0225 30225 265 far_f0225.c 4
+fn 214 far_f0496 30496 56 far_f0496.c 4
+fn 214 far_f0553 30553 321 far_f0553.c 4
+fn 214 far_f113e 3113E 158 far_f113e.c 5
+fn 214 far_f166b 3166B 163 far_f166b.c 4
+fn 214 far_f170e 3170E 44 far_f170e.c 4
+fn 214 far_f1ac7 31AC7 58 far_f1ac7.c 4
+fn 214 far_f212d 3212D 136 far_f212d.c 4
+fn 214 fn_c5ff1 05FF1 75 fn_c5ff1.c 4
+fn 214 fn_c6561 06561 214 fn_c6561.c 4
+fn 214 fn_dee59 1EE59 57 fn_dee59.c 4
+fn 214 fn_dee92 1EE92 172 fn_dee92.c 4
+fn 214 fn_def3e 1EF3E 158 fn_def3e.c 4
+fn 214 far_d97f5 197F5 37 leaf.c 4
+fn 214 far_da067 1A067 28 leaf.c 4
+fn 214 far_da083 1A083 58 leaf.c 4
+fn 214 far_da0bd 1A0BD 52 leaf.c 4
+fn 214 far_e1617 21617 36 leaf.c 4
+fn 214 far_e2fd8 22FD8 60 leaf.c 4
+fn 214 far_e4b4f 24B4F 66 leaf.c 4
+fn 214 far_e544a 2544A 69 leaf.c 4
+fn 214 far_efe2c 2FE2C 45 leaf.c 4
+fn 212 far_c11f9 00C73 284 far_c11f9.c 0
+fn 212 far_c1f4e 018B0 28 far_c1f4e.c 1
+fn 212 far_c1f6a 018CC 25 far_c1f6a.c 0
+fn 212 far_c20ed 01A4F 134 far_c20ed.c 1
+fn 212 far_c3056 02889 96 far_c3056.c 0
+fn 212 far_c30b6 028E9 60 far_c30b6.c 0
+fn 212 far_c30f2 02925 123 far_c30f2.c 0
+fn 212 far_c321a 02A4D 141 far_c321a.c 0
+fn 212 far_c32a7 02ADA 27 far_c32a7.c 0
+fn 212 far_c32c2 02AF5 23 far_c32c2.c 0
+fn 212 far_c3308 02B3B 58 far_c3308.c 1
+fn 212 far_c3342 02B75 56 far_c3342.c 0
+fn 212 far_c337a 02BAD 56 far_c337a.c 0
+fn 212 far_c33b2 02BE5 82 far_c33b2.c 0
+fn 212 far_c34be 02CF1 85 far_c34be.c 0
+fn 212 far_c3513 02D46 78 far_c3513.c 1
+fn 212 far_c3561 02D94 121 far_c3561.c 2
+fn 212 far_c35da 02E0D 30 far_c35da.c 2
+fn 212 far_c3833 03066 249 far_c3833.c 0
+fn 212 far_c3c2a 0345D 99 far_c3c2a.c 0
+fn 212 far_c4891 040C4 220 far_c4891.c 0
+fn 212 far_c496d 041A0 63 far_c496d.c 0
+fn 212 far_c49ac 041DF 49 far_c49ac.c 0
+fn 212 far_c5001 04834 70 far_c5001.c 0
+fn 212 far_c5047 0487A 91 far_c5047.c 0
+fn 212 far_c50a2 048D5 162 far_c50a2.c 0
+fn 212 far_c56ef 04F22 75 far_c56ef.c 1
+fn 212 far_c57be 04FF1 80 far_c57be.c 0
+fn 212 far_c580e 05041 56 far_c580e.c 1
+fn 212 far_c5846 05079 53 far_c5846.c 0
+fn 212 far_c587b 050AE 85 far_c587b.c 2
+fn 212 far_c5e13 05646 87 far_c5e13.c 0
+fn 212 far_c6269 05A9C 117 far_c6269.c 2
+fn 212 far_c62de 05B11 119 far_c62de.c 0
+fn 212 far_c675e 05F91 214 far_c675e.c 0
+fn 212 far_c6ac2 062F5 129 far_c6ac2.c 0
+fn 212 far_c6bf9 0642C 365 far_c6bf9.c 0
+fn 212 far_c72be 06AF1 65 far_c72be.c 0
+fn 212 far_c72ff 06B32 62 far_c72ff.c 1
+fn 212 far_c7387 06BBA 78 far_c7387.c 0
+fn 212 far_c7c3e 07471 154 far_c7c3e.c 0
+fn 212 far_c7cd8 0750B 194 far_c7cd8.c 0
+fn 212 far_c7d9a 075CD 83 far_c7d9a.c 0
+fn 212 far_c80c7 078FA 122 far_c80c7.c 0
+fn 212 far_c93ae 08B44 69 far_c93ae.c 0
+fn 212 far_c93f3 08B89 107 far_c93f3.c 0
+fn 212 far_c949c 08C32 190 far_c949c.c 0
+fn 212 far_c98da 09057 49 far_c98da.c 0
+fn 212 far_c9e06 09583 49 far_c9e06.c 0
+fn 212 far_cb22f 0A9AC 41 far_cb22f.c 0
+fn 212 far_cbdf5 0B572 33 far_cbdf5.c 0
+fn 212 far_cbe16 0B593 18 far_cbe16.c 0
+fn 212 far_d391a 12C8F 35 far_d391a.c 0
+fn 212 far_d4273 135E8 284 far_d4273.c 1 8
+fn 212 far_d438f 13704 32 far_d438f.c 0
+fn 212 far_d4855 13BCA 414 far_d4855.c 0
+fn 212 far_d49f3 13D68 168 far_d49f3.c 0
+fn 212 far_d4a9b 13E10 24 far_d4a9b.c 0
+fn 212 far_d4c91 14006 71 far_d4c91.c 0
+fn 212 far_d614d 154B6 50 far_d614d.c 0
+fn 212 far_d6533 1589C 56 far_d6533.c 0
+fn 212 far_d65f7 15960 22 far_d65f7.c 1
+fn 212 far_d679a 15B03 78 far_d679a.c 0
+fn 212 far_d67e8 15B51 78 far_d67e8.c 0
+fn 212 far_d6d6c 160D5 183 far_d6d6c.c 0
+fn 212 far_d6e23 1618C 193 far_d6e23.c 0
+fn 212 far_d7156 164BF 47 far_d7156.c 0
+fn 212 far_d71e9 16552 17 far_d71e9.c 0
+fn 212 far_d71fa 16563 71 far_d71fa.c 0
+fn 212 far_d777b 16AE4 73 far_d777b.c 0
+fn 212 far_d77c4 16B2D 19 far_d77c4.c 0
+fn 212 far_d7820 16B89 130 far_d7820.c 0
+fn 212 far_d7913 16C7C 38 far_d7913.c 0
+fn 212 far_d7939 16CA2 74 far_d7939.c 0
+fn 212 far_d7983 16CEC 17 far_d7983.c 1
+fn 212 far_d7a0d 16D76 47 far_d7a0d.c 1
+fn 212 far_d7be4 16F4D 103 far_d7be4.c 0
+fn 212 far_d7cba 16FB4 23 far_d7cba.c 1
+fn 212 far_d87e1 172F0 41 far_d87e1.c 0
+fn 212 far_d88b2 173C1 52 far_d88b2.c 1
+fn 212 far_d8907 17416 56 far_d8907.c 0
+fn 212 far_d96fe 1820C 78 far_d96fe.c 0
+fn 212 far_d9b92 186A0 263 far_d9b92.c 0
+fn 212 far_d9c99 187A7 103 far_d9c99.c 1
+fn 212 far_d9dcf 188DD 29 far_d9dcf.c 0
+fn 212 far_d9dec 188FA 50 far_d9dec.c 0
+fn 212 far_d9e1e 1892C 97 far_d9e1e.c 0
+fn 212 far_da007 18B15 40 far_da007.c 1
+fn 212 far_da2e1 18DEF 134 far_da2e1.c 0
+fn 212 far_da3ad 18EBB 57 far_da3ad.c 1
+fn 212 far_da3e6 18EF4 215 far_da3e6.c 0
+fn 212 far_da4bd 18FCB 118 far_da4bd.c 1
+fn 212 far_da610 1911E 71 far_da610.c 1
+fn 212 far_da730 1923E 106 far_da730.c 3
+fn 212 far_dab2d 1963B 134 far_dab2d.c 1
+fn 212 far_dac40 1974E 151 far_dac40.c 1
+fn 212 far_daf9b 19A86 135 far_daf9b.c 1
+fn 212 far_db626 1A111 151 far_db626.c 1
+fn 212 far_db6bd 1A1A8 132 far_db6bd.c 0
+fn 212 far_db8ab 1A396 106 far_db8ab.c 0
+fn 212 far_db97e 1A469 159 far_db97e.c 1
+fn 212 far_dbe0d 1A8F8 158 far_dbe0d.c 1
+fn 212 far_dbeab 1A996 359 far_dbeab.c 2
+fn 212 far_dc104 1ABEF 159 far_dc104.c 1
+fn 212 far_dc213 1ACFE 155 far_dc213.c 1
+fn 212 far_dc46c 1AF57 164 far_dc46c.c 1
+fn 212 far_dc7b2 1B29D 157 far_dc7b2.c 1
+fn 212 far_dc84f 1B33A 108 far_dc84f.c 1
+fn 212 far_dd187 1BC72 155 far_dd187.c 1
+fn 212 far_dd222 1BD0D 221 far_dd222.c 2
+fn 212 far_ddef2 1C9DD 41 far_ddef2.c 2
+fn 212 far_ddf1b 1CA06 41 far_ddf1b.c 2
+fn 212 far_ddf44 1CA2F 41 far_ddf44.c 2
+fn 212 far_ddf6d 1CA58 45 far_ddf6d.c 1
+fn 212 far_ddf9a 1CA85 60 far_ddf9a.c 1
+fn 212 far_ddfd6 1CAC1 58 far_ddfd6.c 2
+fn 212 far_de385 1CE70 48 far_de385.c 1
+fn 212 far_de639 1D109 68 far_de639.c 1
+fn 212 far_de67d 1D14D 166 far_de67d.c 3
+fn 212 far_de723 1D1F3 53 far_de723.c 1
+fn 212 far_dea25 1D4F5 42 far_dea25.c 2
+fn 212 far_dea4f 1D51F 56 far_dea4f.c 1
+fn 212 far_dea87 1D557 109 far_dea87.c 1
+fn 212 far_df05c 1DB2C 76 far_df05c.c 2
+fn 212 far_df0a8 1DB78 76 far_df0a8.c 1
+fn 212 far_df868 1E338 76 far_df868.c 2
+fn 212 far_dfaf7 1E5C7 239 far_dfaf7.c 1
+fn 212 far_dfec3 1E993 41 far_dfec3.c 1
+fn 212 far_dff9c 1EA6C 224 far_dff9c.c 1
+fn 212 far_e01e1 1ECB1 56 far_e01e1.c 1
+fn 212 far_e05a3 1F073 55 far_e05a3.c 1
+fn 212 far_e09f4 1F4C4 29 far_e09f4.c 1
+fn 212 far_e0a11 1F4E1 83 far_e0a11.c 2
+fn 212 far_e0bad 1F67D 59 far_e0bad.c 2
+fn 212 far_e0c0a 1F6DA 87 far_e0c0a.c 1
+fn 212 far_e0cd1 1F7A1 67 far_e0cd1.c 2
+fn 212 far_e0d44 1F814 93 far_e0d44.c 1
+fn 212 far_e0da1 1F871 357 far_e0da1.c 1
+fn 212 far_e0f06 1F9D6 53 far_e0f06.c 1
+fn 212 far_e127e 1FD4E 50 far_e127e.c 3
+fn 212 far_e1594 20064 91 far_e1594.c 2
+fn 212 far_e15ef 200BF 40 far_e15ef.c 3
+fn 212 far_e23db 20EAB 438 far_e23db.c 2
+fn 212 far_e2c93 21763 338 far_e2c93.c 2
+fn 212 far_e2de5 218B5 499 far_e2de5.c 2
+fn 212 far_e3213 21CE3 91 far_e3213.c 3
+fn 212 far_e38ec 223BC 105 far_e38ec.c 2
+fn 212 far_e3955 22425 169 far_e3955.c 3
+fn 212 far_e39fe 224CE 23 far_e39fe.c 1
+fn 212 far_e3bba 2268A 39 far_e3bba.c 2
+fn 212 far_e3be1 226B1 89 far_e3be1.c 2
+fn 212 far_e4b91 23661 48 far_e4b91.c 3
+fn 212 far_e4bc1 23691 55 far_e4bc1.c 2
+fn 212 far_e4cd2 237A2 70 far_e4cd2.c 2
+fn 212 far_e5516 23FE6 59 far_e5516.c 2
+fn 212 far_e687a 252F2 172 far_e687a.c 3
+fn 212 far_e6b11 25589 224 far_e6b11.c 2
+fn 212 far_e76e2 2615A 153 far_e76e2.c 3
+fn 212 far_e777b 261F3 207 far_e777b.c 2
+fn 212 far_e784a 262C2 148 far_e784a.c 2
+fn 212 far_e7918 26390 65 far_e7918.c 2
+fn 212 far_e7959 263D1 82 far_e7959.c 2
+fn 212 far_e79ab 26423 324 far_e79ab.c 3
+fn 212 far_e7aef 26567 76 far_e7aef.c 3
+fn 212 far_e7d6a 267E2 69 far_e7d6a.c 2
+fn 212 far_e7de1 26859 72 far_e7de1.c 2
+fn 212 far_e8420 26E98 190 far_e8420.c 2
+fn 212 far_e84de 26F56 204 far_e84de.c 2
+fn 212 far_e9cab 28723 211 far_e9cab.c 3
+fn 212 far_ead5e 297D6 208 far_ead5e.c 3
+fn 212 far_eb134 29BAC 148 far_eb134.c 2
+fn 212 far_eb40a 29E82 292 far_eb40a.c 4
+fn 212 far_eb613 2A08B 386 far_eb613.c 2
+fn 212 far_eb795 2A20D 38 far_eb795.c 3
+fn 212 far_eb7bb 2A233 65 far_eb7bb.c 5
+fn 212 far_eb8a8 2A320 196 far_eb8a8.c 4
+fn 212 far_eb96c 2A3E4 55 far_eb96c.c 2
+fn 212 far_eb9a3 2A41B 49 far_eb9a3.c 3
+fn 212 far_ebc44 2A6BC 282 far_ebc44.c 4
+fn 212 far_ebfb5 2AA2D 146 far_ebfb5.c 2
+fn 212 far_ec19a 2AC12 184 far_ec19a.c 2
+fn 212 far_ec448 2AEC0 102 far_ec448.c 3
+fn 212 far_ec4ae 2AF26 30 far_ec4ae.c 3
+fn 212 far_ec8a6 2B31E 125 far_ec8a6.c 2
+fn 212 far_ec923 2B39B 52 far_ec923.c 2
+fn 212 far_eccd5 2B74D 149 far_eccd5.c 2
+fn 212 far_ecd6a 2B7E2 132 far_ecd6a.c 2
+fn 212 far_ecdee 2B866 55 far_ecdee.c 2
+fn 212 far_ecec4 2B93C 94 far_ecec4.c 4
+fn 212 far_ed6c2 2C13A 41 far_ed6c2.c 2
+fn 212 far_ed6eb 2C163 139 far_ed6eb.c 4
+fn 212 far_ee201 2CB41 47 far_ee201.c 6
+fn 212 far_ee39e 2CCDE 241 far_ee39e.c 4
+fn 212 far_ee48f 2CDCF 54 far_ee48f.c 2
+fn 212 far_eec91 2D5D0 229 far_eec91.c 4
+fn 212 far_ef0d4 2DA13 47 far_ef0d4.c 2
+fn 212 far_ef103 2DA42 104 far_ef103.c 4
+fn 212 far_ef6b0 2DFEF 119 far_ef6b0.c 4
+fn 212 far_ef913 2E252 49 far_ef913.c 4
+fn 212 far_efdf0 2E72F 60 far_efdf0.c 4
+fn 212 far_f0225 2EB64 265 far_f0225.c 4
+fn 212 far_f0496 2EDD5 56 far_f0496.c 4
+fn 212 far_f0553 2EE92 321 far_f0553.c 4
+fn 212 far_f113e 2FA7D 158 far_f113e.c 5
+fn 212 far_f166b 2FFAA 163 far_f166b.c 4
+fn 212 far_f170e 3004D 44 far_f170e.c 4
+fn 212 far_f1ac7 30406 58 far_f1ac7.c 4
+fn 212 far_f212d 30A6C 136 far_f212d.c 4
+fn 212 fn_c5ff1 05824 75 fn_c5ff1.c 4
+fn 212 fn_dee59 1D929 57 fn_dee59.c 4
+fn 212 far_d97f5 18303 37 leaf.c 4
+fn 212 far_da067 18B75 28 leaf.c 4
+fn 212 far_da083 18B91 58 leaf.c 4
+fn 212 far_da0bd 18BCB 52 leaf.c 4
+fn 212 far_e1617 200E7 36 leaf.c 4
+fn 212 far_e2fd8 21AA8 60 leaf.c 4
+fn 212 far_e4b4f 2361F 66 leaf.c 4
+fn 212 far_e544a 23F1A 69 leaf.c 4
+fn 212 far_efe2c 2E76B 45 leaf.c 4
+fn 112 L_c0f0e 00F0E 91 L_c0f0e.c 0
+fn 112 L_c38ba 038BA 198 L_c38ba.c 0
+fn 112 L_c3980 03980 200 L_c3980.c 0
+fn 112 L_c3a48 03A48 216 L_c3a48.c 0
+fn 112 L_c3b20 03B20 198 L_c3b20.c 0
+fn 112 L_c3be6 03BE6 219 L_c3be6.c 0
+fn 112 L_c3e28 03E28 210 L_c3e28.c 0
+fn 112 L_c4063 04063 28 L_c4063.c 1
+fn 112 L_c4a20 04A20 179 L_c4a20.c 0
+fn 112 L_c4e4c 04E4C 25 L_c4e4c.c 0
+fn 112 L_c5101 05101 353 L_c5101.c 0
+fn 112 L_c57bd 057BD 75 L_c57bd.c 0
+fn 112 L_c5977 05977 87 L_c5977.c 0
+fn 112 L_c72e2 072E2 46 L_c72e2.c 0
+fn 112 L_c7f5e 07F5E 55 L_c7f5e.c 0
+fn 112 L_c7f95 07F95 84 L_c7f95.c 0
+fn 112 L_c7fe9 07FE9 102 L_c7fe9.c 0
+fn 112 L_c918c 0918C 88 L_c918c.c 0
+fn 112 L_c926c 0926C 152 L_c926c.c 0
+fn 112 L_c9304 09304 316 L_c9304.c 2
+fn 112 L_c9440 09440 335 L_c9440.c 2
+fn 112 L_c9617 09617 69 L_c9617.c 0
+fn 112 L_c9d49 09D49 261 L_c9d49.c 0
+fn 112 L_ca483 0A483 33 L_ca483.c 0
+fn 112 L_ca75d 0A75D 53 L_ca75d.c 0
+fn 112 L_d1f32 11F32 593 L_d1f32.c 0
+fn 112 L_d2183 12183 122 L_d2183.c 1
+fn 112 L_d2b61 12B61 134 L_d2b61.c 0
+fn 112 L_d2f44 12F44 60 L_d2f44.c 0
+fn 112 L_d2f80 12F80 69 L_d2f80.c 0
+fn 112 L_d2fc5 12FC5 35 L_d2fc5.c 1
+fn 112 L_d3842 13842 151 L_d3842.c 0
+fn 112 L_d622a 1622A 59 L_d622a.c 0
+fn 112 L_d633f 1633F 162 L_d633f.c 1
+fn 112 L_d681d 1681D 50 L_d681d.c 0
+fn 112 L_d6ed5 16ED5 50 L_d6ed5.c 0
+fn 112 L_d88fd 188FD 63 L_d88fd.c 0
+fn 112 L_db00f 1B00F 237 L_db00f.c 0
+fn 112 L_db5b5 1B5B5 62 L_db5b5.c 1
+fn 112 L_dcb15 1CB15 52 L_dcb15.c 1
+fn 112 L_de62c 1E62C 106 L_de62c.c 2
+fn 112 L_de80e 1E80E 67 L_de80e.c 0
+fn 112 L_e4731 24731 163 L_e4731.c 0
+fn 112 L_e5326 25326 17 L_e5326.c 0
+fn 112 L_e5337 25337 37 L_e5337.c 0
+fn 112 L_e5ecd 25ECD 41 L_e5ecd.c 0
+fn 112 L_e6eae 26EAE 63 L_e6eae.c 0
+fn 112 br_ed6aa 1A04F 39 br_ed6aa.c 0
+fn 112 far_c1f6a 0407F 25 far_c1f6a.c 0
+fn 112 far_c316d 00FC2 77 far_c316d.c 0
+fn 112 far_c32c2 01078 23 far_c32c2.c 0
+fn 112 far_c3342 010BE 56 far_c3342.c 0
+fn 112 far_c5001 017D9 70 far_c5001.c 0
+fn 112 far_c5047 0181F 91 far_c5047.c 0
+fn 112 far_c5520 01CF8 195 far_c5520.c 1
+fn 112 far_c5653 01DBB 102 far_c5653.c 1
+fn 112 far_c57be 01EF0 80 far_c57be.c 0
+fn 112 far_c580e 01F40 56 far_c580e.c 1
+fn 112 far_c5846 01F78 53 far_c5846.c 0
+fn 112 far_c587b 01FAD 85 far_c587b.c 2
+fn 112 far_c58d0 02002 195 far_c58d0.c 1
+fn 112 far_c5a03 020C5 105 far_c5a03.c 1
+fn 112 far_c72be 128A3 65 far_c72be.c 0
+fn 112 far_c93ae 04932 69 far_c93ae.c 0
+fn 112 far_c93f3 04977 107 far_c93f3.c 0
+fn 112 far_c98da 04E1B 49 far_c98da.c 0
+fn 112 far_cbdf5 1422D 33 far_cbdf5.c 0
+fn 112 far_cbe16 1424E 18 far_cbe16.c 0
+fn 112 far_d4273 15016 284 far_d4273.c 1 6
+fn 112 far_d438f 15132 32 far_d438f.c 0
+fn 112 far_d49f3 1C622 168 far_d49f3.c 0
+fn 112 far_d4a9b 1C6CA 24 far_d4a9b.c 0
+fn 112 far_d4ab3 1C6E2 187 far_d4ab3.c 1
+fn 112 far_d5b9e 188D1 44 far_d5b9e.c 0
+fn 112 far_d679a 18B40 78 far_d679a.c 0
+fn 112 far_d67e8 18B8E 78 far_d67e8.c 0
+fn 112 far_d7241 1911E 26 far_d7241.c 0
+fn 112 far_d77c4 197BF 19 far_d77c4.c 0
+fn 112 far_d7913 1B58F 38 far_d7913.c 0
+fn 112 far_d7cba 1C84B 23 far_d7cba.c 1
+fn 112 far_d87e1 1CA44 41 far_d87e1.c 0
+fn 112 far_d8907 1CB99 56 far_d8907.c 0
+fn 112 far_d9c99 1DDAC 103 far_d9c99.c 1
+fn 112 far_d9dcf 1DEE2 29 far_d9dcf.c 0
+fn 112 far_d9dec 1DEFF 50 far_d9dec.c 0
+fn 112 far_da007 1E08D 40 far_da007.c 1
+fn 112 far_da3ad 1E406 57 far_da3ad.c 1
+fn 112 far_da3e6 27BCA 215 far_da3e6.c 0
+fn 112 far_daf9b 1ECA1 135 far_daf9b.c 1
+fn 112 far_db022 1ED28 207 far_db022.c 0
+fn 112 far_db6bd 1F3B1 132 far_db6bd.c 0
+fn 112 far_db741 1F435 316 far_db741.c 1
+fn 112 far_db8ab 1F571 106 far_db8ab.c 0
+fn 112 far_ddf9a 2165B 60 far_ddf9a.c 1
+fn 112 far_ddfd6 21697 58 far_ddfd6.c 2
+fn 112 far_de385 21A46 48 far_de385.c 1
+fn 112 far_de723 21D9E 53 far_de723.c 1
+fn 112 far_df05c 15465 76 far_df05c.c 2
+fn 112 far_df0a8 154B1 76 far_df0a8.c 1
+fn 112 far_df868 23579 76 far_df868.c 2
+fn 112 far_df8b4 15D9F 72 far_df8b4.c 0
+fn 112 far_dfeec 16265 114 far_dfeec.c 1
+fn 112 far_e1d7f 060A7 415 far_e1d7f.c 0
+fn 112 far_e78de 2260E 59 far_e78de.c 0
+fn 112 far_e7d6a 13BA5 69 far_e7d6a.c 2
+fn 112 far_ec448 246CB 102 far_ec448.c 3
+fn 112 far_ee201 1CB6A 47 far_ee201.c 6
+fn 112 far_ee39e 27231 241 far_ee39e.c 4
+fn 112 far_ee48f 27322 54 far_ee48f.c 2
+fn 112 far_ef0d4 28068 47 far_ef0d4.c 2
+fn 112 far_ef103 28097 104 far_ef103.c 4
+fn 112 far_ef6b0 2895E 119 far_ef6b0.c 4
+fn 112 far_f1ac7 28843 58 far_f1ac7.c 4
+fn 112 fn_dee92 223FC 172 fn_dee92.c 4
+fn 112 far_da067 1E0ED 28 leaf.c 4
+fn 112 far_da0bd 1E143 52 leaf.c 4
+fn 112 far_e2fd8 0706E 60 leaf.c 4
+fn 112 tgt_c9eca 0804F 260 tgt_c9eca.c 1
+call 214 0 $ldv F26A:0007
+call 214 0 $lrm F26A:0035
+call 214 0 $lud F26A:0061
+call 214 0 $lum F26A:0059
+call 214 0 L_0543b_v214_ 0543:000B
+call 214 0 L_d7eb8_ D7E3:0088
+call 214 0 L_d82f3_ D7E3:04C3
+call 214 0 L_d8391_ D836:0031
+call 214 0 far_c1e6c_ C04F:197C
+call 214 0 far_c1f4e_ C04F:1A5E
+call 214 0 far_c20ed_ C04F:1BFD
+call 214 0 far_c32d9_ C22A:1039
+call 214 0 far_c3404_ C22A:1164
+call 214 0 far_c35da_ C22A:133A
+call 214 0 far_c392c_ C383:00FC
+call 214 0 far_c3c8d_ C383:045D
+call 214 0 far_c4134_ C383:0904
+call 214 0 far_c5144_ C49D:0774
+call 214 0 far_c56ef_ C49D:0D1F
+call 214 0 far_c573a_ C49D:0D6A
+call 214 0 far_c580e_ C49D:0E3E
+call 214 0 far_c5c79_ C5AA:01D9
+call 214 0 far_c5cfc_ C5CF:000C
+call 214 0 far_c5e6a_ C5CF:017A
+call 214 0 far_c603c_ C5CF:034C
+call 214 0 far_c6269_ C5CF:0579
+call 214 0 far_c6355_ C5CF:0665
+call 214 0 far_c64c1_ C5CF:07D1
+call 214 0 far_c6834_ C663:0204
+call 214 0 far_c6d66_ C6BF:0176
+call 214 0 far_c955a_ C8B5:0A0A
+call 214 0 far_c98a5_ C8B5:0D55
+call 214 0 far_d3873_ CC3F:7483
+call 214 0 far_d393d_ D391:002D
+call 214 0 far_d3a45_ D391:0135
+call 214 0 far_d3c3d_ D3B2:011D
+call 214 0 far_d4273_ D427:0003
+call 214 0 far_d447f_ D447:000F
+call 214 0 far_d4ab3_ D485:0263
+call 214 0 far_d5373_ D4CD:06A3
+call 214 0 far_d55e8_ D55E:0008
+call 214 0 far_d602b_ D602:000B
+call 214 0 far_d617f_ D602:015F
+call 214 0 far_d61d8_ D602:01B8
+call 214 0 far_d62a9_ D621:0099
+call 214 0 far_d62e8_ D62E:0008
+call 214 0 far_d6474_ D62E:0194
+call 214 0 far_d656b_ D656:000B
+call 214 0 far_d65f7_ D65F:0007
+call 214 0 far_d6a82_ D6A8:0002
+call 214 0 far_d7185_ D715:0035
+call 214 0 far_d77d7_ D77D:0007
+call 214 0 far_d7983_ D793:0053
+call 214 0 far_d7a3c_ D799:00AC
+call 214 0 far_d7b8c_ D7B8:000C
+call 214 0 far_d861e_ D861:000E
+call 214 0 far_d8765_ D871:0055
+call 214 0 far_d880a_ D880:000A
+call 214 0 far_d8810_ D880:0010
+call 214 0 far_d8827_ D880:0027
+call 214 0 far_d8850_ D880:0050
+call 214 0 far_d8856_ D880:0056
+call 214 0 far_d885c_ D880:005C
+call 214 0 far_d8894_ D880:0094
+call 214 0 far_d88b2_ D88B:0002
+call 214 0 far_d88e6_ D88E:0006
+call 214 0 far_d916d_ D90A:00CD
+call 214 0 far_d936c_ D90A:02CC
+call 214 0 far_d9445_ D90A:03A5
+call 214 0 far_d97f5_ D97F:0005
+call 214 0 far_d981a_ D97F:002A
+call 214 0 far_d9c99_ D97F:04A9
+call 214 0 far_d9da3_ D97F:05B3
+call 214 0 far_d9e7f_ D97F:068F
+call 214 0 far_d9ebd_ D97F:06CD
+call 214 0 far_da007_ D97F:0817
+call 214 0 far_da0bd_ D97F:08CD
+call 214 0 far_da14f_ D97F:095F
+call 214 0 far_da3ad_ D97F:0BBD
+call 214 0 far_da4bd_ DA3E:00DD
+call 214 0 far_da533_ DA53:0003
+call 214 0 far_da610_ DA53:00E0
+call 214 0 far_da730_ DA73:0000
+call 214 0 far_da8f6_ DA8F:0006
+call 214 0 far_da993_ DA99:0003
+call 214 0 far_daa02_ DA9B:0052
+call 214 0 far_daa7a_ DA9B:00CA
+call 214 0 far_daa7d_ DAA7:000D
+call 214 0 far_dab2d_ DAB2:000D
+call 214 0 far_daf9b_ DAC4:035B
+call 214 0 far_db741_ DAC4:0B01
+call 214 0 far_db97e_ DB97:000E
+call 214 0 far_dc104_ DB97:0794
+call 214 0 far_dc213_ DB97:08A3
+call 214 0 far_dc46c_ DC46:000C
+call 214 0 far_dc84f_ DC84:000F
+call 214 0 far_de010_ DDEF:0120
+call 214 0 far_de424_ DE42:0004
+call 214 0 far_de533_ DE53:0003
+call 214 0 far_de639_ DE53:0109
+call 214 0 far_de67d_ DE53:014D
+call 214 0 far_de758_ DE75:0008
+call 214 0 far_df05c_ DF05:000C
+call 214 0 far_df0a8_ DF05:0058
+call 214 0 far_df0f4_ DF05:00A4
+call 214 0 far_df868_ DF86:0008
+call 214 0 far_dfeec_ DFEE:000C
+call 214 0 far_e6338_ E633:0008
+call 214 0 far_e8607_ E85C:0047
+call 214 0 far_eae2e_ EAE2:000E
+call 214 0 far_ec448_ EC44:0008
+call 214 0 far_ec4cc_ EC4A:002C
+call 214 0 far_eddc3_ EDDC:0003
+call 214 0 far_ee201_ EE20:0001
+call 214 0 far_ee39e_ EE23:016E
+call 214 0 far_ee48f_ EE23:025F
+call 214 0 far_ee667_ EE4C:01A7
+call 214 0 far_ee710_ EE4C:0250
+call 214 0 far_eea3a_ EE83:020A
+call 214 0 inportw_ F25A:001B
+call 214 0 outport_ F25A:0024
+call 214 0 outportw_ F25A:0030
+call 214 0 peekb_ F257:0012
+call 214 0 poke_ F257:0030
+call 214 0 setmem_ F25D:000C
+call 214 0 strcat_ F260:0003
+call 214 0 strcmp_ F276:0003
+call 214 0 strcpy_ F263:000A
+call 214 0 strncpy_ F265:0007
+call 212 0 $ldv F0FE:0006
+call 212 0 $lrm F0FE:0034
+call 212 0 $lud F0FE:0060
+call 212 0 $lum F0FE:0058
+call 212 0 far_c1f4e_ C04A:1410
+call 212 0 far_c20ed_ C04A:15AF
+call 212 0 far_c32d9_ C1AD:103C
+call 212 0 far_c3404_ C1AD:1167
+call 212 0 far_c35da_ C1AD:133D
+call 212 0 far_c392c_ C306:00FF
+call 212 0 far_c3c8d_ C306:0460
+call 212 0 far_c4134_ C306:0907
+call 212 0 far_c5144_ C421:0767
+call 212 0 far_c56ef_ C421:0D12
+call 212 0 far_c573a_ C421:0D5D
+call 212 0 far_c580e_ C421:0E31
+call 212 0 far_c5e6a_ C552:017D
+call 212 0 far_c64c1_ C552:07D4
+call 212 0 far_c6834_ C5E6:0207
+call 212 0 far_c6d66_ C642:0179
+call 212 0 far_d3873_ CBB7:7078
+call 212 0 far_d393d_ D2C8:0032
+call 212 0 far_d3a45_ D2C8:013A
+call 212 0 far_d3c3d_ D2E9:0122
+call 212 0 far_d447f_ D37F:0004
+call 212 0 far_d4ab3_ D3BC:0268
+call 212 0 far_d5373_ D404:069C
+call 212 0 far_d55e8_ D495:0001
+call 212 0 far_d602b_ D539:0004
+call 212 0 far_d617f_ D539:0158
+call 212 0 far_d61d8_ D539:01B1
+call 212 0 far_d62e8_ D565:0001
+call 212 0 far_d6474_ D565:018D
+call 212 0 far_d656b_ D58D:0004
+call 212 0 far_d65f7_ D596:0000
+call 212 0 far_d6a82_ D5DE:000B
+call 212 0 far_d7185_ D64B:003E
+call 212 0 far_d77d7_ D6B4:0000
+call 212 0 far_d7a3c_ D6CF:00B5
+call 212 0 far_d7cba_ D6F4:0074
+call 212 0 far_d861e_ D712:000D
+call 212 0 far_d8765_ D722:0054
+call 212 0 far_d880a_ D731:0009
+call 212 0 far_d8810_ D731:000F
+call 212 0 far_d8827_ D731:0026
+call 212 0 far_d8850_ D731:004F
+call 212 0 far_d8856_ D731:0055
+call 212 0 far_d885c_ D731:005B
+call 212 0 far_d8894_ D731:0093
+call 212 0 far_d88b2_ D73C:0001
+call 212 0 far_d88e6_ D73F:0005
+call 212 0 far_d916d_ D7BB:00CB
+call 212 0 far_d936c_ D7BB:02CA
+call 212 0 far_d9445_ D7BB:03A3
+call 212 0 far_d97f5_ D830:0003
+call 212 0 far_d981a_ D830:0028
+call 212 0 far_d9c99_ D830:04A7
+call 212 0 far_d9da3_ D830:05B1
+call 212 0 far_d9e7f_ D830:068D
+call 212 0 far_d9ebd_ D830:06CB
+call 212 0 far_da007_ D830:0815
+call 212 0 far_da0bd_ D830:08CB
+call 212 0 far_da14f_ D830:095D
+call 212 0 far_da3ad_ D830:0BBB
+call 212 0 far_da4bd_ D8EF:00DB
+call 212 0 far_da533_ D904:0001
+call 212 0 far_da730_ D923:000E
+call 212 0 far_da8f6_ D940:0004
+call 212 0 far_da993_ D94A:0001
+call 212 0 far_daa02_ D94C:0050
+call 212 0 far_daa7a_ D94C:00C8
+call 212 0 far_daa7d_ D958:000B
+call 212 0 far_db741_ D974:0AEC
+call 212 0 far_dc46c_ DAF5:0007
+call 212 0 far_ddb1f_ DDB1:000F
+call 212 0 far_de010_ DC9D:012B
+call 212 0 far_de424_ DCF0:000F
+call 212 0 far_de533_ DD01:000E
+call 212 0 far_de758_ DD22:0008
+call 212 0 far_df05c_ DDB2:000C
+call 212 0 far_df0a8_ DDB2:0058
+call 212 0 far_df0f4_ DDB2:00A4
+call 212 0 far_dfeec_ DE9B:000C
+call 212 0 far_e8607_ E704:003F
+call 212 0 far_eae2e_ E98A:0006
+call 212 0 far_ec448_ EAEC:0000
+call 212 0 far_ec4cc_ EAF2:0024
+call 212 0 far_eddc3_ EC83:000B
+call 212 0 far_ee201_ ECB4:0001
+call 212 0 far_ee39e_ ECB7:016E
+call 212 0 far_ee48f_ ECB7:025F
+call 212 0 far_ee667_ ECE0:01A7
+call 212 0 far_ee710_ ECE0:0250
+call 212 0 far_eea3a_ ED17:020A
+call 212 0 inport_ F0EE:000E
+call 212 0 inportw_ F0EE:001A
+call 212 0 outport_ F0EE:0023
+call 212 0 outportw_ F0EE:002F
+call 212 0 peekb_ F0EB:0011
+call 212 0 poke_ F0EB:002F
+call 212 0 setmem_ F0F1:000B
+call 212 0 strcat_ F0F4:0002
+call 212 0 strcmp_ F10A:0002
+call 212 0 strcpy_ F0F7:0009
+call 112 0 $ldv E973:0004
+call 112 0 $lrm E973:0032
+call 112 0 $lud E973:005E
+call 112 0 $lum E973:0056
+call 112 0 L_c3fcc_ C316:0E6C
+call 112 0 L_c4063_ C316:0F03
+call 112 0 L_c52e5_ C510:01E5
+call 112 0 L_c9304_ C8D9:0574
+call 112 0 L_c9440_ C8D9:06B0
+call 112 0 L_c9e4e_ C9D4:010E
+call 112 0 L_ca0c8_ C9D4:0388
+call 112 0 L_d2183_ D1DE:03A3
+call 112 0 L_d2fc5_ D1DE:11E5
+call 112 0 L_d5ca8_ D5CA:0008
+call 112 0 L_d633f_ D633:000F
+call 112 0 L_d684f_ D681:003F
+call 112 0 L_d6f07_ D6ED:0037
+call 112 0 L_d7288_ D728:0008
+call 112 0 L_d8414_ D841:0004
+call 112 0 L_db5b5_ DB5B:0005
+call 112 0 L_dcb15_ DCB1:0005
+call 112 0 L_de62c_ DE62:000C
+call 112 0 L_de8d2_ DE8D:0002
+call 112 0 L_e0488_ E048:0008
+call 112 0 L_e1dd3_ E1DD:0003
+call 112 0 L_e535c_ E533:002C
+call 112 0 L_e5471_ E533:0141
+call 112 0 far_031ea_ E6EE:000D
+call 112 0 far_c32d9_ C069:09FF
+call 112 0 far_c5144_ C129:068C
+call 112 0 far_c56ef_ C129:0B91
+call 112 0 far_c573a_ C129:0BDC
+call 112 0 far_c580e_ C129:0CB0
+call 112 0 far_c5cfc_ C510:0162
+call 112 0 far_c5e6a_ C510:08CE
+call 112 0 far_c64c1_ C510:09AF
+call 112 0 far_cb3f8_ D1DE:0FFB
+call 112 0 far_d4273_ D501:0006
+call 112 0 far_d4ab3_ DC48:0262
+call 112 0 far_d5bcd_ D7DE:0008
+call 112 0 far_d602b_ D7C0:0001
+call 112 0 far_d62a9_ D893:009F
+call 112 0 far_d65f7_ DBDA:0003
+call 112 0 far_d6a82_ D816:0008
+call 112 0 far_d7268_ D911:0028
+call 112 0 far_d77d7_ DAF4:0006
+call 112 0 far_d7983_ DB5B:0043
+call 112 0 far_d7b8c_ DC79:000D
+call 112 0 far_d861e_ DC86:0002
+call 112 0 far_d8765_ DC95:0050
+call 112 0 far_d880a_ DCA6:000D
+call 112 0 far_d8827_ DCA6:002A
+call 112 0 far_d8856_ DCA6:0059
+call 112 0 far_d885c_ DCA6:005F
+call 112 0 far_d8894_ DCA6:0097
+call 112 0 far_d88e6_ DCB4:0009
+call 112 0 far_d90a6_ DD33:0002
+call 112 0 far_d916d_ DD33:00C9
+call 112 0 far_d936c_ DD33:02C8
+call 112 0 far_d97f5_ DD96:0002
+call 112 0 far_d981a_ DD96:0022
+call 112 0 far_d9da3_ DD96:0556
+call 112 0 far_da14f_ DD96:0875
+call 112 0 far_da4bd_ E7BC:00E1
+call 112 0 far_da533_ DE43:000F
+call 112 0 far_da8f6_ DE7F:0002
+call 112 0 far_da912_ DE85:0001
+call 112 0 far_da949_ DE85:0038
+call 112 0 far_daa02_ DE8F:0051
+call 112 0 far_daa7a_ DE8F:00C9
+call 112 0 far_daa7d_ DE9B:000C
+call 112 0 far_dac40_ DEA1:0005
+call 112 0 far_daf9b_ DEA1:0291
+call 112 0 far_db286_ DEA1:03E7
+call 112 0 far_db741_ DEA1:0A25
+call 112 0 far_dc46c_ E01F:000B
+call 112 0 far_ddf6d_ E14F:010F
+call 112 0 far_de385_ E1A4:0006
+call 112 0 far_de533_ E1BF:0004
+call 112 0 far_de67d_ E1BF:0133
+call 112 0 far_df0a8_ D546:0051
+call 112 0 far_dfeec_ D626:0005
+call 112 0 far_e01a3_ D641:0005
+call 112 0 far_e82a4_ E295:000E
+call 112 0 far_e9d7e_ D8FE:000D
+call 112 0 far_eb7fc_ DB60:0386
+call 112 0 far_ec823_ E5EF:0006
+call 112 0 far_ee201_ DCB6:000A
+call 112 0 far_eea3a_ E777:0209
+call 112 0 far_ef103_ E809:0007
+call 112 0 inportw_ E963:0018
+call 112 0 outport_ E963:0021
+call 112 0 outportw_ E963:002D
+call 112 0 peekb_ E960:000F
+call 112 0 peekw_ E960:0003
+call 112 0 setmem_ E966:0009
+call 112 0 strcat_ E969:0000
+call 112 0 strcmp_ E97F:0000
+call 112 0 strcpy_ E96C:0007
+call 112 0 strncmp_ E97F:0008
+call 112 0 strncpy_ E96E:0004
+call 112 0 tgt_c0738_ D911:0421
+call 214 1 L_df04f_ DF04:000F
+call 214 1 L_ef444_ EF43:0014
+call 214 1 atoi_ F233:0009
+call 214 1 far_03cf2_ 03CF:0002
+call 214 1 far_051d6_ 0519:0046
+call 214 1 far_05248_ 0524:0008
+call 214 1 far_c316d_ C22A:0ECD
+call 214 1 far_c32a7_ C22A:1007
+call 214 1 far_c35da_ C22A:133A
+call 214 1 far_cb577_ CB57:0007
+call 214 1 far_d3873_ CC3F:7483
+call 214 1 far_d391a_ D391:000A
+call 214 1 far_d393d_ D391:002D
+call 214 1 far_d3a45_ D391:0135
+call 214 1 far_d4855_ D485:0005
+call 214 1 far_d49f3_ D485:01A3
+call 214 1 far_d4a9b_ D485:024B
+call 214 1 far_d4b6e_ D4B6:000E
+call 214 1 far_d4c91_ D4C9:0001
+call 214 1 far_d55e8_ D55E:0008
+call 214 1 far_d6474_ D62E:0194
+call 214 1 far_d6533_ D62E:0253
+call 214 1 far_d660d_ D65F:001D
+call 214 1 far_d6668_ D666:0008
+call 214 1 far_d6a82_ D6A8:0002
+call 214 1 far_d7820_ D782:0000
+call 214 1 far_d7939_ D793:0009
+call 214 1 far_d7b8c_ D7B8:000C
+call 214 1 far_d861e_ D861:000E
+call 214 1 far_d8692_ D861:0082
+call 214 1 far_d870d_ D870:000D
+call 214 1 far_d8719_ D871:0009
+call 214 1 far_d880a_ D880:000A
+call 214 1 far_d8810_ D880:0010
+call 214 1 far_d8827_ D880:0027
+call 214 1 far_d8837_ D880:0037
+call 214 1 far_d885c_ D880:005C
+call 214 1 far_d8880_ D880:0080
+call 214 1 far_d88e6_ D88E:0006
+call 214 1 far_d9445_ D90A:03A5
+call 214 1 far_d97f5_ D97F:0005
+call 214 1 far_da02f_ D97F:083F
+call 214 1 far_da067_ D97F:0877
+call 214 1 far_da083_ D97F:0893
+call 214 1 far_da367_ D97F:0B77
+call 214 1 far_da657_ DA53:0127
+call 214 1 far_da730_ DA73:0000
+call 214 1 far_da8f6_ DA8F:0006
+call 214 1 far_da92c_ DA91:001C
+call 214 1 far_dabb3_ DAB2:0093
+call 214 1 far_dacd7_ DAC4:0097
+call 214 1 far_db022_ DAC4:03E2
+call 214 1 far_dba1d_ DB97:00AD
+call 214 1 far_dbeab_ DB97:053B
+call 214 1 far_dc2ae_ DB97:093E
+call 214 1 far_dc510_ DC46:00B0
+call 214 1 far_dc8bb_ DC84:007B
+call 214 1 far_dd222_ DD18:00A2
+call 214 1 far_ddfd6_ DDEF:00E6
+call 214 1 far_de3b5_ DE3B:0005
+call 214 1 far_de3f8_ DE3B:0048
+call 214 1 far_de424_ DE42:0004
+call 214 1 far_dea25_ DE75:02D5
+call 214 1 far_df868_ DF86:0008
+call 214 1 far_df8b4_ DF8B:0004
+call 214 1 far_dfbe6_ DFBE:0006
+call 214 1 far_dff5e_ DFF5:000E
+call 214 1 far_e01a3_ E01A:0003
+call 214 1 far_e0219_ E01E:0039
+call 214 1 far_e05da_ E05A:003A
+call 214 1 far_e0a11_ E091:0101
+call 214 1 far_e0be8_ E091:02D8
+call 214 1 far_e0d14_ E091:0404
+call 214 1 far_e0f3b_ E0F0:003B
+call 214 1 far_e4d18_ E4D1:0008
+call 214 1 far_e61c1_ E5FA:0221
+call 214 1 far_e7959_ E795:0009
+call 214 1 far_e79ab_ E79A:000B
+call 214 1 far_e9d7e_ E9D7:000E
+call 214 1 far_ec923_ EC92:0003
+call 214 1 far_edfaa_ EDFA:000A
+call 214 1 far_ee201_ EE20:0001
+call 214 1 far_ef0d4_ EF0D:0004
+call 214 1 far_ef434_ EF43:0004
+call 214 1 far_ef913_ EF91:0003
+call 214 1 far_efe59_ EFE5:0009
+call 214 1 far_f002e_ F002:000E
+call 214 1 index_ F255:0007
+call 214 1 inport_ F25A:000F
+call 214 1 inportw_ F25A:001B
+call 214 1 outport_ F25A:0024
+call 214 1 outportw_ F25A:0030
+call 214 1 setmem_ F25D:000C
+call 214 1 strcpy_ F263:000A
+call 214 1 strncmp_ F276:000B
+call 214 1 strncpy_ F265:0007
+call 212 1 atoi_ F0C7:0008
+call 212 1 far_03cf2_ 03CF:0002
+call 212 1 far_051d6_ 0519:0046
+call 212 1 far_05248_ 0524:0008
+call 212 1 far_c316d_ C1AD:0ED0
+call 212 1 far_c32a7_ C1AD:100A
+call 212 1 far_cb577_ CACF:0004
+call 212 1 far_d3873_ CBB7:7078
+call 212 1 far_d391a_ D2C8:000F
+call 212 1 far_d393d_ D2C8:0032
+call 212 1 far_d3a45_ D2C8:013A
+call 212 1 far_d4855_ D3BC:000A
+call 212 1 far_d49f3_ D3BC:01A8
+call 212 1 far_d4a9b_ D3BC:0250
+call 212 1 far_d4b6e_ D3EE:0003
+call 212 1 far_d4c91_ D400:0006
+call 212 1 far_d55e8_ D495:0001
+call 212 1 far_d6474_ D565:018D
+call 212 1 far_d6533_ D565:024C
+call 212 1 far_d660d_ D596:0016
+call 212 1 far_d6668_ D59D:0001
+call 212 1 far_d6a82_ D5DE:000B
+call 212 1 far_d7820_ D6B8:0009
+call 212 1 far_d7939_ D6CA:0002
+call 212 1 far_d7b8c_ D6EF:0005
+call 212 1 far_d861e_ D712:000D
+call 212 1 far_d8692_ D712:0081
+call 212 1 far_d870d_ D721:000C
+call 212 1 far_d8719_ D722:0008
+call 212 1 far_d880a_ D731:0009
+call 212 1 far_d8810_ D731:000F
+call 212 1 far_d8827_ D731:0026
+call 212 1 far_d8837_ D731:0036
+call 212 1 far_d885c_ D731:005B
+call 212 1 far_d8880_ D731:007F
+call 212 1 far_d88e6_ D73F:0005
+call 212 1 far_d97f5_ D830:0003
+call 212 1 far_da02f_ D830:083D
+call 212 1 far_da067_ D830:0875
+call 212 1 far_da083_ D830:0891
+call 212 1 far_da367_ D830:0B75
+call 212 1 far_da657_ D904:0125
+call 212 1 far_da730_ D923:000E
+call 212 1 far_da8f6_ D940:0004
+call 212 1 far_da92c_ D942:001A
+call 212 1 far_dabb3_ D963:0091
+call 212 1 far_dacd7_ D974:00A5
+call 212 1 far_db022_ D974:03CD
+call 212 1 far_dba1d_ DA46:00A8
+call 212 1 far_dbeab_ DA46:0536
+call 212 1 far_dc2ae_ DA46:0939
+call 212 1 far_dc510_ DAF5:00AB
+call 212 1 far_dc8bb_ DB33:0076
+call 212 1 far_dd222_ DBC7:009D
+call 212 1 far_ddfd6_ DC9D:00F1
+call 212 1 far_de3b5_ DCEA:0000
+call 212 1 far_de3f8_ DCEA:0043
+call 212 1 far_de424_ DCF0:000F
+call 212 1 far_dea25_ DD22:02D5
+call 212 1 far_df868_ DE33:0008
+call 212 1 far_df8b4_ DE38:0004
+call 212 1 far_dfbe6_ DE6B:0006
+call 212 1 far_dff5e_ DEA2:000E
+call 212 1 far_e01a3_ DEC7:0003
+call 212 1 far_e0219_ DECB:0039
+call 212 1 far_e05da_ DF07:003A
+call 212 1 far_e0f3b_ DF9D:003B
+call 212 1 far_e4d18_ E37E:0008
+call 212 1 far_e61c1_ E4A4:021D
+call 212 1 far_e7959_ E63D:0001
+call 212 1 far_e79ab_ E642:0003
+call 212 1 far_e9d7e_ E87F:0006
+call 212 1 far_ec923_ EB39:000B
+call 212 1 far_edfaa_ ECA2:0002
+call 212 1 far_ee201_ ECB4:0001
+call 212 1 far_ef0d4_ EDA1:0003
+call 212 1 far_ef913_ EE25:0002
+call 212 1 far_efe59_ EE79:0008
+call 212 1 far_f002e_ EE96:000D
+call 212 1 index_ F0E9:0006
+call 212 1 inport_ F0EE:000E
+call 212 1 inportw_ F0EE:001A
+call 212 1 outport_ F0EE:0023
+call 212 1 outportw_ F0EE:002F
+call 212 1 setmem_ F0F1:000B
+call 212 1 strcpy_ F0F7:0009
+call 212 1 strncmp_ F10A:000A
+call 212 1 strncpy_ F0F9:0006
+call 112 1 $ldv E973:0004
+call 112 1 $lrm E973:0032
+call 112 1 $lud E973:005E
+call 112 1 $lum E973:0056
+call 112 1 L_c7f5e_ C7A3:052E
+call 112 1 L_c7fe9_ C7A3:05B9
+call 112 1 L_d2f80_ D1DE:11A0
+call 112 1 L_de62c_ DE62:000C
+call 112 1 atoi_ E93C:0006
+call 112 1 far_c50a2_ C129:05EA
+call 112 1 far_c538e_ C129:08D6
+call 112 1 far_d3c3d_ D494:010F
+call 112 1 far_d3ef5_ D4CF:0002
+call 112 1 far_d49f3_ DC48:01A2
+call 112 1 far_d5373_ D737:060A
+call 112 1 far_d7b8c_ DC79:000D
+call 112 1 far_d861e_ DC86:0002
+call 112 1 far_d8692_ DC86:0076
+call 112 1 far_d880a_ DCA6:000D
+call 112 1 far_d8827_ DCA6:002A
+call 112 1 far_d8837_ DCA6:003A
+call 112 1 far_d8880_ DCA6:0083
+call 112 1 far_d9445_ DD33:03A1
+call 112 1 far_d97f5_ DD96:0002
+call 112 1 far_da02f_ DD96:0755
+call 112 1 far_da067_ DD96:078D
+call 112 1 far_da083_ DD96:07A9
+call 112 1 far_da14f_ DD96:0875
+call 112 1 far_da367_ DD96:0A60
+call 112 1 far_da8f6_ DE7F:0002
+call 112 1 far_da949_ DE85:0038
+call 112 1 far_db022_ DEA1:0318
+call 112 1 far_db286_ DEA1:03E7
+call 112 1 far_db378_ DEA1:04F3
+call 112 1 far_db8ab_ DEA1:0B61
+call 112 1 far_db915_ DEA1:0BCB
+call 112 1 far_ddef2_ E14F:0007
+call 112 1 far_ddf1b_ E14F:005F
+call 112 1 far_ddf44_ E14F:00B7
+call 112 1 far_ddfd6_ E14F:01A7
+call 112 1 far_df05c_ D546:0005
+call 112 1 far_df0f4_ D546:009D
+call 112 1 far_df868_ E357:0009
+call 112 1 far_df8b4_ D5D9:000F
+call 112 1 far_ec31a_ E466:0003
+call 112 1 far_ec448_ E46C:000B
+call 112 1 far_ee201_ DCB6:000A
+call 112 1 far_ef0d4_ E806:0008
+call 112 1 index_ E95E:0004
+call 112 1 inport_ E963:000C
+call 112 1 inportw_ E963:0018
+call 112 1 outport_ E963:0021
+call 112 1 outportw_ E963:002D
+call 112 1 peekb_ E960:000F
+call 112 1 setmem_ E966:0009
+call 112 1 strcpy_ E96C:0007
+call 112 1 strncpy_ E96E:0004
+call 214 2 far_03012_ 0300:0012
+call 214 2 far_044eb_ 044E:000B
+call 214 2 far_04596_ 0459:0006
+call 214 2 far_04a89_ 0459:04F9
+call 214 2 far_05248_ 0524:0008
+call 214 2 far_05303_ 0530:0003
+call 214 2 far_0579f_ 0579:000F
+call 214 2 far_0583f_ 0579:00AF
+call 214 2 far_c1e6c_ C04F:197C
+call 214 2 far_c1f4e_ C04F:1A5E
+call 214 2 far_c3056_ C22A:0DB6
+call 214 2 far_c30b6_ C22A:0E16
+call 214 2 far_c30f2_ C22A:0E52
+call 214 2 far_c3308_ C22A:1068
+call 214 2 far_c33b2_ C22A:1112
+call 214 2 far_c34be_ C22A:121E
+call 214 2 far_c3513_ C22A:1273
+call 214 2 far_c5001_ C49D:0631
+call 214 2 far_c580e_ C49D:0E3E
+call 214 2 far_c62de_ C5CF:05EE
+call 214 2 far_cb998_ CB99:0008
+call 214 2 far_cbb63_ CB99:01D3
+call 214 2 far_cbe28_ CB99:0498
+call 214 2 far_cc39e_ CB99:0A0E
+call 214 2 far_d3a45_ D391:0135
+call 214 2 far_d3eb6_ D3B2:0396
+call 214 2 far_d4855_ D485:0005
+call 214 2 far_d49f3_ D485:01A3
+call 214 2 far_d4c91_ D4C9:0001
+call 214 2 far_d55e8_ D55E:0008
+call 214 2 far_d5bcd_ D5BC:000D
+call 214 2 far_d602b_ D602:000B
+call 214 2 far_d6216_ D621:0006
+call 214 2 far_d6668_ D666:0008
+call 214 2 far_d6a82_ D6A8:0002
+call 214 2 far_d6fda_ D6EE:00FA
+call 214 2 far_d700c_ D700:000C
+call 214 2 far_d7241_ D724:0001
+call 214 2 far_d77d7_ D77D:0007
+call 214 2 far_d7820_ D782:0000
+call 214 2 far_d78a2_ D78A:0002
+call 214 2 far_d7939_ D793:0009
+call 214 2 far_d7b8c_ D7B8:000C
+call 214 2 far_d861e_ D861:000E
+call 214 2 far_d870d_ D870:000D
+call 214 2 far_d8719_ D871:0009
+call 214 2 far_d880a_ D880:000A
+call 214 2 far_d8810_ D880:0010
+call 214 2 far_d8827_ D880:0027
+call 214 2 far_d885c_ D880:005C
+call 214 2 far_d8894_ D880:0094
+call 214 2 far_d88b2_ D88B:0002
+call 214 2 far_d88e6_ D88E:0006
+call 214 2 far_d90a6_ D90A:0006
+call 214 2 far_d916d_ D90A:00CD
+call 214 2 far_d936c_ D90A:02CC
+call 214 2 far_d97f5_ D97F:0005
+call 214 2 far_d981a_ D97F:002A
+call 214 2 far_da14f_ D97F:095F
+call 214 2 far_da2b0_ D97F:0AC0
+call 214 2 far_da533_ DA53:0003
+call 214 2 far_da610_ DA53:00E0
+call 214 2 far_da730_ DA73:0000
+call 214 2 far_da8f6_ DA8F:0006
+call 214 2 far_da912_ DA91:0002
+call 214 2 far_da91e_ DA91:000E
+call 214 2 far_da949_ DA91:0039
+call 214 2 far_da993_ DA99:0003
+call 214 2 far_db286_ DAC4:0646
+call 214 2 far_dc012_ DB97:06A2
+call 214 2 far_de533_ DE53:0003
+call 214 2 far_de639_ DE53:0109
+call 214 2 far_de723_ DE53:01F3
+call 214 2 far_de758_ DE75:0008
+call 214 2 far_dfe95_ DFBE:02B5
+call 214 2 far_dfec3_ DFBE:02E3
+call 214 2 far_dfeec_ DFEE:000C
+call 214 2 far_dff9c_ DFF9:000C
+call 214 2 far_e05a3_ E05A:0003
+call 214 2 far_e09f4_ E091:00E4
+call 214 2 far_e0d14_ E091:0404
+call 214 2 far_e127e_ E127:000E
+call 214 2 far_e15ef_ E159:005F
+call 214 2 far_e1617_ E159:0087
+call 214 2 far_e3213_ E1A1:1803
+call 214 2 far_e3955_ E34E:0475
+call 214 2 far_e544a_ E4E1:063A
+call 214 2 far_e687a_ E67E:009A
+call 214 2 far_e69bc_ E67E:01DC
+call 214 2 far_e6bf1_ E67E:0411
+call 214 2 far_e7aef_ E7AE:000F
+call 214 2 far_e7e9c_ E7DE:00BC
+call 214 2 far_e8cd3_ E8CD:0003
+call 214 2 far_e9686_ E968:0006
+call 214 2 far_e9cab_ E9CA:000B
+call 214 2 far_e9d7e_ E9D7:000E
+call 214 2 far_ead5e_ EAD5:000E
+call 214 2 far_eb1c8_ EB13:0098
+call 214 2 far_eb28c_ EB13:015C
+call 214 2 far_eb795_ EB40:0395
+call 214 2 far_eb7bb_ EB40:03BB
+call 214 2 far_eb7fc_ EB40:03FC
+call 214 2 far_eb8a8_ EB40:04A8
+call 214 2 far_eb9a3_ EB9A:0003
+call 214 2 far_ec252_ EC19:00C2
+call 214 2 far_ec4ae_ EC4A:000E
+call 214 2 far_ec4cc_ EC4A:002C
+call 214 2 far_ec53e_ EC53:000E
+call 214 2 far_ec957_ EC95:0007
+call 214 2 far_ed6eb_ ED36:038B
+call 214 2 far_ee201_ EE20:0001
+call 214 2 far_ef5cf_ EF5C:000F
+call 214 2 far_ef727_ EF72:0007
+call 214 2 far_f0225_ F022:0005
+call 214 2 far_f0694_ F069:0004
+call 212 2 far_03012_ 0300:0012
+call 212 2 far_044eb_ 044E:000B
+call 212 2 far_04596_ 0459:0006
+call 212 2 far_04a89_ 0459:04F9
+call 212 2 far_05248_ 0524:0008
+call 212 2 far_05303_ 0530:0003
+call 212 2 far_c1e6c_ C04A:1352
+call 212 2 far_c1f4e_ C04A:1410
+call 212 2 far_c30f2_ C1AD:0E55
+call 212 2 far_c3308_ C1AD:106B
+call 212 2 far_c33b2_ C1AD:1115
+call 212 2 far_c34be_ C1AD:1221
+call 212 2 far_c3513_ C1AD:1276
+call 212 2 far_c5001_ C421:0624
+call 212 2 far_c580e_ C421:0E31
+call 212 2 far_c62de_ C552:05F1
+call 212 2 far_cb998_ CB11:0005
+call 212 2 far_cbb63_ CB11:01D0
+call 212 2 far_cbe28_ CB11:0495
+call 212 2 far_cc39e_ CB11:0A0B
+call 212 2 far_d4855_ D3BC:000A
+call 212 2 far_d49f3_ D3BC:01A8
+call 212 2 far_d4c91_ D400:0006
+call 212 2 far_d55e8_ D495:0001
+call 212 2 far_d5bcd_ D4F3:0006
+call 212 2 far_d602b_ D539:0004
+call 212 2 far_d6216_ D557:000F
+call 212 2 far_d6a82_ D5DE:000B
+call 212 2 far_d6fda_ D624:0103
+call 212 2 far_d7241_ D65A:000A
+call 212 2 far_d77d7_ D6B4:0000
+call 212 2 far_d7820_ D6B8:0009
+call 212 2 far_d78a2_ D6C0:000B
+call 212 2 far_d7b8c_ D6EF:0005
+call 212 2 far_d861e_ D712:000D
+call 212 2 far_d870d_ D721:000C
+call 212 2 far_d880a_ D731:0009
+call 212 2 far_d8810_ D731:000F
+call 212 2 far_d8827_ D731:0026
+call 212 2 far_d885c_ D731:005B
+call 212 2 far_d8894_ D731:0093
+call 212 2 far_d88b2_ D73C:0001
+call 212 2 far_d88e6_ D73F:0005
+call 212 2 far_d936c_ D7BB:02CA
+call 212 2 far_d981a_ D830:0028
+call 212 2 far_da14f_ D830:095D
+call 212 2 far_da533_ D904:0001
+call 212 2 far_da610_ D904:00DE
+call 212 2 far_da91e_ D942:000C
+call 212 2 far_da949_ D942:0037
+call 212 2 far_da993_ D94A:0001
+call 212 2 far_db286_ D974:0631
+call 212 2 far_dc012_ DA46:069D
+call 212 2 far_de533_ DD01:000E
+call 212 2 far_de639_ DD01:00F9
+call 212 2 far_de723_ DD01:01E3
+call 212 2 far_de758_ DD22:0008
+call 212 2 far_dfeec_ DE9B:000C
+call 212 2 far_e09f4_ DF3E:00E4
+call 212 2 far_e15ef_ E006:005F
+call 212 2 far_e1617_ E006:0087
+call 212 2 far_e3955_ E1FB:0475
+call 212 2 far_e544a_ E38E:063A
+call 212 2 far_e687a_ E525:00A2
+call 212 2 far_e69bc_ E525:01E4
+call 212 2 far_e6bf1_ E525:0419
+call 212 2 far_e7aef_ E656:0007
+call 212 2 far_e7e9c_ E685:00C4
+call 212 2 far_e8cd3_ E774:000B
+call 212 2 far_e9686_ E80F:000E
+call 212 2 far_e9cab_ E872:0003
+call 212 2 far_e9d7e_ E87F:0006
+call 212 2 far_eb1c8_ E9BA:00A0
+call 212 2 far_eb28c_ E9BA:0164
+call 212 2 far_eb795_ E9E8:038D
+call 212 2 far_eb7bb_ E9E8:03B3
+call 212 2 far_eb7fc_ E9E8:03F4
+call 212 2 far_eb8a8_ E9E8:04A0
+call 212 2 far_eb9a3_ EA41:000B
+call 212 2 far_ec252_ EAC1:00BA
+call 212 2 far_ec4ae_ EAF2:0006
+call 212 2 far_ec4cc_ EAF2:0024
+call 212 2 far_ec957_ EB3C:000F
+call 212 2 far_ed6eb_ EBDD:0393
+call 212 2 far_ee201_ ECB4:0001
+call 212 2 far_ef5cf_ EDF0:000E
+call 212 2 far_f0694_ EEFD:0003
+call 112 2 L_c4063_ C316:0F03
+call 112 2 L_c958f_ C8D9:07FF
+call 112 2 L_c9617_ C8D9:0887
+call 112 2 L_dcb15_ DCB1:0005
+call 112 2 far_c5001_ C129:0549
+call 112 2 far_c580e_ C129:0CB0
+call 112 2 far_d49f3_ DC48:01A2
+call 112 2 far_d880a_ DCA6:000D
+call 112 2 far_d8827_ DCA6:002A
+call 112 2 far_d8837_ DCA6:003A
+call 112 2 far_d885c_ DCA6:005F
+call 112 2 far_d8894_ DCA6:0097
+call 112 2 far_d916d_ DD33:00C9
+call 112 2 far_d936c_ DD33:02C8
+call 112 2 far_d981a_ DD96:0022
+call 112 2 far_da14f_ DD96:0875
+call 112 2 far_ef5cf_ E887:000D
+call 112 2 strlen_ E982:0004
+call 214 3 far_03012_ 0300:0012
+call 214 3 far_03ec1_ 03EC:0001
+call 214 3 far_04ed4_ 04DE:00F4
+call 214 3 far_c20ed_ C04F:1BFD
+call 214 3 far_c587b_ C49D:0EAB
+call 214 3 far_c998b_ C990:008B
+call 214 3 far_cb998_ CB99:0008
+call 214 3 far_cbdf5_ CB99:0465
+call 214 3 far_cbe16_ CB99:0486
+call 214 3 far_cbe28_ CB99:0498
+call 214 3 far_d3ef5_ D3EF:0005
+call 214 3 far_d4855_ D485:0005
+call 214 3 far_d55e8_ D55E:0008
+call 214 3 far_d602b_ D602:000B
+call 214 3 far_d6216_ D621:0006
+call 214 3 far_d6668_ D666:0008
+call 214 3 far_d6a82_ D6A8:0002
+call 214 3 far_d7241_ D724:0001
+call 214 3 far_d8692_ D861:0082
+call 214 3 far_d8765_ D871:0055
+call 214 3 far_d8810_ D880:0010
+call 214 3 far_d8827_ D880:0027
+call 214 3 far_d8837_ D880:0037
+call 214 3 far_d885c_ D880:005C
+call 214 3 far_d8894_ D880:0094
+call 214 3 far_d88b2_ D88B:0002
+call 214 3 far_d88e6_ D88E:0006
+call 214 3 far_d97f5_ D97F:0005
+call 214 3 far_da8f6_ DA8F:0006
+call 214 3 far_da91e_ DA91:000E
+call 214 3 far_dac40_ DAC4:0000
+call 214 3 far_de533_ DE53:0003
+call 214 3 far_de639_ DE53:0109
+call 214 3 far_de723_ DE53:01F3
+call 214 3 far_de758_ DE75:0008
+call 214 3 far_e09f4_ E091:00E4
+call 214 3 far_e12b0_ E127:0040
+call 214 3 far_e777b_ E67E:0F9B
+call 214 3 far_e7daf_ E7DA:000F
+call 214 3 far_e8cd3_ E8CD:0003
+call 214 3 far_eaf33_ EAF3:0003
+call 214 3 far_eb7bb_ EB40:03BB
+call 214 3 far_ec4cc_ EC4A:002C
+call 214 3 far_ed328_ ED32:0008
+call 214 3 far_ee201_ EE20:0001
+call 214 3 far_f0c14_ F0C1:0004
+call 214 3 far_f113e_ F113:000E
+call 214 3 far_f170e_ F170:000E
+call 214 3 inportw_ F25A:001B
+call 214 3 outportw_ F25A:0030
+call 214 3 peekb_ F257:0012
+call 214 3 peekw_ F257:0006
+call 214 3 setmem_ F25D:000C
+call 214 3 strcpy_ F263:000A
+call 214 3 strlen_ F279:0007
+call 214 3 strncpy_ F265:0007
+call 212 3 far_03012_ 0300:0012
+call 212 3 far_03ec1_ 03EC:0001
+call 212 3 far_c20ed_ C04A:15AF
+call 212 3 far_c587b_ C421:0E9E
+call 212 3 far_c998b_ C908:0088
+call 212 3 far_cb998_ CB11:0005
+call 212 3 far_cbdf5_ CB11:0462
+call 212 3 far_cbe16_ CB11:0483
+call 212 3 far_cbe28_ CB11:0495
+call 212 3 far_d3ef5_ D326:000A
+call 212 3 far_d4855_ D3BC:000A
+call 212 3 far_d55e8_ D495:0001
+call 212 3 far_d602b_ D539:0004
+call 212 3 far_d6216_ D557:000F
+call 212 3 far_d6668_ D59D:0001
+call 212 3 far_d6a82_ D5DE:000B
+call 212 3 far_d7241_ D65A:000A
+call 212 3 far_d8692_ D712:0081
+call 212 3 far_d8765_ D722:0054
+call 212 3 far_d8810_ D731:000F
+call 212 3 far_d8827_ D731:0026
+call 212 3 far_d8837_ D731:0036
+call 212 3 far_d885c_ D731:005B
+call 212 3 far_d8894_ D731:0093
+call 212 3 far_d88b2_ D73C:0001
+call 212 3 far_d88e6_ D73F:0005
+call 212 3 far_d97f5_ D830:0003
+call 212 3 far_da8f6_ D940:0004
+call 212 3 far_da91e_ D942:000C
+call 212 3 far_dac40_ D974:000E
+call 212 3 far_de533_ DD01:000E
+call 212 3 far_de639_ DD01:00F9
+call 212 3 far_de723_ DD01:01E3
+call 212 3 far_de758_ DD22:0008
+call 212 3 far_e12b0_ DFD4:0040
+call 212 3 far_e777b_ E525:0FA3
+call 212 3 far_e7daf_ E682:0007
+call 212 3 far_e8cd3_ E774:000B
+call 212 3 far_eaf33_ E99A:000B
+call 212 3 far_eb7bb_ E9E8:03B3
+call 212 3 far_ec4cc_ EAF2:0024
+call 212 3 far_ed328_ EBDA:0000
+call 212 3 far_ee201_ ECB4:0001
+call 212 3 far_f0c14_ EF55:0003
+call 212 3 far_f113e_ EFA7:000D
+call 212 3 far_f170e_ F004:000D
+call 212 3 inportw_ F0EE:001A
+call 212 3 outportw_ F0EE:002F
+call 212 3 peekb_ F0EB:0011
+call 212 3 peekw_ F0EB:0005
+call 212 3 strcpy_ F0F7:0009
+call 212 3 strlen_ F10D:0006
+call 212 3 strncpy_ F0F9:0006
+call 112 3 far_d602b_ D7C0:0001
+call 112 3 peekb_ E960:000F
+call 214 4 $ldv F26A:0007
+call 214 4 $lrm F26A:0035
+call 214 4 $lud F26A:0061
+call 214 4 $lum F26A:0059
+call 214 4 L_df04f_ DF04:000F
+call 214 4 far_03ec1_ 03EC:0001
+call 214 4 far_04f7e_ 04DE:019E
+call 214 4 far_05303_ 0530:0003
+call 214 4 far_d4153_ D415:0003
+call 214 4 far_d4c91_ D4C9:0001
+call 214 4 far_d55e8_ D55E:0008
+call 214 4 far_d602b_ D602:000B
+call 214 4 far_d6216_ D621:0006
+call 214 4 far_d6668_ D666:0008
+call 214 4 far_d6a82_ D6A8:0002
+call 214 4 far_d700c_ D700:000C
+call 214 4 far_d7156_ D715:0006
+call 214 4 far_d7241_ D724:0001
+call 214 4 far_d861e_ D861:000E
+call 214 4 far_d880a_ D880:000A
+call 214 4 far_d8810_ D880:0010
+call 214 4 far_d8827_ D880:0027
+call 214 4 far_d8850_ D880:0050
+call 214 4 far_d8856_ D880:0056
+call 214 4 far_d885c_ D880:005C
+call 214 4 far_d88e6_ D88E:0006
+call 214 4 far_d974c_ D90A:06AC
+call 214 4 far_da993_ DA99:0003
+call 214 4 far_daa7a_ DA9B:00CA
+call 214 4 far_daa7d_ DAA7:000D
+call 214 4 far_ddef2_ DDEF:0002
+call 214 4 far_ddf1b_ DDEF:002B
+call 214 4 far_ddf44_ DDEF:0054
+call 214 4 far_ddf6d_ DDEF:007D
+call 214 4 far_de3f8_ DE3B:0048
+call 214 4 far_df035_ DEFD:0065
+call 214 4 far_df042_ DEFD:0072
+call 214 4 far_df868_ DF86:0008
+call 214 4 far_dfbe6_ DFBE:0006
+call 214 4 far_e016f_ E016:000F
+call 214 4 far_e01a3_ E01A:0003
+call 214 4 far_e7daf_ E7DA:000F
+call 214 4 far_e8cd3_ E8CD:0003
+call 214 4 far_e9e6d_ E9E6:000D
+call 214 4 far_eb52e_ EB40:012E
+call 214 4 far_eb7bb_ EB40:03BB
+call 214 4 far_eb7fc_ EB40:03FC
+call 214 4 far_ed328_ ED32:0008
+call 214 4 far_ee201_ EE20:0001
+call 214 4 far_eea3a_ EE83:020A
+call 214 4 far_ef0d4_ EF0D:0004
+call 214 4 far_ef16b_ EF10:006B
+call 214 4 far_f04ce_ F049:003E
+call 214 4 far_f0694_ F069:0004
+call 214 4 far_f0ace_ F0AC:000E
+call 214 4 far_f11dc_ F11D:000C
+call 214 4 far_f1255_ F11D:0085
+call 214 4 far_f175b_ F175:000B
+call 214 4 far_f1b01_ F1B0:0001
+call 214 4 peekb_ F257:0012
+call 214 4 setmem_ F25D:000C
+call 214 4 strcpy_ F263:000A
+call 212 4 $ldv F0FE:0006
+call 212 4 $lrm F0FE:0034
+call 212 4 $lud F0FE:0060
+call 212 4 $lum F0FE:0058
+call 212 4 far_03ec1_ 03EC:0001
+call 212 4 far_04f7e_ 04DE:019E
+call 212 4 far_05303_ 0530:0003
+call 212 4 far_d4153_ D34C:0008
+call 212 4 far_d4c91_ D400:0006
+call 212 4 far_d55e8_ D495:0001
+call 212 4 far_d602b_ D539:0004
+call 212 4 far_d6216_ D557:000F
+call 212 4 far_d6668_ D59D:0001
+call 212 4 far_d6a82_ D5DE:000B
+call 212 4 far_d700c_ D637:0005
+call 212 4 far_d7156_ D64B:000F
+call 212 4 far_d7241_ D65A:000A
+call 212 4 far_d8810_ D731:000F
+call 212 4 far_d8827_ D731:0026
+call 212 4 far_d885c_ D731:005B
+call 212 4 far_d974c_ D7BB:06AA
+call 212 4 far_da993_ D94A:0001
+call 212 4 far_daa7a_ D94C:00C8
+call 212 4 far_daa7d_ D958:000B
+call 212 4 far_ddef2_ DC9D:000D
+call 212 4 far_ddf1b_ DC9D:0036
+call 212 4 far_ddf44_ DC9D:005F
+call 212 4 far_ddf6d_ DC9D:0088
+call 212 4 far_df868_ DE33:0008
+call 212 4 far_dfbe6_ DE6B:0006
+call 212 4 far_e01a3_ DEC7:0003
+call 212 4 far_e7daf_ E682:0007
+call 212 4 far_e8cd3_ E774:000B
+call 212 4 far_e9e6d_ E88E:0005
+call 212 4 far_eb52e_ E9E8:0126
+call 212 4 far_eb7bb_ E9E8:03B3
+call 212 4 far_eb7fc_ E9E8:03F4
+call 212 4 far_ed328_ EBDA:0000
+call 212 4 far_ee201_ ECB4:0001
+call 212 4 far_eea3a_ ED17:020A
+call 212 4 far_ef0d4_ EDA1:0003
+call 212 4 far_ef16b_ EDA4:006A
+call 212 4 far_f04ce_ EEDD:003D
+call 212 4 far_f0694_ EEFD:0003
+call 212 4 far_f0ace_ EF40:000D
+call 212 4 far_f11dc_ EFB1:000B
+call 212 4 far_f1255_ EFB1:0084
+call 212 4 far_f175b_ F009:000A
+call 212 4 far_f1b01_ F044:0000
+call 212 4 peekb_ F0EB:0011
+call 212 4 setmem_ F0F1:000B
+call 212 4 strcpy_ F0F7:0009
+call 112 4 L_df04f_ E25B:0009
+call 112 4 far_d8810_ DCA6:0013
+call 112 4 far_d8827_ DCA6:002A
+call 112 4 far_d885c_ DCA6:005F
+call 112 4 far_d974c_ DD33:0589
+call 112 4 far_daa7d_ DE9B:000C
+call 112 4 far_df868_ E357:0009
+call 112 4 far_ee201_ DCB6:000A
+call 112 4 far_ef0d4_ E806:0008
+call 112 4 far_ef16b_ E809:006F
+call 112 4 far_f175b_ E857:0002
+call 112 4 far_f1b01_ E89D:0005
+call 214 5 far_03012_ 0300:0012
+call 214 5 far_05303_ 0530:0003
+call 214 5 far_d4c91_ D4C9:0001
+call 214 5 far_d7185_ D715:0035
+call 214 5 far_da949_ DA91:0039
+call 214 5 far_e9d7e_ E9D7:000E
+call 214 5 far_ee201_ EE20:0001
+call 212 5 far_03012_ 0300:0012
+call 212 5 far_05303_ 0530:0003
+call 212 5 far_d4c91_ D400:0006
+call 212 5 far_d7185_ D64B:003E
+call 212 5 far_da949_ D942:0037
+call 212 5 far_e9d7e_ E87F:0006
+call 212 5 far_ee201_ ECB4:0001
+call 214 6 outport_ F25A:0024
+call 212 6 outport_ F0EE:0023
+call 112 6 outport_ E963:0021

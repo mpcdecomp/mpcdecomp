@@ -368,6 +368,7 @@ FP_POLL_HOOK:
         db      00h, 00h
 FP_POLL_HOOK_SEG:
         db      00h, 00h
+D_0618:                                 ; 400h * 2^(n/120): the octave below P_0708's
         dw      0400h, 0406h, 040ch, 0412h, 0418h, 041eh, 0424h, 042ah
         dw      0430h, 0437h, 043dh, 0443h, 0449h, 0450h, 0456h, 045dh
         dw      0463h, 046ah, 0470h, 0477h, 047dh, 0484h, 048bh, 0491h
@@ -1926,20 +1927,13 @@ DL_CREATE_NEW_PROGRAM:
         WIN_LABEL 49h, 13h, "New name:"
         WIN_LABEL 49h, 25h, "MIDI program change:"
         WIN_END
-TBL_WINKEYS_0292E:
-        if      FW_VERSION = 172
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
-        else
+TBL_WINKEYS_0292E:                      ; 8 records + WIN_KEY_END
         WIN_KEY_CLEAR
-        endif
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_0666A
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, t2_copy_pgm_cancel
         WIN_KEY   WIN_K_F4, TEXT2_SEG, t2_copy_pgm_cancel
         WIN_KEY   WIN_K_F5, TEXT2_SEG, seq_select_caller
         WIN_KEY   WIN_K_UP, TEXT1_SEG, X_065CE
-X_0294C:
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, L_065E6
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, copy_pgm_refresh
         WIN_KEY_END
@@ -2257,9 +2251,8 @@ X_02DF2:
 
 X_02DF4:
         db      0ffh, 0ffh, 0ffh, 3fh, 47h, 01h, 0f0h, 7fh, 80h
-TBL_WINKEYS_02DFD:                      ; 1 records + WIN_KEY_END
-        db      80h, 00h, 00h, 00h, 00h                           ; [0] key 80h         -> 0000h:0000h
-        db      00h, 00h, 00h, 00h, 00h                           ; WIN_KEY_END
+P_2DFD:
+        db      80h, 9 dup (000h)
         db      00h
 BUF_REC_METER_BAR:
         db      0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah, 0ah
@@ -2412,8 +2405,9 @@ G_PLAY_MODE:
 FP_SND_SECONDARY:
         db      00h, 00h
 FP_SND_SECONDARY_SEG:
-        db      00h
-        db      00h, 00h, 00h, 00h, 00h                           ; WIN_KEY_END
+        db      00h, 00h
+D_306E:
+        db      4 dup (000h)
 TBL_LOOP_LEN_MODE_LABELS:
         db      "VARI", 000h, "^FIX", 000h
 TBL_EDIT_RANGE_LABELS:
@@ -2522,12 +2516,11 @@ STR_ROM_1:
 STR_SND_1:
         db      53h
         db      6eh, 64h, 3ah, 00h
-TBL_WINKEYS_DELETE_SOUND:
+TBL_WINKEYS_DELETE_SOUND:               ; 6 records + WIN_KEY_END
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, delete_sound_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, snd_edit_page_return
         WIN_KEY   WIN_K_F3, TEXT2_SEG, delete_sound_all
         WIN_KEY   WIN_K_F4, TEXT2_SEG, snd_edit_page_return
-L_0326C:
         WIN_KEY   WIN_K_F5, TEXT2_SEG, sample_voice_init
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY_END
@@ -2667,33 +2660,17 @@ X_0351C:
         WIN_LABEL 8bh, 28h, "PLAY X:"
         WIN_END
         db      00h
-P_354A:
-        db      01h, 00h, 00h, 00h, 00h, 32h
-        dw      L_092C2, TEXT2_SEG
-        db      18h
-        dw      X_07A2C, TEXT1_SEG
-        db      19h
-        dw      X_07A42, TEXT1_SEG
-        db      15h
-
-L_0355F:
-        dw      trim_screen_enter, TEXT1_SEG
-        db      03h
-        dw      wave_zoom_double, TEXT2_SEG
-        db      04h
-        dw      wave_zoom_halve, TEXT2_SEG
-        db      05h
-        dw      trim_screen_enter, TEXT1_SEG
-        db      06h
-
-L_03573:
-        dw      X_0935A, TEXT2_SEG
-        db      86h
-
-L_03578:
-        dw      X_07F14
-        dw      TEXT2_SEG  ; reloc
-TBL_WINKEYS_0357C:
+P_354A:                                 ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_092C2
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_07A2C
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_07A42
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F2, TEXT2_SEG, wave_zoom_double
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, wave_zoom_halve
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_0935A
+        WIN_KEY   86h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY_END

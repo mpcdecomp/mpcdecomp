@@ -1877,7 +1877,7 @@ field_engine_redraw:
         push    di
         push    si
         mov     ax, word ptr [C2_W_FE_DESC_OFF]
-        mov     dx, word ptr [C2_W_08B1C]
+        mov     dx, word ptr [C0_W_08B1C]
         mov     si, ax
         mov     word ptr [bp-0ah], dx
         mov     bx, ax
@@ -2132,7 +2132,7 @@ br_48232:
         mov     word ptr [C2_W_FE_PENDING_HI], dx
 br_48241:
         mov     ax, word ptr [C2_W_FE_VALUE_OFF]
-        mov     dx, word ptr [C2_W_08B20]
+        mov     dx, word ptr [C0_W_08B20]
         mov     cl, byte ptr es:[bx+4]
         and     cx, 0fh
         mov     di, ax
@@ -2313,7 +2313,7 @@ L_47A80:
         mov     ds, cx
         push    EP_FS_OPEN_SEG
         push    EP_FAR_483FC_OFF
-        push    word ptr [C2_W_08B20]
+        push    word ptr [C0_W_08B20]
         push    word ptr [FE_VALUE]
         nop
         push    cs
@@ -2493,7 +2493,7 @@ br_4850E:
         mov     word ptr [bp-2], ax
         mov     di, ax
 loop_4853C:
-        cmp     byte ptr [di+C2_TBL_08B32], 20h
+        cmp     byte ptr [di+C2_W_08B32], 20h
         je      br_48549
         inc     di
         cmp     di, 10h
@@ -2635,9 +2635,9 @@ name_split_number_suffix:
         mov     word ptr [bp-2], 0fh
         mov     si, word ptr [bp-2]
 loop_4866E:
-        cmp     byte ptr [si+C2_TBL_08B32], 20h
+        cmp     byte ptr [si+C2_W_08B32], 20h
         je      br_48687
-        mov     al, byte ptr [si+C2_TBL_08B32]
+        mov     al, byte ptr [si+C2_W_08B32]
         cbw
         mov     bx, ax
         test    byte ptr [bx+C2_B_076CB], 4
@@ -2653,7 +2653,7 @@ br_4868A:
         cmp     si, 10h
         jge     br_486C5
 loop_48696:
-        mov     al, byte ptr [si+C2_TBL_08B32]
+        mov     al, byte ptr [si+C2_W_08B32]
         cbw
         mov     bx, ax
         test    byte ptr [bx+C2_B_076CB], 4
@@ -2668,7 +2668,7 @@ loop_48696:
         sub     ax, 30h
         mov     word ptr [C2_W_AUTONAME_NUM], ax
 br_486BA:
-        mov     byte ptr [si+C2_TBL_08B32], 20h
+        mov     byte ptr [si+C2_W_08B32], 20h
         inc     si
         cmp     si, 10h
         jl      loop_48696
@@ -10562,7 +10562,7 @@ resample_paint:
         add     sp, 8
         push    C1_SEG
         if      FW_VERSION >= 111
-        push    EP_FAR_4CC8C_OFF
+        push    EP_FAR_4C32E_OFF
         else
         push    EP_FAR_4C32E_OFF
         endif
@@ -11136,7 +11136,7 @@ tgt_4D062:
         add     sp, 8
         cmp     byte ptr [C1_B_0D7E0], 0
         je      br_4D0AA
-        mov     ax, C2_W_05A00
+        mov     ax, C1_W_05A00
         mov     dx, C1_SEG
         jmp     br_4D0B0
 br_4D0AA:
@@ -11171,7 +11171,7 @@ L_4D0D9:
 br_4D0DC:
         push    C1_SEG
         if      FW_VERSION >= 111
-        push    EP_FAR_4CC8C_OFF
+        push    EP_FAR_4C32E_OFF
         else
         push    EP_FAR_4C32E_OFF
         endif
@@ -19255,7 +19255,7 @@ br_517AE:
         add     sp, 8
         cmp     byte ptr [C1_B_0D7BA], 0
         je      br_517CC
-        mov     ax, C2_W_05A00
+        mov     ax, C1_W_05A00
         mov     dx, C1_SEG
         jmp     SHORT br_517D2
         db      90h
@@ -19271,7 +19271,7 @@ br_517D2:
         add     sp, 8
         cmp     byte ptr [C2_B_RECORD_MIX_CHANGES], 0
         je      br_517F0
-        mov     ax, C2_W_05A00
+        mov     ax, C1_W_05A00
         mov     dx, C1_SEG
         jmp     SHORT br_517F6
 br_517F0:
@@ -19641,7 +19641,7 @@ br_51B01:
         mov     es, word ptr [bp-0ch]
         test    byte ptr es:[di+3], 80h
         je      far_51B7E
-        mov     ax, C2_W_05A00
+        mov     ax, C1_W_05A00
         mov     dx, C1_SEG
         jmp     br_51B84
         if      FW_VERSION < 112
@@ -22279,7 +22279,7 @@ fx_chorus_paint:
         if      (FW_VERSION >= 110) && (FW_VERSION < 112)
         push    EP_C2_5364_OFF
         else
-        push    EP_FAR_53504_OFF
+        push    EP_C2_5364_OFF
         endif
         nop
         push    cs
@@ -22564,7 +22564,7 @@ fx_rotary_paint:
         if      (FW_VERSION >= 110) && (FW_VERSION < 112)
         push    EP_C2_5364_OFF
         else
-        push    EP_FAR_53504_OFF
+        push    EP_C2_5364_OFF
         endif
         nop
         push    cs
@@ -22889,7 +22889,7 @@ fx_fmod_autopan_paint:
         if      (FW_VERSION >= 110) && (FW_VERSION < 112)
         push    EP_C2_5364_OFF
         else
-        push    EP_FAR_53504_OFF
+        push    EP_C2_5364_OFF
         endif
         nop
         push    cs
@@ -24044,7 +24044,7 @@ fx_reverb_paint:
         if      FW_VERSION >= 112
         push    EP_L_5455E_OFF
         else
-        push    EP_FAR_5361E_OFF
+        push    EP_L_5455E_OFF
         endif
         nop
         push    cs
@@ -25189,7 +25189,7 @@ build_info_paint:
         add     sp, 8
         push    C2_SEG
         if      FW_VERSION >= 112
-        push    EP_FAR_54E52_OFF
+        push    EP_FAR_54852_OFF
         else
         push    EP_FAR_54852_OFF
         endif
@@ -25323,7 +25323,7 @@ br_54D7F:
 br_54DA0:
         push    C2_SEG
         if      FW_VERSION >= 112
-        push    EP_FAR_54E58_OFF
+        push    EP_L_54858_OFF
         else
         push    EP_L_54858_OFF
         endif
@@ -25572,7 +25572,7 @@ br_54FE2:
         if      FW_VERSION >= 112
         push    EP_C2_6F6C_OFF
         else
-        push    EP_FAR_546E6_OFF
+        push    EP_C2_6F6C_OFF
         endif
         push    27h
         push    3
@@ -25951,7 +25951,7 @@ snd_debug_re_id:
         if      FW_VERSION >= 112
         push    EP_L_5541A_OFF
         else
-        push    EP_FAR_5444A_OFF
+        push    EP_L_5541A_OFF
         endif
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
@@ -26884,7 +26884,7 @@ br_55B49:
         if      FW_VERSION >= 112
         push    EP_L_55CBC_OFF
         else
-        push    EP_FAR_54CEC_OFF
+        push    EP_L_55CBC_OFF
         endif
         push    1
         push    6

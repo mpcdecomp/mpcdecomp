@@ -13,7 +13,6 @@ SEG_DS                                     equ L_57CAF+01h
 ; module and takes its offset from its label.  a target with no label yet keeps
 ; its stock offset.
 
-EP_FAR_4E9FA_OFF        equ (C2_BASE+L_4E09A-C2_SEG*16)
 EP_L_4EA9C_OFF        equ (C2_BASE+L_4EA9C-C2_SEG*16)
 EP_MUTE_ASSIGN_FIELD0_THUNK_OFF        equ EP_L_4FF76_OFF
 EP_VELO_PITCH_FIELD2_THUNK_OFF        equ (C2_BASE+mute_assign_field2_thunk-C2_SEG*16)

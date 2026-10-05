@@ -6273,8 +6273,8 @@ br_416D2:
         mov     byte ptr [bp-2], al
         cbw
         mov     bx, ax
-        inc     byte ptr [bx+C1_TBL_0817A]
-        mov     al, byte ptr [bx+C1_TBL_0817A]
+        inc     byte ptr [bx+C1_W_0817A]
+        mov     al, byte ptr [bx+C1_W_0817A]
         mov     byte ptr [bp-3], al
         cmp     al, byte ptr [bp-5]
         jle     br_41709
@@ -7568,7 +7568,7 @@ L_41C0C:
         pop     ds
         push    C1_SEG
         if      FW_VERSION >= 120
-        push    EP_FAR_42202_OFF
+        push    EP_L_42B12_OFF
         else
         push    EP_L_42B12_OFF
         endif
@@ -7747,7 +7747,7 @@ isr_423A0:
 isr_423A6:
         push    C1_SEG
         if      FW_VERSION >= 120
-        push    EP_FAR_4223E_OFF
+        push    EP_MSG_DISK_ERRORS_OFF
         else
         push    EP_MSG_DISK_ERRORS_OFF
         endif
@@ -10497,7 +10497,7 @@ load_set_clear:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        cmp     byte ptr [C1_B_08B02], 0
+        cmp     byte ptr [C0_B_08B02], 0
         jne     br_43AC4
         push    1
         callf   EP_L_391F8_SEG:EP_L_391F8_OFF
@@ -10525,7 +10525,7 @@ load_set_load:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        cmp     byte ptr [C1_B_08B02], 0
+        cmp     byte ptr [C0_B_08B02], 0
         jne     br_43AF8
         push    0
         callf   EP_L_391F8_SEG:EP_L_391F8_OFF
@@ -10543,7 +10543,7 @@ load_set_paint:
         push    ds
         mov     cx, DS_SEG
         mov     ds, cx
-        cmp     byte ptr [C1_B_08B02], 0
+        cmp     byte ptr [C0_B_08B02], 0
         jne     br_43B1A
         mov     ax, C1_W_059E4
         mov     dx, C1_SEG

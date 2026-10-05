@@ -508,7 +508,7 @@ tgt_0F880:
         endif
         mov     word ptr [P_A864], di
         mov     word ptr [P_A866], dx
-        mov     word ptr [P_A868], cx
+        mov     word ptr [A1_W_0A868], cx
         if      FW_VERSION >= 114
         call    fn_0FBE9
         elseif  FW_VERSION >= 110
@@ -543,7 +543,7 @@ tgt_0F8B7:
         endif
         mov     word ptr [P_A864], P_A86A
         mov     word ptr [P_A866], ds
-        mov     word ptr [P_A868], 8
+        mov     word ptr [A1_W_0A868], 8
         if      FW_VERSION >= 114
         call    fn_0FBE9
         elseif  FW_VERSION >= 110
@@ -595,7 +595,7 @@ tgt_0F913:
         else
         db      0e8h, 75h, 01h
         endif
-        mov     word ptr [P_A868], 0
+        mov     word ptr [A1_W_0A868], 0
         mov     byte ptr ds:[bp], 4
         if      FW_VERSION >= 114
         call    fn_0FAB6
@@ -660,7 +660,7 @@ tgt_0F951:
         mov     byte ptr ds:[bp+8], cl
         shl     cx, 9
         if      FW_VERSION >= 114
-        mov     word ptr [P_A868], cx
+        mov     word ptr [A1_W_0A868], cx
         call    fn_0FAA7
         ret
 L_0F98B:
@@ -712,14 +712,14 @@ tgt_0F9BE:
         mov     byte ptr ds:[bp+8], cl
         shl     cx, 9
         if      FW_VERSION >= 114
-        mov     word ptr [P_A868], cx
+        mov     word ptr [A1_W_0A868], cx
         call    fn_0FAA7
         else
         mov     word ptr [A1_W_0A868], cx
         db      0e8h, 13h, 00h, 0c3h
 tgt_0FA2F:
         db      0e8h, 0dah, 00h
-        mov     word ptr [P_A868], 0
+        mov     word ptr [A1_W_0A868], 0
         mov     byte ptr ds:[bp], 0
         db      0e8h, 01h, 00h
         endif
@@ -728,7 +728,7 @@ tgt_0FA2F:
         db      13h, 00h, 0c3h
 tgt_0FA2F:
         db      0e8h, 0dah, 00h
-        mov     word ptr [P_A868], 0
+        mov     word ptr [A1_W_0A868], 0
         mov     byte ptr ds:[bp], 0
         db      0e8h, 01h, 00h
         endif
@@ -747,7 +747,7 @@ L_0F9F8:
         mov     byte ptr ds:[bp+3], al
         mov     byte ptr ds:[bp+2], cl
         mov     byte ptr ds:[bp+1], 0
-        mov     word ptr [P_A868], cx
+        mov     word ptr [A1_W_0A868], cx
         call    fn_0FB72
         ret
         endif
@@ -758,7 +758,7 @@ tgt_0FA2F:
         jne     L_0FA48
         endif
         call    fn_0FBE9
-        mov     word ptr [P_A868], 0
+        mov     word ptr [A1_W_0A868], 0
         mov     byte ptr ds:[bp], 0
         call    fn_0FAA7
         elseif  FW_VERSION >= 112
@@ -785,7 +785,7 @@ L_0FA48:
 tgt_0FA4A:
         mov     word ptr [P_A864], 0a86ah
         mov     word ptr [P_A866], ds
-        mov     word ptr [P_A868], 0eh
+        mov     word ptr [A1_W_0A868], 0eh
         call    fn_0FBE9
         mov     byte ptr ds:[bp], 55h
         mov     byte ptr ds:[bp+1], 10h
@@ -834,7 +834,7 @@ br_0FAB0:
 fn_0FAB6:
         endif
         mov     ah, 0
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         mov     al, cl
         mov     dx, 1e8h
         if      FW_VERSION >= 114
@@ -974,7 +974,7 @@ xl_ata_issue_command_block:
         inc     si
         mov     cx, ax
         shl     cx, 9
-        mov     word ptr [P_A868], cx
+        mov     word ptr [A1_W_0A868], cx
         mov     dx, 1e4h
         out     dx, ax
         mov     al, byte ptr [si]
@@ -1097,7 +1097,7 @@ xl_ata_wait_drq:
 xl_ata_pio_data_phase:
         cmp     byte ptr [A1_B_0A88A], 1
         je      br_0FCC0
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     di, [P_A864]
         cmp     cx, 100h
@@ -1197,7 +1197,7 @@ br_0FCC0:
         jae     br_0FCC6
         ret
 br_0FCC6:
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     di, [P_A864]
         call    fn_0FE4E
@@ -1268,7 +1268,7 @@ br_0FD3E:
         jae     br_0FD4B
         ret
 br_0FD4B:
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     si, [P_A864]
         mov     bp, es
@@ -1341,7 +1341,7 @@ br_0FDBE:
         jae     br_0FDC4
         ret
 br_0FDC4:
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     si, [P_A864]
         call    fn_0FE4E
@@ -1694,7 +1694,7 @@ br_0FC4B:
 xl_ata_pio_data_phase:
         cmp     byte ptr [A1_B_0A88A], 1
         je      br_0FCC0
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     di, [P_A864]
         cmp     cx, 100h
@@ -1764,7 +1764,7 @@ br_0FCC0:
         jae     br_0FCC6
         ret
 br_0FCC6:
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     di, [P_A864]
         call    fn_0FE4E
@@ -1837,7 +1837,7 @@ br_0FD3E:
         jae     br_0FD4B
         ret
 br_0FD4B:
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     si, [P_A864]
         mov     bp, es
@@ -1910,7 +1910,7 @@ br_0FDBE:
         jae     br_0FDC4
         ret
 br_0FDC4:
-        mov     cx, word ptr [P_A868]
+        mov     cx, word ptr [A1_W_0A868]
         shr     cx, 1
         les     si, [P_A864]
         call    fn_0FE4E

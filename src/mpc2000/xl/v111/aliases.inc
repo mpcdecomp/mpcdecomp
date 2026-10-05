@@ -227,7 +227,6 @@ P_D903                          equ 0d8f3h
 A1_W_0E157                      equ 0decdh
 C0_FP_02C1E                     equ 2c0eh
 C0_W_02C0A                      equ 2bfah
-EP_FAR_4E9FA_OFF                equ (C2_BASE+L_4E09A-C2_SEG*16)
 EP_L_4EA9C_OFF                  equ (C2_BASE+L_4EAD6-C2_SEG*16)
 EP_FSTRICMP_OFF                 equ (C0_BASE+__fstricmp-C0_SEG*16)
 P_3071                          equ 2f32h
@@ -334,7 +333,6 @@ A3_B_012CA                               equ (APP3_BASE+d_a3_b_012ca-APPDATA_SEG
 A3_B_02A87                               equ (APP3_BASE+d_a3_b_02a87-APPDATA_SEG*16)
 A3_B_02ACA                               equ (APP3_BASE+d_a3_b_02aca-APPDATA_SEG*16)
 A3_B_02ACB                               equ (APP3_BASE+d_a3_b_02acb-APPDATA_SEG*16)
-A3_W_00F1E_2                             equ (APP3_BASE+d_a3_w_00f1e-APPDATA_SEG*16)
 A3_W_012C4                               equ (APP3_BASE+d_a3_w_012c4-APPDATA_SEG*16)
 A3_W_012C6                               equ (APP3_BASE+d_a3_w_012c6-APPDATA_SEG*16)
 A3_W_012C8                               equ (APP3_BASE+d_a3_w_012c8-APPDATA_SEG*16)
@@ -342,10 +340,7 @@ A3_W_012ED                               equ (APP3_BASE+d_a3_w_012ed-APPDATA_SEG
 A3_W_012F3                               equ (APP3_BASE+d_a3_w_012f3-APPDATA_SEG*16)
 A3_W_01398                               equ (APP3_BASE+d_a3_fp_01398-APPDATA_SEG*16)
 A3_W_0139C                               equ (APP3_BASE+d_a3_fp_0139c-APPDATA_SEG*16)
-A3_W_013A0_2                             equ (APP3_BASE+d_a3_w_013a0-APPDATA_SEG*16)
-A3_W_013A6_2                             equ (APP3_BASE+d_a3_w_013a6-APPDATA_SEG*16)
 A3_W_013A8                               equ (APP3_BASE+d_a3_w_013a8-APPDATA_SEG*16)
-A3_W_01596_2                             equ (APP3_BASE+d_a3_w_01596-APPDATA_SEG*16)
 AT_B_0A88B                               equ (RAM_BASE+d_at_b_0a88b-RAM_SEG*16)
 C0_B_02B42                               equ (APP3_BASE+d_c0_b_02b42-APPDATA_SEG*16)
 C0_B_02B49                               equ (APP3_BASE+d_c0_b_02b49-APPDATA_SEG*16)

@@ -7229,12 +7229,12 @@ xl_flash_board_detect:
         call    dma_transfer_init
         popa
         pop     ds
-        mov     si, P_A4F2
+        mov     si, A1_W_0A4F2
         call    fn_0F1F4
         db      "MPC2000XL", 00h
         mov     ah, 0bh
         jae     br_0E3DE
-        mov     si, P_A4F2+8
+        mov     si, A1_W_0A4F2+8
         call    fn_0F1F4
         db      "MPC2000", 00h
         jb      br_0E3FD
@@ -7647,7 +7647,7 @@ tgt_0E733:
 br_0E739:
         push    es
         pusha
-        mov     di, P_A4F2
+        mov     di, A1_W_0A4F2
         mov     ax, ds
         mov     es, ax
         mov     cx, 20h
@@ -7659,7 +7659,7 @@ br_0E739:
         jae     br_0E752
         ret
 br_0E752:
-        mov     di, P_A4F2
+        mov     di, A1_W_0A4F2
         mov     word ptr [di+16h], cx
         mov     word ptr [di+18h], dx
         call    fn_0F19B
@@ -7696,7 +7696,7 @@ loop_0E7B4:
         sub     cx, word ptr [A1_W_0A4D2]
         push    cx
         mov     cx, word ptr [A1_W_0A4D2]
-        mov     di, P_A4F2
+        mov     di, A1_W_0A4F2
         add     di, word ptr [A1_W_0A4D4]
         mov     word ptr [A1_W_0A4D2], 100h
         mov     word ptr [A1_W_0A4D4], 0
@@ -7717,7 +7717,7 @@ loop_0E7B4:
         jmp     br_0E815
 br_0E7F5:
         sub     word ptr [A1_W_0A4D2], cx
-        mov     di, P_A4F2
+        mov     di, A1_W_0A4F2
         add     di, word ptr [A1_W_0A4D4]
         add     word ptr [A1_W_0A4D4], cx
         mov     ax, ds
@@ -7782,7 +7782,7 @@ tgt_0E888:
 br_0E893:
         cmp     word ptr [A1_W_0A4D2], 100h
         je      br_0E8B1
-        mov     di, P_A4F2
+        mov     di, A1_W_0A4F2
         add     di, word ptr [A1_W_0A4D4]
         mov     cx, word ptr [A1_W_0A4D2]
         mov     ax, ds
@@ -8244,7 +8244,7 @@ isr_0ECA9:
         mov     ds, ax
         cmp     byte ptr [A1_B_FLASHFS_DEVICE], 0bh
         jne     isr_0ECC6
-        mov     byte ptr [A1_B_0A63E], 0
+        mov     byte ptr [A1_B_0A622], 0
         call    fn_0ECC8
         call    fn_0E511
         mov     ax, 1
@@ -8260,7 +8260,7 @@ fn_0ECC8:
         jae     L_0EBF5
         ret
 L_0EBF5:
-        mov     byte ptr [A1_B_0A63C], 0
+        mov     byte ptr [A1_B_0A620], 0
 loop_0ECEE:
         call    fn_0EDA1
         call    fn_0EEDF
@@ -8482,7 +8482,7 @@ fn_0EF08:
         mov     cx, 2
         call    dma_transfer_init
         call    fn_0F081
-        mov     ax, word ptr [P_A4F2]
+        mov     ax, word ptr [A1_W_0A4F2]
         mov     bx, word ptr [A1_W_0A4F4]
         ret
 fn_0EF36:
@@ -9065,7 +9065,7 @@ br_0F36E:
         pop     ax
         mov     word ptr [A1_W_03116], ax
         pop     ax
-        mov     word ptr [P_3130], ax
+        mov     word ptr [A1_W_03130], ax
         ret
 L_0F389:
         int     0a5h
@@ -9166,7 +9166,7 @@ br_0F41C:
         APP0_NEAR pad_bank_int_c2
         ret
 br_0F422:
-        mov     word ptr [A1_W_030FE], 0
+        mov     word ptr [A0_W_0311E], 0
         mov     word ptr [A1_W_03100], 0
         mov     word ptr [A1_W_03102], 0
         ret
@@ -9255,7 +9255,7 @@ isr_0F4B6:
         mov     bx, P_330A
         test    al, 40h
         jne     isr_0F4E3
-        mov     bx, P_3046
+        mov     bx, A1_W_0302A
 isr_0F4E3:
         add     bx, cx
         APP0_NEAR fn_03F5C

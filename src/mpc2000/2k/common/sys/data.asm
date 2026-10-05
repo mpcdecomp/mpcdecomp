@@ -103,6 +103,8 @@ STR_SET:
         db      53h, 45h, 54h, 00h
 STR_ST1:
         db      53h, 54h, 31h, 00h
+; the file types by extension, each a far name and the far routine that
+; loads it; a null record ends the table
 TBL_00EE:
         dw      STR_00C6, DATA_SEG
         dw      lcd_area_wrapper_2, TEXT1_SEG
@@ -118,23 +120,24 @@ TBL_00EE:
         dw      midi_realtime_stop2, TEXT2_SEG
         dw      STR_RLD, DATA_SEG
         dw      seq_event_handler, TEXT1_SEG
-TBL_NAME_CHARSET:
         dw      STR_EMU, DATA_SEG
         dw      smem_access_handler_1, TEXT1_SEG
         dw      STR_SET, DATA_SEG
         dw      midi_string_handler, TEXT2_SEG
-        dw      STR_ST1
-        db      DATA_SEG & 0ffh
-TBL_WINKEYS_00139:                      ; 1 records + WIN_KEY_END
-        WIN_KEY   DATA_SEG >> 8, TEXT2_SEG, midi_string_handler
-        WIN_KEY_END
-        db      00h, 00h, 00h, 20h, 21h, 2ah, 23h, 24h, 25h, 26h, 27h
+        dw      STR_ST1, DATA_SEG
+        dw      midi_string_handler, TEXT2_SEG
+        dw      0, 0, 0, 0
+; a file name's characters from 20h up, '*' where one is not allowed;
+; read as [bx+TBL_NAME_CHARSET] with the character itself in BX
+TBL_NAME_CHARS:
+        db      20h, 21h, 2ah, 23h, 24h, 25h, 26h, 27h
         db      "()***-**01234567"
         db      "89******@ABCDEFG"
         db      "HIJKLMNOPQRSTUVW"
         db      "XYZ****_*abcdefg"
         db      "hijklmnopqrstuvw"
         db      "xyz{*}**", 000h, 000h
+TBL_NAME_CHARSET equ    TBL_NAME_CHARS-20h
 STR_01A8:
         if      FW_VERSION = 172
         db      "Unknow"
@@ -272,10 +275,8 @@ P_03C8:
         WIN_SOFTKEY 5, 2, "SMPTE"
         WIN_SOFTKEY 6, 2, "DATE"
         WIN_END
-P_03FC:
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+P_03FC:                                 ; 7 records + WIN_KEY_END
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F1, TEXT2_SEG, L_00DA6
         WIN_KEY   WIN_K_F2, TEXT2_SEG, int45_wrapper
         WIN_KEY   WIN_K_F3, TEXT2_SEG, disk_media_check
@@ -916,10 +917,8 @@ TBL_1474:
 TBL_147A:
         dw      win_key_nop_stub, TEXT1_SEG
         dw      X_04876, TEXT1_SEG
-        dw      L_04270
-        db      TEXT2_SEG & 0ffh
-TBL_WINKEYS_01485:                      ; 9 records + WIN_KEY_END
-        WIN_KEY   TEXT2_SEG >> 8, TEXT1_SEG, L_04E88
+        dw      L_04270, TEXT2_SEG
+        dw      L_04E88, TEXT1_SEG
 P_148A:
         WIN_KEY   WIN_K_PAINT, TEXT1_SEG, win_key_nop_stub
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, X_04888
@@ -1524,10 +1523,8 @@ DL_INIT_PAD_ASSIGN:
         WIN_RESET_PEN
         WIN_LABEL 25h, 17h, "Initialize pad assign:"
         WIN_END
-TBL_WINKEYS_INIT_PAD_ASSIGN:                      ; 6 records + WIN_KEY_END
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+TBL_WINKEYS_INIT_PAD_ASSIGN:            ; 6 records + WIN_KEY_END
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_05DD6
         WIN_KEY   WIN_K_OPEN, TEXT1_SEG, pgm_assign_enter
         WIN_KEY   WIN_K_F4, TEXT1_SEG, pgm_assign_enter
@@ -1582,7 +1579,7 @@ B_2121:
         db      23h
 B_2122:
         db      23h
-        WIN_END
+        db      00h
 P_2124:
         db      00h, 00h, 01h, 02h, 04h, 04h, 05h, 04h
         db      07h, 00h
@@ -1618,13 +1615,7 @@ DL_PGM_PARAMS:
         endif
 P_2208:
         WIN_KEY_CLEAR
-        if      FW_VERSION = 172
         WIN_KEY   WIN_K_F1, TEXT1_SEG, pgm_assign_enter
-        else
-        db      02h
-        dw      pgm_assign_enter
-        dw      TEXT1_SEG
-        endif
         WIN_KEY   WIN_K_F3, TEXT1_SEG, purge_midi
         if      FW_VERSION = 172
         WIN_KEY   WIN_K_F4, TEXT2_SEG, L_06206
@@ -1656,32 +1647,21 @@ DL_VELOCITY_MODULATION:
         WIN_LABEL 0a9h, 28h, "Velo:"
         WIN_END
         db      00h
-P_22C6:
-        db      01h, 00h, 00h, 00h, 00h, 32h
-        dw      timer_status_check_1, TEXT1_SEG
-        db      15h
-        dw      pgm_params_enter, TEXT1_SEG
-        db      05h
-        dw      pgm_params_enter, TEXT1_SEG
-        db      18h
-        dw      X_05BF6, TEXT1_SEG
-        db      19h
-        dw      X_05C0C, TEXT1_SEG
-        db      17h
-L_1D22F:
-        dw      X_05C0C, TEXT1_SEG
-        db      16h
-        dw      X_05BF6, TEXT1_SEG
-        db      37h
-        dw      timer_status_handler, TEXT1_SEG
-        db      34h
-        dw      L_05D8E, TEXT2_SEG
-        db      06h
-        dw      seq_port_io, TEXT2_SEG
-        db      86h
-        dw      note_release_latched
-        dw      TEXT2_SEG  ; reloc
-        db      00h, 00h, 00h, 00h, 00h, 00h
+P_22C6:                                 ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT1_SEG, timer_status_check_1
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, pgm_params_enter
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, pgm_params_enter
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_05BF6
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_05C0C
+        WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, X_05C0C
+        WIN_KEY   WIN_K_LEFT, TEXT1_SEG, X_05BF6
+        WIN_KEY   WIN_K_PAD, TEXT1_SEG, timer_status_handler
+        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, seq_port_io
+        WIN_KEY   86h, TEXT2_SEG, note_release_latched
+        WIN_KEY_END
+        db      00h
 DL_VELO_ENV_FILTER:
         WIN_DIALOG "Velo/Env >> filter"
         WIN_SOFTKEY 04h, 02h, "CLOSE"
@@ -1697,33 +1677,21 @@ DL_VELO_ENV_FILTER:
         WIN_LABEL 97h, 1ch, "Velo>Freq:"
         WIN_LABEL 0b5h, 28h, "Velo:"
         WIN_END
-P_2380:
-        db      01h, 00h, 00h, 00h, 00h, 32h
-        dw      timer_status_check_2, TEXT1_SEG
-        db      15h
-        dw      pgm_params_enter, TEXT1_SEG
-        db      05h
-        dw      pgm_params_enter, TEXT1_SEG
-        db      18h
-        dw      X_05E0A, TEXT1_SEG
-        db      16h
-        dw      X_05E44, TEXT1_SEG
-        db      19h
-        dw      X_05E2E, TEXT1_SEG
-        db      17h
-        dw      X_05E5C, TEXT1_SEG
-        db      37h
-        dw      pad_note_select_2, TEXT1_SEG
-        db      34h
-        dw      L_05D8E, TEXT2_SEG
-        db      06h
-        dw      seq_port_io, TEXT2_SEG
-        db      86h
-        dw      note_release_latched
-        db      TEXT2_SEG & 0ffh
-TBL_WINKEYS_023BB:                      ; 1 records + WIN_KEY_END
-        db      TEXT2_SEG >> 8, 00h, 00h, 00h, 00h
-        db      00h, 00h
+P_2380:                                 ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT1_SEG, timer_status_check_2
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, pgm_params_enter
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, pgm_params_enter
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_05E0A
+        WIN_KEY   WIN_K_LEFT, TEXT1_SEG, X_05E44
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_05E2E
+        WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, X_05E5C
+        WIN_KEY   WIN_K_PAD, TEXT1_SEG, pad_note_select_2
+        WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, seq_port_io
+        WIN_KEY   86h, TEXT2_SEG, note_release_latched
+        WIN_KEY_END
+        db      00h
 P_23C2:
         db      00h, 00h, 00h
         db      02h, 01h, 02h, 03h, 03h, 00h, 00h, 01h, 02h
@@ -1775,31 +1743,7 @@ DL_MUTE_ASSIGN:
         WIN_LABEL 19h, 27h, "Note:"
         WIN_LABEL 5bh, 27h, "-"
         WIN_END
-TBL_WINKEYS_MUTE_ASSIGN:
-        if      FW_VERSION = 172
-        db      01h, 00h, 00h, 00h, 00h, 32h
-        dw      track_calc_multi_2, TEXT1_SEG
-        db      15h
-        dw      pgm_params_enter, TEXT1_SEG
-        db      05h
-        dw      pgm_params_enter, TEXT1_SEG
-        db      18h
-        dw      X_06286, TEXT1_SEG
-        db      16h
-        dw      X_06286, TEXT1_SEG
-        db      19h
-        dw      L_0629C, TEXT1_SEG
-        db      17h
-        dw      L_0629C, TEXT1_SEG
-        db      37h
-        dw      pad_note_select_4, TEXT1_SEG
-        db      34h
-        dw      L_05D8E, TEXT2_SEG
-        db      06h
-        dw      seq_port_io2, TEXT2_SEG
-        db      86h
-        dw      note_release_latched, TEXT2_SEG
-        else
+TBL_WINKEYS_MUTE_ASSIGN:                ; 12 records + WIN_KEY_END
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT1_SEG, track_calc_multi_2
         WIN_KEY   WIN_K_OPEN, TEXT1_SEG, pgm_params_enter
@@ -1812,7 +1756,6 @@ TBL_WINKEYS_MUTE_ASSIGN:
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, L_05D8E
         WIN_KEY   WIN_K_F5, TEXT2_SEG, seq_port_io2
         WIN_KEY   86h, TEXT2_SEG, note_release_latched
-        endif
         MG_HOOK_KEYS_PAD
 P_2522:
         db      00h, 00h
@@ -1882,9 +1825,7 @@ P_2608:
         WIN_LABEL 31h, 25h, "sounds not used in any programs."
         WIN_END
 TBL_WINKEYS_PURGE:                      ; 7 records + WIN_KEY_END
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F1, TEXT1_SEG, pgm_assign_enter
         WIN_KEY   WIN_K_F2, TEXT1_SEG, pgm_params_enter
         WIN_KEY   WIN_K_F3, TEXT1_SEG, purge_midi
@@ -1896,13 +1837,13 @@ TBL_WINKEYS_PURGE:                      ; 7 records + WIN_KEY_END
         db      00h
         endif
 PROGRAM_CURSOR:
-        WIN_CLEAR
+        db      01h
 COPY_PGM_CURSOR:
-        WIN_CLEAR
+        db      01h
 G_COPY_NOTE_CURSOR:
-        WIN_PLANE_B
+        db      03h
 COPY_PGM_TO:
-        WIN_END
+        db      00h
 G_LATCHED_PLAY_NOTE:
         db      00h
 STR_NO_PROGRAM:
@@ -1923,10 +1864,8 @@ DL_PROGRAM:
         WIN_LABEL 25h, 13h, "Program name:"
         WIN_LABEL 31h, 25h, "MIDI program change:"
         WIN_END
-TBL_WINKEYS_PROGRAM:                      ; 10 records + WIN_KEY_END
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+TBL_WINKEYS_PROGRAM:                    ; 10 records + WIN_KEY_END
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, program_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, program_close
         WIN_KEY   WIN_K_F2, TEXT2_SEG, program_delete
@@ -1949,10 +1888,8 @@ DL_DELETE_PROGRAM:
         WIN_LABEL 37h, 1eh, "Pressing DO IT will erase"
         WIN_LABEL 37h, 27h, "this program!!"
         WIN_END
-TBL_WINKEYS_DELETE_PGM:                      ; 7 records + WIN_KEY_END
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+TBL_WINKEYS_DELETE_PGM:                 ; 7 records + WIN_KEY_END
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, delete_pgm_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, t2_copy_pgm_cancel
         WIN_KEY   WIN_K_F3, TEXT2_SEG, delete_pgm_allpgm
@@ -1979,10 +1916,9 @@ DL_DELETE_ALL_PROGRAMS:
 
 L_028B7:
         db      00h
-TBL_WINKEYS_DELETE_ALL_PGMS:
+TBL_WINKEYS_DELETE_ALL_PGMS:            ; 6 records + WIN_KEY_END
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, delete_all_pgms_paint
-L_028C2:
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, delete_all_pgms_cancel
         WIN_KEY   WIN_K_F4, TEXT2_SEG, delete_all_pgms_cancel
         WIN_KEY   WIN_K_F5, TEXT2_SEG, delete_all_pgms_do_it
@@ -2098,10 +2034,8 @@ P_2AEA:
         dw      note_pitch_calc_2, TEXT2_SEG
         dw      note_pitch_calc_3, TEXT2_SEG
         dw      note_str_handler, TEXT2_SEG
-        dw      note_pitch_calc_cmd
-        db      TEXT2_SEG & 0ffh
-TBL_WINKEYS_02AFD:
-        WIN_KEY   TEXT2_SEG >> 8, TEXT2_SEG, dispatch_handler_2
+        dw      note_pitch_calc_cmd, TEXT2_SEG
+        dw      dispatch_handler_2, TEXT2_SEG
 P_2B02:
         WIN_KEY   WIN_K_F2, TEXT2_SEG, mixer_indiv_page
         WIN_KEY   WIN_K_F3, TEXT2_SEG, mixer_fxsend_page
@@ -2141,24 +2075,14 @@ P_2B8A:
         dw      note_range_calc_2, TEXT2_SEG
         dw      bcd_arithmetic_2, TEXT2_SEG
         dw      bcd_arithmetic_3, TEXT2_SEG
-        dw      note_cmd_helper
-        db      TEXT2_SEG & 0ffh
-TBL_WINKEYS_02B9D:
-        WIN_KEY   TEXT2_SEG >> 8, TEXT2_SEG, dispatch_handler_1
-P_2BA2:
-        if      FW_VERSION = 172
+        dw      note_cmd_helper, TEXT2_SEG
+        dw      dispatch_handler_1, TEXT2_SEG
+P_2BA2:                                 ; 4 records + WIN_KEY_END
         WIN_KEY   WIN_K_F1, TEXT2_SEG, mixer_stereo_page
-        else
-        db      02h
-        dw      mixer_stereo_page
-        dw      TEXT2_SEG
-        endif
         WIN_KEY   WIN_K_F3, TEXT2_SEG, mixer_fxsend_page
         WIN_KEY   WIN_K_F4, TEXT1_SEG, mixer_setup
         WIN_KEY   WIN_K_F5, TEXT2_SEG, far_04206
-X_02BB7:
         WIN_KEY_END
-
 X_02BBB:
         db      00h
 P_2BBC:
@@ -2178,8 +2102,6 @@ TBL_NOTE_GLYPHS:
         dw      GLYPH_SMALL_4, DATA_SEG
         dw      GLYPH_SMALL_5, DATA_SEG
         dw      GLYPH_SMALL_6, DATA_SEG
-
-L_02C0A:
         dw      GLYPH_SMALL_7, DATA_SEG
         dw      GLYPH_SMALL_8, DATA_SEG
         dw      GLYPH_SMALL_DASH, DATA_SEG
@@ -2195,20 +2117,14 @@ L_02C0A:
         dw      GLYPH_SMALL_DASH, DATA_SEG
 P_2C3E:
         dw      note_range_calc_3, TEXT2_SEG
-        dw      note_range_calc_4
-
-L_02C44:
-        dw      TEXT2_SEG
+        dw      note_range_calc_4, TEXT2_SEG
         dw      timer_dma_setup, TEXT2_SEG
         dw      timer_dma_setup2, TEXT2_SEG
-        dw      note_range_calc_cmd
-        db      TEXT2_SEG & 0ffh
-TBL_WINKEYS_02C51:
-        WIN_KEY   TEXT2_SEG >> 8, TEXT2_SEG, timer_dma_setup3
-P_2C56:
+        dw      note_range_calc_cmd, TEXT2_SEG
+        dw      timer_dma_setup3, TEXT2_SEG
+P_2C56:                                 ; 4 records + WIN_KEY_END
         WIN_KEY   WIN_K_F1, TEXT2_SEG, mixer_stereo_page
         WIN_KEY   WIN_K_F2, TEXT2_SEG, mixer_indiv_page
-X_02C60:
         WIN_KEY   WIN_K_F4, TEXT1_SEG, mixer_setup
         WIN_KEY   WIN_K_F5, TEXT2_SEG, far_04206
         WIN_KEY_END
@@ -2597,8 +2513,7 @@ TBL_WINKEYS_031BE:
 P_31EB:
         WIN_OP_19
 X_031EC:
-        WIN_END
-        db      00h
+        dw      0
 DL_DELETE_SOUND:
         WIN_CONFIRM "Delete Sound"
         WIN_SOFTKEY 3, 1, "ALL"
@@ -2638,18 +2553,17 @@ DL_DELETE_ALL_SOUNDS:
         WIN_LABEL 50h, 1ch, "ALL sounds!!"
         WIN_END
         WIN_END
-TBL_WINKEYS_DELETE_ALL_SOUNDS:
+TBL_WINKEYS_DELETE_ALL_SOUNDS:          ; 5 records + WIN_KEY_END
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, delete_all_sounds_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, snd_edit_page_return
         WIN_KEY   WIN_K_F4, TEXT2_SEG, snd_edit_page_return
         WIN_KEY   WIN_K_F5, TEXT2_SEG, delete_all_sounds_do_it
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
-X_032FA:
         WIN_KEY_END
 P_32FE:
         WIN_OP_19
 L_032FF:
-        WIN_END
+        db      00h
 
 DL_COPY_SOUND:
         WIN_CONFIRM "Copy Sound"
@@ -2700,34 +2614,20 @@ L_033C8:
         db      05h, 01h, 43h, 55h, 54h, 00h, 02h, 0bh, 01h, 14h, 0f6h, 07h, 08h, 0ch, 53h, 74h
         db      03ah, 000h, 007h, 062h, 00ch, "End:", 000h, 007h, 0b6h, 00ch, 056h, 069h, 065h
         db      77h, 3ah, 00h, 0bh, 01h, 22h, 0f5h, 00h
-TBL_WINKEYS_TRIM:
-        db      01h, 00h, 00h, 00h, 00h, 03h
-        dw      fit_to_length_cancel, TEXT1_SEG
-        db      04h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      05h
-        dw      snd_params_screen_enter, TEXT1_SEG
-        db      06h
-        dw      L_09544, TEXT2_SEG
-        db      32h
-        dw      X_09124, TEXT2_SEG
-        db      18h
-        dw      X_078A8, TEXT1_SEG
-
-L_03413:
-        db      19h
-        dw      X_078D2, TEXT1_SEG
-        db      16h
-        dw      X_0790E, TEXT1_SEG
-        db      17h
-        dw      X_078F8, TEXT1_SEG
-        db      33h
-        dw      L_09116, TEXT2_SEG
-        db      07h
-        dw      edit_range_select, TEXT2_SEG
-        db      87h
-        dw      X_07F14, TEXT2_SEG
-TBL_WINKEYS_03431:
+TBL_WINKEYS_TRIM:                       ; 15 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_F2, TEXT1_SEG, fit_to_length_cancel
+        WIN_KEY   WIN_K_F3, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, snd_params_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, L_09544
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, X_09124
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_078A8
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_078D2
+        WIN_KEY   WIN_K_LEFT, TEXT1_SEG, X_0790E
+        WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, X_078F8
+        WIN_KEY   33h, TEXT2_SEG, L_09116
+        WIN_KEY   WIN_K_F6, TEXT2_SEG, edit_range_select
+        WIN_KEY   87h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY_END
@@ -2745,41 +2645,17 @@ L_1E2F1:
         WIN_LABEL 8bh, 28h, "PLAY X:"
         WIN_END
         db      00h
-P_34A6:
-        db      01h, 00h, 00h
-
-L_034A9:
-        db      00h, 00h, 32h
-        dw      L_09210, TEXT2_SEG
-        db      18h
-
-L_034B1:
-        dw      X_0799E, TEXT1_SEG
-        db      19h
-        dw      X_079B4
-
-X_034B8:
-        dw      TEXT1_SEG
-        db      15h
-
-L_034BB:
-        dw      trim_screen_enter, TEXT1_SEG
-        db      03h
-        dw      wave_zoom_double, TEXT2_SEG
-        db      04h
-        dw      wave_zoom_halve, TEXT2_SEG
-        db      05h
-        dw      trim_screen_enter, TEXT1_SEG
-        db      06h
-
-L_034CF:
-        dw      X_092A8, TEXT2_SEG
-        db      86h
-
-L_034D4:
-        dw      X_07F14
-        dw      TEXT2_SEG  ; reloc
-TBL_WINKEYS_034D8:
+P_34A6:                                 ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_09210
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_0799E
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_079B4
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F2, TEXT2_SEG, wave_zoom_double
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, wave_zoom_halve
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_092A8
+        WIN_KEY   86h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY_END
@@ -2892,44 +2768,19 @@ X_03675:
 
 L_03679:
         db      3ah, 00h, 0bh, 01h, 22h, 0f5h, 00h
-P_3680:
-        db      01h, 00h, 00h, 00h, 00h, 02h
-        dw      trim_screen_enter, TEXT1_SEG
-        db      04h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      05h
-        dw      snd_params_screen_enter, TEXT1_SEG
-        db      06h
-        dw      X_09B20, TEXT2_SEG
-        db      32h
-        dw      X_0991C, TEXT2_SEG
-        db      18h
-        dw      X_07B36, TEXT1_SEG
-        db      19h
-
-L_036A4:
-        dw      X_07B60, TEXT1_SEG
-        db      16h
-
-L_036A9:
-        dw      X_07B86, TEXT1_SEG
-        db      17h
-        dw      X_07B9C, TEXT1_SEG
-        db      07h
-        if      FW_VERSION = 172
-
-L_036B3:
-        dw      edit_range_select
-        dw      TEXT2_SEG
-        else
-        dw      edit_range_select, TEXT2_SEG
-        endif
-        db      87h
-        dw      X_07F14
-
-L_036BA:
-        dw      TEXT2_SEG  ; reloc
-TBL_WINKEYS_036BC:
+P_3680:                                 ; 15 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_F1, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F3, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, snd_params_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_09B20
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, X_0991C
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_07B36
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_07B60
+        WIN_KEY   WIN_K_LEFT, TEXT1_SEG, X_07B86
+        WIN_KEY   WIN_K_RIGHT, TEXT1_SEG, X_07B9C
+        WIN_KEY   WIN_K_F6, TEXT2_SEG, edit_range_select
+        WIN_KEY   87h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY   33h, TEXT2_SEG, L_09522
@@ -2949,35 +2800,17 @@ X_036FA:
         WIN_END
         db      00h
 
-P_3732:
-        db      01h, 00h, 00h, 00h, 00h, 32h
-        dw      DISPLAY_DRAW_PAIR, TEXT2_SEG
-
-L_0373C:
-        db      18h
-        dw      L_07C32, TEXT1_SEG
-        db      19h
-        dw      X_07C48
-        dw      TEXT1_SEG
-        db      15h
-
-L_03747:
-        dw      fit_to_length_cancel, TEXT1_SEG
-        db      03h
-        dw      wave_zoom_double, TEXT2_SEG
-        db      04h
-        dw      wave_zoom_halve, TEXT2_SEG
-        db      05h
-        dw      fit_to_length_cancel, TEXT1_SEG
-        db      06h
-
-L_0375B:
-        dw      X_09A88, TEXT2_SEG
-        db      86h
-
-L_03760:
-        dw      X_07F14, TEXT2_SEG
-TBL_WINKEYS_03764:
+P_3732:                                 ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, display_draw_pair
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, L_07C32
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_07C48
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, fit_to_length_cancel
+        WIN_KEY   WIN_K_F2, TEXT2_SEG, wave_zoom_double
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, wave_zoom_halve
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, fit_to_length_cancel
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_09A88
+        WIN_KEY   86h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY_END
@@ -3050,20 +2883,14 @@ L_038A6:
 ; Opcode/operand split unconfirmed, raw db.
         db      0bh, 01h, 22h, 0f5h, 00h
         WIN_END
-P_38CE:
-        db      01h, 00h, 00h, 00h, 00h, 02h
-        dw      trim_screen_enter, TEXT1_SEG
-        db      03h
-        dw      fit_to_length_cancel, TEXT1_SEG
-        db      05h
-        dw      snd_params_screen_enter, TEXT1_SEG
-        db      06h
-        dw      X_0A0CA, TEXT2_SEG
-        db      07h
-        dw      edit_range_select, TEXT2_SEG
-        db      87h
-        dw      X_07F14, TEXT2_SEG
-TBL_WINKEYS_ZONE_START_FINE:                      ; 8 records + WIN_KEY_END
+P_38CE:                                 ; 15 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_F1, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F2, TEXT1_SEG, fit_to_length_cancel
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, snd_params_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_0A0CA
+        WIN_KEY   WIN_K_F6, TEXT2_SEG, edit_range_select
+        WIN_KEY   87h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, zone_start_fine_paint
         WIN_KEY   WIN_K_UP, TEXT1_SEG, zone_start_fine_up
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, zone_start_fine_down
@@ -3086,32 +2913,17 @@ L_1E7BB:
         WIN_LABEL 8bh, 1fh, "Zone Lngth:"
         WIN_LABEL 8bh, 28h, "PLAY X:"
         WIN_END
-TBL_WINKEYS_ZONE_END_FINE:
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h, 32h
-        dw      L_09E4E, TEXT2_SEG
-        db      18h
-        if      FW_VERSION = 172
-
-tgt_03993:
-        endif
-        dw      X_07DC8, TEXT1_SEG
-        db      19h
-        dw      X_07DDE, TEXT1_SEG
-        db      15h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      03h
-        dw      wave_zoom_double, TEXT2_SEG
-        db      04h
-        dw      wave_zoom_halve, TEXT2_SEG
-        db      05h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      06h
-        dw      X_09ED0, TEXT2_SEG
-        db      86h
-        dw      X_07F14, TEXT2_SEG
-TBL_WINKEYS_039BA:                      ; 2 records + WIN_KEY_END
+TBL_WINKEYS_ZONE_END_FINE:              ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, L_09E4E
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_07DC8
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_07DDE
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F2, TEXT2_SEG, wave_zoom_double
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, wave_zoom_halve
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_09ED0
+        WIN_KEY   86h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY_END
@@ -3128,28 +2940,17 @@ DL_ZONE_END_FINE:
         WIN_LABEL 8bh, 1fh, "Zone Lngth:"
         WIN_LABEL 8bh, 28h, "PLAY X:"
         WIN_END
-P_3A30:
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h, 32h
-        dw      X_09EEA, TEXT2_SEG
-        db      18h
-        dw      X_07E50, TEXT1_SEG
-        db      19h
-        dw      X_07E66, TEXT1_SEG
-        db      15h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      03h
-        dw      wave_zoom_double, TEXT2_SEG
-        db      04h
-        dw      wave_zoom_halve, TEXT2_SEG
-        db      05h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      06h
-        dw      X_09F6C, TEXT2_SEG
-        db      86h
-        dw      X_07F14, TEXT2_SEG
-TBL_WINKEYS_03A62:                      ; 2 records + WIN_KEY_END
+P_3A30:                                 ; 12 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_PAINT, TEXT2_SEG, X_09EEA
+        WIN_KEY   WIN_K_UP, TEXT1_SEG, X_07E50
+        WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_07E66
+        WIN_KEY   WIN_K_OPEN, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F2, TEXT2_SEG, wave_zoom_double
+        WIN_KEY   WIN_K_F3, TEXT2_SEG, wave_zoom_halve
+        WIN_KEY   WIN_K_F4, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F5, TEXT2_SEG, X_09F6C
+        WIN_KEY   86h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_REFRESH, TEXT2_SEG, snd_window_refresh_key
         WIN_KEY   WIN_K_PAD, TEXT2_SEG, snd_window_pad_key
         WIN_KEY_END
@@ -3205,18 +3006,13 @@ STR_ZONE_ROM_LBL:
         db      00h
 STR_ZONE_SND_LBL:
         db      "Snd:", 00h
-P_3B84:
-        db      01h, 00h, 00h, 00h, 00h, 02h
-        dw      trim_screen_enter, TEXT1_SEG
-        db      03h
-        dw      fit_to_length_cancel, TEXT1_SEG
-        db      04h
-        dw      zone_screen_enter, TEXT1_SEG
-        db      07h
-        dw      edit_range_select, TEXT2_SEG
-        db      87h
-        dw      X_07F14, TEXT2_SEG
-TBL_WINKEYS_03BA2:                      ; 7 records + WIN_KEY_END
+P_3B84:                                 ; 13 records + WIN_KEY_END
+        WIN_KEY_CLEAR
+        WIN_KEY   WIN_K_F1, TEXT1_SEG, trim_screen_enter
+        WIN_KEY   WIN_K_F2, TEXT1_SEG, fit_to_length_cancel
+        WIN_KEY   WIN_K_F3, TEXT1_SEG, zone_screen_enter
+        WIN_KEY   WIN_K_F6, TEXT2_SEG, edit_range_select
+        WIN_KEY   87h, TEXT2_SEG, X_07F14
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, X_0A118
         WIN_KEY   WIN_K_UP, TEXT1_SEG, X_08A0C
         WIN_KEY   WIN_K_DOWN, TEXT1_SEG, X_08A24
@@ -3244,10 +3040,8 @@ STR_CHANGE_DISK:
 P_3C0A:
         WIN_OP_19
         WIN_END
-P_3C0C:
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+P_3C0C:                                 ; 2 records + WIN_KEY_END
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F3, TEXT2_SEG, X_0B090
         WIN_KEY_END
         db      00h
@@ -3295,18 +3089,12 @@ DL_FILE_EXISTS:
         WIN_LABEL 4dh, 1ch, "Replace or rename?"
         WIN_END
         db      00h
-P_3D9E:
-        db      32h
-        dw      win_key_nop_stub, TEXT1_SEG
-        db      34h
-        dw      X_08D3C, TEXT1_SEG
-        db      33h
-        dw      win_key_nop_stub, TEXT1_SEG
-        db      04h
-        dw      L_08D0E, TEXT1_SEG
-        db      84h
-        dw      win_key_nop_stub, TEXT1_SEG
-TBL_WINKEYS_03DB7:                      ; 5 records + WIN_KEY_END
+P_3D9E:                                 ; 10 records + WIN_KEY_END
+        WIN_KEY   WIN_K_PAINT, TEXT1_SEG, win_key_nop_stub
+        WIN_KEY   WIN_K_REFRESH, TEXT1_SEG, X_08D3C
+        WIN_KEY   33h, TEXT1_SEG, win_key_nop_stub
+        WIN_KEY   WIN_K_F3, TEXT1_SEG, L_08D0E
+        WIN_KEY   84h, TEXT1_SEG, win_key_nop_stub
         WIN_KEY   WIN_K_F5, TEXT1_SEG, X_08D02
         WIN_KEY   2bh, TEXT1_SEG, win_key_nop_stub
         WIN_KEY   2ch, TEXT1_SEG, win_key_nop_stub
@@ -3552,14 +3340,10 @@ P_438C:
         else
         db      2eh, 2eh, 2eh, 00h, 00h
         endif
-P_43C2:
-        db      03h
-        dw      tgt_0B650, TEXT1_SEG
-        db      05h
-        dw      X_0D332, TEXT2_SEG
-        db      85h
-        dw      X_0D344, TEXT2_SEG
-TBL_WINKEYS_KEEP_OR_RETRY:                      ; 5 records + WIN_KEY_END
+P_43C2:                                 ; 8 records + WIN_KEY_END
+        WIN_KEY   WIN_K_F2, TEXT1_SEG, tgt_0B650
+        WIN_KEY   WIN_K_F4, TEXT2_SEG, X_0D332
+        WIN_KEY   85h, TEXT2_SEG, X_0D344
         WIN_KEY   WIN_K_F5, TEXT1_SEG, smem_data_read_handler
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, keep_or_retry_paint
         WIN_KEY   WIN_K_UP, TEXT1_SEG, keep_or_retry_up
@@ -3576,10 +3360,8 @@ DL_KEEP_OR_RETRY:
         WIN_SOFTKEY 4, 1, "PLAY"
         WIN_SOFTKEY 5, 1, "KEEP"
         WIN_END
-TBL_WINKEYS_MONO_TO_STEREO:                      ; 8 records + WIN_KEY_END
-        WIN_CLEAR
-        WIN_END
-        db      00h, 00h, 00h
+TBL_WINKEYS_MONO_TO_STEREO:             ; 8 records + WIN_KEY_END
+        WIN_KEY_CLEAR
         WIN_KEY   WIN_K_PAINT, TEXT2_SEG, mono_to_stereo_paint
         WIN_KEY   WIN_K_OPEN, TEXT2_SEG, snd_edit_page_return
         WIN_KEY   WIN_K_F4, TEXT2_SEG, snd_edit_page_return

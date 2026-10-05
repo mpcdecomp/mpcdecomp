@@ -28324,7 +28324,7 @@ br_0D996:
 
 br_0D9AA:
         push    ds
-        push    TBL_WINKEYS_0455B
+        push    DL_0455B
         callf   TEXT1_SEG:disp_list_run
         nop
         push    cs

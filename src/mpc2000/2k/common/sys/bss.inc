@@ -1,6 +1,8 @@
-; BSS from ../sys_bss.inc, starts 12 bytes short of image end in OS
-; version stamp. boot sweep (text1 X_003EA, B_4EB0) zeroes stamp's last
-; 12 bytes; first objects start there. BSS_END = first byte past sweep,
+; BSS from ../sys_bss.inc: the communal variables, LINK's paragraph-aligned
+; c_common, on the first paragraph past the modules' _BSS (DS:4F40h v1.50,
+; 5180h v1.72).  the version stamp, written over the image's last 16 bytes
+; after LINK, covers its first 16 (v1.50) or 12 bytes; boot sweep (text1
+; X_003EA, B_4EB0) zeroes them. BSS_END = first byte past sweep,
 ; SYS stack base, end of last object rounded to paragraph boundary.
 ; features' DATA tail (feat/defs.inc) starts here.
         if      FW_VERSION = 172

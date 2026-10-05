@@ -3399,14 +3399,14 @@ DL_STEREO_TO_MONO:
         WIN_LABEL 49h, 1eh, "New L name:"
         WIN_LABEL 49h, 28h, "New R name:"
         WIN_END
-TBL_WINKEYS_0455B:                      ; 1 records + WIN_KEY_END
+DL_0455B:
         WIN_OP_19
         WIN_END
         db      00h
+; the application's _DATA ends; LLIBCE's _DATA: _ldiv's result
 DIVMOD32_STATIC:
-        db      00h, 00h
-        db      00h, 00h, 00h, 00h, 00h                           ; WIN_KEY_END
-        db      00h
+        db      8 dup (000h)
+; CONST: the modules' constant tables
 P_4566:
         db      48h, 51h, 5bh, 66h, 72h, 80h
 P_456C:
@@ -3655,145 +3655,10 @@ X_04E77:
         db      40h, 0a4h, 04h, 40h, 9fh, 0f8h, 40h, 80h, 00h, 40h, 9fh, 0feh, 40h, 0a0h, 01h, 40h
         db      0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h, 01h, 40h, 0a0h
         db      01h, 40h, 0a0h, 01h, 40h, 7fh, 0ffh
-TBL_WINKEYS_04EAE:                      ; 1 records + WIN_KEY_END
-        if      FW_VERSION = 172
-        db      80h, 00h
-B_4EB0:
-        db      00h, 00h
-P_4EB2:
-        db      00h
-        db      00h, 00h, 00h, 00h, 00h                           ; WIN_KEY_END
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h
-B_4ECA:
-        db      00h, 00h
-T_DSP_CHAN:                             ; per-channel control block, stride T_DSP_CHAN_STRIDE
-        db      40 dup (00h)
-SOUND_EVENT_HANDLER:
-        db      00h, 00h
-SOUND_EVENT_HANDLER_SEG:
-        db      00h
-        db      00h
-FP_MAIN_CALLBACK:
-        db      00h, 00h
-FP_MAIN_CALLBACK_SEG:
-        db      00h, 00h
-W_4EFC:
-        db      00h, 00h
-P_4EFE:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
-G_DMA_STATUS2_SHADOW:
-        db      00h, 00h
-TBL_4F10:
-        db      128 dup (00h)
-TBL_VOICE_AGE_SNAP:
-        db      64 dup (00h)
-CREDITS_SCROLL_TICK:
-        db      00h, 00h
-CREDITS_SCROLL_LINE:
-        db      00h, 00h
-CREDITS_SCROLL_PHASE:
-        db      00h, 00h
-FP_UI_RETURN_SCREEN:
-        db      00h
-        db      00h
-FP_UI_RETURN_SCREEN_SEG:
-        db      00h, 00h
-FX_DIST_CURSOR:
-        db      00h
-FILTER4_CURSOR:
-        db      00h
-G_UI_MODE:                              ; 0,2,3,5
-        db      00h
-G_UI_FLAG:
-        db      00h
-G_UI_SUBMODE:
-        db      00h
-FX_MIXER_CURSOR:
-        db      00h
-COPY_FX_CURSOR:
-        db      00h
-B_4FE1:
-        db      00h
-B_4FE2:
-        db      00h, 00h
-B_4FE4:
-        db      00h, 00h
-W_4FE6:
-        db      00h
-        db      00h
-W_4FE8:
-        db      00h, 00h
-W_4FEA:
-        db      00h, 00h, 00h, 00h
-W_4FEE:
-        db      00h, 00h
-W_4FF0:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-W_5006:
-        db      00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-W_5012:
-        db      00h, 00h
-W_5014:
-        db      00h, 00h
-W_5016:
-        db      00h
-        db      00h, 00h, 00h
-W_501A:
-        db      00h, 00h
-W_501C:
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
-W_5032:
-        db      00h, 00h, 00h, 00h, 00h
-        db      00h, 00h, 00h, 00h, 00h, 00h, 00h
-W_503E:
-        db      00h, 00h
-W_5040:
-        db      00h, 00h
-W_5042:
-        db      00h, 00h
-W_5044:
-        db      00h, 00h
-W_5046:
-        db      00h
-        db      00h
-W_5048:
-        db      34 dup (00h)
-W_506A:
-        db      00h, 00h
-W_506C:
-        db      00h, 00h
-W_506E:
-        db      00h, 00h
-W_5070:
-        db      00h, 00h
-W_5072:
-        db      00h, 00h
-W_5074:
-        db      34 dup (00h)
-ZONE_START_FINE_CURSOR:
-        db      00h
-        db      00h
-FP_LOADED_SND:
-        db      00h, 00h
-FP_LOADED_SND_SEG:
-        db      00h, 00h
-W_509C:
-        db      00h, 00h
-        else
-        db      80h
-        endif
-
-        if      FW_VERSION = 150
-; 0x1fc93-0x1ff60: 717 00h bytes (DS:7273h-753Fh), DATA zero tail between
-; 24-pixel bitmap (ends 0x1fc93) and 16-byte version string (image end).
-; No code references. ? Loader zero-fills; code here may not survive
-; start-up.
-        db      1 dup (000h)
+W_04EAE:                                ; no reference
+        dw      0080h
+; _BSS: each module's zero-initialized variables, in link order, which LINK
+; wrote into the file
 B_4EB0:
         db      2 dup (000h)
 P_4EB2:
@@ -3906,7 +3771,6 @@ FP_LOADED_SND_SEG:
         db      2 dup (000h)
 W_509C:
         db      2 dup (000h)
-        endif
 W_509E:
         db      2 dup (000h)
 W_50A0:

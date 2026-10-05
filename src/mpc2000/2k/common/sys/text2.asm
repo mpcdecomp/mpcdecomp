@@ -855,7 +855,8 @@ int2F_bcd_wrapper2:
         retf
         db      00h
 
-; ?
+; mode 1 opens (INT 2Fh fn4, -1 fails), else creates (fn7: 0 done,
+; 1 write protected, 2-3 no space, 4 wrong format); sets G_ERRNO, 0 on failure
 mem_block_process:
         push    bp
         mov     bp, sp
@@ -915,6 +916,7 @@ br_006EC:
         leave
         retf    6
 
+; INT 2Fh fn9, results as fn7
 bcd_display_calc:
         push    bp
         mov     bp, sp
@@ -24280,7 +24282,7 @@ sample_io_handler:
         add     sp, 6
         cmp     ax, si
         je      br_0BA9E
-        push    4
+        push    ERR_FILE_DAMAGED
         push    word ptr [bp+0eh]
         push    word ptr [bp+0ch]
         callf   TEXT1_SEG:_longjmp
@@ -24335,7 +24337,7 @@ br_0BACC:
         je      br_0BB08
         cmp     byte ptr [G_SMEM_STATE_A], 5
         je      br_0BB08
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-12h]
         push    ss
         push    ax
@@ -24810,12 +24812,12 @@ br_0BE60:
         mov     word ptr [G_ERRNO], ax
         or      ax, ax
         je      br_0BEAC
-        cmp     ax, 0ch
+        cmp     ax, ERR_CANT_OPEN
         je      br_0BE8B
         ja      loop_0BE9A
-        sub     al, 4
+        sub     al, ERR_FILE_DAMAGED
         je      L_0BE86
-        sub     al, 5
+        sub     al, ERR_SOUND_DIR_FULL-ERR_FILE_DAMAGED
         je      br_0BEA2
         jmp     loop_0BE9A
         db      90h
@@ -24884,7 +24886,7 @@ br_0BED3:
         mov     ax, word ptr es:[si+2]
         or      ax, word ptr es:[si]
         jne     br_0BF16
-        push    9
+        push    ERR_SOUND_DIR_FULL
         lea     ax, [bp-16h]
         push    ss
         push    ax
@@ -24971,7 +24973,7 @@ br_0BFC8:
         add     sp, 4
         inc     ax
         jne     br_0BFE6
-        push    0ch
+        push    ERR_CANT_OPEN
         lea     ax, [bp-16h]
         push    ss
         push    ax
@@ -25015,7 +25017,7 @@ br_0BFE6:
         call    sample_data_load_12bit
         or      ax, ax
         jne     br_0C04C
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-16h]
         push    ss
         push    ax
@@ -25092,7 +25094,7 @@ br_0C0DA:
         add     sp, 4
         inc     ax
         jne     br_0C0F8
-        push    0ch
+        push    ERR_CANT_OPEN
         lea     ax, [bp-16h]
         push    ss
         push    ax
@@ -25134,7 +25136,7 @@ br_0C0F8:
         je      br_0C149
         jmp     loop_0C0C2
 br_0C149:
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-16h]
         push    ss
         push    ax
@@ -25201,7 +25203,7 @@ br_0C1B8:
         call    sample_io_handler
         cmp     byte ptr [bp-2], 6
         je      br_0C1DE
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-14h]
         push    ss
         push    ax
@@ -25228,7 +25230,7 @@ br_0C1DE:
         call    sample_data_load_12bit
         or      ax, ax
         jne     br_0C21D
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-14h]
         push    ss
         push    ax
@@ -25377,7 +25379,7 @@ br_0C303:
         add     sp, 6
         cmp     ax, 1dh
         je      br_0C326
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-1eh]
         push    ss
         push    ax
@@ -25394,7 +25396,7 @@ br_0C326:
         add     sp, 6
         cmp     ax, 8
         je      br_0C34F
-        push    4
+        push    ERR_FILE_DAMAGED
         lea     ax, [bp-1eh]
         push    ss
         push    ax
@@ -25510,7 +25512,7 @@ br_0C40F:
         mov     ax, dx
         or      ax, si
         jne     br_0C447
-        push    9
+        push    ERR_SOUND_DIR_FULL
         lea     ax, [bp-1eh]
         push    ss
         push    ax

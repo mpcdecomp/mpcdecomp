@@ -19122,9 +19122,9 @@ status_poll_delay:
         cmp     ax, si
         je      br_0975C
         if      FW_VERSION = 172
-        push    4
+        push    ERR_FILE_DAMAGED
         else
-        push    2
+        push    ERR_DISK_READ
         endif
         push    ds
         push    P_8F62
@@ -19158,7 +19158,7 @@ tgt_09768:
         call    int2F_call_fn5
         or      ax, ax
         jge     L_09765
-        push    4
+        push    ERR_FILE_DAMAGED
         push    ds
         push    P_8F62
         nop
@@ -19230,6 +19230,7 @@ envelope_decay_handler:
         leave
         ret     4
 
+; a WAV file: the RIFF chunk, its WAVE id, then the fmt chunk (12h bytes);
 ; far-called from the EXE
 pad_velocity_handler:
         enter   4, 0
@@ -19252,7 +19253,7 @@ lcd_char_write:
         je      br_09821
 
 L_09813:
-        push    4
+        push    ERR_FILE_DAMAGED
         push    ds
 ; far-called from the EXE
 
@@ -19312,7 +19313,7 @@ br_09867:
         jae     L_098A0
 
 br_09892:
-        push    12h
+        push    ERR_UNKNOWN_FILE_FORMAT
         push    ds
         push    P_8F62
         nop
@@ -19347,7 +19348,7 @@ scsi_command_setup:
         je      br_098EB
 
 br_098DD:
-        push    4
+        push    ERR_FILE_DAMAGED
         push    ds
         push    P_8F62
         nop
@@ -19499,7 +19500,7 @@ br_09A11:
         call    smem_free
 
 br_09A1F:
-        push    5
+        push    ERR_INTERNAL
         push    ds
         push    P_8F62
         nop
@@ -20565,7 +20566,7 @@ br_0A30D:
         call    smem_free
 
 br_0A31B:
-        push    5
+        push    ERR_INTERNAL
         push    ds
         push    P_9D8E
         nop
@@ -20791,7 +20792,7 @@ status_poll_delay2:
         add     sp, 6
         cmp     ax, si
         je      br_0A512
-        push    2
+        push    ERR_DISK_READ
         push    ds
         push    P_9D42
         nop
@@ -20820,7 +20821,7 @@ loop_0A51B:
         call    int2F_call_fn5
         or      ax, ax
         jge     loop_0A51B
-        push    4
+        push    ERR_FILE_DAMAGED
         push    ds
         push    P_9D42
         nop
@@ -21159,7 +21160,7 @@ br_0A822:
         call    smem_free
 
 br_0A830:
-        push    5
+        push    ERR_INTERNAL
         push    ds
         push    P_9D42
         nop

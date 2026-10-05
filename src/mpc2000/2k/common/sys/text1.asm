@@ -681,13 +681,13 @@ dsp_00924:
         mov     ah, 14h
         mul     ah
         add     si, ax
-        mov     ah, byte ptr es:[di+FXS_FIELD_1B]
+        mov     ah, byte ptr es:[di+FXS_ROT_SPEED1]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
         mov     word ptr [si+DSPC_FIELD_0C], dx
         mov     bp, dx
-        mov     ah, byte ptr es:[di+FXS_FIELD_1C]
+        mov     ah, byte ptr es:[di+FXS_ROT_SPEED2]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
@@ -1091,16 +1091,16 @@ dsp_00C7D:
         add     si, ax
         mov     al, byte ptr es:[di+8]
         mov     byte ptr [si+2], al
-        mov     al, byte ptr es:[di+FXS_FIELD_10]
+        mov     al, byte ptr es:[di+FXS_FLT_MID2_FMOD_SPEED]
         mov     ah, 0
         mov     dx, 1adh
         mul     dx
         mov     byte ptr [si+1], ah
-        mov     al, byte ptr es:[di+FXS_FIELD_11]
+        mov     al, byte ptr es:[di+FXS_FLT_MID2_FMOD_DEPTH]
         mov     ah, 0e6h
         mul     ah
         mov     byte ptr [si+3], ah
-        mov     dh, byte ptr es:[di+FXS_FIELD_0A]
+        mov     dh, byte ptr es:[di+FXS_FLT_MID2_Q]
         inc     dh
         mov     dl, 0
         mov     ax, 0a6h
@@ -1122,18 +1122,18 @@ dsp_00C7D:
         mov     ah, 6
         mul     ah
         add     si, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_0B]
+        mov     al, byte ptr es:[di+FXS_FLT_MID1_FREQ]
         mov     byte ptr [si+2], al
-        mov     al, byte ptr es:[di+FXS_FIELD_12]
+        mov     al, byte ptr es:[di+FXS_FLT_MID1_FMOD_SPEED]
         mov     ah, 0
         mov     dx, 1adh
         mul     dx
         mov     byte ptr [si+1], ah
-        mov     al, byte ptr es:[di+FXS_FIELD_13]
+        mov     al, byte ptr es:[di+FXS_FLT_MID1_FMOD_DEPTH]
         mov     ah, 0e6h
         mul     ah
         mov     byte ptr [si+3], ah
-        mov     dh, byte ptr es:[di+FXS_FIELD_0D]
+        mov     dh, byte ptr es:[di+FXS_FLT_MID1_Q]
         inc     dh
         mov     dl, 0
         mov     ax, 0aah
@@ -1141,7 +1141,7 @@ dsp_00C7D:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_0C]
+        mov     al, byte ptr es:[di+FXS_FLT_MID1_GAIN]
         push    cs
         call    far_00DDB
         mov     ax, 0ach
@@ -1149,7 +1149,7 @@ dsp_00C7D:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_0E]
+        mov     al, byte ptr es:[di+FXS_FLT_HIGH_FREQ]
         mov     ah, 0
         add     ax, ax
         mov     si, P_4628
@@ -1160,7 +1160,7 @@ dsp_00C7D:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_0F]
+        mov     al, byte ptr es:[di+FXS_FLT_HIGH_GAIN]
         push    cs
         call    far_00DDB
         mov     ax, 0b0h
@@ -1169,13 +1169,13 @@ dsp_00C7D:
         mov     ax, dx
         out     ASIC_DATA, ax
 dsp_00D8D:
-        mov     al, byte ptr es:[di+FXS_FIELD_15]
+        mov     al, byte ptr es:[di+FXS_MIX_DIST_PAN]
         xlat
         mov     dx, 8080h
         add     dh, al
         not     al
         add     dl, al
-        mov     al, byte ptr es:[di+FXS_FIELD_14]
+        mov     al, byte ptr es:[di+FXS_MIX_DIST_LEVEL]
         xlat
         mov     cl, al
         mov     al, dl
@@ -1518,7 +1518,7 @@ dsp_01053:
         mov     ah, 14h
         mul     ah
         add     si, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_1E]
+        mov     al, byte ptr es:[di+FXS_ROT_DEPTH]
         xlat
         mov     dh, al
         mov     dl, 0
@@ -1547,13 +1547,13 @@ dsp_01053:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     ah, byte ptr es:[di+FXS_FIELD_1B]
+        mov     ah, byte ptr es:[di+FXS_ROT_SPEED1]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
         mov     word ptr [si+DSPC_FIELD_0C], dx
         mov     bp, dx
-        mov     ah, byte ptr es:[di+FXS_FIELD_1C]
+        mov     ah, byte ptr es:[di+FXS_ROT_SPEED2]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
@@ -1564,14 +1564,14 @@ dsp_01053:
         jne     dsp_010D3
         inc     word ptr [si+8]
 dsp_010D3:
-        mov     ah, byte ptr es:[di+FXS_FIELD_1C]
-        sub     ah, byte ptr es:[di+FXS_FIELD_1B]
+        mov     ah, byte ptr es:[di+FXS_ROT_SPEED2]
+        sub     ah, byte ptr es:[di+FXS_ROT_SPEED1]
         jns     dsp_010DF
         neg     ah
 dsp_010DF:
         mov     al, 0
         sub     dx, dx
-        mov     cl, byte ptr es:[di+FXS_FIELD_1D]
+        mov     cl, byte ptr es:[di+FXS_ROT_ACCEL]
         mov     ch, 0
         inc     cx
         div     cx
@@ -1583,14 +1583,14 @@ dsp_010DF:
         out     ASIC_REG, ax
         mov     ax, 0
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_1E]
+        mov     al, byte ptr es:[di+FXS_ROT_DEPTH]
         xlat
         mov     ah, al
         mov     al, 0
         mov     dx, 4000h
         mul     dx
         mov     word ptr [si+DSPC_FIELD_12], dx
-        mov     al, byte ptr es:[di+FXS_FIELD_1F]
+        mov     al, byte ptr es:[di+FXS_ROT_MIDI_CC]
         mov     byte ptr [si+2], al
         retf
 dsp_0111B:
@@ -1889,7 +1889,7 @@ dsp_01363:
         out     ASIC_DATA, ax
         jmp     br_01509
 dsp_013C1:
-        mov     ax, word ptr es:[di+FXS_FIELD_38]
+        mov     ax, word ptr es:[di+FXS_ST_DELAY_L]
         mov     dx, 2c1ah
         mul     dx
         mov     dh, dl
@@ -1909,7 +1909,7 @@ dsp_013E6:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_3A]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_L]
         xlat
         mov     ah, al
         mov     al, 0
@@ -1921,7 +1921,7 @@ dsp_013E6:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_3B]
+        mov     al, byte ptr es:[di+FXS_ST_HFDAMP_L]
         mov     ah, 0
         add     ax, ax
         mov     si, P_4628
@@ -1932,7 +1932,7 @@ dsp_013E6:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     ax, word ptr es:[di+FXS_FIELD_3C]
+        mov     ax, word ptr es:[di+FXS_ST_DELAY_R]
         mov     dx, 2c1ah
         mul     dx
         mov     dh, dl
@@ -1952,7 +1952,7 @@ dsp_01451:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_3E]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_R]
         xlat
         mov     ah, al
         mov     al, 0
@@ -1964,7 +1964,7 @@ dsp_01451:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_3F]
+        mov     al, byte ptr es:[di+FXS_ST_HFDAMP_R]
         mov     ah, 0
         add     ax, ax
         mov     si, P_4628
@@ -2041,13 +2041,13 @@ far_t1_01519:
         retf
 
 dsp_01529:
-        mov     al, byte ptr es:[di+FXS_FIELD_41]
+        mov     al, byte ptr es:[di+FXS_MIX_MOD_PAN]
         xlat
         mov     dx, 8080h
         add     dh, al
         not     al
         add     dl, al
-        mov     al, byte ptr es:[di+FXS_FIELD_40]
+        mov     al, byte ptr es:[di+FXS_MIX_MOD_LEVEL]
         xlat
         mov     cl, al
         mov     al, byte ptr [B_8972]
@@ -2077,10 +2077,10 @@ L_0156A:
         jmp     dsp_0157E
 
 dsp_01570:
-        mov     al, byte ptr es:[di+FXS_FIELD_3A]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_L]
         xlat
         mov     dl, al
-        mov     al, byte ptr es:[di+FXS_FIELD_3E]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_R]
         xlat
         mov     dh, al
 
@@ -2094,7 +2094,7 @@ dsp_0157E:
         mov     al, dl
         mov     bp, ax
 dsp_0158E:
-        mov     al, byte ptr es:[di+FXS_FIELD_42]
+        mov     al, byte ptr es:[di+FXS_MIX_MOD_WIDTH]
         xlat
         shr     al, 1
         mov     cl, 7fh
@@ -2149,7 +2149,7 @@ dsp_0158E:
         out     ASIC_DATA, ax
         mov     dx, 7f7fh
         xor     cx, cx
-        mov     al, byte ptr es:[di+FXS_FIELD_14]
+        mov     al, byte ptr es:[di+FXS_MIX_DIST_LEVEL]
         xlat
         shr     al, 1
         mov     ah, al
@@ -2157,7 +2157,7 @@ dsp_0158E:
         cmp     al, 0
         jne     dsp_01630
         mov     dh, ah
-        mov     al, byte ptr es:[di+FXS_FIELD_40]
+        mov     al, byte ptr es:[di+FXS_MIX_MOD_LEVEL]
         xlat
         shr     al, 1
         mov     cl, al
@@ -2166,7 +2166,7 @@ dsp_01630:
         cmp     al, 1
         jne     dsp_0163F
         mov     dl, ah
-        mov     al, byte ptr es:[di+FXS_FIELD_43]
+        mov     al, byte ptr es:[di+FXS_MIX_REV_LEVEL]
         xlat
         shr     al, 1
         mov     ch, al
@@ -2199,7 +2199,7 @@ dsp_01650:
         mov     bp, 0b4h
         push    cs
         call    dsp_reg_write_hi
-        mov     al, byte ptr es:[di+FXS_FIELD_41]
+        mov     al, byte ptr es:[di+FXS_MIX_MOD_PAN]
         xlat
         mov     ch, al
         mov     dh, 7fh
@@ -2215,7 +2215,7 @@ dsp_01650:
         jmp     dsp_0169A
 
 L_01696:
-        mov     al, byte ptr es:[di+FXS_FIELD_3A]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_L]
 
 dsp_0169A:
         xlat
@@ -2241,7 +2241,7 @@ dsp_0169F:
         jmp     dsp_016D1
 
 dsp_016CD:
-        mov     al, byte ptr es:[di+FXS_FIELD_3E]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_R]
 
 dsp_016D1:
         xlat
@@ -2254,8 +2254,8 @@ dsp_016D6:
         out     ASIC_REG, ax
         mov     ax, dx
         out     ASIC_DATA, ax
-        mov     al, byte ptr es:[di+FXS_FIELD_44]
-        mov     ah, byte ptr es:[di+FXS_FIELD_43]
+        mov     al, byte ptr es:[di+FXS_MIX_REV_PAN]
+        mov     ah, byte ptr es:[di+FXS_MIX_REV_LEVEL]
         xlat
         mov     dx, 8080h
         add     dh, al
@@ -2361,7 +2361,7 @@ dsp_017CC:
 dsp_017E3:
         cmp     al, 3
         jne     dsp_0185A
-        mov     al, byte ptr es:[di+FXS_FIELD_41]
+        mov     al, byte ptr es:[di+FXS_MIX_MOD_PAN]
         xlat
         mov     ch, al
         mov     dh, 7fh
@@ -2376,7 +2376,7 @@ dsp_017E3:
         jmp     dsp_0180C
 
 L_01808:
-        mov     al, byte ptr es:[di+FXS_FIELD_3A]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_L]
 
 dsp_0180C:
         xlat
@@ -2402,7 +2402,7 @@ dsp_01811:
         jmp     dsp_01841
 
 L_0183D:
-        mov     al, byte ptr es:[di+FXS_FIELD_3E]
+        mov     al, byte ptr es:[di+FXS_ST_FDBK_R]
 
 dsp_01841:
         xlat
@@ -6928,7 +6928,7 @@ L_039C7:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+3]
+        mov     al, byte ptr es:[bx+FXS_DIST_GAIN]
         sub     ah, ah
         push    0
         push    ax
@@ -6939,7 +6939,7 @@ L_039C7:
         push    4fh
         push    24h
         mov     es, di
-        mov     al, byte ptr es:[si+4]
+        mov     al, byte ptr es:[si+FXS_DIST_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -6955,7 +6955,7 @@ L_039C7:
         push    0afh
         push    24h
         mov     es, di
-        mov     al, byte ptr es:[si+2]
+        mov     al, byte ptr es:[si+FXS_RING_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -6995,7 +6995,7 @@ br_03A57:
         jmp     br_03AC6
         db      90h
 br_03A84:
-        lea     ax, [si+4]
+        lea     ax, [si+FXS_DIST_LEVEL]
         push    dx
         push    ax
         push    0
@@ -7024,7 +7024,7 @@ L_03AA0:
         db      90h
 
 br_03AB4:
-        lea     ax, [si+2]
+        lea     ax, [si+FXS_RING_DEPTH]
         push    dx
         push    ax
         push    0
@@ -7037,7 +7037,7 @@ br_03AC2:
         jmp     br_03AD5
 
 br_03AC6:
-        lea     ax, [si+3]
+        lea     ax, [si+FXS_DIST_GAIN]
         push    dx
         push    ax
         push    0
@@ -7154,7 +7154,7 @@ L_03B65:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_0E]
+        mov     al, byte ptr es:[bx+FXS_FLT_HIGH_FREQ]
         push    ax
         mov     si, bx
         mov     di, dx
@@ -7162,49 +7162,49 @@ L_03B65:
         push    31h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+0bh]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_FREQ]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_caller2
         push    31h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+8]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_FREQ]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_caller2
         push    31h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+6]
+        mov     al, byte ptr es:[si+FXS_FLT_LOW_FREQ]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_caller2
         push    55h
         push    0bh
         mov     es, di
-        mov     al, byte ptr es:[si+0fh]
+        mov     al, byte ptr es:[si+FXS_FLT_HIGH_GAIN]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_handler_2
         push    55h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+0ch]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_GAIN]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_handler_2
         push    55h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+9]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_GAIN]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_handler_2
         push    55h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+7]
+        mov     al, byte ptr es:[si+FXS_FLT_LOW_GAIN]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_handler_2
         push    7fh
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+0dh]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_Q]
         sub     ah, ah
         push    0
         push    ax
@@ -7213,7 +7213,7 @@ L_03B65:
         push    7fh
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+0ah]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_Q]
         sub     ah, ah
         push    0
         push    ax
@@ -7222,7 +7222,7 @@ L_03B65:
         push    9dh
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+12h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_FMOD_SPEED]
         sub     ah, ah
         push    ax
         push    2
@@ -7230,7 +7230,7 @@ L_03B65:
         push    9dh
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+10h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_FMOD_SPEED]
         sub     ah, ah
         push    ax
         push    2
@@ -7238,7 +7238,7 @@ L_03B65:
         push    0d3h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+13h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_FMOD_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -7247,7 +7247,7 @@ L_03B65:
         push    0d3h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+11h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_FMOD_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -7295,7 +7295,7 @@ br_03CEC:
         jmp     X_03E00
 
 X_03CF4:
-        lea     ax, [si+0fh]
+        lea     ax, [si+FXS_FLT_HIGH_GAIN]
         push    dx
         push    ax
         push    -25h
@@ -7314,7 +7314,7 @@ X_03D03:
         db      90h
 
 X_03D16:
-        lea     ax, [si+0bh]
+        lea     ax, [si+FXS_FLT_MID1_FREQ]
         push    dx
         push    ax
         push    0ch
@@ -7325,7 +7325,7 @@ X_03D16:
         jmp     NEAR X_03E11
 
 X_03D28:
-        lea     ax, [si+0ch]
+        lea     ax, [si+FXS_FLT_MID1_GAIN]
         push    dx
         push    ax
         push    -25h
@@ -7337,7 +7337,7 @@ X_03D28:
         db      90h
 
 X_03D3A:
-        lea     ax, [si+0dh]
+        lea     ax, [si+FXS_FLT_MID1_Q]
         push    dx
         push    ax
         push    0
@@ -7360,7 +7360,7 @@ L_03D4D:
         db      90h
 
 X_03D5C:
-        lea     ax, [si+12h]
+        lea     ax, [si+FXS_FLT_MID1_FMOD_SPEED]
         push    dx
         push    ax
         push    0
@@ -7375,7 +7375,7 @@ L_03D6C:
         jmp     SHORT L_03D4D
 
 X_03D74:
-        lea     ax, [si+13h]
+        lea     ax, [si+FXS_FLT_MID1_FMOD_DEPTH]
         push    dx
         push    ax
         push    0
@@ -7385,7 +7385,7 @@ X_03D74:
         jmp     SHORT L_03D47
 
 X_03D84:
-        lea     ax, [si+8]
+        lea     ax, [si+FXS_FLT_MID2_FREQ]
         push    dx
         push    ax
         push    0ch
@@ -7397,7 +7397,7 @@ X_03D84:
         db      90h
 
 L_03D96:
-        lea     ax, [si+9]
+        lea     ax, [si+FXS_FLT_MID2_GAIN]
         push    dx
         push    ax
         push    -25h
@@ -7408,7 +7408,7 @@ L_03D96:
         jmp     NEAR X_03D03
 
 X_03DA8:
-        lea     ax, [si+0ah]
+        lea     ax, [si+FXS_FLT_MID2_Q]
         push    dx
         push    ax
         push    0
@@ -7422,7 +7422,7 @@ L_03DB5:
         db      90h
 
 X_03DBA:
-        lea     ax, [si+10h]
+        lea     ax, [si+FXS_FLT_MID2_FMOD_SPEED]
         push    dx
         push    ax
         push    0
@@ -7433,7 +7433,7 @@ X_03DBA:
         jmp     SHORT L_03D6C
 
 L_03DCC:
-        lea     ax, [si+11h]
+        lea     ax, [si+FXS_FLT_MID2_FMOD_DEPTH]
         push    dx
         push    ax
         push    0
@@ -7443,7 +7443,7 @@ L_03DCC:
         jmp     SHORT L_03DB5
 
 X_03DDC:
-        lea     ax, [si+6]
+        lea     ax, [si+FXS_FLT_LOW_FREQ]
         push    dx
         push    ax
         push    4
@@ -7455,7 +7455,7 @@ X_03DDC:
         db      90h
 
 X_03DEE:
-        lea     ax, [si+7]
+        lea     ax, [si+FXS_FLT_LOW_GAIN]
         push    dx
         push    ax
         push    -25h
@@ -7466,7 +7466,7 @@ X_03DEE:
         jmp     NEAR X_03D03
 
 X_03E00:
-        lea     ax, [si+FXS_FIELD_0E]
+        lea     ax, [si+FXS_FLT_HIGH_FREQ]
         push    word ptr [bp-2]
         push    ax
         push    22h
@@ -7866,7 +7866,7 @@ br_040B2:
         db      90h
 
 X_040BA:
-        lea     ax, [si+1bh]
+        lea     ax, [si+FXS_ROT_SPEED1]
         push    dx
         push    ax
         push    0
@@ -7886,7 +7886,7 @@ L_040CF:
         jmp     SHORT L_0412D
 
 X_040DC:
-        lea     ax, [si+1eh]
+        lea     ax, [si+FXS_ROT_DEPTH]
         push    dx
         push    ax
         push    0
@@ -7902,7 +7902,7 @@ L_040EB:
         db      90h
 
 X_040F2:
-        lea     ax, [si+1fh]
+        lea     ax, [si+FXS_ROT_MIDI_CC]
         push    dx
         push    ax
         push    0
@@ -7913,7 +7913,7 @@ X_040F2:
         jmp     SHORT L_040EB
 
 X_04104:
-        lea     ax, [si+1dh]
+        lea     ax, [si+FXS_ROT_ACCEL]
         push    dx
         push    ax
         push    0
@@ -7924,7 +7924,7 @@ X_04104:
         jmp     SHORT L_040C9
 
 X_04116:
-        lea     ax, [si+1ch]
+        lea     ax, [si+FXS_ROT_SPEED2]
         push    dx
         push    ax
         push    0
@@ -8096,7 +8096,7 @@ br_0422A:
         jmp     X_042B8
 
 X_04232:
-        lea     ax, [si+20h]
+        lea     ax, [si+FXS_FMOD_SPEED]
         push    dx
         push    ax
         push    0
@@ -8115,7 +8115,7 @@ L_04247:
         jmp     SHORT L_042BD
 
 X_04254:
-        lea     ax, [si+21h]
+        lea     ax, [si+FXS_FMOD_DEPTH]
         push    dx
         push    ax
         push    0
@@ -8133,7 +8133,7 @@ L_04263:
         db      90h
 
 X_0426A:
-        lea     ax, [si+22h]
+        lea     ax, [si+FXS_FMOD_FEEDBACK]
         push    dx
         push    ax
         push    0
@@ -8145,7 +8145,7 @@ X_0426A:
         db      90h
 
 X_0427C:
-        lea     ax, [si+23h]
+        lea     ax, [si+FXS_APAN_SPEED]
         push    dx
         push    ax
         push    0
@@ -8155,7 +8155,7 @@ X_0427C:
         jmp     SHORT L_0423F
 
 X_0428C:
-        lea     ax, [si+24h]
+        lea     ax, [si+FXS_APAN_DEPTH]
         push    dx
         push    ax
         push    0
@@ -8165,7 +8165,7 @@ X_0428C:
         jmp     SHORT L_04261
 
 X_0429C:
-        lea     ax, [si+25h]
+        lea     ax, [si+FXS_APAN_MODE]
         push    dx
         push    ax
         push    3
@@ -8334,7 +8334,7 @@ br_043C2:
         jmp     L_0444C
 
 X_043CA:
-        lea     ax, [si+26h]
+        lea     ax, [si+FXS_PITCH_TUNE_L]
         push    dx
         push    ax
         push    91h
@@ -8346,14 +8346,14 @@ L_043D2:
         db      90h
 
 L_043DC:
-        lea     ax, [si+28h]
+        lea     ax, [si+FXS_PITCH_TUNE_R]
         push    dx
         push    ax
         push    0bbh
         jmp     SHORT L_043D2
 
 X_043E6:
-        lea     ax, [si+2ah]
+        lea     ax, [si+FXS_PITCH_DELAY_L]
         push    dx
         push    ax
         push    0
@@ -8371,7 +8371,7 @@ X_043F5:
         jmp     SHORT L_04451
 
 X_04408:
-        lea     ax, [si+2ch]
+        lea     ax, [si+FXS_PITCH_DELAY_R]
         push    dx
         push    ax
         push    0
@@ -8382,7 +8382,7 @@ X_04408:
         db      90h
 
 L_0441A_1:
-        lea     ax, [si+2eh]
+        lea     ax, [si+FXS_PITCH_FDBK_L]
         push    dx
         push    ax
         push    0
@@ -8401,7 +8401,7 @@ L_04428_1:
         db      90h
 
 X_0443C:
-        lea     ax, [si+2fh]
+        lea     ax, [si+FXS_PITCH_FDBK_R]
         push    dx
         push    ax
         push    0
@@ -8809,7 +8809,7 @@ br_04728:
         jmp     L_047D2
 
 X_04730:
-        lea     ax, [si+3ah]
+        lea     ax, [si+FXS_ST_FDBK_L]
         push    dx
         push    ax
         push    0
@@ -8827,7 +8827,7 @@ X_0473E:
         jmp     NEAR L_047D7
 
 X_04752:
-        lea     ax, [si+38h]
+        lea     ax, [si+FXS_ST_DELAY_L]
         push    dx
         push    ax
         push    0
@@ -8845,7 +8845,7 @@ X_04761:
         jmp     SHORT L_047D7
 
 X_04774:
-        lea     ax, [si+3bh]
+        lea     ax, [si+FXS_ST_HFDAMP_L]
         push    dx
         push    ax
         push    14h
@@ -8866,7 +8866,7 @@ X_04782:
         db      90h
 
 X_047A0:
-        lea     ax, [si+3eh]
+        lea     ax, [si+FXS_ST_FDBK_R]
         push    dx
         push    ax
         push    0
@@ -8876,7 +8876,7 @@ X_047A0:
         jmp     SHORT X_0473E
 
 X_047B0:
-        lea     ax, [si+3ch]
+        lea     ax, [si+FXS_ST_DELAY_R]
         push    dx
         push    ax
         push    0
@@ -8887,7 +8887,7 @@ X_047B0:
         db      90h
 
 X_047C2:
-        lea     ax, [si+3fh]
+        lea     ax, [si+FXS_ST_HFDAMP_R]
         push    dx
         push    ax
         push    14h
@@ -9065,13 +9065,13 @@ L_0489A:
         push    15h
         mov     es, word ptr [bp-2]
         push    0
-        push    word ptr es:[si+2]
+        push    word ptr es:[si+FXR_PREDELAY]
         push    2
         callf   TEXT2_SEG:draw_unsigned_value
         push    61h
         push    29h
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+8]
+        mov     al, byte ptr es:[si+FXR_DIFFUSE]
         sub     ah, ah
         push    0
         push    ax
@@ -9082,7 +9082,7 @@ L_0489A:
         jg      br_0498C
         push    61h
         push    1fh
-        mov     al, byte ptr es:[si+7]
+        mov     al, byte ptr es:[si+FXR_TIME]
         sub     ah, ah
         push    0
         push    ax
@@ -9106,7 +9106,7 @@ L_0489A:
         push    0c7h
         push    15h
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+4]
+        mov     al, byte ptr es:[si+FXR_NEAR]
         sub     ah, ah
         push    0
         push    ax
@@ -9115,20 +9115,20 @@ L_0489A:
         push    0c7h
         push    1fh
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+5]
+        mov     al, byte ptr es:[si+FXR_LF_DAMP]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_caller2
         push    0c7h
         push    29h
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+6]
+        mov     al, byte ptr es:[si+FXR_HF_DAMP]
         push    ax
         callf   TEXT2_SEG:cmd_dispatch_caller2
         jmp     br_049A0
 br_0498C:
         push    61h
         push    1fh
-        mov     al, byte ptr es:[si+9]
+        mov     al, byte ptr es:[si+FXR_GATE_TIME]
         sub     ah, ah
         push    0
         push    ax
@@ -9182,7 +9182,7 @@ br_049FE:
         jmp     br_04ACC
 
 X_04A06:
-        lea     ax, [si+2]
+        lea     ax, [si+FXR_PREDELAY]
         push    dx
         push    ax
         push    0
@@ -9259,7 +9259,7 @@ X_04A74:
         jmp     SHORT X_04A4B
 
 X_04A8A:
-        lea     ax, [si+5]
+        lea     ax, [si+FXR_LF_DAMP]
         push    dx
         push    ax
         push    0
@@ -9469,7 +9469,7 @@ L_04C08:
         jmp     L_04CD2
 
 L_04C10:
-        lea     ax, [si+46h]
+        lea     ax, [si+FXS_ROUTE]
         push    dx
         push    ax
         push    2
@@ -9497,7 +9497,7 @@ L_04C20:
 
         endif
 L_04C36:
-        lea     ax, [si+14h]
+        lea     ax, [si+FXS_MIX_DIST_LEVEL]
         push    dx
         push    ax
         push    0
@@ -9515,7 +9515,7 @@ X_04C46:
         jmp     NEAR L_04CEC
 
 L_04C58:
-        lea     ax, [si+40h]
+        lea     ax, [si+FXS_MIX_MOD_LEVEL]
         push    dx
         push    ax
         push    0
@@ -9528,7 +9528,7 @@ L_04C66:
         jmp     SHORT X_04C46
 
 L_04C6A:
-        lea     ax, [si+43h]
+        lea     ax, [si+FXS_MIX_REV_LEVEL]
         push    dx
         push    ax
         push    0
@@ -9539,7 +9539,7 @@ L_04C6A:
         jmp     SHORT X_04C46
 
 L_04C7C:
-        lea     ax, [si+15h]
+        lea     ax, [si+FXS_MIX_DIST_PAN]
         push    dx
         push    ax
         push    -32h
@@ -9558,7 +9558,7 @@ X_04C8C:
         db      90h
 
 L_04C9E:
-        lea     ax, [si+41h]
+        lea     ax, [si+FXS_MIX_MOD_PAN]
         push    dx
         push    ax
         push    -32h
@@ -9569,7 +9569,7 @@ L_04C9E:
         jmp     SHORT X_04C8C
 
 L_04CB0_1:
-        lea     ax, [si+44h]
+        lea     ax, [si+FXS_MIX_REV_PAN]
         push    dx
         push    ax
         push    -32h
@@ -9580,7 +9580,7 @@ L_04CB0_1:
         jmp     SHORT X_04C8C
 
 L_04CC2_1:
-        lea     ax, [si+42h]
+        lea     ax, [si+FXS_MIX_MOD_WIDTH]
         push    dx
         push    ax
         push    0
@@ -9590,7 +9590,7 @@ L_04CC2_1:
         jmp     SHORT L_04C66
 
 L_04CD2:
-        lea     ax, [si+5]
+        lea     ax, [si+FXS_ENABLE]
         push    word ptr [bp-2]
         push    ax
         push    1
@@ -9853,7 +9853,7 @@ fx_mixer_arm_field:
         mov     byte ptr [FX_MIXER_CURSOR], 0
         jmp     br_04E32
 br_04E10:
-        lea     ax, [si+FXR_FIELD_0B]
+        lea     ax, [si+FXR_MIX_PAN]
         push    dx
         push    ax
         push    -32h
@@ -9869,7 +9869,7 @@ br_04E10:
         jmp     L_04E51
         db      90h
 br_04E32:
-        lea     ax, [si+FXR_FIELD_0A]
+        lea     ax, [si+FXR_MIX_LEVEL]
         push    dx
         push    ax
         push    0

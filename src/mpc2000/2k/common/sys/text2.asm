@@ -3619,7 +3619,7 @@ misc_d33b:
         mov     bx, ax
         mov     es, dx
 ; ? voice_string_access @0x0d356 is mid-instruction
-        mov     al, byte ptr es:[bx+FXR_FIELD_01]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         push    ax
         nop
         push    cs
@@ -9117,7 +9117,7 @@ voice_process_full              equ     $+1
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXR_FIELD_01]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         and     al, 1
         cmp     al, 1
         sbb     ax, ax
@@ -9772,6 +9772,7 @@ X_049E3:
         push    cs
         call    cmd_param_setup
         retf
+; a pan at (x, y): 'L' or 'R' and two digits, W_1556's string at the centre
 cmd_exec_1E:
         enter   4, 0
         push    si
@@ -9823,6 +9824,8 @@ br_04A51:
         pop     si
         leave
         retf    6
+; a frequency at (x, y) from its index, 20 to a decade: TBL_155A's
+; mantissas, 'k' from the fourth decade
 cmd_dispatch_caller2:
         enter   8, 0
         mov     ax, word ptr [W_1582]
@@ -9887,6 +9890,7 @@ br_04ACD:
         leave
         retf    6
         db      00h
+; a gain in dB at (x, y): signed, P_4CF9's string from -37 down
 cmd_dispatch_handler_2:
         push    bp
         mov     bp, sp
@@ -10009,7 +10013,7 @@ br_04B8C:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXR_FIELD_01]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
 
 L_04BA0:
         mov     byte ptr [B_4FE1], al
@@ -10065,7 +10069,7 @@ L_04BE8:
 L_04BF4:
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
 
 br_04BFC:
         mov     byte ptr [B_4FE1], al
@@ -10126,7 +10130,7 @@ L_04C5C                         equ     $+1
         endif
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXR_FIELD_01]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         mov     byte ptr [B_4FE1], al
         retf
         db      00h
@@ -10461,7 +10465,7 @@ L_04E3D:
         push    0bbh
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+19h]
+        mov     al, byte ptr es:[si+FXS_MOD_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -10472,7 +10476,7 @@ L_04E3D:
         push    0bbh
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+1ah]
+        mov     al, byte ptr es:[si+FXS_MOD_FEEDBACK]
         cbw
         cwd
         push    dx
@@ -10514,7 +10518,7 @@ tgt_04EAD:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_1B]
+        mov     al, byte ptr es:[bx+FXS_ROT_SPEED1]
         sub     ah, ah
         push    ax
         push    2
@@ -10526,7 +10530,7 @@ tgt_04EAD:
         push    43h
         push    24h
         mov     es, di
-        mov     al, byte ptr es:[si+1eh]
+        mov     al, byte ptr es:[si+FXS_ROT_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -10537,7 +10541,7 @@ tgt_04EAD:
         push    0c7h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+1fh]
+        mov     al, byte ptr es:[si+FXS_ROT_MIDI_CC]
         sub     ah, ah
         push    0
         push    ax
@@ -10548,7 +10552,7 @@ tgt_04EAD:
         push    0c7h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+1dh]
+        mov     al, byte ptr es:[si+FXS_ROT_ACCEL]
         sub     ah, ah
         push    ax
         push    2
@@ -10558,7 +10562,7 @@ tgt_04EAD:
         push    0c7h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+1ch]
+        mov     al, byte ptr es:[si+FXS_ROT_SPEED2]
         sub     ah, ah
         push    ax
         push    2
@@ -10617,7 +10621,7 @@ tgt_04F45:
         push    6dh
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+21h]
+        mov     al, byte ptr es:[si+FXS_FMOD_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -10628,7 +10632,7 @@ tgt_04F45:
         push    6dh
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+22h]
+        mov     al, byte ptr es:[si+FXS_FMOD_FEEDBACK]
         sub     ah, ah
         push    0
         push    ax
@@ -10639,7 +10643,7 @@ tgt_04F45:
         push    0c1h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+23h]
+        mov     al, byte ptr es:[si+FXS_APAN_SPEED]
         sub     ah, ah
         push    ax
         push    2
@@ -10649,7 +10653,7 @@ tgt_04F45:
         push    0c1h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+24h]
+        mov     al, byte ptr es:[si+FXS_APAN_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -10660,7 +10664,7 @@ tgt_04F45:
         push    0c1h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+25h]
+        mov     al, byte ptr es:[si+FXS_APAN_MODE]
         cbw
         mov     bx, ax
         shl     bx, 2
@@ -11096,7 +11100,7 @@ L_052E9:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXS_FIELD_3A]
+        mov     al, byte ptr es:[bx+FXS_ST_FDBK_L]
         sub     ah, ah
         push    0
         push    ax
@@ -11110,7 +11114,7 @@ L_052E9:
         push    1fh
         mov     es, di
         push    0
-        push    word ptr es:[si+38h]
+        push    word ptr es:[si+FXS_ST_DELAY_L]
         push    3
         nop
         push    cs
@@ -11118,7 +11122,7 @@ L_052E9:
         push    97h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+3bh]
+        mov     al, byte ptr es:[si+FXS_ST_HFDAMP_L]
         push    ax
         nop
         push    cs
@@ -11126,7 +11130,7 @@ L_052E9:
         push    0c7h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+3eh]
+        mov     al, byte ptr es:[si+FXS_ST_FDBK_R]
         sub     ah, ah
         push    0
         push    ax
@@ -11138,7 +11142,7 @@ L_052E9:
         push    1fh
         mov     es, di
         push    0
-        push    word ptr es:[si+3ch]
+        push    word ptr es:[si+FXS_ST_DELAY_R]
         push    3
         nop
         push    cs
@@ -11146,7 +11150,7 @@ L_052E9:
         push    0c1h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+3fh]
+        mov     al, byte ptr es:[si+FXS_ST_HFDAMP_R]
         push    ax
         nop
         push    cs
@@ -11230,7 +11234,7 @@ L_053D3:
         push    0eh
         endif
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+5]
+        mov     al, byte ptr es:[si+FXS_ENABLE]
         cbw
         shl     ax, 2
         add     ax, TBL_OFF_ON_LABELS
@@ -11272,7 +11276,7 @@ L_053D3:
         push    0a9h
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_14]
+        mov     al, byte ptr es:[si+FXS_MIX_DIST_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -11283,7 +11287,7 @@ L_053D3:
         push    0a9h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_40]
+        mov     al, byte ptr es:[si+FXS_MIX_MOD_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -11294,7 +11298,7 @@ L_053D3:
         push    0a9h
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_43]
+        mov     al, byte ptr es:[si+FXS_MIX_REV_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -11305,7 +11309,7 @@ L_053D3:
         push    0bbh
         push    15h
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_15]
+        mov     al, byte ptr es:[si+FXS_MIX_DIST_PAN]
         cbw
         push    ax
         nop
@@ -11314,7 +11318,7 @@ L_053D3:
         push    0bbh
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_41]
+        mov     al, byte ptr es:[si+FXS_MIX_MOD_PAN]
         cbw
         push    ax
         nop
@@ -11323,7 +11327,7 @@ L_053D3:
         push    0bbh
         push    29h
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_44]
+        mov     al, byte ptr es:[si+FXS_MIX_REV_PAN]
         cbw
         push    ax
         nop
@@ -11332,7 +11336,7 @@ L_053D3:
         push    0d3h
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+FXS_FIELD_42]
+        mov     al, byte ptr es:[si+FXS_MIX_MOD_WIDTH]
         sub     ah, ah
         push    0
         push    ax
@@ -11396,7 +11400,7 @@ L_054F9:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+FXR_FIELD_0A]
+        mov     al, byte ptr es:[bx+FXR_MIX_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -11409,7 +11413,7 @@ L_054F9:
         push    0bbh
         push    1fh
         mov     es, di
-        mov     al, byte ptr es:[si+0bh]
+        mov     al, byte ptr es:[si+FXR_MIX_PAN]
         cbw
         push    ax
         nop

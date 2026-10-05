@@ -102,3 +102,6 @@ WF_S8                   equ     1       ; field_register_s8
 WF_U16                  equ     2       ; status_read_6A
 WF_S16                  equ     3       ; status_read_6A_2
 WF_S32                  equ     4       ; field_register itself, a long
+
+WAVE_COLS               equ     245     ; the waveform view's columns: BUF_XFER's
+                                        ;   peaks, G_WAVE_COLS_DONE

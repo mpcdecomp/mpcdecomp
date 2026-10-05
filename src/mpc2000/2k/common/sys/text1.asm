@@ -17515,14 +17515,14 @@ X_08A86:
         call    main_handler_2
         or      ax, ax
         je      X_08ADA
-        push    880h
+        push    SND_NAMES_LEN
         push    ds
         push    TBL_SOUND_NAMES
         nop
         push    cs
         call    int2F_call_fn6
         add     sp, 6
-        cmp     ax, 880h
+        cmp     ax, SND_NAMES_LEN
         jne     X_08ADA
         nop
         push    cs
@@ -17643,14 +17643,14 @@ X_08B84:
         call    tgt_08BEA
         or      ax, ax
         je      X_08BDC
-        push    880h
+        push    SND_NAMES_LEN
         push    ds
         push    TBL_SOUND_NAMES
         nop
         push    cs
         call    int2F_call_fn6
         add     sp, 6
-        cmp     ax, 880h
+        cmp     ax, SND_NAMES_LEN
         jne     X_08BDC
         nop
         push    cs
@@ -20844,10 +20844,10 @@ status_poll_handler2:
         call    status_poll_delay2
         mov     es, word ptr [bp+6]
         mov     al, byte ptr es:[si+SMEM_REQ_FLAGS]
-        and     ax, 60h
-        sub     ax, 20h
+        and     ax, SMEM_REQ_CHAN_MASK
+        sub     ax, SMEM_REQ_A_ONLY
         je      br_0A588
-        sub     ax, 20h
+        sub     ax, SMEM_REQ_B_ONLY-SMEM_REQ_A_ONLY
         je      br_0A592
         mov     ax, word ptr es:[si+SMEM_REQ_A_START]
         mov     dx, word ptr es:[si+SMEM_REQ_A_START_HI]
@@ -20885,8 +20885,8 @@ smem_access_setup:
         mov     si, word ptr [bp+4]
         mov     es, word ptr [bp+6]
         mov     al, byte ptr es:[si+SMEM_REQ_FLAGS]
-        and     ax, 60h
-        sub     ax, 20h
+        and     ax, SMEM_REQ_CHAN_MASK
+        sub     ax, SMEM_REQ_A_ONLY
         jne     br_0A5C9
         jmp     br_0A73E
 
@@ -21209,13 +21209,13 @@ voice_play_range:
         mov     word ptr [bp-22h], ax
         les     bx, [bp+4]
         mov     al, byte ptr es:[bx+SMEM_REQ_FLAGS]
-        and     al, 1
+        and     al, SMEM_REQ_LOOP
         mov     byte ptr [bp-12h], al
         mov     al, byte ptr es:[bx+SMEM_REQ_FLAGS]
-        and     ax, 60h
-        sub     ax, 20h
+        and     ax, SMEM_REQ_CHAN_MASK
+        sub     ax, SMEM_REQ_A_ONLY
         je      br_0A8D1
-        sub     ax, 20h
+        sub     ax, SMEM_REQ_B_ONLY-SMEM_REQ_A_ONLY
         jne     br_0A8A3
         jmp     br_0A930
 br_0A8A3:

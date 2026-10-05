@@ -28,6 +28,8 @@
 ; SND_LENGTH units.  START/END/LOOP (`?`) from the file-header load order
 ; (text1 br_091AA: hdr+1Eh/22h/2Ch) and br_08633's `+20h = +18h` clamp.
 SIZEOF_SND              equ     036h
+SND_COUNT               equ     128
+SND_NAMES_LEN           equ     SND_COUNT*(SND_NAME_LEN+1) ; TBL_SOUND_NAMES, as a file reads it
 
 ; =============================================================================
 ; FXS -- an EB-16 multi-FX section block, 48h bytes, TWO per program
@@ -130,6 +132,10 @@ SMEM_REQ_B_LOOP_END_HI  equ     032h
 SMEM_REQ_RATE           equ     034h    ; dd, Hz: SND_RATE, and SND_TUNE through midi_out_io
 SMEM_REQ_RATE_HI        equ     036h
 SMEM_REQ_FLAGS          equ     03ah    ; bit 0 loop; 60h: 20h A only, 40h B only, 0 both
+SMEM_REQ_LOOP           equ     001h
+SMEM_REQ_CHAN_MASK      equ     060h
+SMEM_REQ_A_ONLY         equ     020h
+SMEM_REQ_B_ONLY         equ     040h
 SIZEOF_SMEM_REQ         equ     03bh
 
 ; ---- SMEM_POOL, the sample-memory block list (bss.inc) ----------------------

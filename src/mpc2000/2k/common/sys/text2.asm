@@ -17031,7 +17031,7 @@ br_08045:
         push    word ptr es:[bx+SND_LENGTH_HI]
         push    word ptr es:[bx+SND_LENGTH]
         push    0
-        push    0f5h
+        push    WAVE_COLS
         push    word ptr [bp+0ch]
         push    word ptr [bp+0ah]
         callf   TEXT1_SEG:__aFlmul
@@ -17043,7 +17043,7 @@ br_08045:
         push    word ptr es:[bx+SND_LENGTH_HI]
         push    word ptr es:[bx+SND_LENGTH]
         push    0
-        push    0f5h
+        push    WAVE_COLS
         push    word ptr [bp+8]
         push    word ptr [bp+6]
         mov     word ptr [bp-2], ax
@@ -17064,7 +17064,7 @@ br_08098:
         push    WOP_OP4_13
         push    1
         push    15h
-        push    0f5h
+        push    WAVE_COLS
         push    1bh
         nop
         push    cs
@@ -17150,7 +17150,7 @@ br_08150:
         mov     word ptr [G_WAVE_SMEM_END], ax
         mov     word ptr [G_WAVE_SMEM_END_HI], dx
         push    0
-        push    0f5h
+        push    WAVE_COLS
         push    word ptr es:[bx+SND_LENGTH_HI]
         push    word ptr es:[bx+SND_LENGTH]
         callf   TEXT1_SEG:__aFldiv
@@ -17161,9 +17161,9 @@ br_08150:
         mov     ax, BUF_XFER
         push    ds
         push    ax
-        push    0f5h
+        push    WAVE_COLS
         push    0
-        push    0f5h
+        push    WAVE_COLS
         les     bx, [bp+6]
         mov     ax, word ptr es:[bx+SND_LENGTH]
         mov     dx, word ptr es:[bx+SND_LENGTH_HI]
@@ -17187,7 +17187,7 @@ br_08150:
         call    smem_dma_copy
         mov     di, BUF_XFER
         mov     si, TBL_WAVE_POS_PEAK
-        mov     word ptr [bp-4], 0f5h
+        mov     word ptr [bp-4], WAVE_COLS
         mov     cx, word ptr [bp-4]
 loop_081D1:
         xor     ax, ax
@@ -17208,7 +17208,7 @@ br_081E7:
         add     si, 4
         dec     cx
         jne     loop_081D1
-        mov     word ptr [G_WAVE_COLS_DONE], 0f5h
+        mov     word ptr [G_WAVE_COLS_DONE], WAVE_COLS
 
 L_081F6:
         mov     word ptr [G_WAVE_VALID], 1
@@ -17235,7 +17235,7 @@ cmd_ratio_calc:
         push    WOP_OP4_13
         push    1
         push    15h
-        push    0f5h
+        push    WAVE_COLS
         push    1bh
         nop
         push    cs
@@ -17272,7 +17272,7 @@ br_0824E:
         add     di, 4
         lea     ax, [si+1]
         mov     si, ax
-        cmp     si, 0f5h
+        cmp     si, WAVE_COLS
         jl      loop_08233
 
 br_08273:
@@ -17324,7 +17324,7 @@ string_op_setup:
         enter   8, 0
         push    di
         push    si
-        mov     ax, 0f5h
+        mov     ax, WAVE_COLS
         sub     ax, word ptr [G_WAVE_COLS_DONE]
         cwd
         push    dx
@@ -17348,7 +17348,7 @@ string_op_setup:
         movsw
         movsw
         pop     ds
-        mov     ax, 0f5h
+        mov     ax, WAVE_COLS
         sub     ax, word ptr [G_WAVE_COLS_DONE]
         cwd
         sub     ax, dx
@@ -17376,7 +17376,7 @@ br_08317:
 string_func_handler:
         enter   4, 0
         push    si
-        cmp     word ptr [G_WAVE_COLS_DONE], 0f5h
+        cmp     word ptr [G_WAVE_COLS_DONE], WAVE_COLS
         jl      br_08332
         jmp     br_083B9
 
@@ -17449,9 +17449,9 @@ sample_name_search:
         push    si
         cmp     word ptr [G_WAVE_VALID], 0
         je      br_08419
-        cmp     word ptr [G_WAVE_COLS_DONE], 0f5h
+        cmp     word ptr [G_WAVE_COLS_DONE], WAVE_COLS
         jge     br_08419
-        mov     ax, 0f5h
+        mov     ax, WAVE_COLS
         sub     ax, word ptr [G_WAVE_COLS_DONE]
         cwd
         push    dx
@@ -17466,7 +17466,7 @@ sample_name_search:
         or      dx, dx
         jl      br_08400
         jg      br_083FB
-        cmp     ax, 0f5h
+        cmp     ax, WAVE_COLS
         jb      br_08400
 
 br_083FB:
@@ -17474,7 +17474,7 @@ br_083FB:
         jmp     br_0840D
 
 br_08400:
-        mov     si, 0f5h
+        mov     si, WAVE_COLS
         sub     si, ax
         jmp     br_0840D
         db      90h
@@ -21217,7 +21217,7 @@ range_seq_caller:
         imul    ax, word ptr [bp-6], 11h
         push    ax
         push    1
-        push    880h
+        push    SND_NAMES_LEN
         nop
         push    cs
         call    range_process
@@ -21368,13 +21368,13 @@ br_0A46C:
 br_0A483:
         mov     ax, si
         mov     dx, word ptr [bp+8]
-        add     ax, 8deh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         push    1
         push    word ptr [bp-2]
         push    1
-        push    40h
+        push    PGM_PADMAP_LEN
         nop
         push    cs
         call    range_process
@@ -21404,13 +21404,13 @@ br_0A4B9:
 br_0A4CF:
         mov     ax, si
         mov     dx, word ptr [bp+8]
-        add     ax, 91eh
+        add     ax, PGM_FX_SECTIONS
         push    dx
         push    ax
         push    word ptr [bp-4]
         push    word ptr [bp-2]
         push    2
-        push    48h
+        push    SIZEOF_FXS
         nop
         push    cs
         call    range_process
@@ -21440,13 +21440,13 @@ br_0A506:
 br_0A51C:
         mov     ax, si
         mov     dx, word ptr [bp+8]
-        add     ax, 9aeh
+        add     ax, PGM_FX_REVERBS
         push    dx
         push    ax
         push    word ptr [bp-4]
         push    word ptr [bp-2]
         push    4
-        push    0ch
+        push    SIZEOF_FXR
         nop
         push    cs
         call    range_process
@@ -21621,12 +21621,12 @@ br_0A66C:
         retf    8
         db      00h
 far_0A682:
-        push    880h
+        push    SND_NAMES_LEN
         push    ds
         push    TBL_SOUND_NAMES
         callf   TEXT1_SEG:int2F_call_fn6
         add     sp, 6
-        cmp     ax, 880h
+        cmp     ax, SND_NAMES_LEN
         jne     br_0A6E6
         push    79bh
         push    ds
@@ -21677,12 +21677,12 @@ br_0A6E6:
         db      00h
 
 far_0A6FA:
-        push    880h
+        push    SND_NAMES_LEN
         push    ds
         push    TBL_SOUND_NAMES
         callf   TEXT1_SEG:int2F_call_fn6
         add     sp, 6
-        cmp     ax, 880h
+        cmp     ax, SND_NAMES_LEN
         jne     br_0A772
         push    200h
         push    ds
@@ -22192,7 +22192,7 @@ L_0AAB0:
         endif
         push    ax
         push    1
-        push    880h
+        push    SND_NAMES_LEN
         nop
         push    cs
         call    range_process
@@ -22711,7 +22711,7 @@ br_0ADF5:
         mov     dx, word ptr [bp+8]
         add     ax, 73eh
         push    ds
-        lea     di, [bx+8deh]
+        lea     di, [bx+PGM_PADMAP]
         mov     si, ax
         mov     ds, dx
         mov     cx, 20h
@@ -22782,7 +22782,7 @@ lcd_region_copy:
         add     ax, 75bh
         mov     bx, word ptr [bp+0ah]
         push    ds
-        lea     di, [bx+8deh]
+        lea     di, [bx+PGM_PADMAP]
         mov     si, ax
         mov     ds, dx
         mov     cx, 20h
@@ -26305,7 +26305,7 @@ pgm_file_write:
         je      br_0CA82
         mov     ax, word ptr [bp+6]
         mov     dx, word ptr [bp+8]
-        add     ax, 8deh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         push    40h
@@ -26482,7 +26482,7 @@ envelope_process_2:
         mov     si, word ptr [bp+6]
         mov     ax, si
         mov     dx, word ptr [bp+8]
-        add     ax, 91eh
+        add     ax, PGM_FX_SECTIONS
         push    dx
         push    ax
         mov     ax, word ptr [bp-2]
@@ -26513,7 +26513,7 @@ envelope_process_2:
         je      br_0CBFA
         mov     ax, si
         mov     dx, word ptr [bp+8]
-        add     ax, 9aeh
+        add     ax, PGM_FX_REVERBS
         push    dx
         push    ax
         mov     ax, word ptr [bp-6]

@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+# Noncommercial use only; see LICENSE.txt.
+#
+# Required Notice: Copyright 2026 Brock Rockman
+#
+# Manx Aztec C86 3.4b, the MPC60's compiler, in /opt/aztec; toolchain/check.sh
+# drives it.
+
+FROM docker.io/library/alpine:3.19
+# DOSBox runs the DOS tools headless: 0.74, as 3.20 on has only dosbox-staging,
+# which will not start without a display.  The same layers as the other family's.
+RUN apk add --no-cache dosbox curl
+ENV SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
+# curl, not ADD: aztecmuseum.ca refuses ADD's Go user agent (HTTP 465), and
+# busybox wget can't CONNECT through a proxy.  Each zip is checked and unpacked
+# in one layer.
+# 3.20d (the CP/M-86 release) is for the older lsubs.asm and cswit.asm the ROM links.
+RUN curl -fsSL -o /az.zip https://www.aztecmuseum.ca/az8634b.zip \
+ && curl -fsSL -o /az32.zip https://www.aztecmuseum.ca/AZCPM32d.zip \
+ && echo "ba644fcec9af265691b0fbb92122309d1dbdf5d8e78011956987fa1ab236c59c  /az.zip" | sha256sum -c \
+ && echo "be4148b5dc4a6e598bad5d848d6f5568f5ed501bd137025eb77dc0e951a2f428  /az32.zip" | sha256sum -c \
+ && unzip -q /az.zip -d /opt && mv /opt/AZ8634B /opt/aztec \
+ && unzip -p /az32.zip AZCPM32d/SRC/MCH86.ARC > /opt/aztec/SRC/MCH86_32.ARC && rm /az.zip /az32.zip

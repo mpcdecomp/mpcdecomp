@@ -20159,7 +20159,7 @@ br_51FE8:
         mov     si, ax
         mov     al, byte ptr [C2_B_08D90]
         mov     es, dx
-        xor     byte ptr es:[si+45h], al
+        xor     byte ptr es:[si+FXS_SECTIONS], al
         mov     al, byte ptr [C0_B_0D7C7]
         push    ax
         nop
@@ -20335,7 +20335,7 @@ br_52144:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 47h
+        add     ax, FXS_FIELD_47
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_MIXER_CURSOR], 2ah
@@ -20390,7 +20390,7 @@ L_521C0:
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+46h], 1
+        cmp     byte ptr es:[bx+FXS_ROUTE], 1
         jne     br_521FE
         mov     byte ptr [C2_B_08D90], 2
         imul    bx, word ptr [C2_W_MIXER_CURSOR], 2ah
@@ -20431,7 +20431,7 @@ L_5222A:
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+46h], 1
+        cmp     byte ptr es:[bx+FXS_ROUTE], 1
         jne     br_5226E
         mov     byte ptr [C2_B_08D90], 8
         imul    bx, word ptr [C2_W_MIXER_CURSOR], 2ah
@@ -20484,7 +20484,7 @@ br_522C6:
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+46h], 1
+        cmp     byte ptr es:[bx+FXS_ROUTE], 1
         jne     br_522F6
         mov     byte ptr [C2_B_08D90], 4
         imul    bx, word ptr [C2_W_MIXER_CURSOR], 2ah
@@ -20925,7 +20925,7 @@ fx_dist_ringmod_enter:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         nop
         push    cs
@@ -21014,7 +21014,7 @@ fx_dist_ringmod_paint:
         add     sp, 4
         push    2
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+3]
+        mov     al, byte ptr es:[si+FXS_DIST_GAIN]
         sub     ah, ah
         push    0
         push    ax
@@ -21025,7 +21025,7 @@ fx_dist_ringmod_paint:
         add     sp, 0ah
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+4]
+        mov     al, byte ptr es:[si+FXS_DIST_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -21043,7 +21043,7 @@ fx_dist_ringmod_paint:
         add     sp, 0ah
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+2]
+        mov     al, byte ptr es:[si+FXS_RING_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -21097,7 +21097,7 @@ L_528D4:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         imul    bx, word ptr [C2_W_DIST_RINGMOD_CURSOR], 2ah
         callf   [bx+C2_W_04804]
@@ -21110,7 +21110,7 @@ fx_dist_ringmod_field0_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 3
+        add     ax, FXS_DIST_GAIN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_DIST_RINGMOD_CURSOR], 2ah
@@ -21132,7 +21132,7 @@ fx_dist_ringmod_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 4
+        add     ax, FXS_DIST_LEVEL
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_DIST_RINGMOD_CURSOR], 2ah
@@ -21174,7 +21174,7 @@ fx_dist_ringmod_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 2
+        add     ax, FXS_RING_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_DIST_RINGMOD_CURSOR], 2ah
@@ -21282,7 +21282,7 @@ far_52A4C:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
 br_52A9B:
         mov     al, byte ptr [C0_B_09606]
@@ -21365,7 +21365,7 @@ br_52B3A:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         test    byte ptr [C0_B_09604], 2
         je      br_52B60
@@ -21446,7 +21446,7 @@ far_52C04:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         nop
         push    cs
@@ -21534,7 +21534,7 @@ filter4_paint:
         callf   EP_DISP_LIST_RUN_SEG:EP_DISP_LIST_RUN_OFF
         add     sp, 4
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+0eh]
+        mov     al, byte ptr es:[si+FXS_FLT_HIGH_FREQ]
         push    ax
         push    0bh
         push    31h
@@ -21544,7 +21544,7 @@ filter4_paint:
         call    far_530E8
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+0bh]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_FREQ]
         push    ax
         push    15h
         push    31h
@@ -21553,7 +21553,7 @@ filter4_paint:
         call    far_530E8
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+8]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_FREQ]
         push    ax
         push    1fh
         push    31h
@@ -21562,7 +21562,7 @@ filter4_paint:
         call    far_530E8
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+6]
+        mov     al, byte ptr es:[si+FXS_FLT_LOW_FREQ]
         push    ax
         push    29h
         push    31h
@@ -21571,7 +21571,7 @@ filter4_paint:
         call    far_530E8
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+0fh]
+        mov     al, byte ptr es:[si+FXS_FLT_HIGH_GAIN]
         push    ax
         push    0bh
         push    55h
@@ -21580,7 +21580,7 @@ filter4_paint:
         call    far_5317E
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+0ch]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_GAIN]
         push    ax
         push    15h
         push    55h
@@ -21589,7 +21589,7 @@ filter4_paint:
         call    far_5317E
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+9]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_GAIN]
         push    ax
         push    1fh
         push    55h
@@ -21598,7 +21598,7 @@ filter4_paint:
         call    far_5317E
         add     sp, 6
         mov     es, di
-        mov     al, byte ptr es:[si+7]
+        mov     al, byte ptr es:[si+FXS_FLT_LOW_GAIN]
         push    ax
         push    29h
         push    55h
@@ -21608,7 +21608,7 @@ filter4_paint:
         add     sp, 6
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+0dh]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_Q]
         sub     ah, ah
         push    0
         push    ax
@@ -21618,7 +21618,7 @@ filter4_paint:
         add     sp, 0ah
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+0ah]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_Q]
         sub     ah, ah
         push    0
         push    ax
@@ -21629,7 +21629,7 @@ filter4_paint:
         push    1
         push    1
         mov     es, di
-        mov     al, byte ptr es:[si+12h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_FMOD_SPEED]
         sub     ah, ah
         push    0
         push    ax
@@ -21640,7 +21640,7 @@ filter4_paint:
         push    1
         push    1
         mov     es, di
-        mov     al, byte ptr es:[si+10h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_FMOD_SPEED]
         sub     ah, ah
         push    0
         push    ax
@@ -21650,7 +21650,7 @@ filter4_paint:
         add     sp, 0ch
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+13h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID1_FMOD_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -21660,7 +21660,7 @@ filter4_paint:
         add     sp, 0ah
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+11h]
+        mov     al, byte ptr es:[si+FXS_FLT_MID2_FMOD_DEPTH]
         sub     ah, ah
         push    0
         push    ax
@@ -21714,7 +21714,7 @@ L_52E54:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         imul    bx, word ptr [C2_W_FILTER4_CURSOR], 2ah
         callf   [bx+C2_TBL_FILTER4_FIELD_THUNK]
@@ -21727,7 +21727,7 @@ filter4_field0_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 0eh
+        add     ax, FXS_FLT_HIGH_FREQ
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21749,7 +21749,7 @@ filter4_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 0fh
+        add     ax, FXS_FLT_HIGH_GAIN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21771,7 +21771,7 @@ filter4_field2_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 0bh
+        add     ax, FXS_FLT_MID1_FREQ
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21793,7 +21793,7 @@ filter4_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 0ch
+        add     ax, FXS_FLT_MID1_GAIN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21815,7 +21815,7 @@ filter4_field4_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 0dh
+        add     ax, FXS_FLT_MID1_Q
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21837,7 +21837,7 @@ filter4_field5_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 12h
+        add     ax, FXS_FLT_MID1_FMOD_SPEED
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21859,7 +21859,7 @@ filter4_field6_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 13h
+        add     ax, FXS_FLT_MID1_FMOD_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21881,7 +21881,7 @@ filter4_field7_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 8
+        add     ax, FXS_FLT_MID2_FREQ
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21903,7 +21903,7 @@ filter4_field8_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 9
+        add     ax, FXS_FLT_MID2_GAIN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21925,7 +21925,7 @@ filter4_field9_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 0ah
+        add     ax, FXS_FLT_MID2_Q
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21947,7 +21947,7 @@ filter4_field10_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 10h
+        add     ax, FXS_FLT_MID2_FMOD_SPEED
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21969,7 +21969,7 @@ filter4_field11_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 11h
+        add     ax, FXS_FLT_MID2_FMOD_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -21991,7 +21991,7 @@ filter4_field12_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 6
+        add     ax, FXS_FLT_LOW_FREQ
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -22013,7 +22013,7 @@ filter4_field13_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 7
+        add     ax, FXS_FLT_LOW_GAIN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FILTER4_CURSOR], 2ah
@@ -22155,12 +22155,12 @@ far_531E0:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         mov     es, word ptr [bp-2]
-        cmp     byte ptr es:[si+16h], 0
+        cmp     byte ptr es:[si+FXS_MOD_TYPE], 0
         jne     br_53224
-        mov     al, byte ptr es:[si+17h]
+        mov     al, byte ptr es:[si+FXS_FIELD_17]
         jmp     br_5322A
 br_53224:
         mov     al, byte ptr es:[si+16h]
@@ -22371,7 +22371,7 @@ fx_chorus_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 18h
+        add     ax, FXS_MOD_SPEED
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22393,7 +22393,7 @@ fx_chorus_field2_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 19h
+        add     ax, FXS_MOD_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22415,7 +22415,7 @@ fx_chorus_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 1ah
+        add     ax, FXS_MOD_FEEDBACK
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22451,9 +22451,9 @@ L_5346E:
         cmp     byte ptr [C2_B_FX_MOD_TYPE], 2
         jg      br_53496
         mov     es, dx
-        mov     byte ptr es:[si+16h], 0
+        mov     byte ptr es:[si+FXS_MOD_TYPE], 0
         mov     al, byte ptr [C2_B_FX_MOD_TYPE]
-        mov     byte ptr es:[si+17h], al
+        mov     byte ptr es:[si+FXS_FIELD_17], al
         jmp     br_534A1
         db      90h
 br_53496:
@@ -22672,7 +22672,7 @@ fx_rotary_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 1bh
+        add     ax, FXS_ROT_SPEED1
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22694,7 +22694,7 @@ fx_rotary_field2_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 1eh
+        add     ax, FXS_ROT_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22716,7 +22716,7 @@ fx_rotary_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 1fh
+        add     ax, FXS_ROT_MIDI_CC
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22738,7 +22738,7 @@ fx_rotary_field4_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 1dh
+        add     ax, FXS_ROT_ACCEL
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22760,7 +22760,7 @@ fx_rotary_field5_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 1ch
+        add     ax, FXS_ROT_SPEED2
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -22796,9 +22796,9 @@ far_53784:
         cmp     byte ptr [C2_B_FX_MOD_TYPE], 2
         jg      br_537AC
         mov     es, dx
-        mov     byte ptr es:[si+16h], 0
+        mov     byte ptr es:[si+FXS_MOD_TYPE], 0
         mov     al, byte ptr [C2_B_FX_MOD_TYPE]
-        mov     byte ptr es:[si+17h], al
+        mov     byte ptr es:[si+FXS_FIELD_17], al
         jmp     br_537B7
         db      90h
 br_537AC:
@@ -23003,7 +23003,7 @@ fx_fmod_autopan_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 20h
+        add     ax, FXS_FMOD_SPEED
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23025,7 +23025,7 @@ fx_fmod_autopan_field2_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 21h
+        add     ax, FXS_FMOD_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23047,7 +23047,7 @@ fx_fmod_autopan_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 22h
+        add     ax, FXS_FMOD_FEEDBACK
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23069,7 +23069,7 @@ fx_fmod_autopan_field4_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 23h
+        add     ax, FXS_APAN_SPEED
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23091,7 +23091,7 @@ fx_fmod_autopan_field5_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 24h
+        add     ax, FXS_APAN_DEPTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23113,7 +23113,7 @@ fx_fmod_autopan_field6_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 25h
+        add     ax, FXS_APAN_MODE
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23149,9 +23149,9 @@ far_53A82:
         cmp     byte ptr [C2_B_FX_MOD_TYPE], 2
         jg      br_53AAA
         mov     es, dx
-        mov     byte ptr es:[si+16h], 0
+        mov     byte ptr es:[si+FXS_MOD_TYPE], 0
         mov     al, byte ptr [C2_B_FX_MOD_TYPE]
-        mov     byte ptr es:[si+17h], al
+        mov     byte ptr es:[si+FXS_FIELD_17], al
         jmp     br_53AB5
         db      90h
 br_53AAA:
@@ -23263,7 +23263,7 @@ fx_pitch_shift_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 2ah
+        add     ax, FXS_PITCH_DELAY_L
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23291,7 +23291,7 @@ fx_pitch_shift_field4_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 2ch
+        add     ax, FXS_PITCH_DELAY_R
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23319,7 +23319,7 @@ fx_pitch_shift_field5_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 2eh
+        add     ax, FXS_PITCH_FDBK_L
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23347,7 +23347,7 @@ fx_pitch_shift_field6_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 2fh
+        add     ax, FXS_PITCH_FDBK_R
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MOD_CURSOR], 2ah
@@ -23387,9 +23387,9 @@ far_53C64:
         cmp     byte ptr [C2_B_FX_MOD_TYPE], 2
         jg      br_53C8C
         mov     es, dx
-        mov     byte ptr es:[si+16h], 0
+        mov     byte ptr es:[si+FXS_MOD_TYPE], 0
         mov     al, byte ptr [C2_B_FX_MOD_TYPE]
-        mov     byte ptr es:[si+17h], al
+        mov     byte ptr es:[si+FXS_FIELD_17], al
         jmp     br_53C97
         db      90h
 br_53C8C:
@@ -23421,7 +23421,7 @@ L_53CA4:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         callf   EP_L_3D1F0_SEG:EP_L_3D1F0_OFF
         retf
@@ -23642,7 +23642,7 @@ fx_delay_field0_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 30h
+        add     ax, FXS_ECHO_TYPE
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23664,7 +23664,7 @@ fx_delay_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 36h
+        add     ax, FXS_ECHO_FEEDBACK
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23686,7 +23686,7 @@ fx_delay_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 37h
+        add     ax, FXS_ECHO_HFDAMP
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23708,7 +23708,7 @@ fx_delay_field4_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 31h
+        add     ax, FXS_ECHO_LR_OFS
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23730,7 +23730,7 @@ fx_delay_field5_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 3ah
+        add     ax, FXS_ST_FDBK_L
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23752,7 +23752,7 @@ fx_delay_field6_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 38h
+        add     ax, FXS_ST_DELAY_L
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23774,7 +23774,7 @@ fx_delay_field7_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 3bh
+        add     ax, FXS_ST_HFDAMP_L
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23796,7 +23796,7 @@ fx_delay_field8_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 3eh
+        add     ax, FXS_ST_FDBK_R
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23818,7 +23818,7 @@ fx_delay_field9_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 3ch
+        add     ax, FXS_ST_DELAY_R
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23840,7 +23840,7 @@ fx_delay_field10_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 3fh
+        add     ax, FXS_ST_HFDAMP_R
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_DELAY_CURSOR], 2ah
@@ -23873,7 +23873,7 @@ fx_delay_field2_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 34h
+        add     ax, FXS_ECHO_DELAY2
         jmp     br_540CC
 br_540B0:
         mov     word ptr [C2_W_0532E], 29eh
@@ -23883,7 +23883,7 @@ br_540B0:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 32h
+        add     ax, FXS_ECHO_DELAY
 br_540CC:
         push    dx
         push    ax
@@ -23901,7 +23901,7 @@ L_540DC:
         add     sp, 2
         mov     es, dx
         mov     bx, ax
-        cmp     byte ptr es:[bx+30h], 3
+        cmp     byte ptr es:[bx+FXS_ECHO_TYPE], 3
         jge     br_540FA
         nop
         push    cs
@@ -23944,7 +23944,7 @@ br_54154:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
 br_54169:
         mov     byte ptr [C0_B_09606], al
         nop
@@ -24184,7 +24184,7 @@ br_54382:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
 br_54397:
         mov     byte ptr [C0_B_09606], al
         imul    bx, word ptr [C2_W_FX_REVERB_CURSOR], 2ah
@@ -24470,7 +24470,7 @@ fx_mixer_paint:
         callf   EP_DISP_LIST_RUN_SEG:EP_DISP_LIST_RUN_OFF
         add     sp, 4
         mov     es, word ptr [bp-2]
-        cmp     byte ptr es:[si+5], 0
+        cmp     byte ptr es:[si+FXS_ENABLE], 0
         je      br_54640
         mov     ax, C2_W_0DBDC
         mov     dx, C1_SEG
@@ -24645,7 +24645,7 @@ fx_mixer_field0_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 5
+        add     ax, FXS_ENABLE
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24667,7 +24667,7 @@ fx_mixer_field1_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 46h
+        add     ax, FXS_ROUTE
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24689,7 +24689,7 @@ fx_mixer_field3_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 14h
+        add     ax, FXS_MIX_DIST_LEVEL
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24711,7 +24711,7 @@ fx_mixer_field4_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 40h
+        add     ax, FXS_MIX_MOD_LEVEL
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24733,7 +24733,7 @@ fx_mixer_field5_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 43h
+        add     ax, FXS_MIX_REV_LEVEL
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24755,7 +24755,7 @@ fx_mixer_field6_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 15h
+        add     ax, FXS_MIX_DIST_PAN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24777,7 +24777,7 @@ fx_mixer_field7_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 41h
+        add     ax, FXS_MIX_MOD_PAN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24799,7 +24799,7 @@ fx_mixer_field8_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 44h
+        add     ax, FXS_MIX_REV_PAN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24821,7 +24821,7 @@ fx_mixer_field9_thunk:
         push    ax
         callf   EP_PGM_FX_SECTION_PTR_SEG:EP_PGM_FX_SECTION_PTR_OFF
         add     sp, 2
-        add     ax, 42h
+        add     ax, FXS_MIX_MOD_WIDTH
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_MIXER_CURSOR], 2ah
@@ -24864,7 +24864,7 @@ br_54992:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
 br_549A7:
         push    ax
         mov     cl, byte ptr [C0_B_0D7C7]
@@ -26326,7 +26326,7 @@ smem_dma_channel_01:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+45h]
+        mov     al, byte ptr es:[bx+FXS_SECTIONS]
         push    ax
         mov     al, byte ptr [bp+6]
         push    ax

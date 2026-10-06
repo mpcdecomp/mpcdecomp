@@ -8838,7 +8838,7 @@ loop_focus_loop_on:
 br_4BD48:
         mov     ax, bx
         mov     dx, es
-        add     ax, 36h
+        add     ax, SND_LOOPON
 br_4BD4F:
         push    dx
         push    ax
@@ -9197,7 +9197,7 @@ snd_params_focus_level:
 br_4C02C:
         mov     ax, bx
         mov     dx, es
-        add     ax, 23h
+        add     ax, SND_LEVEL
 br_4C033:
         push    dx
         push    ax
@@ -9218,7 +9218,7 @@ snd_params_focus_tune:
 br_4C05A:
         mov     ax, bx
         mov     dx, es
-        add     ax, 24h
+        add     ax, SND_TUNE
 br_4C061:
         push    dx
         push    ax
@@ -9239,7 +9239,7 @@ snd_params_focus_beat:
 br_4C088:
         mov     ax, bx
         mov     dx, es
-        add     ax, 37h
+        add     ax, SND_FIELD_25
 br_4C08F:
         push    dx
         push    ax

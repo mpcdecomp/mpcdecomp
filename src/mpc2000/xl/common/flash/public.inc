@@ -4606,6 +4606,8 @@ STR_MPC2KXL_EXE                          equ (APP2_BASE+tgt_1ea70-APP2_SEG*16)
 STR_MPC2KXL_SYS                          equ (APP2_BASE+d_str_mpc2kxl_sys-APP2_SEG*16)
 TBL_EVT_STATUS_LABELS                    equ (APP0_BASE+d_tbl_evt_status_labels-APP0_SEG*16)
 TBL_PITCH_RATIO                          equ (CONSTS_BASE+d_c0_tbl_00236-DS_SEG*16)
+FXS_DEFAULT                              equ (CONSTS_BASE+d_fxs_default-DS_SEG*16)
+FXR_DEFAULT                              equ (CONSTS_BASE+d_fxr_default-DS_SEG*16)
 VOICE_TABLE                              equ (CONSTS_BASE+d_c0_tbl_09609-DS_SEG*16)
 ; ---- ep equates every version shares.
 

@@ -2771,11 +2771,11 @@ _memcpy_3:
         add     word ptr [bp+6], 48h
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        mov     si, 2
+        mov     si, FXS_DEFAULT
         les     di, [bp-4]
         mov     cx, 24h
         rep movsw
-        mov     si, 2
+        mov     si, FXS_DEFAULT
         les     di, [bp+6]
         mov     cx, 24h
         rep movsw
@@ -2784,7 +2784,7 @@ _memcpy_3:
         leave
         retf
         if      FW_VERSION >= 114
-FAR_MEMOP_STR_LEN equ 4ah
+FAR_MEMOP_STR_LEN equ FXR_DEFAULT
         include "../../../common/far_memop_str.inc"
         else
 _memcpy_3:
@@ -2796,7 +2796,7 @@ _memcpy_3:
         add     word ptr [bp+6], 0ch
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
-        mov     si, 4ah
+        mov     si, FXR_DEFAULT
         les     di, [bp-4]
         mov     cx, 6
         rep movsw
@@ -2804,7 +2804,7 @@ _memcpy_3:
         add     word ptr [bp+6], 0ch
         mov     word ptr [bp-8], ax
         mov     word ptr [bp-6], dx
-        mov     si, 4ah
+        mov     si, FXR_DEFAULT
         les     di, [bp-8]
         mov     cx, 6
         rep movsw
@@ -2812,11 +2812,11 @@ _memcpy_3:
         add     word ptr [bp+6], 0ch
         mov     word ptr [bp-0ch], ax
         mov     word ptr [bp-0ah], dx
-        mov     si, 4ah
+        mov     si, FXR_DEFAULT
         les     di, [bp-0ch]
         mov     cx, 6
         rep movsw
-        mov     si, 4ah
+        mov     si, FXR_DEFAULT
         les     di, [bp+6]
         mov     cx, 6
         rep movsw

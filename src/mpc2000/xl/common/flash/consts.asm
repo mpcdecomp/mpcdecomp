@@ -3811,12 +3811,16 @@ L_57CAF:
         pop     si
 DS_ORIGIN:
         retf
-        db      90h, 0d0h, 07h, 00h, 00h, 63h, 01h, 14h, 08h, 1dh, 0fch, 32h, 33h, 02h, 32h, 3ch
-        db      08h, 05h, 0ah, 14h, 14h, 32h, 00h, 00h, 02h, 0fh, 19h, 00h, 05h, 41h, 14h, 1eh
-        db      01h, 05h, 00h, 00h, 05h, 63h, 00h, 0f4h, 0ffh, 0ch, 00h, 00h, 00h, 00h, 00h, 00h
-        db      00h, 02h, 00h, 4fh, 01h, 4fh, 01h, 00h, 42h, 4fh, 01h, 00h, 42h, 4fh, 01h, 00h
-        db      42h, 32h, 00h, 63h, 28h, 00h, 3ch, 00h, 00h, 00h, 00h, 32h, 00h, 23h, 00h, 3eh ; B2.c(.<....2.#.>
-        db      33h, 5ah, 32h, 14h, 00h, 00h, 04h, 06h, 04h, 0ch, 04h, 12h, 04h, 18h, 04h
+        db      90h
+d_fxs_default:
+        db      0d0h, 07h, 00h, 00h, 63h, 01h, 14h, 08h, 1dh, 0fch, 32h, 33h, 02h, 32h, 3ch, 08h
+        db      05h, 0ah, 14h, 14h, 32h, 00h, 00h, 02h, 0fh, 19h, 00h, 05h, 41h, 14h, 1eh, 01h
+        db      05h, 00h, 00h, 05h, 63h, 00h, 0f4h, 0ffh, 0ch, 00h, 00h, 00h, 00h, 00h, 00h, 00h
+        db      02h, 00h, 4fh, 01h, 4fh, 01h, 00h, 42h, 4fh, 01h, 00h, 42h, 4fh, 01h, 00h, 42h
+        db      32h, 00h, 63h, 28h, 00h, 3ch, 00h, 00h
+d_fxr_default:
+        db      00h, 00h, 32h, 00h, 23h, 00h, 3eh, 33h, 5ah, 32h, 14h, 00h
+        db      00h, 04h, 06h, 04h, 0ch, 04h, 12h, 04h, 18h, 04h
 d_c1_tbl_00060:
         db      1eh
         db      04h, 24h, 04h, 2ah, 04h, 30h, 04h, 37h, 04h, 3dh, 04h, 43h, 04h, 49h, 04h, 50h ; .$.*.0.7.=.C.I.P

@@ -9369,7 +9369,7 @@ L_4B848:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    2144h
+        push    C2_W_02144
         nop
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
@@ -9529,7 +9529,7 @@ delete_sound_all:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    21e0h
+        push    C2_W_021E0
         nop
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
@@ -9637,7 +9637,7 @@ sound_spec_f5:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    2248h
+        push    C2_W_02248
         nop
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
@@ -9850,7 +9850,7 @@ sound_spec_f3:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    22e8h
+        push    C2_W_022E8
         nop
         push    cs
         call    EP_HANDLER_SET_INSTALL_OFF+C1_CSBASE
@@ -14731,7 +14731,7 @@ far_4EF20:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    3298h
+        push    C2_W_03298
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
         callf   EP_L_40008_SEG:EP_L_40008_OFF
@@ -14779,7 +14779,7 @@ purge_paint:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    32bch
+        push    C2_W_032BC
         callf   EP_DISP_LIST_RUN_SEG:EP_DISP_LIST_RUN_OFF
         add     sp, 4
         push    31h
@@ -14979,7 +14979,7 @@ L_4F180:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    3426h
+        push    C2_W_03426
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
         mov     al, byte ptr [C0_B_0D7BF]
@@ -15085,7 +15085,7 @@ far_4F282:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    34d0h
+        push    C2_W_034D0
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
         pop     ds
@@ -15338,7 +15338,7 @@ program_copy:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    35e6h
+        push    C2_W_035E6
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
         mov     al, byte ptr [C0_B_0D7BF]
@@ -19117,7 +19117,7 @@ fx_not_installed_f5:
         mov     cx, DS_SEG
         mov     ds, cx
         push    cx
-        push    3f86h
+        push    C2_W_03F86
         callf   EP_HANDLER_SET_INSTALL_SEG:EP_HANDLER_SET_INSTALL_OFF
         add     sp, 4
         cmp     word ptr [C2_W_MIXER_SETUP_CURSOR], 0

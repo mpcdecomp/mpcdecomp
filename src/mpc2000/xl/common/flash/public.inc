@@ -4841,3 +4841,13 @@ A0_TBL_00600                             equ 00600h
 A0_TBL_00640                             equ 00640h
 A0_TBL_00680                             equ 00680h
 A0_W_0001A_F800                          equ 0001ah
+C2_W_02144                             equ 2144h          ; DS offset, unlabelled data
+C2_W_021E0                             equ 21E0h          ; DS offset, unlabelled data
+C2_W_02248                             equ 2248h          ; DS offset, unlabelled data
+C2_W_022E8                             equ 22E8h          ; DS offset, unlabelled data
+C2_W_03298                             equ 3298h          ; DS offset, unlabelled data
+C2_W_032BC                             equ 32BCh          ; DS offset, unlabelled data
+C2_W_03426                             equ 3426h          ; DS offset, unlabelled data
+C2_W_034D0                             equ 34D0h          ; DS offset, unlabelled data
+C2_W_035E6                             equ 35E6h          ; DS offset, unlabelled data
+C2_W_03F86                             equ 3F86h          ; DS offset, unlabelled data

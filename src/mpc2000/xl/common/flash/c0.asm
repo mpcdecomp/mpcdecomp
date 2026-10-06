@@ -8223,38 +8223,38 @@ far_361CB:
         sub     dx, dx
         mov     ax, 224h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 226h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_361EB:
         sub     dx, dx
         mov     ax, 92h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 94h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 88h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 8ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     cx, cx
         sub     dx, dx
         mov     bp, 8000h
@@ -8264,50 +8264,50 @@ far_361EB:
         sub     dx, dx
         mov     ax, 70h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 74h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 72h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 76h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 8ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 8eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 90h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 78h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 7ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         cmp     byte ptr es:[di+16h], 3
         jne     br_362B2
         jmp     br_36347
@@ -8315,92 +8315,92 @@ br_362B2:
         mov     dx, 800h
         mov     ax, 6ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     dx, dx
         mov     ax, 64h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 80h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 68h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 84h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     dx, dx
         mov     ax, 66h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 82h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 86h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_3639A
 br_36347:
         mov     dx, 400h
         mov     ax, 6ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 210h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 212h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     dx, dx
         mov     ax, 7ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 7eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_3639A:
         retf
 far_3639B:
@@ -8420,52 +8420,52 @@ br_363B6:
         sub     dx, dx
         mov     ax, 8ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 8eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 90h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_363E4:
         sub     dx, dx
         mov     ax, 92h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 94h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 88h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 8ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 78h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 7ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_36435:
         push    cs
@@ -8476,24 +8476,24 @@ far_36435:
 far_3643E:
         mov     ax, 21ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, cx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 21eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 220h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 222h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, si
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_36473:
         push    cs
@@ -8507,25 +8507,25 @@ far_36473:
         mov     dx, 7fffh
         mov     ax, 70h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 72h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     dx, dx
         mov     ax, 74h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 76h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         cmp     byte ptr es:[di+16h], 1
         jne     br_364C9
         push    cs
@@ -8553,14 +8553,14 @@ far_364CA:
         mov     word ptr [si+0ah], dx
         mov     ax, 92h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 94h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         inc     dx
         mov     word ptr [si+8], dx
         mov     word ptr [si+6], 0
@@ -8574,9 +8574,9 @@ dsp_voice_buf_setup:
         add     bp, ax
         mov     ax, 5ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     si, 80h
         cmp     byte ptr es:[di+16h], 3
         jne     br_36549
@@ -8587,15 +8587,15 @@ br_36549:
 br_3654B:
         mov     ax, 5eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, si
         mov     ax, 60h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+30h]
         test    byte ptr [C0_B_0D7E2], 4
         je      br_36574
@@ -8631,9 +8631,9 @@ L_35FA2:
 br_365A6:
         mov     ax, 62h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_365B4:
         mov     ax, 2000h
@@ -8644,27 +8644,27 @@ far_365B4:
         add     bp, ax
         mov     ax, 5ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, 0ffch
         mov     ax, 5eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, 0ffch
         mov     ax, 60h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, 4
         mov     ax, 62h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 L_36604:
         push    si
@@ -8743,37 +8743,37 @@ far_36686:
         je      br_366EA
         mov     ax, 9ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1d2h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 98h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 96h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 9ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 2000h
         mov     ax, 9eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         shr     dx, 2
         mov     ax, 0a0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_36788
 br_366EA:
         mov     ax, word ptr es:[di]
@@ -8782,9 +8782,9 @@ br_366EA:
         mul     dx
         mov     ax, 9ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+2]
         xlat
         mov     dh, al
@@ -8794,14 +8794,14 @@ br_366EA:
         sub     bp, dx
         mov     ax, 98h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 96h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+3]
         xlat
         mov     dh, al
@@ -8809,9 +8809,9 @@ br_366EA:
         shr     dx, 1
         mov     ax, 9ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     dx, dx
         cmp     dx, 7fffh
         jbe     br_36751
@@ -8827,9 +8827,9 @@ br_36751:
 br_36760:
         mov     ax, 9eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+4]
         xlat
         mov     ah, al
@@ -8838,9 +8838,9 @@ br_36760:
         shr     dx, 2
         mov     ax, 0a0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_36788:
         test    byte ptr [C0_B_0D7E2], 10h
         jne     br_36792
@@ -8848,54 +8848,54 @@ br_36788:
 br_36792:
         mov     ax, 0a2h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 91ah
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0a4h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 2000h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 238h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 498h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0a6h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 3f80h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0a8h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 23ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 2455h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0aah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 3f80h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0ach
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0aeh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 91ah
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0b0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 2000h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_36931
 br_36821:
         mov     al, byte ptr es:[di+6]
@@ -8906,17 +8906,17 @@ br_36821:
         mov     dx, word ptr [si]
         mov     ax, 0a2h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+7]
         push    cs
         call    far_3697F
         mov     ax, 0a4h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     si, C0_W_0812A
         mov     al, byte ptr [C0_B_DSP_CHAN]
         mov     ah, 6
@@ -8938,17 +8938,17 @@ br_36821:
         mov     dl, 0
         mov     ax, 0a6h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+9]
         push    cs
         call    far_3697F
         mov     ax, 0a8h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     si, C0_W_0812A
         mov     al, byte ptr [C0_B_DSP_CHAN]
         add     al, 2
@@ -8971,17 +8971,17 @@ br_36821:
         mov     dl, 0
         mov     ax, 0aah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+0ch]
         push    cs
         call    far_3697F
         mov     ax, 0ach
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+0eh]
         mov     ah, 0
         add     ax, ax
@@ -8990,17 +8990,17 @@ br_36821:
         mov     dx, word ptr [si]
         mov     ax, 0aeh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+0fh]
         push    cs
         call    far_3697F
         mov     ax, 0b0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_36931:
         mov     al, byte ptr es:[di+15h]
         xlat
@@ -9020,9 +9020,9 @@ br_36931:
         xchg    dx, bp
         mov     ax, 0cah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, dh
         mul     cl
         mov     bp, ax
@@ -9032,9 +9032,9 @@ br_36931:
         xchg    dx, bp
         mov     ax, 0cch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_3697F:
         add     al, 29h
@@ -9086,16 +9086,16 @@ br_369D8:
         sar     dx, 1
         mov     ax, 8ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     dx
         sar     dx, 1
         mov     ax, 88h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr es:[di+2ah]
         mov     dx, 2c1ah
         mul     dx
@@ -9104,9 +9104,9 @@ br_369D8:
         add     dx, 800h
         mov     ax, 210h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr es:[di+2ch]
         mov     dx, 2c1ah
         mul     dx
@@ -9115,9 +9115,9 @@ br_369D8:
         add     dx, 800h
         mov     ax, 212h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+2eh]
         xlat
         mov     ah, al
@@ -9127,9 +9127,9 @@ br_369D8:
         neg     dx
         mov     ax, 7ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+2fh]
         xlat
         mov     ah, al
@@ -9139,23 +9139,23 @@ br_369D8:
         neg     dx
         mov     ax, 7eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_36A8C
 br_36A70:
         pop     dx
         mov     ax, 8ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     dx
         mov     ax, 88h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_36A8C:
         retf
 far_36A8D:
@@ -9241,9 +9241,9 @@ br_36B0D:
         mul     dx
         mov     ax, 92h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, ch
         xlat
         mul     al
@@ -9252,9 +9252,9 @@ br_36B0D:
         neg     dx
         mov     ax, 94h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+19h]
         test    byte ptr [C0_B_0D7E2], 8
         je      br_36B4A
@@ -9265,24 +9265,24 @@ br_36B4A:
         mov     dh, 0
         mov     ax, 6ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 210h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 212h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+1ah]
         xlat
         test    byte ptr [C0_B_0D7E2], 8
@@ -9295,25 +9295,25 @@ br_36B91:
         imul    dx
         mov     ax, 7ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 7eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 70h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 72h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         test    byte ptr [C0_B_0D7E2], 8
         jne     L_36BDA
         jmp     br_36BDC
@@ -9322,14 +9322,14 @@ L_36BDA:
 br_36BDC:
         mov     ax, 74h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 76h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_36BF7:
         mov     si, C0_W_08144
@@ -9348,24 +9348,24 @@ far_36BF7:
         shr     dx, 2
         mov     ax, 6ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 210h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 212h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ah, byte ptr es:[di+1bh]
         mov     al, 0
         mov     dx, 7784h
@@ -9399,9 +9399,9 @@ br_36C83:
         mov     word ptr [si+4], dx
         mov     ax, 8eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+1eh]
         xlat
         mov     ah, al
@@ -9434,61 +9434,61 @@ far_36CBF:
 br_36CE9:
         mov     ax, 8ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 90h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 8eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, si
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ah, byte ptr es:[di+20h]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
         mov     ax, 92h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ah, byte ptr es:[di+23h]
         mov     al, 0
         mov     dx, 7784h
         mul     dx
         mov     ax, 94h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+21h]
         xlat
         mov     dl, al
         mov     dh, 0
         mov     ax, 6ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 210h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 212h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+22h]
         xlat
         mov     ah, al
@@ -9498,14 +9498,14 @@ br_36CE9:
         neg     dx
         mov     ax, 7ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 7eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_36DA8:
         mov     al, byte ptr es:[di+30h]
@@ -9543,9 +9543,9 @@ br_36DD9:
 br_36DEB:
         mov     ax, 64h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, bp
         mov     ah, byte ptr es:[di+31h]
         mov     bp, 1
@@ -9582,14 +9582,14 @@ br_36E33:
 br_36E3D:
         mov     ax, 68h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, si
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+30h]
         cmp     al, 1
         je      br_36EB7
@@ -9602,31 +9602,31 @@ br_36E66:
         neg     dx
         mov     ax, 80h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 82h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         push    cs
         call    far_370BD
         mov     ax, 84h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 86h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 7fffh
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 66h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_370AD
 br_36EB7:
         push    cs
@@ -9634,31 +9634,31 @@ br_36EB7:
         neg     dx
         mov     ax, 80h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 82h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 7fffh
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         push    cs
         call    far_370BD
         mov     ax, 84h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 86h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 66h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0ffffh
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_370AD
 br_36F07:
         push    cs
@@ -9672,32 +9672,32 @@ br_36F07:
         shr     dx, 1
         mov     ax, 80h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         neg     dx
         mov     ax, 82h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         push    cs
         call    far_370BD
         mov     ax, 84h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 86h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 66h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0ffffh
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     NEAR br_370AD
 br_36F65:
         mov     ax, word ptr es:[di+38h]
@@ -9708,18 +9708,18 @@ br_36F65:
         inc     dx
         mov     ax, 64h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         test    byte ptr [C0_B_0D7E2], 8
         jne     br_36F8A
         mov     dx, 1
 br_36F8A:
         mov     ax, 68h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+3ah]
         xlat
         mov     ah, al
@@ -9729,9 +9729,9 @@ br_36F8A:
         neg     dx
         mov     ax, 80h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+3bh]
         mov     ah, 0
         add     ax, ax
@@ -9740,9 +9740,9 @@ br_36F8A:
         mov     dx, word ptr [si]
         mov     ax, 84h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr es:[di+3ch]
         mov     dx, 2c1ah
         mul     dx
@@ -9751,18 +9751,18 @@ br_36F8A:
         inc     dx
         mov     ax, 66h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         test    byte ptr [C0_B_0D7E2], 8
         jne     br_36FF5
         mov     dx, 1
 br_36FF5:
         mov     ax, 6ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+3eh]
         xlat
         mov     ah, al
@@ -9772,9 +9772,9 @@ br_36FF5:
         neg     dx
         mov     ax, 82h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+3fh]
         mov     ah, 0
         add     ax, ax
@@ -9783,54 +9783,54 @@ br_36FF5:
         mov     dx, word ptr [si]
         mov     ax, 86h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     SHORT br_370AD
 br_3703D:
         mov     dx, 1
         mov     ax, 64h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 66h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 68h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 6ah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     dx, dx
         mov     ax, 80h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 82h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7fffh
         mov     ax, 84h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 86h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_370AD:
         retf
 far_370AE:
@@ -9913,9 +9913,9 @@ br_37132:
         call    fn_377E4
         mov     ax, 0ceh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, bp
         mov     al, ah
         mul     ch
@@ -9925,9 +9925,9 @@ br_37132:
         call    fn_377E4
         mov     ax, 0d4h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, bp
         mov     al, ah
         mul     cl
@@ -9937,9 +9937,9 @@ br_37132:
         call    fn_377E4
         mov     ax, 0d0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, bp
         mul     ch
         mov     dx, ax
@@ -9948,9 +9948,9 @@ br_37132:
         call    fn_377E4
         mov     ax, 0d2h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dx, 7f7fh
         xor     cx, cx
         mov     al, byte ptr es:[di+14h]
@@ -10024,9 +10024,9 @@ br_37243:
         shr     dx, 0
         mov     ax, 0b8h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dh, 80h
         add     dh, ch
         mov     al, cl
@@ -10048,9 +10048,9 @@ br_3727A:
         shr     dx, 0
         mov     ax, 0bah
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+44h]
         mov     ah, byte ptr es:[di+43h]
         xlat
@@ -10076,9 +10076,9 @@ br_3727A:
         call    fn_377E4
         mov     ax, 54h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     dx
         mov     dl, 0
         shr     dx, 1
@@ -10087,35 +10087,35 @@ br_3727A:
         call    fn_377E4
         mov     ax, 58h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         sub     dx, dx
         mov     ax, 0c4h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0bch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0beh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0c0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0c2h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+47h]
         cmp     al, 0
         jne     br_37346
@@ -10123,17 +10123,17 @@ br_3727A:
         shr     dx, 2
         mov     ax, 0c6h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_3740B
 br_37346:
         push    ax
         mov     ax, 0c6h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 0
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     ax
         mov     dx, 7fffh
         cmp     al, 1
@@ -10141,9 +10141,9 @@ br_37346:
         shr     dx, 2
         mov     ax, 0c4h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_3740B
 br_37370:
         cmp     al, 2
@@ -10151,9 +10151,9 @@ br_37370:
         shr     dx, 0
         mov     ax, 0bch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_3740B
 br_37387:
         cmp     al, 3
@@ -10181,9 +10181,9 @@ br_373B5:
         shr     dx, 0
         mov     ax, 0beh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     dh, 80h
         add     dh, ch
         mov     dl, 0
@@ -10204,16 +10204,16 @@ br_373EA:
         shr     dx, 0
         mov     ax, 0c0h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         jmp     br_3740B
 br_373FE:
         mov     ax, 0c2h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_3740B:
         retf
 dsp_reg_write_hi:
@@ -10222,9 +10222,9 @@ dsp_reg_write_hi:
         mov     dl, 0
         mov     ax, bp
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     dx
         retf
 far_3741F:
@@ -10272,15 +10272,15 @@ far_37460:
         add     bp, ax
         mov     ax, 0
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, 400h
         mov     ax, 4
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 far_3748F:
         mov     al, 10h
@@ -10303,9 +10303,9 @@ br_374B6:
         mov     dl, byte ptr [C0_B_09602]
         mov     dh, 0
         mov     ax, 181h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di]
         cmp     al, 3
         jbe     br_374CF
@@ -10363,9 +10363,9 @@ br_374EA:
 tgt_3752F:
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, dx
         mul     bx
         add     si, 4
@@ -10375,9 +10375,9 @@ tgt_3752F:
 tgt_37548:
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, dx
         mul     bx
         add     si, 4
@@ -10390,9 +10390,9 @@ tgt_37548:
 tgt_37569:
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, dx
         mul     bx
         sub     si, 4
@@ -10403,9 +10403,9 @@ tgt_37569:
 tgt_37585:
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, dx
         mul     bx
         sub     si, 4
@@ -10435,26 +10435,26 @@ br_3759E:
         add     dx, dx
         mov     ax, 0ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, si
         mov     cx, 97c8h
         mul     cx
         mov     ax, 10h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     bp, dx
         mov     ax, dx
         mov     cx, 97c8h
         mul     cx
         mov     ax, 14h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, dx
         mov     dx, si
         mov     cx, 2
@@ -10462,9 +10462,9 @@ br_3759E:
 L_3760B:
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bp, dx
         add     bp, dx
         add     bp, dx
@@ -10474,9 +10474,9 @@ L_3760B:
         loop    L_3760B
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     si, 4
         mov     ax, dx
         mov     dx, 3
@@ -10487,9 +10487,9 @@ L_3760B:
         neg     dx
         mov     ax, si
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     bx
         mov     al, byte ptr es:[di]
         sub     al, 4
@@ -10505,9 +10505,9 @@ L_3760B:
 tgt_3766C:
         mov     ax, bp
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, word ptr es:[si]
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     si, 2
         add     bp, 4
         loop    tgt_3766C
@@ -10537,9 +10537,9 @@ far_37697:
         mov     dl, ah
         mov     ax, 8
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+4]
         xlat
         mov     ah, al
@@ -10552,9 +10552,9 @@ far_37697:
 L_376C7:
         mov     ax, 28h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         cmp     byte ptr [C0_B_DSP_CHAN], 2
         jb      br_37736
         mov     al, byte ptr es:[di+0bh]
@@ -10582,9 +10582,9 @@ L_376C7:
         call    fn_377E4
         mov     ax, 54h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     dx
         mov     dl, 0
         shr     dx, 1
@@ -10593,9 +10593,9 @@ L_376C7:
         call    fn_377E4
         mov     ax, 58h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_37736:
         cmp     byte ptr es:[di], 3
         ja      br_37793
@@ -10607,9 +10607,9 @@ br_37736:
         mov     dx, word ptr [si]
         mov     ax, 38h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+6]
         mov     ah, 0
         add     ax, ax
@@ -10618,9 +10618,9 @@ br_37736:
         mov     dx, word ptr [si]
         mov     ax, 3ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr es:[di+7]
         xlat
         mov     dh, al
@@ -10631,9 +10631,9 @@ br_37736:
         shr     dx, 1
         mov     ax, 34h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_37793:
         mov     al, byte ptr es:[di+8]
         xlat
@@ -10652,9 +10652,9 @@ br_377AA:
         shr     cx, 1
         mov     ax, 2ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, cx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     bp, cx
         add     dx, dx
         call    isqrt16
@@ -10668,9 +10668,9 @@ br_377D4:
         mul     bp
         mov     ax, 30h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
 fn_377E4:
         ret
@@ -10802,9 +10802,9 @@ br_3789E:
         pop     ds
         mov     ax, 238h
         add     al, byte ptr [C0_W_08128]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         ret
 fn_378D0:
         mov     al, byte ptr [C0_B_08142]
@@ -10864,14 +10864,14 @@ br_37932:
         push    ax
         mov     ax, 92h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 94h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bp
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     cx, cx
         adc     bp, bp
         add     cx, cx
@@ -10882,27 +10882,27 @@ br_37932:
         mul     cx
         mov     ax, 8ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 90h
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bx+12h]
         mul     cx
         neg     dx
         mov     ax, 7ch
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 7eh
         add     al, byte ptr [C0_B_DSP_CHAN]
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, dx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         pop     ax
         mov     byte ptr [C0_B_DSP_CHAN], al
         ret
@@ -20975,69 +20975,69 @@ tgt_3D296:
 br_3D2A3:
         mov     byte ptr [C0_B_08FC4], 2
         mov     ax, 180h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 2
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 181h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     cx, ax
         mov     byte ptr [C0_B_09602], cl
         mov     ax, 182h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         xor     bx, bx
 loop_3D2CC:
         mov     ax, bx
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         inc     bx
         cmp     bx, 120h
         jb      loop_3D2CC
         mov     bx, 200h
 loop_3D2DE:
         mov     ax, bx
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         inc     bx
         cmp     bx, 280h
         jb      loop_3D2DE
         mov     ax, 0c8h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0c9h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 26eh
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0f6h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 4000h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0f2h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 7fffh
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 0f0h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 64h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 27eh
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 100h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 264h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 100h
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         push    EP_FX_DSP_UPDATE_ISR_SEG
         push    EP_FX_DSP_UPDATE_ISR_OFF
         push    49h
@@ -21056,9 +21056,9 @@ fn_3D356:
         xor     bx, bx
 loop_3D35B:
         mov     ax, cx
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         add     bx, 3333h
         inc     cx
         cmp     cx, 120h
@@ -21067,8 +21067,8 @@ loop_3D35B:
         xor     bx, bx
 loop_3D373:
         mov     ax, cx
-        out     0a2h, ax
-        in      ax, 0a0h
+        out     ASIC_REG, ax
+        in      ax, ASIC_DATA
         cmp     ax, bx
         jne     br_3D38A
         add     bx, 3333h

@@ -25979,14 +25979,14 @@ asic_reg1_write:
         mov     ax, bx
         mov     al, bl
         mov     ah, 1
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, bx
         mov     al, ah
         and     ax, 3
         mov     cx, word ptr [bp+8]
         and     cl, 0fch
         or      ax, cx
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 br_55448:
         leave
         retf
@@ -25995,9 +25995,9 @@ asic_reg1_bank_clear:
 loop_5544C:
         mov     ax, bx
         or      ah, 1
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         inc     bx
         cmp     bx, 20h
         jl      loop_5544C
@@ -26089,21 +26089,21 @@ lcd_write_data:
         mov     si, word ptr [bp+6]
 loop_55514:
         mov     ax, 182h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 185h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, di
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 186h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, word ptr [bp+0ah]
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, 182h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, si
-        out     0a0h, ax
+        out     ASIC_DATA, ax
 loop_55539:
         mov     al, byte ptr [C2_B_FX_UPDATE_MASK]
         cbw
@@ -26113,9 +26113,9 @@ loop_55539:
         test    ax, dx
         je      br_55561
         mov     ax, 182h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         push    1
         push    ds
         push    C2_W_09888
@@ -26123,14 +26123,14 @@ loop_55539:
         add     sp, 6
 br_55561:
         mov     ax, 180h
-        out     0a2h, ax
-        in      ax, 0a0h
+        out     ASIC_REG, ax
+        in      ax, ASIC_DATA
         test    al, 1
         jne     loop_55539
         mov     ax, 182h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         shr     word ptr [bp+0ah], 4
         cmp     word ptr [bp+0ah], 4
         ja      loop_55514
@@ -26453,94 +26453,94 @@ dsp_chan_reg_clear:
         sub     ah, ah
         mov     word ptr [bp-2], ax
         add     ax, 0cah
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0cch
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0ceh
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0d4h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0d0h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0d2h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 54h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 58h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0b2h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0b6h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0b4h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0b8h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0bah
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0c4h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0bch
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0beh
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0c0h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     ax, word ptr [bp-2]
         add     ax, 0c2h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr [C0_B_DSP_CHAN]
         push    ax
         endif
@@ -26556,9 +26556,9 @@ dsp_chan_reg_clear:
         mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         add     ax, 0c6h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         mov     ax, 1fffh
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         leave
         retf
         db      90h
@@ -26566,23 +26566,23 @@ L_552EA:
         mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         add     ax, 0c6h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         leave
         retf
 L_01D18:
         mov     al, byte ptr [C0_B_DSP_CHAN]
         sub     ah, ah
         add     ax, 54h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         mov     al, byte ptr [C0_B_DSP_CHAN]
         add     ax, 58h
-        out     0a2h, ax
+        out     ASIC_REG, ax
         xor     ax, ax
-        out     0a0h, ax
+        out     ASIC_DATA, ax
         retf
         db      00h
         endif

@@ -2089,7 +2089,7 @@ loop_3F040:
         add     si, 99eh
         inc     di
 br_3F04E:
-        cmp     di, 17h
+        cmp     di, PGM_COUNT-1
         jle     loop_3F040
         push    0
         nop
@@ -2304,10 +2304,10 @@ loop_3F25D:
         cmp     byte ptr es:[bx+si+2], ah
         jne     br_3F279
         inc     byte ptr [bp-2]
-        cmp     byte ptr [bp-2], 17h
+        cmp     byte ptr [bp-2], PGM_COUNT-1
         jbe     loop_3F25D
 br_3F279:
-        cmp     byte ptr [bp-2], 18h
+        cmp     byte ptr [bp-2], PGM_COUNT
         jne     br_3F28D
         mov     byte ptr [bp-2], 0
         push    0
@@ -2343,7 +2343,7 @@ br_3F2BC:
         retf
 pgm_delete_all:
         push    si
-        mov     bx, 17h
+        mov     bx, PGM_COUNT-1
         mov     es, word ptr [C2_W_PGM_ARRAY_SEG]
 loop_3F2D0:
         mov     ax, bx
@@ -2384,7 +2384,7 @@ loop_3F312:
         je      br_3F324
         add     si, 99eh
         inc     di
-        cmp     di, 17h
+        cmp     di, PGM_COUNT-1
         jle     loop_3F312
         jmp     br_3F332
 br_3F324:
@@ -2440,7 +2440,7 @@ loop_3F37F:
         jne     br_3F392
         add     si, 99eh
         inc     cx
-        cmp     cx, 17h
+        cmp     cx, PGM_COUNT-1
         jle     loop_3F37F
         jmp     br_3F396
         db      90h
@@ -2465,7 +2465,7 @@ far_3F39A:
 loop_3F3B5:
         add     bx, 99eh
         inc     di
-        cmp     di, 17h
+        cmp     di, PGM_COUNT-1
         jg      br_3F3CA
         cmp     byte ptr es:[bx], 0
         je      loop_3F3B5
@@ -3822,7 +3822,7 @@ pgm_replace_sound_ref:
         enter   16h, 0
         push    di
         mov     word ptr [bp-0ah], 0
-        mov     word ptr [bp-0ch], 18h
+        mov     word ptr [bp-0ch], PGM_COUNT
 loop_3FFB3:
         les     bx, [C2_FP_PGM_ARRAY]
         add     bx, word ptr [bp-0ah]
@@ -3884,7 +3884,7 @@ loop_40024:
         jne     loop_40024
 br_40043:
         xor     si, si
-        mov     word ptr [bp-10h], 18h
+        mov     word ptr [bp-10h], PGM_COUNT
 loop_4004A:
         les     bx, [C2_FP_PGM_ARRAY]
         add     bx, si

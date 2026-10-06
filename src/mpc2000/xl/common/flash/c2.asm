@@ -15111,7 +15111,7 @@ loop_4F2AD:
         callf   EP_PGM_DELETE_SLOT_SEG:EP_PGM_DELETE_SLOT_OFF
         add     sp, 2
         inc     si
-        cmp     si, 17h
+        cmp     si, PGM_COUNT-1
         jle     loop_4F2AD
         mov     byte ptr [C0_B_0D7BF], 0
         nop

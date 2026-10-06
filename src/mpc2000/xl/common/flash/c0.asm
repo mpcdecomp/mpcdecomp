@@ -14480,7 +14480,7 @@ loop_397E9:
         callf   EP_PGM_INIT_DEFAULT_SEG:EP_PGM_INIT_DEFAULT_OFF
         add     sp, 2
         inc     si
-        cmp     si, 18h
+        cmp     si, PGM_COUNT
         jl      loop_397E9
         push    1
         push    141h
@@ -14671,7 +14671,7 @@ br_399BC:
         add     word ptr [bp-14h], 80h
         add     word ptr [bp-10h], 99eh
         inc     word ptr [bp-0eh]
-        cmp     word ptr [bp-0eh], 18h
+        cmp     word ptr [bp-0eh], PGM_COUNT
         jge     br_399D9
         jmp     loop_398AD
 br_399D9:

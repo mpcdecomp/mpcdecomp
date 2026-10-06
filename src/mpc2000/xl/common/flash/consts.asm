@@ -4492,7 +4492,7 @@ TBL_FIELDS_10DC:
         if      FW_VERSION >= 114
         dw      EP_L_468E8_OFF, EP_L_468E8_SEG
         elseif  FW_VERSION >= 112
-        dw      EP_FAR_467C6_OFF, EP_FAR_46B1C_SEG
+        dw      EP_FAR_467C6_OFF, EP_FAR_467C6_SEG
         else
         dw      EP_FAR_467C6_OFF, C1_SEG
         endif
@@ -6385,7 +6385,7 @@ d_c2_w_02f6a:
         WIN_END
         db      00h, 00h, 00h, 17h, 00h, 00h, 00h
 d_c2_tbl_02f78:
-        dw      EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG
+        dw      EP_L_4E09A_OFF, EP_L_4E09A_SEG
         db      00h, 00h, 00h, 00h
         dw      (C2_BASE+far_4E102-C2_SEG*16), C2_SEG
         db      00h, 00h, 00h, 00h
@@ -6401,7 +6401,7 @@ d_c2_w_02f94:
         dw      EP_L_4EA3A_OFF, C2_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
-        dw      EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG
+        dw      EP_L_4E09A_OFF, EP_L_4E09A_SEG
         dw      (C2_BASE+far_4E102-C2_SEG*16), C2_SEG
         db      00h, 00h, 00h, 00h
         dw      EP_FAR_4E0F2_OFF, EP_FAR_4E0F2_SEG
@@ -6409,13 +6409,13 @@ d_c2_w_02f94:
         db      03h, 01h, 00h, 00h, 00h, 00h, 00h, 64h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         dw      EP_C2_0902_OFF, C2_SEG
-        dw      EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG
+        dw      EP_L_4E09A_OFF, EP_L_4E09A_SEG
         dw      (C2_BASE+L_4EA9C-C2_SEG*16), C2_SEG
         else
         if      FW_VERSION >= 110
         dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, C2_SEG, EP_C2_0976_OFF, C2_SEG
         else
-        dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG, EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
+        dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, EP_L_4E09A_SEG, EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
         endif
         endif
         dw      EP_L_4EA3A_OFF, C2_SEG

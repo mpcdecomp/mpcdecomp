@@ -2545,6 +2545,7 @@ EP_FAR_3297A_OFF                         equ (C0_BASE+FAR_3297A-APP3_SEG*16)
 EP_FAR_32F2B_OFF                         equ (C0_BASE+far_32F2B-APP3_SEG*16)
 EP_FAR_3C5A0_OFF                         equ (C0_BASE+FAR_3C5A0-C0_SEG*16)
 EP_FAR_3C704_OFF                         equ (C0_BASE+FAR_3C704-C0_SEG*16)
+EP_FAR_467C6_SEG                         equ C1_SEG
 EP_FAR_467C6_OFF                         equ (C2_BASE+far_467C6-C1_SEG*16)
 EP_FAR_46B1C_SEG                         equ C1_SEG
 EP_FAR_4715C_OFF                         equ (C2_BASE+FAR_4715C-C1_SEG*16)
@@ -2689,6 +2690,7 @@ EP_L_2C637_OFF                           equ (APP3_BASE+L_2CF09-APP3_SEG*16)
 EP_L_2CB76_OFF                           equ (APP3_BASE+L_2CB76-APP3_SEG*16)
 EP_L_2CBA1_OFF                           equ (APP3_BASE+L_2CBA1-APP3_SEG*16)
 EP_L_2CCB8_OFF                           equ (APP3_BASE+L_2CCB8-APP3_SEG*16)
+EP_L_2D16F_SEG                           equ APP3_SEG
 EP_L_2D16F_OFF                           equ (APP3_BASE+ISR_2D74F-APP3_SEG*16)
 EP_L_2D296_OFF                           equ (APP3_BASE+L_2D296-APP3_SEG*16)
 EP_L_2D2FA_OFF                           equ (APP3_BASE+L_2D2FA-APP3_SEG*16)
@@ -2759,6 +2761,7 @@ EP_L_4C55E_OFF                           equ (C2_BASE+L_4C55E-C1_SEG*16)
 EP_L_4C95C_OFF                           equ (C2_BASE+L_4C95C-C1_SEG*16)
 EP_L_4C9FA_OFF                           equ (C2_BASE+L_4C9FA-C1_SEG*16)
 EP_L_4D358_OFF                           equ (C2_BASE+L_4D358-C1_SEG*16)
+EP_L_4E09A_SEG                           equ C2_SEG
 EP_L_4E09A_OFF                           equ (C2_BASE+L_4E09A-C2_SEG*16)
 EP_L_4E29E_OFF                           equ (C2_BASE+L_4E29E-C2_SEG*16)
 EP_L_4EA3A_OFF                           equ (C2_BASE+L_4EA3A-C2_SEG*16)

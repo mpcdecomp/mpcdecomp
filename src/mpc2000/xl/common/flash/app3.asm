@@ -14626,8 +14626,8 @@ br_2D9F3:
         else
         KEY_DOWN        20h, (APP3_BASE+L_2DAD9-APP3_SEG*16), APP3_SEG
         endif
-        KEY_DOWN        14h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
-        KEY_DOWN        16h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        14h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
+        KEY_DOWN        16h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         callf   [A3_FP_0191A]
         retf
 L_2DA1A:
@@ -14777,7 +14777,7 @@ br_2DBD2:
         mov     di, intcb_27291-APP3_CSBASE
         int     7eh
         if      FW_VERSION >= 112
-        KEY_CURSOR      EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, (APP3_BASE+L_2DBFC-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_CURSOR      EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, (APP3_BASE+L_2DBFC-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         retf
 L_2DBFC:
         mov     word ptr [A3_W_STEP_CURSOR_FN], stepcur_2D9E4-APP3_CSBASE
@@ -14788,9 +14788,9 @@ L_2DC26:
         mov     ax, word ptr [A3_FP_STEP_EVENT]
         else
         if      FW_VERSION >= 110
-        KEY_CURSOR      EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, EP_L_2D32A_OFF, APP3_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_CURSOR      EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, EP_L_2D32A_OFF, APP3_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         else
-        KEY_CURSOR      EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, (APP3_BASE+L_2DBFC-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_CURSOR      EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, (APP3_BASE+L_2DBFC-APP3_SEG*16), APP3_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         endif
         db      0cbh
 L_2DBFC:
@@ -14809,7 +14809,7 @@ L_2DBFC:
         if      FW_VERSION >= 110
         KEY_CURSOR      EP_L_2D2FA_OFF, APP3_SEG, 0000h, 0000h, 0000h, 0000h, EP_L_2D16F_OFF, APP3_SEG
         else
-        KEY_CURSOR      (APP3_BASE+L_2D2FA-APP3_SEG*16), APP3_SEG, 0000h, 0000h, 0000h, 0000h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_CURSOR      (APP3_BASE+L_2D2FA-APP3_SEG*16), APP3_SEG, 0000h, 0000h, 0000h, 0000h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         endif
         db      0cbh
 L_2DC26:
@@ -14827,7 +14827,7 @@ br_2DC30:
         mov     word ptr [A3_W_01960], ax
         KEY_SHIFTED     19h, EP_L_2DC5B_OFF, APP3_SEG
         KEY_SHIFTED     1ah, EP_L_2DC7A_OFF, APP3_SEG
-        KEY_UP          0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_UP          0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         db      0cbh
 L_2DC5B:
         cmp     word ptr [A3_W_0193E], 0
@@ -14911,13 +14911,13 @@ d_a3_w_07595:
         db      0cbh
 br_2DD46:
         mov     word ptr [A3_W_STEP_CURSOR_FN], stepcur_2D9C0-APP3_CSBASE
-        KEY_CURSOR      EP_FAR_2DCB9_OFF, EP_FAR_2DCB9_SEG, EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_CURSOR      EP_FAR_2DCB9_OFF, EP_FAR_2DCB9_SEG, EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         call    fn_2B2E2
         retf
 br_2DD62:
         mov     word ptr [A3_W_STEP_CURSOR_FN], stepcur_2D9C9-APP3_CSBASE
         FIELD_WHEEL     ds, 1915h, 0, 0, 80h, field_cb_none-APP3_CSBASE
-        KEY_CURSOR      EP_FAR_2DCB9_OFF, EP_FAR_2DCB9_SEG, EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_CURSOR      EP_FAR_2DCB9_OFF, EP_FAR_2DCB9_SEG, EP_LOOP_2DB7D_OFF, EP_LOOP_2DB7D_SEG, 0000h, 0000h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         retf
 far_2DD8C:
         cmp     word ptr [A3_W_0193E], 3
@@ -16202,7 +16202,7 @@ L_2DFF5:
         else
         KEY_DOWN        20h, (APP3_BASE+L_2E997-APP3_SEG*16), APP3_SEG
         endif
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        0eh, (APP3_BASE+L_2E102-APP3_SEG*16), APP3_SEG
         retf
 L_2E019:
@@ -16219,7 +16219,7 @@ L_2DFF5:
         add     byte ptr [bx+si], al
         mov     byte ptr [A3_B_01917], 1
         KEY_DOWN        20h, (APP3_BASE+L_2E997-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        0eh, (APP3_BASE+L_2E102-APP3_SEG*16), APP3_SEG
         db      0cbh
 L_2E019:
@@ -16280,7 +16280,7 @@ L_2E367:
         KEY_DOWN        19h, EP_L_2DD1F_OFF, APP3_SEG
         KEY_DOWN        1ah, (APP3_BASE+L_2E5FA-APP3_SEG*16), APP3_SEG
         KEY_DOWN        0eh, (APP3_BASE+L_2E102-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_CURSOR      (APP3_BASE+L_2E0B3-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2E0BC-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2DD1F-APP3_SEG*16), APP3_SEG, (APP3_BASE+L_2E5FA-APP3_SEG*16), APP3_SEG
         db      0cbh
 L_2E0B3:
@@ -16369,7 +16369,7 @@ L_2E15A:
         mov     word ptr [A3_W_01918], 0
         mov     byte ptr [A3_B_01917], 1
         KEY_DOWN        20h, (APP3_BASE+L_2EAEC-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        0eh, (APP3_BASE+L_2EB29_120-APP3_SEG*16), APP3_SEG
         if      FW_VERSION >= 112
         retf
@@ -16449,7 +16449,7 @@ L_2EA80:
         KEY_DOWN        19h, EP_L_2DD1F_OFF, APP3_SEG
         KEY_DOWN        1ah, EP_L_2E5FA_OFF, APP3_SEG
         KEY_DOWN        0eh, (APP3_BASE+L_2EB29_120-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         if      FW_VERSION >= 120
@@ -16781,13 +16781,13 @@ L_2E4E2:
         mov     byte ptr [A3_B_01917], 1
         if      FW_VERSION >= 120
         KEY_DOWN        20h, (APP3_BASE+L_2EE67-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         elseif  FW_VERSION >= 110
         KEY_DOWN        20h, EP_L_2EE67_OFF, APP3_SEG
         KEY_DOWN        0fh, EP_L_2D16F_OFF, APP3_SEG
         else
         KEY_DOWN        20h, EP_L_2EE67_OFF, APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         endif
         db      0cbh
 L_2EDD0:
@@ -16842,7 +16842,7 @@ L_2E00D:
         mov     word ptr [A3_W_01918], ax
         KEY_DOWN        20h, (APP3_BASE+L_2EE67-APP3_SEG*16), APP3_SEG
         KEY_DOWN        0eh, (APP3_BASE+far_2E5D2-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        19h, EP_L_2DD1F_OFF, APP3_SEG
         KEY_DOWN        1ah, (APP3_BASE+L_2E5FA-APP3_SEG*16), APP3_SEG
         retf
@@ -16918,7 +16918,7 @@ L_2E00D:
         mov     word ptr [A3_W_01918], ax
         KEY_DOWN        20h, (APP3_BASE+L_2EE67-APP3_SEG*16), APP3_SEG
         KEY_DOWN        0eh, (APP3_BASE+far_2E5D2-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        0fh, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        19h, EP_L_2DD1F_OFF, APP3_SEG
         KEY_DOWN        1ah, (APP3_BASE+L_2E5FA-APP3_SEG*16), APP3_SEG
         db      0cbh
@@ -17182,11 +17182,11 @@ br_2F0E8:
         mov     di, field_cb_none-APP3_CSBASE
         int     7dh
         KEY_DOWN        18h, (APP3_BASE+L_2E8E7-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        13h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        13h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        14h, (APP3_BASE+L_2E921-APP3_SEG*16), APP3_SEG
-        KEY_DOWN        16h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        16h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        26h, EP_FAR_2D7EF_OFF, APP3_SEG
-        KEY_DOWN        27h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        27h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         db      0c3h
 L_2F13A:
         DISP_WIN_NARROW "Insert Event"
@@ -17459,8 +17459,8 @@ L_2EB29:
         DISP_SOFTKEY    05h, DISP_SK_BOX,    "DO IT"
         int     0a4h
         KEY_DOWN        26h, EP_FAR_2D7EF_OFF, APP3_SEG
-        KEY_DOWN        27h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
-        KEY_DOWN        13h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        27h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
+        KEY_DOWN        13h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         if      FW_VERSION >= 112
         KEY_DOWN        14h, (APP3_BASE+L_2F480-APP3_SEG*16), APP3_SEG
         elseif  FW_VERSION >= 110
@@ -17697,7 +17697,7 @@ br_2F5F4:
 fn_2F62C:
         int     0a4h
         KEY_DOWN        26h, EP_FAR_2D7EF_OFF, APP3_SEG
-        KEY_DOWN        27h, EP_L_2D16F_OFF, EP_ISR_2D74F_SEG
+        KEY_DOWN        27h, EP_L_2D16F_OFF, EP_L_2D16F_SEG
         KEY_DOWN        13h, EP_FAR_2F681_OFF, EP_FAR_2F681_SEG
         KEY_DOWN        16h, EP_FAR_2F681_OFF, EP_FAR_2F681_SEG
         mov     al, 1

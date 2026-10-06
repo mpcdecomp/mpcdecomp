@@ -628,7 +628,7 @@ boot_set_segs:
         mov     al, 15h
         out     dx, al
         mov     al, 2
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [A0_W_0269A], midi_rx_idle
         if      FW_VERSION >= 114
         mov     word ptr [A0_W_02E26], midi2_rx_idle

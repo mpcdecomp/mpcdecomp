@@ -3,6 +3,7 @@
 
         include "../../../common/pad_to.inc"
         include "../../../common/ports.inc"
+        include "../../../common/dspv.inc"
         include "../../../common/display_macros.inc"
         include "../../../common/window_macros.inc"
         include "../../../common/shared_tables.inc"

@@ -3926,12 +3926,12 @@ far_4904A:
         push    si
         mov     ax, word ptr [C0_W_0989E]
         XL2K_MON_ROUTE
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     si, ax
         mov     word ptr [C0_W_0989E], ax
         XL2K_MON_KEEP
         mov     ax, si
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [C0_W_0989E], si
         push    5dh
         nop
@@ -3988,11 +3988,11 @@ far_490A6:
         mov     si, ax
         mov     di, word ptr [bp+si-6]
         and     di, 0ffh
-        in      ax, 88h
+        in      ax, DMA_STATUS
         test    al, 60h
         je      br_490D0
         mov     ax, 80h
-        out     88h, ax
+        out     DMA_STATUS, ax
 br_490D0:
         push    0ch
         nop
@@ -4057,7 +4057,7 @@ br_49123:
         call    far_4904A
         mov     ax, word ptr [C0_W_0989E]
         XL2K_MON_CLEAR
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     si, ax
         or      si, di
         jmp     SHORT br_4918C
@@ -4066,7 +4066,7 @@ br_4915E:
         mov     ax, word ptr [C0_W_0989E]
         XL2K_MON_BOTH
         mov     si, ax
-        out     0c0h, al
+        out     FLASH_CTL, al
         nop
         push    cs
         call    EP_TIMER_LOOP_IO_OFF+C1_CSBASE
@@ -4099,7 +4099,7 @@ br_4918C:
         call    EP_L_3E524_OFF+C1_CSBASE
         add     sp, 2
         mov     ax, si
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [C0_W_0989E], si
         mov     ax, 1
 br_491A1:
@@ -4121,7 +4121,7 @@ far_491A8:
 br_491BC:
         mov     ax, word ptr [C0_W_0989E]
         XL2K_MON_SET
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [C0_W_0989E], ax
         mov     word ptr [C2_W_08B58], 0
         retf
@@ -4189,7 +4189,7 @@ far_49218:
         mov     word ptr [C2_W_08B5A], ax
         mov     word ptr [C2_W_08B5C], dx
 br_49233:
-        in      ax, 88h
+        in      ax, DMA_STATUS
         test    al, 60h
         je      br_49264
         mov     ax, 3
@@ -4209,11 +4209,11 @@ loop_4924A:
         jne     loop_4924A
 br_49255:
         xor     ax, ax
-        out     88h, ax
+        out     DMA_STATUS, ax
         xor     bx, bx
 loop_4925B:
-        in      al, 88h
-        test    al, 80h
+        in      al, DMA_STATUS
+        test    al, DMA_ST_BUSY
         je      br_49264
         dec     bx
         jne     loop_4925B
@@ -4291,11 +4291,11 @@ resume_492D5:
 L_48994:
         mov     ax, 40h
 br_492F5:
-        out     88h, ax
+        out     DMA_STATUS, ax
         mov     bx, word ptr [bp-2]
 loop_492FA:
-        in      al, 88h
-        test    al, 80h
+        in      al, DMA_STATUS
+        test    al, DMA_ST_BUSY
         je      br_49303
         dec     bx
         jne     loop_492FA
@@ -4389,10 +4389,10 @@ br_493A4:
         call    (C1_BASE+dma_field_write-C1_SEG*16)+C1_CSBASE
         endif
         add     sp, 8
-        in      al, 88h
-        and     al, 7fh
-        mov     ah, 1
-        out     88h, ax
+        in      al, DMA_STATUS
+        and     al, 0ffh-DMA_ST_BUSY
+        mov     ah, DMA_ST_GO >> 8
+        out     DMA_STATUS, ax
 br_493CE:
         pop     si
         pop     di
@@ -4632,11 +4632,11 @@ far_49602:
         push    cs
         call    far_491F2
         xor     ax, ax
-        out     80h, ax
-        in      ax, 82h
+        out     DMA_CTRL, ax
+        in      ax, DMA_DATA_LO
         shr     ax, 0ch
         mov     cx, ax
-        in      ax, 84h
+        in      ax, DMA_DATA_HI
         shl     ax, 4
         or      cx, ax
         mov     word ptr [C2_W_08B5E], cx
@@ -4688,14 +4688,14 @@ far_49668:
         push    di
         push    si
         xor     ax, ax
-        out     80h, ax
-        in      ax, 84h
+        out     DMA_CTRL, ax
+        in      ax, DMA_DATA_HI
         mov     di, ax
         mov     ax, word ptr [C2_W_08BC2]
         mov     dx, word ptr [C2_W_08BC4]
         and     dx, 0fh
         mov     word ptr [bp-4], ax
-        in      ax, 86h
+        in      ax, DMA_ADDR_HI
         cmp     dx, ax
         ja      br_496AA
         sub     si, si
@@ -26008,52 +26008,52 @@ far_5545E:
         jmp     br_554F7
 br_55468:
         mov     ax, 600h
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 8000h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         xor     ax, ax
-        out     80h, ax
-        out     86h, ax
+        out     DMA_CTRL, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, 610h
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 8000h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, 10h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         cmp     byte ptr [C2_B_06474], al
         jne     br_554A4
         mov     ax, 700h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax
+        out     DMA_MODE, ax
         mov     ax, 710h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax
+        out     DMA_MODE, ax
         retf
 br_554A4:
         cmp     byte ptr [C1_B_0D7BD], 0
         jne     br_554C8
         mov     ax, 700h
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 0ff00h
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         xor     ax, ax
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, 710h
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 0ffh
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         xor     ax, ax
         jmp     SHORT L_54B05
         db      90h
 br_554C8:
         mov     ax, 700h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     al, byte ptr [C1_B_0D7BD]
         cbw
         mov     bx, ax
@@ -26062,16 +26062,16 @@ br_554C8:
         mov     al, byte ptr [bx+C1_TBL_00488]
         cbw
         add     ah, 80h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, 710h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     al, byte ptr [bx+C2_TBL_00489]
         cbw
         add     ah, 80h
 L_54B05:
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 br_554F7:
         retf
 lcd_write_data:

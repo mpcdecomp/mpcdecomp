@@ -23,6 +23,9 @@
 ;   0200h +20                  0400h +22                  0800h +0C,+0E
 ;   1000h +0A(ADDR2),+08       2000h +26,+24              4000h +2Ah,+28
 
+        ifndef  DSPV_INC
+DSPV_INC        equ     1
+
 DSPV_G0_LO       equ    000h            ; dw  -> DATA_LO, group 0 (flag 0002h)
 DSPV_G0_HI       equ    002h            ; dw  -> DATA_HI, group 0 (flag 0002h)
 DSPV_ADDR        equ    004h            ; dw->ADDR_HI grp 0 (flags 1-2) 0100h
@@ -65,3 +68,4 @@ DSPV_F_G2        equ    00800h
 DSPV_F_G1_HI     equ    01000h
 DSPV_F_G8        equ    02000h
 DSPV_F_G9        equ    04000h
+        endif

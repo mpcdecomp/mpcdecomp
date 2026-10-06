@@ -8896,7 +8896,7 @@ dma_setup_transfer:
         or      al, 8
         out     dx, al
         xor     ax, ax
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     dx, di
         mov     ax, es
         sar     ax, 1
@@ -8908,30 +8908,30 @@ dma_setup_transfer:
         sar     ax, 1
         rcr     dx, 1
         mov     ah, 1
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, dx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, di
         shl     ax, 0ch
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 100h
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 0fh
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, 0ffffh
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, 1000h
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 200h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax
+        out     DMA_MODE, ax
         mov     dx, 1eh
 loop_0F28A:
         mov     ax, dx
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 100h
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         sub     dx, 2
         jne     loop_0F28A
         mov     ax, 3
@@ -8970,7 +8970,7 @@ xl_sys_startup_init_shared:
         out     dx, al
         mov     al, bl
         xor     ah, ah
-        out     88h, ax
+        out     DMA_STATUS, ax
 loop_0F2DE:
         mov     dx, ASIC_DMA_STATUS
         in      al, dx
@@ -8983,21 +8983,21 @@ loop_0F2DE:
         shl     dx, 0ch
 loop_0F2F2:
         xor     ax, ax
-        out     80h, ax
-        in      ax, 82h
+        out     DMA_CTRL, ax
+        in      ax, DMA_DATA_LO
         and     ax, 0f000h
         cmp     ax, dx
         jne     loop_0F2F2
 br_0F2FF:
         xor     ax, ax
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ah, 1
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         xor     ax, ax
-        out     88h, ax
+        out     DMA_STATUS, ax
 loop_0F30B:
-        in      al, 88h
-        test    al, 80h
+        in      al, DMA_STATUS
+        test    al, DMA_ST_BUSY
         jne     loop_0F30B
         ret
 isr_0F312:

@@ -216,7 +216,7 @@ L_3E1A8:
 L_3E1AA:
         db      "cting memory", 00h, 00h
 detect_memory:                          ; IN 0C0h bit 0 -> AX
-        in      al, 0c0h
+        in      al, FLASH_CTL
         and     al, 1
 xl_detect_memory:
         cmp     al, 1
@@ -702,24 +702,24 @@ memcpy_far_seg:
         retf
 far_3E58A:
         mov     word ptr [C1_W_08174], ax
-        out     8ah, ax
+        out     DMA_STATUS2, ax
         retf
 dma_status_rearm:
-        in      ax, 88h
-        and     al, 7fh
-        or      ah, 1
-        out     88h, ax
+        in      ax, DMA_STATUS
+        and     al, 0ffh-DMA_ST_BUSY
+        or      ah, DMA_ST_GO >> 8
+        out     DMA_STATUS, ax
         retf
 far_3E59A:
         xor     bx, bx
 loop_3E59C:
         mov     ax, bx
         or      ah, 0ah
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 3
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         xor     ax, ax
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         add     bx, 2
         cmp     bx, 20h
         jl      loop_3E59C
@@ -727,11 +727,11 @@ loop_3E59C:
 loop_3E5B7:
         mov     ax, bx
         or      ah, 0ah
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 3
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 8000h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         add     bx, 2
         cmp     bx, 20h
         jl      loop_3E5B7
@@ -741,7 +741,7 @@ dma_0162d:
         push    si
         xor     si, si
 loop_3E5D5:
-        push    7fffh
+        push    DSPV_ALL_FIELDS
         push    ds
         push    C1_W_00418
         push    si
@@ -750,13 +750,13 @@ loop_3E5D5:
         call    dma_field_write
         add     sp, 8
         inc     si
-        cmp     si, 20h
+        cmp     si, DSPV_VOICES
         jl      loop_3E5D5
         xor     ax, ax
-        out     88h, ax
+        out     DMA_STATUS, ax
 L_3DCBF:
-        in      al, 88h
-        test    al, 80h
+        in      al, DMA_STATUS
+        test    al, DMA_ST_BUSY
         jne     L_3DCBF
         nop
         push    cs
@@ -778,161 +778,161 @@ L_3D6F6:
         test    di, 1
         je      L_3E01A
         mov     ax, word ptr [bp+6]
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+4]
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
 L_3E01A:
         test    di, 2
         je      L_3E039
         mov     ax, word ptr [bp+6]
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+4]
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, word ptr es:[bx+2]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, word ptr es:[bx]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E039:
         test    di, 4
         je      L_3E050
         mov     ax, word ptr [bp+6]
         or      ah, 1
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+6]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E050:
         test    di, 8
         je      L_3E067
         mov     ax, word ptr [bp+6]
         or      ah, 4
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+14h]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E067:
         test    di, 10h
         je      L_3E07E
         mov     ax, word ptr [bp+6]
         or      ah, 4
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+16h]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 L_3E07E:
         test    di, 20h
         je      L_3E095
         mov     ax, word ptr [bp+6]
         or      ah, 6
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+1ch]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E095:
         test    di, 40h
         je      L_3E0AC
         mov     ax, word ptr [bp+6]
         or      ah, 6
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+1eh]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 L_3E0AC:
         test    di, 80h
         je      L_3E0CD
         mov     ax, word ptr [bp+6]
         or      ah, 5
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     cx, word ptr es:[bx+18h]
         mov     dx, word ptr es:[bx+1ah]
         mov     ax, dx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, cx
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E0CD:
         test    di, 100h
         je      L_3E0EE
         mov     ax, word ptr [bp+6]
         or      ah, 3
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     cx, word ptr es:[bx+10h]
         mov     dx, word ptr es:[bx+12h]
         mov     ax, dx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, cx
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E0EE:
         test    di, 200h
         je      L_3E105
         mov     ax, word ptr [bp+6]
         or      ah, 7
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+20h]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E105:
         test    di, 400h
         je      L_3E11C
         mov     ax, word ptr [bp+6]
         or      ah, 7
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+22h]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 L_3E11C:
         test    di, 800h
         je      L_3E139
         mov     ax, word ptr [bp+6]
         or      ah, 2
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     ax, word ptr es:[bx+C1_TBL_0000C]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, word ptr es:[bx+0eh]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E139:
         test    di, 1000h
         je      L_3E15A
         mov     ax, word ptr [bp+6]
         or      ah, 1
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     cx, word ptr es:[bx+8]
         mov     dx, word ptr es:[bx+0ah]
         mov     ax, dx
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, cx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 L_3E15A:
         test    di, 2000h
         je      L_3E17B
         mov     ax, word ptr [bp+6]
         or      ah, 8
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     cx, word ptr es:[bx+24h]
         mov     dx, word ptr es:[bx+26h]
         mov     ax, dx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, cx
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E17B:
         test    di, 4000h
         je      L_3E19C
         mov     ax, word ptr [bp+6]
         or      ah, 9
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     es, word ptr [bp+0ah]
         mov     cx, word ptr es:[bx+28h]
         mov     dx, word ptr es:[bx+2ah]
         mov     ax, dx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, cx
-        out     82h, ax
+        out     DMA_DATA_LO, ax
 L_3E19C:
         pop     di
         leave
@@ -965,13 +965,13 @@ L_3E19C:
         retf
         db      00h
 L_3DE94:
-        out     80h, ax
-        in      ax, 82h
+        out     DMA_CTRL, ax
+        in      ax, DMA_DATA_LO
         shr     ax, 0ch
         mov     cx, ax
-        in      ax, 84h
+        in      ax, DMA_DATA_HI
         mov     dx, ax
-        in      ax, 86h
+        in      ax, DMA_ADDR_HI
         mov     bx, ax
         mov     ax, dx
         mov     dx, bx
@@ -6443,19 +6443,19 @@ L_41846:
         mov     al, byte ptr es:[bx]
         sub     ah, ah
         mov     word ptr [bp-8], ax
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, dx
         or      ah, 1
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, cx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, si
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, word ptr [bp-8]
         or      ah, 1
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, word ptr es:[bx+10h]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         cmp     byte ptr es:[bx+7], 0
         jne     br_418A3
         jmp     br_41940
@@ -6474,7 +6474,7 @@ br_418A3:
         sar     si, 1
         rcr     cx, 1
         mov     ax, cx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         cmp     word ptr es:[bx+24h], 0
         je      br_418F4
         cmp     byte ptr [bp+0ah], 0
@@ -6486,12 +6486,12 @@ br_418A3:
 br_418DA:
         mov     ax, dx
 br_418DC:
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 2
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, word ptr es:[bx+24h]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, word ptr es:[bx+26h]
         neg     ax
         jmp     br_41956
@@ -6506,7 +6506,7 @@ br_41902:
         mov     ax, dx
         or      ah, 1
 br_41907:
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, word ptr es:[bx+20h]
         mov     dx, word ptr es:[bx+22h]
         mov     cx, ax
@@ -6525,53 +6525,53 @@ br_41907:
 xl_dma_ch0_full_program_shared:
         mov     ax, word ptr [bp-8]
         or      ah, 2
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, cx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, dx
         or      ax, bx
         jmp     br_41956
         db      90h
 br_41940:
         mov     ax, 0ffffh
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, 0fh
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 2
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 br_41956:
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, word ptr [bp-8]
         or      ah, 3
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax
+        out     DMA_MODE, ax
         mov     ax, word ptr [bp-8]
         or      ah, 4
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     bx, word ptr [bp+6]
         mov     ax, word ptr es:[bx+14h]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, word ptr es:[bx+12h]
         or      ah, 80h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 5
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, word ptr es:[bx+28h]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, word ptr es:[bx+2ah]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, word ptr [bp-8]
         or      ah, 6
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, word ptr es:[bx+2eh]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, word ptr es:[bx+2ch]
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         cmp     byte ptr es:[bx+C1_TBL_0000C], 1
         jl      br_419BE
         cmp     byte ptr es:[bx+C1_TBL_0000C], 8
@@ -6585,14 +6585,14 @@ br_419BE:
 br_419C0:
         mov     ax, word ptr [bp-8]
         or      ah, 7
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     al, byte ptr es:[bx+C1_TBL_0000C]
         cbw
         mov     si, ax
         mov     al, byte ptr [si+C1_TBL_00488]
         cbw
         or      ax, cx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         cmp     byte ptr es:[bx+0eh], 1
         je      br_419E6
         cmp     byte ptr es:[bx+0eh], 2
@@ -6614,7 +6614,7 @@ br_41A01:
         mov     cl, byte ptr es:[bx+0ah]
         sub     ch, ch
         or      ax, cx
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         cmp     byte ptr es:[bx+0eh], 1
         jl      br_41A34
         cmp     byte ptr es:[bx+0eh], 4
@@ -6768,13 +6768,13 @@ voice_timer_expire:
         jge     br_41B3E
         mov     ax, si
         or      ah, 4
-        out     80h, ax
+        out     DMA_CTRL, ax
         imul    bx, si, 14h
         mov     ax, word ptr [bx+C1_TBL_09616]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 8000h
 loop_41B37:
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         pop     si
         leave
         retf    2
@@ -6793,10 +6793,10 @@ br_41B4E:
         sub     si, 40h
         mov     ax, si
         or      ah, 6
-        out     80h, ax
+        out     DMA_CTRL, ax
         imul    bx, si, 14h
         mov     ax, word ptr [bx+C1_TBL_09618]
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, word ptr [bx+C1_TBL_0961A]
         jmp     loop_41B37
 br_41B6C:
@@ -6841,11 +6841,11 @@ voice_release_full:
         mov     word ptr [bx+si+C0_TBL_08F84], 0
         mov     ax, si
         or      ah, 6
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 0bb8h
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 7ff0h
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 br_41BC2:
         pop     si
         leave
@@ -6870,11 +6870,11 @@ resume_41BCD:
         mov     byte ptr [bx+VOICE_TABLE+1], 0ffh
         mov     ax, si
         or      ah, 4
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 0f448h
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         xor     ax, ax
-        out     84h, ax
+        out     DMA_DATA_HI, ax
 br_41C04:
         pop     si
         leave

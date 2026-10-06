@@ -7922,7 +7922,7 @@ br_35F69:
         call    tgt_3D296
         endif
         mov     ax, 0ah
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [C0_W_0989E], ax
         push    C1_SEG
         db      68h, 12h, 00h
@@ -7962,7 +7962,7 @@ br_35F69:
         add     sp, 4
         mov     ax, word ptr [C0_W_0989E]
         XL2K_MON_BIT
-        out     0c0h, al
+        out     FLASH_CTL, al
         mov     word ptr [C0_W_0989E], ax
         xor     ax, ax
         pop     ds
@@ -8056,7 +8056,7 @@ br_3608D:
         or      al, 8
         out     dx, al
         xor     ax, ax
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     dx, di
         mov     ax, es
         sar     ax, 1
@@ -8068,30 +8068,30 @@ br_3608D:
         sar     ax, 1
         rcr     dx, 1
         mov     ah, 1
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, dx
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         mov     ax, di
         shl     ax, 0ch
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 100h
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 0fh
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         mov     ax, 0ffffh
-        out     84h, ax
+        out     DMA_DATA_HI, ax
         pop     ax
-        out     82h, ax
+        out     DMA_DATA_LO, ax
         mov     ax, 200h
-        out     80h, ax
+        out     DMA_CTRL, ax
         xor     ax, ax
-        out     8ch, ax
+        out     DMA_MODE, ax
         mov     dx, 1eh
 loop_360DA:
         mov     ax, dx
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ax, 100h
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         sub     dx, 2
         jne     loop_360DA
         mov     ax, 3
@@ -8116,7 +8116,7 @@ loop_360DA:
         out     dx, al
         mov     al, bl
         xor     ah, ah
-        out     88h, ax
+        out     DMA_STATUS, ax
 loop_36115:
         mov     dx, ASIC_DMA_STATUS
         in      al, dx
@@ -8129,21 +8129,21 @@ loop_36115:
         shl     dx, 0ch
 loop_36129:
         xor     ax, ax
-        out     80h, ax
-        in      ax, 82h
+        out     DMA_CTRL, ax
+        in      ax, DMA_DATA_LO
         and     ah, 0f0h
         cmp     ah, dh
         jne     loop_36129
 br_36136:
         xor     ax, ax
-        out     80h, ax
+        out     DMA_CTRL, ax
         mov     ah, 1
-        out     86h, ax
+        out     DMA_ADDR_HI, ax
         xor     ax, ax
-        out     88h, ax
+        out     DMA_STATUS, ax
 loop_36142:
-        in      al, 88h
-        test    al, 80h
+        in      al, DMA_STATUS
+        test    al, DMA_ST_BUSY
         jne     loop_36142
         retf
         db      00h
@@ -11261,7 +11261,7 @@ fn_37C3A:
         push    di
         xor     ax, ax
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         mov     ax, 1001h
         push    ax
         push    4
@@ -11282,7 +11282,7 @@ fn_37C3A:
 L_37364:
         xor     ax, ax
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         push    1001h
         push    1
         push    10h
@@ -11301,7 +11301,7 @@ L_37386:
 br_37C88:
         mov     ax, 4
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         push    1001h
         push    10h
         push    10h
@@ -11319,7 +11319,7 @@ loop_37CA7:
 br_37CAC:
         mov     ax, 7
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         push    1001h
         push    10h
         push    10h
@@ -11332,7 +11332,7 @@ br_37CAC:
         jne     loop_37CA7
         mov     ax, 5
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         push    1001h
         push    10h
         push    10h
@@ -11345,7 +11345,7 @@ br_37CAC:
         jne     loop_37CA7
         mov     ax, 6
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         push    1001h
         push    8
         push    10h
@@ -11361,7 +11361,7 @@ br_37CAC:
 br_37D0E:
         xor     ax, ax
         mov     word ptr [C0_W_098B6], ax
-        out     0c2h, al
+        out     PORT_C2, al
         mov     bx, di
 br_37D17:
         shl     bx, 4

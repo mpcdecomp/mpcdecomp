@@ -858,7 +858,6 @@ L_32E42:
         else
         FIELD_WHEEL     ds, 2b46h, 0, 0, 3, L_32E6F-APP3_CSBASE
         endif
-        KEY_CURSOR      EP_L_31D63_OFF, APP3_SEG, 0000h, 0000h, (C0_BASE+L_32DE8-APP3_SEG*16), APP3_SEG, EP_L_32E82_OFF, APP3_SEG
         else
         if      FW_VERSION >= 110
         KEY_CURSOR      (C0_BASE+L_32DE8-APP3_SEG*16), APP3_SEG, 0000h, 0000h, 0000h, 0000h, (C0_BASE+L_32562-APP3_SEG*16), APP3_SEG
@@ -871,8 +870,8 @@ L_32562:
         call    fn_3273C
         mov     word ptr [C0_W_02B48], cb_3246A-APP3_CSBASE
         FIELD_WHEEL     ds, 2b46h, 0, 0, 3, L_32E6F-APP3_CSBASE
-        KEY_CURSOR      EP_L_31D63_OFF, APP3_SEG, 0000h, 0000h, (C0_BASE+L_32DE8-APP3_SEG*16), APP3_SEG, EP_L_32E82_OFF, APP3_SEG
         endif
+        KEY_CURSOR      EP_L_31D63_OFF, APP3_SEG, 0000h, 0000h, (C0_BASE+L_32DE8-APP3_SEG*16), APP3_SEG, EP_L_32E82_OFF, APP3_SEG
         retf
 L_32E6F:
         cmp     al, 2
@@ -1082,7 +1081,6 @@ L_32FDD:
         mov     word ptr [C0_W_02B48], cb_32461-APP3_CSBASE
         FIELD_ENTRY     ds, 712h, 1, 0, 40h, (APP3_BASE+field_cb_none-APP3_SEG*16)
         elseif  FW_VERSION >= 112
-        else
         endif
         KEY_CURSOR      EP_L_32FB0_OFF, APP3_SEG, 0000h, 0000h, 0000h, 0000h, EP_L_321CC_OFF, APP3_SEG
         retf

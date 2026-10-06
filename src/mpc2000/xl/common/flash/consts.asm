@@ -4426,7 +4426,6 @@ d_c2_tbl_01002:
         if      FW_VERSION >= 112
         dw      EP_L_46996_OFF, C1_SEG
         dw      (C2_BASE+L_472FC-C1_SEG*16), C1_SEG
-        else
         endif
         dw      EP_L_46D0C_OFF, C1_SEG
         if      FW_VERSION >= 111

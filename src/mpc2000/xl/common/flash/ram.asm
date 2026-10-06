@@ -1503,8 +1503,6 @@ d_a2_b_034a6:
 d_a2_b_034a9:
         PAD_TO  03566h-0b7h, 000h
 d_a2_w_034af:
-        endif
-        if      FW_VERSION >= 120
         PAD_TO  03566h-0b4h, 000h
 d_a2_w_034b2:
         endif

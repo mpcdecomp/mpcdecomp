@@ -1491,8 +1491,6 @@ d_a2_w_03496:
 d_a2_b_034a9:
         PAD_TO  03566h-0c7h, 000h
 d_a2_w_034af:
-        endif
-        if      (FW_VERSION >= 114) && (FW_VERSION < 120)
         PAD_TO  03566h-0c4h, 000h
 d_a2_w_034b2:
         endif
@@ -1501,8 +1499,6 @@ d_a2_w_034b2:
 d_a2_b_034a3:
         PAD_TO  03566h-0c0h, 000h
 d_a2_b_034a6:
-        endif
-        if      FW_VERSION >= 120
         PAD_TO  03566h-0bdh, 000h
 d_a2_b_034a9:
         PAD_TO  03566h-0b7h, 000h

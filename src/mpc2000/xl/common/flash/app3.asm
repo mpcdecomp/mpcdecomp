@@ -410,21 +410,17 @@ d_a3_w_0159a:
         db      59h, 59h
         endif
         endif
-d_a3_w_0159c:
-        db      00h, 00h
-d_a3_b_0159e:
-        db      00h
         else
         db      0bch, 54h
 d_a3_w_01596:
         db      41h, 59h, 9ch, 25h
 d_a3_w_0159a:
         db      2fh, 59h
+        endif
 d_a3_w_0159c:
         db      00h, 00h
 d_a3_b_0159e:
         db      00h
-        endif
         db      "1^2^3^4^5^6^7^8^9^01-1617-3233-4849-6465-8081-9697-99"
 
 ; 0x23d24-0x23e1e, 250 bytes of 00h -- unverified, do not assume free
@@ -515,9 +511,9 @@ d_a3_b_0181c:
         db      00h, 08h
         db      "OFF     AS TRACKOMNI-A  OMNI-B  OMNI-AB "
 d_a3_w_01846:
-        if      FW_VERSION >= 110
         db      00h, 00h
 d_a3_fp_01848:
+        if      FW_VERSION >= 110
         dw      (APP3_BASE+FAR_2D074-APP3_SEG*16), APP3_SEG
         if      FW_VERSION >= 112
 d_a3_w_0184c:
@@ -627,8 +623,6 @@ d_a3_w_01954:
         endif
 
         else
-        db      00h, 00h
-d_a3_fp_01848:
         db      86h, 68h, 9ch, 25h
 d_a3_w_0184c:
         db      6ah, 68h
@@ -8406,8 +8400,6 @@ L_29B59:
 L_2A32F:
         if      FW_VERSION >= 120
         elseif  FW_VERSION >= 114
-        elseif  FW_VERSION >= 111
-L_29A42:
         else
 L_29A42:
         endif
@@ -8425,8 +8417,6 @@ L_29A42:
 L_2A349:
         if      FW_VERSION >= 120
         elseif  FW_VERSION >= 114
-        elseif  FW_VERSION >= 111
-L_29A79:
         else
 L_29A79:
         endif
@@ -11411,11 +11401,7 @@ br_2BFD4:
         KEY_DOWN        27h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        16h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
         KEY_DOWN        13h, EP_GOTO_MAIN_SCREEN_OFF, EP_GOTO_MAIN_SCREEN_SEG
-        if      FW_VERSION >= 110
         KEY_DOWN        14h, EP_FAR_2B23C_OFF, APP3_SEG
-        else
-        KEY_DOWN        14h, EP_FAR_2B23C_OFF, APP3_SEG
-        endif
         retf
 far_2B23C:
         mov     word ptr [A3_W_01886], 0ffh
@@ -24028,8 +24014,8 @@ L_324B4:
         DISP_SOFTKEY    04h, DISP_SK_FILL,   "CLOSE"
         DISP_SOFTKEY    05h, DISP_SK_BOX,    "DO IT"
         db      0cdh, 0a4h
-        if      FW_VERSION >= 112
         KEY_DOWN        13h, EP_BR_321C7_OFF, APP3_SEG
+        if      FW_VERSION >= 112
         if      FW_VERSION >= 120
         KEY_DOWN        14h, (APP3_BASE+far_31D5B-APP3_SEG*16), APP3_SEG
         db      0cbh
@@ -24111,7 +24097,6 @@ L_325E5                         equ     $+1
         KEY_DOWN        11h, (APP3_BASE+far_31BD9-APP3_SEG*16), APP3_SEG
         KEY_DOWN        15h, (APP3_BASE+L_32110-APP3_SEG*16), APP3_SEG
         else
-        KEY_DOWN        13h, EP_BR_321C7_OFF, APP3_SEG
         KEY_DOWN        14h, (APP3_BASE+far_31D5B-APP3_SEG*16), APP3_SEG
         if      FW_VERSION >= 110
 far_31D5B                         equ     $+1

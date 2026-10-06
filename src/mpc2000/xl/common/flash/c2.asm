@@ -10561,11 +10561,7 @@ resample_paint:
         call    EP_DRAW_STRING_AT_OFF+C1_CSBASE
         add     sp, 8
         push    C1_SEG
-        if      FW_VERSION >= 111
         push    EP_FAR_4C32E_OFF
-        else
-        push    EP_FAR_4C32E_OFF
-        endif
         push    2
         push    4
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
@@ -11170,11 +11166,7 @@ L_4D0D9:
         add     sp, 8
 br_4D0DC:
         push    C1_SEG
-        if      FW_VERSION >= 111
         push    EP_FAR_4C32E_OFF
-        else
-        push    EP_FAR_4C32E_OFF
-        endif
         push    2
         push    4
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
@@ -22276,11 +22268,7 @@ fx_chorus_paint:
         mov     si, ax
         mov     word ptr [bp-2], dx
         push    C2_SEG
-        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
         push    EP_C2_5364_OFF
-        else
-        push    EP_C2_5364_OFF
-        endif
         nop
         push    cs
         call    far_529AC
@@ -22561,11 +22549,7 @@ fx_rotary_paint:
         mov     si, ax
         mov     word ptr [bp-2], dx
         push    C2_SEG
-        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
         push    EP_C2_5364_OFF
-        else
-        push    EP_C2_5364_OFF
-        endif
         nop
         push    cs
         call    far_529AC
@@ -22886,11 +22870,7 @@ fx_fmod_autopan_paint:
         mov     si, ax
         mov     word ptr [bp-2], dx
         push    C2_SEG
-        if      (FW_VERSION >= 110) && (FW_VERSION < 112)
         push    EP_C2_5364_OFF
-        else
-        push    EP_C2_5364_OFF
-        endif
         nop
         push    cs
         call    far_529AC
@@ -24041,11 +24021,7 @@ fx_reverb_paint:
         mov     si, ax
         mov     word ptr [bp-2], dx
         push    C2_SEG
-        if      FW_VERSION >= 112
         push    EP_L_5455E_OFF
-        else
-        push    EP_L_5455E_OFF
-        endif
         nop
         push    cs
         call    far_529AC
@@ -25188,11 +25164,7 @@ build_info_paint:
         callf   EP_DRAW_STRING_AT_SEG:EP_DRAW_STRING_AT_OFF
         add     sp, 8
         push    C2_SEG
-        if      FW_VERSION >= 112
         push    EP_FAR_54852_OFF
-        else
-        push    EP_FAR_54852_OFF
-        endif
         push    0ch
         push    6ah
         callf   EP_DRAW_STRING_AT_SEG:EP_DRAW_STRING_AT_OFF
@@ -25322,11 +25294,7 @@ br_54D7F:
         mov     word ptr [C2_W_08DB2], 0
 br_54DA0:
         push    C2_SEG
-        if      FW_VERSION >= 112
         push    EP_L_54858_OFF
-        else
-        push    EP_L_54858_OFF
-        endif
         callf   EP_SMEM_PROC_WRAPPER_SEG:EP_SMEM_PROC_WRAPPER_OFF
         add     sp, 4
         xor     di, di
@@ -25569,11 +25537,7 @@ br_54FE2:
         test    byte ptr [C2_B_WAVE_MEM_ERR_MASK], 8
         je      br_54FFB
         push    C2_SEG
-        if      FW_VERSION >= 112
         push    EP_C2_6F6C_OFF
-        else
-        push    EP_C2_6F6C_OFF
-        endif
         push    27h
         push    3
         callf   EP_DRAW_STRING_AT_SEG:EP_DRAW_STRING_AT_OFF
@@ -25948,11 +25912,7 @@ snd_debug_re_id:
         push    EP_FS_OPEN_SEG
         push    EP_L_4BD9A_OFF
         push    C2_SEG
-        if      FW_VERSION >= 112
         push    EP_L_5541A_OFF
-        else
-        push    EP_L_5541A_OFF
-        endif
         callf   EP_DISP_MESSAGE_WINDOW_SEG:EP_DISP_MESSAGE_WINDOW_OFF
         add     sp, 8
         callf   EP_SOUND_LIST_RENUMBER_SEG:EP_SOUND_LIST_RENUMBER_OFF
@@ -26881,11 +26841,7 @@ br_55B49:
         or      ax, ax
         je      br_55BA4
         push    C2_SEG
-        if      FW_VERSION >= 112
         push    EP_L_55CBC_OFF
-        else
-        push    EP_L_55CBC_OFF
-        endif
         push    1
         push    6
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF

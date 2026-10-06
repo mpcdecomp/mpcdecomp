@@ -1011,8 +1011,6 @@ br_56670:
         push    C1_SEG
         if      FW_VERSION >= 114
         push    (C1_BASE+msg_internal_error-C1_SEG*16)
-        elseif  FW_VERSION >= 112
-        push    EP_MSG_INTERNAL_ERROR_OFF
         else
         push    EP_MSG_INTERNAL_ERROR_OFF
         endif
@@ -2122,11 +2120,7 @@ br_571C1:
         add     sp, 0ch
 br_571F9:
         push    C1_SEG
-        if      FW_VERSION >= 111
         push    EP_FAR_4C32E_OFF
-        else
-        push    EP_FAR_4C32E_OFF
-        endif
         push    2
         push    4
         callf   EP_DRAW_SOFTKEY_LABEL_SEG:EP_DRAW_SOFTKEY_LABEL_OFF
@@ -4125,11 +4119,7 @@ TBL_WINKEYS_DISK_FULL:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F3, EP_DISK_FULL_F3_SEG, EP_DISK_FULL_F3_OFF
         WIN_KEY   WIN_K_F4, EP_DISK_FULL_CANCEL_SEG, EP_DISK_FULL_CANCEL_OFF
-        if      FW_VERSION >= 120
         WIN_KEY   WIN_K_F5, C1_SEG, EP_DISK_FULL_SAVE_OFF
-        else
-        WIN_KEY   WIN_K_F5, C1_SEG, EP_DISK_FULL_SAVE_OFF
-        endif
         WIN_KEY   WIN_K_PAINT, EP_DISK_FULL_PAINT_SEG, EP_DISK_FULL_PAINT_OFF
         WIN_KEY_END
 d_c1_w_00af4:
@@ -4332,9 +4322,9 @@ d_c2_w_00f9a:
         WIN_LABEL 23h, 1ch, "[SOUND] load one sound from"
         WIN_LABEL 53h, 25h, "the SET file"
         WIN_END
-        if      FW_VERSION >= 110
         db      00h
 d_c2_tbl_01000:
+        if      FW_VERSION >= 110
         if      FW_VERSION >= 112
         dw      (C2_BASE+L_4713C-C1_SEG*16)
 d_c2_tbl_01002:
@@ -4402,8 +4392,6 @@ d_c2_tbl_01002:
         endif
         dw      (C2_BASE+L_4727C-C1_SEG*16), C1_SEG
         else
-        db      00h
-d_c2_tbl_01000:
         db      8ah
         db      8fh
 d_c2_tbl_01002:
@@ -4438,10 +4426,9 @@ d_c2_tbl_01002:
         if      FW_VERSION >= 112
         dw      EP_L_46996_OFF, C1_SEG
         dw      (C2_BASE+L_472FC-C1_SEG*16), C1_SEG
-        dw      EP_L_46D0C_OFF, C1_SEG
         else
-        dw      EP_L_46D0C_OFF, C1_SEG
         endif
+        dw      EP_L_46D0C_OFF, C1_SEG
         if      FW_VERSION >= 111
         dw      EP_L_46D1C_OFF, C1_SEG
         dw      EP_L_46D2C_OFF, C1_SEG
@@ -4888,11 +4875,7 @@ TBL_FIELDS_1712:                        ; 2 x FIELD_SIZE; the part of the array 
         db      00h, 00h, 00h, 00h, 00h, 06h
         dw      EP_FAR_49F86_OFF, EP_FAR_49F86_SEG
         db      07h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      87h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_TRIM:
@@ -4923,11 +4906,7 @@ d_c2_tbl_01810:
         dw      EP_TRIM_FOCUS_PLAY_X_OFF, EP_TRIM_FOCUS_PLAY_X_SEG
         dw      (C2_BASE+far_4A176-C1_SEG*16), C1_SEG
 d_c2_tbl_01828:
-        if      FW_VERSION >= 112
         dw      EP_FAR_49824_OFF
-        else
-        dw      EP_FAR_49824_OFF
-        endif
 d_c2_tbl_0182a:
         dw      C1_SEG
 TBL_FIELDS_182C:                        ; 4 x FIELD_SIZE
@@ -5025,11 +5004,7 @@ d_c2_w_0190c:
         db      05h
         dw      EP_START_FINE_OPEN_OFF, EP_START_FINE_OPEN_SEG
         db      06h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      86h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_START_FINE:
@@ -5082,11 +5057,7 @@ d_c2_w_01a16:
         db      05h
         dw      EP_END_FINE_OPEN_OFF, EP_END_FINE_OPEN_SEG
         db      06h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      86h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_END_FINE:
@@ -5143,11 +5114,7 @@ d_c2_w_01b1e:
         db      05h
         dw      EP_LOOP_FINE_CLOSE_OFF, EP_LOOP_FINE_CLOSE_SEG
         db      06h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      86h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_LOOP_FINE:
@@ -5207,11 +5174,7 @@ d_c2_w_01c50:
         db      05h
         dw      EP_LOOP_END_FINE_OPEN_OFF, EP_LOOP_END_FINE_OPEN_SEG
         db      06h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      86h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_LOOP_END_FINE:
@@ -5299,11 +5262,7 @@ d_c2_w_01d58:
         db      00h, 00h, 00h, 00h, 00h, 06h
         dw      EP_FAR_4BA54_OFF, EP_FAR_4BA54_SEG
         db      07h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      87h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_LOOP:
@@ -5359,22 +5318,14 @@ d_c2_w_01e94:
         db      00h, 00h, 00h, 00h
         dw      EP_LOOP_FOCUS_TO_OFF, EP_LOOP_FOCUS_TO_SEG, EP_LOOP_FOCUS_LENGTH_OFF, EP_LOOP_FOCUS_LENGTH_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 110
         dw      EP_L_4B7FC_OFF, C1_SEG
-        else
-        dw      EP_L_4B7FC_OFF, C1_SEG
-        endif
 d_c2_w_01ebe:
         db      7ah, 0ch, 30h, 08h, 04h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h ; [3] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_LENGTH_OFF, EP_LOOP_FOCUS_LENGTH_SEG, EP_LOOP_FOCUS_SOUND_OFF, EP_LOOP_FOCUS_SOUND_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
         dw      EP_LOOP_FOCUS_LOCK_OFF, EP_LOOP_FOCUS_LOCK_SEG, EP_LOOP_FOCUS_LOOP_ON_OFF, EP_LOOP_FOCUS_LOOP_ON_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 110
         dw      EP_L_4B7FC_OFF, C1_SEG
-        else
-        dw      EP_L_4B7FC_OFF, C1_SEG
-        endif
 d_c2_w_01ee8:
         db      0d4h, 0ch, 12h, 01h, 01h, 40h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 00h ; [4] x,y,class,digits  STORE  MIN  MAX
         dw      EP_LOOP_FOCUS_LOOP_ON_OFF, EP_LOOP_FOCUS_LOOP_ON_SEG, EP_LOOP_FOCUS_PLAY_X_OFF, EP_LOOP_FOCUS_PLAY_X_SEG ; THUNK  PREV  NEXT
@@ -5408,11 +5359,7 @@ d_c2_w_01ee8:
         endif
         dw      EP_L_4BE0E_OFF, EP_L_4BE0E_SEG
         db      00h, 00h, 00h, 00h, 00h, 07h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      87h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_SND_PARAMS:
@@ -5804,11 +5751,7 @@ TBL_WINKEYS_EDIT_SOUND:
         WIN_KEY_CLEAR
         WIN_KEY   WIN_K_F2, EP_EDIT_SOUND_F2_SEG, EP_EDIT_SOUND_F2_OFF
         WIN_KEY   WIN_K_F4, EP_EDIT_SOUND_CANCEL_SEG, EP_EDIT_SOUND_CANCEL_OFF
-        if      FW_VERSION >= 112
         WIN_KEY   WIN_K_F5, C1_SEG, EP_EDIT_SOUND_DO_IT_OFF
-        else
-        WIN_KEY   WIN_K_F5, C1_SEG, EP_EDIT_SOUND_DO_IT_OFF
-        endif
         WIN_KEY   WIN_K_PAINT, EP_EDIT_SOUND_PAINT_SEG, EP_EDIT_SOUND_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_EDIT_SOUND_CANCEL_SEG, EP_EDIT_SOUND_CANCEL_OFF
         WIN_KEY_END
@@ -5921,11 +5864,7 @@ ts_field_desc_adjust:                   ; x=0D3h y=29h, FIELD_STORE 8001h, MIN -
         db      00h, 00h, 00h, 06h
         dw      EP_FAR_4D3BA_OFF, EP_FAR_4D3BA_SEG
         db      07h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      87h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_ZONE:
@@ -6056,11 +5995,7 @@ d_c2_w_0294a:
         db      05h
         dw      EP_ZONE_START_FINE_OPEN_OFF, EP_ZONE_START_FINE_OPEN_SEG
         db      06h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      86h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_ZONE_START_FINE:
@@ -6118,11 +6053,7 @@ TBL_FIELDS_29C8:                        ; 2 x FIELD_SIZE; the part of the array 
         db      05h
         dw      EP_ZONE_END_FINE_OPEN_OFF, EP_ZONE_END_FINE_OPEN_SEG
         db      06h
-        if      FW_VERSION >= 112
         dw      EP_C0_66DA_OFF, C0_SEG
-        else
-        dw      EP_C0_66DA_OFF, C0_SEG
-        endif
         db      86h
         dw      EP_L_3B8F2_OFF, EP_L_3B8F2_SEG
 TBL_WINKEYS_ZONE_END_FINE:
@@ -6410,17 +6341,13 @@ d_c2_b_02e5c:
         dw      EP_AUDITION_STOP_OFF, EP_AUDITION_STOP_SEG
         db      00h, 00h, 00h, 00h, 00h, 00h
 d_c2_tbl_02ea0:
-        if      FW_VERSION >= 111
         dw      (C2_BASE+L_4EBF8-C2_SEG*16)
 d_c2_tbl_02ea2:
         dw      C2_SEG
         dw      EP_L_4B968_OFF, C1_SEG
+        if      FW_VERSION >= 111
         dw      EP_L_4E29E_OFF, C2_SEG
         else
-        dw      (C2_BASE+L_4EBF8-C2_SEG*16)
-d_c2_tbl_02ea2:
-        dw      C2_SEG
-        dw      EP_L_4B968_OFF, C1_SEG
         if      FW_VERSION >= 110
         dw      EP_L_4E29E_OFF, C2_SEG
         else
@@ -6463,11 +6390,7 @@ d_c2_tbl_02f78:
         db      00h, 00h, 00h, 00h
         dw      (C2_BASE+far_4E102-C2_SEG*16), C2_SEG
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 110
         dw      EP_L_4EA3A_OFF, C2_SEG
-        else
-        dw      EP_L_4EA3A_OFF, C2_SEG
-        endif
         dw      EP_L_4845E_OFF, EP_L_4845E_SEG
 d_c2_tbl_02f90:
         dw      (C2_BASE+L_4EA1C-C2_SEG*16)
@@ -6476,11 +6399,7 @@ d_c2_tbl_02f92:
 d_c2_w_02f94:
         db      4bh, 02h, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h, 00h, 00h
         db      00h
-        if      FW_VERSION >= 110
         dw      EP_L_4EA3A_OFF, C2_SEG
-        else
-        dw      EP_L_4EA3A_OFF, C2_SEG
-        endif
         db      00h, 00h, 00h, 00h
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
         dw      EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG
@@ -6493,15 +6412,14 @@ d_c2_w_02f94:
         dw      EP_C2_0902_OFF, C2_SEG
         dw      EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG
         dw      (C2_BASE+L_4EA9C-C2_SEG*16), C2_SEG
-        dw      EP_L_4EA3A_OFF, C2_SEG
         else
         if      FW_VERSION >= 110
         dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, C2_SEG, EP_C2_0976_OFF, C2_SEG
         else
         dw      EP_C2_0902_OFF, C2_SEG, EP_L_4E09A_OFF, EP_FAR_4E9FA_SEG, EP_L_4EA9C_OFF, EP_L_4EA9C_SEG
         endif
-        dw      EP_L_4EA3A_OFF, C2_SEG
         endif
+        dw      EP_L_4EA3A_OFF, C2_SEG
         dw      EP_L_4EB10_OFF, EP_L_4EB10_SEG
         db      00h
         db      00h, 00h, 00h
@@ -7155,11 +7073,7 @@ d_c2_w_03be6:
         db      37h, 0bh, 0a2h, 02h, 01h, 00h, 23h, 00h, 00h, 00h, 62h
         db      00h, 00h, 00h
 d_c2_tbl_03bf4:
-        if      FW_VERSION >= 112
         dw      EP_VELO_PITCH_FIELD0_THUNK_OFF, C2_SEG
-        else
-        dw      EP_VELO_PITCH_FIELD0_THUNK_OFF, C2_SEG
-        endif
         db      00h, 00h, 00h, 00h
         if      FW_VERSION <> 110
         dw      EP_VELO_PITCH_FIELD1_THUNK_OFF, EP_VELO_PITCH_FIELD1_THUNK_SEG
@@ -7177,11 +7091,7 @@ d_c2_w_03c10:
         db      24h
         db      74h, 4dh
         endif
-        if      FW_VERSION >= 112
         dw      EP_VELO_PITCH_FIELD0_THUNK_OFF, C2_SEG
-        else
-        dw      EP_VELO_PITCH_FIELD0_THUNK_OFF, C2_SEG
-        endif
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         if      FW_VERSION >= 112
         dw      EP_VELO_PITCH_FIELD2_THUNK_OFF, C2_SEG
@@ -7313,21 +7223,15 @@ d_c2_w_03e50:
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
         db      00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 d_c0_tbl_03e7a:
-        if      FW_VERSION >= 120
         dw      EP_L_5FC44_OFF
 d_c0_tbl_03e7c:
         dw      DS_SEG
+        if      FW_VERSION >= 120
         dw      EP_FAR_5F5EC_OFF, DS_SEG, EP_FAR_5F5F7_OFF, DS_SEG, EP_FAR_5F602_OFF, DS_SEG, EP_FAR_5F60D_OFF, DS_SEG
         dw      EP_FAR_5F618_OFF, DS_SEG, EP_FAR_5F623_OFF, DS_SEG, EP_FAR_5F62E_OFF, DS_SEG
         elseif  FW_VERSION >= 112
-        dw      EP_L_5FC44_OFF
-d_c0_tbl_03e7c:
-        dw      DS_SEG
         dw      EP_FAR_5F5EC_OFF, DS_SEG, EP_FAR_5F5F7_OFF, DS_SEG, EP_FAR_5F602_OFF, DS_SEG, EP_FAR_5F60D_OFF, DS_SEG, EP_FAR_5F618_OFF, DS_SEG, EP_FAR_5F623_OFF, DS_SEG, EP_FAR_5F62E_OFF, DS_SEG
         else
-        dw      EP_L_5FC44_OFF
-d_c0_tbl_03e7c:
-        dw      DS_SEG
         if      FW_VERSION >= 110
         if      FW_VERSION >= 111
         db      3ch, 79h, 8ch
@@ -7796,7 +7700,6 @@ d_c0_tbl_043f4:
         dw      (C2_BASE+far_523A6-C2_SEG*16), C2_SEG, EP_L_51A50_OFF, EP_L_51A50_SEG, EP_L_51A5A_OFF, EP_L_51A5A_SEG
         endif
         dw      EP_FAR_523C4_OFF, EP_FAR_523C4_SEG
-        if      FW_VERSION >= 111
         dw      EP_FAR_51488_OFF, C2_SEG
         dw      EP_FAR_5148C_OFF, C2_SEG
         dw      EP_FAR_5149A_OFF, C2_SEG
@@ -7804,23 +7707,6 @@ d_c0_tbl_043f4:
         dw      EP_FAR_514B4_OFF, C2_SEG
         dw      EP_FAR_514B8_OFF, C2_SEG
         dw      EP_FAR_514BC_OFF, C2_SEG
-        elseif  FW_VERSION >= 110
-        dw      EP_FAR_51488_OFF, C2_SEG
-        dw      EP_FAR_5148C_OFF, C2_SEG
-        dw      EP_FAR_5149A_OFF, C2_SEG
-        dw      EP_FAR_514A8_OFF, C2_SEG
-        dw      EP_FAR_514B4_OFF, C2_SEG
-        dw      EP_FAR_514B8_OFF, C2_SEG
-        dw      EP_FAR_514BC_OFF, C2_SEG
-        else
-        dw      EP_FAR_51488_OFF, C2_SEG
-        dw      EP_FAR_5148C_OFF, C2_SEG
-        dw      EP_FAR_5149A_OFF, C2_SEG
-        dw      EP_FAR_514A8_OFF, C2_SEG
-        dw      EP_FAR_514B4_OFF, C2_SEG
-        dw      EP_FAR_514B8_OFF, C2_SEG
-        dw      EP_FAR_514BC_OFF, C2_SEG
-        endif
         dw      EP_FAR_5240A_OFF, EP_FAR_5240A_SEG
         dw      EP_FAR_52418_OFF, EP_FAR_52418_SEG
 TBL_WINKEYS_MIXER:
@@ -8355,11 +8241,7 @@ TBL_WINKEYS_FX_FMOD_AUTOPAN:
         WIN_KEY   WIN_K_F2, EP_FX_FMOD_AUTOPAN_F2_SEG, EP_FX_FMOD_AUTOPAN_F2_OFF
         WIN_KEY   WIN_K_F3, EP_FX_FMOD_AUTOPAN_F3_SEG, EP_FX_FMOD_AUTOPAN_F3_OFF
         WIN_KEY   WIN_K_F4, EP_COPY_PGM_REFRESH_SEG, EP_COPY_PGM_REFRESH_OFF
-        if      FW_VERSION >= 112
         WIN_KEY   WIN_K_F5, C2_SEG, EP_FX_FMOD_AUTOPAN_F5_OFF
-        else
-        WIN_KEY   WIN_K_F5, C2_SEG, EP_FX_FMOD_AUTOPAN_F5_OFF
-        endif
         WIN_KEY   WIN_K_PAINT, EP_FX_FMOD_AUTOPAN_PAINT_SEG, EP_FX_FMOD_AUTOPAN_PAINT_OFF
         WIN_KEY   WIN_K_OPEN, EP_COPY_PGM_REFRESH_SEG, EP_COPY_PGM_REFRESH_OFF
         WIN_KEY   WIN_K_REFRESH, EP_FX_EDIT_REFRESH_SEG, EP_FX_EDIT_REFRESH_OFF
@@ -8551,11 +8433,7 @@ TBL_FIELDS_52D0:                        ; 11 x FIELD_SIZE; the part of the array
         db      0c1h, 0bh, 0ch, 02h, 01h, 00h, 00h, 00h, 00h, 00h, 63h, 00h, 00h, 00h ; [1] x,y,class,digits  STORE  MIN  MAX
         dw      EP_FX_DELAY_FIELD1_THUNK_OFF, EP_FX_DELAY_FIELD1_THUNK_SEG ; THUNK  PREV  NEXT
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 112
         dw      EP_FX_DELAY_FIELD2_THUNK_OFF, C2_SEG
-        else
-        dw      EP_FX_DELAY_FIELD2_THUNK_OFF, C2_SEG
-        endif
         dw      EP_FX_DELAY_FIELD0_THUNK_OFF, EP_FX_DELAY_FIELD0_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_FX_SECTION_FIELD_NOTIFY_OFF, EP_FX_SECTION_FIELD_NOTIFY_SEG
@@ -8631,11 +8509,7 @@ d_c2_w_05330:
         dw      EP_FX_DELAY_FIELD8_THUNK_OFF, C2_SEG
         endif
         db      00h, 00h, 00h, 00h
-        if      FW_VERSION >= 112
         dw      EP_FX_DELAY_FIELD9_THUNK_OFF, C2_SEG
-        else
-        dw      EP_FX_DELAY_FIELD9_THUNK_OFF, C2_SEG
-        endif
         dw      EP_FX_DELAY_FIELD5_THUNK_OFF, EP_FX_DELAY_FIELD5_THUNK_SEG ; +1Ah..+21h  NOTIFY  ENTER
         db      00h, 00h, 00h, 00h
         dw      EP_FX_SECTION_FIELD_NOTIFY_OFF, EP_FX_SECTION_FIELD_NOTIFY_SEG

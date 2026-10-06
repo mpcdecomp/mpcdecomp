@@ -659,13 +659,12 @@ tgt_0F951:
         mov     byte ptr ds:[bp+7], ch
         mov     byte ptr ds:[bp+8], cl
         shl     cx, 9
-        if      FW_VERSION >= 114
         mov     word ptr [A1_W_0A868], cx
+        if      FW_VERSION >= 114
         call    fn_0FAA7
         ret
 L_0F98B:
         else
-        mov     word ptr [A1_W_0A868], cx
         db      0e8h, 46h, 00h
         db      0c3h
         endif
@@ -711,11 +710,10 @@ tgt_0F9BE:
         mov     byte ptr ds:[bp+7], ch
         mov     byte ptr ds:[bp+8], cl
         shl     cx, 9
-        if      FW_VERSION >= 114
         mov     word ptr [A1_W_0A868], cx
+        if      FW_VERSION >= 114
         call    fn_0FAA7
         else
-        mov     word ptr [A1_W_0A868], cx
         db      0e8h, 13h, 00h, 0c3h
 tgt_0FA2F:
         db      0e8h, 0dah, 00h

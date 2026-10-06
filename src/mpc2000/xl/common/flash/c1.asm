@@ -7567,11 +7567,7 @@ L_41C0C:
         rep movsb
         pop     ds
         push    C1_SEG
-        if      FW_VERSION >= 120
         push    EP_L_42B12_OFF
-        else
-        push    EP_L_42B12_OFF
-        endif
         lea     ax, [bp-0ah]
         push    ss
         push    ax
@@ -7746,11 +7742,7 @@ isr_423A0:
         db      90h
 isr_423A6:
         push    C1_SEG
-        if      FW_VERSION >= 120
         push    EP_MSG_DISK_ERRORS_OFF
-        else
-        push    EP_MSG_DISK_ERRORS_OFF
-        endif
         callf   EP_DISP_ALERT_WAIT_KEY_SEG:EP_DISP_ALERT_WAIT_KEY_OFF
         jmp     isr_423A0
         db      90h

@@ -11681,7 +11681,7 @@ draw_hline:
         push    bp
         mov     bp, sp
         push    word ptr [bp+0ah]
-        mov     ax, 0bh
+        mov     ax, WOP_RULE_0B
         mov     dx, word ptr [bp+6]
         mov     bx, word ptr [bp+8]
         call    disp_list_op_xyn
@@ -11691,7 +11691,7 @@ draw_vline:
         push    bp
         mov     bp, sp
         push    word ptr [bp+0ah]
-        mov     ax, 0eh
+        mov     ax, WOP_RULE_0E
         mov     dx, word ptr [bp+6]
         mov     bx, word ptr [bp+8]
         call    disp_list_op_xyn
@@ -11712,7 +11712,7 @@ draw_fill_rect:
         mov     bp, sp
         push    word ptr [bp+0ah]
         push    word ptr [bp+0ch]
-        mov     ax, 12h
+        mov     ax, WOP_OP4_12
         mov     dx, word ptr [bp+6]
         mov     bx, word ptr [bp+8]
         call    disp_list_op_xy2b
@@ -11735,7 +11735,7 @@ L_3780E                         equ     $+1
         endif
         push    word ptr [bp+0ah]
         push    word ptr [bp+0ch]
-        mov     ax, 13h
+        mov     ax, WOP_OP4_13
         mov     dx, word ptr [bp+6]
         mov     bx, word ptr [bp+8]
         call    disp_list_op_xy2b
@@ -11748,7 +11748,7 @@ FAR_38026_V107:
         mov     bp, sp
         push    word ptr [bp+0ah]
         push    0
-        mov     ax, 7
+        mov     ax, WOP_LABEL
         mov     dx, word ptr [bp+6]
         mov     bx, word ptr [bp+8]
         call    disp_list_op_xy2b
@@ -11761,7 +11761,7 @@ draw_softkey_label:
         push    word ptr [bp+0ah]
         push    word ptr [bp+8]
         push    word ptr [bp+6]
-        push    1ah
+        push    WOP_SOFTKEY
         call    disp_list_op_2b_str
         leave
         retf
@@ -11772,7 +11772,7 @@ disp_alert_wait_key:
         push    word ptr [bp+6]
         push    C1_SEG
         push    (C1_BASE+L_3EECC-C1_SEG*16)
-        mov     al, 23h
+        mov     al, WOP_MESSAGE
         call    disp_list_op_2str
         leave
         retf
@@ -11783,7 +11783,7 @@ disp_message_window:
         push    word ptr [bp+6]
         push    word ptr [bp+0ch]
         push    word ptr [bp+0ah]
-        mov     al, 18h
+        mov     al, WOP_PRINT
         call    disp_list_op_2str
         leave
         retf
@@ -11803,7 +11803,7 @@ draw_invert_box:
         dec     dx
         mov     bx, word ptr [bp+8]
         dec     bx
-        mov     ax, 12h
+        mov     ax, WOP_OP4_12
         call    disp_list_op_xy2b
         push    1
         callf   EP_DISP_SELECT_PLANE_SEG:EP_DISP_SELECT_PLANE_OFF

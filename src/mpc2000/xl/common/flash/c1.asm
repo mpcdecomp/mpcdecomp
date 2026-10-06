@@ -1342,7 +1342,7 @@ disp_select_plane:
         retf
 disp_clear_all:
         enter   2, 0
-        mov     byte ptr [bp-2], 1
+        mov     byte ptr [bp-2], WOP_CLEAR
         mov     byte ptr [bp-1], 0
         lea     ax, [bp-2]
         push    ss
@@ -1354,7 +1354,7 @@ disp_clear_all:
         retf
 disp_flush_now:
         enter   2, 0
-        mov     byte ptr [bp-2], 5
+        mov     byte ptr [bp-2], WOP_FLUSH
         mov     byte ptr [bp-1], 0
         lea     ax, [bp-2]
         push    ss
@@ -1366,7 +1366,7 @@ disp_flush_now:
         retf
 disp_request_flush:
         enter   2, 0
-        mov     byte ptr [bp-2], 6
+        mov     byte ptr [bp-2], WOP_SET_FLAG
         mov     byte ptr [bp-1], 0
         lea     ax, [bp-2]
         push    ss
@@ -1378,7 +1378,7 @@ disp_request_flush:
         retf
 draw_shadow_box:
         enter   0eh, 0
-        mov     byte ptr [bp-0eh], 11h
+        mov     byte ptr [bp-0eh], WOP_OP4_11
         mov     al, byte ptr [bp+6]
         mov     byte ptr [bp-0dh], al
         mov     cl, byte ptr [bp+8]
@@ -1387,13 +1387,13 @@ draw_shadow_box:
         mov     byte ptr [bp-0bh], dl
         mov     bl, byte ptr [bp+0ch]
         mov     byte ptr [bp-0ah], bl
-        mov     byte ptr [bp-9], 0bh
+        mov     byte ptr [bp-9], WOP_RULE_0B
         inc     al
         mov     byte ptr [bp-8], al
         add     bl, cl
         mov     byte ptr [bp-7], bl
         mov     byte ptr [bp-6], dl
-        mov     byte ptr [bp-5], 0eh
+        mov     byte ptr [bp-5], WOP_RULE_0E
         add     dl, byte ptr [bp+6]
         mov     byte ptr [bp-4], dl
         inc     cl
@@ -1469,7 +1469,7 @@ L_3EA6A:
         retf
 draw_bitmap_ptr:
         enter   8, 0
-        mov     byte ptr [bp-8], 26h
+        mov     byte ptr [bp-8], WOP_SUBLIST
         mov     al, byte ptr [bp+6]
         mov     byte ptr [bp-7], al
         mov     al, byte ptr [bp+8]
@@ -1489,7 +1489,7 @@ draw_bitmap_ptr:
         retf
 draw_string_at:
         enter   8, 0
-        mov     byte ptr [bp-8], 1eh
+        mov     byte ptr [bp-8], WOP_TEXT_FAR
         mov     al, byte ptr [bp+6]
         mov     byte ptr [bp-7], al
         mov     al, byte ptr [bp+8]
@@ -1509,7 +1509,7 @@ draw_string_at:
         retf
 draw_unsigned_value:
         enter   0ah, 0
-        mov     byte ptr [bp-0ah], 17h
+        mov     byte ptr [bp-0ah], WOP_NUMBER
         mov     al, byte ptr [bp+6]
         mov     byte ptr [bp-9], al
         mov     al, byte ptr [bp+8]
@@ -1657,7 +1657,7 @@ br_3EC89:
         retf
 cmd_dispatch_setup:
         enter   6, 0
-        mov     byte ptr [bp-6], 16h
+        mov     byte ptr [bp-6], WOP_HEX16
         mov     al, byte ptr [bp+6]
         mov     byte ptr [bp-5], al
         mov     al, byte ptr [bp+8]

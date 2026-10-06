@@ -19,6 +19,7 @@ FLASH_CTL_VPP   equ     001h
 FLASH_CTL_ENABLE equ    002h            ; board enable
 
 PORT_C2         equ     0C2h            ; written through G_PORT_C2_SHADOW
+PORT_C002       equ     0C002h          ; XL: byte port in the 0C000h block (ASIC_DMA_* is 0C030h up)
 
 ; ASIC register window, indexed access:
 ; `out ASIC_REG, ax` selects, `out ASIC_DATA, ax` writes.

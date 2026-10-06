@@ -3947,7 +3947,7 @@ far_4904A:
         pop     si
         retf
 far_49070:
-        mov     dx, 0c002h
+        mov     dx, PORT_C002
         in      al, dx
         and     al, 80h
         cmp     al, 1
@@ -3957,13 +3957,13 @@ far_49070:
         db      00h
 far_4907E:
         mov     ax, 7
-        mov     dx, 0c002h
+        mov     dx, PORT_C002
         out     dx, al
         nop
         push    cs
         call    EP_TIMER_LOOP_IO_OFF+C1_CSBASE
         mov     ax, 5
-        mov     dx, 0c002h
+        mov     dx, PORT_C002
         out     dx, al
         retf
 far_49092:

@@ -536,7 +536,7 @@ boot_set_segs:
         mov     dx, 0c004h
         mov     al, 4fh
         out     dx, al
-        mov     dx, 0c002h
+        mov     dx, PORT_C002
         mov     al, 35h
         out     dx, al
         mov     dx, 0c006h
@@ -1204,7 +1204,7 @@ br_00B4D:
         ret
 fn_00B62:
         push    dx
-        mov     dx, 0c002h
+        mov     dx, PORT_C002
         in      al, dx
         pop     dx
         test    al, 2

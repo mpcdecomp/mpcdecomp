@@ -10632,7 +10632,7 @@ br_43BD8:
         jne     br_43BFD
         push    EP_FS_OPEN_SEG
         push    EP_FAR_43C44_OFF
-        push    6
+        push    WIN_K_F5
         nop
         push    cs
         call    handler_install_one
@@ -15327,7 +15327,7 @@ load_sound_exists_rename:
         mov     ds, cx
         push    C1_SEG
         push    EP_L_46436_OFF
-        push    32h
+        push    WIN_K_PAINT
         nop
         push    cs
         call    handler_install_one
@@ -15345,7 +15345,7 @@ load_sound_exists_rename:
         add     sp, 8
         push    EP_LOAD_SOUND_EXISTS_REFRESH_SEG
         push    EP_LOAD_SOUND_EXISTS_REFRESH_OFF
-        push    34h
+        push    WIN_K_REFRESH
         nop
         push    cs
         call    handler_install_one
@@ -15986,7 +15986,7 @@ file_exists_f5:
         mov     byte ptr [C0_B_0D7F8], 0
         push    EP_DIV_SEG
         push    EP_L_3A7C4_OFF
-        push    32h
+        push    WIN_K_PAINT
         nop
         push    cs
         call    handler_install_one

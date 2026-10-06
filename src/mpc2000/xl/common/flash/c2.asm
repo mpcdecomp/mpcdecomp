@@ -5617,7 +5617,7 @@ L_49E84:
         add     sp, 8
         push    C1_SEG
         push    (C2_BASE+L_49D5C-C1_SEG*16)
-        push    37h
+        push    WIN_K_PAD
         nop
         push    cs
         call    EP_HANDLER_INSTALL_ONE_OFF+C1_CSBASE
@@ -14740,7 +14740,7 @@ far_4EF20:
         je      br_4EF4E
         push    EP_MIXER_F1_SEG
         push    EP_L_4EF66_OFF
-        push    7
+        push    WIN_K_F6
         callf   EP_HANDLER_INSTALL_ONE_SEG:EP_HANDLER_INSTALL_ONE_OFF
         add     sp, 6
 br_4EF4E:
@@ -14968,7 +14968,7 @@ L_4F140:
         add     sp, 8
         push    EP_FIELD_HANDLER_NOP_2_SEG
         push    EP_FIELD_HANDLER_NOP_2_OFF
-        push    37h
+        push    WIN_K_PAD
         callf   EP_HANDLER_INSTALL_ONE_SEG:EP_HANDLER_INSTALL_ONE_OFF
         add     sp, 6
         retf
@@ -18010,7 +18010,7 @@ auto_chromatic_field1_thunk:
         add     sp, 8
         push    EP_AUTO_CHROMATIC_PAD_SEG
         push    EP_AUTO_CHROMATIC_PAD_OFF
-        push    37h
+        push    WIN_K_PAD
         callf   EP_HANDLER_INSTALL_ONE_SEG:EP_HANDLER_INSTALL_ONE_OFF
         add     sp, 6
         retf
@@ -18025,7 +18025,7 @@ auto_chromatic_field2_thunk:
         add     sp, 8
         push    EP_AUTO_CHROMATIC_PAD_SEG
         push    EP_AUTO_CHROMATIC_PAD_OFF
-        push    37h
+        push    WIN_K_PAD
         callf   EP_HANDLER_INSTALL_ONE_SEG:EP_HANDLER_INSTALL_ONE_OFF
         add     sp, 6
         retf
@@ -18040,7 +18040,7 @@ auto_chromatic_field3_thunk:
         add     sp, 8
         push    EP_AUTO_CHROMATIC_PAD_SEG
         push    EP_AUTO_CHROMATIC_PAD_OFF
-        push    37h
+        push    WIN_K_PAD
         callf   EP_HANDLER_INSTALL_ONE_SEG:EP_HANDLER_INSTALL_ONE_OFF
         add     sp, 6
         retf

@@ -20139,7 +20139,7 @@ mixer_f6:
         mov     si, ax
         mov     al, byte ptr [C2_B_08D90]
         mov     es, dx
-        xor     byte ptr es:[si+1], al
+        xor     byte ptr es:[si+FXR_SECTIONS], al
         mov     al, byte ptr [C0_B_0D7C7]
         push    ax
         nop
@@ -21307,7 +21307,7 @@ br_52AB0:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         mov     byte ptr [C0_B_09606], al
 br_52ACF:
         mov     al, byte ptr [C0_B_09606]
@@ -21341,7 +21341,7 @@ far_52ADE:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         mov     byte ptr [C0_B_09606], al
         test    byte ptr [C0_B_09604], 2
         je      br_52B2A
@@ -23933,7 +23933,7 @@ L_54130:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         jmp     br_54169
         db      90h
 br_54154:
@@ -24173,7 +24173,7 @@ L_5435E:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         jmp     br_54397
         db      90h
 br_54382:
@@ -24219,7 +24219,7 @@ fx_reverb_field1_thunk:
         push    ax
         callf   EP_PGM_FX_REVERB_PTR_SEG:EP_PGM_FX_REVERB_PTR_OFF
         add     sp, 2
-        add     ax, 2
+        add     ax, FXR_PREDELAY
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_REVERB_CURSOR], 2ah
@@ -24268,7 +24268,7 @@ fx_reverb_field3_thunk:
         push    ax
         callf   EP_PGM_FX_REVERB_PTR_SEG:EP_PGM_FX_REVERB_PTR_OFF
         add     sp, 2
-        add     ax, 8
+        add     ax, FXR_DIFFUSE
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_FX_REVERB_CURSOR], 2ah
@@ -24973,7 +24973,7 @@ effect_mixer_paint:
         callf   EP_DISP_LIST_RUN_SEG:EP_DISP_LIST_RUN_OFF
         add     sp, 4
         mov     es, word ptr [bp-2]
-        mov     al, byte ptr es:[si+0bh]
+        mov     al, byte ptr es:[si+FXR_MIX_PAN]
         cbw
         push    ax
         push    1fh
@@ -24983,7 +24983,7 @@ effect_mixer_paint:
         add     sp, 6
         push    2
         mov     es, di
-        mov     al, byte ptr es:[si+0ah]
+        mov     al, byte ptr es:[si+FXR_MIX_LEVEL]
         sub     ah, ah
         push    0
         push    ax
@@ -25065,7 +25065,7 @@ effect_mixer_field0_thunk:
         push    ax
         callf   EP_PGM_FX_REVERB_PTR_SEG:EP_PGM_FX_REVERB_PTR_OFF
         add     sp, 2
-        add     ax, 0ah
+        add     ax, FXR_MIX_LEVEL
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_EFFECT_MIXER_CURSOR], 2ah
@@ -25087,7 +25087,7 @@ effect_mixer_field1_thunk:
         push    ax
         callf   EP_PGM_FX_REVERB_PTR_SEG:EP_PGM_FX_REVERB_PTR_OFF
         add     sp, 2
-        add     ax, 0bh
+        add     ax, FXR_MIX_PAN
         push    dx
         push    ax
         imul    ax, word ptr [C2_W_EFFECT_MIXER_CURSOR], 2ah
@@ -25119,7 +25119,7 @@ br_54BF0:
         add     sp, 2
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
 br_54C05:
         push    ax
         mov     al, byte ptr [C0_B_0D7C7]
@@ -26390,7 +26390,7 @@ smem_dma_channel_23:
         mov     sp, bp
         mov     bx, ax
         mov     es, dx
-        mov     al, byte ptr es:[bx+1]
+        mov     al, byte ptr es:[bx+FXR_SECTIONS]
         push    ax
         mov     al, byte ptr [bp+6]
         push    ax

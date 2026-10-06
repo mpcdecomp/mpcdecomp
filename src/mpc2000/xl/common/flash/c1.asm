@@ -2243,7 +2243,7 @@ br_3F1ED:
         mov     cx, 80h
         lea     di, [si+7deh]
         rep stosw
-        lea     ax, [si+61eh]
+        lea     ax, [si+PGM_MIX]
         push    es
         push    ax
         nop
@@ -2252,7 +2252,7 @@ br_3F1ED:
         add     sp, 4
         mov     ax, si
         mov     dx, word ptr [bp-8]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         nop
@@ -2261,7 +2261,7 @@ br_3F1ED:
         add     sp, 4
         mov     ax, si
         mov     dx, word ptr [bp-8]
-        add     ax, 8deh
+        add     ax, PGM_FX_SECTIONS
         push    dx
         push    ax
         nop
@@ -2626,7 +2626,7 @@ br_3F49E:
         add     ax, ax
         add     ax, word ptr [bp-6]
         add     ax, word ptr [C2_FP_PGM_ARRAY]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         mov     word ptr [bp-4], ax
         mov     ax, word ptr [bp+0ch]
         mov     cx, ax
@@ -2635,7 +2635,7 @@ br_3F49E:
         add     ax, ax
         add     ax, word ptr [bp-8]
         add     ax, word ptr [C2_FP_PGM_ARRAY]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    ds
         mov     si, ax
         mov     ds, dx
@@ -2703,7 +2703,7 @@ br_3F5A2:
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
-        add     ax, 61eh
+        add     ax, PGM_MIX
         jmp     br_3F5C8
         db      90h
 br_3F5BE:
@@ -2741,7 +2741,7 @@ br_3F5F6:
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
-        add     ax, 61eh
+        add     ax, PGM_MIX
         jmp     br_3F61C
         db      90h
 br_3F612:
@@ -2842,7 +2842,7 @@ br_3F6CE:
         add     sp, 2
         imul    cx, si, 48h
         add     ax, cx
-        add     ax, 8deh
+        add     ax, PGM_FX_SECTIONS
         pop     si
         leave
         retf
@@ -2899,7 +2899,7 @@ br_3F74C:
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         mov     di, ax
         mov     word ptr [bp-2], dx
 loop_3F765:
@@ -2936,7 +2936,7 @@ br_3F7A2:
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         mov     di, ax
         mov     word ptr [bp-2], dx
 br_3F7B6:
@@ -2980,7 +2980,7 @@ br_3F803:
         push    ax
         callf   EP_IVT_GET_VECTOR_SEG:EP_IVT_GET_VECTOR_OFF
         add     sp, 2
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         mov     word ptr [bp-4], ax
         mov     word ptr [bp-2], dx
 br_3F815:
@@ -3018,7 +3018,7 @@ drum_program_select:
         mov     ax, word ptr [bp-0ch]
         mov     dx, word ptr [bp-8]
         mov     bx, word ptr [bp-6]
-        add     dx, 61eh
+        add     dx, PGM_MIX
         push    ds
         mov     di, ax
         mov     si, dx
@@ -3045,7 +3045,7 @@ br_3F884:
 br_3F8AA:
         mov     ax, word ptr [bp-8]
         mov     dx, word ptr [bp-6]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         mov     di, ax
         mov     word ptr [bp-2], dx
 br_3F8B8:
@@ -10081,7 +10081,7 @@ br_43724:
         push    4
         mov     ax, word ptr [bp-12h]
         mov     dx, word ptr [bp-10h]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    dx
         push    ax
         nop
@@ -10096,7 +10096,7 @@ br_43724:
         push    1
         mov     ax, word ptr [bp-12h]
         mov     dx, word ptr [bp-10h]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         nop
@@ -10341,7 +10341,7 @@ br_43956:
         push    word ptr [bp-1ah]
         mov     ax, word ptr [bp-16h]
         mov     dx, word ptr [bp-14h]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    dx
         push    ax
         nop
@@ -10375,7 +10375,7 @@ br_4399C:
         push    1
         mov     ax, word ptr [bp-16h]
         mov     dx, word ptr [bp-14h]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         nop
@@ -10422,7 +10422,7 @@ br_439E1:
         push    word ptr [bp-1ah]
         mov     ax, word ptr [bp-16h]
         mov     dx, word ptr [bp-14h]
-        add     ax, 8deh
+        add     ax, PGM_FX_SECTIONS
         push    dx
         push    ax
         nop
@@ -11361,7 +11361,7 @@ br_4421E:
         push    6
         mov     ax, word ptr [bp-14h]
         mov     dx, word ptr [bp-12h]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    dx
         push    ax
         nop
@@ -11394,7 +11394,7 @@ br_44263:
         push    1
         mov     ax, word ptr [bp-14h]
         mov     dx, word ptr [bp-12h]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         nop
@@ -11441,7 +11441,7 @@ br_442AD:
         push    48h
         mov     ax, word ptr [bp-14h]
         mov     dx, word ptr [bp-12h]
-        add     ax, 8deh
+        add     ax, PGM_FX_SECTIONS
         push    dx
         push    ax
         nop

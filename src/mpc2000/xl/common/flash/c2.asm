@@ -16082,7 +16082,7 @@ copy_note_paint:
         add     sp, 8
         mov     ax, word ptr [bp-10h]
         mov     dx, word ptr [bp-0eh]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         mov     al, byte ptr [C2_B_PAD_NOTE]
@@ -16152,7 +16152,7 @@ br_4FBB4:
         add     sp, 8
         mov     ax, word ptr [bp-16h]
         mov     dx, word ptr [bp-14h]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         mov     al, byte ptr [C2_W_098BA]
@@ -20659,7 +20659,7 @@ br_524BB:
         add     ax, cx
         add     ax, word ptr [C2_FP_PGM_ARRAY]
         mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
-        add     ax, 8deh
+        add     ax, PGM_FX_SECTIONS
         mov     word ptr [bp-0eh], ax
         mov     word ptr [bp-0ch], dx
         mov     al, byte ptr [C0_B_098B8]
@@ -20687,7 +20687,7 @@ br_524BB:
         add     cx, dx
         add     cx, word ptr [C2_FP_PGM_ARRAY]
         mov     dx, word ptr [C2_W_PGM_ARRAY_SEG]
-        add     cx, 8deh
+        add     cx, PGM_FX_SECTIONS
         mov     word ptr [bp-8], cx
         mov     word ptr [bp-6], dx
         mov     cx, ax

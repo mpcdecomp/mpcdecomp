@@ -14174,7 +14174,7 @@ br_3956C:
         push    4
         mov     ax, word ptr [bp-14h]
         mov     dx, word ptr [bp-12h]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    dx
         push    ax
         callf   EP_FS_READ_RESIZED_SEG:EP_FS_READ_RESIZED_OFF
@@ -14187,7 +14187,7 @@ br_3956C:
         push    1
         mov     ax, word ptr [bp-14h]
         mov     dx, word ptr [bp-12h]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         callf   EP_FS_READ_SEG:EP_FS_READ_OFF
@@ -14644,7 +14644,7 @@ br_3997C:
         push    4
         mov     ax, word ptr [bp-18h]
         mov     dx, word ptr [bp-16h]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    dx
         push    ax
         callf   EP_FS_READ_RESIZED_SEG:EP_FS_READ_RESIZED_OFF
@@ -14657,7 +14657,7 @@ br_3997C:
         push    1
         mov     ax, word ptr [bp-18h]
         mov     dx, word ptr [bp-16h]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         callf   EP_FS_READ_SEG:EP_FS_READ_OFF
@@ -14925,7 +14925,7 @@ br_39C42:
         push    4
         mov     ax, word ptr [bp-0ah]
         mov     dx, word ptr [bp-8]
-        add     ax, 61eh
+        add     ax, PGM_MIX
         push    dx
         push    ax
         callf   EP_FS_READ_RESIZED_SEG:EP_FS_READ_RESIZED_OFF
@@ -14938,7 +14938,7 @@ br_39C42:
         push    1
         mov     ax, word ptr [bp-0ah]
         mov     dx, word ptr [bp-8]
-        add     ax, 79eh
+        add     ax, PGM_PADMAP
         push    dx
         push    ax
         callf   EP_FS_READ_SEG:EP_FS_READ_OFF

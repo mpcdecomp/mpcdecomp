@@ -1066,7 +1066,7 @@ fn_235a:
         RUN_BR_22A3
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        cmp     bp, word ptr [W_91D6_V12A]
+        cmp     bp, word ptr [LAST_FIELD_PTR]
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         cmp     bp, word ptr [FIELD_PREVIOUS]
@@ -1076,7 +1076,7 @@ fn_235a:
         je      br_2368
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     bp, word ptr [W_91D6_V12A]
+        mov     bp, word ptr [LAST_FIELD_PTR]
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         mov     bp, word ptr [FIELD_PREVIOUS]
@@ -1102,7 +1102,7 @@ menu_selection_history:
         RUN_BR_2368
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        pop     word ptr [W_91D6_V12A]
+        pop     word ptr [LAST_FIELD_PTR]
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         pop     word ptr [FIELD_PREVIOUS]
@@ -1698,7 +1698,7 @@ br_276d:
 br_0ae1_s950:
         cmp     bp, P_0EE0
         jne     br_2776
-        call    fn_3efa_s950
+        call    fn_1832
         endif
         if      FW_VERSION = 210
         jne     br_2776
@@ -9856,8 +9856,8 @@ loop_241b_s950:
 
 disk_catalog_scan:
         mov     word ptr [W_95C8], ax
+        mov     word ptr [W_95AC], sp
         if      MODEL = 950
-        mov     word ptr [W_B4BC_S950], sp
         mov     al, 1
         out     8fh, al
         mov     al, byte ptr [B_B41C_S950]
@@ -9865,14 +9865,13 @@ disk_catalog_scan:
         and     al, 2
         or      al, 0a9h
         else
-        mov     word ptr [W_95AC], sp
         mov     al, 0bh
         endif
         out     8, al
         xchg    byte ptr [FLOPPY_CTRL], al
         and     al, 1
+        jne     br_0764
         if      MODEL = 950
-        jne     br_246e_s950
         mov     word ptr [W_95B0], 0dh
 loop_2459_s950:
         call    word ptr [IDLE_HOOK]
@@ -9883,7 +9882,7 @@ loop_2459_s950:
 br_2466_s950:
         test    word ptr [W_95B0], 8000h
         je      loop_2459_s950
-br_246e_s950:
+br_0764:
         cmp     byte ptr [B_0497], 0
         jne     br_2495_s950
         mov     cx, 0ah
@@ -9904,7 +9903,6 @@ br_2491_s950:
 br_2495_s950:
         call    br_0797
         else
-        jne     br_0764
         mov     word ptr [TIMER_TICKS], 0
 loop_075a:
         call    timer_poll
@@ -9978,11 +9976,7 @@ br_07b7:
 br_07bf:
         cmp     al, 57h
         jne     br_07c6
-        if      MODEL = 950
-        jmp     br_27c9_s950
-        else
         jmp     fn_08e1
-        endif
 br_07c6:
         cmp     al, 52h
         jne     br_07cd
@@ -10004,9 +9998,9 @@ br_07dd:
         int     3
         if      MODEL = 950
 
-fn_24e3_s950:
+fn_07de:
         mov     word ptr [W_95C8], ax
-        mov     word ptr [W_B4BC_S950], sp
+        mov     word ptr [W_95AC], sp
         push    ax
         call    fn_38af_s950
         pop     ax
@@ -10035,8 +10029,8 @@ br_251e_s950:
 
 fn_251f_s950:
         mov     byte ptr [B_02C2], 3
-loop_2524_s950:
-        call    fn_3ab5_s950
+loop_07e3:
+        call    fn_14b1
         mov     word ptr [W_95B0], 3fh
         mov     bx, 4
         call    fn_2706_s950
@@ -10172,11 +10166,7 @@ L_0887:
 br_0893:
         dec     byte ptr [B_02C2]
         je      br_089c
-        if      MODEL = 950
-        jmp     loop_2524_s950
-        else
         jmp     loop_07e3
-        endif
 br_089c:
         jmp     br_099e
         if      MODEL = 950
@@ -10440,7 +10430,7 @@ mode_disk:
         mov     word ptr [FIELD_RECENT], FLD_CLEAR_MEMORY_AND_LOAD
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [W_91D6_V12A], FLD_LOAD_PROGRM_NAME
+        mov     word ptr [LAST_FIELD_PTR], FLD_LOAD_PROGRM_NAME
         endif
         if      FW_VERSION >= 400
         call    fn_15fa
@@ -10493,7 +10483,7 @@ br_27a9_s950:
         add     ax, word ptr [W_95E4]
         mov     word ptr [B_02D2+2], ax
         jmp     br_38d3_s950
-br_27c9_s950:
+fn_08e1:
         test    byte ptr [B_95FD], 40h
         je      br_27d3_s950
         jmp     br_09c9
@@ -10503,7 +10493,7 @@ br_27d3_s950:
         mov     ax, MSG_CANT_DO_THIS
         jmp     error_restart
 br_27e0_s950:
-        call    fn_3ab5_s950
+        call    fn_14b1
         cmp     byte ptr [B_B4DD_S950], 53h
         jne     br_27ed_s950
         call    fn_2823_s950
@@ -10716,7 +10706,7 @@ br_099e:
         mov     byte ptr [B_02D2], al
 loop_09b3:
         if      MODEL = 950
-        mov     sp, word ptr [W_B4BC_S950]
+        mov     sp, word ptr [W_95AC]
         mov     al, 1
         out     8fh, al
         mov     al, 0
@@ -10755,9 +10745,9 @@ br_09cc:
 clear_memory_and_load:
         if      MODEL = 950
         call    sample_field
-        jne     br_28e3_s950
+        jne     br_09dd
         ret
-br_28e3_s950:
+br_09dd:
         mov     byte ptr [si], 20h
         cmp     al, 31h
         je      br_2965_s950
@@ -11489,19 +11479,16 @@ fn_0ce5:
         mov     bx, dx
         call    disk_catalog_find
         mov     dx, bx
-        if      MODEL = 950
-        je      br_2c9b_s950
-        mov     al, 53h
-        call    find_sample
-        jb      br_2c9b_s950
-        call    fn_1607
-br_2c9b_s950:
-        else
         je      br_0cf6
         mov     al, 53h
+        if      MODEL = 950
+        call    find_sample
+        jb      br_0cf6
+        call    fn_1607
+        else
         call    fn_1d30
-br_0cf6:
         endif
+br_0cf6:
         pop     bx
         ret
 
@@ -11610,7 +11597,7 @@ br_2d0b_s950:
         rep stosw
         pop     es
         mov     ax, 5744h
-        call    fn_24e3_s950
+        call    fn_07de
         mov     di, word ptr [W_05F6]
         mov     ax, word ptr [B_02D2+4]
         sub     ax, 4
@@ -11671,7 +11658,7 @@ br_2d7f_s950:
         call    fn_2bdf_s950
         call    fn_3f56_s950
         mov     ax, 5744h
-        call    fn_24e3_s950
+        call    fn_07de
         call    fn_2327_s950
         and     ax, ax
         jne     br_2dd8_s950
@@ -11729,7 +11716,7 @@ fn_2e18_s950:
 fn_2e2b_s950:
         call    fn_231b_s950
         mov     ax, 3f46h
-        call    fn_24e3_s950
+        call    fn_07de
         jmp     fn_376c_s950
 
 L_2e37_s950:
@@ -11759,7 +11746,7 @@ br_2e4f_s950:
         call    fn_3659_s950
 br_2e6b_s950:
         mov     ax, 5744h
-        call    fn_24e3_s950
+        call    fn_07de
 br_2e71_s950:
         jmp     br_0ab8
 
@@ -11839,7 +11826,7 @@ br_0d9b:
 P_0DA1:
         ret
 br_0da2:
-        call    fn_379d_s950
+        call    fn_13b1
         test    byte ptr [B_95FD], 40h
         else
         ret
@@ -11876,29 +11863,24 @@ loop_0db8:
         sub     al, byte ptr [P_029E+4]
 br_2f19_s950:
         mov     byte ptr [B_B466_S950], al
-        call    fn_2f36_s950
         else
         add     bl, 3
         cmp     bl, 6
         jb      br_0dce
         mov     bl, 1
 br_0dce:
-        call    fn_0de8
         endif
+        call    fn_0de8
         mov     byte ptr [B_02B7], 4
         call    fn_1492
-        if      MODEL = 950
-        call    fn_2f36_s950
-        else
         call    fn_0de8
-        endif
         inc     byte ptr [B_02B8]
         cmp     byte ptr [B_02B8], 50h
         jne     loop_0db8
         ret
         if      MODEL = 950
 
-fn_2f36_s950:
+fn_0de8:
         push    es
         les     di, [FP_1E7C_S950]
         mov     ch, 0
@@ -12126,8 +12108,8 @@ br_3044_s950:
 L_0e95:
         mov     si, word ptr [W_95EC]
         shl     si, 1
-        if      MODEL = 950
         mov     ax, word ptr [si+TBL_8EFE]
+        if      MODEL = 950
         mov     word ptr [W_95EA], ax
         mov     word ptr [W_95EC], ax
         mov     ax, word ptr [W_1E76_S950]
@@ -12160,7 +12142,7 @@ loop_3092_s950:
         push    bp
 
 L_30ac_s950:
-        call    fn_24e3_s950
+        call    fn_07de
         pop     bp
         in      ax, 84h
         cmp     ax, 6610h
@@ -12172,7 +12154,6 @@ br_30bb_s950:
         mov     ax, word ptr [W_95EA]
         mov     word ptr [B_02D2+4], ax
         else
-        mov     ax, word ptr [si+TBL_8EFE]
         endif
         if      MODEL = 900
 
@@ -12692,8 +12673,8 @@ loop_1197:
         call    fn_0ab5
         mov     ax, ERR_MEMORY_SPACE_FOR_PROGRAMS
         jmp     error_restart
+loop_11a0:
         if      MODEL = 950
-loop_3349_s950:
         mov     ax, word ptr [W_95EE]
         add     word ptr [FP_02CE], ax
         sub     word ptr [W_95BE], ax
@@ -12707,7 +12688,7 @@ br_335a_s950:
 fn_3364_s950:
         call    word ptr [W_1E6A_S950]
         test    byte ptr [B_B4F9_S950], 80h
-        je      loop_3349_s950
+        je      loop_11a0
         clc
         ret
 L_0641:
@@ -12740,7 +12721,6 @@ fn_33a6_s950:
         call    find_free_slot
         push    bx
         else
-loop_11a0:
         add     word ptr [FP_02CE], 400h
         mov     word ptr [W_7CD4], 400h
         mov     ax, 4452h
@@ -13051,11 +13031,7 @@ br_12cf:
         endif
         div     cx
         cmp     word ptr [W_95C4], ax
-        if      FW_VERSION < 400
-        jae     br_2bfa_os21
-        else
         jae     br_12e9
-        endif
 br_12e0:
         mov     ax, 5744h
         if      MODEL = 950
@@ -13071,12 +13047,11 @@ br_359f_s950:
         call    disk_catalog_scan
         endif
         jmp     loop_06ff
+br_12e9:
         if      FW_VERSION < 400
-br_2bfa_os21:
         dec     byte ptr [B_95C6]
         sub     word ptr [W_95C4], ax
         else
-br_12e9:
         sub     word ptr [W_95C4], ax
 br_12ed:
         dec     byte ptr [B_95C6]
@@ -13152,7 +13127,7 @@ loop_35f9_s950:
         ret
         if      MODEL = 950
 
-L_35fe_s950:
+fn_1335:
         mov     cx, word ptr [B_02D2+4]
         push    ds
         lds     si, [FP_1E7C_S950+8]
@@ -13357,20 +13332,17 @@ disk_menu_action_guard:
         if      MODEL = 950
         pusha
         call    fn_2e74_s950
-        jne     br_378d_s950
-        call    fn_379d_s950
-        cmp     byte ptr [B_02D2], 0
-        je      br_378d_s950
+        jne     br_13a1
+        call    fn_13b1
         else
+        endif
         cmp     byte ptr [B_02D2], 0
         je      br_13a1
-        endif
         mov     ax, ERR_DISK_UNPREPARED_YOU_MUST
         jmp     error_restart
-        if      MODEL = 950
-br_378d_s950:
-        else
 br_13a1:
+        if      MODEL = 950
+        else
         pusha
         endif
         if      (MODEL = 900) && (FW_VERSION < 400)
@@ -13400,7 +13372,7 @@ L_13ac:
         ret
         if      MODEL = 950
 
-fn_379d_s950:
+fn_13b1:
         push    word ptr [B_B41C_S950]
         mov     byte ptr [B_B41C_S950], 0
         mov     word ptr [P_02BC+4], 0ad2h
@@ -13523,7 +13495,7 @@ fn_13ee:
 br_13f7:
         call    fn_06c8
         if      MODEL = 950
-        jmp     br_27c9_s950
+        jmp     fn_08e1
 br_3892_s950:
         call    fn_36c8_s950
         call    fn_27a6_s950
@@ -13807,11 +13779,10 @@ loop_1450:
 br_1478:
         pop     si
         ret
+loop_147a:
         if      MODEL = 950
-loop_3a7f_s950:
         mov     byte ptr [B_02C3], 0ah
         else
-loop_147a:
         mov     byte ptr [B_02C3], 3
         endif
 loop_147f:
@@ -13847,7 +13818,7 @@ br_14a8:
         jmp     br_099e
         if      MODEL = 950
 
-fn_3ab5_s950:
+fn_14b1:
         mov     ax, word ptr [W_95EA]
         mov     cx, word ptr [W_B4BE_S950]
         div     cl
@@ -13865,11 +13836,7 @@ fn_14b1:
         mov     byte ptr [B_02AB], al
         mov     byte ptr [B_02AC], ch
         mov     byte ptr [B_02AD], ah
-        if      MODEL = 950
-        jmp     loop_3a7f_s950
-        else
         jmp     loop_147a
-        endif
 
 disk_fill:
         cmp     byte ptr [B_95BC], 0
@@ -13885,7 +13852,7 @@ br_14c9:
         push    word ptr [W_9582]
         mov     byte ptr [W_9582], 63h
         if      MODEL = 950
-        call    fn_3efa_s950
+        call    fn_1832
         endif
         mov     ax, P_0EDC
         cmp     byte ptr [B_02D2], 0ffh
@@ -14294,8 +14261,8 @@ L_16a2:
         call    fn_0e5c
         mov     di, word ptr [W_95EC]
         shl     di, 1
-        if      MODEL = 950
         mov     word ptr [di+TBL_8EFE], dx
+        if      MODEL = 950
         ret
 
 L_3d34_s950:
@@ -14306,7 +14273,6 @@ L_3d34_s950:
         jmp     br_3d8b_s950
         db      90h
         else
-        mov     word ptr [di+TBL_8EFE], dx
         endif
         if      MODEL = 900
 
@@ -14316,12 +14282,11 @@ br_16b4:
         mov     ax, word ptr [W_95EE]
         mov     dx, word ptr [W_95BE]
         cmp     ax, dx
-        if      MODEL = 950
-        jae     fn_3d74_s950
-        xchg    dx, ax
-        call    fn_3d74_s950
-        else
         jae     br_16ea
+        if      MODEL = 950
+        xchg    dx, ax
+        call    br_16ea
+        else
         mov     word ptr [W_7CD4], ax
         xchg    dx, ax
         call    fn_16f7
@@ -14345,7 +14310,7 @@ br_16b4:
         call    word ptr [W_1E72_S950]
         jmp     br_16b4
 
-fn_3d74_s950:
+br_16ea:
         call    word ptr [W_1E74_S950]
         call    fn_231b_s950
         mov     word ptr [W_7CD4], dx
@@ -14458,7 +14423,7 @@ br_3dfa_s950:
         mov     ax, word ptr [bx+38h]
         endif
         if      (MODEL = 900) && (FW_VERSION < 400)
-        mov     word ptr [W_9FA4_OS21], ax
+        mov     word ptr [W_95D0], ax
         endif
         if      FW_VERSION >= 400
         mov     word ptr [W_95D0], ax
@@ -14542,11 +14507,7 @@ br_17ea:
 br_17ef:
         mov     di, word ptr [W_95D8]
         add     word ptr [W_95CE], dx
-        if      (MODEL = 900) && (FW_VERSION < 400)
-        adc     word ptr [W_9FA4_OS21], bp
-        else
         adc     word ptr [W_95D0], bp
-        endif
         pop     ax
         mov     word ptr [W_95D6], ax
         cmp     word ptr [W_95DA], bp
@@ -14569,7 +14530,7 @@ br_1828:
         jmp     br_1798
         if      MODEL = 950
 
-fn_3efa_s950:
+fn_1832:
         mov     word ptr [SCR_VOLUME+23h], 2056h
         pusha
         mov     si, 1f10h
@@ -14667,21 +14628,16 @@ loop_1859:
         mov     cx, 1
         call    fdc_read_result
         test    al, 20h
-        if      MODEL = 950
-        je      br_3f9e_s950
-        else
         je      br_186d
-        endif
         mov     byte ptr [B_95FD], al
         ret
+br_186d:
         if      MODEL = 950
-br_3f9e_s950:
         call    word ptr [IDLE_HOOK]
         test    word ptr [W_95B0], 8000h
         je      loop_1859
         jmp     loop_09bd
         else
-br_186d:
         call    fn_1715
         jmp     loop_1859
 
@@ -15212,17 +15168,12 @@ fn_334f:
         endif
 loop_3355:
         test    byte ptr [bp+7], 4
-        if      MODEL = 950
-        je      br_4483_s950
-        else
         je      br_3378
-        endif
         mov     al, byte ptr [bp+7]
         and     al, 30h
         or      al, 9
         mov     byte ptr [bp+7], al
         if      MODEL = 950
-br_4483_s950:
         else
         mov     al, byte ptr [bp+6]
         test    al, 8
@@ -15234,8 +15185,8 @@ br_3371:
 br_3373:
         and     al, 0f7h
         mov     byte ptr [bp+6], al
-br_3378:
         endif
+br_3378:
         add     bp, 0ah
         loop    loop_3355
         ret
@@ -16256,11 +16207,7 @@ br_3603:
         mov     byte ptr [si], 2
         mov     byte ptr [si+7], 75h
         call    fn_2466
-        if      MODEL = 950
-        jb      br_4bce_s950
-        else
         jb      loop_35f0
-        endif
         mov     word ptr [si+8], bp
         xor     ax, ax
         cmp     ax, di
@@ -16275,12 +16222,10 @@ br_3630:
         dec     di
         mov     word ptr [si+2], di
         call    fn_2466
-        if      MODEL = 950
-        jb      br_4bce_s950
-        mov     word ptr [si+8], bp
-        else
         jb      loop_35f0
         mov     word ptr [si+8], bp
+        if      MODEL = 950
+        else
         dec     byte ptr [B_2F78]
         je      br_3664
         mov     di, word ptr [W_95B4]
@@ -16299,7 +16244,7 @@ br_3664:
         mov     byte ptr [bp], 4
         mov     byte ptr [bp+7], 65h
         if      MODEL = 950
-br_4bce_s950:
+loop_35f0:
         else
         clc
         endif
@@ -16486,7 +16431,7 @@ fn_379b:
         mov     word ptr [W_2F8A], 0
         mov     word ptr [FIELD_RECENT], FLD_REC_SAMPLE_NAME
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [W_91D6_V12A], FLD_REC_START_WITH
+        mov     word ptr [LAST_FIELD_PTR], FLD_REC_START_WITH
         else
         mov     word ptr [LAST_FIELD_PTR], REC_LAST_FIELD
         mov     ax, word ptr [REC_LAST_FIELD]
@@ -16685,13 +16630,11 @@ br_38cb:
         mov     si, MSG_RECORDING
         mov     dx, 1
         call    lcd_print
-        if      MODEL = 950
         mov     ax, word ptr [FLD_REC_TIME+9]
         xor     dx, dx
+        if      MODEL = 950
         mov     cx, 18h
         else
-        mov     ax, word ptr [FLD_REC_TIME+9]
-        xor     dx, dx
         mov     cx, 0f0h
         endif
         div     cx
@@ -16748,11 +16691,7 @@ loop_3933:
         endif
 loop_394e:
         test    byte ptr [bp], 4
-        if      (MODEL = 900) && (FW_VERSION < 210)
-        jne     br_460b_v12a
-        else
         jne     br_396a
-        endif
         mov     bp, word ptr [bp+8]
         mov     al, 4
         out     81h, al
@@ -16762,13 +16701,12 @@ loop_394e:
         mov     al, 0dh
         out     8fh, al
         jmp     record_sample
+br_396a:
         if      (MODEL = 900) && (FW_VERSION < 210)
-br_460b_v12a:
         cmp     byte ptr [B_2F79], 0
         je      br_39c0
         mov     bx, word ptr [W_2F8A]
         else
-br_396a:
         mov     bx, word ptr [W_2F8A]
         mov     ax, word ptr [W_2F84]
         mov     cx, word ptr [W_2F86]
@@ -17679,7 +17617,7 @@ mode_edit_program:
         mov     word ptr [FIELD_RECENT], FLD_SELECT_COPY_PROGRAM
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [W_91D6_V12A], FLD_SELECT
+        mov     word ptr [LAST_FIELD_PTR], FLD_SELECT
         endif
         if      FW_VERSION >= 210
         mov     word ptr [FIELD_RECENT], P_514B
@@ -19143,9 +19081,6 @@ set_keygroup_output:
         dec     ax
         mov     di, 13h
         jmp     br_5861
-        if      MODEL = 950
-
-        endif
         if      (MODEL = 900) && (FW_VERSION < 210)
 
 L_56bd_v12a:
@@ -19436,7 +19371,7 @@ mode_edit_sample:
         mov     word ptr [FIELD_RECENT], FLD_SELECT_COPY_SAMPLE
         endif
         if      (MODEL = 900) && (FW_VERSION < 210)
-        mov     word ptr [W_91D6_V12A], FLD_REPLAY_MODE_ONE_SHOT
+        mov     word ptr [LAST_FIELD_PTR], FLD_REPLAY_MODE_ONE_SHOT
         endif
         if      (FW_VERSION = 210) || (MODEL = 950)
         mov     word ptr [LAST_FIELD_PTR], SAMPLE_LAST_FIELD
@@ -22431,23 +22366,23 @@ B_3BC1:
         RUN_FLD_BASIC_MIDI_CHANNEL
         jmp     loop_1d2a
         RUN_SET_MIDI_TEST_VELOCITY
-        mov     word ptr [W_91D6_V12A], FLD_CHANNEL
+        mov     word ptr [LAST_FIELD_PTR], FLD_CHANNEL
         RUN_L_4271
         cmp     word ptr [FIELD_LIST], P_0A5C
         RUN_LOOP_42CE
-        mov     word ptr [W_91D6_V12A], FLD_MASTER_TUNING
+        mov     word ptr [LAST_FIELD_PTR], FLD_MASTER_TUNING
         RUN_SET_MASTER_TUNING
         dw      FLD_MASTER_TUNING
         db      8 dup (0)
         RUN_FLD_MASTER_TUNING
-        mov     word ptr [W_91D6_V12A], FLD_DRUM_INPUT_GAIN_INPUT
+        mov     word ptr [LAST_FIELD_PTR], FLD_DRUM_INPUT_GAIN_INPUT
         mov     ax, P_43E8
         mov     word ptr [IDLE_HOOK], idle_tasks_drums
         jmp     loop_2223
 br_43cd:
         mov     word ptr [MODE_FILL], L_43e5
         mov     word ptr [FIELD_RECENT], P_4772
-        mov     word ptr [W_91D6_V12A], P_4772
+        mov     word ptr [LAST_FIELD_PTR], P_4772
         mov     ax, P_476E
         jmp     menu_navigation_loop
 
@@ -25454,7 +25389,7 @@ FIELD_RECENT equ     $+10b4h
 FIELD_PREVIOUS equ     $+10b6h
 MIDI_RUNNING_CHANNEL equ     $+10b8h
 W_95AA  equ     $+10bah
-W_B4BC_S950 equ     $+10bch
+W_95AC equ     $+10bch
 W_B4BE_S950 equ     $+10beh
 MODE_SP equ     $+10c0h
 W_95B0  equ     $+10c2h

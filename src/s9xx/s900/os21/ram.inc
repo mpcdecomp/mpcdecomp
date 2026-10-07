@@ -88,7 +88,7 @@ W_95C8                          equ     9f9ch
 W_95CA                          equ     9f9eh
 B_95CC                          equ     9fa0h
 W_95CE                          equ     9fa2h
-W_9FA4_OS21                     equ     9fa4h
+W_95D0                     equ     9fa4h
 FP_95D2                         equ     9fa6h
 W_95D6                          equ     9faah
 W_95D8                          equ     9fach

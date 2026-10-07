@@ -50,7 +50,7 @@ W_959E                          equ     91ceh
 FIELD_LIST                      equ     91d0h
 MODE_FILL                       equ     91d2h
 FIELD_RECENT                    equ     91d4h
-W_91D6_V12A                     equ     91d6h
+LAST_FIELD_PTR                     equ     91d6h
 MIDI_RUNNING_CHANNEL            equ     91d8h
 W_95AA                          equ     91dah
 W_95AC                          equ     91dch
@@ -70,7 +70,7 @@ W_95C8                          equ     91f8h
 W_95CA                          equ     91fah
 B_95CC                          equ     91fch
 W_95CE                          equ     91feh
-W_9FA4_OS21                     equ     9200h
+W_95D0                     equ     9200h
 FP_95D2                         equ     9202h
 W_95D6                          equ     9206h
 W_95D8                          equ     9208h

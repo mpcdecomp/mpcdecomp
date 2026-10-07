@@ -12153,7 +12153,6 @@ br_30bb_s950:
         jae     loop_3092_s950
         mov     ax, word ptr [W_95EA]
         mov     word ptr [B_02D2+4], ax
-        else
         endif
         if      MODEL = 900
 
@@ -13334,7 +13333,6 @@ disk_menu_action_guard:
         call    fn_2e74_s950
         jne     br_13a1
         call    fn_13b1
-        else
         endif
         cmp     byte ptr [B_02D2], 0
         je      br_13a1
@@ -14272,7 +14270,6 @@ L_3d34_s950:
         add     di, di
         jmp     br_3d8b_s950
         db      90h
-        else
         endif
         if      MODEL = 900
 

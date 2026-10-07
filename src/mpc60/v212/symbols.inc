@@ -675,6 +675,8 @@ STR_4A82                 equ     L_4A74+0eh
 TBL_017D                 equ     L_017D
 TBL_01BF                 equ     L_01BD+2
 TBL_01C3                 equ     L_01BD+6
+TBL_4CC8_V112                   equ     L_022D+0bh
+TBL_4CC9_V112                   equ     239h
 TBL_032B                 equ     32bh
 TBL_0A80                 equ     0a80h
 TBL_0BC4                 equ     L_0BBE+6

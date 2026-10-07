@@ -640,7 +640,7 @@ br_e0537:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3720
+        mov     ax, STR_CONVERTING_TO_SPECIAL
         else
         mov     ax, 3cd4h
         endif
@@ -767,7 +767,7 @@ L_d684f:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_37E4
+        mov     ax, STR_CONVERTING_TO_LINEAR_2
         else
         mov     ax, 3cfch
         endif
@@ -836,7 +836,7 @@ L_d68db:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_380A
+        mov     ax, STR_SENDING_SAMPLE_DATA_OVER_2
         else
         mov     ax, 3d22h
         endif
@@ -1308,7 +1308,7 @@ br_e0ff5:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_379C
+        mov     ax, STR_RECEIVING_MIDI_SAMPLE_2
         else
         mov     ax, 3d46h
         endif
@@ -1717,7 +1717,7 @@ br_e1212:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_37BC
+        mov     ax, STR_CONVERTING_TO_SPECIAL_2
         else
         mov     ax, 3d66h
         endif
@@ -2589,7 +2589,7 @@ br_d4bb2:
         push    word ptr [W_9B98]
         push    word ptr [W_9B96]
         if      FW_VERSION < 212
-        callf   0e960h:far_f25a0
+        callf   SEG_F257:far_f25a0
         add     sp, 6
         mov     al, 0ffh
         mov     byte ptr [B_52E3_V112], 0ffh
@@ -2827,7 +2827,6 @@ tgt_d4ce5:
         if      FW_VERSION < 212
         xor     ax, ax
         push    ax
-        else
         endif
         mov     al, byte ptr [B_9D34]
         cbw
@@ -2843,11 +2842,7 @@ tgt_d4ce5:
         mov     byte ptr [B_9D35], 0ffh
 br_d4d07:
         push    word ptr [W_53D3]
-        if      FW_VERSION < 212
-        callf   0e2f9h:far_e874a
-        else
         callf   SEG_E874:far_e874a
-        endif
         add     sp, 2
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -2859,24 +2854,18 @@ br_d4d07:
         push    word ptr [bp - 2]
         callf   0d473h:far_d3a45
         add     sp, 4
-        push    ax
-        callf   0da07h:far_d7a3c
         else
         push    ax
         push    word ptr [bp - 2]
         callf   SEG_D391:far_d3a45
         add     sp, 6
+        endif
         push    ax
         callf   SEG_D799:far_d7a3c
-        endif
         add     sp, 4
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
         mov     al, byte ptr [B_54F7]
         mov     byte ptr [bp + 6], al
@@ -2920,29 +2909,17 @@ br_d4d8a:
         jz      br_d4d9f
         mov     ax, 1
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
         jmp     br_d4dba
 br_d4d9f:
         push    word ptr [W_94D2]
         push    word ptr [W_94D0]
-        if      FW_VERSION < 212
-        callf   0da07h:far_d7994
-        else
         callf   SEG_D799:far_d7994
-        endif
         add     sp, 4
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
 br_d4dba:
         cmp     byte ptr [B_53DB], 47h
@@ -2987,7 +2964,7 @@ br_d4e09:
         jmp     tgt_d536b
 tgt_d4e10:
         if      FW_VERSION < 212
-        callf   0e466h:far_ec31a
+        callf   SEG_EDDC:far_ec31a
         cmp     byte ptr [B_53DB], 53h
         jnz     L_d747e
         jmp     tgt_d536b
@@ -3015,7 +2992,7 @@ L_d4e2b:
         jmp     tgt_d536b
 tgt_d4e34:
         if      FW_VERSION < 212
-        callf   0e466h:far_ec31a
+        callf   SEG_EDDC:far_ec31a
         else
         callf   SEG_EDDC:far_eddc3
         endif
@@ -3023,25 +3000,17 @@ tgt_d4e34:
         xor     cx, cx
         cmp     ax, cx
         jg      br_d4e54
-        if      FW_VERSION < 212
-        callf   0e4c9h:far_e8e0c
-        else
         callf   SEG_E8E0:far_e8e0c
-        endif
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
 br_d4e54:
         mov     byte ptr [bp + 6], 0
         jmp     tgt_d536b
 tgt_d4e5b:
         if      FW_VERSION < 212
-        callf   0e466h:far_ec31a
+        callf   SEG_EDDC:far_ec31a
         else
         callf   SEG_EDDC:far_eddc3
         endif
@@ -3049,18 +3018,14 @@ tgt_d4e5b:
         jmp     tgt_d536b
 tgt_d4e67:
         if      FW_VERSION < 212
-        callf   0e466h:far_ec31a
+        callf   SEG_EDDC:far_ec31a
         else
         callf   SEG_EDDC:far_eddc3
         endif
         callf   SEG_D4CD:far_d546e
         test    ax, ax
         jz      br_d4e81
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7939
-        else
         callf   SEG_D793:far_d7939
-        endif
         mov     byte ptr [bp + 6], 0
         jmp     tgt_d536b
 br_d4e81:
@@ -3076,11 +3041,7 @@ br_d4e99:
         jmp     br_d4eac
 br_d4e9b:
         or      byte ptr [B_8D78], 4
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7939
-        else
         callf   SEG_D793:far_d7939
-        endif
         mov     byte ptr [bp + 6], 0
         jmp     tgt_d536b
 br_d4eac:
@@ -3100,11 +3061,7 @@ br_d4eac:
         callf   SEG_D78A:far_d78a2
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
 br_d4ed8:
         cmp     byte ptr [B_A06E], 0
@@ -3204,11 +3161,7 @@ br_d4f7f:
         endif
         push    dx
         push    ax
-        if      FW_VERSION < 212
-        callf   0e307h:far_e8820
-        else
         callf   SEG_E882:far_e8820
-        endif
         add     sp, 6
         test    ax, ax
         jz      br_d4f9f
@@ -3261,11 +3214,7 @@ br_d4fe7:
         callf   SEG_D4CD:far_d5373
         add     sp, 4
 br_d4ff5:
-        if      FW_VERSION < 212
-        callf   0da1eh:far_d7001
-        else
         callf   SEG_D6EE:far_d7001
-        endif
         mov     bx, word ptr [W_53C3]
         mov     cx, word ptr [W_53C1]
         sub     cx, ax
@@ -3340,7 +3289,7 @@ br_d5064:
 br_d506d:
         inc     byte ptr [B_8CCB]
         if      FW_VERSION < 212
-        callf   0e466h:far_ec31a
+        callf   SEG_EDDC:far_ec31a
         else
         callf   SEG_EDDC:far_eddc3
         endif
@@ -3570,15 +3519,12 @@ br_d527d:
 br_d5299:
         cmp     byte ptr [B_7E11], 0
         jz      br_d52aa
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7939
-        mov     byte ptr [B_7E5D], 1
-br_d52aa:
-        callf   0e466h:far_ec31a
-        else
         callf   SEG_D793:far_d7939
         mov     byte ptr [B_7E5D], 1
 br_d52aa:
+        if      FW_VERSION < 212
+        callf   SEG_EDDC:far_ec31a
+        else
         callf   SEG_EDDC:far_eddc3
         cmp     byte ptr [B_A06E], 0
         jz      br_d52c6
@@ -3592,19 +3538,11 @@ br_d52c6:
         mov     al, byte ptr [bp + 6]
         cbw
         push    ax
-        if      FW_VERSION < 212
-        callf   0d999h:far_eb134
-        else
         callf   SEG_EB13:far_eb134
-        endif
         add     sp, 2
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
         cmp     byte ptr [B_53DB], 47h
         jnz     br_d52ec
@@ -3732,11 +3670,7 @@ br_d53ae:
         mov     word ptr [W_94DE], 0
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]
-        if      FW_VERSION < 212
-        callf   0d97dh:far_ec4ae
-        else
         callf   SEG_EC4A:far_ec4ae
-        endif
         add     sp, 4
         cmp     byte ptr [B_A06E], 0
         jz      br_d540d
@@ -3803,11 +3737,7 @@ br_d5441:
         mov     ax, word ptr [bp + 6]
         mov     word ptr [W_94CE], dx
         mov     word ptr [W_94CC], ax
-        if      FW_VERSION < 212
-        mov     ax, 601ah
-        else
         mov     ax, W_53BB
-        endif
         push    ax
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
@@ -3815,11 +3745,7 @@ br_d5441:
         add     sp, 6
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
         jmp     br_d5380
 far_d546e:
@@ -3831,7 +3757,6 @@ far_d546e:
         jmp     br_d5597
 br_d547e:
         if      FW_VERSION < 212
-        callf   0e60ah:far_ec8a6
         else
         mov     al, byte ptr [B_A06A]
         sub     ah, ah
@@ -3858,18 +3783,14 @@ br_d54bc:
         pop     bp
         retf
 br_d54c0:
-        callf   SEG_EC8A:far_ec8a6
         endif
+        callf   SEG_EC8A:far_ec8a6
         mov     word ptr [bp - 4], ax
         test    ax, ax
         jnz     br_d54cf
         jmp     near br_d5558
 br_d54cf:
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7939
-        else
         callf   SEG_D793:far_d7939
-        endif
         callf   SEG_D880:far_d8850
         xor     ax, ax
         push    ax
@@ -3904,7 +3825,7 @@ br_d54cf:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_358E
+        mov     ax, STR_CANCEL_4
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3959,11 +3880,7 @@ br_d5597:
         mov     al, byte ptr [B_A06B]
         sub     ah, ah
         push    ax
-        if      FW_VERSION < 212
-        callf   0da1eh:far_d6fda
-        else
         callf   SEG_D6EE:far_d6fda
-        endif
         add     sp, 2
         mov     word ptr [bp - 2], ax
         cmp     ax, word ptr [W_A06F]
@@ -5649,11 +5566,7 @@ br_d5625:
         adc     dx, 0ffffh
         push    dx
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_F257:far_f2582
-        else
-        callf   0e960h:far_f2582
-        endif
         add     sp, 4
         mov     word ptr [bp - 12h], ax
 br_d5709:
@@ -5857,11 +5770,7 @@ br_d5830:
         sub     ax, word ptr [bp - 16h]
         add     ax, 2
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_ED77:far_ed776
-        else
-        callf   0e48dh:far_ed776
-        endif
         add     sp, 2
         cmp     word ptr [bp - 14h], 0
         jnz     br_d5854
@@ -5883,11 +5792,7 @@ br_d5854:
         adc     dx, 0ffffh
         push    dx
         push    ax
-        if      FW_VERSION < 212
-        callf   0e960h:far_f2582
-        else
         callf   SEG_F257:far_f2582
-        endif
         add     sp, 4
         dec     ax
         dec     ax
@@ -6246,11 +6151,7 @@ br_d5a5f:
         push    ax
         lea     ax, [bp - 4]
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_DA99:far_da993
-        else
-        callf   0de8dh:far_da993
-        endif
         add     sp, 0ah
         mov     ax, 3
         push    ax
@@ -6270,23 +6171,17 @@ br_d5a5f:
         push    ax
         lea     ax, [bp - 8]
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_DA99:far_da993
-        else
-        callf   0de8dh:far_da993
-        endif
         add     sp, 0ah
         callf   SEG_D621:far_d6216
         mov     word ptr [bp - 0ah], dx
         mov     word ptr [bp - 0ch], ax
         push    word ptr [W_9B94]
         push    word ptr [W_9B92]
-        if      FW_VERSION >= 212
         callf   SEG_ED05:far_ed059
         add     sp, 4
+        if      FW_VERSION >= 212
         else
-        callf   0e4dch:far_ed059
-        add     sp, 4
         mov     word ptr [W_94AA], 0
         mov     word ptr [W_94A8], 0
         endif
@@ -6315,13 +6210,11 @@ br_d5a5f:
         push    ax
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
-        if      FW_VERSION < 212
-        callf   0e960h:far_f25a0
-        add     sp, 6
-        mov     byte ptr [B_94A6], 0ffh
-        else
         callf   SEG_F257:far_f25a0
         add     sp, 6
+        if      FW_VERSION < 212
+        mov     byte ptr [B_94A6], 0ffh
+        else
         cmp     byte ptr [B_981C], 0
         jl      br_d5b33
         mov     ax, B_981C
@@ -7036,22 +6929,14 @@ br_d667b:
         jmp     br_d6677
 br_d6686:
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0d7c0h:far_d602b
-        else
         callf   SEG_D602:far_d602b
-        endif
         add     sp, 2
         test    ax, ax
         jz      br_d66a9
-        mov     ax, STR_3598
+        mov     ax, STR_UNUSED
         push    ax
         push    word ptr [bp + 0ah]
-        if      FW_VERSION < 212
-        callf   0e96ch:far_f263a
-        else
         callf   SEG_F263:far_f263a
-        endif
         add     sp, 4
         mov     ax, 1
         jmp     br_d6677
@@ -7069,11 +6954,7 @@ br_d66a9:
         adc     dx, 0
         push    dx
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_DA99:far_da993
-        else
-        callf   0de8dh:far_da993
-        endif
         add     sp, 0ah
         mov     bx, word ptr [bp + 0ah]
         mov     byte ptr [bx + 10h], 0
@@ -7140,11 +7021,7 @@ br_d6704:
         adc     dx, 0
         push    dx
         push    ax
-        if      FW_VERSION < 212
-        callf   0de8dh:far_da993
-        else
         callf   SEG_DA99:far_da993
-        endif
         add     sp, 0ah
         mov     bx, word ptr [bp + 0ah]
         mov     byte ptr [bx + 10h], 0
@@ -7182,14 +7059,10 @@ br_d675a:
         xor     ax, ax
         jmp     br_d6677
 br_d6785:
-        mov     ax, STR_35A9
+        mov     ax, STR_UNUSED_2
         push    ax
         push    word ptr [bp + 0ah]
-        if      FW_VERSION >= 212
         callf   SEG_F263:far_f263a
-        else
-        callf   0e96ch:far_f263a
-        endif
         add     sp, 4
         mov     ax, 1
         jmp     br_d6677
@@ -7197,14 +7070,10 @@ far_d679a:
         push    bp
         mov     bp, sp
         add     sp, 0fffdh
-        mov     ax, STR_35BA
+        mov     ax, STR_TRK
         push    ax
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_F263:far_f263a
-        else
-        callf   0e96ch:far_f263a
-        endif
         add     sp, 4
         mov     ax, 30h
         push    ax
@@ -7218,20 +7087,12 @@ far_d679a:
         lea     ax, [bp - 3]
         push    ax
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0e969h:far_f2603
-        else
         callf   SEG_F260:far_f2603
-        endif
         add     sp, 4
         mov     ax, STR_35BE
         push    ax
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_F260:far_f2603
-        else
-        callf   0e969h:far_f2603
-        endif
         add     sp, 4
         mov     sp, bp
         pop     bp
@@ -7240,14 +7101,10 @@ far_d67e8:
         push    bp
         mov     bp, sp
         add     sp, 0fffdh
-        mov     ax, STR_35CA
+        mov     ax, STR_SEQ_3
         push    ax
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_F263:far_f263a
-        else
-        callf   0e96ch:far_f263a
-        endif
         add     sp, 4
         mov     ax, 30h
         push    ax
@@ -7261,21 +7118,12 @@ far_d67e8:
         lea     ax, [bp - 3]
         push    ax
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0e969h:far_f2603
-        else
-
         callf   SEG_F260:far_f2603
-        endif
         add     sp, 4
         mov     ax, STR_35CE
         push    ax
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_F260:far_f2603
-        else
-        callf   0e969h:far_f2603
-        endif
         add     sp, 4
         mov     sp, bp
         pop     bp
@@ -7533,11 +7381,7 @@ br_d6847:
         retf
 br_d684d:
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0d83dh:far_eb96c
-        else
         callf   SEG_EB96:far_eb96c
-        endif
         add     sp, 2
         mov     word ptr [bp - 14h], ax
         test    ax, ax
@@ -7597,11 +7441,7 @@ br_d68b0:
         endif
         push    dx
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_F257:far_f2582
-        else
-        callf   0e960h:far_f2582
-        endif
         add     sp, 4
         mov     byte ptr [bp - 12h], al
 br_d68e6:
@@ -7611,22 +7451,14 @@ br_d68e6:
         jz      br_d6946
         push    word ptr [bp - 18h]
         push    word ptr [bp - 1ah]
-        if      FW_VERSION < 212
-        callf   0e960h:far_f2582
-        else
         callf   SEG_F257:far_f2582
-        endif
         add     sp, 4
         cmp     al, 0ffh
         jnz     br_d693c
         push    word ptr [bp + 8]
         push    word ptr [bp - 18h]
         push    word ptr [bp - 1ah]
-        if      FW_VERSION >= 212
         callf   SEG_F257:far_f25a0
-        else
-        callf   0e960h:far_f25a0
-        endif
         add     sp, 6
         mov     ax, 10h
         push    ax
@@ -7640,11 +7472,7 @@ br_d68e6:
         push    ax
         lea     ax, [bp - 11h]
         push    ax
-        if      FW_VERSION < 212
-        callf   0de8dh:far_da993
-        else
         callf   SEG_DA99:far_da993
-        endif
         add     sp, 0ah
         xor     ax, ax
         jmp     br_d6847
@@ -7659,11 +7487,7 @@ br_d693c:
 br_d6946:
         mov     ax, 3
         push    ax
-        if      FW_VERSION < 212
-        callf   0e48dh:far_ed776
-        else
         callf   SEG_ED77:far_ed776
-        endif
         add     sp, 2
         test    ax, ax
         jz      br_d695c
@@ -7673,11 +7497,7 @@ br_d695c:
         push    word ptr [bp + 8]
         push    word ptr [bp - 18h]
         push    word ptr [bp - 1ah]
-        if      FW_VERSION >= 212
         callf   SEG_F257:far_f25a0
-        else
-        callf   0e960h:far_f25a0
-        endif
         add     sp, 6
         mov     ax, 10h
         push    ax
@@ -7691,12 +7511,10 @@ br_d695c:
         push    ax
         lea     ax, [bp - 11h]
         push    ax
-        if      FW_VERSION < 212
-        callf   0de8dh:far_da993
-        add     sp, 0ah
-        else
         callf   SEG_DA99:far_da993
         add     sp, 0ah
+        if      FW_VERSION < 212
+        else
         test    byte ptr [B_94A7], 2
         jz      br_d699d
         endif
@@ -7735,11 +7553,7 @@ br_d69c2:
         push    ax
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
-        if      FW_VERSION < 212
-        callf   0e960h:far_f25a0
-        else
         callf   SEG_F257:far_f25a0
-        endif
         add     sp, 6
         mov     dx, word ptr [W_94BA]
         mov     ax, word ptr [W_94B8]
@@ -7778,7 +7592,6 @@ br_d69f8:
         add     sp, 6
         if      FW_VERSION < 212
         mov     word ptr [bp - 0ch], ax
-        else
         endif
         mov     al, byte ptr [TBL_8E65]
         sub     ah, ah
@@ -7787,11 +7600,7 @@ br_d69f8:
 loop_d6a25:
         mov     ax, TBL_8E66
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_DA91:far_da91e
-        else
-        callf   0de85h:far_da91e
-        endif
         add     sp, 2
         mov     word ptr [bp - 0ah], ax
         push    word ptr [bp - 6]
@@ -8618,15 +8427,9 @@ far_d71fa:
         push    ax
         callf   SEG_DA9B:far_daa7a
         push    ax
-        if      FW_VERSION < 212
-        mov     ax, 5212h
-        push    ax
-        callf   0de8dh:far_da993
-        else
         mov     ax, TBL_9FAC
         push    ax
         callf   SEG_DA99:far_da993
-        endif
         add     sp, 0ah
 br_d723d:
         mov     sp, bp
@@ -8645,7 +8448,7 @@ far_d7241:
         cmp     byte ptr [B_A06E], 0
         jz      br_d7259
         if      FW_VERSION < 212
-        callf   0d911h:tgt_c0738
+        callf   SEG_D724:tgt_c0738
         else
         cmp     word ptr [bp + 6], B_94A6
         jnz     br_d7259
@@ -8692,11 +8495,10 @@ L_d9152:
         jnz     br_d7282
         jmp     br_d7277
 br_d7282:
+        callf   SEG_D724:far_d777b
         if      FW_VERSION < 212
-        callf   0d911h:far_d777b
         callf   0e260h:far_e78de
         else
-        callf   SEG_D724:far_d777b
         push    word ptr [bp + 6]
         callf   SEG_E78D:far_e78de
         add     sp, 2
@@ -8757,7 +8559,7 @@ br_d72bf:
         shl     ax, 1
         add     ax, bx
         mov     bx, ax
-        mov     byte ptr [bx + 238h], 0
+        mov     byte ptr [bx + TBL_4CC8_V112], 0
         endif
         mov     dx, 0
         mov     ax, 0
@@ -8804,11 +8606,7 @@ br_d7310:
         jmp     br_d74fd
 br_d733d:
         push    word ptr [TBL_8E66]
-        if      FW_VERSION < 212
-        callf   0de85h:far_da912
-        else
         callf   SEG_DA91:far_da912
-        endif
         add     sp, 2
         cwd
         add     word ptr [bp - 0ch], ax
@@ -8824,11 +8622,7 @@ br_d7361:
         jnz     br_d7374
         mov     ax, TBL_8E66
         push    ax
-        if      FW_VERSION < 212
-        callf   0de85h:far_da91e
-        else
         callf   SEG_DA91:far_da91e
-        endif
         add     sp, 2
         cmp     ax, word ptr [bp - 14h]
         jz      br_d7398
@@ -8919,10 +8713,10 @@ br_d73cd:
         shl     ax, 1
         add     ax, bx
         mov     bx, ax
-        mov     al, byte ptr [bx + 238h]
+        mov     al, byte ptr [bx + TBL_4CC8_V112]
         cmp     al, byte ptr [B_8E68]
         jnz     br_d7410
-        mov     al, byte ptr [bx + 239h]
+        mov     al, byte ptr [bx + TBL_4CC9_V112]
         endif
         cmp     al, byte ptr [B_8E69]
         jz      br_d7457
@@ -8940,11 +8734,7 @@ br_d741d:
         jg      br_d744d
         mov     ax, TBL_8E66
         push    ax
-        if      FW_VERSION < 212
-        callf   0de85h:far_da91e
-        else
         callf   SEG_DA91:far_da91e
-        endif
         add     sp, 2
         mov     bx, word ptr [bp - 12h]
         shl     bx, 1
@@ -8967,7 +8757,7 @@ br_d741d:
         mov     al, byte ptr [B_8E68]
         mov     byte ptr [bx + 238h], al
         mov     al, byte ptr [B_8E69]
-        mov     byte ptr [bx + 239h], al
+        mov     byte ptr [bx + TBL_4CC9_V112], al
         endif
         jmp     br_d7457
 br_d744d:
@@ -9251,19 +9041,14 @@ br_d752e:
         jnz     br_d7537
         jmp     br_d752a
 br_d7537:
-        if      FW_VERSION < 212
-        callf   0d911h:far_d777b
-        mov     dx, word ptr [W_94DE]
-        mov     ax, word ptr [W_94DC]
-        mov     word ptr [W_A07B], dx
-        mov     word ptr [W_A079], ax
-        callf   0d841h:L_d8414
-        else
         callf   SEG_D724:far_d777b
         mov     dx, word ptr [W_94DE]
         mov     ax, word ptr [W_94DC]
         mov     word ptr [W_A07B], dx
         mov     word ptr [W_A079], ax
+        if      FW_VERSION < 212
+        callf   0d841h:L_d8414
+        else
         mov     ax, B_94A6
         push    ax
         callf   SEG_D55E:far_d55e8
@@ -9347,11 +9132,7 @@ br_d75d3:
         mov     word ptr [W_A075], ax
 br_d75f6:
         push    word ptr [bp - 12h]
-        if      FW_VERSION < 212
-        callf   0e295h:far_e82a4
-        else
         callf   SEG_E82A:far_e82a4
-        endif
         add     sp, 2
         test    ax, ax
         jz      br_d7608
@@ -9394,11 +9175,7 @@ br_d7625:
         jmp     near br_d76d5
 br_d7651:
         push    word ptr [TBL_8E66]
-        if      FW_VERSION < 212
-        callf   0de85h:far_da912
-        else
         callf   SEG_DA91:far_da912
-        endif
         add     sp, 2
         cwd
         add     word ptr [bp - 8], ax
@@ -9534,19 +9311,6 @@ br_d7729:
         mov     word ptr [W_A071], ax
         dec     byte ptr [B_8CCB]
         push    word ptr [bp - 0eh]
-        if      FW_VERSION < 212
-        callf   0e657h:far_e9887
-        add     sp, 2
-        mov     byte ptr [B_8D79], al
-        cmp     byte ptr [B_8D79], 0
-        jnz     br_d7773
-        push    word ptr [W_A07B]
-        push    word ptr [W_A079]
-        callf   0d97dh:far_ec4ae
-        add     sp, 4
-br_d7773:
-        callf   0d911h:far_d77c4
-        else
         callf   SEG_E988:far_e9887
         add     sp, 2
         mov     byte ptr [B_8D79], al
@@ -9554,13 +9318,17 @@ br_d7773:
         jnz     br_d7773
         push    word ptr [W_A07B]
         push    word ptr [W_A079]
+        if      FW_VERSION < 212
+        callf   0d97dh:far_ec4ae
+        add     sp, 4
+        else
         mov     ax, B_94A6
         push    ax
         callf   SEG_EAF3:far_eaf33
         add     sp, 6
+        endif
 br_d7773:
         callf   SEG_D724:far_d77c4
-        endif
         jmp     br_d752a
 far_d777b:
         push    bp
@@ -9576,11 +9344,7 @@ far_d777b:
         add     sp, 4
         mov     ax, 28h
         push    ax
-        if      FW_VERSION < 212
-        callf   0dcb1h:far_d88b2
-        else
         callf   SEG_D88B:far_d88b2
-        endif
         add     sp, 2
         xor     ax, ax
         push    ax
@@ -9588,7 +9352,7 @@ far_d777b:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_35DA
+        mov     ax, STR_ANALYZING_SEQUENCE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -11514,8 +11278,6 @@ L_da10a:
         push    word ptr [W_5367]
         callf   SEG_D391:far_d393d
         add     sp, 6
-        mov     word ptr [W_5365], ax
-        callf   SEG_D391:far_d391a
         else
         push    word ptr [bp - 2]
         callf   0d473h:far_d393d
@@ -11533,9 +11295,9 @@ L_da12c:
         rcr     ax, 1
         loop    L_da12c
 L_da132:
-        mov     word ptr [W_5365], ax
-        callf   0d473h:far_d391a
         endif
+        mov     word ptr [W_5365], ax
+        callf   SEG_D391:far_d391a
         mov     sp, bp
         pop     bp
         retf
@@ -11561,11 +11323,7 @@ br_d7a4a:
         push    ax
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_D391:far_d393d
-        else
-        callf   0d473h:far_d393d
-        endif
         add     sp, 6
         mov     cx, ax
         mov     ax, word ptr [W_53A7]
@@ -11617,11 +11375,7 @@ br_d7a77:
         adc     dx, 0
         push    dx
         push    ax
-        if      FW_VERSION < 212
-        callf   0e960h:far_f2591
-        else
         callf   SEG_F257:far_f2591
-        endif
         add     sp, 6
         mov     ax, 1
         push    ax
@@ -15876,7 +15630,7 @@ br_ea36e:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_4A2C
+        mov     ax, STR_RECOVERING_SEQUENCE
         else
         mov     ax, 3e4eh
         endif
@@ -18329,11 +18083,7 @@ far_d86d2:
         push    bp
         mov     bp, sp
 br_d86d5:
-        if      FW_VERSION < 212
-        callf   0dc86h:far_d861e
-        else
         callf   SEG_D861:far_d861e
-        endif
         mov     bx, word ptr [bp + 6]
         mov     byte ptr [bx], al
         cmp     al, 0dh
@@ -18365,14 +18115,11 @@ br_d86f7:
         endif
 far_d870d:
         push    es
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        mov     es, ax
-        mov     ax, word ptr es:[4c93h]
-        pop     es
-        else
         mov     ax, DGROUP
         mov     es, ax
+        if      FW_VERSION < 212
+        mov     ax, word ptr es:[4c93h]
+        pop     es
         endif
         if      FW_VERSION = 212
         mov     ax, word ptr es:[4872h]
@@ -18403,11 +18150,7 @@ far_d8719:
         retf
 far_d8728:
         push    es
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, SEG_15E8
-        endif
         mov     es, ax
         xor     ax, ax
         pushf
@@ -20492,11 +20235,7 @@ far_d94cf:
         mov     al, byte ptr [bx]
         cbw
         push    ax
-        if      FW_VERSION < 212
-        callf   0e7bch:far_da4bd
-        else
         callf   SEG_DA3E:far_da4bd
-        endif
         add     sp, 2
         push    ax
         callf   SEG_D880:far_d885c
@@ -20853,11 +20592,7 @@ br_d989c:
 br_d98a5:
         cmp     byte ptr [B_A64D], 0
         jz      br_d98b6
-        if      FW_VERSION < 212
-        callf   0dc86h:far_d861e
-        else
         callf   SEG_D861:far_d861e
-        endif
         mov     byte ptr [bp - 1], al
         jmp     br_d98c4
 br_d98b6:
@@ -21120,10 +20855,9 @@ tgt_d9acd:
         mov     al, byte ptr [bp - 1]
         cbw
         push    ax
-        if      FW_VERSION < 212
-        callf   0e7bch:far_da3e6
-        else
         callf   SEG_DA3E:far_da3e6
+        if      FW_VERSION < 212
+        else
         add     sp, 2
         mov     word ptr [bp - 5], ax
         jmp     tgt_d9b22
@@ -21313,11 +21047,7 @@ br_d9c08:
         mov     ax, TBL_A624
         push    ax
         push    word ptr [W_A650]
-        if      FW_VERSION < 212
-        callf   0e96ch:far_f263a
-        else
         callf   SEG_F263:far_f263a
-        endif
         add     sp, 4
         mov     byte ptr [B_5504], 1
         push    word ptr [W_A650]
@@ -22093,11 +21823,7 @@ tgt_da20f:
         mov     al, byte ptr [bx]
         sub     ah, ah
         push    ax
-        if      FW_VERSION < 212
-        callf   0e7bch:far_da4bd
-        else
         callf   SEG_DA3E:far_da4bd
-        endif
         add     sp, 2
         push    ax
         callf   SEG_EE83:far_eea3a
@@ -22197,13 +21923,9 @@ far_da2e1:
         push    bp
         mov     bp, sp
         callf   SEG_D880:far_d880a
-        mov     ax, STR_360A
+        mov     ax, STR_HELP
         push    ax
-        if      FW_VERSION < 212
-        callf   0de62h:far_da730
-        else
         callf   SEG_DA73:far_da730
-        endif
         add     sp, 2
         xor     ax, ax
         push    ax
@@ -22226,7 +21948,7 @@ far_da2e1:
         mov     al, byte ptr [B_53DB]
         cbw
         push    ax
-        mov     ax, STR_360F
+        mov     ax, STR_C_D_D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 8
@@ -22531,7 +22253,7 @@ far_da533:
         if      FW_VERSION < 212
         mov     ax, 3e84h
         else
-        mov     ax, STR_3654
+        mov     ax, STR_SELECT_OPTION
         endif
         push    ax
         callf   SEG_D880:far_d885c
@@ -23855,17 +23577,15 @@ br_daec7:
         mov     word ptr [bp - 2], 363h
         dec     word ptr [bp - 2]
         push    word ptr [bp - 2]
-        push    word ptr [bp - 6]
-        mov     ax, 903fh
         else
         sub     word ptr [bp - 8], 0a0h
         cmp     byte ptr [bp - 9], 0
         jle     br_daf39
         mov     ax, 20h
         push    ax
+        endif
         push    word ptr [bp - 6]
         mov     ax, TBL_5224
-        endif
         push    ax
         mov     ax, 4
         push    ax
@@ -23882,14 +23602,12 @@ br_daf14:
         mov     word ptr [bp - 2], 403h
         dec     word ptr [bp - 2]
         push    word ptr [bp - 2]
-        push    word ptr [bp - 6]
-        mov     ax, 903fh
         else
         mov     ax, 20h
         push    ax
+        endif
         push    word ptr [bp - 6]
         mov     ax, TBL_5244
-        endif
 
 RUN_BR_DAF14 macro   {GLOBALSYMBOLS}
 
@@ -25401,8 +25119,6 @@ br_db82c:
         mov     word ptr [bp - 2], 0bf7h
         if      FW_VERSION < 212
         push    word ptr [bp - 2]
-        push    word ptr [W_BE59]
-        mov     ax, 903fh
         else
 br_db831:
         cmp     word ptr [bp - 2], 0
@@ -25416,9 +25132,9 @@ br_db847:
         mov     ax, word ptr [bp - 6]
         sub     word ptr [bp - 2], ax
         push    word ptr [bp - 6]
+        endif
         push    word ptr [W_BE59]
         mov     ax, TBL_8E65
-        endif
         push    ax
         mov     ax, 4
         push    ax
@@ -26019,7 +25735,6 @@ br_dbcfe:
         push    word ptr [W_BE5C]
         if      FW_VERSION < 212
         mov     ax, TBL_51D6
-        else
         endif
 
 RUN_AFTER_BR_DBCFE macro   {GLOBALSYMBOLS}
@@ -26113,21 +25828,13 @@ br_dbd86:
         xor     ax, ax
         push    ax
         push    word ptr [bp - 2]
-        if      FW_VERSION < 212
-        mov     ax, 903fh
-        else
         mov     ax, TBL_8E65
-        endif
         push    ax
         callf   SEG_F25D:far_f25dc
         add     sp, 6
         push    word ptr [bp - 2]
         push    word ptr [W_BE5C]
-        if      FW_VERSION < 212
-        mov     ax, 903fh
-        else
         mov     ax, TBL_8E65
-        endif
         push    ax
         mov     ax, 5
         push    ax
@@ -26150,11 +25857,7 @@ br_dbdbe:
         push    dx
         push    ax
         push    word ptr [W_BE5C]
-        if      FW_VERSION < 212
-        callf   0df64h:far_dc012
-        else
         callf   SEG_DB97:far_dc012
-        endif
         add     sp, 0ah
         mov     word ptr [bp - 4], ax
         test    ax, ax
@@ -26212,11 +25915,7 @@ far_dbe0d:
         add     sp, 2
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0df64h:far_dbeab
-        else
         callf   SEG_DB97:far_dbeab
-        endif
         add     sp, 4
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -26417,14 +26116,12 @@ br_dbfb7:
         if      FW_VERSION < 212
         push    word ptr [bx +TBL_A66A]
         push    word ptr [bx +TBL_A668]
-        push    word ptr [W_BE5C]
-        callf   0df64h:far_dc012
         else
         push    word ptr [bx + TBL_A66A]
         push    word ptr [bx + TBL_A668]
+        endif
         push    word ptr [W_BE5C]
         callf   SEG_DB97:far_dc012
-        endif
         add     sp, 0ah
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -26989,11 +26686,7 @@ far_dc213:
         callf   SEG_DA8F:far_da8f6
         add     sp, 2
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0df64h:far_dc2ae
-        else
         callf   SEG_DB97:far_dc2ae
-        endif
         add     sp, 2
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -27364,7 +27057,6 @@ br_dc447:
         jmp     br_dc2e0
         if      FW_VERSION < 212
         phase   0bh
-        else
         endif
         if      FW_VERSION = 212
         phase   7
@@ -27399,8 +27091,6 @@ br_dc499:
         mov     word ptr [bp - 6], ax
         if      FW_VERSION < 212
         callf   0d841h:L_d8414
-        push    word ptr [bp + 8]
-        callf   0d8feh:far_e9d7e
         else
         mov     ax, B_94A6
         push    ax
@@ -27410,17 +27100,13 @@ br_dc499:
         push    ax
         callf   SEG_D55E:far_d55e8
         add     sp, 2
+        endif
         push    word ptr [bp + 8]
         callf   SEG_E9D7:far_e9d7e
-        endif
         add     sp, 2
         push    word ptr [bp - 2]
         push    word ptr [bp + 8]
-        if      FW_VERSION < 212
-        callf   0e01fh:far_dc510
-        else
         callf   SEG_DC46:far_dc510
-        endif
         add     sp, 4
         mov     word ptr [bp - 4], ax
         test    ax, ax
@@ -27476,11 +27162,7 @@ br_dc52c:
         mov     ax, 0cch
         push    ax
         push    word ptr [bp + 8]
-        if      FW_VERSION < 212
-        mov     ax, 903fh
-        else
         mov     ax, TBL_8E65
-        endif
         push    ax
         mov     ax, 4
         push    ax
@@ -27616,11 +27298,7 @@ br_dc5ec:
         push    word ptr [bp - 0ch]
         push    word ptr [W_9BA0]
         push    word ptr [W_9B9E]
-        if      FW_VERSION < 212
-        callf   0e7ddh:far_eee37
-        else
         callf   SEG_EEE3:far_eee37
-        endif
         add     sp, 0ch
         mov     dx, word ptr [bp - 0ah]
         mov     ax, word ptr [bp - 0ch]
@@ -29280,11 +28958,7 @@ TBL_dd347:
         endif
 far_dd35e:
         callf   SEG_D894:far_d8a8b
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, DGROUP
-        endif
         mov     ds, ax
         inc     word ptr [W_8D6C]
         mov     dx, 122h
@@ -30379,11 +30053,10 @@ br_ddb0e:
         ret
 fn_ddb13:
         mov     cl, al
+        mov     bx, A_4C00
         if      FW_VERSION < 212
-        mov     bx, 4ca1h
         callf   SEG_EF1E:far_ef210
         else
-        mov     bx, A_4C00
         callf   SEG_EF1E:far_ef1e0
         endif
         ret
@@ -30457,11 +30130,7 @@ far_ddb85:
         push    ds
         push    es
         pusha
-        if      FW_VERSION < 212
-        mov     dx, 58ah
-        else
         mov     dx, DGROUP
-        endif
         mov     ds, dx
         mov     es, dx
         callf   SEG_EFB8:far_efb8e
@@ -30668,11 +30337,7 @@ TBL_ddccf:
 far_ddcdf:
         push    ds
         push    ax
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, DGROUP
-        endif
         mov     ds, ax
         add     word ptr [W_538F], 61a8h
         adc     word ptr [W_5391], 0
@@ -30691,11 +30356,7 @@ isr_ddcf4:
         push    ds
         push    es
         sti
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, DGROUP
-        endif
         mov     ds, ax
         mov     es, ax
         call    fn_ddd21
@@ -30808,11 +30469,7 @@ br_dddf9:
 br_dddfd:
         ret
 fn_dddfe:
-        if      FW_VERSION < 212
-        mov     si, 6049h
-        else
         mov     si, TBL_53B7
-        endif
         cmp     byte ptr [B_4C1F], 3
         jnz     br_dde1d
         cmp     byte ptr [si + 1], 0
@@ -30855,11 +30512,7 @@ br_dde2d:
         mov     word ptr [W_0022], 1
         ret
 fn_dde4b:
-        if      FW_VERSION < 212
-        mov     si, 6049h
-        else
         mov     si, TBL_53B7
-        endif
         mov     bl, byte ptr [B_4C1F]
         mov     bh, 0
         mov     al, byte ptr cs:[word bx + TBL_ddd0d]
@@ -31295,13 +30948,11 @@ far_de0c3:
         mov     dx, 0ff5eh
         out     dx, ax
         pushf
-        if      FW_VERSION < 212
-        mov     bx, 58ah
-        mov     es, bx
-        mov     bx, A_4BF0
-        else
         mov     bx, SEG_0AAF
         mov     es, bx
+        if      FW_VERSION < 212
+        mov     bx, A_4BF0
+        else
         mov     bx, 40h
         endif
         xor     ax, ax
@@ -31320,11 +30971,7 @@ isr_de11b:
         mov     dx, 206h
         out     dx, ax
         cld
-        if      FW_VERSION < 212
-        mov     bp, 58ah
-        else
         mov     bp, DGROUP
-        endif
         mov     ds, bp
         lds     si, dword ptr [W_BE6A]
         xor     bx, bx
@@ -31505,11 +31152,7 @@ br_de2ba:
         push    ax
         callf   SEG_DA8F:far_da8f6
         add     sp, 2
-        if      FW_VERSION < 212
-        callf   0dc95h:far_d8765
-        else
         callf   SEG_D871:far_d8765
-        endif
         mov     ax, word ptr [bp - 2]
         mov     sp, bp
         pop     bp
@@ -31559,11 +31202,7 @@ br_de322:
         push    ax
         push    word ptr [bp + 0ah]
         push    word ptr [bp + 8]
-        if      FW_VERSION < 212
-        callf   0de8dh:far_da993
-        else
         callf   SEG_DA99:far_da993
-        endif
         add     sp, 0ah
         push    word ptr [bp - 402h]
         lea     ax, [bp - 400h]
@@ -31706,11 +31345,7 @@ far_de424:
         mov     bp, sp
         push    ds
         push    si
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, DGROUP
-        endif
         mov     ds, ax
         mov     word ptr [W_0AAB], 0
         mov     si, word ptr [bp + 8]
@@ -32085,13 +31720,9 @@ far_de639:
         push    bp
         mov     bp, sp
         callf   SEG_D880:far_d880a
-        mov     ax, STR_3664
+        mov     ax, STR_ATTENTION_2
         push    ax
-        if      FW_VERSION < 212
-        callf   0de62h:far_da730
-        else
         callf   SEG_DA73:far_da730
-        endif
         add     sp, 2
         xor     ax, ax
         push    ax
@@ -32142,7 +31773,7 @@ br_de69e:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_366F
+        mov     ax, STR_CANCEL_5
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -32150,14 +31781,10 @@ br_de69e:
         jnz     br_de6f7
         mov     ax, 16h
         push    ax
-        if      FW_VERSION < 212
-        callf   0dcb1h:far_d88b2
-        else
         callf   SEG_D88B:far_d88b2
-        endif
         add     sp, 2
         push    word ptr [bp + 0ah]
-        mov     ax, STR_3678
+        mov     ax, STR_ERROR_CODE_04X
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -32188,20 +31815,12 @@ br_de729:
         mov     ax, 1
         test    ax, ax
         jz      br_de751
-        if      FW_VERSION < 212
-        callf   0dc86h:far_d861e
-        else
         callf   SEG_D861:far_d861e
-        endif
         mov     word ptr [bp - 2], ax
         cmp     word ptr [bp - 2], 4dh
         jnz     br_de749
         push    ax
-        if      FW_VERSION < 212
-        callf   0dc86h:far_d8692
-        else
         callf   SEG_D861:far_d8692
-        endif
         add     sp, 2
         jmp     br_de751
 br_de749:
@@ -32270,11 +31889,7 @@ br_de79d:
         callf   SEG_D880:far_d8827
         add     sp, 4
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        mov     ax, 52cch
-        else
         mov     ax, W_94DC
-        endif
         cmp     word ptr [bp + 6], 0
         jz      br_de7cc
         if      FW_VERSION < 212
@@ -32308,13 +31923,13 @@ br_de7f3:
         cmp     byte ptr [B_53AB], 6
         jnz     br_de80b
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        mov     ax, 602eh
+        mov     ax, A_53B2
         push    ax
-        callf   0e1ddh:far_dea4f
+        callf   SEG_DE75:far_dea4f
         add     sp, 4
         jmp     br_de82a
 br_de80b:
+        if      FW_VERSION < 212
         lea     ax, [bp - 9]
         push    ax
         mov     al, byte ptr [B_4C1F]
@@ -32349,15 +31964,7 @@ L_e1ea5:
         add     sp, 6
         push    word ptr [bp + 6]
         lea     ax, [bp - 9]
-        push    ax
-        callf   0e1ddh:far_dea4f
         else
-        mov     ax, A_53B2
-        push    ax
-        callf   SEG_DE75:far_dea4f
-        add     sp, 4
-        jmp     br_de82a
-br_de80b:
         lea     ax, [bp - 7]
         push    ax
         mov     ax, W_53BB
@@ -32366,9 +31973,9 @@ br_de80b:
         add     sp, 4
         push    word ptr [bp + 6]
         lea     ax, [bp - 7]
+        endif
         push    ax
         callf   SEG_DE75:far_dea4f
-        endif
         add     sp, 4
 br_de82a:
         jmp     br_de860
@@ -32378,7 +31985,7 @@ br_de82c:
         if      FW_VERSION < 212
         mov     ax, 3edch
         else
-        mov     ax, STR_368C
+        mov     ax, STR_EXTERN_SYNC
         endif
         push    ax
         callf   SEG_D880:far_d885c
@@ -32420,8 +32027,6 @@ L_e1f13:
         add     sp, 6
         push    word ptr [bp + 6]
         lea     ax, [bp - 9]
-        push    ax
-        callf   0e1ddh:far_dea4f
         else
         lea     ax, [bp - 7]
         push    ax
@@ -32431,9 +32036,9 @@ L_e1f13:
         add     sp, 4
         push    word ptr [bp + 6]
         lea     ax, [bp - 7]
+        endif
         push    ax
         callf   SEG_DE75:far_dea4f
-        endif
         add     sp, 4
 br_de860:
         cmp     byte ptr [B_53DB], 4dh
@@ -32467,7 +32072,7 @@ br_de87b:
         mov     al, byte ptr [B_94E2]
         sub     ah, ah
         push    ax
-        mov     ax, STR_3698
+        mov     ax, STR_2D_2D_BARS_3D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 8
@@ -32515,7 +32120,7 @@ br_de8e0:
         jz      br_de913
         cmp     byte ptr [B_4E7A], 6
         jz      br_de913
-        mov     ax, STR_36AB
+        mov     ax, STR_EXT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -32528,11 +32133,7 @@ br_de913:
         cbw
         push    ax
         push    word ptr [W_5361]
-        if      FW_VERSION < 212
-        callf   0d473h:far_d3a45
-        else
         callf   SEG_D391:far_d3a45
-        endif
         add     sp, 6
         mov     word ptr [W_535F], ax
         mov     cx, 0ah
@@ -32543,7 +32144,7 @@ br_de913:
         cwd
         idiv    cx
         push    ax
-        mov     ax, STR_36B1
+        mov     ax, STR_3D_D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 6
@@ -32680,7 +32281,7 @@ far_dea25:
         endif
         cbw
         push    ax
-        mov     ax, STR_36BB
+        mov     ax, STR_02D_02D_02D_02D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 0ah
@@ -32715,18 +32316,14 @@ far_dea4f:
         endif
         cbw
         push    ax
-        mov     ax, STR_36CF
+        mov     ax, STR_02D_02D_02D_2
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 8
         jmp     br_dea83
 br_dea78:
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_dea25
-        else
         callf   SEG_DE75:far_dea25
-        endif
         add     sp, 2
 br_dea83:
         mov     sp, bp
@@ -32755,7 +32352,7 @@ br_deabd:
         jz      br_deabd
         cmp     byte ptr [B_4E7A], 6
         jz      br_deabd
-        mov     ax, STR_36E1
+        mov     ax, STR_EXT_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -32779,7 +32376,7 @@ br_deabd:
         cwd
         idiv    cx
         push    ax
-        mov     ax, STR_36E7
+        mov     ax, STR_3D_D_2
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 6
@@ -32835,11 +32432,7 @@ br_deb41:
         jnz     br_deb61
         mov     ax, 44h
         push    ax
-        if      FW_VERSION < 212
-        callf   0dc86h:far_d8692
-        else
         callf   SEG_D861:far_d8692
-        endif
         add     sp, 2
 br_deb61:
         jmp     br_deb68
@@ -33336,25 +32929,15 @@ br_def4b:
         cmp     byte ptr [B_5504], 0
         jz      br_def7d
         mov     ax, W_535F
-        if      FW_VERSION < 212
-        sub     ax, 5b08h
-        else
         sub     ax, W_4C1C
-        endif
         shr     ax, 1
         shl     ax, 1
         push    ax
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        mov     ax, 5b08h
-        push    ax
-        callf   0e1a7h:far_de3f8
-        else
         mov     ax, W_4C1C
         push    ax
         callf   SEG_DE3B:far_de3f8
-        endif
         add     sp, 6
         mov     byte ptr [B_5504], 0
 br_def7d:
@@ -33818,7 +33401,7 @@ br_e02dc:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3700
+        mov     ax, STR_RECEIVING_MIDI_SAMPLE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -34004,7 +33587,7 @@ br_e0715:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3748
+        mov     ax, STR_CONVERTING_TO_LINEAR
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -34038,7 +33621,7 @@ br_e0776:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_376E
+        mov     ax, STR_SENDING_SAMPLE_DATA_OVER
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -35488,7 +35071,7 @@ far_e163b:
         push    bp
         mov     bp, sp
         add     sp, 0ffedh
-        mov     ax, STR_382E
+        mov     ax, STR_2ND_SEQUENCE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -35498,7 +35081,7 @@ far_e163b:
         push    ax
         mov     ax, B_A069
         push    ax
-        mov     ax, STR_383B
+        mov     ax, STR_ON_OFF
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -35512,7 +35095,7 @@ far_e163b:
         push    ax
         mov     ax, B_535A
         push    ax
-        mov     ax, STR_3843
+        mov     ax, STR_SEQUENCE_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -35546,7 +35129,7 @@ far_e163b:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3851
+        mov     ax, STR_THIS_SEQUENCE_WILL_PLAY
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -35629,7 +35212,7 @@ br_e1761:
         retf
         phase   8
         RUN_FAR_E1768
-        mov     ax, STR_389E
+        mov     ax, STR_SORT_TRACKS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -35641,16 +35224,16 @@ br_e1761:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_38D0
+        mov     ax, STR_WILL_BE_RENUMBERED
         RUN_AFTER_L_C3E28
-        mov     ax, STR_38E5
+        mov     ax, STR_EXECUTE
         RUN_BR_E18AA
         phase   5
         RUN_FAR_E1A15
         mov     ax, 0ah
         RUN_BR_E1A91
         add     sp, 0fff8h
-        mov     ax, STR_3A62
+        mov     ax, STR_VIEW_TIME_SIGNATURE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -35677,7 +35260,7 @@ br_e1761:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3A76
+        mov     ax, STR_NEXTPAGE_PREVIOUSPAGE
         RUN_BR_E1B8E
         jnz     br_e1bac
         jmp     br_e1bac
@@ -35688,7 +35271,7 @@ br_e1bac:
         mov     ax, 1
         RUN_BR_E1C93
         add     sp, 0fff5h
-        mov     ax, STR_3AE9
+        mov     ax, STR_CREATE_NEW_SEQUENCE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -35710,7 +35293,7 @@ br_e1bac:
         push    ax
         mov     ax, B_5320
         push    ax
-        mov     ax, STR_3AFD
+        mov     ax, STR_TIME_SIG
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -35751,7 +35334,7 @@ br_e1bac:
         push    ax
         mov     ax, B_5322
         push    ax
-        mov     ax, STR_3B20
+        mov     ax, STR_LOOP
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -35826,7 +35409,7 @@ br_e1e66:
         push    ax
         lea     ax, [bp - 9]
         push    ax
-        mov     ax, STR_3B2B
+        mov     ax, STR_TEMPO_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -35888,7 +35471,7 @@ br_e1f29:
         push    ax
         lea     ax, [bp - 7]
         push    ax
-        mov     ax, STR_3B3B
+        mov     ax, STR_MIDI_CHANNEL_FOR_TRACK
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -35902,7 +35485,7 @@ br_e1f29:
         push    ax
         lea     ax, [bp - 5]
         push    ax
-        mov     ax, STR_3B53
+        mov     ax, STR_0_UNUSED
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -35948,7 +35531,7 @@ br_e1f29:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3B61
+        mov     ax, STR_EXECUTE_2
         RUN_BR_E1FBA
         jmp     br_e211e
 tgt_e1fd7:
@@ -36102,7 +35685,7 @@ br_e211e:
         RUN_BR_E212E
         mov     ax, 3
         RUN_BR_E229C
-        mov     ax, STR_3C02
+        mov     ax, STR_TO_BAR
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -36138,7 +35721,7 @@ RUN_AFTER_BR_E211E macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3D29
+        mov     ax, STR_COPY_MERGE_A_TRACK_TO
         push    ax
         callf   SEG_DA73:far_da730
         RUN_AFTER_FAR_E290C_3
@@ -36148,7 +35731,7 @@ RUN_AFTER_BR_E211E macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_E290C_4
         mov     ax, B_8D67
         push    ax
-        mov     ax, STR_3D4A
+        mov     ax, STR_TRACK_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -36162,7 +35745,7 @@ RUN_AFTER_BR_E211E macro   {GLOBALSYMBOLS}
         add     sp, 4
         mov     ax, W_8D56
         push    ax
-        mov     ax, STR_3D59
+        mov     ax, STR_START_COPY_AT
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -36173,7 +35756,7 @@ RUN_AFTER_BR_E211E macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         RUN_BR_E2B34
-        mov     ax, STR_3DF4
+        mov     ax, STR_TINATION_SEQUENCE_WILL
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -36231,7 +35814,7 @@ br_e3238:
         mov     al, byte ptr [bx + TBL_96DE]
         cbw
         push    ax
-        mov     ax, STR_3FC0
+        mov     ax, STR_2D_2D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 6
@@ -36268,20 +35851,20 @@ far_e326e:
         mov     word ptr [W_8D54], dx
         mov     word ptr [W_8D52], ax
         callf   SEG_D880:far_d880a
-        mov     ax, STR_3FC8
+        mov     ax, STR_CHANGE_VELOCITY_DURATION
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
         RUN_AFTER_BR_E4E9C
         lea     ax, [bp - 5]
         push    ax
-        mov     ax, STR_3FE1
+        mov     ax, STR_TRACK_3
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
         mov     ax, W_8D4E
         push    ax
-        mov     ax, STR_3FE8
+        mov     ax, STR_FROM_2
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -36314,7 +35897,7 @@ far_e326e:
         push    ax
         mov     ax, B_5324
         push    ax
-        mov     ax, STR_3FF5
+        mov     ax, STR_CHANGE
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -36332,7 +35915,7 @@ far_e326e:
         push    ax
         mov     ax, W_5326
         push    ax
-        mov     ax, STR_3FFD
+        mov     ax, STR_VALUE
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -36355,7 +35938,7 @@ far_e326e:
         push    ax
         mov     ax, B_5325
         push    ax
-        mov     ax, STR_4004
+        mov     ax, STR_ACTION
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -36377,7 +35960,7 @@ far_e326e:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_400C
+        mov     ax, STR_EXECUTE_10
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -36457,7 +36040,7 @@ loop_e3483:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4016
+        mov     ax, STR_CHANGING_NOTES
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -36505,12 +36088,12 @@ br_e34e5:
         mov     byte ptr [bp - 3], al
         mov     al, byte ptr [B_4E80]
         mov     byte ptr [bp - 4], al
-        mov     ax, STR_407B
+        mov     ax, STR_STEP_EDIT_OPTIONS
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
         mov     byte ptr [B_53DC], 1
-        mov     ax, STR_408D
+        mov     ax, STR_EVENT_TO_INSERT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -36530,7 +36113,7 @@ br_e34e5:
         push    ax
         mov     ax, B_4E7E
         push    ax
-        mov     ax, STR_409F
+        mov     ax, STR_AUTO_STEP_INCREMENT_ON
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -36553,7 +36136,7 @@ br_e34e5:
         push    ax
         mov     ax, B_4E7C
         push    ax
-        mov     ax, STR_40C3
+        mov     ax, STR_DURATION_OF_RECORDED
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -36563,7 +36146,7 @@ br_e34e5:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_40DF
+        mov     ax, STR_STEP_EDIT_DISPLAY_FILTER
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -36573,7 +36156,7 @@ br_e34e5:
         push    ax
         mov     ax, B_BE80
         push    ax
-        mov     ax, STR_40F8
+        mov     ax, STR_VIEW
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -36650,7 +36233,7 @@ br_e3b97:
         RUN_FAR_E3C3A
         mov     ax, W_8CCF
         push    ax
-        mov     ax, STR_4143
+        mov     ax, STR_1ST_BAR
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -36697,7 +36280,7 @@ br_e3f90:
         RUN_AFTER_FAR_C5AA2
         mov     ax, B_BE86
         push    ax
-        mov     ax, STR_4215
+        mov     ax, STR_SONG_STARTS_AT_SMPTE
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -36800,7 +36383,7 @@ br_e3f90:
         xor     ax, ax
         push    ax
         RUN_AFTER_BR_E40E1
-        mov     ax, STR_425B
+        mov     ax, STR_SQNC
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -36829,7 +36412,7 @@ br_e3f90:
         push    ax
         callf   SEG_D88B:far_d88b2
         RUN_AFTER_BR_E40E1_3
-        mov     ax, STR_4263
+        mov     ax, STR_REPS_0_END
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -37164,7 +36747,7 @@ br_e4a16:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_429E
+        mov     ax, STR_BARS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37329,7 +36912,7 @@ br_e4d14:
         push    ax
         lea     ax, [bp - 6]
         push    ax
-        mov     ax, STR_42C4
+        mov     ax, STR_TRACK_0_ALL
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -37341,7 +36924,7 @@ br_e4d14:
         add     sp, 4
         mov     ax, W_8D4E
         push    ax
-        mov     ax, STR_42D2
+        mov     ax, STR_FROM_3
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -37361,7 +36944,7 @@ br_e4d14:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_42DC
+        mov     ax, STR_ERASE_FILTER
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -37377,7 +36960,7 @@ br_e4d14:
         push    ax
         mov     ax, B_5174
         push    ax
-        mov     ax, STR_42E9
+        mov     ax, STR_ERASE_2
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -37418,7 +37001,7 @@ br_e4f9b:
         jnz     br_e5015
         cmp     word ptr [bp - 0ch], 0
         jz      br_e4fdf
-        mov     ax, STR_42F0
+        mov     ax, STR_ALL_NOTES_DRUMS_WILL_BE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37435,7 +37018,7 @@ br_e4feb:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4319
+        mov     ax, STR_ERASE_IT_ALL_BARS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37449,7 +37032,7 @@ br_e5015:
         jz      br_e5065
         cmp     word ptr [bp - 0ch], 0
         jz      br_e502f
-        mov     ax, STR_432E
+        mov     ax, STR_PRESS_DRUMS_TO_BE_ERASED
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -37466,7 +37049,7 @@ br_e503b:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4347
+        mov     ax, STR_ERASE_IT_ALL_BARS_ALL
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37484,7 +37067,7 @@ br_e5065:
         add     sp, 4
         cmp     word ptr [bp - 0ch], 0
         jz      br_e50e3
-        mov     ax, STR_4367
+        mov     ax, STR_LOWEST
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37496,7 +37079,7 @@ br_e5065:
         push    ax
         callf   SEG_D88B:far_d88b2
         add     sp, 2
-        mov     ax, STR_4370
+        mov     ax, STR_HIGHEST
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37515,7 +37098,7 @@ br_e5065:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_437A
+        mov     ax, STR_PRESS_2_KEYS_TO_SET_NOTE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37532,7 +37115,7 @@ br_e50ef:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_43A3
+        mov     ax, STR_ERASE_IT_ALL_BARS_ALL_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37690,7 +37273,7 @@ br_e5291:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_43C3
+        mov     ax, STR_ERASING
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -37824,7 +37407,7 @@ far_e544a:
         push    ax
         lea     ax, [bp - 3]
         push    ax
-        mov     ax, STR_448F
+        mov     ax, STR_SHIFT_AMOUNT
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -37834,7 +37417,7 @@ far_e544a:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_44A2
+        mov     ax, STR_MOVE_EXISTING_NOTES
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -37847,11 +37430,11 @@ far_e544a:
         RUN_AFTER_BR_E5608
         lea     ax, [bp - 4]
         push    ax
-        mov     ax, STR_44B6
+        mov     ax, STR_TRACK_0_ALL_2
         RUN_AFTER_BR_E5608_2
         mov     ax, W_8D4E
         push    ax
-        mov     ax, STR_44C4
+        mov     ax, STR_FROM_4
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -37920,7 +37503,7 @@ br_e57ec:
         add     sp, 4
         mov     ax, TBL_4C22
         push    ax
-        mov     ax, STR_457A
+        mov     ax, STR_MARKER_A
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -37941,12 +37524,12 @@ br_e57ec:
         endif
         if      FW_VERSION >= 212
         push    ax
-        mov     ax, STR_4590
+        mov     ax, STR_MARKER_C
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
         callf   SEG_C22A:far_c30b6
-        mov     ax, STR_459B
+        mov     ax, STR_GOTO_A_GOTO_B_GOTO_C
         RUN_BR_E5C1C
         endif
         if      FW_VERSION = 212
@@ -37959,7 +37542,7 @@ br_e57ec:
         RUN_FAR_E5CEC
         lea     ax, [bp - 6]
         push    ax
-        mov     ax, STR_45CC
+        mov     ax, STR_TRACK_0_ALL_3
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -37980,7 +37563,7 @@ br_e57ec:
         push    ax
         lea     ax, [bp - 4]
         push    ax
-        mov     ax, STR_45DA
+        mov     ax, STR_AMOUNT
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -37990,9 +37573,9 @@ br_e57ec:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_45E2
+        mov     ax, STR_PLAY_SYNTH_KEY_TO_SET
         RUN_AFTER_L_C9D49
-        mov     ax, STR_4601
+        mov     ax, STR_TRANSPOSE_PERMANENT
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -38004,7 +37587,7 @@ br_e57ec:
         add     sp, 4
         mov     ax, W_8D4E
         push    ax
-        mov     ax, STR_4615
+        mov     ax, STR_FROM_5
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -38036,7 +37619,7 @@ br_e57ec:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_461F
+        mov     ax, STR_TRANSPOSE_PERMANENT_2
         RUN_BR_E5E49
         mov     al, byte ptr [bp - 6]
         cbw
@@ -38158,7 +37741,7 @@ far_e6338:
         mov     bp, sp
         add     sp, 0ffcfh
         mov     word ptr [bp - 31h], 0
-        mov     ax, STR_4668
+        mov     ax, STR_RECORD_ALL_16_CHANNELS
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -38177,7 +37760,7 @@ far_e6338:
         push    ax
         lea     ax, [bp - 6]
         push    ax
-        mov     ax, STR_467F
+        mov     ax, STR_SQNC_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -38217,7 +37800,7 @@ far_e6338:
         push    ax
         mov     ax, B_5320
         push    ax
-        mov     ax, STR_4687
+        mov     ax, STR_TIME_SIG_3
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -38244,7 +37827,7 @@ far_e6338:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4694
+        mov     ax, STR_ENTER_DATA_THEN_PRESS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38265,11 +37848,11 @@ far_e6338:
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
-        mov     ax, STR_46DF
+        mov     ax, STR_WILL_BE_ERASED_TIMING
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
-        mov     ax, STR_4708
+        mov     ax, STR_TO_OFF_1_384_DURING
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38279,7 +37862,7 @@ far_e6338:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4728
+        mov     ax, STR_PROCEED_4
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38418,7 +38001,7 @@ far_e65ab:
         push    bp
         mov     bp, sp
         add     sp, 0ffebh
-        mov     ax, STR_4732
+        mov     ax, STR_RECORD_ALL_16_CHANNELS_2
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -38428,7 +38011,7 @@ far_e65ab:
         mov     al, byte ptr [B_9D34]
         cbw
         push    ax
-        mov     ax, STR_4749
+        mov     ax, STR_SQNC_2D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -38486,7 +38069,7 @@ far_e65ab:
         push    ax
         mov     ax, W_535F
         push    ax
-        mov     ax, STR_4754
+        mov     ax, STR_TMPO_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -38513,7 +38096,7 @@ far_e65ab:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_475D
+        mov     ax, STR_TSIG_BARS_LOOP_OFF
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38545,13 +38128,13 @@ far_e65ab:
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
-        mov     ax, STR_47CC
+        mov     ax, STR_1_THROUGH_16_WITH
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
         cmp     byte ptr [B_501C], 0
         jge     br_e66d1
-        mov     ax, STR_47E2
+        mov     ax, STR_NO_DRUMS_TRACK
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38561,7 +38144,7 @@ br_e66d1:
         cbw
         inc     ax
         push    ax
-        mov     ax, STR_47F2
+        mov     ax, STR_DRUMS_ON_D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -38689,7 +38272,7 @@ far_e67e4:
         mov     bp, sp
         add     sp, 0fffeh
         mov     byte ptr [B_53DC], 34h
-        mov     ax, STR_4800
+        mov     ax, STR_LOAD_AN_ALL_SOUNDS_FILE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -38728,7 +38311,7 @@ far_e67e4:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_484F
+        mov     ax, STR_LOAD_FILE_5
         RUN_AFTER_L_C3E28_2
         jnz     br_e6873
         push    word ptr [bp + 6]
@@ -38742,7 +38325,7 @@ br_e6873:
         retf
 far_e687a:
         RUN_AFTER_L_C958F
-        mov     ax, STR_485B
+        mov     ax, STR_LOADING_FILE_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38807,7 +38390,7 @@ far_e6926:
         mov     bp, sp
         add     sp, 0fffeh
         mov     byte ptr [B_53DC], 34h
-        mov     ax, STR_486C
+        mov     ax, STR_LOAD_AN_ALL_SOUNDS_FILE_2
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -38846,7 +38429,7 @@ far_e6926:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_48BB
+        mov     ax, STR_LOAD_FILE_6
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38912,7 +38495,7 @@ far_e6b11:
         mov     bp, sp
         add     sp, 0fffdh
         mov     byte ptr [B_53DC], 34h
-        mov     ax, STR_48D9
+        mov     ax, STR_LOAD_SET_FILE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -38922,7 +38505,7 @@ far_e6b11:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_48E7
+        mov     ax, STR_1_LOAD_ENTIRE_FILE_THIS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38932,7 +38515,7 @@ far_e6b11:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4910
+        mov     ax, STR_SOUNDS_CURRENTLY_IN
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -38942,7 +38525,7 @@ far_e6b11:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_492F
+        mov     ax, STR_2_LOAD_ONE_SOUND_FROM
         RUN_AFTER_FAR_E1D7F_2
         xor     ax, ax
         push    ax
@@ -39001,7 +38584,7 @@ far_e6bf1:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4953
+        mov     ax, STR_READING_FILE_PLEASE_WAIT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -39046,7 +38629,7 @@ br_e6c3e:
         cbw
         jmp     br_e6c38
 br_e6c71:
-        mov     ax, STR_4972
+        mov     ax, STR_LOAD_ONE_SOUND_FROM_SET
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -39059,7 +38642,7 @@ br_e6c71:
         push    ax
         lea     ax, [bp - 0bh]
         push    ax
-        mov     ax, STR_498F
+        mov     ax, STR_SELECT_DRUM_TO_LOAD_FROM
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -39084,7 +38667,7 @@ br_e6c71:
         push    ax
         mov     ax, B_5218
         push    ax
-        mov     ax, STR_49AF
+        mov     ax, STR_SELECT_DRUM_TO_LOAD_INTO
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -39094,7 +38677,7 @@ br_e6c71:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_49CA
+        mov     ax, STR_SOUND_MEMORY_AVAILABLE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -39143,7 +38726,7 @@ br_e6d44:
         callf   SEG_D880:far_d8827
         add     sp, 4
         push    word ptr [bp - 6]
-        mov     ax, STR_49EA
+        mov     ax, STR_4DK
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -39153,7 +38736,7 @@ br_e6d44:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_49EF
+        mov     ax, STR_LOAD_IT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -39201,7 +38784,7 @@ br_e6de0:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_49FA
+        mov     ax, STR_LOADING_4
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -39731,7 +39314,7 @@ far_e72f2:
         mov     word ptr [bp - 4], ax
         jmp     br_e7399
 br_e7384:
-        mov     ax, STR_4A05
+        mov     ax, STR_UNUSED_4
         push    ax
         lea     ax, [bp - 15h]
         push    ax
@@ -39748,7 +39331,7 @@ br_e7399:
         push    word ptr [bp - 4]
         lea     ax, [bp - 15h]
         push    ax
-        mov     ax, STR_4A16
+        mov     ax, STR_SOUND_S_SIZE_4DK
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 6
@@ -41892,11 +41475,7 @@ br_e8551:
         sub     ah, ah
         add     ax, 0fffch
         push    ax
-        if      FW_VERSION < 212
-        callf   0de85h:far_da949
-        else
         callf   SEG_DA91:far_da949
-        endif
         add     sp, 2
         mov     word ptr [bp - 6], ax
         if      FW_VERSION < 212
@@ -42312,11 +41891,7 @@ br_e883f:
         mov     dx, word ptr [W_A07F]
         mov     ax, word ptr [W_A07D]
         mov     word ptr [bp - 3ah], ax
-        if      FW_VERSION < 212
-        mov     word ptr [bp - 44h], 58ach
-        else
         mov     word ptr [bp - 44h], TBL_A1C1
-        endif
         jmp     br_e88c0
 br_e8889:
         mov     al, byte ptr [B_9F92]
@@ -42336,11 +41911,7 @@ br_e8889:
         mov     word ptr [bp - 42h], ax
         mov     ax, word ptr [W_9D38]
         mov     word ptr [bp - 3ah], ax
-        if      FW_VERSION < 212
-        mov     word ptr [bp - 44h], 4e0ch
-        else
         mov     word ptr [bp - 44h], TBL_9D3A
-        endif
 br_e88c0:
         mov     word ptr [bp - 22h], 0
         mov     word ptr [bp - 24h], 0
@@ -45750,11 +45321,7 @@ far_e8e0c:
         jge     br_e8e26
         cmp     byte ptr [B_A06E], 0
         jnz     br_e8e26
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7939
-        else
         callf   SEG_D793:far_d7939
-        endif
 br_e8e22:
         mov     sp, bp
         pop     bp
@@ -45776,11 +45343,7 @@ br_e8e47:
         jmp     br_e8e55
 br_e8e49:
         or      byte ptr [B_8D78], 4
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7939
-        else
         callf   SEG_D793:far_d7939
-        endif
         jmp     br_e8e22
 br_e8e55:
         mov     al, byte ptr [B_4E7A]
@@ -48240,10 +47803,6 @@ br_ea770:
         mov     ax, 0ffffh
         push    dx
         push    ax
-        if      FW_VERSION >= 212
-
-        else
-        endif
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
         callf   SEG_DA9B:far_da9df
@@ -48260,11 +47819,7 @@ br_ea770:
         add     sp, 8
         push    dx
         push    ax
-        if      FW_VERSION < 212
-        callf   0e7ddh:far_eee37
-        else
         callf   SEG_EEE3:far_eee37
-        endif
         add     sp, 0ch
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -48478,11 +48033,7 @@ br_ea93f:
         push    word ptr [W_94BC]
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
-        if      FW_VERSION < 212
-        callf   0e7ddh:far_eee37
-        else
         callf   SEG_EEE3:far_eee37
-        endif
         add     sp, 0ch
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -48695,7 +48246,6 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_BR_EAAA4
-        callf   0e7ddh:far_eee37
         else
 
         push    word ptr [W_94AE]
@@ -48714,8 +48264,8 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         add     sp, 8
         push    dx
         push    ax
-        callf   SEG_EEE3:far_eee37
         endif
+        callf   SEG_EEE3:far_eee37
         add     sp, 0ch
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
@@ -48731,11 +48281,7 @@ RUN_AFTER_BR_EAAA4 macro   {GLOBALSYMBOLS}
         push    word ptr [W_94B0]
         push    word ptr [W_94BA]
         push    word ptr [W_94B8]
-        if      FW_VERSION >= 212
         callf   SEG_EEE3:far_eee37
-        else
-        callf   0e7ddh:far_eee37
-        endif
         add     sp, 0ch
         push    word ptr [W_94BE]
         push    word ptr [W_94BC]
@@ -49006,10 +48552,6 @@ br_ead4b:
         jnz     br_ead5b
         mov     dx, word ptr [W_94BE]
         mov     ax, word ptr [W_94BC]
-        if      FW_VERSION >= 212
-
-        else
-        endif
         mov     word ptr [W_94B6], dx
         mov     word ptr [W_94B4], ax
 br_ead5b:
@@ -50501,11 +50043,7 @@ loop_ec838:
         endif
         sub     ah, ah
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_EB9A:far_eb9a3
-        else
-        callf   0d88fh:far_eb9a3
-        endif
         add     sp, 2
         imul    word ptr [bp - 4]
         cwd
@@ -50754,11 +50292,7 @@ br_ec8ba:
         sub     ah, ah
         mov     word ptr [bp - 4], ax
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_EB9A:far_eb9a3
-        else
-        callf   0d88fh:far_eb9a3
-        endif
         add     sp, 2
         test    ax, ax
         jnz     br_ec91d
@@ -51514,7 +51048,7 @@ loop_eced4:
         mov     byte ptr [B_4A67], al
         mov     al, byte ptr [bp - 7]
         mov     byte ptr [B_4A68], al
-        mov     ax, STR_4A63
+        mov     ax, STR_SONG_2
         push    ax
         mov     ax, word ptr [bp - 2]
         mov     dx, ax
@@ -53779,7 +53313,6 @@ br_ee28b:
         jz      br_ee2ad
         if      FW_VERSION < 212
         mov     ax, 3fa9h
-        else
         endif
         if      FW_VERSION = 212
         mov     ax, 4703h
@@ -55441,11 +54974,7 @@ br_eeec5:
         push    word ptr [bp + 0ah]
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0de8dh:far_da99a
-        else
         callf   SEG_DA99:far_da99a
-        endif
         add     sp, 0ah
         mov     dx, word ptr [bp - 2]
         mov     ax, word ptr [bp - 4]
@@ -55521,11 +55050,7 @@ br_eef77:
         push    word ptr [bp + 0ah]
         push    word ptr [bp + 8]
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0de8dh:far_da993
-        else
         callf   SEG_DA99:far_da993
-        endif
         add     sp, 0ah
         push    word ptr [bp - 2]
         push    word ptr [bp - 4]

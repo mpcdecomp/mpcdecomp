@@ -4242,14 +4242,12 @@ far_d3ff5:
         cmp     byte ptr [B_A06E], 0
         jz      br_d4015
         if      FW_VERSION < 212
-        mov     word ptr [bp - 16h], 576ch
-        mov     word ptr [bp - 18h], 575ah
         else
         cmp     word ptr [bp + 6], B_94A6
         jnz     br_d4015
+        endif
         mov     word ptr [bp - 16h], TBL_A081
         mov     word ptr [bp - 18h], W_A06F
-        endif
         jmp     br_d4027
 br_d4015:
         if      FW_VERSION < 212
@@ -7514,7 +7512,7 @@ br_dff19:
         cmp     word ptr [bp - 2], 0
         jz      br_dff33
         if      FW_VERSION >= 212
-        mov     ax, STR_36EE
+        mov     ax, STR_UNUSED_3
         else
         mov     ax, 3ca2h
         endif

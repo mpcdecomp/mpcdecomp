@@ -1348,11 +1348,7 @@ far_f212d:
         mov     bp, sp
         add     sp, 0fff3h
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_D602:far_d602b
-        else
-        callf   0d7c0h:far_d602b
-        endif
         add     sp, 2
         mov     word ptr [bp - 7], ax
         test    ax, ax
@@ -1372,11 +1368,7 @@ br_f2149:
         adc     dx, 0ffffh
         push    dx
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_F257:far_f2582
-        else
-        callf   0e960h:far_f2582
-        endif
         add     sp, 4
         mov     word ptr [bp - 9], ax
 br_f216f:
@@ -1455,10 +1447,6 @@ far_f21b5:
         jnz     br_f21d7
         mov     cl, byte ptr [bx + 2]
         and     cl, 1fh
-        if      FW_VERSION >= 212
-
-        else
-        endif
         mov     byte ptr [B_54F9], cl
         mov     bx, A_4BF0
         mov     cl, 44h
@@ -5037,11 +5025,7 @@ br_032ee:
         endif
 far_032fe:
         callf   SEG_D894:far_d8a8b
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, DGROUP
-        endif
         mov     ds, ax
         mov     es, ax
         inc     word ptr [W_536D]
@@ -5399,11 +5383,7 @@ tgt_036bd:
         callf   SEG_EE16:far_ee161
         or      ax, ax
         jz      br_036ce
-        if      FW_VERSION < 212
-        callf   0dc95h:far_d8765
-        else
         callf   SEG_D871:far_d8765
-        endif
         jmp     br_036d8
         db      090h
 br_036ce:
@@ -5434,11 +5414,7 @@ tgt_03700:
 br_03707:
         cmp     byte ptr [B_7E0B], 0
         jz      br_0371b
-        if      FW_VERSION < 212
-        callf   0dc95h:far_d8765
-        else
         callf   SEG_D871:far_d8765
-        endif
         mov     byte ptr [B_539B], 2
         jmp     br_039d3
 br_0371b:
@@ -5769,11 +5745,7 @@ br_03a51:
         endif
 fn_03a5e:
         callf   SEG_D894:far_d8a8b
-        if      FW_VERSION < 212
-        mov     ax, 58ah
-        else
         mov     ax, DGROUP
-        endif
         mov     ds, ax
         test    byte ptr [B_8CCC], 0ffh
         jz      br_03a72
@@ -5789,7 +5761,7 @@ L_03fbe:
         add     byte ptr ds:[B_01ED+7], bh
         add     al, byte ptr [bp+si]
         add     al, byte ptr [bp+si]
-        add     bh, byte ptr [B_35A9+9]
+        add     bh, byte ptr [STR_UNUSED_2+9]
         add.d0  ah, al
         push    ds
         push    es
@@ -5909,8 +5881,6 @@ br_03b67:
         mov     word ptr [W_5381], 1
         callf   SEG_D3B2:far_d3c4b
         jmp     near br_03c65
-br_03b8f:
-        mov     si, 602eh
         else
         mov     ax, word ptr [W_9F9D]
         mov     word ptr [W_5381], ax
@@ -5920,9 +5890,9 @@ br_03b8f:
         adc     word ptr [W_5383], 0
         callf   SEG_D3B2:far_d3c4b
         jmp     br_03c65
+        endif
 br_03b8f:
         mov     si, A_53B2
-        endif
         callf   SEG_D43A:far_d43b3
         add     ax, 1
         adc     dx, 0
@@ -6859,12 +6829,11 @@ loop_04471:
         endif
         push    4
         push    bp
+        callf   SEG_05A3:far_05a35
         if      FW_VERSION < 212
-        callf   52eh:far_05a35
         add     sp, 4
         pop     dx
         else
-        callf   SEG_05A3:far_05a35
         add     sp, 6
         endif
         pop     bx
@@ -7398,11 +7367,7 @@ br_04d7e:
         callf   SEG_04FA:far_04fa0
 br_04d8d:
         push    word 1400h
-        if      FW_VERSION < 212
-        push    word 903fh
-        else
         push    word TBL_8E65
-        endif
         push    4
         callf SEG_0300:far_03012
         add     sp, 6
@@ -7426,11 +7391,7 @@ br_04dc4:
         callf SEG_03EC:far_03ec1
         add     sp, 2
 br_04dce:
-        if      FW_VERSION < 212
-        push    word 903fh
-        else
         push    word TBL_8E65
-        endif
         push    1
         callf SEG_0530:far_05303
         add     sp, 6
@@ -7680,7 +7641,7 @@ far_04ed4:
         if      FW_VERSION < 212
         mov     word ptr [TBL_0AE2_V112], 0
         mov     cx, 80h
-        mov     di, STR_3E4F
+        mov     di, STR_CONVERT_SONG
         rep stosw
         else
         mov     word ptr [W_8570], 1
@@ -7753,8 +7714,6 @@ L_04c02:
         mov     al, byte ptr es:[si + 2810h]
         mov     byte ptr [L_0AC6+7], al
         push    di
-        push    4
-        push    word 0ad6h
         else
         cmp     word ptr [W_856E], 0
         jg      br_04efd
@@ -7807,9 +7766,9 @@ fn_04f4b:
         mov     al, byte ptr [bx + TBL_863A]
         mov     ah, byte ptr [bx + TBL_866C]
         push    ax
+        endif
         push    4
         push    word B_869E
-        endif
         callf   SEG_05AA:far_05acc
         add     sp, 6
         popa
@@ -11005,11 +10964,11 @@ TBL_11F5 equ     $-DGROUP0
         db      031h, 031h, 02fh, 031h, 030h, 02fh, 039h, 031h, 000h
         endif
         if      FW_VERSION >= 212
-STR_140B equ     $-DGROUP0
+STR_AKAI_MPC60 equ     $-DGROUP0
         db      "Akai MPC60", 0
-STR_1416 equ     $-DGROUP0
+STR_COPYRIGHT_1987_1991_2 equ     $-DGROUP0
         db      "Copyright 1987-1991", 0
-STR_142A equ     $-DGROUP0
+STR_AKAI_ELECTRIC_CO_LTD equ     $-DGROUP0
         db      "AKAI ELECTRIC CO., LTD", 0
         endif
         if      FW_VERSION = 212
@@ -11025,9 +10984,9 @@ STR_142A equ     $-DGROUP0
         endif
         db      03fh, 03fh, 03fh, 03fh, 03fh, 03fh
         db      "??SET", 0
-STR_14AA equ     $-DGROUP0
+STR_SYSTEM_ALL equ     $-DGROUP0
         db      "SYSTEM  ALL", 0
-STR_14B6 equ     $-DGROUP0
+STR_SYSTEM equ     $-DGROUP0
         db      "SYSTEM  ", 0
         if      FW_VERSION < 212
         db      " function"
@@ -11101,49 +11060,49 @@ TBL_125D_V112 equ     $-DGROUP0
 
 RUN_AFTER_BR_05E28 macro   {GLOBALSYMBOLS}
 L_321F  equ     $-DGROUP0
-STR_321F equ     $-DGROUP0
+STR_TEMPO equ     $-DGROUP0
         db      "Tempo", 0
-STR_3225 equ     $-DGROUP0
+STR_TEMPO_SOURCE_SELECT equ     $-DGROUP0
         db      "Tempo Source Select:", 0
-STR_323A equ     $-DGROUP0
+STR_SEQUENCE equ     $-DGROUP0
         db      "Sequence:", 0
-STR_3244 equ     $-DGROUP0
+STR_MASTER equ     $-DGROUP0
         db      "        Master:", 0
-STR_3254 equ     $-DGROUP0
+STR_DISPLAY_MODE equ     $-DGROUP0
         db      "Display Mode", 0
-STR_3261 equ     $-DGROUP0
+STR_BPM_FPB equ     $-DGROUP0
         db      "BPM/FPB:", 0
         if      FW_VERSION >= 212
-STR_326A equ     $-DGROUP0
+STR_FRAMES_SEC equ     $-DGROUP0
         db      "           Frames/sec:", 0
-STR_3281 equ     $-DGROUP0
+STR_OTHER_4 equ     $-DGROUP0
         db      "Other", 0
-STR_3287 equ     $-DGROUP0
+STR_TAP_AVERAGING equ     $-DGROUP0
         db      "Tap averaging:", 0
         else
         db      "           Frames/Sec:", 0
         db      "Other", 0
         db      "Tap Averaging:", 0
         endif
-STR_3296 equ     $-DGROUP0
+STR_SYNCSCREEN_TEMPOCHANGES equ     $-DGROUP0
         db      "<SyncScreen><TempoChanges>", 0
-STR_32B1 equ     $-DGROUP0
+STR_SYNC_INPUT_SETTINGS equ     $-DGROUP0
         db      "Sync Input Settings", 0
-STR_32C5 equ     $-DGROUP0
+STR_MODE equ     $-DGROUP0
         db      "Mode:", 0
         if      FW_VERSION >= 212
-STR_32CB equ     $-DGROUP0
+STR_SHIFT_SYNC_EARLY_MS equ     $-DGROUP0
         db      "Shift sync early(ms):", 0
-STR_32E1 equ     $-DGROUP0
+STR_MIDI_IN_2 equ     $-DGROUP0
         db      "Midi in:", 0
-STR_32EA equ     $-DGROUP0
+STR_SEQUENCE_STARTS_AT_SMPTE equ     $-DGROUP0
         db      "Sequence starts at SMPTE#:", 0
         db      03ah, 000h, 03ah, 000h, 03ah, 000h, 02eh, 000h
-STR_330D equ     $-DGROUP0
+STR_SMPTE_ACCURACY equ     $-DGROUP0
         db      "SMPTE accuracy:", 0
-STR_331D equ     $-DGROUP0
+STR_MIDI_IN_3 equ     $-DGROUP0
         db      "Midi in:", 0
-STR_3326 equ     $-DGROUP0
+STR_SHIFT_SYNC_EARLY_MS_2 equ     $-DGROUP0
         db      "Shift sync early(ms):", 0
         else
         db      "Sequence Starts at SMPTE# ", 0
@@ -11151,41 +11110,41 @@ STR_3326 equ     $-DGROUP0
         db      "Shift sync early (msec):", 0
         db      "     Midi In:", 0
         endif
-STR_333C equ     $-DGROUP0
+STR_1_4_CLICK_SYNC_STARTS_AT equ     $-DGROUP0
         db      "1/4 click sync starts at:", 0
-STR_3356 equ     $-DGROUP0
+STR_SYNC_OUTPUT_SETTINGS equ     $-DGROUP0
         db      "Sync Output Settings", 0
-STR_336B equ     $-DGROUP0
+STR_MODE_2 equ     $-DGROUP0
         db      "Mode:", 0
         if      FW_VERSION >= 212
-STR_3371 equ     $-DGROUP0
+STR_MIDI_CLOCK equ     $-DGROUP0
         db      "Midi clock:", 0
         else
         db      "         Midi Clock:", 0
         endif
-STR_337D equ     $-DGROUP0
+STR_GENSMPTE equ     $-DGROUP0
         db      "<GenSMPTE>", 0
-STR_3388 equ     $-DGROUP0
+STR_MID_SEQUENCE_TEMPO equ     $-DGROUP0
         db      "Mid Sequence Tempo Changes", 0
         if      FW_VERSION >= 212
-STR_33A3 equ     $-DGROUP0
+STR_TEMPO_CHANGES equ     $-DGROUP0
         db      "Tempo changes:", 0
         else
         db      "Tempo Changes:", 0
         endif
-STR_33B2 equ     $-DGROUP0
+STR_LOCATION_FOR_INSERTED equ     $-DGROUP0
         db      "Location for inserted change: ", 0
-STR_33D1 equ     $-DGROUP0
+STR_CHANGE_BAR_CHANGE_TEMPO equ     $-DGROUP0
         db      "Change#: Bar#:       %Change:  Tempo:", 0
         db      020h, 020h, 000h, 000h, 02eh, 000h
-STR_33FD equ     $-DGROUP0
+STR_INSERT_NEW_DELETE equ     $-DGROUP0
         db      "<Insert New> <Delete> <Previous> <Next>", 0
-STR_3425 equ     $-DGROUP0
+STR_3D_D_S equ     $-DGROUP0
         db      025h
         db      "3d.%d %s", 0
-STR_342F equ     $-DGROUP0
+STR_GENERATE_SMPTE equ     $-DGROUP0
         db      "Generate SMPTE", 0
-STR_343E equ     $-DGROUP0
+STR_START equ     $-DGROUP0
         db      "Start=", 0
         db      03ah, 000h, 03ah, 000h, 03ah, 000h
         endm
@@ -11220,13 +11179,13 @@ TBL_14BF equ     $-DGROUP0
         if      FW_VERSION >= 212
         db      "(no files)", 0
         db      000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h, 000h
-STR_1503 equ     $-DGROUP0
+STR_DISK equ     $-DGROUP0
         db      "Disk", 0
-STR_1508 equ     $-DGROUP0
+STR_1_SAVE_A_SEQUENCE_2_SAVE equ     $-DGROUP0
         db      "1)Save a sequence  2)Save all seqs/songs", 0
-STR_1531 equ     $-DGROUP0
+STR_3_SAVE_A_SOUND_4_SAVE equ     $-DGROUP0
         db      "3)Save a sound     4)Save all sounds", 0
-STR_1556 equ     $-DGROUP0
+STR_5_SAVE_PARAMETERS_6_LOAD equ     $-DGROUP0
         db      "5)Save parameters  6)Load/erase/rename", 0
         endif
         if      FW_VERSION = 212
@@ -11285,35 +11244,35 @@ L_164D  equ     $-DGROUP0
         db      "Size:%5uKB", 0
         endif
         if      FW_VERSION >= 212
-STR_16F8 equ     $-DGROUP0
+STR_LOAD_A_SOUND_FILE_SND equ     $-DGROUP0
         db      "Load a Sound File (.SND)", 0
         db      "Select the drum to load the selected"
         db      00ah
         db      "sound into: ", 0
         endif
-STR_1743 equ     $-DGROUP0
+STR_LOAD_FILE equ     $-DGROUP0
         db      "<Load file>", 0
-STR_174F equ     $-DGROUP0
+STR_LOADING equ     $-DGROUP0
         db      "loading...   ", 0
-STR_175D equ     $-DGROUP0
+STR_LOAD_A_SEQUENCE_FILE_SEQ equ     $-DGROUP0
         db      "Load a Sequence File (.SEQ)", 0
-STR_1779 equ     $-DGROUP0
+STR_SEQUENCE_NUMBER_TO_LOAD equ     $-DGROUP0
         db      "Sequence number to load into: ", 0
-STR_1798 equ     $-DGROUP0
+STR_LOAD_FILE_2 equ     $-DGROUP0
         db      "<Load file>", 0
-STR_17A4 equ     $-DGROUP0
+STR_LOADING_2 equ     $-DGROUP0
         db      "loading...     ", 0
-STR_17B4 equ     $-DGROUP0
+STR_LOAD_ALL_SEQS_AND_SONGS equ     $-DGROUP0
         db      "Load All Seqs and Songs (.ALL)", 0
         db      "This will erase all sequences and songs"
         db      00ah
         db      "currently in memory!", 0
-STR_1810 equ     $-DGROUP0
+STR_LOAD_FILE_3 equ     $-DGROUP0
         db      "<Load file>", 0
-STR_181C equ     $-DGROUP0
+STR_LOADING_FILE equ     $-DGROUP0
         db      "loading file ... ", 0
         if      FW_VERSION >= 212
-STR_182E equ     $-DGROUP0
+STR_LOAD_A_PARAMETER_FILE equ     $-DGROUP0
         db      "Load a Parameter File (.PAR)", 0
         db      "This will replace all existing system"
         db      00ah, 000h
@@ -11321,31 +11280,31 @@ STR_182E equ     $-DGROUP0
         db      00ah, 000h
         db      "which are normally retained while power"
         db      00ah, 000h
-STR_18C2 equ     $-DGROUP0
+STR_IS_OFF equ     $-DGROUP0
         db      "is off.)", 0
-STR_18CB equ     $-DGROUP0
+STR_LOAD_FILE_4 equ     $-DGROUP0
         db      "<Load file>", 0
-STR_18D7 equ     $-DGROUP0
+STR_LOADING_3 equ     $-DGROUP0
         db      "loading...     ", 0
         endif
-STR_18E7 equ     $-DGROUP0
+STR_ERASE_A_FILE equ     $-DGROUP0
         db      "Erase a File", 0
-STR_18F4 equ     $-DGROUP0
+STR_ERASE_THE_FILE equ     $-DGROUP0
         db      "Erase the file: ", 0
         db      020h, 03fh, 000h
-STR_1908 equ     $-DGROUP0
+STR_ERASE_IT equ     $-DGROUP0
         db      "<Erase it>", 0
-STR_1913 equ     $-DGROUP0
+STR_ERASING_FILE equ     $-DGROUP0
         db      "Erasing file ...", 0
-STR_1924 equ     $-DGROUP0
+STR_RENAME_A_FILE equ     $-DGROUP0
         db      "Rename a File", 0
-STR_1932 equ     $-DGROUP0
+STR_RENAME_THE_FILE equ     $-DGROUP0
         db      "Rename the file: ", 0
-STR_1944 equ     $-DGROUP0
+STR_TO_THE_NEW_NAME equ     $-DGROUP0
         db      "to the new name: ", 0
-STR_1956 equ     $-DGROUP0
+STR_RENAME_IT equ     $-DGROUP0
         db      "<Rename it>", 0
-STR_1962 equ     $-DGROUP0
+STR_RENAMING_FILE equ     $-DGROUP0
         db      "Renaming file ...", 0
         if      FW_VERSION < 214
         db      "Format Disk", 0
@@ -11360,9 +11319,9 @@ STR_1962 equ     $-DGROUP0
         db      "Format a Floppy Disk", 0
         db      "This will erase the entire disk!", 0
         endif
-STR_1A0B equ     $-DGROUP0
+STR_FORMAT_IT equ     $-DGROUP0
         db      "<Format it>", 0
-STR_1A17 equ     $-DGROUP0
+STR_FORMATTING equ     $-DGROUP0
         db      "Formatting...", 0
         if      FW_VERSION < 212
         db      02ch, 01ah
@@ -11377,38 +11336,38 @@ STR_1A17 equ     $-DGROUP0
         endif
 
 RUN_AFTER_BR_05E28_2 macro   {GLOBALSYMBOLS}
-STR_2E85 equ     $-DGROUP0
+STR_SAVE_ALL_SEQUENCES_SONGS equ     $-DGROUP0
         db      "Save All Sequences & Songs", 0
-STR_2EA0 equ     $-DGROUP0
+STR_ALL equ     $-DGROUP0
         db      ".ALL", 0
-STR_2EA5 equ     $-DGROUP0
+STR_ALL_SEQS equ     $-DGROUP0
 L_2EA5  equ     $-DGROUP0
         db      "ALL_SEQS", 0
 L_2EAE  equ     $-DGROUP0
         db      "Name 'ALL' file to save:"
         db      00ah, 000h
         if      FW_VERSION >= 212
-STR_2EC8 equ     $-DGROUP0
+STR_SAVE_A_SOUND equ     $-DGROUP0
         db      "Save a Sound", 0
         else
         db      "Save Sound", 0
         endif
-STR_2ED5 equ     $-DGROUP0
+STR_SND equ     $-DGROUP0
         db      ".SND", 0
-STR_2EDA equ     $-DGROUP0
+STR_SELECT_SOUND_TO_SAVE equ     $-DGROUP0
         db      "Select sound to save:     Drum:", 0
-STR_2EFA equ     $-DGROUP0
+STR_NAME_7 equ     $-DGROUP0
         db      "Name:", 0
         if      FW_VERSION < 212
         db      "(The first 8 letters of the sound name"
         db      00ah
         db      " will be used as the file name.)", 0
         endif
-STR_2F00 equ     $-DGROUP0
+STR_SAVE_ALL_SOUNDS equ     $-DGROUP0
         db      "Save All Sounds", 0
-STR_2F10 equ     $-DGROUP0
+STR_SET equ     $-DGROUP0
         db      ".SET", 0
-STR_2F15 equ     $-DGROUP0
+STR_ALL_SNDS equ     $-DGROUP0
         db      "ALL_SNDS", 0
         db      "Name 'SET' file to save:"
         db      00ah, 000h
@@ -11454,19 +11413,19 @@ L_1A87  equ     $-DGROUP0
         db      "Copy a Floppy Disk", 0
         endif
         if      FW_VERSION >= 212
-STR_1AA9 equ     $-DGROUP0
+STR_INSERT_DISK_TO_BE_COPIED equ     $-DGROUP0
         db      "Insert disk to be copied FROM, then", 0
-STR_1ACD equ     $-DGROUP0
+STR_PRESS_PROCEED equ     $-DGROUP0
         db      "press <Proceed>", 0
-STR_1ADD equ     $-DGROUP0
+STR_PROCEED equ     $-DGROUP0
         db      "<Proceed>", 0
-STR_1AE7 equ     $-DGROUP0
+STR_COPYING_SOURCE_DISK equ     $-DGROUP0
         db      "Copying source disk. Please wait...", 0
-STR_1B0B equ     $-DGROUP0
+STR_INSERT_DISK_TO_COPY_TO equ     $-DGROUP0
         db      "Insert disk to copy TO, then         ", 0
-STR_1B31 equ     $-DGROUP0
+STR_PROCEED_2 equ     $-DGROUP0
         db      "<Proceed>", 0
-STR_1B3B equ     $-DGROUP0
+STR_WRITING_DESTINATION_DISK equ     $-DGROUP0
         db      "Writing destination disk. Please wait...", 0
         endif
         if      FW_VERSION = 212
@@ -11480,45 +11439,45 @@ STR_1B3B equ     $-DGROUP0
 L_1B79  equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
-STR_1B81 equ     $-DGROUP0
+STR_TMPO equ     $-DGROUP0
         db      " Tmpo:", 0
         db      020h, 000h
-STR_1B8A equ     $-DGROUP0
+STR_TSIG_BARS_LOOP equ     $-DGROUP0
         db      "Tsig:  /     Bars:       Loop:", 0
         db      000h
-STR_1BAA equ     $-DGROUP0
+STR_TRACK_DATA equ     $-DGROUP0
         db      "Track Data", 0
-STR_1BB5 equ     $-DGROUP0
+STR_TRAK equ     $-DGROUP0
         db      "Trak:", 0
         db      02dh, 000h
 STR_1BBD equ     $-DGROUP0
         db      " Ch:", 0
         db      000h, 02dh, 000h
-STR_1BC5 equ     $-DGROUP0
+STR_VOL equ     $-DGROUP0
         db      "Vol%:", 0
-STR_1BCB equ     $-DGROUP0
+STR_PROG equ     $-DGROUP0
         db      "     Prog:", 0
 STR_1BD6 equ     $-DGROUP0
         db      "    Ch:", 0
         db      000h, 02dh, 000h
-STR_1BE1 equ     $-DGROUP0
+STR_TRAK_SOLO_TMPO_SORTTRKS equ     $-DGROUP0
         db      "<Trak=   ><Solo=   ><Tmpo=   ><SortTrks>", 0
 L_1C0A  equ     $-DGROUP0
         db      "(Hold drums or keys to erase)", 0
 L_1C28  equ     $-DGROUP0
         db      "(Hold notes to repeat)", 0
-STR_1C3F equ     $-DGROUP0
+STR_NOW_001_01_00_00_00_00 equ     $-DGROUP0
         db      03dh, 03dh, 03dh, 03dh, 03dh
         db      " Now:001.01.00 (00:00:00.00) ======", 0
-STR_1C68 equ     $-DGROUP0
+STR_OFF equ     $-DGROUP0
 STR_1C6C equ     $-DGROUP0+4
 L_1C68  equ     $-DGROUP0
         db      04fh, 046h, 046h, 000h, 04fh, 04eh, 020h, 000h, 04fh, 046h, 046h, 000h, 04fh, 04eh, 020h, 000h
-STR_1C78 equ     $-DGROUP0
-STR_1C7C equ     $-DGROUP0+4
+STR_MAS equ     $-DGROUP0
+STR_SEQ equ     $-DGROUP0+4
 STR_1C80 equ     $-DGROUP0+8
         db      04dh, 041h, 053h, 000h, 053h, 045h, 051h, 000h, 020h, 020h, 020h, 000h
-STR_1C84 equ     $-DGROUP0
+STR_OFF_2 equ     $-DGROUP0
         db      "(off)   ", 0
 L_1C8D  equ     $-DGROUP0
         db      "Drums   ", 0
@@ -11557,93 +11516,93 @@ L_1CDB  equ     $-DGROUP0
         db      "NONE", 0
         db      "DRUM NOTES", 0
         db      "NOTES/MIX/TUNE", 0
-STR_1D63 equ     $-DGROUP0
+STR_MIDI equ     $-DGROUP0
         db      "Midi", 0
-STR_1D68 equ     $-DGROUP0
+STR_1_MIDI_INPUT_FILTER_SOFT equ     $-DGROUP0
         db      "1)Midi input filter, soft thru, other", 0
-STR_1D8E equ     $-DGROUP0
+STR_2_EXTERNAL_DRUM equ     $-DGROUP0
         db      "2)External drum triggering, drums chan", 0
-STR_1DB5 equ     $-DGROUP0
+STR_3_AKAI_ME_35T_AUDIO_MIDI equ     $-DGROUP0
         db      "3)Akai ME-35T audio/midi interface", 0
-STR_1DD8 equ     $-DGROUP0
+STR_4_TURN_ALL_NOTES_OFF equ     $-DGROUP0
         db      "4)Turn All Notes Off", 0
-STR_1DED equ     $-DGROUP0
+STR_MIDI_INPUT_FILTER equ     $-DGROUP0
         db      "Midi Input Filter", 0
-STR_1DFF equ     $-DGROUP0
+STR_EVENT equ     $-DGROUP0
         db      "Event:", 0
-STR_1E06 equ     $-DGROUP0
+STR_PASS_EVENT equ     $-DGROUP0
         db      "Pass event?:", 0
         db      000h
-STR_1E14 equ     $-DGROUP0
+STR_VELOCITY_MODE equ     $-DGROUP0
         db      "Velocity mode:", 0
         db      "Fixed velocity:", 0
-STR_1E33 equ     $-DGROUP0
+STR_OTHER_MIDI equ     $-DGROUP0
         db      "Other Midi", 0
-STR_1E3E equ     $-DGROUP0
+STR_MIDI_SOFT_THRU equ     $-DGROUP0
         db      "Midi soft thru:", 0
-STR_1E4E equ     $-DGROUP0
+STR_DEFAULT_CHAN equ     $-DGROUP0
         db      "Default chan:", 0
         db      000h
-STR_1E5D equ     $-DGROUP0
+STR_SPECIAL_SUSTAIN_PEDAL equ     $-DGROUP0
         db      "Special sustain pedal processing:", 0
-STR_1E7F equ     $-DGROUP0
+STR_ALL_NOTES_OFF equ     $-DGROUP0
         db      "<All notes off>", 0
-STR_1E8F equ     $-DGROUP0
+STR_MINIMUM_CHANGE equ     $-DGROUP0
         db      "Minimum change:", 0
-STR_1E9F equ     $-DGROUP0
+STR_ASSIGN_INCOMING_NOTES_TO equ     $-DGROUP0
         db      "Assign Incoming Notes to Drums", 0
-STR_1EBE equ     $-DGROUP0
+STR_INCOMING_NOTES_PLAY equ     $-DGROUP0
         db      "Incoming notes play drums:", 0
-STR_1ED9 equ     $-DGROUP0
+STR_NOTE equ     $-DGROUP0
         db      "Note:", 0
         db      028h, 000h, 029h, 000h
-STR_1EE3 equ     $-DGROUP0
+STR_PLAYS equ     $-DGROUP0
         db      "Plays:", 0
-STR_1EEA equ     $-DGROUP0
+STR_ASSIGN_OUTGOING_DRUMS_TO equ     $-DGROUP0
         db      "Assign Outgoing Drums to Notes", 0
-STR_1F09 equ     $-DGROUP0
+STR_MIDI_DRUM_DATA_SENT_OUT equ     $-DGROUP0
         db      "Midi drum data sent out:", 0
-STR_1F22 equ     $-DGROUP0
+STR_DRUM equ     $-DGROUP0
         db      "Drum:", 0
-STR_1F28 equ     $-DGROUP0
+STR_PLAYS_NOTE equ     $-DGROUP0
         db      "Plays note:", 0
         db      028h, 000h, 029h, 000h
-STR_1F38 equ     $-DGROUP0
+STR_OTHER equ     $-DGROUP0
         db      "Other", 0
-STR_1F3E equ     $-DGROUP0
+STR_MIDI_DRUMS_CHAN equ     $-DGROUP0
         db      "Midi drums chan:", 0
-STR_1F4F equ     $-DGROUP0
+STR_ME_35T_TRIGGER_INTERFACE equ     $-DGROUP0
         db      "ME-35T Trigger Interface", 0
-STR_1F68 equ     $-DGROUP0
+STR_MIDI_IN equ     $-DGROUP0
         db      "Midi in:", 0
-STR_1F71 equ     $-DGROUP0
+STR_OUT equ     $-DGROUP0
         db      "  Out:", 0
-STR_1F78 equ     $-DGROUP0
+STR_UNIT equ     $-DGROUP0
         db      "Unit:", 0
-STR_1F7E equ     $-DGROUP0
+STR_UNIT_CH equ     $-DGROUP0
         db      "   Unit ch:", 0
-STR_1F8A equ     $-DGROUP0
+STR_SETTINGS_FOR_INPUT equ     $-DGROUP0
         db      "Settings for Input:", 0
         db      000h
-STR_1F9F equ     $-DGROUP0
+STR_NOTE_2 equ     $-DGROUP0
         db      "Note:", 0
-STR_1FA5 equ     $-DGROUP0
+STR_SENSITIVITY equ     $-DGROUP0
         db      "Sensitivity:", 0
-STR_1FB2 equ     $-DGROUP0
+STR_TRIGGER equ     $-DGROUP0
         db      "Trigger:", 0
-STR_1FBB equ     $-DGROUP0
+STR_CAPTURE_TIME equ     $-DGROUP0
         db      "Capture time:", 0
-STR_1FC9 equ     $-DGROUP0
+STR_RECOVERY_TIME equ     $-DGROUP0
         db      "Recovery time:", 0
-STR_1FD8 equ     $-DGROUP0
+STR_ON_TIME equ     $-DGROUP0
         db      "'On' time:", 0
-STR_1FE3 equ     $-DGROUP0
+STR_VELOCITY_CURVE equ     $-DGROUP0
         db      "Velocity curve:", 0
-STR_1FF3 equ     $-DGROUP0
+STR_MIDI_CHANNEL equ     $-DGROUP0
         db      "Midi channel:", 0
-STR_2001 equ     $-DGROUP0
+STR_READ_FROM_SEND_TO equ     $-DGROUP0
         db      "<Read from> <Send to>", 0
-STR_2017 equ     $-DGROUP0
+STR_ATTENTION equ     $-DGROUP0
         db      "Attention", 0
         db      "The ME-35T is not turned on (connected)"
         db      00ah, 000h
@@ -11651,7 +11610,7 @@ STR_2017 equ     $-DGROUP0
         db      00ah, 000h
         db      "port has been detected"
         db      00ah, 000h
-STR_208B equ     $-DGROUP0
+STR_CANCEL equ     $-DGROUP0
         db      "<Cancel>", 0
 STR_2094 equ     $-DGROUP0
 L_2094  equ     $-DGROUP0
@@ -11731,25 +11690,25 @@ L_1ED1_V112 equ     $-DGROUP0
         endif
         if      FW_VERSION >= 212
         db      "LINE", 0
-STR_21EF equ     $-DGROUP0
+STR_METRONOME equ     $-DGROUP0
         db      "Metronome", 0
-STR_21F9 equ     $-DGROUP0
+STR_VOLUME equ     $-DGROUP0
         db      "Volume:", 0
-STR_2201 equ     $-DGROUP0
+STR_RATE equ     $-DGROUP0
         db      "   Rate:", 0
-STR_220A equ     $-DGROUP0
+STR_IN_PLAY equ     $-DGROUP0
         db      "  In play:", 0
-STR_2215 equ     $-DGROUP0
+STR_FOOT_SWITCHES equ     $-DGROUP0
         db      "Foot switches", 0
 L_2223  equ     $-DGROUP0
         db      "Foot1:", 0
 L_222A  equ     $-DGROUP0
         db      " Foot2:", 0
-STR_2232 equ     $-DGROUP0
+STR_OTHER_2 equ     $-DGROUP0
         db      "Other", 0
 L_2238  equ     $-DGROUP0
         db      "Free sequence memory: %d%%", 0
-STR_2253 equ     $-DGROUP0
+STR_DEFAULTS_RECORD_16_CHS equ     $-DGROUP0
         db      "<Defaults><Record 16 Chs>", 0
 L_226D  equ     $-DGROUP0
         db      "Reset to Defaults", 0
@@ -11758,13 +11717,13 @@ L_227F  equ     $-DGROUP0
         db      000h
 L_2294  equ     $-DGROUP0
         db      "Debug Functions", 0
-STR_22A4 equ     $-DGROUP0
+STR_DATE_OF_THIS_VERSION equ     $-DGROUP0
         db      "Date of this version: ", 0
 L_22BB  equ     $-DGROUP0
         db      "Voices Off Insurance:", 0
 L_22D1  equ     $-DGROUP0
         db      "Help Codes:", 0
-STR_22DD equ     $-DGROUP0
+STR_MAX_HIHAT_DECAY equ     $-DGROUP0
         db      "Max HiHat Decay:", 0
 L_22EE  equ     $-DGROUP0
         db      "<sync>    <sounds>", 0
@@ -11772,11 +11731,11 @@ L_22EE  equ     $-DGROUP0
 
 RUN_AFTER_BR_05E28_3 macro   {GLOBALSYMBOLS}
 
-STR_2301 equ     $-DGROUP0
+STR_SYNC_PARAMETERS equ     $-DGROUP0
         db      "Sync Parameters", 0
-STR_2311 equ     $-DGROUP0
+STR_EXIT equ     $-DGROUP0
         db      "<exit>", 0
-STR_2318 equ     $-DGROUP0
+STR_BTEMPO_5U_TEMPO_5U equ     $-DGROUP0
         db      "Btempo:%5u  Tempo:%5u  Htempo:%5u", 0
         db      00ah
         db      "Exttick:%10lu  Exttime:%10lu", 0
@@ -11788,15 +11747,15 @@ STR_2318 equ     $-DGROUP0
         db      "Frmnum: %10lu  Frmfrc: %10lu", 0
         db      00ah
         db      "Syncin:%d  Insync:%2d Esmpte: ", 0
-STR_23D2 equ     $-DGROUP0
+STR_MTCCNT_3D equ     $-DGROUP0
         db      "Mtccnt:%3d", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_3
         endif
-STR_23DD equ     $-DGROUP0
+STR_SOUND_DATA equ     $-DGROUP0
         db      "Sound Data", 0
-STR_23E8 equ     $-DGROUP0
+STR_1_SOUND_DIRECTORY equ     $-DGROUP0
         db      "1) Sound Directory", 0
         db      00ah
         db      "2) Sound Mem Allocation Map", 0
@@ -11809,9 +11768,9 @@ STR_23E8 equ     $-DGROUP0
         else
         db      "3) View Sound Memory", 0
         endif
-STR_242E equ     $-DGROUP0
+STR_SOUND equ     $-DGROUP0
         db      "Sound ", 0
-STR_2435 equ     $-DGROUP0
+STR_16S_DRUM_2D equ     $-DGROUP0
         db      ": %-16s  Drum %2d", 0
         db      00ah
         if      FW_VERSION < 212
@@ -11840,20 +11799,20 @@ L_247D  equ     $-DGROUP0
         db      "tatk:%6d  vol:%7d  rpan:%4d=%02xh", 0
         db      00ah
         db      "tdcy:%6d  pan:%7d  lpan:%4d=%02xh", 0
-STR_2529 equ     $-DGROUP0
+STR_SOUND_MEM_ALLOCATION equ     $-DGROUP0
         db      "Sound Mem Allocation", 0
-STR_253E equ     $-DGROUP0
+STR_INDEX equ     $-DGROUP0
         db      "Index:", 0
-STR_2545 equ     $-DGROUP0
+STR_STAT_2D_SND_2D equ     $-DGROUP0
         db      "stat: %2d        snd:%2d", 0
-STR_255E equ     $-DGROUP0
+STR_START_7LD_LEN_7LD equ     $-DGROUP0
         db      "start:%7ld   len:%7ld", 0
-STR_2574 equ     $-DGROUP0
+STR_START_ADDRESS equ     $-DGROUP0
         db      "START ADDRESS", 0
         db      "address = %ld [%05lxh]"
-STR_259A equ     $-DGROUP0+2
+STR_04X equ     $-DGROUP0+2
         db      00ah, 000h, 025h, 030h, 034h, 078h, 020h, 000h
-STR_25A0 equ     $-DGROUP0
+STR_S_LD equ     $-DGROUP0
         db      "%s = %ld: ", 0
         if      FW_VERSION < 212
         RUN_AFTER_BR_05E28_3
@@ -11903,7 +11862,7 @@ STR_25A0 equ     $-DGROUP0
         db      "16 TUNINGS", 0
 TBL_26A6 equ     $-DGROUP0
         db      00ch, 00dh, 00eh, 00fh, 008h, 009h, 00ah, 00bh, 004h, 005h, 006h, 007h, 000h, 001h, 002h, 003h
-STR_26B6 equ     $-DGROUP0
+STR_SOUNDS equ     $-DGROUP0
         db      "Sounds", 0
         db      "1)Sample new sound  2)Edit a sound"
         db      00ah, 000h
@@ -11911,43 +11870,43 @@ STR_26B6 equ     $-DGROUP0
         db      00ah, 000h
         db      "5)Assign mix outs   6)Midi sample dump"
         db      00ah, 000h
-STR_272B equ     $-DGROUP0
+STR_7_AUDIO_TRIGGER_8_MIXER equ     $-DGROUP0
         db      "7)Audio trigger     8)Mixer/hihat/other", 0
         endif
 
 RUN_AFTER_BR_05E28_4 macro   {GLOBALSYMBOLS}
 
-STR_2753 equ     $-DGROUP0
+STR_ASSIGNABLE_MIX_OUTPUTS equ     $-DGROUP0
         db      "Assignable Mix Outputs", 0
         db      03ah, 000h
-STR_276C equ     $-DGROUP0
+STR_0_NO_OUTPUT_ASSIGNMENT equ     $-DGROUP0
         db      "(0=No output assignment)", 0
-STR_2785 equ     $-DGROUP0
+STR_MIXER_MODES equ     $-DGROUP0
         db      "Mixer Modes", 0
-STR_2791 equ     $-DGROUP0
+STR_STEREO_MIX equ     $-DGROUP0
         db      "Stereo Mix:", 0
         if      FW_VERSION >= 212
         db      000h
-STR_279E equ     $-DGROUP0
+STR_ECHO_MIX equ     $-DGROUP0
         db      "Echo   Mix:", 0
         db      000h
         else
         db      "Echo Mix:", 0
         endif
-STR_27AB equ     $-DGROUP0
+STR_HIHAT_DECAY_SWITCH equ     $-DGROUP0
         db      "HiHat Decay Switch Thresholds", 0
-STR_27C9 equ     $-DGROUP0
+STR_CLOSED_MEDIUM equ     $-DGROUP0
         db      "Closed/Medium:", 0
-STR_27D8 equ     $-DGROUP0
+STR_MEDIUM_OPEN equ     $-DGROUP0
         db      "     Medium/Open:", 0
         if      FW_VERSION >= 212
-STR_27EA equ     $-DGROUP0
+STR_OTHER_3 equ     $-DGROUP0
         db      "Other", 0
-STR_27F0 equ     $-DGROUP0
+STR_CONTROLLER_NUMBER_FOR equ     $-DGROUP0
         db      "Controller number for hihat decay:", 0
-STR_2813 equ     $-DGROUP0
+STR_FUNCTION_OF_16_LEVELS equ     $-DGROUP0
         db      "Function of '16 levels':", 0
-STR_282C equ     $-DGROUP0
+STR_RCRD_LIVE_CHNGS equ     $-DGROUP0
         db      "Rcrd live chngs:", 0
         else
         db      "Controller number for HiHat Decay:", 0
@@ -11969,9 +11928,9 @@ STR_282C equ     $-DGROUP0
         db      "<Cancel>", 0
         db      "<Cancel>", 0
         endif
-STR_283D equ     $-DGROUP0
+STR_AUDIO_TRIGGER_USE_SYNC equ     $-DGROUP0
         db      "Audio Trigger (Use Sync Input)", 0
-STR_285C equ     $-DGROUP0
+STR_PLAYS_DRUM equ     $-DGROUP0
         db      "Plays Drum:", 0
         db      "(Triggering is only active while this"
         db      00ah
@@ -11985,44 +11944,44 @@ L_28B5  equ     $-DGROUP0
         db      "Drum:", 0
 L_28BB  equ     $-DGROUP0
         db      "    Name:", 0
-STR_28C5 equ     $-DGROUP0
+STR_ALL_SEQUENCE_MEMORY_AND equ     $-DGROUP0
         db      "(All sequence memory, and the existing", 0
-STR_28EC equ     $-DGROUP0
+STR_DRUM_SOUND_FOR_THE_DRUM equ     $-DGROUP0
         db      "drum sound for the drum to be sampled", 0
-STR_2912 equ     $-DGROUP0
+STR_INTO_WILL_BE_ERASED_ARE equ     $-DGROUP0
         db      "into, will be erased! Are you sure you", 0
-STR_2939 equ     $-DGROUP0
+STR_WANT_TO_PROCEED equ     $-DGROUP0
         db      "want to proceed?)", 0
         endif
 
 RUN_AFTER_BR_05E28_5 macro   {GLOBALSYMBOLS}
 
-STR_294B equ     $-DGROUP0
+STR_PROCEED_3 equ     $-DGROUP0
         db      "<Proceed>", 0
-STR_2955 equ     $-DGROUP0
+STR_SAMPLE_NEW_SOUND equ     $-DGROUP0
         db      "Sample New Sound", 0
-STR_2966 equ     $-DGROUP0
+STR_DRUM_2 equ     $-DGROUP0
         db      "Drum:", 0
-STR_296C equ     $-DGROUP0
+STR_NAME equ     $-DGROUP0
         db      "   Name:", 0
-STR_2975 equ     $-DGROUP0
+STR_LENGTH_SEC equ     $-DGROUP0
         db      "Length(sec):", 0
-STR_2982 equ     $-DGROUP0
+STR_PRE_RECORD_MSEC equ     $-DGROUP0
         db      " Pre-Record (msec):  ", 0
-STR_2998 equ     $-DGROUP0
+STR_HEAR_INPUT equ     $-DGROUP0
         db      "Hear Input: ", 0
-STR_29A5 equ     $-DGROUP0
+STR_FADEOUT_TIME_MSEC equ     $-DGROUP0
         db      "  Fadeout Time(msec):", 0
-STR_29BB equ     $-DGROUP0
+STR_RECORD_LEVEL equ     $-DGROUP0
         db      "Record Level:", 0
-STR_29C9 equ     $-DGROUP0
+STR_THRESHOLD_T equ     $-DGROUP0
         db      "  Threshold%(T):", 0
-STR_29DA equ     $-DGROUP0
+STR_METER equ     $-DGROUP0
         db      "Meter:", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_5
-STR_29E1 equ     $-DGROUP0
+STR_RECORD_LITE_ON_WHEN equ     $-DGROUP0
         db      "(Record lite=ON when threshold exceeded)", 0
 L_2A0A  equ     $-DGROUP0
         db      "<Cancel>", 0
@@ -12030,76 +11989,76 @@ L_2A13  equ     $-DGROUP0
         db      "(Loading sound into Sound Generator)    ", 0
 L_2A3C  equ     $-DGROUP0
         db      "<Playback> <Ready...>", 0
-STR_2A52 equ     $-DGROUP0
+STR_SOUND_2 equ     $-DGROUP0
         db      "sound", 0
 STR_2A58 equ     $-DGROUP0
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h, 000h
-STR_2A62 equ     $-DGROUP0
+STR_EDIT_A_SOUND_PAGE_1 equ     $-DGROUP0
         db      "Edit a Sound (page 1)", 0
 L_2A78  equ     $-DGROUP0
         db      "Drum:", 0
 L_2A7E  equ     $-DGROUP0
         db      "     Name:", 0
-STR_2A89 equ     $-DGROUP0
+STR_DOUBLE_PLAY equ     $-DGROUP0
         db      "Double Play", 0
-STR_2A95 equ     $-DGROUP0
+STR_ALSO_PLAYS equ     $-DGROUP0
         db      "Also plays:", 0
-STR_2AA1 equ     $-DGROUP0
+STR_VELSW equ     $-DGROUP0
         db      "    Velsw:", 0
-STR_2AAC equ     $-DGROUP0
+STR_IF_OVER equ     $-DGROUP0
         db      " If over:", 0
-STR_2AB6 equ     $-DGROUP0
+STR_DATA equ     $-DGROUP0
         db      "Data", 0
-STR_2ABB equ     $-DGROUP0
+STR_VOLUME_2 equ     $-DGROUP0
         db      "Volume%:", 0
-STR_2AC4 equ     $-DGROUP0
+STR_TUNING equ     $-DGROUP0
         db      "        Tuning:", 0
-STR_2AD4 equ     $-DGROUP0
+STR_START_MSEC equ     $-DGROUP0
         db      "Start (msec):", 0
-STR_2AE2 equ     $-DGROUP0
+STR_END_MSEC equ     $-DGROUP0
         db      "  End(msec):", 0
-STR_2AEF equ     $-DGROUP0
+STR_CUTOFF_ENDS_REVERSE equ     $-DGROUP0
         db      "<Cutoff ends><Reverse> <Delete> <Page 2>", 0
-STR_2B18 equ     $-DGROUP0
+STR_EDIT_A_SOUND_PAGE_2 equ     $-DGROUP0
         db      "Edit a Sound (page 2)", 0
-STR_2B2E equ     $-DGROUP0
+STR_DRUM_3 equ     $-DGROUP0
         db      "Drum:", 0
-STR_2B34 equ     $-DGROUP0
+STR_NAME_2 equ     $-DGROUP0
         db      "     Name:", 0
-STR_2B3F equ     $-DGROUP0
+STR_ENVELOPE equ     $-DGROUP0
         db      "Envelope", 0
-STR_2B48 equ     $-DGROUP0
+STR_ATTACK_MSEC equ     $-DGROUP0
         db      "Attack(msec):", 0
-STR_2B56 equ     $-DGROUP0
+STR_FADEOUT_MSEC equ     $-DGROUP0
         db      "  Fadeout(msec):", 0
-STR_2B67 equ     $-DGROUP0
+STR_VELOCITY equ     $-DGROUP0
         db      "Velocity", 0
         db      "Vel>start(ms):", 0
-STR_2B7F equ     $-DGROUP0
+STR_VEL_ATTACK_MS equ     $-DGROUP0
         db      "  Vel>attack(ms):", 0
-STR_2B91 equ     $-DGROUP0
+STR_VEL_VOL_0_100 equ     $-DGROUP0
         db      "Vel>vol(0-100):", 0
-STR_2BA1 equ     $-DGROUP0
+STR_CUTOFF_ENDS_REVERSE_2 equ     $-DGROUP0
         db      "<Cutoff ends><Reverse> <Delete> <Page 1>", 0
-STR_2BCA equ     $-DGROUP0
+STR_CUTOFF_ENDS equ     $-DGROUP0
         db      "Cutoff Ends", 0
-STR_2BD6 equ     $-DGROUP0
+STR_REVERSE_A_SOUND equ     $-DGROUP0
         db      "Reverse a Sound", 0
-STR_2BE6 equ     $-DGROUP0
+STR_DRUM_4 equ     $-DGROUP0
         db      "Drum:", 0
         db      025h, 073h, 000h
-STR_2BEF equ     $-DGROUP0
+STR_NAME_3 equ     $-DGROUP0
         db      "   Name:", 0
         db      025h, 073h, 000h
-STR_2BFB equ     $-DGROUP0
+STR_DELETE_A_SOUND equ     $-DGROUP0
         db      "Delete a Sound", 0
-STR_2C0A equ     $-DGROUP0
+STR_DRUM_5 equ     $-DGROUP0
         db      "Drum:", 0
         db      025h, 073h, 000h
-STR_2C13 equ     $-DGROUP0
+STR_NAME_4 equ     $-DGROUP0
         db      "   Name:", 0
         db      025h, 073h, 000h
-STR_2C1F equ     $-DGROUP0
+STR_REVERSING_THE_SOUND equ     $-DGROUP0
 L_2C1F  equ     $-DGROUP0
         db      "Reversing the sound. Please wait ...", 0
         endif
@@ -12112,78 +12071,78 @@ L_2C1F  equ     $-DGROUP0
         if      FW_VERSION >= 212
         db      "STANDARD", 0
         db      053h, 039h, 030h, 030h, 000h
-STR_2C58 equ     $-DGROUP0
+STR_MIDI_SAMPLE_DUMP_RECEIVE equ     $-DGROUP0
         db      "Midi sample dump (Receive)", 0
-STR_2C73 equ     $-DGROUP0
+STR_MIDI_INPUT equ     $-DGROUP0
         db      "Midi input:", 0
-STR_2C7F equ     $-DGROUP0
+STR_MIDI_OUTPUT equ     $-DGROUP0
         db      "       Midi output:", 0
-STR_2C93 equ     $-DGROUP0
+STR_FORMAT equ     $-DGROUP0
         db      "Format:", 0
-STR_2C9B equ     $-DGROUP0
+STR_FREE_MEM_SMPLS_4DK equ     $-DGROUP0
         db      "Free Mem(Smpls):%4dK", 0
-STR_2CB0 equ     $-DGROUP0
+STR_DRUM_6 equ     $-DGROUP0
         db      "Drum:", 0
-STR_2CB6 equ     $-DGROUP0
+STR_NAME_5 equ     $-DGROUP0
         db      "Name:", 0
-STR_2CBC equ     $-DGROUP0
+STR_PRESS_RECEIVE_OR_START equ     $-DGROUP0
         db      "(Press <Receive> or start ext sampler)", 0
-STR_2CE3 equ     $-DGROUP0
+STR_SELECT_SOUND_FOR_RECEIVE equ     $-DGROUP0
         db      "Select sound for <Receive>", 0
-STR_2CFE equ     $-DGROUP0
+STR_REQUEST_CHAN equ     $-DGROUP0
         db      "Request Chan:", 0
-STR_2D0C equ     $-DGROUP0
+STR_REQUEST_SOUND equ     $-DGROUP0
         db      "    Request sound:", 0
-STR_2D1F equ     $-DGROUP0
+STR_RECEIVE_SEND_RECV equ     $-DGROUP0
         db      "<Receive> <Send/Recv>", 0
 STR_2D35 equ     $-DGROUP0
         db      025h, 032h, 064h, 000h
-STR_2D39 equ     $-DGROUP0
+STR_ERASING_THE_ABOVE_SOUND equ     $-DGROUP0
         db      "Erasing the above sound ...", 0
-STR_2D55 equ     $-DGROUP0
+STR_READY_TO_RECEIVE_MIDI equ     $-DGROUP0
         db      "(Ready to receive Midi sample dump ...)", 0
-STR_2D7D equ     $-DGROUP0
+STR_CANCEL_2 equ     $-DGROUP0
         db      "<Cancel>", 0
-STR_2D86 equ     $-DGROUP0
+STR_MIDI_SAMPLE_DUMP_SEND equ     $-DGROUP0
         db      "Midi sample dump (Send)", 0
-STR_2D9E equ     $-DGROUP0
+STR_MIDI_INPUT_2 equ     $-DGROUP0
         db      "Midi input:", 0
-STR_2DAA equ     $-DGROUP0
+STR_MIDI_OUTPUT_2 equ     $-DGROUP0
         db      "       Midi output:", 0
-STR_2DBE equ     $-DGROUP0
+STR_FORMAT_2 equ     $-DGROUP0
         db      "Format:", 0
-STR_2DC6 equ     $-DGROUP0
+STR_SEND_CHANNEL equ     $-DGROUP0
         db      "    Send channel:", 0
-STR_2DD8 equ     $-DGROUP0
+STR_START_EXTERNAL_SAMPLER equ     $-DGROUP0
         db      "Start external sampler or press <send>", 0
-STR_2DFF equ     $-DGROUP0
+STR_SELECT_SOUND_FOR_SEND equ     $-DGROUP0
         db      "Select sound for <Send>", 0
-STR_2E17 equ     $-DGROUP0
+STR_DRUM_7 equ     $-DGROUP0
         db      "Drum:", 0
 STR_2E1F equ     $-DGROUP0+2
         db      028h, 000h, 025h, 032h, 064h, 000h, 029h, 000h
-STR_2E25 equ     $-DGROUP0
+STR_NAME_6 equ     $-DGROUP0
         db      " Name:", 0
-STR_2E2C equ     $-DGROUP0
+STR_SEND_SEND_RECV equ     $-DGROUP0
         db      "<Send>    <Send/Recv>", 0
 STR_2E42 equ     $-DGROUP0
 STR_2E46 equ     $-DGROUP0+4
         db      025h, 032h, 064h, 000h, 025h, 032h, 064h, 000h
-STR_2E4A equ     $-DGROUP0
+STR_CANCEL_3 equ     $-DGROUP0
         db      "<Cancel>", 0
         db      000h
-STR_2E54 equ     $-DGROUP0
+STR_SAVE_A_SEQUENCE equ     $-DGROUP0
         db      "Save a Sequence", 0
-STR_2E64 equ     $-DGROUP0
+STR_SEQ_2 equ     $-DGROUP0
         db      ".SEQ", 0
         db      "Select sequence to save:"
         db      00ah, 000h, 02dh, 000h
         RUN_AFTER_BR_05E28_2
-STR_2F38 equ     $-DGROUP0
+STR_SAVE_PARAMETERS equ     $-DGROUP0
         db      "Save Parameters", 0
-STR_2F48 equ     $-DGROUP0
+STR_PAR equ     $-DGROUP0
         db      ".PAR", 0
-STR_2F4D equ     $-DGROUP0
+STR_PARAMS equ     $-DGROUP0
         db      "PARAMS  ", 0
         db      "Name 'PAR' file to save:"
         db      00ah, 000h
@@ -12203,17 +12162,17 @@ L_2F83  equ     $-DGROUP0
         db      "<Select disk>", 0
         endif
         if      FW_VERSION >= 212
-STR_2FA9 equ     $-DGROUP0
+STR_SAVING_FILE equ     $-DGROUP0
         db      "saving file ...  ", 0
-STR_2FBB equ     $-DGROUP0
+STR_FILE_ALREADY_EXISTS equ     $-DGROUP0
         db      "FILE ALREADY EXISTS.  OVERWRITE IT?     ", 0
-STR_2FE4 equ     $-DGROUP0
+STR_YES_NO equ     $-DGROUP0
         db      "<yes>      <no>  ", 0
-STR_2FF6 equ     $-DGROUP0
+STR_SAVING_FILE_2 equ     $-DGROUP0
         db      "saving file ...  ", 0
-STR_3008 equ     $-DGROUP0
+STR_SAVE_1ST_PART equ     $-DGROUP0
         db      "<Save 1st part>", 0
-STR_3018 equ     $-DGROUP0
+STR_SAVE_2ND_PART equ     $-DGROUP0
         db      "<Save 2nd part>", 0
         endif
         if      FW_VERSION = 212
@@ -12239,59 +12198,59 @@ L_307D  equ     $-DGROUP0
 
 RUN_AFTER_BR_05E28_6 macro   {GLOBALSYMBOLS}
 
-STR_3088 equ     $-DGROUP0
+STR_02D_NO_MORE_EVENTS_AT equ     $-DGROUP0
         db      "%02d-(no more events at this location)", 0
-STR_30AF equ     $-DGROUP0
+STR_02D equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 02dh, 000h, 020h, 000h
-STR_30B7 equ     $-DGROUP0
+STR_VEL equ     $-DGROUP0
         db      " Vel:", 0
-STR_30BD equ     $-DGROUP0
+STR_DCY equ     $-DGROUP0
         db      " Dcy:", 0
         if      FW_VERSION >= 212
-STR_30C3 equ     $-DGROUP0
+STR_TUN equ     $-DGROUP0
         db      " Tun:", 0
         endif
-STR_30C9 equ     $-DGROUP0
+STR_VEL_2 equ     $-DGROUP0
         db      " Vel:", 0
         db      02fh, 000h
-STR_30D1 equ     $-DGROUP0
+STR_DUR equ     $-DGROUP0
         db      "Dur:", 0
-STR_30D6 equ     $-DGROUP0
+STR_NOTE_3 equ     $-DGROUP0
         db      " Note:", 0
         db      000h
         if      FW_VERSION < 212
         db      " Number:", 0
         db      "        Sign:", 0
         endif
-STR_30DE equ     $-DGROUP0
+STR_VAL equ     $-DGROUP0
         db      "Val:", 0
-STR_30E3 equ     $-DGROUP0
+STR_SIZE equ     $-DGROUP0
         db      "  Size:", 0
         if      FW_VERSION >= 212
-STR_30EB equ     $-DGROUP0
+STR_BYTE equ     $-DGROUP0
         db      " Byte:", 0
-STR_30F2 equ     $-DGROUP0
+STR_VAL_2 equ     $-DGROUP0
         db      " Val:", 0
         else
         db      "  Byte:", 0
         db      "  Val:", 0
         endif
-STR_30F8 equ     $-DGROUP0
+STR_DRUM_8 equ     $-DGROUP0
         db      "Drum:", 0
-STR_30FE equ     $-DGROUP0
+STR_DRUM_9 equ     $-DGROUP0
         db      " Drum:", 0
         if      FW_VERSION < 212
         db      "  Sign:", 0
         endif
-STR_3105 equ     $-DGROUP0
+STR_VAL_3 equ     $-DGROUP0
         db      "Val:", 0
-STR_310A equ     $-DGROUP0
+STR_END_OF_SEQUENCE equ     $-DGROUP0
         db      "(end of sequence)", 0
-STR_311C equ     $-DGROUP0
+STR_UNKNOWN equ     $-DGROUP0
         db      "Unknown>", 0
-STR_3125 equ     $-DGROUP0
+STR_02X equ     $-DGROUP0
         db      020h, 025h, 030h, 032h, 078h, 000h
-STR_312B equ     $-DGROUP0
+STR_VAL_4 equ     $-DGROUP0
         db      "Val: ", 0
         endm
         if      FW_VERSION >= 212
@@ -12365,18 +12324,18 @@ TBL_321B equ     $-DGROUP0
 L_321B  equ     $-DGROUP0
         db      017h, 018h, 01dh, 01dh
         RUN_AFTER_BR_05E28
-STR_344B equ     $-DGROUP0
+STR_FRAMES_SEC_2 equ     $-DGROUP0
         db      "    Frames/sec:", 0
-STR_345B equ     $-DGROUP0
+STR_START_STOP equ     $-DGROUP0
         db      "<Start>   <Stop>", 0
-STR_346C equ     $-DGROUP0
+STR_02D_02D_02D equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 02dh
 L_347C  equ     $-DGROUP0
         db      02dh, 000h, 00ch, 00dh, 00eh, 00fh, 008h, 009h, 00ah, 00bh, 004h, 005h, 006h, 007h, 000h, 001h
         db      002h, 003h
-STR_348E equ     $-DGROUP0
+STR_TUNE_DRUMS equ     $-DGROUP0
         db      "Tune Drums", 0
-STR_3499 equ     $-DGROUP0
+STR_ALL_0 equ     $-DGROUP0
         db      03ch
         db      "All=0>", 0
         db      000h
@@ -12410,21 +12369,20 @@ STR_358A equ     $-DGROUP0+2
 
 RUN_AFTER_BR_05E28_7 macro   {GLOBALSYMBOLS}
 
-STR_358E equ     $-DGROUP0
+STR_CANCEL_4 equ     $-DGROUP0
         db      "<Cancel>", 0
         db      000h
-STR_3598 equ     $-DGROUP0
+STR_UNUSED equ     $-DGROUP0
         db      "(unused)        ", 0
-STR_35A9 equ     $-DGROUP0
-B_35A9  equ     $-DGROUP0
+STR_UNUSED_2 equ     $-DGROUP0
         db      "(unused)        ", 0
-STR_35BA equ     $-DGROUP0
+STR_TRK equ     $-DGROUP0
 STR_35BE equ     $-DGROUP0+4
         db      054h, 052h, 04bh, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h
-STR_35CA equ     $-DGROUP0
+STR_SEQ_3 equ     $-DGROUP0
 STR_35CE equ     $-DGROUP0+4
         db      053h, 045h, 051h, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h
-STR_35DA equ     $-DGROUP0
+STR_ANALYZING_SEQUENCE equ     $-DGROUP0
         db      "Analyzing sequence, please wait ... ", 0
         db      000h
         if      FW_VERSION >= 214
@@ -12436,9 +12394,9 @@ STR_35DA equ     $-DGROUP0
 L_3E74_V112 equ     $-DGROUP0
         db      000h, 000h
         endif
-STR_360A equ     $-DGROUP0
+STR_HELP equ     $-DGROUP0
         db      "Help", 0
-STR_360F equ     $-DGROUP0
+STR_C_D_D equ     $-DGROUP0
         db      "%c %d %d", 0
         if      FW_VERSION >= 214
 L_3618  equ     $-DGROUP0
@@ -12455,64 +12413,64 @@ L_329C_V212 equ     $-DGROUP0
         db      047h, 023h, 000h, 041h, 02eh, 000h, 041h, 023h, 000h, 042h, 02eh, 000h
         endif
         if      FW_VERSION >= 212
-STR_3654 equ     $-DGROUP0
+STR_SELECT_OPTION equ     $-DGROUP0
         db      "Select option: ", 0
         else
         db      "Select Option: ", 0
         db      03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 000h, 03fh, 03fh, 03fh, 03fh
         db      03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 03fh, 000h
         endif
-STR_3664 equ     $-DGROUP0
+STR_ATTENTION_2 equ     $-DGROUP0
         db      "Attention!", 0
-STR_366F equ     $-DGROUP0
+STR_CANCEL_5 equ     $-DGROUP0
         db      "<Cancel>", 0
-STR_3678 equ     $-DGROUP0
+STR_ERROR_CODE_04X equ     $-DGROUP0
         db      "[Error code: %04x]", 0
         if      FW_VERSION >= 212
         db      000h
-STR_368C equ     $-DGROUP0
+STR_EXTERN_SYNC equ     $-DGROUP0
         db      "Extern Sync", 0
-STR_3698 equ     $-DGROUP0
+STR_2D_2D_BARS_3D equ     $-DGROUP0
         db      "%2d/%2d   Bars:%3d", 0
         else
 TBL_3ED3_V112 equ     $-DGROUP0
         db      000h, 073h, 0cbh, 050h, 0c3h, 0c2h, 0a2h, 0ech, 0a2h
         db      "(Ext Sync) ", 0
         endif
-STR_36AB equ     $-DGROUP0
+STR_EXT equ     $-DGROUP0
         db      "(Ext)", 0
-STR_36B1 equ     $-DGROUP0
+STR_3D_D equ     $-DGROUP0
         db      025h
         db      "3d.%d", 0
         db      02dh, 02dh, 000h
-STR_36BB equ     $-DGROUP0
+STR_02D_02D_02D_02D equ     $-DGROUP0
         db      "%02d:%02d:%02d:%02d", 0
-STR_36CF equ     $-DGROUP0
+STR_02D_02D_02D_2 equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 025h, 030h, 032h, 064h, 03ah, 02dh
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_7
         db      02dh, 000h
-STR_36E1 equ     $-DGROUP0
+STR_EXT_2 equ     $-DGROUP0
         db      "(Ext)", 0
-STR_36E7 equ     $-DGROUP0
+STR_3D_D_2 equ     $-DGROUP0
         db      025h
         db      "3d.%d", 0
         endif
 
 RUN_AFTER_BR_05E28_8 macro   {GLOBALSYMBOLS}
 
-STR_36EE equ     $-DGROUP0
+STR_UNUSED_3 equ     $-DGROUP0
         db      "(unused)        ", 0
         db      000h
-STR_3700 equ     $-DGROUP0
+STR_RECEIVING_MIDI_SAMPLE equ     $-DGROUP0
         db      "(Receiving midi sample dump...)", 0
-STR_3720 equ     $-DGROUP0
+STR_CONVERTING_TO_SPECIAL equ     $-DGROUP0
         db      "(Converting to special data format...)", 0
         db      000h
-STR_3748 equ     $-DGROUP0
+STR_CONVERTING_TO_LINEAR equ     $-DGROUP0
         db      "(Converting to linear data format...)", 0
-STR_376E equ     $-DGROUP0
+STR_SENDING_SAMPLE_DATA_OVER equ     $-DGROUP0
         db      "(Sending sample data over midi ...)", 0
         if      FW_VERSION >= 212
 B_3794  equ     $-DGROUP0+2
@@ -12521,41 +12479,41 @@ B_3796  equ     $-DGROUP0+4
 B_379A  equ     $-DGROUP0+8
         db      0f0h, 07eh, 000h, 000h, 000h, 0f7h, 0f0h, 07eh, 000h, 0f7h
         endif
-STR_379C equ     $-DGROUP0
+STR_RECEIVING_MIDI_SAMPLE_2 equ     $-DGROUP0
         db      "(Receiving midi sample dump...)", 0
-STR_37BC equ     $-DGROUP0
+STR_CONVERTING_TO_SPECIAL_2 equ     $-DGROUP0
         db      "(Converting to special data format...)", 0
         db      000h
-STR_37E4 equ     $-DGROUP0
+STR_CONVERTING_TO_LINEAR_2 equ     $-DGROUP0
         db      "(Converting to linear data format...)", 0
-STR_380A equ     $-DGROUP0
+STR_SENDING_SAMPLE_DATA_OVER_2 equ     $-DGROUP0
         db      "(Sending sample data over midi ...)", 0
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_05E28_8
-STR_382E equ     $-DGROUP0
+STR_2ND_SEQUENCE equ     $-DGROUP0
         db      "2nd Sequence", 0
-STR_383B equ     $-DGROUP0
+STR_ON_OFF equ     $-DGROUP0
         db      "On/Off:", 0
-STR_3843 equ     $-DGROUP0
+STR_SEQUENCE_2 equ     $-DGROUP0
         db      "  Sequence:", 0
         db      02dh, 000h
-STR_3851 equ     $-DGROUP0
+STR_THIS_SEQUENCE_WILL_PLAY equ     $-DGROUP0
         db      "(This sequence will play simultaneously", 0
         db      00ah
         db      " with the active sequence or song.)", 0
-STR_389E equ     $-DGROUP0
+STR_SORT_TRACKS equ     $-DGROUP0
         db      "Sort Tracks", 0
-STR_38AA equ     $-DGROUP0
+STR_TRACKS_BETWEEN_THOSE equ     $-DGROUP0
         db      "(Tracks between those displayed above", 0
-STR_38D0 equ     $-DGROUP0
+STR_WILL_BE_RENUMBERED equ     $-DGROUP0
         db      "will be renumbered.)", 0
-STR_38E5 equ     $-DGROUP0
+STR_EXECUTE equ     $-DGROUP0
         db      "<Execute>", 0
-STR_38EF equ     $-DGROUP0
+STR_PLACE_TRACK equ     $-DGROUP0
         db      " Place track:", 0
         db      02dh, 000h
-STR_38FF equ     $-DGROUP0
+STR_BEFORE_TRACK equ     $-DGROUP0
         db      "before track:", 0
         endif
         if      FW_VERSION = 212
@@ -12580,28 +12538,28 @@ STR_38FF equ     $-DGROUP0
         db      "SUBTRACT 'VALUE' FROM EACH", 0
         db      "MULTIPLY EACH BY 'VALUE' %", 0
         db      "REPLACE EACH WITH 'VALUE'", 0
-STR_3996 equ     $-DGROUP0
+STR_EDIT_SEQUENCE equ     $-DGROUP0
         db      "Edit Sequence", 0
         db      "1)View time sign    2)Create sequence"
         db      00ah, 000h
         db      "3)Insert blank bars 4)Delete bars"
         db      00ah, 000h
-STR_39EE equ     $-DGROUP0
+STR_5_COPY_ALL_TRACKS_6_COPY equ     $-DGROUP0
         db      "5)Copy all tracks   6)Copy/merge a track", 0
         db      "7)Copy a sequence   8)Convert song"
         db      00ah, 000h
-STR_3A3B equ     $-DGROUP0
+STR_9_CHANGE_BAR_LENGTH_0 equ     $-DGROUP0
         db      "9)Change bar length 0)Change veloc/dur", 0
-STR_3A62 equ     $-DGROUP0
+STR_VIEW_TIME_SIGNATURE equ     $-DGROUP0
         db      "View Time Signature", 0
         endif
-STR_3A76 equ     $-DGROUP0
+STR_NEXTPAGE_PREVIOUSPAGE equ     $-DGROUP0
         db      "<NextPage><PreviousPage>", 0
-STR_3A8F equ     $-DGROUP0
+STR_EMPTY_SEQUENCE equ     $-DGROUP0
         db      "Empty sequence", 0
-STR_3A9E equ     $-DGROUP0
+STR_BAR_3D_3D_2D_2D equ     $-DGROUP0
         db      "Bar%3d -%3d:%2d/%2d", 0
-STR_3AB2 equ     $-DGROUP0
+STR_BAR_3D_3D_2D_2D_2 equ     $-DGROUP0
         db      "Bar%3d -%3d:%2d/%2d", 0
         if      FW_VERSION < 212
         db      "Create New Time Sig/Number of Bars", 0
@@ -12623,85 +12581,85 @@ STR_3AB2 equ     $-DGROUP0
         endif
         if      FW_VERSION >= 212
         db      "TO BAR", 0
-STR_3AE9 equ     $-DGROUP0
+STR_CREATE_NEW_SEQUENCE equ     $-DGROUP0
         db      "Create New Sequence", 0
-STR_3AFD equ     $-DGROUP0
+STR_TIME_SIG equ     $-DGROUP0
         db      "Time sig:", 0
         db      02fh, 000h
-STR_3B09 equ     $-DGROUP0
+STR_NUMBER_OF_BARS equ     $-DGROUP0
         db      "       Number of bars:", 0
-STR_3B20 equ     $-DGROUP0
+STR_LOOP equ     $-DGROUP0
         db      "Loop:", 0
 STR_3B27 equ     $-DGROUP0+1
         db      000h, 020h, 020h, 020h, 000h
-STR_3B2B equ     $-DGROUP0
+STR_TEMPO_2 equ     $-DGROUP0
         db      "       Tempo:", 0
         db      020h, 000h
-STR_3B3B equ     $-DGROUP0
+STR_MIDI_CHANNEL_FOR_TRACK equ     $-DGROUP0
         db      "Midi channel for track ", 0
-STR_3B53 equ     $-DGROUP0
+STR_0_UNUSED equ     $-DGROUP0
         db      " (0=Unused):", 0
         db      000h
-STR_3B61 equ     $-DGROUP0
+STR_EXECUTE_2 equ     $-DGROUP0
         db      "<Execute>", 0
 STR_3B6B equ     $-DGROUP0
         db      020h, 020h, 020h, 000h
         endif
-STR_3B6F equ     $-DGROUP0
+STR_CREATING_NEW_FORMAT equ     $-DGROUP0
         db      "Creating new format ...", 0
-STR_3B87 equ     $-DGROUP0
+STR_INSERT_BLANK_BARS equ     $-DGROUP0
         db      "Insert Blank Bars", 0
-STR_3B99 equ     $-DGROUP0
+STR_NUMBER_OF_BARS_2 equ     $-DGROUP0
         db      "Number of bars:", 0
-STR_3BA9 equ     $-DGROUP0
+STR_TIME_SIG_2 equ     $-DGROUP0
         db      "      Time sig: ", 0
         db      02fh, 000h
-STR_3BBC equ     $-DGROUP0
+STR_INSERT_BEFORE_BAR equ     $-DGROUP0
         db      "Insert before bar:", 0
-STR_3BCF equ     $-DGROUP0
+STR_EXECUTE_3 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3BD9 equ     $-DGROUP0
+STR_INSERTING_BARS equ     $-DGROUP0
         db      "Inserting bars ...", 0
-STR_3BEC equ     $-DGROUP0
+STR_DELETE_BARS equ     $-DGROUP0
         db      "Delete Bars", 0
-STR_3BF8 equ     $-DGROUP0
+STR_FROM_BAR equ     $-DGROUP0
         db      "From bar:", 0
-STR_3C02 equ     $-DGROUP0
+STR_TO_BAR equ     $-DGROUP0
         db      "To bar:", 0
         if      FW_VERSION < 212
         db      "(Note: Deletion of bars may affect loop-to-bar status.)", 0
         endif
-STR_3C0A equ     $-DGROUP0
+STR_EXECUTE_4 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3C14 equ     $-DGROUP0
+STR_DELETING_SEQUENCE equ     $-DGROUP0
         db      "Deleting sequence ...", 0
-STR_3C2A equ     $-DGROUP0
+STR_DELETING_BARS equ     $-DGROUP0
         db      "Deleting bars ...", 0
-STR_3C3C equ     $-DGROUP0
+STR_COPY_ALL_TRACKS_FROM equ     $-DGROUP0
         db      "Copy all tracks from", 0
-STR_3C51 equ     $-DGROUP0
+STR_SEQUENCE_3 equ     $-DGROUP0
         db      "Sequence: ", 0
-STR_3C5C equ     $-DGROUP0
+STR_FROM_BAR_2 equ     $-DGROUP0
         db      "From bar:", 0
-STR_3C66 equ     $-DGROUP0
+STR_TO_BAR_2 equ     $-DGROUP0
         db      "To bar:", 0
-STR_3C6E equ     $-DGROUP0
+STR_COPY_ALL_TRACKS_TO equ     $-DGROUP0
         db      "Copy all tracks to", 0
-STR_3C81 equ     $-DGROUP0
+STR_SEQUENCE_4 equ     $-DGROUP0
         db      "Sequence: ", 0
-STR_3C8C equ     $-DGROUP0
+STR_COPIES equ     $-DGROUP0
         db      "Copies:  ", 0
-STR_3C96 equ     $-DGROUP0
+STR_INSERT_BEFORE_BAR_2 equ     $-DGROUP0
         db      "Insert before bar:", 0
-STR_3CA9 equ     $-DGROUP0
+STR_EXECUTE_5 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3CB3 equ     $-DGROUP0
+STR_COPYING_BARS equ     $-DGROUP0
         db      "Copying bars ...", 0
-STR_3CC4 equ     $-DGROUP0
+STR_02D_2 equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 000h
-STR_3CC9 equ     $-DGROUP0
+STR_02D_AND_02D equ     $-DGROUP0
         db      "%02d and %02d", 0
-STR_3CD7 equ     $-DGROUP0
+STR_ABORT equ     $-DGROUP0
         db      "<Abort>", 0
         if      FW_VERSION < 212
         db      0a2h, 025h, 0aah, 025h, 000h, 000h
@@ -12713,99 +12671,98 @@ STR_3CD7 equ     $-DGROUP0
         endif
         db      "REPLACE", 0
         db      "MERGE  ", 0
-STR_3CF5 equ     $-DGROUP0
+STR_COPY_MERGE_A_TRACK_FROM equ     $-DGROUP0
         db      "Copy/merge a track from", 0
-STR_3D0D equ     $-DGROUP0
+STR_SEQUENCE_5 equ     $-DGROUP0
         db      "Sequence: ", 0
-STR_3D18 equ     $-DGROUP0
+STR_TRACK equ     $-DGROUP0
         db      "Track:", 0
         if      FW_VERSION < 212
         db      "From bar:", 0
         db      "To bar:", 0
         else
-STR_3D1F equ     $-DGROUP0
+STR_FROM equ     $-DGROUP0
         db      "From:", 0
 STR_3D25 equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
         endif
-STR_3D29 equ     $-DGROUP0
+STR_COPY_MERGE_A_TRACK_TO equ     $-DGROUP0
         db      "Copy/merge a track to", 0
-STR_3D3F equ     $-DGROUP0
+STR_SEQUENCE_6 equ     $-DGROUP0
         db      "Sequence: ", 0
-STR_3D4A equ     $-DGROUP0
+STR_TRACK_2 equ     $-DGROUP0
         db      "Track:", 0
         if      FW_VERSION < 212
         db      "Copies:  ", 0
         db      "1st bar:", 0
         else
-STR_3D51 equ     $-DGROUP0
+STR_COPIES_2 equ     $-DGROUP0
         db      "Copies:", 0
-STR_3D59 equ     $-DGROUP0
+STR_START_COPY_AT equ     $-DGROUP0
         db      "Start copy at:", 0
         endif
-STR_3D68 equ     $-DGROUP0
+STR_MODE_3 equ     $-DGROUP0
         db      "Mode:", 0
-STR_3D6E equ     $-DGROUP0
+STR_EXECUTE_6 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3D78 equ     $-DGROUP0
+STR_COPYING_TRACK equ     $-DGROUP0
         db      "Copying track ...", 0
-STR_3D8A equ     $-DGROUP0
+STR_COPY_ONE_SEQUENCE_TO equ     $-DGROUP0
         db      "Copy One Sequence To Another", 0
-STR_3DA7 equ     $-DGROUP0
+STR_COPY_CONTENTS_OF equ     $-DGROUP0
         db      "Copy contents of sequence:", 0
-STR_3DC2 equ     $-DGROUP0
+STR_INTO_SEQUENCE equ     $-DGROUP0
         db      "into sequence:", 0
-STR_3DD1 equ     $-DGROUP0
+STR_THE_EXISTING_CONTENTS_OF equ     $-DGROUP0
         db      "(The existing contents of the des-", 0
-STR_3DF4 equ     $-DGROUP0
+STR_TINATION_SEQUENCE_WILL equ     $-DGROUP0
         db      "tination sequence will be erased!)", 0
-STR_3E17 equ     $-DGROUP0
+STR_EXECUTE_7 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3E21 equ     $-DGROUP0
+STR_COPYING_SEQUENCE equ     $-DGROUP0
         db      "Copying sequence ...", 0
-STR_3E36 equ     $-DGROUP0
+STR_CONVERT_SONG_TO_SEQUENCE equ     $-DGROUP0
         db      "Convert Song to Sequence", 0
-STR_3E4F equ     $-DGROUP0
+STR_CONVERT_SONG equ     $-DGROUP0
         db      "Convert song:", 0
-STR_3E5D equ     $-DGROUP0
+STR_INTO_SEQUENCE_2 equ     $-DGROUP0
         db      "Into sequence:", 0
         if      FW_VERSION < 212
         db      "(the existing contents of the", 0
         else
-STR_3E6C equ     $-DGROUP0
+STR_THE_EXISTING_CONTENTS_OF_2 equ     $-DGROUP0
         db      "(The existing contents of the", 0
         endif
-STR_3E8A equ     $-DGROUP0
+STR_DESTINATION_SEQUENCE equ     $-DGROUP0
         db      "destination sequence will be erased!)", 0
-STR_3EB0 equ     $-DGROUP0
+STR_EXECUTE_8 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3EBA equ     $-DGROUP0
+STR_CONVERTING_SONG equ     $-DGROUP0
         db      "Converting song ...", 0
-STR_3ECE equ     $-DGROUP0
+STR_02D_3 equ     $-DGROUP0
         db      025h, 030h, 032h, 064h, 000h
-STR_3ED3 equ     $-DGROUP0
+STR_02D_AND_02D_2 equ     $-DGROUP0
         db      "%02d and %02d", 0
-STR_3EE1 equ     $-DGROUP0
+STR_ABORT_2 equ     $-DGROUP0
         db      "<Abort>", 0
 TBL_3EE9 equ     $-DGROUP0
-TBL_3EE9_2 equ     $-DGROUP0
         db      004h, 000h, 008h, 000h, 010h, 000h, 020h, 000h
         if      FW_VERSION < 212
         db      "Shorten / Lengthen a Bar", 0
         else
-STR_3EF1 equ     $-DGROUP0
+STR_CHANGE_BAR_LENGTH equ     $-DGROUP0
         db      "Change Bar Length", 0
         endif
-STR_3F03 equ     $-DGROUP0
+STR_CHANGE_THE_TIME equ     $-DGROUP0
         db      "Change the time signature of bar:", 0
-STR_3F25 equ     $-DGROUP0
+STR_FROM_TO equ     $-DGROUP0
         db      "from       to ", 0
         db      02fh, 000h
-STR_3F36 equ     $-DGROUP0
+STR_IF_THE_NEW_TIME_SIG_IS equ     $-DGROUP0
         db      "(If the new time sig is shorter, the end", 0
-STR_3F5F equ     $-DGROUP0
+STR_OF_THE_BAR_IS_TRUNCATED equ     $-DGROUP0
         db      "of the bar is truncated; if longer,", 0
-STR_3F83 equ     $-DGROUP0
+STR_BLANK_SPACE_IS_ADDED_TO_2 equ     $-DGROUP0
         db      "blank space is added to the end.)", 0
         if      FW_VERSION < 212
         db      "%02d/%02d", 0
@@ -12836,30 +12793,30 @@ TBL_29E0_V112 equ     $-DGROUP0
         RUN_AFTER_BR_05E28_6
         db      000h
         else
-STR_3FA5 equ     $-DGROUP0
+STR_EXECUTE_9 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_3FAF equ     $-DGROUP0
+STR_CHANGING_BAR equ     $-DGROUP0
         db      "Changing bar ...", 0
-STR_3FC0 equ     $-DGROUP0
+STR_2D_2D equ     $-DGROUP0
         db      025h
         db      "2d/%2d", 0
-STR_3FC8 equ     $-DGROUP0
+STR_CHANGE_VELOCITY_DURATION equ     $-DGROUP0
         db      "Change Velocity/Duration", 0
-STR_3FE1 equ     $-DGROUP0
+STR_TRACK_3 equ     $-DGROUP0
         db      "Track:", 0
-STR_3FE8 equ     $-DGROUP0
+STR_FROM_2 equ     $-DGROUP0
         db      "   From:", 0
 STR_3FF1 equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
-STR_3FF5 equ     $-DGROUP0
+STR_CHANGE equ     $-DGROUP0
         db      "Change:", 0
-STR_3FFD equ     $-DGROUP0
+STR_VALUE equ     $-DGROUP0
         db      "Value:", 0
-STR_4004 equ     $-DGROUP0
+STR_ACTION equ     $-DGROUP0
         db      "Action:", 0
-STR_400C equ     $-DGROUP0
+STR_EXECUTE_10 equ     $-DGROUP0
         db      "<Execute>", 0
-STR_4016 equ     $-DGROUP0
+STR_CHANGING_NOTES equ     $-DGROUP0
         db      "Changing Notes ...  ", 0
         endif
         if      FW_VERSION = 212
@@ -12871,21 +12828,21 @@ STR_4016 equ     $-DGROUP0
         if      FW_VERSION >= 212
         db      "SAME AS STEP", 0
         db      "AS PLAYED", 0
-STR_4049 equ     $-DGROUP0
+STR_STEP_EDIT equ     $-DGROUP0
         db      "Step Edit", 0
-STR_4053 equ     $-DGROUP0
+STR_INSERT_DELETE_PLAYEVENT equ     $-DGROUP0
         db      "<Insert> <Delete> <PlayEvent> <Options>", 0
-STR_407B equ     $-DGROUP0
+STR_STEP_EDIT_OPTIONS equ     $-DGROUP0
         db      "Step Edit Options", 0
-STR_408D equ     $-DGROUP0
+STR_EVENT_TO_INSERT equ     $-DGROUP0
         db      "Event to insert: ", 0
-STR_409F equ     $-DGROUP0
+STR_AUTO_STEP_INCREMENT_ON equ     $-DGROUP0
         db      "Auto step increment on key release:", 0
-STR_40C3 equ     $-DGROUP0
+STR_DURATION_OF_RECORDED equ     $-DGROUP0
         db      "Duration of recorded notes:", 0
-STR_40DF equ     $-DGROUP0
+STR_STEP_EDIT_DISPLAY_FILTER equ     $-DGROUP0
         db      "Step Edit Display Filter", 0
-STR_40F8 equ     $-DGROUP0
+STR_VIEW equ     $-DGROUP0
         db      "View:", 0
 STR_40FE equ     $-DGROUP0
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
@@ -12893,21 +12850,21 @@ STR_4116 equ     $-DGROUP0+8
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h
         db      020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 020h, 000h
         endif
-STR_412E equ     $-DGROUP0
+STR_EDIT_LOOP equ     $-DGROUP0
         db      "Edit Loop", 0
-STR_4138 equ     $-DGROUP0
+STR_OF_BARS equ     $-DGROUP0
         db      "# of Bars:", 0
-STR_4143 equ     $-DGROUP0
+STR_1ST_BAR equ     $-DGROUP0
         db      "       1st Bar:", 0
-STR_4153 equ     $-DGROUP0
+STR_TURN_IT_OFF_TURN_OFF equ     $-DGROUP0
         db      "<Turn It Off><Turn Off-Ignore Changes>", 0
-STR_417A equ     $-DGROUP0
+STR_SAVING_LOOP_DATA equ     $-DGROUP0
         db      "Saving loop data ...", 0
-STR_418F equ     $-DGROUP0
+STR_RESTORING_ORIGINAL equ     $-DGROUP0
         db      "Restoring original sequence ...", 0
-STR_41AF equ     $-DGROUP0
+STR_TURN_LOOP_ON equ     $-DGROUP0
         db      "<Turn Loop On>", 0
-STR_41BE equ     $-DGROUP0
+STR_ANALYZING_SEQUENCE_2 equ     $-DGROUP0
         db      "Analyzing sequence, please wait ...", 0
         if      FW_VERSION < 212
         db      072h, 02bh, 077h, 02bh, 000h, 000h
@@ -12923,9 +12880,9 @@ STR_41BE equ     $-DGROUP0
 TBL_41F4 equ     $-DGROUP0
         db      017h, 018h, 01dh, 01dh
         endif
-STR_41F8 equ     $-DGROUP0
+STR_SONG_MODE equ     $-DGROUP0
         db      "Song Mode", 0
-STR_4202 equ     $-DGROUP0
+STR_SONG equ     $-DGROUP0
         db      "Song:", 0
         if      FW_VERSION < 212
         db      "    End:", 0
@@ -12950,59 +12907,59 @@ STR_4202 equ     $-DGROUP0
         db      02dh, 02dh, 02dh, 02dh, 02dh, 02dh, 02dh, 02dh, 000h
         else
         db      02dh, 000h
-STR_420A equ     $-DGROUP0
+STR_LOOP_2 equ     $-DGROUP0
         db      "Loop:", 0
 STR_4211 equ     $-DGROUP0+1
         db      000h, 020h, 020h, 020h, 000h
-STR_4215 equ     $-DGROUP0
+STR_SONG_STARTS_AT_SMPTE equ     $-DGROUP0
         db      "Song starts at SMPTE#:", 0
         db      03ah, 000h, 03ah, 000h, 03ah, 000h, 02eh, 000h
-STR_4234 equ     $-DGROUP0
+STR_CONTENTS_OF_STEP equ     $-DGROUP0
         db      "========= Contents of Step:", 0
 STR_4250 equ     $-DGROUP0
         db      020h, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 03dh, 000h
-STR_425B equ     $-DGROUP0
+STR_SQNC equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
-STR_4263 equ     $-DGROUP0
+STR_REPS_0_END equ     $-DGROUP0
         db      "Reps(0=end): ", 0
-STR_4271 equ     $-DGROUP0
+STR_INSERTB4_DELETE_STEP_1 equ     $-DGROUP0
         db      "<InsertB4>  <Delete>  <Step-1>  <Step+1>", 0
 STR_429A equ     $-DGROUP0
         db      020h, 020h, 020h, 000h
-STR_429E equ     $-DGROUP0
+STR_BARS equ     $-DGROUP0
         db      "Bars:", 0
 STR_42A4 equ     $-DGROUP0
         db      025h, 033h, 064h, 000h
-STR_42A8 equ     $-DGROUP0
+STR_TEMPO_3 equ     $-DGROUP0
         db      "Tempo:", 0
-STR_42AF equ     $-DGROUP0
+STR_END_OF_SONG equ     $-DGROUP0
         db      "(end of song)", 0
         db      000h
-STR_42BE equ     $-DGROUP0
+STR_ERASE equ     $-DGROUP0
         db      "Erase", 0
-STR_42C4 equ     $-DGROUP0
+STR_TRACK_0_ALL equ     $-DGROUP0
         db      "Track(0=All):", 0
-STR_42D2 equ     $-DGROUP0
+STR_FROM_3 equ     $-DGROUP0
         db      "From:", 0
 STR_42D8 equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
-STR_42DC equ     $-DGROUP0
+STR_ERASE_FILTER equ     $-DGROUP0
         db      "Erase filter", 0
-STR_42E9 equ     $-DGROUP0
+STR_ERASE_2 equ     $-DGROUP0
         db      "Erase:", 0
-STR_42F0 equ     $-DGROUP0
+STR_ALL_NOTES_DRUMS_WILL_BE equ     $-DGROUP0
         db      "    (All notes/drums will be erased)    ", 0
-STR_4319 equ     $-DGROUP0
+STR_ERASE_IT_ALL_BARS equ     $-DGROUP0
         db      "<Erase It><All Bars>", 0
-STR_432E equ     $-DGROUP0
+STR_PRESS_DRUMS_TO_BE_ERASED equ     $-DGROUP0
         db      "Press Drums To Be Erased", 0
-STR_4347 equ     $-DGROUP0
+STR_ERASE_IT_ALL_BARS_ALL equ     $-DGROUP0
         db      "<Erase It><All Bars><All Drums>", 0
         endif
-STR_4367 equ     $-DGROUP0
+STR_LOWEST equ     $-DGROUP0
         db      "Lowest: ", 0
-STR_4370 equ     $-DGROUP0
+STR_HIGHEST equ     $-DGROUP0
         db      "Highest: ", 0
         if      FW_VERSION < 212
         db      "(Press 2 keys on Midi keyboard", 0
@@ -13028,11 +12985,11 @@ STR_4370 equ     $-DGROUP0
         db      "Erasing ...", 0
         db      000h, 076h, 02eh, 07eh, 02eh, 000h, 000h
         else
-STR_437A equ     $-DGROUP0
+STR_PRESS_2_KEYS_TO_SET_NOTE equ     $-DGROUP0
         db      "    (Press 2 keys to set note range)    ", 0
-STR_43A3 equ     $-DGROUP0
+STR_ERASE_IT_ALL_BARS_ALL_2 equ     $-DGROUP0
         db      "<Erase It><All Bars><All Notes>", 0
-STR_43C3 equ     $-DGROUP0
+STR_ERASING equ     $-DGROUP0
         db      "Erasing ...", 0
         endif
         if      FW_VERSION = 212
@@ -13060,9 +13017,8 @@ STR_43C3 equ     $-DGROUP0
         db      "1/32 NOTE ", 0
         db      "1/32 TRPLT", 0
 TBL_4443 equ     $-DGROUP0
-TBL_4443_2 equ     $-DGROUP0
         db      001h, 030h, 020h, 018h, 010h, 00ch, 008h
-STR_444A equ     $-DGROUP0
+STR_TIMING_CORRECT_STEP_SIZE equ     $-DGROUP0
         db      "Timing Correct / Step Size", 0
         if      FW_VERSION < 212
         db      "Note Value:", 0
@@ -13081,52 +13037,52 @@ STR_444A equ     $-DGROUP0
         db      " Out=", 0
         db      "Last Punch: In=", 0
         else
-STR_4465 equ     $-DGROUP0
+STR_NOTE_VALUE equ     $-DGROUP0
         db      "Note value:", 0
-STR_4471 equ     $-DGROUP0
+STR_SHUFFLE equ     $-DGROUP0
         db      "    Shuffle(%):", 0
-STR_4481 equ     $-DGROUP0
+STR_SHIFT_TIMING equ     $-DGROUP0
         db      "Shift timing:", 0
-STR_448F equ     $-DGROUP0
+STR_SHIFT_AMOUNT equ     $-DGROUP0
         db      "     Shift amount:", 0
-STR_44A2 equ     $-DGROUP0
+STR_MOVE_EXISTING_NOTES equ     $-DGROUP0
         db      "Move Existing Notes", 0
-STR_44B6 equ     $-DGROUP0
+STR_TRACK_0_ALL_2 equ     $-DGROUP0
         db      "Track(0=All):", 0
-STR_44C4 equ     $-DGROUP0
+STR_FROM_4 equ     $-DGROUP0
         db      "From:", 0
 STR_44CA equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
-STR_44CE equ     $-DGROUP0
+STR_MOVE_EXISTING equ     $-DGROUP0
         db      "<Move Existing>", 0
-STR_44DE equ     $-DGROUP0
+STR_MOVING_NOTES_THIS_MAY equ     $-DGROUP0
         db      "Moving notes... (this may take a while)", 0
-STR_4506 equ     $-DGROUP0
+STR_AUTO_PUNCH equ     $-DGROUP0
         db      "Auto Punch", 0
-STR_4511 equ     $-DGROUP0
+STR_ON_OFF_2 equ     $-DGROUP0
         db      "On/off:", 0
-STR_4519 equ     $-DGROUP0
+STR_AUTO_PUNCH_IN equ     $-DGROUP0
         db      "Auto punch: In=", 0
-STR_4529 equ     $-DGROUP0
+STR_OUT_2 equ     $-DGROUP0
         db      " Out=", 0
-STR_452F equ     $-DGROUP0
+STR_LAST_PUNCH_IN equ     $-DGROUP0
         db      "Last punch: In=", 0
         endif
-STR_453F equ     $-DGROUP0
+STR_OUT_3 equ     $-DGROUP0
         db      " Out=", 0
-STR_4545 equ     $-DGROUP0
+STR_USE_LAST equ     $-DGROUP0
         db      "<Use 'Last'>", 0
-STR_4552 equ     $-DGROUP0
+STR_LOCATE equ     $-DGROUP0
         db      "Locate", 0
-STR_4559 equ     $-DGROUP0
+STR_PRESS_SOFTKEYS_TO_GO_TO equ     $-DGROUP0
         db      "Press Softkeys to go to markers:", 0
-STR_457A equ     $-DGROUP0
+STR_MARKER_A equ     $-DGROUP0
         db      "Marker A: ", 0
-STR_4585 equ     $-DGROUP0
+STR_MARKER_B equ     $-DGROUP0
         db      "Marker B: ", 0
-STR_4590 equ     $-DGROUP0
+STR_MARKER_C equ     $-DGROUP0
         db      "Marker C: ", 0
-STR_459B equ     $-DGROUP0
+STR_GOTO_A_GOTO_B_GOTO_C equ     $-DGROUP0
         db      03ch, 047h, 06fh, 074h, 06fh, 027h, 041h, 027h, 03eh, 03ch
         db      "Goto'B'><Goto'C'><Load'Bar'>", 0
         if      FW_VERSION < 212
@@ -13306,119 +13262,119 @@ TBL_3B38_V112 equ     $-DGROUP0
 TBL_5516 equ     $-DGROUP0+2
         db      02dh, 000h, 000h, 003h, 006h, 009h, 00ch, 00fh, 012h, 015h, 018h, 01bh, 01fh, 022h
         else
-STR_45C2 equ     $-DGROUP0
+STR_TRANSPOSE equ     $-DGROUP0
         db      "Transpose", 0
-STR_45CC equ     $-DGROUP0
+STR_TRACK_0_ALL_3 equ     $-DGROUP0
         db      "Track(0=All):", 0
-STR_45DA equ     $-DGROUP0
+STR_AMOUNT equ     $-DGROUP0
         db      "Amount:", 0
-STR_45E2 equ     $-DGROUP0
+STR_PLAY_SYNTH_KEY_TO_SET equ     $-DGROUP0
         db      "(Play synth key to set amount)", 0
-STR_4601 equ     $-DGROUP0
+STR_TRANSPOSE_PERMANENT equ     $-DGROUP0
         db      "Transpose Permanent", 0
-STR_4615 equ     $-DGROUP0
+STR_FROM_5 equ     $-DGROUP0
         db      "From:", 0
 STR_461B equ     $-DGROUP0
         db      054h, 06fh, 03ah, 000h
-STR_461F equ     $-DGROUP0
+STR_TRANSPOSE_PERMANENT_2 equ     $-DGROUP0
         db      "<Transpose permanent>", 0
-STR_4635 equ     $-DGROUP0
+STR_TRANSPOSING equ     $-DGROUP0
         db      "Transposing ...  ", 0
 TBL_4648 equ     $-DGROUP0+1
         db      000h, 0ech, 001h, 0eah, 001h, 0eeh, 001h, 0cah, 001h, 0c8h, 001h, 0cch, 001h, 0ceh, 001h, 0c6h
         db      001h, 0e4h, 001h, 0e2h, 001h, 0e6h, 001h, 0c0h, 001h, 0e8h, 001h, 0c2h, 001h, 0c4h, 001h, 0e0h
         db      001h
-STR_4668 equ     $-DGROUP0
+STR_RECORD_ALL_16_CHANNELS equ     $-DGROUP0
         db      "Record All 16 Channels", 0
-STR_467F equ     $-DGROUP0
+STR_SQNC_2 equ     $-DGROUP0
         db      "Sqnc:", 0
         db      02dh, 000h
-STR_4687 equ     $-DGROUP0
+STR_TIME_SIG_3 equ     $-DGROUP0
         db      "Time sig: ", 0
         db      02fh, 000h
-STR_4694 equ     $-DGROUP0
+STR_ENTER_DATA_THEN_PRESS equ     $-DGROUP0
         db      "Enter data, then press <Proceed>.", 0
         db      "WARNING: THE EXISTING SEQUENCE CONTENTS"
         db      00ah, 000h
-STR_46DF equ     $-DGROUP0
+STR_WILL_BE_ERASED_TIMING equ     $-DGROUP0
         db      "WILL BE ERASED! Timing correct is forced", 0
-STR_4708 equ     $-DGROUP0
+STR_TO_OFF_1_384_DURING equ     $-DGROUP0
         db      "to 'OFF (1/384)' during record.", 0
-STR_4728 equ     $-DGROUP0
+STR_PROCEED_4 equ     $-DGROUP0
         db      "<Proceed>", 0
-STR_4732 equ     $-DGROUP0
+STR_RECORD_ALL_16_CHANNELS_2 equ     $-DGROUP0
         db      "Record All 16 Channels", 0
-STR_4749 equ     $-DGROUP0
+STR_SQNC_2D equ     $-DGROUP0
         db      "Sqnc:%2d", 0
         db      02dh, 000h
-STR_4754 equ     $-DGROUP0
+STR_TMPO_2 equ     $-DGROUP0
         db      " Tmpo:", 0
         db      020h, 000h
-STR_475D equ     $-DGROUP0
+STR_TSIG_BARS_LOOP_OFF equ     $-DGROUP0
         db      "Tsig:  /     Bars:       Loop:OFF", 0
         db      " (Hold RECORD & play ext sequencer."
         db      00ah, 000h
         db      "  The channels will record into tracks"
         db      00ah, 000h
-STR_47CC equ     $-DGROUP0
+STR_1_THROUGH_16_WITH equ     $-DGROUP0
         db      "  1 through 16, with ", 0
-STR_47E2 equ     $-DGROUP0
+STR_NO_DRUMS_TRACK equ     $-DGROUP0
         db      "no drums track.", 0
-STR_47F2 equ     $-DGROUP0
+STR_DRUMS_ON_D equ     $-DGROUP0
         db      "drums on %d.)", 0
-STR_4800 equ     $-DGROUP0
+STR_LOAD_AN_ALL_SOUNDS_FILE equ     $-DGROUP0
         db      "Load an All Sounds File (.SET)", 0
         db      "This will erase all sounds currently in"
         db      00ah
         db      "memory!", 0
-STR_484F equ     $-DGROUP0
+STR_LOAD_FILE_5 equ     $-DGROUP0
         db      "<Load file>", 0
-STR_485B equ     $-DGROUP0
+STR_LOADING_FILE_2 equ     $-DGROUP0
         db      "loading file ...", 0
-STR_486C equ     $-DGROUP0
+STR_LOAD_AN_ALL_SOUNDS_FILE_2 equ     $-DGROUP0
         db      "Load an All Sounds File (.ST1)", 0
         db      "This will erase all sounds currently in"
         db      00ah
         db      "memory!", 0
-STR_48BB equ     $-DGROUP0
+STR_LOAD_FILE_6 equ     $-DGROUP0
         db      "<Load file>", 0
-STR_48C7 equ     $-DGROUP0
+STR_LOADING_FILE_3 equ     $-DGROUP0
         db      "loading file ... ", 0
-STR_48D9 equ     $-DGROUP0
+STR_LOAD_SET_FILE equ     $-DGROUP0
         db      "Load SET File", 0
-STR_48E7 equ     $-DGROUP0
+STR_1_LOAD_ENTIRE_FILE_THIS equ     $-DGROUP0
         db      "1)Load entire file. (This will erase all", 0
-STR_4910 equ     $-DGROUP0
+STR_SOUNDS_CURRENTLY_IN equ     $-DGROUP0
         db      "  sounds currently in memory!)", 0
-STR_492F equ     $-DGROUP0
+STR_2_LOAD_ONE_SOUND_FROM equ     $-DGROUP0
         db      "2)Load one sound from the SET file.", 0
-STR_4953 equ     $-DGROUP0
+STR_READING_FILE_PLEASE_WAIT equ     $-DGROUP0
         db      "Reading file.  Please wait ...", 0
-STR_4972 equ     $-DGROUP0
+STR_LOAD_ONE_SOUND_FROM_SET equ     $-DGROUP0
         db      "Load One Sound from SET File", 0
-STR_498F equ     $-DGROUP0
+STR_SELECT_DRUM_TO_LOAD_FROM equ     $-DGROUP0
         db      "Select drum to load from file: ", 0
-STR_49AF equ     $-DGROUP0
+STR_SELECT_DRUM_TO_LOAD_INTO equ     $-DGROUP0
         db      "Select drum to load into: ", 0
-STR_49CA equ     $-DGROUP0
+STR_SOUND_MEMORY_AVAILABLE equ     $-DGROUP0
         db      "Sound memory available (bytes):", 0
-STR_49EA equ     $-DGROUP0
+STR_4DK equ     $-DGROUP0
         db      "%4dK", 0
-STR_49EF equ     $-DGROUP0
+STR_LOAD_IT equ     $-DGROUP0
         db      "<Load it> ", 0
-STR_49FA equ     $-DGROUP0
+STR_LOADING_4 equ     $-DGROUP0
         db      "loading...", 0
-STR_4A05 equ     $-DGROUP0
+STR_UNUSED_4 equ     $-DGROUP0
         db      "(unused)        ", 0
-STR_4A16 equ     $-DGROUP0
+STR_SOUND_S_SIZE_4DK equ     $-DGROUP0
         db      "Sound:%s   Size:%4dK", 0
         db      000h
-STR_4A2C equ     $-DGROUP0
+STR_RECOVERING_SEQUENCE equ     $-DGROUP0
         db      "Recovering sequence, please wait ... ", 0
         db      "(unused)        ", 0
 B_4A67  equ     $-DGROUP0+4
 B_4A68  equ     $-DGROUP0+5
-STR_4A63 equ     $-DGROUP0
+STR_SONG_2 equ     $-DGROUP0
         db      "SONG            ", 0
 L_4A74  equ     $-DGROUP0
 TBL_4A74 equ     $-DGROUP0

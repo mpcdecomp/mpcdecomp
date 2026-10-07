@@ -775,7 +775,7 @@ fn_c035d:
         add     sp, 6
         callf   0c006h:far_c01d0
         callf   0c006h:far_c01df
-        mov     ax, STR_140B
+        mov     ax, STR_AKAI_MPC60
         push    ax
         callf   SEG_DA73:far_da730
         pop     cx
@@ -785,7 +785,7 @@ fn_c035d:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1416
+        mov     ax, STR_COPYRIGHT_1987_1991_2
         push    ax
         callf   SEG_D880:far_d885c
         pop     cx
@@ -795,7 +795,7 @@ fn_c035d:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_142A
+        mov     ax, STR_AKAI_ELECTRIC_CO_LTD
         push    ax
         callf   SEG_D880:far_d885c
         pop     cx
@@ -935,7 +935,7 @@ br_c04a5:
         callf   SEG_F265:far_f2657
         add     sp, 6
 br_c04b9:
-        mov     ax, STR_14AA
+        mov     ax, STR_SYSTEM_ALL
         push    ax
         callf   SEG_DC84:far_dc84f
         pop     cx
@@ -944,7 +944,7 @@ br_c04b9:
         callf   SEG_D4B6:far_d4b6e
         jmp     br_c04de
 br_c04ce:
-        mov     ax, STR_14B6
+        mov     ax, STR_SYSTEM
         push    ax
         mov     ax, TBL_8E30
         push    ax
@@ -977,7 +977,7 @@ far_c04f0:
         add     sp, 0ffdbh
         endif
         if      FW_VERSION >= 212
-        mov     ax, STR_1503
+        mov     ax, STR_DISK
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -987,7 +987,7 @@ far_c04f0:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1508
+        mov     ax, STR_1_SAVE_A_SEQUENCE_2_SAVE
         endif
 
 RUN_AFTER_FAR_C04F0   macro   {GLOBALSYMBOLS}
@@ -1004,7 +1004,7 @@ RUN_AFTER_FAR_C04F0   macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C04F0
-        mov     ax, STR_1531
+        mov     ax, STR_3_SAVE_A_SOUND_4_SAVE
 
         push    ax
         callf   SEG_D880:far_d885c
@@ -1015,7 +1015,7 @@ RUN_AFTER_FAR_C04F0   macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1556
+        mov     ax, STR_5_SAVE_PARAMETERS_6_LOAD
         endif
 
 RUN_AFTER_FAR_C04F0_2   macro   {GLOBALSYMBOLS}
@@ -2920,7 +2920,7 @@ far_c10d4:
         push    bp
         mov     bp, sp
         add     sp, 0fffch
-        mov     ax, STR_16F8
+        mov     ax, STR_LOAD_A_SOUND_FILE_SND
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -2975,7 +2975,7 @@ RUN_AFTER_FAR_C10D4  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1743
+        mov     ax, STR_LOAD_FILE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3012,7 +3012,7 @@ L_c39ee:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_174F
+        mov     ax, STR_LOADING
         else
         mov     ax, 1875h
         endif
@@ -3077,7 +3077,7 @@ far_c11f9:
         push    bp
         mov     bp, sp
         add     sp, 0fffbh
-        mov     ax, STR_175D
+        mov     ax, STR_LOAD_A_SEQUENCE_FILE_SEQ
         push    ax
         callf   SEG_C04F:far_c1f4e
         endif
@@ -3111,7 +3111,7 @@ RUN_AFTER_FAR_C11F9 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C11F9
-        mov     ax, STR_1779
+        mov     ax, STR_SEQUENCE_NUMBER_TO_LOAD
 
         push    ax
         callf   SEG_D90A:far_d936c
@@ -3134,7 +3134,7 @@ RUN_AFTER_FAR_C11F9 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1798
+        mov     ax, STR_LOAD_FILE_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3169,7 +3169,7 @@ L_c3ac6:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_17A4
+        mov     ax, STR_LOADING_2
         else
         mov     ax, 18cah
         endif
@@ -3226,7 +3226,7 @@ far_c1315:
         mov     bp, sp
         add     sp, 0fffah
         mov     byte ptr [B_53DC], 36h
-        mov     ax, STR_17B4
+        mov     ax, STR_LOAD_ALL_SEQS_AND_SONGS
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -3267,7 +3267,7 @@ far_c1315:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1810
+        mov     ax, STR_LOAD_FILE_3
         endif
 
 RUN_AFTER_FAR_C1315  macro   {GLOBALSYMBOLS}
@@ -3293,7 +3293,7 @@ br_c1399:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_181C
+        mov     ax, STR_LOADING_FILE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3355,7 +3355,7 @@ far_c1439:
         push    bp
         mov     bp, sp
         add     sp, 0fffah
-        mov     ax, STR_182E
+        mov     ax, STR_LOAD_A_PARAMETER_FILE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -3399,7 +3399,7 @@ far_c1439:
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
-        mov     ax, STR_18C2
+        mov     ax, STR_IS_OFF
         endif
 
 RUN_AFTER_FAR_C1439  macro   {GLOBALSYMBOLS}
@@ -3429,7 +3429,7 @@ RUN_AFTER_FAR_C1439  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_18CB
+        mov     ax, STR_LOAD_FILE_4
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3451,7 +3451,7 @@ br_c14de:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_18D7
+        mov     ax, STR_LOADING_3
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3497,7 +3497,7 @@ far_c155f:
         push    bp
         mov     bp, sp
         add     sp, 0ffe8h
-        mov     ax, STR_18E7
+        mov     ax, STR_ERASE_A_FILE
         push    ax
         callf   SEG_C04F:far_c1f4e
         endif
@@ -3515,7 +3515,7 @@ RUN_AFTER_FAR_C155F  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C155F
-        mov     ax, STR_18F4
+        mov     ax, STR_ERASE_THE_FILE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3563,7 +3563,7 @@ RUN_AFTER_FAR_C155F_2  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1908
+        mov     ax, STR_ERASE_IT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3585,7 +3585,7 @@ br_c1607:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1913
+        mov     ax, STR_ERASING_FILE
         endif
 
 RUN_AFTER_BR_C1607  macro   {GLOBALSYMBOLS}
@@ -3622,7 +3622,7 @@ far_c1659:
         add     sp, 0ffceh
         push    di
         push    si
-        mov     ax, STR_1924
+        mov     ax, STR_RENAME_A_FILE
         push    ax
         callf   SEG_C04F:far_c1f4e
         endif
@@ -3638,7 +3638,7 @@ RUN_AFTER_FAR_C1659 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_1932
+        mov     ax, STR_RENAME_THE_FILE
         else
         mov     ax, 199fh
         endif
@@ -3697,7 +3697,7 @@ br_c16ed:
         push    ax
         lea     ax, [bp - 1ch]
         push    ax
-        mov     ax, STR_1944
+        mov     ax, STR_TO_THE_NEW_NAME
         push    ax
         callf   SEG_D90A:far_d90a6
         add     sp, 6
@@ -3727,7 +3727,7 @@ RUN_AFTER_BR_C16ED  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1956
+        mov     ax, STR_RENAME_IT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -3789,7 +3789,7 @@ br_c178c:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1962
+        mov     ax, STR_RENAMING_FILE
         endif
 
 RUN_BR_C17BF macro   {GLOBALSYMBOLS}
@@ -4032,7 +4032,7 @@ RUN_AFTER_L_C1909  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_L_C1909
-        mov     ax, STR_1A0B
+        mov     ax, STR_FORMAT_IT
         endif
 
 RUN_AFTER_L_C1909_2  macro   {GLOBALSYMBOLS}
@@ -4058,7 +4058,7 @@ br_c1988:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1A17
+        mov     ax, STR_FORMATTING
         push    ax
         callf   SEG_D880:far_d885c
         endif
@@ -4274,7 +4274,7 @@ br_c1b26:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1AA9
+        mov     ax, STR_INSERT_DISK_TO_BE_COPIED
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -4284,7 +4284,7 @@ br_c1b26:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1ACD
+        mov     ax, STR_PRESS_PROCEED
         endif
 
 RUN_AFTER_BR_C1B26  macro   {GLOBALSYMBOLS}
@@ -4301,7 +4301,7 @@ RUN_AFTER_BR_C1B26  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C1B26
-        mov     ax, STR_1ADD
+        mov     ax, STR_PROCEED
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -4323,7 +4323,7 @@ br_c1ba5:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1AE7
+        mov     ax, STR_COPYING_SOURCE_DISK
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -4370,7 +4370,7 @@ br_c1c29:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1B0B
+        mov     ax, STR_INSERT_DISK_TO_COPY_TO
         endif
 
 RUN_AFTER_BR_C1C29  macro   {GLOBALSYMBOLS}
@@ -4397,7 +4397,7 @@ RUN_AFTER_BR_C1C29  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1B31
+        mov     ax, STR_PROCEED_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -4419,7 +4419,7 @@ br_c1c9c:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1B3B
+        mov     ax, STR_WRITING_DESTINATION_DISK
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -5465,11 +5465,7 @@ far_c22a2:
         cbw
         push    ax
         push    word ptr [W_5361]
-        if      FW_VERSION < 212
-        callf   0d473h:far_d3a45
-        else
         callf   SEG_D391:far_d3a45
-        endif
         add     sp, 6
         mov     word ptr [W_535F], ax
         mov     ax, 4
@@ -5489,7 +5485,7 @@ far_c22a2:
         if      FW_VERSION < 212
         mov     ax, 10eeh
         else
-        mov     ax, STR_1B81
+        mov     ax, STR_TMPO
         endif
         push    ax
         callf   SEG_D90A:far_d936c
@@ -5565,7 +5561,7 @@ far_c22a2:
         push    ax
         mov     ax, B_B23B
         push    ax
-        mov     ax, STR_1B8A
+        mov     ax, STR_TSIG_BARS_LOOP
         endif
 
 RUN_AFTER_FAR_C22A2  macro   {GLOBALSYMBOLS}
@@ -5608,7 +5604,7 @@ RUN_AFTER_FAR_C22A2_2  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C22A2_2
-        mov     ax, STR_1BAA
+        mov     ax, STR_TRACK_DATA
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -5636,7 +5632,7 @@ RUN_AFTER_FAR_C22A2_2  macro   {GLOBALSYMBOLS}
         else
         lea     ax, [bp - 1eh]
         push    ax
-        mov     ax, STR_1BB5
+        mov     ax, STR_TRAK
         endif
         push    ax
         callf   SEG_D90A:far_d936c
@@ -5838,7 +5834,7 @@ br_c2563:
         push    ax
         mov     ax, W_B246
         push    ax
-        mov     ax, STR_1BC5
+        mov     ax, STR_VOL
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -5852,7 +5848,7 @@ br_c2563:
         push    ax
         mov     ax, W_B248
         push    ax
-        mov     ax, STR_1BCB
+        mov     ax, STR_PROG
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -5904,7 +5900,7 @@ br_c2563:
         callf   SEG_D90A:far_d90a6
         add     sp, 6
         callf   SEG_C22A:far_c30b6
-        mov     ax, STR_1BE1
+        mov     ax, STR_TRAK_SOLO_TMPO_SORTTRKS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -6042,11 +6038,7 @@ br_c2643:
         push    ax
         callf   SEG_D97F:far_da14f
         add     sp, 2
-        if      FW_VERSION < 212
-        callf   0c069h:far_c34be
-        else
         callf   SEG_C22A:far_c34be
-        endif
         mov     byte ptr [B_5507], 0
         jmp     tgt_c2d85
 br_c2662:
@@ -6066,8 +6058,6 @@ br_c2672:
         callf   0d816h:far_d6a82
         add     sp, 4
         lea     ax, [bp - 0ah]
-        push    ax
-        callf   0c069h:far_c3561
         else
         push    word ptr [bp - 0ch]
         mov     ax, B_94A6
@@ -6078,9 +6068,9 @@ br_c2672:
         mov     al, byte ptr [B_A04C]
         mov     byte ptr [bp - 1eh], al
         lea     ax, [bp - 0ch]
+        endif
         push    ax
         callf   SEG_C22A:far_c3561
-        endif
         add     sp, 2
         callf   SEG_D78A:far_d78a2
         if      FW_VERSION < 212
@@ -6267,11 +6257,7 @@ tgt_c2780:
         add     sp, 6
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
         jmp     tgt_c2d85
 tgt_c27b8:
@@ -6514,10 +6500,6 @@ br_c29cc:
         mov     al, byte ptr [B_9D36]
         cbw
         push    ax
-        if      FW_VERSION < 212
-        else
-
-        endif
         mov     al, byte ptr [B_9D34]
         cbw
         push    ax
@@ -6548,8 +6530,8 @@ br_c29cc:
         callf   SEG_D97F:far_da14f
         add     sp, 2
         if      FW_VERSION < 212
-        callf   0c069h:far_c316d
-        callf   0c069h:far_c30f2
+        callf   SEG_C22A:far_c316d
+        callf   SEG_D6D6:far_c30f2
         else
         callf   SEG_C22A:far_c30f2
         callf   SEG_D6D6:far_d6e23
@@ -6855,14 +6837,11 @@ br_c2c5a:
         callf   SEG_D97F:far_da14f
         add     sp, 2
 br_c2ca5:
-        if      FW_VERSION < 212
-        callf   0c069h:far_c34be
-        callf   0c069h:far_c321a
-        callf   0c069h:far_c30f2
-        else
         callf   SEG_C22A:far_c34be
         callf   SEG_C22A:far_c321a
         callf   SEG_C22A:far_c30f2
+        if      FW_VERSION < 212
+        else
         xor     ax, ax
         push    ax
         callf   SEG_DE75:far_de758
@@ -6918,9 +6897,8 @@ br_c2d09:
         cbw
         push    ax
         if      FW_VERSION < 212
-        callf   0c069h:far_c3470
+        callf   SEG_D485:far_c3470
         add     sp, 4
-        callf   0c069h:far_c30f2
         else
         callf   SEG_D485:far_d4855
         add     sp, 4
@@ -6936,8 +6914,8 @@ tgt_c2d1c:
         push    ax
         callf   SEG_C22A:far_c3470
         add     sp, 6
-        callf   SEG_C22A:far_c30f2
         endif
+        callf   SEG_C22A:far_c30f2
         jmp     tgt_c2d85
 tgt_c2d39:
         mov     ax, A_B232
@@ -6948,15 +6926,14 @@ tgt_c2d39:
         if      FW_VERSION < 212
         callf   0c069h:far_c3470
         add     sp, 4
-        callf   0c069h:far_c30f2
         else
         mov     al, byte ptr [B_B241]
         cbw
         push    ax
         callf   SEG_C22A:far_c3470
         add     sp, 6
-        callf   SEG_C22A:far_c30f2
         endif
+        callf   SEG_C22A:far_c30f2
         jmp     tgt_c2d85
 TBL_c2d56:
         if      FW_VERSION >= 212
@@ -7055,11 +7032,7 @@ tgt_c2dc5:
         mov     ax, 1
 br_c2dd1:
         mov     byte ptr [B_4C32], al
-        if      FW_VERSION < 212
-        callf   0c069h:far_c3342
-        else
         callf   SEG_C22A:far_c3342
-        endif
         jmp     br_c304c
 tgt_c2ddc:
         xor     ax, ax
@@ -7070,12 +7043,11 @@ br_c2de8:
         mov     byte ptr [B_4C20], al
         if      FW_VERSION < 212
         callf   0da07h:far_d7a0d
-        mov     ax, 601ah
         else
         callf   SEG_C22A:far_c337a
         callf   SEG_D799:far_d7a0d
-        mov     ax, W_53BB
         endif
+        mov     ax, W_53BB
         push    ax
         push    word ptr [W_94D2]
         push    word ptr [W_94D0]
@@ -7083,20 +7055,12 @@ br_c2de8:
         add     sp, 6
         xor     ax, ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        else
         callf   SEG_DE75:far_de758
-        endif
         add     sp, 2
         jmp     br_c304c
 tgt_c2e17:
         mov     byte ptr [B_53DC], 1
-        if      FW_VERSION < 212
-        callf   0db5bh:far_d7983
-        else
         callf   SEG_D793:far_d7983
-        endif
         callf   SEG_E176:far_e1768
         mov     word ptr [bp - 2], ax
         if      FW_VERSION < 212
@@ -7149,8 +7113,6 @@ br_c2e62:
 tgt_c2e7f:
         mov     byte ptr [B_9D35], 0
         lea     ax, [bp - 0ah]
-        push    ax
-        callf   0c069h:far_c3561
         else
         push    word ptr [bp - 0ch]
         mov     ax, B_94A6
@@ -7179,9 +7141,9 @@ br_c2eaa:
         mov     al, byte ptr [B_A04C]
         mov     byte ptr [bp - 1eh], al
         lea     ax, [bp - 0ch]
+        endif
         push    ax
         callf   SEG_C22A:far_c3561
-        endif
         add     sp, 2
         jmp     br_c304c
 tgt_c2ec4:
@@ -7303,11 +7265,7 @@ tgt_c2f9a:
         add     sp, 4
         mov     ax, STR_1C0A
         push    ax
-        if      FW_VERSION < 212
-        callf   0de62h:far_da730
-        else
         callf   SEG_DA73:far_da730
-        endif
         add     sp, 2
 br_c2fb9:
         cmp     byte ptr [B_7E10], 0
@@ -7329,11 +7287,7 @@ tgt_c2fc8:
         add     sp, 4
         mov     ax, STR_1C28
         push    ax
-        if      FW_VERSION < 212
-        callf   0de62h:far_da730
-        else
         callf   SEG_DA73:far_da730
-        endif
         add     sp, 2
 br_c2fe7:
         cmp     byte ptr [B_7E10], 0
@@ -7346,11 +7300,7 @@ br_c2fe7:
 br_c2ff3:
         jmp     br_c304c
 tgt_c2ff5:
-        if      FW_VERSION < 212
-        callf   0c069h:far_c34be
-        else
         callf   SEG_C22A:far_c34be
-        endif
         jmp     br_c304c
 tgt_c2ffc:
         if      FW_VERSION < 212
@@ -7468,7 +7418,7 @@ far_c30b6:
         callf   SEG_D880:far_d8894
         add     sp, 4
         else
-        mov     ax, STR_1C3F
+        mov     ax, STR_NOW_001_01_00_00_00_00
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -7486,10 +7436,8 @@ far_c30b6:
         add     sp, 2
         xor     ax, ax
         push    ax
-        callf   0e1ddh:far_de758
-        else
-        callf   SEG_DE75:far_de758
         endif
+        callf   SEG_DE75:far_de758
         add     sp, 2
         xor     ax, ax
         push    ax
@@ -7512,14 +7460,13 @@ far_c30f2:
         callf   SEG_D97F:far_da14f
         add     sp, 2
         if      FW_VERSION < 212
-        mov     ax, 0b28dh
         else
         mov     ax, 0ah
         push    ax
         callf   SEG_D97F:far_da14f
         add     sp, 2
-        mov     ax, A_B229
         endif
+        mov     ax, A_B229
         push    ax
         mov     al, byte ptr [B_B23E]
         cbw
@@ -7609,7 +7556,6 @@ RUN_AFTER_FAR_C316D  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION < 212
         RUN_AFTER_FAR_C316D
-        callf   0c069h:far_c32d9
         else
 
         mov     bx, ax
@@ -7653,8 +7599,8 @@ br_c31c1:
         callf   SEG_D65F:far_d65f7
         add     sp, 2
         push    ax
-        callf   SEG_C22A:far_c32d9
         endif
+        callf   SEG_C22A:far_c32d9
         add     sp, 4
         mov     al, byte ptr [B_B23E]
         mov     byte ptr [B_B242], al
@@ -7716,7 +7662,6 @@ far_c321a:
         callf   SEG_D65F:far_d65f7
         add     sp, 2
         push    ax
-        callf   0c069h:far_c32d9
         else
         mov     bx, ax
         pop     ax
@@ -7758,8 +7703,8 @@ far_c321a:
         mov     al, byte ptr [B_B241]
         mov     byte ptr [B_B245], al
         RUN_AFTER_FAR_C316D
-        callf   SEG_C22A:far_c32d9
         endif
+        callf   SEG_C22A:far_c32d9
         add     sp, 4
         dec     byte ptr [B_8CCB]
         mov     sp, bp
@@ -7792,11 +7737,7 @@ far_c32c2:
         push    ax
         sub     ax, word ptr [bp + 6]
         push    ax
-        if      FW_VERSION < 212
-        callf   0c069h:far_c32d9
-        else
         callf   SEG_C22A:far_c32d9
-        endif
         add     sp, 4
         mov     sp, bp
         pop     bp
@@ -7847,7 +7788,7 @@ far_c3308:
         callf   SEG_C22A:far_c32a7
         test    ax, ax
         jnz     br_c3332
-        mov     ax, STR_1C68
+        mov     ax, STR_OFF
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -7909,13 +7850,13 @@ far_c337a:
         add     sp, 4
         cmp     byte ptr [B_4C20], 0
         jnz     br_c33a2
-        mov     ax, STR_1C78
+        mov     ax, STR_MAS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
         jmp     br_c33ae
 br_c33a2:
-        mov     ax, STR_1C7C
+        mov     ax, STR_SEQ
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -7983,7 +7924,7 @@ far_c3404:
         mov     word ptr [bp - 2], ax
         cmp     word ptr [bp - 2], 0ffffh
         jnz     br_c3434
-        mov     ax, STR_1C84
+        mov     ax, STR_OFF_2
         push    ax
         push    word ptr [bp + 0ah]
         callf   SEG_F263:far_f263a
@@ -8119,21 +8060,13 @@ br_c34e7:
 br_c34f5:
         mov     ax, STR_1CC0
         push    ax
-        if      FW_VERSION < 212
-        callf   0de62h:far_da730
-        else
         callf   SEG_DA73:far_da730
-        endif
         add     sp, 2
         jmp     br_c350f
 br_c3503:
         mov     ax, STR_1CDB
         push    ax
-        if      FW_VERSION < 212
-        callf   0de62h:far_da730
-        else
         callf   SEG_DA73:far_da730
-        endif
         add     sp, 2
 br_c350f:
         mov     sp, bp
@@ -8163,7 +8096,7 @@ far_c3513:
         callf   SEG_D666:far_d6668
         add     sp, 6
         if      FW_VERSION < 212
-        callf   0c069h:far_c32a7
+        callf   SEG_C22A:far_c32a7
         mov     byte ptr [B_B29F_V112], al
         callf   0c069h:far_c316d
         else
@@ -8185,11 +8118,7 @@ br_c355a:
 far_c3561:
         push    bp
         mov     bp, sp
-        if      FW_VERSION < 212
-        callf   0c069h:far_c3513
-        else
         callf   SEG_C22A:far_c3513
-        endif
         mov     bx, word ptr [bp + 6]
         mov     word ptr [bx], ax
         xor     ax, ax
@@ -8226,7 +8155,6 @@ far_c3561:
         callf   SEG_D97F:far_da14f
         add     sp, 2
         if      FW_VERSION < 212
-        callf   0c069h:far_c30f2
         else
         mov     ax, 0dh
         push    ax
@@ -8234,20 +8162,14 @@ far_c3561:
         add     sp, 2
         callf   SEG_C22A:far_c33b2
         callf   SEG_C22A:far_c3308
-        callf   SEG_C22A:far_c30f2
         endif
+        callf   SEG_C22A:far_c30f2
         mov     al, byte ptr [B_7E10]
         cbw
         push    ax
-        if      FW_VERSION < 212
-        callf   0e1ddh:far_de758
-        add     sp, 2
-        callf   0c069h:far_c34be
-        else
         callf   SEG_DE75:far_de758
         add     sp, 2
         callf   SEG_C22A:far_c34be
-        endif
         mov     sp, bp
         pop     bp
         retf
@@ -8499,7 +8421,7 @@ far_c3833:
         push    bp
         mov     bp, sp
         add     sp, 0fffeh
-        mov     ax, STR_1D63
+        mov     ax, STR_MIDI
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -8509,7 +8431,7 @@ far_c3833:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1D68
+        mov     ax, STR_1_MIDI_INPUT_FILTER_SOFT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -8519,7 +8441,7 @@ far_c3833:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1D8E
+        mov     ax, STR_2_EXTERNAL_DRUM
         endif
 
 RUN_AFTER_FAR_C3833  macro   {GLOBALSYMBOLS}
@@ -8536,7 +8458,7 @@ RUN_AFTER_FAR_C3833  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C3833
-        mov     ax, STR_1DB5
+        mov     ax, STR_3_AKAI_ME_35T_AUDIO_MIDI
 
         push    ax
         callf   SEG_D880:far_d885c
@@ -8547,7 +8469,7 @@ RUN_AFTER_FAR_C3833  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1DD8
+        mov     ax, STR_4_TURN_ALL_NOTES_OFF
 
         push    ax
         callf   SEG_D880:far_d885c
@@ -8629,7 +8551,7 @@ far_c392c:
         push    bp
         mov     bp, sp
         add     sp, 0fff7h
-        mov     ax, STR_1DED
+        mov     ax, STR_MIDI_INPUT_FILTER
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -8640,7 +8562,7 @@ far_c392c:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1DFF
+        mov     ax, STR_EVENT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -8670,7 +8592,7 @@ far_c392c:
         push    ax
         lea     ax, [bp - 7]
         push    ax
-        mov     ax, STR_1E06
+        mov     ax, STR_PASS_EVENT
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -8730,7 +8652,7 @@ RUN_AFTER_FAR_C392C_2  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_5014
         push    ax
-        mov     ax, STR_1E14
+        mov     ax, STR_VELOCITY_MODE
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -8777,7 +8699,7 @@ RUN_AFTER_FAR_C392C_4  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C392C_4
-        mov     ax, STR_1E33
+        mov     ax, STR_OTHER_MIDI
         push    ax
         callf   SEG_DA73:far_da730
         endif
@@ -8798,7 +8720,7 @@ RUN_AFTER_FAR_C392C_5 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_5016
         push    ax
-        mov     ax, STR_1E3E
+        mov     ax, STR_MIDI_SOFT_THRU
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -8831,7 +8753,7 @@ RUN_AFTER_FAR_C392C_5 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C392C_5
-        mov     ax, STR_1E4E
+        mov     ax, STR_DEFAULT_CHAN
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -8874,7 +8796,7 @@ RUN_AFTER_FAR_C392C_6  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_5019
         push    ax
-        mov     ax, STR_1E5D
+        mov     ax, STR_SPECIAL_SUSTAIN_PEDAL
         endif
 
 RUN_AFTER_FAR_C392C_7  macro   {GLOBALSYMBOLS}
@@ -8891,7 +8813,7 @@ RUN_AFTER_FAR_C392C_7  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C392C_7
-        mov     ax, STR_1E7F
+        mov     ax, STR_ALL_NOTES_OFF
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -9047,7 +8969,7 @@ br_c3c5b:
         add     sp, 2
         jmp     br_c3c86
 br_c3c6e:
-        mov     ax, STR_1E8F
+        mov     ax, STR_MINIMUM_CHANGE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -9064,7 +8986,7 @@ far_c3c8d:
         push    bp
         mov     bp, sp
         add     sp, 0fff8h
-        mov     ax, STR_1E9F
+        mov     ax, STR_ASSIGN_INCOMING_NOTES_TO
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -9088,7 +9010,7 @@ RUN_AFTER_FAR_C3C8D  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_501A
         push    ax
-        mov     ax, STR_1EBE
+        mov     ax, STR_INCOMING_NOTES_PLAY
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -9115,7 +9037,7 @@ RUN_AFTER_FAR_C3C8D_2  macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C3C8D_2
         mov     ax, B_B24B
         push    ax
-        mov     ax, STR_1ED9
+        mov     ax, STR_NOTE
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9164,7 +9086,7 @@ RUN_AFTER_FAR_C3C8D_2  macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 7]
         push    ax
-        mov     ax, STR_1EE3
+        mov     ax, STR_PLAYS
 
         push    ax
         callf   SEG_D90A:far_d916d
@@ -9175,7 +9097,7 @@ RUN_AFTER_FAR_C3C8D_2  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1EEA
+        mov     ax, STR_ASSIGN_OUTGOING_DRUMS_TO
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -9198,7 +9120,7 @@ RUN_AFTER_FAR_C3C8D_2  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_501B
         push    ax
-        mov     ax, STR_1F09
+        mov     ax, STR_MIDI_DRUM_DATA_SENT_OUT
         endif
 
 RUN_AFTER_FAR_C3C8D_3  macro   {GLOBALSYMBOLS}
@@ -9221,7 +9143,7 @@ RUN_AFTER_FAR_C3C8D_3  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B24C
         push    ax
-        mov     ax, STR_1F22
+        mov     ax, STR_DRUM
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -9251,7 +9173,7 @@ RUN_AFTER_FAR_C3C8D_4  macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C3C8D_4
         lea     ax, [bp - 8]
         push    ax
-        mov     ax, STR_1F28
+        mov     ax, STR_PLAYS_NOTE
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9291,7 +9213,7 @@ RUN_AFTER_FAR_C3C8D_4  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1F38
+        mov     ax, STR_OTHER
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -9322,7 +9244,7 @@ RUN_AFTER_FAR_C3C8D_5  macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C3C8D_5
         lea     ax, [bp - 4]
         push    ax
-        mov     ax, STR_1F3E
+        mov     ax, STR_MIDI_DRUMS_CHAN
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9610,7 +9532,7 @@ far_c4134:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1F4F
+        mov     ax, STR_ME_35T_TRIGGER_INTERFACE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -9646,7 +9568,7 @@ RUN_AFTER_FAR_C4134  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_52A4
         push    ax
-        mov     ax, STR_1F68
+        mov     ax, STR_MIDI_IN
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9659,7 +9581,7 @@ RUN_AFTER_FAR_C4134  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_52A5
         push    ax
-        mov     ax, STR_1F71
+        mov     ax, STR_OUT
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9676,7 +9598,7 @@ RUN_AFTER_FAR_C4134  macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 1]
         push    ax
-        mov     ax, STR_1F78
+        mov     ax, STR_UNIT
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9690,7 +9612,7 @@ RUN_AFTER_FAR_C4134  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B24D
         push    ax
-        mov     ax, STR_1F7E
+        mov     ax, STR_UNIT_CH
 
         push    ax
         callf   SEG_D90A:far_d936c
@@ -9701,7 +9623,7 @@ RUN_AFTER_FAR_C4134  macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_1F8A
+        mov     ax, STR_SETTINGS_FOR_INPUT
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -9757,7 +9679,7 @@ RUN_AFTER_FAR_C4134_2  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B24F
         push    ax
-        mov     ax, STR_1F9F
+        mov     ax, STR_NOTE_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9780,7 +9702,7 @@ RUN_AFTER_FAR_C4134_2  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B250
         push    ax
-        mov     ax, STR_1FA5
+        mov     ax, STR_SENSITIVITY
         endif
 
 RUN_AFTER_FAR_C4134_3  macro   {GLOBALSYMBOLS}
@@ -9807,7 +9729,7 @@ RUN_AFTER_FAR_C4134_3  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B251
         push    ax
-        mov     ax, STR_1FB2
+        mov     ax, STR_TRIGGER
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9825,7 +9747,7 @@ RUN_AFTER_FAR_C4134_3  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B253
         push    ax
-        mov     ax, STR_1FBB
+        mov     ax, STR_CAPTURE_TIME
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9852,7 +9774,7 @@ RUN_AFTER_FAR_C4134_4  macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C4134_4
         mov     ax, B_B254
         push    ax
-        mov     ax, STR_1FC9
+        mov     ax, STR_RECOVERY_TIME
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9871,7 +9793,7 @@ RUN_AFTER_FAR_C4134_4  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B255
         push    ax
-        mov     ax, STR_1FD8
+        mov     ax, STR_ON_TIME
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9889,7 +9811,7 @@ RUN_AFTER_FAR_C4134_4  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B252
         push    ax
-        mov     ax, STR_1FE3
+        mov     ax, STR_VELOCITY_CURVE
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -9907,7 +9829,7 @@ RUN_AFTER_FAR_C4134_4  macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_B24E
         push    ax
-        mov     ax, STR_1FF3
+        mov     ax, STR_MIDI_CHANNEL
         endif
 
 RUN_AFTER_FAR_C4134_5  macro   {GLOBALSYMBOLS}
@@ -9924,7 +9846,7 @@ RUN_AFTER_FAR_C4134_5  macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C4134_5
-        mov     ax, STR_2001
+        mov     ax, STR_READ_FROM_SEND_TO
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -10171,7 +10093,7 @@ br_c45b1:
         jnz     br_c468a
         callf   SEG_D880:far_d8850
         callf   SEG_D880:far_d880a
-        mov     ax, STR_2017
+        mov     ax, STR_ATTENTION
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -10220,7 +10142,7 @@ br_c45b1:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_208B
+        mov     ax, STR_CANCEL
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 2
@@ -10606,7 +10528,6 @@ far_c49dd:
         if      FW_VERSION < 212
         xor     ax, ax
         push    ax
-        else
         endif
         mov     al, byte ptr [B_9D34]
         cbw
@@ -11152,7 +11073,6 @@ far_c4d37:
         if      FW_VERSION < 212
         xor     ax, ax
         push    ax
-        else
         endif
         mov     al, byte ptr [B_9D34]
         cbw
@@ -12925,7 +12845,7 @@ far_c5aa2:
 L_c215c:
         else
         add     sp, 0fffeh
-        mov     ax, STR_21EF
+        mov     ax, STR_METRONOME
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -12990,7 +12910,7 @@ RUN_AFTER_L_C215C macro   {GLOBALSYMBOLS}
         lea     ax, [bp - 4]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_323A
+        mov     ax, STR_SEQUENCE
         else
         mov     ax, 13b9h
         endif
@@ -13041,7 +12961,7 @@ RUN_AFTER_L_C215C_2 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_4C1E
         push    ax
-        mov     ax, STR_3261
+        mov     ax, STR_BPM_FPB
         else
         mov     ax, 0b3ch
         push    ax
@@ -13949,7 +13869,7 @@ L_c2717:
         if      FW_VERSION >= 212
         add     sp, 0ffeah
         callf   SEG_D793:far_d7983
-        mov     ax, STR_3388
+        mov     ax, STR_MID_SEQUENCE_TEMPO
         push    ax
         callf   SEG_C04F:far_c1f4e
         else
@@ -14044,7 +13964,7 @@ RUN_AFTER_L_C2794 macro   {GLOBALSYMBOLS}
         mov     ax, B_515E
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_21F9
+        mov     ax, STR_VOLUME
         else
         mov     ax, 1e03h
         endif
@@ -14067,7 +13987,7 @@ RUN_AFTER_L_C2794 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_5160
         push    ax
-        mov     ax, STR_2201
+        mov     ax, STR_RATE
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -14077,7 +13997,7 @@ RUN_AFTER_L_C2794 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_515F
         push    ax
-        mov     ax, STR_220A
+        mov     ax, STR_IN_PLAY
         endif
         push    ax
         callf   SEG_D90A:far_d916d
@@ -14980,7 +14900,7 @@ br_cae68:
         mov     word ptr [bp - 0eh], 1
         mov     word ptr [bp - 10h], 100h
         mov     word ptr [bp - 0ah], 0
-        mov     word ptr [bp - 0ch], STR_3E4F
+        mov     word ptr [bp - 0ch], STR_CONVERT_SONG
         endif
         jmp     br_caee1
 br_cae85:
@@ -15207,7 +15127,7 @@ br_caf72:
         idiv    cx
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3425
+        mov     ax, STR_3D_D_S
         else
         mov     ax, 1584h
         endif
@@ -15274,7 +15194,7 @@ L_c2efa:
         if      FW_VERSION >= 212
         callf   SEG_D427:far_d438f
         add     sp, 2
-        mov     ax, STR_342F
+        mov     ax, STR_GENERATE_SMPTE
         push    ax
         callf   SEG_C04F:far_c1f4e
         else
@@ -15308,7 +15228,7 @@ L_c2efa:
         endif
         if      FW_VERSION >= 212
         push    ax
-        mov     ax, STR_343E
+        mov     ax, STR_START
         else
         mov     ax, 0b2aah
         push    ax
@@ -15608,7 +15528,7 @@ br_cb1e8:
         cbw
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_346C
+        mov     ax, STR_02D_02D_02D
         else
         mov     ax, 15cbh
         endif
@@ -15873,7 +15793,7 @@ br_c0d7b:
         callf   SEG_D880:far_d8837
         else
 
-        mov     ax, STR_2215
+        mov     ax, STR_FOOT_SWITCHES
         push    ax
         callf   SEG_DA73:far_da730
         endif
@@ -16107,7 +16027,7 @@ RUN_BR_E6A10 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_48C7
+        mov     ax, STR_LOADING_FILE_3
         else
         mov     ax, 17bdh
         endif
@@ -16471,7 +16391,7 @@ RUN_AFTER_L_C3A48 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_2232
+        mov     ax, STR_OTHER_2
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -16503,7 +16423,7 @@ RUN_AFTER_L_C3A48 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2253
+        mov     ax, STR_DEFAULTS_RECORD_16_CHS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -16711,9 +16631,7 @@ far_c5cfc:
         add     sp, 0fffdh
         mov     ax, STR_2294
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_C04F:far_c1f4e
-        endif
         add     sp, 2
         endif
         if      FW_VERSION = 212
@@ -16729,7 +16647,7 @@ far_c5cfc:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_22A4
+        mov     ax, STR_DATE_OF_THIS_VERSION
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -16805,7 +16723,7 @@ RUN_AFTER_FAR_C5CFC macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, W_AE8D
         push    ax
-        mov     ax, STR_22DD
+        mov     ax, STR_MAX_HIHAT_DECAY
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -16877,7 +16795,7 @@ far_c5e13:
         RUN_BR_C5DD6
         callf   SEG_D97F:far_d97f5
         callf   SEG_D880:far_d880a
-        mov     ax, STR_2301
+        mov     ax, STR_SYNC_PARAMETERS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -16887,7 +16805,7 @@ far_c5e13:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2311
+        mov     ax, STR_EXIT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -16930,7 +16848,7 @@ far_c5e6a:
         push    word ptr [W_5361]
         push    word ptr [W_5365]
         if      FW_VERSION >= 212
-        mov     ax, STR_2318
+        mov     ax, STR_BTEMPO_5U_TEMPO_5U
         else
         mov     ax, 2106h
         endif
@@ -17031,7 +16949,7 @@ far_c5e6a:
         endm
         if      FW_VERSION >= 212
         RUN_BR_C5E62
-        mov     ax, STR_23D2
+        mov     ax, STR_MTCCNT_3D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -17042,11 +16960,11 @@ far_c5f4b:
         push    bp
         mov     bp, sp
         add     sp, 0fffeh
-        mov     ax, STR_23DD
+        mov     ax, STR_SOUND_DATA
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
-        mov     ax, STR_23E8
+        mov     ax, STR_1_SOUND_DIRECTORY
         endif
 
 RUN_AFTER_FAR_C5F4B macro   {GLOBALSYMBOLS}
@@ -17231,7 +17149,7 @@ RUN_BR_C6077 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, W_BA58
         push    ax
-        mov     ax, STR_242E
+        mov     ax, STR_SOUND
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -17311,7 +17229,7 @@ br_c60ca:
         add     ax, 0a6bch
         endif
         push    ax
-        mov     ax, STR_2435
+        mov     ax, STR_16S_DRUM_2D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 6
@@ -17526,7 +17444,7 @@ far_c6269:
         push    bp
         mov     bp, sp
         add     sp, 0fffch
-        mov     ax, STR_2529
+        mov     ax, STR_SOUND_MEM_ALLOCATION
         push    ax
         if      FW_VERSION >= 212
         callf   SEG_C04F:far_c1f4e
@@ -17551,7 +17469,7 @@ far_c6269:
         push    ax
         lea     ax, [bp - 4]
         push    ax
-        mov     ax, STR_253E
+        mov     ax, STR_INDEX
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -17605,7 +17523,7 @@ far_c62de:
         mov     al, byte ptr [bx + TBL_AE8F]
         cbw
         push    ax
-        mov     ax, STR_2545
+        mov     ax, STR_STAT_2D_SND_2D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 6
@@ -17630,7 +17548,7 @@ far_c62de:
         else
         push    word ptr [bx +TBL_AE91]
         endif
-        mov     ax, STR_255E
+        mov     ax, STR_START_7LD_LEN_7LD
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 0ah
@@ -17667,7 +17585,7 @@ L_c5808:
         add     sp, 6
         mov     ax, W_BA5A
         push    ax
-        mov     ax, STR_2574
+        mov     ax, STR_START_ADDRESS
         push    ax
         if      FW_VERSION >= 212
         callf   SEG_C5CF:far_c646e
@@ -17723,7 +17641,7 @@ loop_c63e0:
         mov     bx, word ptr [bp - 76h]
         add     word ptr [bp - 76h], 2
         push    word ptr [bx]
-        mov     ax, STR_259A
+        mov     ax, STR_04X
         else
         mov     word ptr [bp - 80h], ax
         mov     word ptr [bp - 7eh], 0
@@ -17829,7 +17747,7 @@ far_c646e:
         push    word ptr [bx + 2]
         push    word ptr [bx]
         push    word ptr [bp + 6]
-        mov     ax, STR_25A0
+        mov     ax, STR_S_LD
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 8
@@ -18090,7 +18008,7 @@ far_c6637:
         push    bp
         mov     bp, sp
         add     sp, 0fffeh
-        mov     ax, STR_26B6
+        mov     ax, STR_SOUNDS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -18127,7 +18045,7 @@ far_c6637:
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
-        mov     ax, STR_272B
+        mov     ax, STR_7_AUDIO_TRIGGER_8_MIXER
         endif
 
 RUN_AFTER_FAR_C6637 macro   {GLOBALSYMBOLS}
@@ -18293,7 +18211,7 @@ far_c675e:
         mov     bp, sp
         add     sp, 0fffeh
         callf   SEG_D880:far_d880a
-        mov     ax, STR_2753
+        mov     ax, STR_ASSIGNABLE_MIX_OUTPUTS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -18513,7 +18431,7 @@ br_c68b3:
         endm
         if      FW_VERSION >= 212
         RUN_BR_C67E7
-        mov     ax, STR_276C
+        mov     ax, STR_0_NO_OUTPUT_ASSIGNMENT
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -18524,7 +18442,7 @@ far_c68d9:
         push    bp
         mov     bp, sp
         add     sp, 0ffffh
-        mov     ax, STR_2785
+        mov     ax, STR_MIXER_MODES
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -18540,7 +18458,7 @@ far_c68d9:
         push    ax
         mov     ax, B_52AD
         push    ax
-        mov     ax, STR_2791
+        mov     ax, STR_STEREO_MIX
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -18577,7 +18495,7 @@ far_c68d9:
         push    ax
         mov     ax, B_52AE
         push    ax
-        mov     ax, STR_279E
+        mov     ax, STR_ECHO_MIX
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -18608,7 +18526,7 @@ far_c68d9:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_27AB
+        mov     ax, STR_HIHAT_DECAY_SWITCH
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -18635,7 +18553,7 @@ RUN_AFTER_FAR_C68D9 macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C68D9
         mov     ax, TBL_52B1
         push    ax
-        mov     ax, STR_27C9
+        mov     ax, STR_CLOSED_MEDIUM
         endif
 
 RUN_AFTER_FAR_C68D9_2 macro   {GLOBALSYMBOLS}
@@ -18656,7 +18574,7 @@ RUN_AFTER_FAR_C68D9_2 macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C68D9_2
         mov     ax, B_52B2
         push    ax
-        mov     ax, STR_27D8
+        mov     ax, STR_MEDIUM_OPEN
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -18666,7 +18584,7 @@ RUN_AFTER_FAR_C68D9_2 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_27EA
+        mov     ax, STR_OTHER_3
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -18686,7 +18604,7 @@ RUN_AFTER_FAR_C68D9_2 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_52B4
         push    ax
-        mov     ax, STR_27F0
+        mov     ax, STR_CONTROLLER_NUMBER_FOR
         endif
 
         push    ax
@@ -18881,7 +18799,7 @@ L_c3cc1:
         push    ax
         mov     ax, B_52B5
         push    ax
-        mov     ax, STR_2813
+        mov     ax, STR_FUNCTION_OF_16_LEVELS
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -18950,7 +18868,7 @@ far_c6ac2:
         add     sp, 4
         cmp     byte ptr [B_52AD], 0
         jz      br_c6af6
-        mov     ax, STR_282C
+        mov     ax, STR_RCRD_LIVE_CHNGS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -18973,7 +18891,7 @@ br_c6b02:
         add     sp, 4
         cmp     byte ptr [B_52AE], 0
         jz      br_c6b33
-        mov     ax, STR_282C
+        mov     ax, STR_RCRD_LIVE_CHNGS
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -18995,7 +18913,7 @@ far_c6b43:
         push    bp
         mov     bp, sp
         add     sp, 0fffch
-        mov     ax, STR_283D
+        mov     ax, STR_AUDIO_TRIGGER_USE_SYNC
         push    ax
         callf   SEG_C04F:far_c1f4e
         endif
@@ -19018,7 +18936,7 @@ RUN_AFTER_FAR_C6B43 macro   {GLOBALSYMBOLS}
         RUN_AFTER_FAR_C6B43
         mov     ax, B_52AC
         push    ax
-        mov     ax, STR_285C
+        mov     ax, STR_PLAYS_DRUM
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -19163,7 +19081,7 @@ RUN_AFTER_FAR_C6BF9_3 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C6BF9_3
 
-        mov     ax, STR_28C5
+        mov     ax, STR_ALL_SEQUENCE_MEMORY_AND
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -19173,7 +19091,7 @@ RUN_AFTER_FAR_C6BF9_3 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_28EC
+        mov     ax, STR_DRUM_SOUND_FOR_THE_DRUM
         endif
 
 RUN_AFTER_FAR_C6BF9_4 macro   {GLOBALSYMBOLS}
@@ -19190,7 +19108,7 @@ RUN_AFTER_FAR_C6BF9_4 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_FAR_C6BF9_4
-        mov     ax, STR_2912
+        mov     ax, STR_INTO_WILL_BE_ERASED_ARE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -19200,7 +19118,7 @@ RUN_AFTER_FAR_C6BF9_4 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2939
+        mov     ax, STR_WANT_TO_PROCEED
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -19226,7 +19144,7 @@ RUN_BR_C6D08 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_294B
+        mov     ax, STR_PROCEED_3
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -19284,7 +19202,7 @@ far_c6d66:
         push    bp
         mov     bp, sp
         add     sp, 0ffddh
-        mov     ax, STR_2955
+        mov     ax, STR_SAMPLE_NEW_SOUND
         push    ax
         if      FW_VERSION >= 212
         callf   SEG_C04F:far_c1f4e
@@ -19366,7 +19284,7 @@ br_c6e0f:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2966
+        mov     ax, STR_DRUM_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -19385,7 +19303,7 @@ br_c6e0f:
         push    ax
         lea     ax, [bp - 11h]
         push    ax
-        mov     ax, STR_296C
+        mov     ax, STR_NAME
         push    ax
         callf   SEG_D90A:far_d90a6
         add     sp, 6
@@ -19404,7 +19322,7 @@ br_c6e0f:
         push    ax
         mov     ax, W_521E
         push    ax
-        mov     ax, STR_2975
+        mov     ax, STR_LENGTH_SEC
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -19430,7 +19348,7 @@ br_c6ead:
         push    ax
         mov     ax, W_5220
         push    ax
-        mov     ax, STR_2982
+        mov     ax, STR_PRE_RECORD_MSEC
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -19450,7 +19368,7 @@ br_c6ead:
         push    ax
         mov     ax, B_521B
         push    ax
-        mov     ax, STR_2998
+        mov     ax, STR_HEAR_INPUT
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -19464,7 +19382,7 @@ br_c6ead:
         push    ax
         mov     ax, W_5222
         push    ax
-        mov     ax, STR_29A5
+        mov     ax, STR_FADEOUT_TIME_MSEC
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -19492,7 +19410,7 @@ br_c6ead:
         push    ax
         mov     ax, B_5219
         push    ax
-        mov     ax, STR_29BB
+        mov     ax, STR_RECORD_LEVEL
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -19506,7 +19424,7 @@ br_c6ead:
         push    ax
         mov     ax, B_521A
         push    ax
-        mov     ax, STR_29C9
+        mov     ax, STR_THRESHOLD_T
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -19516,7 +19434,7 @@ br_c6ead:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_29DA
+        mov     ax, STR_METER
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -19746,7 +19664,7 @@ br_c713a:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_29E1
+        mov     ax, STR_RECORD_LITE_ON_WHEN
         else
         mov     ax, 37ceh
         endif
@@ -20057,7 +19975,7 @@ far_c7387:
         push    bp
         mov     bp, sp
         add     sp, 0fffch
-        mov     ax, STR_2A52
+        mov     ax, STR_SOUND_2
         push    ax
         push    word ptr [bp + 6]
         callf   SEG_F263:far_f263a
@@ -20170,7 +20088,7 @@ br_c7427:
         mov     bx, ax
         mov     al, byte ptr [bx + TBL_5264]
         mov     byte ptr [bp - 1fh], al
-        mov     ax, STR_2A62
+        mov     ax, STR_EDIT_A_SOUND_PAGE_1
         push    ax
         callf   SEG_C04F:far_c1f4e
         endif
@@ -20223,7 +20141,7 @@ RUN_AFTER_BR_C7427_2 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2A89
+        mov     ax, STR_DOUBLE_PLAY
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -20239,7 +20157,7 @@ RUN_AFTER_BR_C7427_2 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 21h]
         push    ax
-        mov     ax, STR_2A95
+        mov     ax, STR_ALSO_PLAYS
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -20249,7 +20167,7 @@ RUN_AFTER_BR_C7427_2 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 1eh]
         push    ax
-        mov     ax, STR_2AA1
+        mov     ax, STR_VELSW
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -20270,7 +20188,7 @@ RUN_AFTER_BR_C7427_3 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_C7427_3
         lea     ax, [bp - 1fh]
         push    ax
-        mov     ax, STR_2AAC
+        mov     ax, STR_IF_OVER
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20280,7 +20198,7 @@ RUN_AFTER_BR_C7427_3 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2AB6
+        mov     ax, STR_DATA
         push    ax
         callf   SEG_DA73:far_da730
         endif
@@ -20307,7 +20225,7 @@ RUN_AFTER_BR_C7427_4 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 20h]
         push    ax
-        mov     ax, STR_2ABB
+        mov     ax, STR_VOLUME_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20321,7 +20239,7 @@ RUN_AFTER_BR_C7427_4 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 1bh]
         push    ax
-        mov     ax, STR_2AC4
+        mov     ax, STR_TUNING
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20348,7 +20266,7 @@ RUN_AFTER_BR_C7427_5 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_C7427_5
         lea     ax, [bp - 17h]
         push    ax
-        mov     ax, STR_2AD4
+        mov     ax, STR_START_MSEC
         endif
 
 RUN_AFTER_BR_C7427_6 macro   {GLOBALSYMBOLS}
@@ -20369,7 +20287,7 @@ RUN_AFTER_BR_C7427_6 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C7427_6
-        mov     ax, STR_2AE2
+        mov     ax, STR_END_MSEC
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20379,7 +20297,7 @@ RUN_AFTER_BR_C7427_6 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2AEF
+        mov     ax, STR_CUTOFF_ENDS_REVERSE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -20712,7 +20630,7 @@ br_c7898:
         push    word ptr [bp - 17h]
         callf   SEG_C73D:far_c7cd8
         add     sp, 0ch
-        mov     ax, STR_2B18
+        mov     ax, STR_EDIT_A_SOUND_PAGE_2
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -20735,7 +20653,7 @@ RUN_AFTER_BR_C7898 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_5218
         push    ax
-        mov     ax, STR_2B2E
+        mov     ax, STR_DRUM_3
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -20748,7 +20666,7 @@ RUN_AFTER_BR_C7898 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 11h]
         push    ax
-        mov     ax, STR_2B34
+        mov     ax, STR_NAME_2
         endif
 
 RUN_AFTER_BR_C7898_2 macro   {GLOBALSYMBOLS}
@@ -20765,7 +20683,7 @@ RUN_AFTER_BR_C7898_2 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C7898_2
-        mov     ax, STR_2B3F
+        mov     ax, STR_ENVELOPE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -20792,7 +20710,7 @@ RUN_AFTER_BR_C7898_3 macro   {GLOBALSYMBOLS}
         RUN_AFTER_BR_C7898_3
         lea     ax, [bp - 1bh]
         push    ax
-        mov     ax, STR_2B48
+        mov     ax, STR_ATTACK_MSEC
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20806,7 +20724,7 @@ RUN_AFTER_BR_C7898_3 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 19h]
         push    ax
-        mov     ax, STR_2B56
+        mov     ax, STR_FADEOUT_MSEC
         endif
 
 RUN_AFTER_BR_C7898_4 macro   {GLOBALSYMBOLS}
@@ -20823,7 +20741,7 @@ RUN_AFTER_BR_C7898_4 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C7898_4
-        mov     ax, STR_2B67
+        mov     ax, STR_VELOCITY
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -20871,7 +20789,7 @@ RUN_AFTER_BR_C7898_5 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 1fh]
         push    ax
-        mov     ax, STR_2B7F
+        mov     ax, STR_VEL_ATTACK_MS
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20891,7 +20809,7 @@ RUN_AFTER_BR_C7898_5 macro   {GLOBALSYMBOLS}
         push    ax
         lea     ax, [bp - 21h]
         push    ax
-        mov     ax, STR_2B91
+        mov     ax, STR_VEL_VOL_0_100
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -20901,7 +20819,7 @@ RUN_AFTER_BR_C7898_5 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2BA1
+        mov     ax, STR_CUTOFF_ENDS_REVERSE_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -21407,7 +21325,7 @@ br_c7d96:
 far_c7d9a:
         push    bp
         mov     bp, sp
-        mov     ax, STR_2BCA
+        mov     ax, STR_CUTOFF_ENDS
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -21440,7 +21358,7 @@ far_c7d9a:
 far_c7ded:
         push    bp
         mov     bp, sp
-        mov     ax, STR_2BD6
+        mov     ax, STR_REVERSE_A_SOUND
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -21450,7 +21368,7 @@ far_c7ded:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2BE6
+        mov     ax, STR_DRUM_4
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -21470,7 +21388,7 @@ far_c7ded:
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
-        mov     ax, STR_2BEF
+        mov     ax, STR_NAME_3
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -21516,7 +21434,7 @@ far_c7e8e:
         push    bp
         mov     bp, sp
         callf   SEG_D880:far_d880a
-        mov     ax, STR_2BFB
+        mov     ax, STR_DELETE_A_SOUND
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -21526,7 +21444,7 @@ far_c7e8e:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2C0A
+        mov     ax, STR_DRUM_5
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -21546,7 +21464,7 @@ far_c7e8e:
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
-        mov     ax, STR_2C13
+        mov     ax, STR_NAME_4
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -21668,7 +21586,7 @@ RUN_AFTER_BR_C7F97 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2C1F
+        mov     ax, STR_REVERSING_THE_SOUND
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 2
@@ -21853,7 +21771,7 @@ br_c818a:
         jmp     br_c86d0
 br_c8193:
         callf   SEG_D97F:far_d97f5
-        mov     ax, STR_2C58
+        mov     ax, STR_MIDI_SAMPLE_DUMP_RECEIVE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -21872,7 +21790,7 @@ br_c8193:
         push    ax
         mov     ax, B_52A4
         push    ax
-        mov     ax, STR_2C73
+        mov     ax, STR_MIDI_INPUT
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -21885,7 +21803,7 @@ br_c8193:
         push    ax
         mov     ax, B_52A5
         push    ax
-        mov     ax, STR_2C7F
+        mov     ax, STR_MIDI_OUTPUT
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -21908,7 +21826,7 @@ br_c8193:
         push    ax
         mov     ax, B_52AA
         push    ax
-        mov     ax, STR_2C93
+        mov     ax, STR_FORMAT
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -21924,7 +21842,7 @@ br_c8193:
         callf   SEG_F26A:far_f26a7
         mov     word ptr [bp - 2eh], ax
         push    ax
-        mov     ax, STR_2C9B
+        mov     ax, STR_FREE_MEM_SMPLS_4DK
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -21940,7 +21858,7 @@ br_c8193:
         push    ax
         mov     ax, B_5218
         push    ax
-        mov     ax, STR_2CB0
+        mov     ax, STR_DRUM_6
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -21962,7 +21880,7 @@ br_c8193:
         push    ax
         lea     ax, [bp - 17h]
         push    ax
-        mov     ax, STR_2CB6
+        mov     ax, STR_NAME_5
         push    ax
         callf   SEG_D90A:far_d90a6
         add     sp, 6
@@ -21972,7 +21890,7 @@ br_c8193:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2CBC
+        mov     ax, STR_PRESS_RECEIVE_OR_START
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -21982,7 +21900,7 @@ br_c8193:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2CE3
+        mov     ax, STR_SELECT_SOUND_FOR_RECEIVE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -21992,7 +21910,7 @@ br_c8193:
         RUN_AFTER_FAR_C22A2_3
         mov     ax, B_52A7
         push    ax
-        mov     ax, STR_2CFE
+        mov     ax, STR_REQUEST_CHAN
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -22006,7 +21924,7 @@ br_c8193:
         push    ax
         mov     ax, B_52A8
         push    ax
-        mov     ax, STR_2D0C
+        mov     ax, STR_REQUEST_SOUND
         endif
 
 RUN_AFTER_BR_C8193 macro   {GLOBALSYMBOLS}
@@ -22038,7 +21956,7 @@ RUN_BR_C8370 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_2D1F
+        mov     ax, STR_RECEIVE_SEND_RECV
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -22264,7 +22182,7 @@ RUN_AFTER_BR_C84F6 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C84F6
-        mov     ax, STR_2D39
+        mov     ax, STR_ERASING_THE_ABOVE_SOUND
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -22324,7 +22242,7 @@ br_c85a4:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2D55
+        mov     ax, STR_READY_TO_RECEIVE_MIDI
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -22335,7 +22253,7 @@ br_c85d2:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2D7D
+        mov     ax, STR_CANCEL_2
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -22490,7 +22408,7 @@ br_c8741:
         jmp     br_c8b50
 br_c874a:
         callf   SEG_D97F:far_d97f5
-        mov     ax, STR_2D86
+        mov     ax, STR_MIDI_SAMPLE_DUMP_SEND
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -22509,7 +22427,7 @@ br_c874a:
         push    ax
         mov     ax, B_52A4
         push    ax
-        mov     ax, STR_2D9E
+        mov     ax, STR_MIDI_INPUT_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -22522,7 +22440,7 @@ br_c874a:
         push    ax
         mov     ax, B_52A5
         push    ax
-        mov     ax, STR_2DAA
+        mov     ax, STR_MIDI_OUTPUT_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -22545,7 +22463,7 @@ br_c874a:
         push    ax
         mov     ax, B_52AA
         push    ax
-        mov     ax, STR_2DBE
+        mov     ax, STR_FORMAT_2
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -22559,7 +22477,7 @@ br_c874a:
         push    ax
         mov     ax, B_52A7
         push    ax
-        mov     ax, STR_2DC6
+        mov     ax, STR_SEND_CHANNEL
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -22569,7 +22487,7 @@ br_c874a:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2DD8
+        mov     ax, STR_START_EXTERNAL_SAMPLER
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -22579,7 +22497,7 @@ br_c874a:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2DFF
+        mov     ax, STR_SELECT_SOUND_FOR_SEND
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -22595,7 +22513,7 @@ br_c874a:
         push    ax
         mov     ax, B_5218
         push    ax
-        mov     ax, STR_2E17
+        mov     ax, STR_DRUM_7
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -22648,7 +22566,7 @@ br_c874a:
         push    ax
         lea     ax, [bp - 17h]
         push    ax
-        mov     ax, STR_2E25
+        mov     ax, STR_NAME_6
         endif
         push    ax
         callf   SEG_D90A:far_d90a6
@@ -22844,7 +22762,7 @@ L_c4051:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2E2C
+        mov     ax, STR_SEND_SEND_RECV
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -23062,7 +22980,7 @@ RUN_AFTER_BR_C8AAB macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C8AAB
-        mov     ax, STR_2E4A
+        mov     ax, STR_CANCEL_3
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -23172,11 +23090,11 @@ br_c8b98:
         mov     ax, word ptr [bp + 6]
         jmp     br_c8dfd
 tgt_c8ba1:
-        mov     ax, STR_2E54
+        mov     ax, STR_SAVE_A_SEQUENCE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
-        mov     ax, STR_2E64
+        mov     ax, STR_SEQ_2
         push    ax
         endif
         if      FW_VERSION >= 214
@@ -23352,11 +23270,11 @@ L_c433e:
         mov     word ptr [bp - 6], ax
         jmp     tgt_c8e0a
 tgt_c8c1c:
-        mov     ax, STR_2E85
+        mov     ax, STR_SAVE_ALL_SEQUENCES_SONGS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
-        mov     ax, STR_2EA0
+        mov     ax, STR_ALL
         push    ax
         endif
         if      FW_VERSION = 212
@@ -23371,7 +23289,7 @@ tgt_c8c1c:
         add     sp, 4
         cmp     byte ptr [TBL_8E30], 0
         jnz     br_c8c4f
-        mov     ax, STR_2EA5
+        mov     ax, STR_ALL_SEQS
         push    ax
         mov     ax, TBL_8E30
         push    ax
@@ -23422,11 +23340,11 @@ br_c8c4f:
         mov     word ptr [bp - 6], ax
         jmp     tgt_c8e0a
 tgt_c8c8d:
-        mov     ax, STR_2EC8
+        mov     ax, STR_SAVE_A_SOUND
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
-        mov     ax, STR_2ED5
+        mov     ax, STR_SND
         push    ax
         endif
         if      FW_VERSION = 212
@@ -23445,7 +23363,7 @@ tgt_c8c8d:
         push    ax
         mov     ax, B_5218
         push    ax
-        mov     ax, STR_2EDA
+        mov     ax, STR_SELECT_SOUND_TO_SAVE
         endif
         push    ax
         callf   SEG_D90A:far_d916d
@@ -23456,7 +23374,7 @@ tgt_c8c8d:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_2EFA
+        mov     ax, STR_NAME_7
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -23539,11 +23457,11 @@ L_c43df:
         mov     word ptr [bp - 6], ax
         jmp     tgt_c8e0a
 tgt_c8d13:
-        mov     ax, STR_2F00
+        mov     ax, STR_SAVE_ALL_SOUNDS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
-        mov     ax, STR_2F10
+        mov     ax, STR_SET
         push    ax
         endif
         if      FW_VERSION = 212
@@ -23558,7 +23476,7 @@ tgt_c8d13:
         add     sp, 4
         cmp     byte ptr [TBL_8E1F], 0
         jnz     br_c8d46
-        mov     ax, STR_2F15
+        mov     ax, STR_ALL_SNDS
         push    ax
         mov     ax, TBL_8E1F
         push    ax
@@ -23609,11 +23527,11 @@ br_c8d46:
         mov     word ptr [bp - 6], ax
         jmp     near tgt_c8e0a
 tgt_c8d84:
-        mov     ax, STR_2F38
+        mov     ax, STR_SAVE_PARAMETERS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
-        mov     ax, STR_2F48
+        mov     ax, STR_PAR
         push    ax
         endif
         if      FW_VERSION = 212
@@ -23628,7 +23546,7 @@ tgt_c8d84:
         add     sp, 4
         cmp     byte ptr [TBL_8E41], 0
         jnz     br_c8db7
-        mov     ax, STR_2F4D
+        mov     ax, STR_PARAMS
         push    ax
         mov     ax, TBL_8E41
         push    ax
@@ -23777,8 +23695,6 @@ tgt_c8e0a:
         lea     ax, [bp - 1dh]
         endif
         if      FW_VERSION >= 212
-        push    ax
-        callf   SEG_C8B5:far_c959f
         else
         lea     ax, [bp - 2fh]
         push    ax
@@ -23786,9 +23702,9 @@ tgt_c8e0a:
         lea     ax, [bp - 23h]
         push    ax
         lea     ax, [bp - 1eh]
-        push    ax
-        callf   0c420h:far_c959f
         endif
+        push    ax
+        callf   SEG_C8B5:far_c959f
         add     sp, 8
         mov     word ptr [bp - 2], 0
 br_c8e42:
@@ -23997,8 +23913,6 @@ loop_c8f3c:
         lea     ax, [bp - 1dh]
         endif
         if      FW_VERSION >= 212
-        push    ax
-        callf   SEG_C8B5:far_c959f
         else
         lea     ax, [bp - 2fh]
         push    ax
@@ -24010,9 +23924,9 @@ loop_c8f3c:
         lea     ax, [bp - 23h]
         push    ax
         lea     ax, [bp - 1eh]
-        push    ax
-        callf   0c420h:far_c959f
         endif
+        push    ax
+        callf   SEG_C8B5:far_c959f
         add     sp, 8
         jmp     br_c8f8a
 br_c8f80:
@@ -24041,11 +23955,7 @@ tgt_c8f8d:
         mov     al, byte ptr [bx + TBL_AE2C]
         cbw
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_DFEE:far_dfeec
-        else
-        callf   0d626h:far_dfeec
-        endif
         add     sp, 4
         mov     ax, 5
         push    ax
@@ -24077,9 +23987,9 @@ tgt_c8f8d:
         mov     al, byte ptr [B_5218]
         cbw
         push    ax
-        if      FW_VERSION < 212
-        callf   0c420h:far_c93f3
+        callf   SEG_C8B5:far_c93f3
         add     sp, 2
+        if      FW_VERSION < 212
         mov     word ptr [bp - 8], ax
         push    ax
         lea     ax, [bp - 23h]
@@ -24088,8 +23998,6 @@ tgt_c8f8d:
         push    ax
         callf   0c420h:far_c959f
         else
-        callf   SEG_C8B5:far_c93f3
-        add     sp, 2
         mov     word ptr [bp - 6], ax
         push    ax
         endif
@@ -24129,21 +24037,17 @@ tgt_c8fe8:
         lea     ax, [bp - 22h]
         endif
         if      FW_VERSION >= 212
-        push    ax
-        mov     ax, TBL_8E30
-        push    ax
-        callf   SEG_C8B5:far_c959f
         else
 L_c45f2:
         lea     ax, [bp - 2fh]
         push    ax
         push    word ptr [bp - 8]
         lea     ax, [bp - 23h]
-        push    ax
-        mov     ax, 9023h
-        push    ax
-        callf   0c420h:far_c959f
         endif
+        push    ax
+        mov     ax, TBL_8E30
+        push    ax
+        callf   SEG_C8B5:far_c959f
         add     sp, 8
         jmp     tgt_c904c
         if      FW_VERSION < 212
@@ -24300,7 +24204,7 @@ br_c90a7:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_2FA9
+        mov     ax, STR_SAVING_FILE
         else
         mov     ax, 1be5h
         endif
@@ -24339,11 +24243,7 @@ br_c90a7:
         jge     br_c90fd
         jmp     br_c921b
 br_c90fd:
-        if      FW_VERSION < 212
-        callf   0c420h:far_c955a
-        else
         callf   SEG_C8B5:far_c955a
-        endif
         cwd
         mov     bx, dx
         mov     cx, ax
@@ -24405,7 +24305,7 @@ br_c9155:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_2FBB
+        mov     ax, STR_FILE_ALREADY_EXISTS
         else
         mov     ax, 1bf7h
         endif
@@ -24421,16 +24321,12 @@ br_c9155:
         if      FW_VERSION < 212
         mov     ax, 1c1bh
         else
-        mov     ax, STR_2FE4
+        mov     ax, STR_YES_NO
         endif
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
-        if      FW_VERSION >= 212
         callf   SEG_C8B5:far_c98da
-        else
-        callf   0c420h:far_c98da
-        endif
         test    ax, ax
         jz      br_c919c
         callf   SEG_D880:far_d8856
@@ -24459,7 +24355,7 @@ br_c919c:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_2FF6
+        mov     ax, STR_SAVING_FILE_2
         else
         mov     ax, 1c2dh
         endif
@@ -24556,13 +24452,11 @@ br_c9234:
         push    ax
         if      FW_VERSION >= 212
         callf   SEG_D485:far_d49f3
-        add     sp, 4
-        callf   SEG_D871:far_d8765
         else
         callf   0dc48h:far_d49f3
-        add     sp, 4
-        callf   0dc95h:far_d8765
         endif
+        add     sp, 4
+        callf   SEG_D871:far_d8765
         dec     byte ptr [B_8CCB]
         jmp     br_c8e42
 br_c926e:
@@ -25188,11 +25082,7 @@ far_c9682:
         cmp     ax, word ptr [bp + 0ah]
         jg      L_c96bb
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_DB97:far_db97e
-        else
-        callf   0df64h:far_db97e
-        endif
         add     sp, 2
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -25263,25 +25153,13 @@ br_c972a:
         push    ax
         callf   SEG_D7B8:far_d7b8c
         add     sp, 2
-        if      FW_VERSION < 212
-        callf   0c420h:far_c955a
-        else
         callf   SEG_C8B5:far_c955a
-        endif
         mov     word ptr [bp + 0ah], ax
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_C8B5:far_c98a5
-        else
-        callf   0c420h:far_c98a5
-        endif
         add     sp, 2
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0df64h:far_dc104
-        else
         callf   SEG_DB97:far_dc104
-        endif
         add     sp, 2
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -25303,7 +25181,7 @@ br_c972a:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3008
+        mov     ax, STR_SAVE_1ST_PART
         else
         mov     ax, 1c3fh
         endif
@@ -25360,25 +25238,13 @@ br_c9803:
         push    ax
         callf   SEG_D7B8:far_d7b8c
         add     sp, 2
-        if      FW_VERSION >= 212
         callf   SEG_C8B5:far_c955a
-        else
-        callf   0c420h:far_c955a
-        endif
         mov     word ptr [bp + 0ah], ax
         push    ax
-        if      FW_VERSION < 212
-        callf   0c420h:far_c98a5
-        else
         callf   SEG_C8B5:far_c98a5
-        endif
         add     sp, 2
         push    word ptr [bp + 6]
-        if      FW_VERSION >= 212
         callf   SEG_DB97:far_dc213
-        else
-        callf   0df64h:far_dc213
-        endif
         add     sp, 2
         mov     word ptr [bp - 2], ax
         test    ax, ax
@@ -25400,7 +25266,7 @@ br_c9803:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3018
+        mov     ax, STR_SAVE_2ND_PART
         else
         mov     ax, 1c4fh
         endif
@@ -25479,11 +25345,7 @@ br_c98e4:
         jz      br_c98fa
         cmp     byte ptr [bp - 1], 79h
         jz      br_c98fa
-        if      FW_VERSION >= 212
         callf   SEG_D861:far_d861e
-        else
-        callf   0dc86h:far_d861e
-        endif
         mov     byte ptr [bp - 1], al
         jmp     br_c98e4
 br_c98fa:
@@ -25553,7 +25415,7 @@ RUN_AFTER_FAR_E1768 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_38AA
+        mov     ax, STR_TRACKS_BETWEEN_THOSE
         else
         mov     ax, 1c92h
         endif
@@ -25600,7 +25462,7 @@ RUN_BR_E18AA macro   {GLOBALSYMBOLS}
         lea     ax, [bp - 2]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_38EF
+        mov     ax, STR_PLACE_TRACK
         else
         mov     ax, 1cb1h
         endif
@@ -25661,7 +25523,7 @@ RUN_BR_E18AA macro   {GLOBALSYMBOLS}
         lea     ax, [bp - 4]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_38FF
+        mov     ax, STR_BEFORE_TRACK
         else
         mov     ax, 1cc1h
         endif
@@ -26077,7 +25939,7 @@ far_e1a15:
         mov     bp, sp
         add     sp, 0fffch
         if      FW_VERSION >= 212
-        mov     ax, STR_3996
+        mov     ax, STR_EDIT_SEQUENCE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -26111,7 +25973,7 @@ far_e1a15:
         callf   SEG_D880:far_d885c
         add     sp, 2
         if      FW_VERSION >= 212
-        mov     ax, STR_39EE
+        mov     ax, STR_5_COPY_ALL_TRACKS_6_COPY
         else
         mov     ax, 226fh
         endif
@@ -26129,7 +25991,7 @@ far_e1a15:
         callf   SEG_D880:far_d885c
         add     sp, 2
         if      FW_VERSION >= 212
-        mov     ax, STR_3A3B
+        mov     ax, STR_9_CHANGE_BAR_LENGTH_0
         else
         mov     ax, 22bch
         endif
@@ -26689,7 +26551,7 @@ RUN_BR_E1C93 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         cmp     word ptr [TBL_96DC], 0ffffh
         jnz     br_e1c97
-        mov     ax, STR_3A8F
+        mov     ax, STR_EMPTY_SEQUENCE
         else
         cmp     word ptr [TBL_4CC6_V112], 0ffffh
         jnz     br_ca529
@@ -26805,7 +26667,7 @@ br_e1d01:
         push    ax
         if      FW_VERSION >= 212
         push    word ptr [bx + TBL_96DC]
-        mov     ax, STR_3A9E
+        mov     ax, STR_BAR_3D_3D_2D_2D
         else
         push    word ptr [bx +TBL_4CC6_V112]
         mov     ax, 234dh
@@ -26846,7 +26708,7 @@ br_e1d3a:
         shl     bx, 1
         if      FW_VERSION >= 212
         push    word ptr [bx + TBL_96DC]
-        mov     ax, STR_3AB2
+        mov     ax, STR_BAR_3D_3D_2D_2D_2
         else
         push    word ptr [bx +TBL_4CC6_V112]
         mov     ax, 2361h
@@ -26893,7 +26755,7 @@ RUN_AFTER_FAR_E1D7F macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, W_52B6
         push    ax
-        mov     ax, STR_3B09
+        mov     ax, STR_NUMBER_OF_BARS
         else
         mov     ax, 5ff0h
         push    ax
@@ -27049,7 +26911,7 @@ br_e2131:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3B6F
+        mov     ax, STR_CREATING_NEW_FORMAT
         else
         mov     ax, 23f4h
         endif
@@ -27121,7 +26983,7 @@ far_e2197:
         if      FW_VERSION >= 212
         mov     word ptr [bp - 8], 0
 br_e21b5:
-        mov     ax, STR_3B87
+        mov     ax, STR_INSERT_BLANK_BARS
         push    ax
         callf   SEG_C04F:far_c1f4e
         else
@@ -27149,7 +27011,7 @@ br_e21b5:
         if      FW_VERSION >= 212
         lea     ax, [bp - 8]
         push    ax
-        mov     ax, STR_3B99
+        mov     ax, STR_NUMBER_OF_BARS_2
         else
         lea     ax, [bp - 0ah]
         push    ax
@@ -27179,7 +27041,7 @@ br_e21b5:
         if      FW_VERSION >= 212
         lea     ax, [bp - 6]
         push    ax
-        mov     ax, STR_3BA9
+        mov     ax, STR_TIME_SIG_2
         else
         lea     ax, [bp - 8]
         push    ax
@@ -27238,7 +27100,7 @@ RUN_BR_E229C macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         lea     ax, [bp - 0ah]
         push    ax
-        mov     ax, STR_3BBC
+        mov     ax, STR_INSERT_BEFORE_BAR
         else
         lea     ax, [bp - 0ch]
         push    ax
@@ -27270,7 +27132,7 @@ RUN_BR_E229C macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3BCF
+        mov     ax, STR_EXECUTE_3
         else
         mov     ax, 2454h
         endif
@@ -27359,7 +27221,7 @@ br_e2315:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3BD9
+        mov     ax, STR_INSERTING_BARS
         else
         mov     ax, 245eh
         endif
@@ -27509,7 +27371,7 @@ far_e23db:
         if      FW_VERSION >= 212
         callf   SEG_E4E1:far_e544a
         add     sp, 6
-        mov     ax, STR_3BEC
+        mov     ax, STR_DELETE_BARS
         push    ax
         callf   SEG_C04F:far_c1f4e
         else
@@ -27537,7 +27399,7 @@ far_e23db:
         lea     ax, [bp - 4]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3BF8
+        mov     ax, STR_FROM_BAR
         else
         mov     ax, 247dh
         endif
@@ -27598,7 +27460,7 @@ RUN_BR_E249F macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3C0A
+        mov     ax, STR_EXECUTE_4
         else
         mov     ax, 24c7h
         endif
@@ -27667,7 +27529,7 @@ br_e2558:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3C14
+        mov     ax, STR_DELETING_SEQUENCE
         else
         mov     ax, 24d1h
         endif
@@ -27707,7 +27569,7 @@ br_e255a:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3C2A
+        mov     ax, STR_DELETING_BARS
         else
         mov     ax, 24e7h
         endif
@@ -27735,7 +27597,7 @@ far_e2591:
         mov     bp, sp
         add     sp, 0fff8h
         if      FW_VERSION >= 212
-        mov     ax, STR_3C3C
+        mov     ax, STR_COPY_ALL_TRACKS_FROM
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -27795,7 +27657,7 @@ far_e2591:
         if      FW_VERSION >= 212
         mov     ax, B_8D64
         push    ax
-        mov     ax, STR_3C51
+        mov     ax, STR_SEQUENCE_3
         else
         mov     ax, 8fech
         push    ax
@@ -27821,7 +27683,7 @@ far_e2591:
         if      FW_VERSION >= 212
         mov     ax, W_8D5E
         push    ax
-        mov     ax, STR_3C5C
+        mov     ax, STR_FROM_BAR_2
         else
         mov     ax, 8feeh
         push    ax
@@ -27847,7 +27709,7 @@ far_e2591:
         if      FW_VERSION >= 212
         mov     ax, W_8D60
         push    ax
-        mov     ax, STR_3C66
+        mov     ax, STR_TO_BAR_2
         else
         mov     ax, 8ff0h
         push    ax
@@ -27863,7 +27725,7 @@ far_e2591:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3C6E
+        mov     ax, STR_COPY_ALL_TRACKS_TO
         push    ax
         callf   SEG_DA73:far_da730
         else
@@ -27889,7 +27751,7 @@ far_e2591:
         if      FW_VERSION >= 212
         mov     ax, B_8D66
         push    ax
-        mov     ax, STR_3C81
+        mov     ax, STR_SEQUENCE_4
         else
         mov     ax, 8ff2h
         push    ax
@@ -27915,7 +27777,7 @@ far_e2591:
         if      FW_VERSION >= 212
         mov     ax, W_8D68
         push    ax
-        mov     ax, STR_3C8C
+        mov     ax, STR_COPIES
         else
         mov     ax, 8ff6h
         push    ax
@@ -27941,7 +27803,7 @@ far_e2591:
         if      FW_VERSION >= 212
         mov     ax, W_8D62
         push    ax
-        mov     ax, STR_3C96
+        mov     ax, STR_INSERT_BEFORE_BAR_2
         else
         mov     ax, 8ff4h
         push    ax
@@ -27973,7 +27835,7 @@ far_e2591:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3CA9
+        mov     ax, STR_EXECUTE_5
         else
         mov     ax, 2566h
         endif
@@ -28135,7 +27997,7 @@ br_e2824:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3CB3
+        mov     ax, STR_COPYING_BARS
         else
         mov     ax, 2570h
         endif
@@ -28182,7 +28044,7 @@ br_e2859:
         cbw
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3CC4
+        mov     ax, STR_02D_2
         else
         mov     ax, 2581h
         endif
@@ -28210,7 +28072,7 @@ br_e2859:
         cbw
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3CC9
+        mov     ax, STR_02D_AND_02D
         else
         mov     ax, 2586h
         endif
@@ -28224,7 +28086,7 @@ br_e2859:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3CD7
+        mov     ax, STR_ABORT
         else
         mov     ax, 2594h
         endif
@@ -28265,7 +28127,7 @@ far_e290c:
         mov     bp, sp
         if      FW_VERSION >= 212
         add     sp, 0fff8h
-        mov     ax, STR_3CF5
+        mov     ax, STR_COPY_MERGE_A_TRACK_FROM
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -28325,7 +28187,7 @@ RUN_AFTER_FAR_E290C macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, B_8D64
         push    ax
-        mov     ax, STR_3D0D
+        mov     ax, STR_SEQUENCE_5
         else
         mov     ax, 8fech
         push    ax
@@ -28355,7 +28217,7 @@ RUN_AFTER_FAR_E290C macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, B_8D65
         push    ax
-        mov     ax, STR_3D18
+        mov     ax, STR_TRACK
         else
         mov     ax, 8fedh
         push    ax
@@ -28373,7 +28235,7 @@ RUN_AFTER_FAR_E290C macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, W_8D4E
         push    ax
-        mov     ax, STR_3D1F
+        mov     ax, STR_FROM
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -28427,7 +28289,7 @@ RUN_AFTER_FAR_E290C_2 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, W_8D68
         push    ax
-        mov     ax, STR_3D51
+        mov     ax, STR_COPIES_2
         else
         mov     ax, 8ff0h
         push    ax
@@ -28469,7 +28331,7 @@ RUN_AFTER_FAR_E290C_3 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, B_8D66
         push    ax
-        mov     ax, STR_3D3F
+        mov     ax, STR_SEQUENCE_6
         else
         mov     ax, 8ff2h
         push    ax
@@ -28563,7 +28425,7 @@ RUN_BR_E2B34 macro   {GLOBALSYMBOLS}
         push    ax
         mov     ax, B_5323
         push    ax
-        mov     ax, STR_3D68
+        mov     ax, STR_MODE_3
         else
         mov     ax, 259ch
         push    ax
@@ -28597,7 +28459,7 @@ RUN_BR_E2B34 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3D6E
+        mov     ax, STR_EXECUTE_6
         else
         mov     ax, 262fh
         endif
@@ -28800,7 +28662,7 @@ br_e2c39:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3D78
+        mov     ax, STR_COPYING_TRACK
         else
         mov     ax, 2639h
         endif
@@ -28868,7 +28730,7 @@ far_e2c93:
         if      FW_VERSION >= 212
         callf   SEG_D77D:far_d77d7
         mov     word ptr [bp - 6], ax
-        mov     ax, STR_3D8A
+        mov     ax, STR_COPY_ONE_SEQUENCE_TO
         push    ax
         callf   SEG_C04F:far_c1f4e
         else
@@ -28896,7 +28758,7 @@ far_e2c93:
         lea     ax, [bp - 4]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3DA7
+        mov     ax, STR_COPY_CONTENTS_OF
         else
         mov     ax, 2668h
         endif
@@ -28919,7 +28781,7 @@ far_e2c93:
         lea     ax, [bp - 6]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3DC2
+        mov     ax, STR_INTO_SEQUENCE
         else
         mov     ax, 2683h
         endif
@@ -28933,7 +28795,7 @@ far_e2c93:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3DD1
+        mov     ax, STR_THE_EXISTING_CONTENTS_OF
         else
         mov     ax, 2692h
         endif
@@ -28963,7 +28825,7 @@ RUN_BR_E2D83 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3E17
+        mov     ax, STR_EXECUTE_7
         else
         mov     ax, 26d8h
         endif
@@ -28989,7 +28851,7 @@ br_e2d98:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3E21
+        mov     ax, STR_COPYING_SEQUENCE
         else
         mov     ax, 26e2h
         endif
@@ -29033,7 +28895,7 @@ far_e2de5:
         mov     word ptr [bp - 4], ax
         callf   SEG_D77D:far_d77d7
         mov     word ptr [bp - 6], ax
-        mov     ax, STR_3E36
+        mov     ax, STR_CONVERT_SONG_TO_SEQUENCE
         push    ax
         callf   SEG_C04F:far_c1f4e
         else
@@ -29061,7 +28923,7 @@ far_e2de5:
         if      FW_VERSION >= 212
         lea     ax, [bp - 4]
         push    ax
-        mov     ax, STR_3E4F
+        mov     ax, STR_CONVERT_SONG
         else
         lea     ax, [bp - 6]
         push    ax
@@ -29089,7 +28951,7 @@ far_e2de5:
         if      FW_VERSION >= 212
         lea     ax, [bp - 6]
         push    ax
-        mov     ax, STR_3E5D
+        mov     ax, STR_INTO_SEQUENCE_2
         else
         lea     ax, [bp - 8]
         push    ax
@@ -29105,7 +28967,7 @@ far_e2de5:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3E6C
+        mov     ax, STR_THE_EXISTING_CONTENTS_OF_2
         else
         mov     ax, 272dh
         endif
@@ -29119,7 +28981,7 @@ far_e2de5:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3E8A
+        mov     ax, STR_DESTINATION_SEQUENCE
         else
         mov     ax, 274bh
         endif
@@ -29149,7 +29011,7 @@ far_e2de5:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3EB0
+        mov     ax, STR_EXECUTE_8
         else
         mov     ax, 2771h
         endif
@@ -29185,7 +29047,7 @@ br_e2eee:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3EBA
+        mov     ax, STR_CONVERTING_SONG
         else
         mov     ax, 277bh
         endif
@@ -29249,7 +29111,7 @@ br_e2f2c:
         cbw
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3ECE
+        mov     ax, STR_02D_3
         else
         mov     ax, 278fh
         endif
@@ -29277,7 +29139,7 @@ br_e2f2c:
         cbw
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_3ED3
+        mov     ax, STR_02D_AND_02D_2
         else
         mov     ax, 2794h
         endif
@@ -29291,7 +29153,7 @@ br_e2f2c:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3EE1
+        mov     ax, STR_ABORT_2
         else
         mov     ax, 27a2h
         endif
@@ -29360,7 +29222,7 @@ far_e3014:
         add     sp, 0fff5h
         if      FW_VERSION >= 212
         mov     word ptr [bp - 4], 1
-        mov     ax, STR_3EF1
+        mov     ax, STR_CHANGE_BAR_LENGTH
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -29406,7 +29268,7 @@ br_e303f:
         if      FW_VERSION >= 212
         lea     ax, [bp - 4]
         push    ax
-        mov     ax, STR_3F03
+        mov     ax, STR_CHANGE_THE_TIME
         else
         lea     ax, [bp - 6]
         push    ax
@@ -29442,7 +29304,7 @@ br_e303f:
         if      FW_VERSION >= 212
         lea     ax, [bp - 6]
         push    ax
-        mov     ax, STR_3F25
+        mov     ax, STR_FROM_TO
         else
         lea     ax, [bp - 8]
         push    ax
@@ -29484,7 +29346,7 @@ br_e303f:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3F36
+        mov     ax, STR_IF_THE_NEW_TIME_SIG_IS
         else
         mov     ax, 27feh
         endif
@@ -29498,7 +29360,7 @@ br_e303f:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3F5F
+        mov     ax, STR_OF_THE_BAR_IS_TRUNCATED
         else
         mov     ax, 2827h
         endif
@@ -29512,7 +29374,7 @@ br_e303f:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3F83
+        mov     ax, STR_BLANK_SPACE_IS_ADDED_TO_2
         else
         mov     ax, 284bh
         endif
@@ -29565,7 +29427,7 @@ RUN_BR_E3166 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3FA5
+        mov     ax, STR_EXECUTE_9
         else
         mov     ax, 2877h
         endif
@@ -29658,7 +29520,7 @@ br_e31b0:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_3FAF
+        mov     ax, STR_CHANGING_BAR
         else
         mov     ax, 288bh
         endif
@@ -29676,7 +29538,7 @@ br_e31b0:
         push    word ptr [bp - 6]
         mov     bx, word ptr [bp - 0ah]
         else
-        mov     ax, word ptr [bx +TBL_3EE9_2]
+        mov     ax, word ptr [bx +TBL_3EE9]
         mov     word ptr [bp - 0ah], ax
         push    ax
         push    word ptr [bp - 8]
@@ -29751,7 +29613,7 @@ far_e34ec:
         mov     bp, sp
         if      FW_VERSION >= 212
         add     sp, 0fa19h
-        mov     ax, STR_4049
+        mov     ax, STR_STEP_EDIT
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -29863,7 +29725,7 @@ br_e359d:
         add     sp, 2
         if      FW_VERSION >= 212
         callf   SEG_C22A:far_c30b6
-        mov     ax, STR_4053
+        mov     ax, STR_INSERT_DELETE_PLAYEVENT
         else
         callf   0c069h:far_c3056
         mov     ax, 28a6h
@@ -30967,17 +30829,13 @@ br_c999d:
         cmp     word ptr [bp + 0ah], 0
         jnz     br_c99c6
         push    word ptr [bp + 6]
-        mov     ax, STR_3088
+        mov     ax, STR_02D_NO_MORE_EVENTS_AT
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
         mov     ax, 28h
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_D88B:far_d88b2
-        else
-        callf   0dcb1h:far_d88b2
-        endif
         add     sp, 2
         mov     ax, 0ch
 br_c99c1:
@@ -30995,7 +30853,7 @@ br_c99c6:
         mov     word ptr [bp + 6], 3e7h
 br_c99e0:
         push    word ptr [bp + 6]
-        mov     ax, STR_30AF
+        mov     ax, STR_02D
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -31056,7 +30914,7 @@ br_c9a22:
         mov     ax, word ptr [bp + 8]
         add     ax, 3
         push    ax
-        mov     ax, STR_30B7
+        mov     ax, STR_VEL
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -31074,7 +30932,7 @@ br_c9a22:
         add     bx, 4
         mov     ax, bx
         push    ax
-        mov     ax, STR_30BD
+        mov     ax, STR_DCY
         if      FW_VERSION >= 212
         push    ax
         callf   SEG_D90A:far_d936c
@@ -31097,8 +30955,7 @@ br_c9a91:
         push    ax
         mov     ax, W_BA6A
         push    ax
-        mov     ax, STR_30C3
-        else
+        mov     ax, STR_TUN
         endif
         push    ax
         callf   SEG_D90A:far_d936c
@@ -31130,7 +30987,7 @@ br_c9ac2:
         mov     ax, word ptr [bp + 8]
         add     ax, 3
         push    ax
-        mov     ax, STR_30C9
+        mov     ax, STR_VEL_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -31168,11 +31025,7 @@ br_c9b21:
         add     sp, 2
         mov     bx, word ptr [bp + 8]
         push    word ptr [bx + 5]
-        if      FW_VERSION < 212
-        callf   0de85h:far_da912
-        else
         callf   SEG_DA91:far_da912
-        endif
         add     sp, 2
         mov     word ptr [W_BA6C], ax
         xor     ax, ax
@@ -31183,19 +31036,15 @@ br_c9b21:
         push    ax
         mov     ax, 4
         push    ax
-        if      FW_VERSION >= 212
         mov     ax, W_BA6C
-        else
-        mov     ax, 0bae1h
-        endif
         push    ax
-        mov     ax, STR_30D1
+        mov     ax, STR_DUR
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
         jmp     br_c9e00
 tgt_c9b60:
-        mov     ax, STR_30D6
+        mov     ax, STR_NOTE_3
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -31231,11 +31080,7 @@ br_c9ba5:
         mov     ax, word ptr [bp + 8]
         add     ax, 3
         push    ax
-        if      FW_VERSION < 212
-        callf   0c7a3h:far_c9e06
-        else
         callf   SEG_C990:far_c9e06
-        endif
         add     sp, 2
         jmp     br_c9e00
 tgt_c9bb7:
@@ -31268,22 +31113,14 @@ tgt_c9bb7:
         mov     ax, word ptr [bp + 8]
         add     ax, 3
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_C990:far_c9e06
-        else
-        callf   0c7a3h:far_c9e06
-        endif
         add     sp, 2
         jmp     br_c9e00
 tgt_c9be0:
         mov     ax, word ptr [bp + 8]
         add     ax, 2
         push    ax
-        if      FW_VERSION < 212
-        callf   0c7a3h:far_c9e06
-        else
         callf   SEG_C990:far_c9e06
-        endif
         add     sp, 2
         jmp     br_c9e00
 tgt_c9bf2:
@@ -31311,11 +31148,7 @@ tgt_c9bf2:
         endif
         mov     ax, 1fh
         push    ax
-        if      FW_VERSION < 212
-        callf   0dcb1h:far_d88b2
-        else
         callf   SEG_D88B:far_d88b2
-        endif
         add     sp, 2
         xor     ax, ax
         push    ax
@@ -31336,7 +31169,7 @@ tgt_c9bf2:
         push    ax
         mov     ax, W_BA68
         push    ax
-        mov     ax, STR_30DE
+        mov     ax, STR_VAL
         endif
         push    ax
         callf   SEG_D90A:far_d936c
@@ -31364,7 +31197,7 @@ tgt_c9c34:
         push    ax
         mov     ax, W_BA60
         push    ax
-        mov     ax, STR_30E3
+        mov     ax, STR_SIZE
         else
         mov     ax, 12ch
         push    ax
@@ -31394,7 +31227,7 @@ tgt_c9c34:
         push    ax
         mov     ax, W_BA64
         push    ax
-        mov     ax, STR_30EB
+        mov     ax, STR_BYTE
         else
         mov     ax, 3
         push    ax
@@ -31413,14 +31246,12 @@ tgt_c9c34:
         push    ax
         mov     ax, 3
         push    ax
-        if      FW_VERSION < 212
-        mov     ax, 0bad4h
-        push    ax
-        mov     ax, 2a6fh
-        else
         mov     ax, B_BA66
         push    ax
-        mov     ax, STR_30F2
+        if      FW_VERSION < 212
+        mov     ax, 2a6fh
+        else
+        mov     ax, STR_VAL_2
         endif
         push    ax
         callf   SEG_D90A:far_d936c
@@ -31429,11 +31260,7 @@ tgt_c9c34:
 tgt_c9cb4:
         mov     ax, 14h
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_D88B:far_d88b2
-        else
-        callf   0dcb1h:far_d88b2
-        endif
         add     sp, 2
         mov     bx, word ptr [bp + 8]
         and     byte ptr [bx + 7], 1fh
@@ -31444,18 +31271,14 @@ tgt_c9cb4:
         add     bx, 7
         mov     ax, bx
         push    ax
-        mov     ax, STR_30F8
+        mov     ax, STR_DRUM_8
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
         mov     ax, word ptr [bp + 8]
         add     ax, 8
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_C990:far_c9e06
-        else
-        callf   0c7a3h:far_c9e06
-        endif
         add     sp, 2
         jmp     br_c9e00
 tgt_c9cf3:
@@ -31483,7 +31306,7 @@ tgt_c9cf3:
         add     bx, 7
         mov     ax, bx
         push    ax
-        mov     ax, STR_30FE
+        mov     ax, STR_DRUM_9
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -31507,10 +31330,6 @@ tgt_c9cf3:
         mov     ax, 1fffh
         push    ax
         xor     ax, ax
-        push    ax
-        mov     ax, 4
-        push    ax
-        mov     ax, 0baddh
         else
         mov     ax, 20h
         push    ax
@@ -31521,13 +31340,13 @@ tgt_c9cf3:
         mov     ax, 3ch
         push    ax
         mov     ax, 0ff88h
+        endif
         push    ax
         mov     ax, 4
         push    ax
         mov     ax, W_BA68
-        endif
         push    ax
-        mov     ax, STR_3105
+        mov     ax, STR_VAL_3
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -31539,22 +31358,18 @@ tgt_c9d5c:
         mov     cx, 0ffh
         cmp     ax, cx
         jnz     br_c9d88
-        mov     ax, STR_310A
+        mov     ax, STR_END_OF_SEQUENCE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
         mov     ax, 28h
         push    ax
-        if      FW_VERSION < 212
-        callf   0dcb1h:far_d88b2
-        else
         callf   SEG_D88B:far_d88b2
-        endif
         add     sp, 2
         mov     ax, word ptr [bp - 2]
         jmp     br_c99c1
 br_c9d88:
-        mov     ax, STR_311C
+        mov     ax, STR_UNKNOWN
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -31574,7 +31389,7 @@ br_c9da4:
         mov     al, byte ptr [bx+si]
         sub     ah, ah
         push    ax
-        mov     ax, STR_3125
+        mov     ax, STR_02X
         push    ax
         callf   SEG_D88E:far_d88e6
         add     sp, 4
@@ -31582,11 +31397,7 @@ br_c9da4:
 br_c9dca:
         mov     ax, 28h
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_D88B:far_d88b2
-        else
-        callf   0dcb1h:far_d88b2
-        endif
         add     sp, 2
         jmp     br_c9e00
 TBL_c9dd8:
@@ -31635,7 +31446,7 @@ far_c9e06:
         mov     ax, 3
         push    ax
         push    word ptr [bp + 6]
-        mov     ax, STR_312B
+        mov     ax, STR_VAL_4
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -31795,10 +31606,9 @@ tgt_c9eae:
         endif
         add     ax, 2000h
         push    ax
-        if      FW_VERSION >= 212
         callf   SEG_DA91:far_da949
+        if      FW_VERSION >= 212
         else
-        callf   0de85h:far_da949
         add     sp, 2
         mov     bx, word ptr [bp - 4]
         mov     word ptr [bx], ax
@@ -31847,11 +31657,7 @@ loop_c9ed0:
         sub     ax, word ptr [W_BA62]
         push    ax
         mov     ax, word ptr [W_8E63]
-        if      FW_VERSION < 212
-        add     ax, 903fh
-        else
         add     ax, TBL_8E65
-        endif
         push    ax
         callf   SEG_F25D:far_f25dc
         add     sp, 6
@@ -31974,7 +31780,7 @@ far_e3c3a:
         mov     bp, sp
         if      FW_VERSION >= 212
         add     sp, 0fffbh
-        mov     ax, STR_412E
+        mov     ax, STR_EDIT_LOOP
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -32035,7 +31841,7 @@ br_e3c7e:
         if      FW_VERSION >= 212
         mov     ax, W_8CCD
         push    ax
-        mov     ax, STR_4138
+        mov     ax, STR_OF_BARS
         else
         mov     ax, 8fcdh
         push    ax
@@ -32079,7 +31885,7 @@ RUN_BR_E3D03 macro   {GLOBALSYMBOLS}
         jmp     near br_e3db2
 br_e3d03:
         if      FW_VERSION >= 212
-        mov     ax, STR_4153
+        mov     ax, STR_TURN_IT_OFF_TURN_OFF
         else
         mov     ax, 2addh
         endif
@@ -32111,7 +31917,7 @@ loop_e3d2c:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_417A
+        mov     ax, STR_SAVING_LOOP_DATA
         else
         mov     ax, 2b04h
         endif
@@ -32151,7 +31957,7 @@ loop_e3d6e:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_418F
+        mov     ax, STR_RESTORING_ORIGINAL
         else
         mov     ax, 2b19h
         endif
@@ -32190,7 +31996,7 @@ br_e3dae:
         retf
 br_e3db2:
         if      FW_VERSION >= 212
-        mov     ax, STR_41AF
+        mov     ax, STR_TURN_LOOP_ON
         else
         mov     ax, 2b39h
         endif
@@ -32272,7 +32078,7 @@ br_e3e24:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_41BE
+        mov     ax, STR_ANALYZING_SEQUENCE_2
         else
         mov     ax, 2b48h
         endif
@@ -32313,7 +32119,7 @@ far_e3e65:
         mov     bp, sp
         if      FW_VERSION >= 212
         add     sp, 0ffc2h
-        mov     ax, STR_41F8
+        mov     ax, STR_SONG_MODE
         push    ax
         callf   SEG_DA73:far_da730
         else
@@ -32367,7 +32173,7 @@ br_e3ea5:
         lea     ax, [bp - 14h]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_4202
+        mov     ax, STR_SONG
         else
         mov     ax, 2b86h
         endif
@@ -32430,7 +32236,7 @@ br_e3ea5:
         lea     ax, [bp - 1bh]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_420A
+        mov     ax, STR_LOOP_2
         else
         mov     ax, 2b8ch
         endif
@@ -32493,7 +32299,7 @@ RUN_AFTER_BR_E3F51 macro   {GLOBALSYMBOLS}
         if      FW_VERSION >= 212
         mov     ax, B_7E06
         push    ax
-        mov     ax, STR_4234
+        mov     ax, STR_CONTENTS_OF_STEP
         else
         mov     ax, 88ceh
         push    ax
@@ -32683,7 +32489,7 @@ RUN_BR_E41AD macro   {GLOBALSYMBOLS}
         callf   SEG_E3E6:far_e4ab1
         add     sp, 4
         callf   SEG_C22A:far_c30b6
-        mov     ax, STR_4271
+        mov     ax, STR_INSERTB4_DELETE_STEP_1
         else
         callf   0c835h:far_e4ab1
         add     sp, 4
@@ -33810,7 +33616,7 @@ br_e4b0e:
         push    ax
         callf   SEG_D88B:far_d88b2
         add     sp, 2
-        mov     ax, STR_42A8
+        mov     ax, STR_TEMPO_3
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -33880,7 +33686,7 @@ far_e4b91:
         jmp     br_e4bbd
 br_e4bae:
         if      FW_VERSION >= 212
-        mov     ax, STR_42AF
+        mov     ax, STR_END_OF_SONG
         else
         mov     ax, 2c24h
         endif
@@ -34046,7 +33852,7 @@ L_c8d9e:
         if      FW_VERSION >= 212
         add     sp, 0ffd3h
         push    si
-        mov     ax, STR_42BE
+        mov     ax, STR_ERASE
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -34231,7 +34037,7 @@ far_c9fb2:
         push    bp
         mov     bp, sp
         add     sp, 0fff6h
-        mov     ax, STR_321F
+        mov     ax, STR_TEMPO
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -34256,9 +34062,9 @@ br_c9fdd:
         push    ax
         mov     ax, B_4C20
         push    ax
-        mov     ax, STR_3225
+        mov     ax, STR_TEMPO_SOURCE_SELECT
         RUN_AFTER_L_C215C
-        mov     ax, STR_3244
+        mov     ax, STR_MASTER
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -34268,7 +34074,7 @@ br_c9fdd:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3254
+        mov     ax, STR_DISPLAY_MODE
         push    ax
         callf   SEG_DA73:far_da730
         RUN_AFTER_L_C215C_2
@@ -34276,7 +34082,7 @@ br_c9fdd:
         push    ax
         mov     ax, B_4C1F
         push    ax
-        mov     ax, STR_326A
+        mov     ax, STR_FRAMES_SEC
         endif
 
 RUN_AFTER_BR_C9FDD macro   {GLOBALSYMBOLS}
@@ -34293,13 +34099,13 @@ RUN_AFTER_BR_C9FDD macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C9FDD
-        mov     ax, STR_3281
+        mov     ax, STR_OTHER_4
         push    ax
         callf   SEG_DA73:far_da730
         RUN_AFTER_L_C215C_3
         mov     ax, B_4C21
         push    ax
-        mov     ax, STR_3287
+        mov     ax, STR_TAP_AVERAGING
         endif
 
 RUN_AFTER_BR_C9FDD_2 macro   {GLOBALSYMBOLS}
@@ -34316,7 +34122,7 @@ RUN_AFTER_BR_C9FDD_2 macro   {GLOBALSYMBOLS}
         endm
         if      FW_VERSION >= 212
         RUN_AFTER_BR_C9FDD_2
-        mov     ax, STR_3296
+        mov     ax, STR_SYNCSCREEN_TEMPOCHANGES
         RUN_BR_CA150
         mov     ax, word ptr [bx + TBL_1033]
         mov     dx, word ptr [bx + TBL_1035]
@@ -34358,7 +34164,7 @@ br_ca382:
         jz      br_ca38b
         jmp     br_ca7e1
 br_ca38b:
-        mov     ax, STR_32B1
+        mov     ax, STR_SYNC_INPUT_SETTINGS
         push    ax
         callf   SEG_C04F:far_c1f4e
         add     sp, 2
@@ -34386,7 +34192,7 @@ br_ca38b:
         push    ax
         lea     ax, [bp - 2]
         push    ax
-        mov     ax, STR_32C5
+        mov     ax, STR_MODE
         endif
 
 RUN_AFTER_BR_CA38B macro   {GLOBALSYMBOLS}
@@ -34419,7 +34225,7 @@ tgt_ca3e5:
         push    ax
         mov     ax, B_4E76
         push    ax
-        mov     ax, STR_32CB
+        mov     ax, STR_SHIFT_SYNC_EARLY_MS
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -34438,7 +34244,7 @@ tgt_ca3e5:
         push    ax
         mov     ax, B_4E77
         push    ax
-        mov     ax, STR_32E1
+        mov     ax, STR_MIDI_IN_2
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -34455,7 +34261,7 @@ tgt_ca437:
         push    ax
         mov     ax, B_9FAB
         push    ax
-        mov     ax, STR_32EA
+        mov     ax, STR_SEQUENCE_STARTS_AT_SMPTE
         RUN_AFTER_FAR_C5AA2_2
         mov     ax, B_9FA8
         push    ax
@@ -35144,7 +34950,7 @@ L_c9440:
         push    ax
         mov     ax, B_4E73
         push    ax
-        mov     ax, STR_330D
+        mov     ax, STR_SMPTE_ACCURACY
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -35163,7 +34969,7 @@ L_c9440:
         push    ax
         mov     ax, B_4E77
         push    ax
-        mov     ax, STR_331D
+        mov     ax, STR_MIDI_IN_3
         push    ax
         callf   SEG_D90A:far_d936c
         add     sp, 0ch
@@ -35180,7 +34986,7 @@ tgt_ca52b:
         push    ax
         mov     ax, B_4E76
         push    ax
-        mov     ax, STR_3326
+        mov     ax, STR_SHIFT_SYNC_EARLY_MS_2
         endif
         push    ax
         callf   SEG_D90A:far_d936c
@@ -35464,7 +35270,7 @@ far_e5551:
         add     sp, 0fffah
         endif
         if      FW_VERSION >= 212
-        mov     ax, STR_444A
+        mov     ax, STR_TIMING_CORRECT_STEP_SIZE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -35528,7 +35334,7 @@ far_e5551:
         push    ax
         mov     ax, B_4C31
         push    ax
-        mov     ax, STR_4465
+        mov     ax, STR_NOTE_VALUE
         else
         mov     ax, 2e86h
         push    ax
@@ -35550,7 +35356,7 @@ far_e5551:
         if      FW_VERSION >= 212
         mov     ax, B_4C30
         push    ax
-        mov     ax, STR_4471
+        mov     ax, STR_SHUFFLE
         else
         mov     ax, 5b1ch
         push    ax
@@ -35590,7 +35396,7 @@ br_e5608:
         lea     ax, [bp - 2]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_4481
+        mov     ax, STR_SHIFT_TIMING
         else
         mov     ax, 2f21h
         endif
@@ -35693,7 +35499,7 @@ RUN_BR_E56E3 macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_44CE
+        mov     ax, STR_MOVE_EXISTING
         else
         mov     ax, 2f79h
         endif
@@ -35855,7 +35661,7 @@ RUN_BR_E583A macro   {GLOBALSYMBOLS}
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_44DE
+        mov     ax, STR_MOVING_NOTES_THIS_MAY
         else
         mov     ax, 2f89h
         endif
@@ -35904,7 +35710,7 @@ far_e5842:
         if      FW_VERSION >= 212
         mov     al, byte ptr [bx + TBL_4443]
         else
-        mov     al, byte ptr [bx +TBL_4443_2]
+        mov     al, byte ptr [bx +TBL_4443]
         endif
         mov     byte ptr [B_A065], al
         cbw
@@ -35942,7 +35748,7 @@ far_e5879:
         mov     bp, sp
         add     sp, 0ffech
         if      FW_VERSION >= 212
-        mov     ax, STR_4506
+        mov     ax, STR_AUTO_PUNCH
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -36079,7 +35885,7 @@ br_e594d:
         push    ax
         mov     ax, B_8CD5
         push    ax
-        mov     ax, STR_4511
+        mov     ax, STR_ON_OFF_2
         else
         mov     ax, 0b16h
         push    ax
@@ -36125,7 +35931,7 @@ br_e594d:
         lea     ax, [bp - 8]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_4519
+        mov     ax, STR_AUTO_PUNCH_IN
         push    ax
         callf   SEG_D90A:far_d963c
         else
@@ -36137,7 +35943,7 @@ br_e594d:
         lea     ax, [bp - 0ch]
         push    ax
         if      FW_VERSION >= 212
-        mov     ax, STR_4529
+        mov     ax, STR_OUT_2
         push    ax
         callf   SEG_D90A:far_d963c
         else
@@ -36174,7 +35980,7 @@ br_e594d:
         push    ax
         callf   SEG_D3F4:far_d3f44
         add     sp, 8
-        mov     ax, STR_452F
+        mov     ax, STR_LAST_PUNCH_IN
         else
         callf   0d4d4h:far_d3f44
         add     sp, 6
@@ -36190,7 +35996,7 @@ br_e594d:
         if      FW_VERSION >= 212
         callf   SEG_DE75:far_de974
         add     sp, 4
-        mov     ax, STR_453F
+        mov     ax, STR_OUT_3
         else
         callf   0e1ddh:far_de974
         add     sp, 4
@@ -36234,7 +36040,7 @@ RUN_BR_E5A87 macro   {GLOBALSYMBOLS}
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_4545
+        mov     ax, STR_USE_LAST
         else
         mov     ax, 2fd9h
         endif
@@ -36368,7 +36174,7 @@ far_e5b68:
         mov     bp, sp
         if      FW_VERSION >= 212
         add     sp, 0fffdh
-        mov     ax, STR_4552
+        mov     ax, STR_LOCATE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -36391,7 +36197,7 @@ far_e5b68:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_4559
+        mov     ax, STR_PRESS_SOFTKEYS_TO_GO_TO
         else
         mov     ax, 2fedh
         endif
@@ -36418,7 +36224,7 @@ RUN_AFTER_FAR_E5B68 macro   {GLOBALSYMBOLS}
         endif
         if      FW_VERSION >= 212
         push    ax
-        mov     ax, STR_4585
+        mov     ax, STR_MARKER_B
         push    ax
         callf   SEG_D90A:far_d963c
         else
@@ -37224,7 +37030,7 @@ far_e5cec:
         mov     bp, sp
         if      FW_VERSION >= 212
         add     sp, 0fffah
-        mov     ax, STR_45C2
+        mov     ax, STR_TRANSPOSE
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -37511,7 +37317,7 @@ br_e5ef1:
         callf   SEG_D880:far_d8827
         add     sp, 4
         if      FW_VERSION >= 212
-        mov     ax, STR_4635
+        mov     ax, STR_TRANSPOSING
         else
         mov     ax, 33c8h
         endif
@@ -42615,7 +42421,7 @@ br_cb2bc:
         push    ax
         mov     ax, B_4E7B
         push    ax
-        mov     ax, STR_333C
+        mov     ax, STR_1_4_CLICK_SYNC_STARTS_AT
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -42642,7 +42448,7 @@ br_ca590:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3356
+        mov     ax, STR_SYNC_OUTPUT_SETTINGS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -42661,7 +42467,7 @@ br_ca590:
         push    ax
         lea     ax, [bp - 3]
         push    ax
-        mov     ax, STR_336B
+        mov     ax, STR_MODE_2
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -42682,9 +42488,9 @@ br_ca590:
         push    ax
         mov     ax, B_4E78
         push    ax
-        mov     ax, STR_3371
+        mov     ax, STR_MIDI_CLOCK
         RUN_AFTER_L_C2EFA
-        mov     ax, STR_337D
+        mov     ax, STR_GENSMPTE
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -42717,7 +42523,7 @@ br_ca878:
         push    ax
         mov     ax, B_4C2E
         push    ax
-        mov     ax, STR_33A3
+        mov     ax, STR_TEMPO_CHANGES
         push    ax
         callf   SEG_D90A:far_d916d
         add     sp, 8
@@ -42729,7 +42535,7 @@ br_ca878:
         add     sp, 4
         mov     ax, W_BA73
         push    ax
-        mov     ax, STR_33B2
+        mov     ax, STR_LOCATION_FOR_INSERTED
         push    ax
         callf   SEG_D90A:far_d963c
         add     sp, 4
@@ -42739,7 +42545,7 @@ br_ca878:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_33D1
+        mov     ax, STR_CHANGE_BAR_CHANGE_TEMPO
         push    ax
         callf   SEG_D880:far_d885c
         add     sp, 2
@@ -42776,7 +42582,7 @@ br_ca878:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_33FD
+        mov     ax, STR_INSERT_NEW_DELETE
         RUN_BR_CA999
         mov     word ptr [bx + TBL_9D3E], 0
         mov     word ptr [bp - 4], 0
@@ -42962,9 +42768,9 @@ loop_cade2:
         push    ax
         mov     ax, B_4C1F
         push    ax
-        mov     ax, STR_344B
+        mov     ax, STR_FRAMES_SEC_2
         RUN_AFTER_L_C3980
-        mov     ax, STR_345B
+        mov     ax, STR_START_STOP
         RUN_BR_CB10B
         endif
         if      FW_VERSION = 212
@@ -42979,7 +42785,7 @@ far_cb291:
         mov     bp, sp
         add     sp, 0fffch
         callf   SEG_D880:far_d880a
-        mov     ax, STR_348E
+        mov     ax, STR_TUNE_DRUMS
         push    ax
         callf   SEG_DA73:far_da730
         add     sp, 2
@@ -43010,7 +42816,7 @@ br_cb2bc:
         push    ax
         callf   SEG_D880:far_d8827
         add     sp, 4
-        mov     ax, STR_3499
+        mov     ax, STR_ALL_0
         endif
 
         push    ax
@@ -43046,7 +42852,6 @@ br_cb308:
         cbw
         if      FW_VERSION >= 212
         push    ax
-        callf   SEG_CB29:far_cb50b
         else
         mov     word ptr [bp - 4], ax
         mov     bx, ax
@@ -43063,18 +42868,14 @@ br_cb308:
         add     sp, 2
 L_d2d03:
         push    word ptr [bp - 4]
-        callf   0d1deh:far_cb50b
         endif
+        callf   SEG_CB29:far_cb50b
         add     sp, 2
         jmp     br_cb349
 br_cb338:
         cmp     byte ptr [B_A61D], 10h
         jnz     br_cb349
-        if      FW_VERSION >= 212
         callf   SEG_CB29:far_cb3f8
-        else
-        callf   0d1deh:far_cb3f8
-        endif
         callf   SEG_DDEF:far_de02f
 br_cb349:
         jmp     br_cb308
@@ -43138,11 +42939,7 @@ loop_cb37c:
         endif
         jmp     br_cb3e8
 loop_cb37e:
-        if      FW_VERSION >= 212
         callf   SEG_CB29:far_cb3f8
-        else
-        callf   0d1deh:far_cb3f8
-        endif
         jmp     br_cb3e8
 loop_cb385:
         mov     al, byte ptr [B_54F9]
@@ -43168,7 +42965,6 @@ loop_cb39f:
         add     sp, 2
         mov     byte ptr [B_8D4C], 0
 br_cb3bd:
-        else
         endif
         jmp     br_cb3e8
 br_cb3bf:
@@ -43182,7 +42978,6 @@ br_cb3c5:
         if      FW_VERSION >= 212
         cmp     ax, 50h
         jz      loop_cb39f
-        else
         endif
         cmp     ax, 64h
         jz      loop_cb37e
@@ -46327,11 +46122,7 @@ br_cc127:
         cmp     byte ptr [bx + TBL_BC20], 0ffh
         jz      br_cc16c
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0d3e4h:far_cc3c7
-        else
         callf   SEG_CB99:far_cc3c7
-        endif
         add     sp, 2
         mov     bx, word ptr [bp + 6]
         mov     byte ptr [bx + 6], 1
@@ -46382,11 +46173,7 @@ br_cc1ae:
         cmp     byte ptr [bx + TBL_BC40], 0ffh
         jz      br_cc1f3
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0d3e4h:far_cc3c7
-        else
         callf   SEG_CB99:far_cc3c7
-        endif
         add     sp, 2
         mov     bx, word ptr [bp + 6]
         mov     byte ptr [bx + 6], 2
@@ -46437,11 +46224,7 @@ br_cc235:
         cmp     byte ptr [bx + TBL_BC60], 0ffh
         jz      br_cc27a
         push    word ptr [bp + 6]
-        if      FW_VERSION < 212
-        callf   0d3e4h:far_cc3c7
-        else
         callf   SEG_CB99:far_cc3c7
-        endif
         add     sp, 2
         mov     bx, word ptr [bp + 6]
         mov     byte ptr [bx + 6], 3
@@ -46607,11 +46390,7 @@ far_cc39e:
         push    bp
         mov     bp, sp
         add     sp, 0fff6h
-        if      FW_VERSION < 212
-        callf   0d3e4h:far_cbe16
-        else
         callf   SEG_CB99:far_cbe16
-        endif
 br_cc3a9:
         dec     word ptr [bp + 6]
         jle     br_cc3c3
@@ -46621,11 +46400,7 @@ br_cc3a9:
         push    ax
         lea     ax, [bp - 0ah]
         push    ax
-        if      FW_VERSION < 212
-        callf   0d3e4h:far_cbe28
-        else
         callf   SEG_CB99:far_cbe28
-        endif
         add     sp, 6
         jmp     br_cc3a9
 br_cc3c3:
